@@ -6,7 +6,8 @@ import time
 from dataclasses import dataclass, field
 from typing import Any
 
-from harnext_eval.providers.llm import AnthropicLLM, FakeLLM, LLMProvider
+from harnext_eval.providers.factory import make_llm
+from harnext_eval.providers.llm import LLMProvider
 from harnext_eval.providers.tokenizer import count_tokens
 from harnext_eval.types import Answer, Probe
 
@@ -63,18 +64,7 @@ def _budget(cfg: Any) -> int:
 
 
 def _provider(cfg: Any) -> LLMProvider:
-    reader_cfg = _reader_cfg(cfg)
-    provider_name = getattr(reader_cfg, "provider", "fake")
-    if isinstance(reader_cfg, dict):
-        provider_name = reader_cfg.get("provider", provider_name)
-    if provider_name == "fake":
-        return FakeLLM()
-    if provider_name == "anthropic":
-        model = getattr(reader_cfg, "model", None) or getattr(
-            getattr(cfg, "builder", None), "model", None
-        )
-        return AnthropicLLM(model=model or "claude-sonnet-5")
-    raise ValueError(f"unsupported reader provider: {provider_name}")
+    return make_llm(cfg)
 
 
 def _cited_ids(text: str, material: Material) -> list[str]:

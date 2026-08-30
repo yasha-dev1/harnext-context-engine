@@ -11,13 +11,19 @@ from typing import Annotated
 import typer
 import yaml
 
-from harnext_eval.config import EngineConfig, ExperimentConfig, load_config
+from harnext_eval.config import ExperimentConfig, load_config
 from harnext_eval.corpus import CorpusHandle
 from harnext_eval.corpus.synthetic import generate_synthetic_corpus
 from harnext_eval.manifest import build_manifest, write_manifest
 from harnext_eval.probes.common import load_replay, parse_time
 from harnext_eval.probes.gen import generate_probe_set, write_probe_set
-from harnext_eval.providers.embeddings import FakeEmbeddings
+from harnext_eval.providers.factory import (
+    assert_offline_ok,
+    make_embeddings,
+    make_harness_name,
+    make_llm,
+    provider_summary,
+)
 from harnext_eval.registry import ExperimentResult, get_experiment, list_experiments
 from harnext_eval.replay.driver import DriverStats, run_pipeline
 from harnext_eval.report import build_report
@@ -147,24 +153,24 @@ def _build_store(
     *,
     layout: str,
     events: list[EvalEvent],
-    cfg: EngineConfig,
+    cfg: ExperimentConfig,
     root: Path,
     seed: int,
 ) -> tuple[StoreHandle, DriverStats]:
     store = StoreHandle(layout, f"eval-{layout.casefold()}-{seed}", root)
     configure_store(
         store,
-        harness=cfg.builder.harness,
-        model=cfg.builder.model,
-        embeddings=FakeEmbeddings(dim=cfg.embeddings.dim),
+        harness=make_harness_name(cfg),
+        model=cfg.engine.builder.model,
+        embeddings=make_embeddings(cfg),
     )
-    return store, run_pipeline(events, cfg, store, cutoff=None, on_decision=None)
+    return store, run_pipeline(events, cfg.engine, store, cutoff=None, on_decision=None)
 
 
 def _build_run_stores(
     *,
     selected: list[str],
-    cfg: EngineConfig,
+    cfg: ExperimentConfig,
     events: list[EvalEvent],
     root: Path,
     seed: int,
@@ -176,9 +182,9 @@ def _build_run_stores(
     requested = {"S0"}
     if "e3" in selected:
         requested.update(("S1", "S4"))
-    if cfg.store.layout in {"S1", "S2", "S3", "S4", "S5"}:
-        requested.add(cfg.store.layout)
-    if "e4" in selected and (smoke or cfg.store.layout == "S3"):
+    if cfg.engine.store.layout in {"S1", "S2", "S3", "S4", "S5"}:
+        requested.add(cfg.engine.store.layout)
+    if "e4" in selected and (smoke or cfg.engine.store.layout == "S3"):
         requested.add("S3")
 
     stores: dict[str, StoreHandle] = {}
@@ -227,8 +233,19 @@ def corpus_command(
     replay: Annotated[Path | None, typer.Option("--replay", exists=True, dir_okay=False)] = None,
     event_count: Annotated[int, typer.Option("--event-count", min=1)] = 2_000,
     entity_count: Annotated[int, typer.Option("--entity-count", min=1)] = 40,
+    fetch: Annotated[str | None, typer.Option("--fetch")] = None,
+    config: Annotated[Path | None, typer.Option("--config", exists=True, dir_okay=False)] = None,
 ) -> None:
     """Generate the synthetic corpus or validate and load a real JSONL replay."""
+
+    if fetch is not None:
+        if config is None:
+            raise typer.BadParameter("--fetch requires --config", param_hint="--config")
+        assert_offline_ok(load_config(config), corpus_fetch=fetch)
+        raise typer.BadParameter(
+            "network corpus extractors are not wired into this command",
+            param_hint="--fetch",
+        )
 
     handle = _resolve_corpus(
         corpus="synthetic" if replay is None else replay.stem,
@@ -275,9 +292,14 @@ def stores_command(
 ) -> None:
     """Build configured store layouts through the shared replay driver."""
 
-    cfg = load_config(config).engine
+    cfg = load_config(config)
+    assert_offline_ok(cfg)
     events = load_replay(replay)
-    requested = [item.strip().upper() for item in layouts.split(",")] if layouts else [cfg.store.layout]
+    requested = (
+        [item.strip().upper() for item in layouts.split(",")]
+        if layouts
+        else [cfg.engine.store.layout]
+    )
     for layout in requested:
         if layout not in {"S0", "S1", "S2", "S3", "S4", "S5"}:
             raise typer.BadParameter(f"unknown layout {layout}", param_hint="--layouts")
@@ -318,6 +340,10 @@ def run_command(
     if unknown:
         raise typer.BadParameter(f"unknown experiments: {', '.join(unknown)}")
     cfg: ExperimentConfig = load_config(config)
+    assert_offline_ok(cfg)
+    make_llm(cfg)
+    make_embeddings(cfg)
+    make_harness_name(cfg)
     stamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%SZ")
     run_id = f"{stamp}-{config.stem}"
     run_dir = out / run_id
@@ -351,13 +377,14 @@ def run_command(
             "reader": cfg.engine.reader.provider,
         },
         seeds=cfg.seeds,
+        provider_summary=provider_summary(cfg),
     )
     write_manifest(manifest, run_dir)
     events = list(handle.events())
     for seed in cfg.seeds:
         stores = _build_run_stores(
             selected=selected,
-            cfg=cfg.engine,
+            cfg=cfg,
             events=events,
             root=run_dir / "stores",
             seed=seed,

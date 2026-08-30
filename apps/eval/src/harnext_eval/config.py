@@ -65,7 +65,7 @@ class ReaderConfig(StrictModel):
 
 
 class EmbeddingsConfig(StrictModel):
-    provider: Literal["fake", "openai"]
+    provider: Literal["fake"]
     dim: int = Field(gt=0)
 
 
@@ -93,6 +93,7 @@ class BudgetsConfig(StrictModel):
 
 
 class ExperimentConfig(StrictModel):
+    offline: bool = True
     engine: EngineConfig
     budgets: BudgetsConfig
     seeds: list[int]

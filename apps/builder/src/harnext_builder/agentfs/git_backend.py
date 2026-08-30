@@ -7,6 +7,7 @@ runtime. The harness runs natively in the worktree.
 
 from __future__ import annotations
 
+import json
 import os
 import subprocess
 from pathlib import Path
@@ -14,6 +15,44 @@ from pathlib import Path
 from harnext_builder.agentfs.backend import RunResult, as_text
 
 _GIT_ID = ["-c", "user.email=builder@cms.local", "-c", "user.name=cms-builder"]
+_RUNTIME_NAMES = {
+    "HOME",
+    "LANG",
+    "PATH",
+    "PYTHONPATH",
+    "REQUEST_PATH",
+    "RESULT_PATH",
+    "TMPDIR",
+    "VIRTUAL_ENV",
+}
+_RUNTIME_PREFIXES = ("LC_", "UV_")
+_PROVIDER_PREFIXES = ("HARNEXT_", "ANTHROPIC_", "OPENROUTER_", "NVIDIA_")
+
+
+def _requested_harness(env: dict[str, str]) -> str | None:
+    request_path = env.get("REQUEST_PATH")
+    if request_path is None:
+        return None
+    try:
+        payload = json.loads(Path(request_path).read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return None
+    harness = payload.get("harness") if isinstance(payload, dict) else None
+    return harness if isinstance(harness, str) else None
+
+
+def subprocess_environment(env: dict[str, str]) -> dict[str, str]:
+    """Return the narrow environment permitted for a harness subprocess."""
+
+    source = {**os.environ, **env}
+    allow_provider_credentials = _requested_harness(env) not in {None, "fake"}
+    return {
+        name: value
+        for name, value in source.items()
+        if name in _RUNTIME_NAMES
+        or name.startswith(_RUNTIME_PREFIXES)
+        or (allow_provider_credentials and name.startswith(_PROVIDER_PREFIXES))
+    }
 
 
 class GitBackend:
@@ -57,7 +96,7 @@ class GitBackend:
             p = subprocess.run(
                 command,
                 cwd=self._dir(org_id),
-                env={**os.environ, **env},
+                env=subprocess_environment(env),
                 capture_output=True,
                 text=True,
                 timeout=timeout_s,

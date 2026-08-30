@@ -26,6 +26,7 @@ from harnext_eval.e4.tasks import (
 )
 from harnext_eval.grade.action import grade_action, grade_rouge_l
 from harnext_eval.grade.localisation import localisation_scores
+from harnext_eval.providers.factory import make_harness_name, make_llm
 from harnext_eval.providers.llm import FakeLLM, LLMProvider, LLMResult
 from harnext_eval.providers.tokenizer import count_tokens
 from harnext_eval.registry import ExperimentResult, register_experiment
@@ -426,7 +427,7 @@ def run_e4(
         raise ValueError("runs must be positive")
     out_dir.mkdir(parents=True, exist_ok=True)
     task_list = list(tasks)
-    provider = provider or FakeLLM()
+    provider = provider or make_llm(cfg)
     event_list = list(events)
     selected_variants = tuple(variant.upper() for variant in variants)
     run_rows: list[dict[str, Any]] = []
@@ -694,7 +695,7 @@ def _build_experiment_store(
     store = StoreHandle("S3", f"e4-{seed}", out_dir / "store")
     configure_store(
         store,
-        harness=cfg.builder.harness,
+        harness=make_harness_name(cfg),
         model=cfg.builder.model,
     )
     cutoff = max((task.T for task in tasks), default=None)

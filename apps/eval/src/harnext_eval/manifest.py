@@ -14,6 +14,12 @@ from pydantic import BaseModel
 from harnext_eval.types import RunManifest
 
 
+class ProviderRunManifest(RunManifest):
+    """Run manifest extended with resolved, non-secret provider metadata."""
+
+    provider_summary: dict[str, str | bool]
+
+
 def sha256_file(path: str | Path | None) -> str:
     """Return a file's SHA-256, or the empty-input hash when no file is supplied."""
 
@@ -54,8 +60,9 @@ def build_manifest(
     seeds: list[int] | None = None,
     prereg_ref: str | None = None,
     repo_root: str | Path | None = None,
-) -> RunManifest:
-    return RunManifest(
+    provider_summary: dict[str, str | bool] | None = None,
+) -> ProviderRunManifest:
+    return ProviderRunManifest(
         run_id=run_id,
         created_at=datetime.now(UTC),
         config_hash=sha256_json(config),
@@ -66,6 +73,7 @@ def build_manifest(
         prices=prices or {},
         seeds=seeds or [],
         prereg_ref=prereg_ref,
+        provider_summary=provider_summary or {},
     )
 
 
