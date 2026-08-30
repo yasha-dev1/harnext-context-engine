@@ -9,7 +9,7 @@ import pytest
 from harnext_eval.probes.common import changed_files, module_for_file
 from harnext_eval.probes.gen import (
     generate_probe_set,
-    validate_abstention_prior,
+    validate_a0_prior,
     validate_evidentiary_population,
 )
 from harnext_eval.probes.gen_abstention import fact_absent_for_window
@@ -160,7 +160,8 @@ def test_code_location_is_post_merge_issue_trigger_union_with_modules() -> None:
             subject="pr:10",
             data={
                 "number": 10,
-                "title": "KAFKA-1 first fix",
+                "title": "First fix",
+                "head_ref": "KAFKA-1-first-fix",
                 "merged_at": "2026-05-04T00:00:00Z",
                 "changed_files": ["core/src/Main.java"],
             },
@@ -226,7 +227,11 @@ def test_regex_join_uses_only_pr_title_thread_subject_and_commit_message() -> No
         source="github:apache/kafka",
         event_type="com.github.pull_request.opened",
         subject="pr:1",
-        data={"title": "KAFKA-1 KIP-2 fix", "body": "KAFKA-999"},
+        data={
+            "title": "KAFKA-1 KIP-2 fix",
+            "head_ref": "KAFKA-3-follow-up",
+            "body": "KAFKA-999",
+        },
     )
     mail = _event(
         "mail",
@@ -244,7 +249,7 @@ def test_regex_join_uses_only_pr_title_thread_subject_and_commit_message() -> No
         subject="contributor:a",
         data={"commit_message": "finish KAFKA-1", "title": "KIP-999"},
     )
-    assert regex_join_keys(pr) == ["KAFKA-1", "KIP-2"]
+    assert regex_join_keys(pr) == ["KAFKA-1", "KIP-2", "KAFKA-3"]
     assert regex_join_keys(mail) == ["KIP-2"]
     assert regex_join_keys(commit) == ["KAFKA-1"]
 
@@ -281,14 +286,76 @@ def test_evidentiary_population_rejects_under_150_entities(
     validate_evidentiary_population(complete)
 
 
-def test_abstention_set_rejects_a0_prior_shortcut(
+def test_a0_prior_audits_named_families_and_reports_abstention_separately(
     synthetic_events: list[EvalEvent], probe_period: tuple[datetime, datetime]
 ) -> None:
     probes = _generate(synthetic_events, probe_period)
     answers = {
         probe.probe_id: "UNKNOWN"
         for probe in probes
-        if probe.family == "abstention"
+        if probe.family in {"temporal", "update", "multisource", "abstention"}
     }
-    with pytest.raises(ValueError, match="A0 accuracy"):
-        validate_abstention_prior(probes, answers)
+    report = validate_a0_prior(probes, answers)
+
+    assert report["population"] == ["temporal", "update", "multisource"]
+    assert report["combined_accuracy"] == 0.0
+    assert report["per_family_accuracy"] == {
+        "temporal": 0.0,
+        "update": 0.0,
+        "multisource": 0.0,
+    }
+    assert report["abstention_diagnostic_accuracy"] == 1.0
+
+    temporal = [probe for probe in probes if probe.family == "temporal"]
+    for probe in temporal[:4]:
+        answers[probe.probe_id] = str(probe.gold)
+    with pytest.raises(ValueError, match="temporal=33.333%"):
+        validate_a0_prior(probes, answers)
+
+
+def test_a0_code_probe_uses_files_gold_type_and_partial_set_f1() -> None:
+    when = datetime(2026, 5, 2, tzinfo=UTC)
+    probes = [
+        Probe(
+            probe_id="temporal",
+            family="temporal",
+            entity="KAFKA-1",
+            T=when,
+            question="historical status?",
+            gold="Open",
+            gold_type="exact",
+        ),
+        Probe(
+            probe_id="update",
+            family="update",
+            entity="KAFKA-1",
+            T=when,
+            question="latest status?",
+            gold="Closed",
+            gold_type="exact",
+        ),
+        Probe(
+            probe_id="code",
+            family="multisource",
+            entity="KAFKA-1",
+            T=when,
+            question="files?",
+            gold={"files": ["src/one.py", "src/two.py"], "modules": ["src"]},
+            gold_type="files",
+        ),
+    ]
+    report = validate_a0_prior(
+        probes,
+        {
+            "temporal": "UNKNOWN",
+            "update": "UNKNOWN",
+            "code": '{"files":["src/one.py"]}',
+        },
+        maximum_accuracy=1.0,
+    )
+
+    assert report["per_family_accuracy"] == {
+        "temporal": 0.0,
+        "update": 0.0,
+        "multisource": pytest.approx(2 / 3),
+    }

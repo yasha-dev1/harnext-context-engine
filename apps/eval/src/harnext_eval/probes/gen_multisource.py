@@ -64,7 +64,7 @@ def regex_join_keys(event: EvalEvent) -> list[str]:
     data = event.data or {}
     event_type = event.type.casefold()
     if "pull_request" in event_type:
-        surface = str(data.get("title", ""))
+        surface = f"{data.get('title', '')}\n{data.get('head_ref', '')}"
     elif "mail" in event_type:
         surface = str(data.get("subject", ""))
     elif "commit" in event_type or "push" in event_type:

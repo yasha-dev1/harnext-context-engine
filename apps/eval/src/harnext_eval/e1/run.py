@@ -5,7 +5,10 @@
 from __future__ import annotations
 
 import json
-from collections.abc import Iterable
+import math
+import time
+from collections.abc import Iterable, Mapping, Sequence
+from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any
 
@@ -13,29 +16,43 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
+from harnext_eval.agents.envelope import build as build_envelope
 from harnext_eval.config import EngineConfig
 from harnext_eval.corpus import CorpusHandle
 from harnext_eval.e1.calibration import calibration_spearman, decile_rates, lift_over_rules
-from harnext_eval.e1.labels import build_labels
+from harnext_eval.e1.labels import (
+    ABSTAIN,
+    DEFAULT_LABELING_FUNCTIONS,
+    LabelModelResult,
+    build_labels,
+)
 from harnext_eval.e1.policies import budgeted_decisions, make_policy
 from harnext_eval.e1.score import (
+    affiliation_precision_recall,
     always_flag_sanity_scorer,
     delay_summary,
     detection_delays,
     flip_labels,
     jitter_onsets,
+    nab_low_fn_score,
     precision_at_budget,
     random_sanity_scorer,
     recall_at_budget,
     timestamped_affiliation_precision_recall,
     vus_pr,
 )
+from harnext_eval.grade.action import grade_action
+from harnext_eval.providers.factory import make_llm
+from harnext_eval.providers.llm import FakeLLM, LLMProvider
 from harnext_eval.registry import ExperimentResult, register_experiment
+from harnext_eval.replay.gate import leakage_gate
 from harnext_eval.stats.stats import paired_difference_bca
-from harnext_eval.types import EvalEvent, RouterRecord
+from harnext_eval.stores.base import StoreHandle
+from harnext_eval.types import EvalEvent, RouterRecord, Task
 
 _BUDGETS = (1.0, 2.0, 5.0, 10.0)
 _POLICIES = tuple(f"R{index}" for index in range(8))
+_VUS_MAX_BUFFER = 5
 _GOLD_ONLY_FIELDS = {
     "cost_weight",
     "hard_negative",
@@ -119,6 +136,7 @@ def _situation_gold(
         rows.append(
             {
                 "situation_id": str(item.get("situation_id", item.get("id", f"situation-{index:04d}"))),
+                "event_id": str(event_ids[0]) if event_ids else "",
                 "entity": entity,
                 "onset": onset,
                 "end": end,
@@ -130,6 +148,42 @@ def _situation_gold(
     if not situations.empty:
         situations = situations[situations["label"].astype(bool)].reset_index(drop=True)
     return labels, situations
+
+
+def _constructed_label_result(
+    labels: dict[str, float],
+) -> LabelModelResult:
+    """Represent exact Corpus-S gold without running the quadratic LF pipeline."""
+
+    event_ids = list(labels)
+    columns = [function.name for function in DEFAULT_LABELING_FUNCTIONS]
+    votes = pd.DataFrame(ABSTAIN, index=event_ids, columns=columns, dtype=int)
+    votes.index.name = "event_id"
+    observability = pd.DataFrame(False, index=event_ids, columns=columns, dtype=bool)
+    observability.index.name = "event_id"
+    diagnostics = pd.DataFrame(
+        [
+            {
+                "function": name,
+                "accuracy": float("nan"),
+                "coverage": 0.0,
+                "overlap": 0.0,
+                "conflict": 0.0,
+                "positive_votes": 0,
+                "negative_votes": 0,
+                "unknown": len(event_ids),
+            }
+            for name in columns
+        ]
+    ).set_index("function")
+    return LabelModelResult(
+        probabilities=pd.Series(labels, name="p_urgent", dtype=float),
+        votes=votes,
+        observability=observability,
+        diagnostics=diagnostics,
+        declared_outcome_agreement=float("nan"),
+        declared_outcome_comparable=0,
+    )
 
 
 def _calibration_scores(
@@ -202,7 +256,25 @@ def _admit_month(
 ) -> pd.DataFrame:
     """Rank once across the whole evaluation month, then derive report slices."""
 
-    if name == "R1":
+    eligible = np.ones(len(scored), dtype=bool)
+    decisions = pd.DataFrame()
+    if name == "R7":
+        decisions = pd.DataFrame(
+            {
+                "event_id": scored["event_id"].tolist(),
+                "admitted": True,
+                "rank": np.arange(1, len(scored) + 1),
+                "theta": float("-inf"),
+                "above_tuning_theta": True,
+                "eligible": True,
+                "mandatory": False,
+                "capacity": len(scored),
+                "unused_capacity": 0,
+                "rules_over_budget": 0,
+                "budget_feasible": True,
+            }
+        )
+    elif name == "R1":
         eligible = scored["rule_flag"].astype(bool).to_numpy()
     elif name == "R5":
         eligible = np.asarray(
@@ -211,17 +283,20 @@ def _admit_month(
                 for features, rule in zip(scored["features_fired"], scored["rule_flag"], strict=True)
             ]
         )
-    else:
-        eligible = np.ones(len(scored), dtype=bool)
-    mandatory = scored["rule_flag"].astype(bool).to_numpy() if name in {"R1", "R5"} else None
-    decisions = budgeted_decisions(
-        scored["event_id"].tolist(),
-        scored["score"].tolist(),
-        budget_pct=budget,
-        tuning_scores=tuning_scores,
-        eligible=eligible,
-        mandatory=mandatory,
-    ).drop(columns="score")
+    if name != "R7":
+        mandatory = (
+            scored["rule_flag"].astype(bool).to_numpy()
+            if name in {"R1", "R5"}
+            else None
+        )
+        decisions = budgeted_decisions(
+            scored["event_id"].tolist(),
+            scored["score"].tolist(),
+            budget_pct=budget,
+            tuning_scores=tuning_scores,
+            eligible=eligible,
+            mandatory=mandatory,
+        ).drop(columns="score")
     admitted = scored.merge(decisions, on="event_id", how="left", validate="one_to_one")
     admitted["lane"] = np.where(admitted["admitted"], "fast", "batch")
     full = admitted.assign(population="full")
@@ -238,9 +313,17 @@ def _metric_rows(frame: pd.DataFrame) -> list[dict[str, Any]]:
         source_groups = [("all", month_group), *month_group.groupby("source", sort=True)]
         for source, group in source_groups:
             known = group[group["label"].notna()]
-            labels = known["label"].to_numpy(dtype=float)
-            admitted = known["admitted"].to_numpy(dtype=bool)
-            scores = known["score"].replace([np.inf, -np.inf], np.nan).fillna(-1e30).to_numpy()
+            ordered = known.sort_values(["t", "event_id"])
+            labels = ordered["label"].to_numpy(dtype=float)
+            admitted = ordered["admitted"].to_numpy(dtype=bool)
+            scores = (
+                ordered["score"].replace([np.inf, -np.inf], np.nan).fillna(-1e30).to_numpy()
+            )
+            affiliation_p, affiliation_r = (
+                affiliation_precision_recall(labels, admitted)
+                if len(labels) and np.any(labels >= 0.5)
+                else (float("nan"), float("nan"))
+            )
             rows.append(
                 {
                     "month": month,
@@ -256,12 +339,23 @@ def _metric_rows(frame: pd.DataFrame) -> list[dict[str, Any]]:
                     "recall_at_b": recall_at_budget(labels, admitted),
                     "precision_at_b": precision_at_budget(labels, admitted),
                     "zero_admissions": int(not admitted.any()),
-                    "vus_pr": vus_pr(labels, scores, max_buffer=5) if len(labels) else float("nan"),
+                    "vus_pr": vus_pr(
+                        labels,
+                        scores,
+                        max_buffer=_VUS_MAX_BUFFER,
+                        timestamps=ordered["t"],
+                    )
+                    if len(labels)
+                    else float("nan"),
+                    "affiliation_precision": affiliation_p,
+                    "affiliation_recall": affiliation_r,
+                    "nab_low_fn": nab_low_fn_score(labels, admitted),
                     "decision_latency_ms": float(group["decision_latency_ms"].mean()),
                     "tokens": int(group["routing_tokens"].sum()),
                     "dollars": float(group["routing_dollars"].sum()),
                     "unused_capacity": int(group["unused_capacity"].iloc[0]),
                     "rules_over_budget": int(group["rules_over_budget"].iloc[0]),
+                    "budget_feasible": bool(group["budget_feasible"].iloc[0]),
                 }
             )
     return rows
@@ -311,22 +405,40 @@ def _situation_metrics(
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
     if situations.empty:
         return pd.DataFrame(), pd.DataFrame()
-    relevant = scores[(scores["policy"] == "R5") & (scores["budget_pct"] == 2.0) & (scores["population"] == "full")]
-    admissions = relevant.rename(columns={"subject": "entity", "t": "time"})
-    delays = detection_delays(situations, admissions)
-    summary = delay_summary(delays["delay_s"])
-    affiliation_p, affiliation_r = timestamped_affiliation_precision_recall(situations, admissions)
-    jittered = situations.copy()
-    jittered["onset"] = jitter_onsets(jittered["onset"], seed=seed)
-    jittered_delays = detection_delays(jittered, admissions)
-    jittered_summary = delay_summary(jittered_delays["delay_s"])
-    robustness = pd.DataFrame(
-        [
+    delay_parts: list[pd.DataFrame] = []
+    rows: list[dict[str, Any]] = []
+    full = scores[scores["population"] == "full"]
+    for (policy, budget), relevant in full.groupby(["policy", "budget_pct"], sort=True):
+        relevant = relevant.drop_duplicates("event_id")
+        condition_situations = situations[
+            situations["event_id"].isin(relevant["event_id"])
+        ].copy()
+        if condition_situations.empty:
+            continue
+        admissions = relevant.rename(columns={"subject": "entity", "t": "time"})
+        delays = detection_delays(condition_situations, admissions)
+        delays["policy"] = policy
+        delays["budget_pct"] = budget
+        delay_parts.append(delays)
+        summary = delay_summary(delays["delay_s"])
+        affiliation_p, affiliation_r = timestamped_affiliation_precision_recall(
+            condition_situations, admissions
+        )
+        jittered = condition_situations.copy()
+        jittered["onset"] = jitter_onsets(jittered["onset"], seed=seed)
+        jittered_p, jittered_r = timestamped_affiliation_precision_recall(
+            jittered, admissions
+        )
+        jittered_delays = detection_delays(jittered, admissions)
+        jittered_summary = delay_summary(jittered_delays["delay_s"])
+        rows.append(
             {
-                "policy": "R5",
-                "budget_pct": 2.0,
+                "policy": policy,
+                "budget_pct": budget,
                 "affiliation_precision": affiliation_p,
                 "affiliation_recall": affiliation_r,
+                "jitter_affiliation_precision": jittered_p,
+                "jitter_affiliation_recall": jittered_r,
                 "delay_p50_s": summary["p50_s"],
                 "delay_p95_s": summary["p95_s"],
                 "detected_rate": summary["detected_rate"],
@@ -334,9 +446,11 @@ def _situation_metrics(
                 "jitter_delay_p95_s": jittered_summary["p95_s"],
                 "jitter_detected_rate": jittered_summary["detected_rate"],
             }
-        ]
+        )
+    return (
+        pd.concat(delay_parts, ignore_index=True) if delay_parts else pd.DataFrame(),
+        pd.DataFrame(rows),
     )
-    return delays, robustness
 
 
 def _write_scores(frame: pd.DataFrame, path: Path) -> bool:
@@ -430,6 +544,349 @@ def _preflight(corpus: CorpusHandle, situations: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
+_ACTION_SCHEMA: dict[str, Any] = {
+    "type": "object",
+    "properties": {
+        "assignee_candidates": {"type": "array", "items": {"type": "string"}},
+        "reviewer_candidates": {"type": "array", "items": {"type": "string"}},
+        "component": {"type": ["string", "null"]},
+        "duplicate_of": {"type": ["string", "null"]},
+        "priority_change": {"type": ["string", "null"]},
+        "suspected_locations": {"type": "array", "items": {"type": "string"}},
+        "draft_reply": {"type": "string"},
+        "cited_ids": {"type": "array", "items": {"type": "string"}},
+        "action": {"type": "string"},
+    },
+    "required": [
+        "assignee_candidates",
+        "reviewer_candidates",
+        "component",
+        "duplicate_of",
+        "priority_change",
+        "suspected_locations",
+        "draft_reply",
+        "cited_ids",
+        "action",
+    ],
+    "additionalProperties": False,
+}
+
+
+def _next_entity_window_close(
+    event: EvalEvent, events: Sequence[EvalEvent], cfg: EngineConfig
+) -> datetime | None:
+    """Return the close of the first entity window beginning after admission."""
+
+    future = [
+        candidate
+        for candidate in events
+        if candidate.subject == event.subject and candidate.time > event.time
+    ]
+    if not future:
+        return None
+    first = future[0].time
+    last = first
+    count = 1
+    if count >= cfg.window.max_events:
+        return last
+    for candidate in future[1:]:
+        due = min(
+            last + timedelta(seconds=cfg.window.gap_s),
+            first + timedelta(seconds=cfg.window.max_age_s),
+        )
+        if candidate.time >= due:
+            return due
+        last = candidate.time
+        count += 1
+        if count >= cfg.window.max_events:
+            return last
+    return min(
+        last + timedelta(seconds=cfg.window.gap_s),
+        first + timedelta(seconds=cfg.window.max_age_s),
+    )
+
+
+def _harm_tasks(
+    corpus: CorpusHandle, events: Sequence[EvalEvent]
+) -> dict[str, Task]:
+    raw = corpus.meta.get("harm_tasks")
+    if isinstance(raw, Sequence) and not isinstance(raw, (str, bytes)):
+        tasks = [item if isinstance(item, Task) else Task.model_validate(item) for item in raw]
+    else:
+        try:
+            from harnext_eval.e4.tasks import build_constructed_tasks
+
+            tasks = build_constructed_tasks(
+                events,
+                corpus=corpus.name,
+                corpus_meta=corpus.meta,
+                limit=None,
+            )
+        except ValueError:
+            tasks = []
+    return {task.trigger_event_id: task for task in tasks}
+
+
+def _gold_action_time(task: Task) -> datetime | None:
+    values = [
+        raw
+        for group in ("people", "category", "place", "text")
+        if isinstance((payload := task.gold.get(group)), Mapping)
+        for raw in payload.get("decision_times", [])
+    ]
+    parsed = [pd.Timestamp(value).to_pydatetime() for value in values]
+    return min(parsed) if parsed else None
+
+
+def _run_action(
+    task: Task,
+    cutoff: datetime,
+    *,
+    store: StoreHandle,
+    events: Sequence[EvalEvent],
+    provider: LLMProvider,
+    gate_path: Path,
+) -> dict[str, Any]:
+    timed_task = task.model_copy(update={"T": cutoff})
+    snapshot = store.snapshot(cutoff)
+    envelope = build_envelope(
+        timed_task,
+        snapshot,
+        "V3",
+        {"store_handle": store, "events": events},
+    )
+    leakage_pass = leakage_gate(
+        timed_task,
+        store=store,
+        T=cutoff,
+        all_events=events,
+        envelope=envelope.text,
+        gold_action=task.gold,
+        gold_action_time=_gold_action_time(task),
+        out_csv=gate_path,
+    )
+    started = time.perf_counter()
+    result = provider.complete(
+        envelope.prefix,
+        "\n\n".join(
+            f"## {name}\n{body}" for name, body in envelope.sections.items()
+        ),
+        json_schema=_ACTION_SCHEMA,
+        max_tokens=1_000,
+    )
+    latency = time.perf_counter() - started
+    payload: Any = result.json
+    if payload is None:
+        payload = json.loads(result.text)
+    if not isinstance(payload, Mapping):
+        raise ValueError("harm action provider returned a non-object prediction")
+    grade = grade_action(
+        task.task_id,
+        payload,
+        task.gold,
+        gold_coverage=task.gold_coverage,
+    )
+    return {
+        "quality": grade.value,
+        "snapshot_sha": snapshot.sha,
+        "leakage_pass": leakage_pass,
+        "tokens": int(result.usage.get("input_tokens", envelope.token_count))
+        + int(result.usage.get("output_tokens", 0)),
+        "dollars": 0.0,
+        "latency_s": latency,
+    }
+
+
+def _run_harm_check(
+    corpus: CorpusHandle,
+    cfg: EngineConfig,
+    events: Sequence[EvalEvent],
+    scores: pd.DataFrame,
+    out_dir: Path,
+) -> tuple[pd.DataFrame, dict[str, Any]]:
+    """Execute paired S3/E4 action tasks for every R5 2%-budget promotion."""
+
+    promoted_rows = scores[
+        (scores["policy"] == "R5")
+        & (scores["budget_pct"] == 2.0)
+        & (scores["population"] == "full")
+        & scores["admitted"].astype(bool)
+    ].drop_duplicates("event_id")
+    promoted_ids = promoted_rows["event_id"].astype(str).tolist()
+    store = corpus.meta.get("store_handle")
+    if not isinstance(store, StoreHandle):
+        return pd.DataFrame(
+            columns=[
+                "event_id",
+                "entity",
+                "quality_now",
+                "quality_window_close",
+                "harm_delta",
+                "status",
+            ]
+        ), {
+            "store_provided": False,
+            "promoted": len(promoted_ids),
+            "paired": 0,
+            "leakage_pass": False,
+            "non_vacuous": False,
+            "real_provider": False,
+        }
+    raw_provider = corpus.meta.get("harm_provider")
+    provider = raw_provider if isinstance(raw_provider, LLMProvider) else make_llm(cfg)
+    task_by_event = _harm_tasks(corpus, events)
+    event_by_id = {event.id: event for event in events}
+    rows: list[dict[str, Any]] = []
+    gate_path = out_dir / "harm-gate.csv"
+    for event_id in promoted_ids:
+        event = event_by_id[event_id]
+        task = task_by_event.get(event_id)
+        close = _next_entity_window_close(event, events, cfg)
+        if task is None or close is None:
+            rows.append(
+                {
+                    "event_id": event_id,
+                    "entity": event.subject,
+                    "status": "missing_task" if task is None else "missing_next_window",
+                }
+            )
+            continue
+        try:
+            now = _run_action(
+                task,
+                event.time,
+                store=store,
+                events=events,
+                provider=provider,
+                gate_path=gate_path,
+            )
+            at_close = _run_action(
+                task,
+                close,
+                store=store,
+                events=events,
+                provider=provider,
+                gate_path=gate_path,
+            )
+            rows.append(
+                {
+                    "event_id": event_id,
+                    "entity": event.subject,
+                    "admission_ts": event.time,
+                    "window_close_ts": close,
+                    "quality_now": now["quality"],
+                    "quality_window_close": at_close["quality"],
+                    "harm_delta": now["quality"] - at_close["quality"],
+                    "snapshot_now": now["snapshot_sha"],
+                    "snapshot_window_close": at_close["snapshot_sha"],
+                    "leakage_now": now["leakage_pass"],
+                    "leakage_window_close": at_close["leakage_pass"],
+                    "tokens_now": now["tokens"],
+                    "tokens_window_close": at_close["tokens"],
+                    "dollars_now": now["dollars"],
+                    "dollars_window_close": at_close["dollars"],
+                    "latency_now_s": now["latency_s"],
+                    "latency_window_close_s": at_close["latency_s"],
+                    "provider": str(
+                        getattr(provider, "model", getattr(provider, "model_id", type(provider).__name__))
+                    ),
+                    "status": "paired",
+                }
+            )
+        except (LookupError, ValueError) as exc:
+            rows.append(
+                {
+                    "event_id": event_id,
+                    "entity": event.subject,
+                    "status": "error",
+                    "reason": str(exc),
+                }
+            )
+    harm = pd.DataFrame(rows)
+    paired = harm[harm.get("status", pd.Series(dtype=str)) == "paired"]
+    leakage_pass = bool(
+        len(paired) == len(promoted_ids)
+        and not paired.empty
+        and paired["leakage_now"].astype(bool).all()
+        and paired["leakage_window_close"].astype(bool).all()
+    )
+    non_vacuous = bool(
+        not paired.empty
+        and (
+            paired["quality_now"].nunique() > 1
+            or paired["quality_window_close"].nunique() > 1
+            or not np.allclose(paired["harm_delta"], 0.0)
+        )
+    )
+    return harm, {
+        "store_provided": True,
+        "store_s3": store.layout == "S3",
+        "promoted": len(promoted_ids),
+        "paired": len(paired),
+        "leakage_pass": leakage_pass,
+        "non_vacuous": non_vacuous,
+        "real_provider": not isinstance(provider, FakeLLM),
+    }
+
+
+def _reference_metric_checks() -> tuple[bool, bool]:
+    """Execute the three frozen hand-computed fixtures for each reference metric."""
+
+    vus_cases = (
+        ([0, 1, 1, 0, 0, 1, 0], [0.1, 0.9, 0.8, 0.2, 0.0, 0.7, 0.3], 1.0),
+        ([0, 1, 0, 0], [0.1, 0.8, 0.9, 0.2], 0.5923495156295323),
+        ([0, 1, 1, 0], [1.0, 1.0, 1.0, 1.0], 0.617851130197758),
+    )
+    vus_ok = all(
+        np.isclose(vus_pr(labels, values, max_buffer=2), expected, atol=1e-12)
+        for labels, values, expected in vus_cases
+    )
+    affiliation_cases = (
+        ([(2.0, 4.0)], (1.0, 1.0)),
+        ([(3.0, 4.0)], (1.0, 11.0 / 12.0)),
+        ([(4.0, 5.0)], (0.5, 2.0 / 3.0)),
+    )
+    from harnext_eval.e1.score import affiliation_pr_from_events
+
+    affiliation_ok = all(
+        np.allclose(
+            affiliation_pr_from_events(predicted, [(2.0, 4.0)], (0.0, 6.0)),
+            expected,
+            atol=1e-10,
+        )
+        for predicted, expected in affiliation_cases
+    )
+    return vus_ok, affiliation_ok
+
+
+def _add_gate(
+    metrics: dict[str, float],
+    details: dict[str, dict[str, Any]],
+    required_results: list[bool],
+    name: str,
+    *,
+    passed: bool | None,
+    value: Any,
+    reason: str,
+    required: bool = True,
+) -> None:
+    """Record one tri-state gate and make its requirement feed final validity."""
+
+    status = "pass" if passed is True else "fail" if passed is False else "not_applicable"
+    metrics[f"check.{name}"] = (
+        1.0 if passed is True else 0.0 if passed is False else float("nan")
+    )
+    details[name] = {
+        "status": status,
+        "passed": passed,
+        "required": required,
+        "value": value,
+        "reason": reason,
+    }
+    if required:
+        required_results.append(passed is True)
+
+
 class E1Experiment:
     """Offline rolling router evaluation registered as experiment ``e1``."""
 
@@ -443,7 +900,12 @@ class E1Experiment:
         if not original_events:
             raise ValueError("E1 requires a non-empty replay")
         exact_labels, situations = _situation_gold(corpus, original_events)
-        label_result = build_labels(original_events, observation_end=original_events[-1].time)
+        run_weak_diagnostics = bool(corpus.meta.get("run_weak_label_diagnostics", False))
+        label_result = (
+            build_labels(original_events, observation_end=original_events[-1].time)
+            if exact_labels is None or run_weak_diagnostics
+            else _constructed_label_result(exact_labels)
+        )
         event_labels = (
             exact_labels if exact_labels is not None else label_result.probabilities.to_dict()
         )
@@ -532,8 +994,15 @@ class E1Experiment:
             & (scores["population"] == "full")
             & scores["label"].notna()
         ].drop_duplicates("event_id")
-        random_check = random_sanity_scorer(evaluated["label"], budget_pct=2.0, seed=seed)
-        always_check = always_flag_sanity_scorer(evaluated["label"])
+        random_check = random_sanity_scorer(
+            evaluated["label"],
+            budget_pct=2.0,
+            seed=seed,
+            max_buffer=_VUS_MAX_BUFFER,
+        )
+        always_check = always_flag_sanity_scorer(
+            evaluated["label"], max_buffer=_VUS_MAX_BUFFER
+        )
         random_vus_applicable = bool(
             len(evaluated) >= 200 and (evaluated["label"] >= 0.5).sum() >= 5
         )
@@ -546,63 +1015,7 @@ class E1Experiment:
         injected_recall = recall_at_budget(
             r1_constructed["label"], r1_constructed["admitted"]
         ) if not r1_constructed.empty else float("nan")
-        diagnostics_applicable = label_result.diagnostics[
-            label_result.diagnostics["coverage"] > 0
-        ]
-        check_metrics = {
-            "check.random_precision_at_prevalence": float(abs(random_check.precision - random_check.prevalence) <= 0.05),
-            "check.random_vus_at_prevalence": float(
-                not random_vus_applicable
-                or abs(random_check.vus_pr - random_check.prevalence) <= 0.05
-            ),
-            "check.always_flag_recall_one": float(np.isclose(always_check.recall, 1.0)),
-            "check.always_flag_precision_prevalence": float(np.isclose(always_check.precision, always_check.prevalence)),
-            "check.injected_non_trivial": float(exact_labels is None or (np.isfinite(injected_recall) and injected_recall <= 0.9)),
-            "check.label_accuracy_min_0_6": float(exact_labels is not None or (not diagnostics_applicable.empty and (diagnostics_applicable["accuracy"] >= 0.6).all())),
-            "check.label_coverage_min_0_01": float(exact_labels is not None or (not diagnostics_applicable.empty and (diagnostics_applicable["coverage"] >= 0.01).all())),
-            "check.tuning_precedes_evaluation": float(bool(chronology) and all(chronology)),
-            "check.r5_rules_floor_preserved": float(not bool(scores[(scores["policy"] == "R5") & scores["rule_flag"] & ~scores["admitted"]].shape[0])),
-            "check.r5_ineligible_never_admitted": float(not bool(scores[(scores["policy"] == "R5") & ~scores["eligible"] & ~scores["mandatory"] & scores["admitted"]].shape[0])),
-            "random_precision": random_check.precision,
-            "prevalence": random_check.prevalence,
-            "always_flag_recall": always_check.recall,
-            "declared_outcome_agreement": label_result.declared_outcome_agreement,
-            "declared_outcome_comparable": float(label_result.declared_outcome_comparable),
-            "label_unknown_count": float(label_result.probabilities.isna().sum()),
-        }
         smoke_profile = bool(corpus.meta.get("smoke", corpus.name.casefold() == "synthetic"))
-        check_details: dict[str, dict[str, Any]] = {}
-        if not random_vus_applicable:
-            check_details["random_vus_at_prevalence"] = {
-                "passed": None,
-                "value": "not-applicable-in-smoke",
-                "reason": (
-                    "VUS-PR random-floor tolerance requires at least 200 labelled events "
-                    "and five positives; the tiny smoke sample is validated by the toy-series tests"
-                ),
-            }
-        check_metrics["check.prereg_present"] = float(
-            smoke_profile or bool(corpus.meta.get("prereg_ref"))
-        )
-        required_gates = [
-            "check.random_precision_at_prevalence",
-            "check.random_vus_at_prevalence",
-            "check.always_flag_recall_one",
-            "check.always_flag_precision_prevalence",
-            "check.injected_non_trivial",
-            "check.label_accuracy_min_0_6",
-            "check.label_coverage_min_0_01",
-            "check.tuning_precedes_evaluation",
-            "check.r5_rules_floor_preserved",
-            "check.r5_ineligible_never_admitted",
-            "check.prereg_present",
-        ]
-        check_metrics["check.valid"] = float(
-            all(bool(check_metrics[name]) for name in required_gates)
-        )
-        if not smoke_profile and not check_metrics["check.valid"]:
-            failed = [name for name in required_gates if not check_metrics[name]]
-            raise ValueError(f"E1 validity gates failed: {', '.join(failed)}")
 
         scores_path = out_dir / "scores.parquet"
         metrics_path = out_dir / "metrics.csv"
@@ -611,7 +1024,6 @@ class E1Experiment:
         delays_path = out_dir / "delays.csv"
         preflight_path = out_dir / "preflight.csv"
         parquet_complete = _write_scores(scores, scores_path)
-        check_metrics["check.real_parquet"] = float(parquet_complete)
         metrics.to_csv(metrics_path, index=False)
         calibration.to_csv(out_dir / "calibration.csv", index=False)
         label_result.diagnostics.to_csv(diagnostics_path)
@@ -621,19 +1033,320 @@ class E1Experiment:
         preflight.to_csv(preflight_path, index=False)
         attribution_path = out_dir / "attribution.md"
         _write_attribution(scores, attribution_path)
-        harm_rows = corpus.meta.get("harm_results", [])
-        harm = pd.DataFrame(harm_rows)
+        harm, harm_evidence = _run_harm_check(corpus, cfg, events, scores, out_dir)
         harm_path = out_dir / "harm.csv"
         harm.to_csv(harm_path, index=False)
-        check_metrics["check.harm_supported"] = float(bool(harm_rows))
-        if smoke_profile and not harm_rows:
-            check_details["harm_supported"] = {
-                "passed": None,
-                "value": "not-applicable-in-smoke",
-                "reason": "the E1 action-harm check requires the Phase-2 S3 action population",
-            }
+
+        check_metrics: dict[str, float] = {
+            "random_precision": random_check.precision,
+            "random_vus_pr": random_check.vus_pr,
+            "prevalence": random_check.prevalence,
+            "always_flag_recall": always_check.recall,
+            "declared_outcome_agreement": label_result.declared_outcome_agreement,
+            "declared_outcome_comparable": float(label_result.declared_outcome_comparable),
+            "label_unknown_count": float(label_result.probabilities.isna().sum()),
+        }
+        check_details: dict[str, dict[str, Any]] = {}
+        required_results: list[bool] = []
+        _add_gate(
+            check_metrics,
+            check_details,
+            required_results,
+            "random_precision_at_prevalence",
+            passed=abs(random_check.precision - random_check.prevalence) <= 0.05,
+            value=random_check.precision,
+            reason="uniform random precision must be within 0.05 of prevalence",
+        )
+        _add_gate(
+            check_metrics,
+            check_details,
+            required_results,
+            "random_vus_at_prevalence",
+            passed=(
+                abs(random_check.vus_pr - random_check.prevalence) <= 0.05
+                if random_vus_applicable
+                else None
+            ),
+            value=random_check.vus_pr if random_vus_applicable else None,
+            reason=(
+                "same-buffer random VUS-PR must be within 0.05 of prevalence"
+                if random_vus_applicable
+                else "requires at least 200 labelled events and five positives"
+            ),
+        )
+        for name, passed, value, reason in (
+            (
+                "always_flag_recall_one",
+                bool(np.isclose(always_check.recall, 1.0)),
+                always_check.recall,
+                "always-fast recall must equal one",
+            ),
+            (
+                "always_flag_precision_prevalence",
+                bool(np.isclose(always_check.precision, always_check.prevalence)),
+                always_check.precision,
+                "always-fast precision must equal prevalence",
+            ),
+            (
+                "tuning_precedes_evaluation",
+                bool(chronology) and all(chronology),
+                chronology,
+                "every evaluation month uses only prior-month tuning events",
+            ),
+            (
+                "r5_ineligible_never_admitted",
+                not bool(
+                    scores[
+                        (scores["policy"] == "R5")
+                        & ~scores["eligible"]
+                        & ~scores["mandatory"]
+                        & scores["admitted"]
+                    ].shape[0]
+                ),
+                None,
+                "R5 deviation admissions must carry both published guards",
+            ),
+            (
+                "r7_always_fast",
+                bool(
+                    scores[scores["policy"] == "R7"]["admitted"].astype(bool).all()
+                ),
+                int(scores[scores["policy"] == "R7"]["admitted"].sum()),
+                "R7 is the unbudgeted always-fast cost ceiling",
+            ),
+        ):
+            _add_gate(
+                check_metrics,
+                check_details,
+                required_results,
+                name,
+                passed=passed,
+                value=value,
+                reason=reason,
+            )
+
+        compared = scores[
+            scores["policy"].isin([f"R{index}" for index in range(7)])
+            & (scores["population"] == "full")
+        ]
+        capacity_respected = bool(
+            (
+                compared.groupby(["month", "policy", "budget_pct"])["admitted"].sum()
+                <= compared.groupby(["month", "policy", "budget_pct"])["capacity"].first()
+            ).all()
+        )
+        _add_gate(
+            check_metrics,
+            check_details,
+            required_results,
+            "equal_total_budget",
+            passed=capacity_respected,
+            value=int(compared["rules_over_budget"].max()),
+            reason="every R0-R6 arm is capped by the same monthly total budget",
+        )
+        _add_gate(
+            check_metrics,
+            check_details,
+            required_results,
+            "rule_floor_budget_feasible",
+            passed=bool(compared["budget_feasible"].all()),
+            value=int(compared["rules_over_budget"].max()),
+            reason="months whose rule floor exceeds capacity are invalid, never over-admitted",
+        )
+
+        label_required = exact_labels is None
+        for function, row in label_result.diagnostics.iterrows():
+            accuracy = float(row["accuracy"])
+            coverage = float(row["coverage"])
+            _add_gate(
+                check_metrics,
+                check_details,
+                required_results,
+                f"lf.{function}.accuracy",
+                passed=(accuracy >= 0.6 if label_required and math.isfinite(accuracy) else None),
+                value=accuracy if math.isfinite(accuracy) else None,
+                reason=(
+                    "estimated LF accuracy must be at least 0.6"
+                    if label_required
+                    else "constructed exact gold does not use weak-label diagnostics"
+                ),
+                required=label_required,
+            )
+            _add_gate(
+                check_metrics,
+                check_details,
+                required_results,
+                f"lf.{function}.coverage",
+                passed=(coverage >= 0.01 if label_required else None),
+                value=coverage,
+                reason=(
+                    "LF coverage, including zero coverage, must be at least 1%"
+                    if label_required
+                    else "constructed exact gold does not use weak-label diagnostics"
+                ),
+                required=label_required,
+            )
+        _add_gate(
+            check_metrics,
+            check_details,
+            required_results,
+            "declared_outcome_agreement_reported",
+            passed=(
+                math.isfinite(label_result.declared_outcome_agreement)
+                and label_result.declared_outcome_comparable > 0
+                if label_required
+                else None
+            ),
+            value=label_result.declared_outcome_agreement,
+            reason="declared-priority/outcome LF agreement must be measurable",
+            required=label_required,
+        )
+        _add_gate(
+            check_metrics,
+            check_details,
+            required_results,
+            "injected_non_trivial",
+            passed=(
+                bool(np.isfinite(injected_recall) and injected_recall <= 0.9)
+                if exact_labels is not None
+                else None
+            ),
+            value=injected_recall,
+            reason="Corpus-S R1 recall@2% must not exceed 0.9",
+            required=exact_labels is not None,
+        )
+        vus_reference, affiliation_reference = _reference_metric_checks()
+        _add_gate(
+            check_metrics,
+            check_details,
+            required_results,
+            "vus_three_reference_series",
+            passed=vus_reference,
+            value=3,
+            reason="three Paparrizos-reference numeric fixtures execute in-process",
+        )
+        _add_gate(
+            check_metrics,
+            check_details,
+            required_results,
+            "affiliation_three_reference_series",
+            passed=affiliation_reference,
+            value=3,
+            reason="three Huet-reference numeric fixtures execute in-process",
+        )
+
+        prereg_ok = bool(
+            corpus.meta.get("prereg_ref")
+            and corpus.meta.get("prereg_predates_evaluation") is True
+        )
+        _add_gate(
+            check_metrics,
+            check_details,
+            required_results,
+            "prereg_chronology",
+            passed=prereg_ok if not smoke_profile else None,
+            value=corpus.meta.get("prereg_ref"),
+            reason=(
+                "verified preregistration must predate evaluation"
+                if not smoke_profile
+                else "offline smoke has no evidentiary preregistration chronology"
+            ),
+        )
+        human = corpus.meta.get("human_sanity")
+        human_ok = bool(
+            isinstance(human, Mapping)
+            and int(human.get("items", 0)) >= 100
+            and int(human.get("annotators", 0)) >= 2
+            and math.isfinite(float(human.get("kappa", float("nan"))))
+        )
+        _add_gate(
+            check_metrics,
+            check_details,
+            required_results,
+            "human_sanity_100_two_annotators",
+            passed=human_ok if human is not None else None,
+            value=human,
+            reason="100 top rule-negative items require two annotators and reported kappa",
+        )
+        remediation = corpus.meta.get("metric_remediation")
+        _add_gate(
+            check_metrics,
+            check_details,
+            required_results,
+            "metric_remediation_recorded",
+            passed=bool(remediation) if remediation is not None else None,
+            value=remediation,
+            reason="floor-near-R5 metrics require an explicit kept/dropped action record",
+        )
+        corpus_ok = bool((preflight["status"] == "run").all())
+        _add_gate(
+            check_metrics,
+            check_details,
+            required_results,
+            "corpus_preflight",
+            passed=corpus_ok if not smoke_profile else None,
+            value=preflight.to_dict(orient="records"),
+            reason=(
+                "every declared corpus profile requirement must run"
+                if not smoke_profile
+                else "synthetic smoke is explicitly non-evidentiary"
+            ),
+        )
+        _add_gate(
+            check_metrics,
+            check_details,
+            required_results,
+            "real_parquet",
+            passed=parquet_complete,
+            value=parquet_complete,
+            reason="scores.parquet must be a real Parquet artifact",
+        )
+        for name, key, reason in (
+            ("harm_store_s3", "store_s3", "harm execution requires an S3 store handle"),
+            ("harm_paired_coverage", "paired", "every R5 promotion requires now/close scores"),
+            ("harm_leakage", "leakage_pass", "both action envelopes must pass §4.2"),
+            ("harm_non_vacuous", "non_vacuous", "paired action scores must vary"),
+            ("harm_real_provider", "real_provider", "evidentiary harm requires a pinned non-fake provider"),
+        ):
+            if name == "harm_paired_coverage":
+                passed = bool(
+                    harm_evidence.get("promoted", 0) > 0
+                    and harm_evidence.get("paired") == harm_evidence.get("promoted")
+                )
+                value: Any = {
+                    "paired": harm_evidence.get("paired", 0),
+                    "promoted": harm_evidence.get("promoted", 0),
+                }
+            else:
+                passed = bool(harm_evidence.get(key, False))
+                value = harm_evidence.get(key)
+            _add_gate(
+                check_metrics,
+                check_details,
+                required_results,
+                name,
+                passed=passed if harm_evidence.get("store_provided") else None,
+                value=value,
+                reason=reason,
+            )
+
+        valid = all(required_results)
+        check_metrics["check.valid"] = float(valid)
+        check_details["valid"] = {
+            "status": "pass" if valid else "fail",
+            "passed": valid,
+            "required": True,
+            "value": valid,
+            "reason": "single conjunction of every required E1 validity item",
+        }
+        validity = pd.DataFrame(
+            [{"gate": name, **detail} for name, detail in check_details.items()]
+        )
+        validity.to_csv(out_dir / "validity.csv", index=False)
         chart_paths = _write_charts(calibration, metrics, out_dir)
         primary = _paired_primary(scores, seed)
+        primary["valid"] = valid
+        primary["evidence_status"] = "valid" if valid else "non-evidentiary"
 
         artifacts = [
             metrics_path,
@@ -642,12 +1355,19 @@ class E1Experiment:
             delays_path,
             preflight_path,
             attribution_path,
+            harm_path,
+            out_dir / "validity.csv",
             *chart_paths,
         ]
         if parquet_complete:
             artifacts.append(scores_path)
-        if harm_rows:
-            artifacts.append(harm_path)
+        if not smoke_profile and not valid:
+            failed = [
+                name
+                for name, detail in check_details.items()
+                if detail.get("required") and detail.get("passed") is not True
+            ]
+            raise ValueError(f"E1 validity gates failed: {', '.join(failed)}")
         return ExperimentResult(
             name=self.name,
             metrics=check_metrics,
@@ -660,6 +1380,7 @@ class E1Experiment:
                 "delays": delays,
                 "preflight": preflight,
                 "harm": harm,
+                "validity": validity,
             },
             artifacts=artifacts,
             primary=primary,

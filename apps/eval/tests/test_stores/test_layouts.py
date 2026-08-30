@@ -5,16 +5,19 @@ from __future__ import annotations
 import csv
 import hashlib
 import json
+import sys
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
+from types import SimpleNamespace
 
 import numpy as np
 import pytest
 from harnext_eval.agents.reader import answer
 from harnext_eval.config import load_config
 from harnext_eval.corpus.synthetic import generate_synthetic_events
-from harnext_eval.e2.arms import a4, store_read
+from harnext_eval.e2.arms import a3, a4, store_read
 from harnext_eval.providers.embeddings import FakeEmbeddings
+from harnext_eval.providers.factory import make_embeddings
 from harnext_eval.providers.llm import FakeLLM
 from harnext_eval.replay.driver import run_pipeline
 from harnext_eval.stores.base import StoreHandle
@@ -115,18 +118,166 @@ def test_s0_is_exactly_one_dated_markdown_file_per_event_plus_minimal_index(
 
     ref = store.fold(events, "batch")
 
-    context_markdown = [path for path in store.list_files(ref) if path.endswith(".md")]
     expected_events = sorted(
         f"events/{event.time:%Y/%m/%d}/{event.id}.md" for event in events
     )
-    assert context_markdown == ["INDEX.md", *expected_events]
+    files = store.list_files(ref)
+    reader_files = [path for path in files if not path.startswith("_meta/")]
+    assert reader_files == ["INDEX.md", *expected_events]
+    assert [path for path in files if path.startswith("_meta/")] == [
+        "_meta/delivered_event_ids.jsonl",
+        "_meta/input.json",
+    ]
     index = store.read(ref, "INDEX.md") or ""
-    for event in events:
-        relpath = f"events/{event.time:%Y/%m/%d}/{event.id}.md"
-        assert store.read(ref, relpath) is not None
-        assert event.id in index
-    assert not any(path.startswith(("entities/", "topics/")) for path in store.list_files(ref))
-    assert "CLAUDE.md" not in store.list_files(ref)
+    assert index == "# Event files\n\n" + "".join(
+        f"- [{relpath}]({relpath})\n" for relpath in expected_events
+    )
+    assert all(store.read(ref, relpath) is not None for relpath in expected_events)
+    assert "_meta/" not in index
+
+
+def test_s1_templates_every_catalogue_and_world_state_field(tmp_path: Path) -> None:
+    start = datetime(2026, 1, 1, tzinfo=UTC)
+
+    def event(
+        event_id: str,
+        minute: int,
+        *,
+        source: str,
+        event_type: str,
+        subject: str,
+        data: dict[str, object],
+    ) -> EvalEvent:
+        return EvalEvent(
+            id=event_id,
+            source=source,
+            type=event_type,
+            subject=subject,
+            time=start + timedelta(minutes=minute),
+            mgtenant="test",
+            data=data,
+        )
+
+    events = [
+        event(
+            "jira-created",
+            0,
+            source="jira:KAFKA",
+            event_type="org.apache.jira.issue.created",
+            subject="issue:KAFKA-1",
+            data={
+                "status": "Open",
+                "assignee": "alice",
+                "priority": "Critical",
+                "components": ["core", "streams"],
+                "fix_versions": ["4.0"],
+            },
+        ),
+        event(
+            "pr-merged",
+            1,
+            source="github:apache/kafka",
+            event_type="com.github.pull_request.merged",
+            subject="pr:17",
+            data={
+                "merged": True,
+                "changed_files": ["core/src/Main.java", "core/src/MainTest.java"],
+            },
+        ),
+        event(
+            "pr-closed",
+            2,
+            source="github:apache/kafka",
+            event_type="com.github.pull_request.closed",
+            subject="pr:18",
+            data={"state": "closed", "changed_files": ["docs/rejected.md"]},
+        ),
+        event(
+            "mail-vote",
+            3,
+            source="mail:dev@kafka.apache.org",
+            event_type="org.apache.mail.message",
+            subject="thread:vote-root",
+            data={
+                "subject": "[VOTE] KIP-9",
+                "body": "Please vote on KIP-9.",
+                "in_reply_to": None,
+                "author": "committer:bob",
+            },
+        ),
+        event(
+            "mail-result",
+            4,
+            source="mail:dev@kafka.apache.org",
+            event_type="org.apache.mail.message",
+            subject="thread:vote-root",
+            data={
+                "subject": "[RESULT] KIP-9 vote accepted",
+                "body": "The vote passed and KIP-9 is accepted.",
+                "in_reply_to": "root-message",
+                "author": "committer:alice",
+            },
+        ),
+        event(
+            "world-state",
+            5,
+            source="orgforge:test",
+            event_type="orgforge.world_state.dump",
+            subject="world:snapshot-1",
+            data={
+                "world_state": {
+                    "entities": {
+                        "account:7": {
+                            "plan": "enterprise",
+                            "open_tickets": 2,
+                            "unpaid_invoices": ["inv-3"],
+                            "incident_status": "mitigated",
+                            "owner": "alice",
+                        }
+                    }
+                }
+            },
+        ),
+    ]
+    expected = {
+        "entities/issue/KAFKA-1": {
+            "status": "Open",
+            "assignee": "alice",
+            "priority": "Critical",
+            "components": '["core","streams"]',
+            "fixVersion": '["4.0"]',
+        },
+        "entities/pr/17": {
+            "state": "merged",
+            "changed_files": '["core/src/Main.java","core/src/MainTest.java"]',
+        },
+        "entities/pr/18": {
+            "state": "closed",
+            "changed_files": '["docs/rejected.md"]',
+        },
+        "entities/thread/vote-root": {"answered_by": "committer:alice"},
+        "entities/entity/KIP-9": {"vote_outcome": "accepted"},
+        "entities/account/7": {
+            "plan": "enterprise",
+            "open_tickets": "2",
+            "unpaid_invoices": '["inv-3"]',
+            "incident_status": "mitigated",
+            "owner": "alice",
+        },
+    }
+    store = _store(tmp_path, "S1")
+
+    ref = store.fold(events, "batch")
+
+    for entity_dir, fields in expected.items():
+        overview = store.read(ref, f"{entity_dir}/OVERVIEW.md") or ""
+        facts = store.read(ref, f"{entity_dir}/facts.md") or ""
+        for field, value in fields.items():
+            assert f"- {field}: {value}" in overview
+            assert f" {field}={value}" in facts
+    superseded = store.read(ref, "_meta/superseded.md") or ""
+    assert "answered_by=UNANSWERED" in superseded
+    assert "vote_outcome=open" in superseded
 
 
 def test_s1_tracks_latest_fields_and_moves_superseded_values(tmp_path: Path) -> None:
@@ -249,6 +400,60 @@ def test_s4_exact_id_search_and_historical_snapshot(tmp_path: Path) -> None:
     assert [json.loads(row)["indexed_events"] for row in counts] == [1, 2]
 
 
+def test_configured_real_adapter_reaches_a3_and_s4_without_network(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    calls: list[tuple[str, list[str]]] = []
+
+    class SpyVoyageClient:
+        def __init__(self, api_key: str | None = None) -> None:
+            assert api_key is None
+
+        def embed(self, texts: list[str], *, model: str) -> SimpleNamespace:
+            calls.append((model, list(texts)))
+            rows = [
+                [1.0, float(len(text)), float(sum(map(ord, text)) % 101 + 1)]
+                for text in texts
+            ]
+            return SimpleNamespace(embeddings=rows)
+
+    monkeypatch.setitem(sys.modules, "voyageai", SimpleNamespace(Client=SpyVoyageClient))
+    cfg = load_config(Path(__file__).parents[2] / "configs" / "s3-curated.yaml")
+    adapter = make_embeddings(cfg)
+    assert calls == []
+
+    event = _state_event(
+        "state-open",
+        datetime(2026, 1, 1, tzinfo=UTC),
+        status="Open",
+    )
+    probe = Probe(
+        probe_id="configured-a3",
+        family="extraction",
+        entity="issue:HNX-1",
+        T=event.time,
+        question="What is the status of HNX-1?",
+        gold="Open",
+        gold_type="exact",
+        source_event_ids=[event.id],
+    )
+
+    material = a3(probe, [event], cfg.engine, k=1)
+    store = StoreHandle("S4", "configured-real", tmp_path / "configured-s4")
+    configure_store(store, harness="fake", embeddings=adapter, timeout_s=30)
+    store.fold([event], "batch")
+
+    assert material.arm == "A3"
+    assert len(calls) == 2
+    assert calls[0][0] == calls[1][0] == "voyage-3-large"
+    assert calls[0][1][0] == probe.question
+    assert event.id in calls[1][1][0]
+    metadata = json.loads((store.worktree / "_vector" / "metadata.json").read_text())
+    assert metadata["embedding_provider"] == "voyage"
+    assert metadata["embedding_model"] == "voyage-3-large"
+    assert metadata["embedding_revision"] == "2025-01-07"
+
+
 def test_vector_snapshot_requires_the_persisted_nonfake_model(tmp_path: Path) -> None:
     event = generate_synthetic_events(seed=8, event_count=1, days=1, entity_count=1)[0]
     root = tmp_path / "named-s4"
@@ -287,7 +492,7 @@ def test_s5_search_returns_event_ids_from_curated_files(tmp_path: Path) -> None:
     assert metadata["chunking"] == "whole-durable-file-plus-event-citations-v1"
 
 
-def test_fake_reader_scores_actual_curated_layout_differently_from_s1(
+def test_fake_reader_can_read_pr_files_from_s1_and_curated_layout(
     tmp_path: Path,
 ) -> None:
     at = datetime(2026, 1, 1, tzinfo=UTC)
@@ -329,5 +534,5 @@ def test_fake_reader_scores_actual_curated_layout_differently_from_s1(
     expected_paths = {"src/context/store.py", "tests/test_store.py"}
     s1_score = float(all(path in s1_answer.text for path in expected_paths))
     s3_score = float(all(path in s3_answer.text for path in expected_paths))
-    assert s1_score == 0.0
+    assert s1_score == 1.0
     assert s3_score == 1.0

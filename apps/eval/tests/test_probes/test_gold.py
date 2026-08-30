@@ -23,7 +23,8 @@ def _raw_issue(*, raw_final: str = "Closed") -> dict[str, object]:
         "key": "KAFKA-1",
         "fields": {
             "created": "2026-05-01T00:00:00Z",
-            "status": {"name": "Open"},
+            # Jira search returns export-time state, not issue-creation state.
+            "status": {"name": raw_final},
             "assignee": {"displayName": "Alice", "accountId": "alice"},
             "priority": {"name": "Major"},
             "components": [{"name": "core"}],
@@ -71,6 +72,21 @@ def test_sql_reads_untouched_raw_jira_independently_from_python_replay() -> None
     assert field_value_sql(raw, "KAFKA-1", "assignee", at) == field_value_python(
         events, "KAFKA-1", "assignee", at
     )
+
+
+def test_both_gold_derivations_ignore_post_window_search_snapshot() -> None:
+    raw = _raw_issue()
+    events = parse_issue(raw)
+    before_first_change = datetime(2026, 5, 1, 12, tzinfo=UTC)
+
+    created = next(event for event in events if event.type.endswith(".created"))
+    fields = raw["fields"]
+    assert isinstance(fields, dict)
+    assert fields["status"] == {"name": "Closed"}
+    assert created.data is not None
+    assert created.data["status"] == "Open"
+    assert field_value_python(events, "KAFKA-1", "status", before_first_change) == "Open"
+    assert field_value_sql(raw, "KAFKA-1", "status", before_first_change) == "Open"
 
 
 def test_correlated_normalisation_error_is_exposed_and_fails_98_percent_gate() -> None:

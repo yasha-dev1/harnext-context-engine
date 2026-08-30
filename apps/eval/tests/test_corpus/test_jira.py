@@ -46,7 +46,10 @@ def test_parse_created_transition_items_and_comments() -> None:
     assert priority.data["to"] == "Critical"
     assert str(priority.data["actor"]).startswith("contributor:")
     assert "component:streams" in priority.baseline_keys
+    created = next(event for event in events if event.id == "jira:19876:created")
+    assert created.data is not None
+    assert created.data["status"] == "Open"
+    assert created.data["priority"] == "Major"
     comments = [event for event in events if event.type.endswith(".comment")]
     assert len(comments) == 1
     assert "fix is ready" in str((comments[0].data or {})["body"])
-

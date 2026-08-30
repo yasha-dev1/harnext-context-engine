@@ -137,10 +137,38 @@ def is_formatting_only(event: EvalEvent) -> bool:
 
 
 def issue_keys_for_pr(event: EvalEvent) -> list[str]:
-    """Return issue keys literally carried in the PR title."""
+    """Return issue keys literally carried in the PR title or head branch."""
 
     data = event.data or {}
-    return unique(ISSUE_KEY_RE.findall(str(data.get("title", ""))))
+    surface = f"{data.get('title', '')}\n{data.get('head_ref', '')}"
+    return unique(key.upper() for key in ISSUE_KEY_RE.findall(surface))
+
+
+def linked_pushes_for_pr(events: Iterable[EvalEvent], pull_request: EvalEvent) -> list[EvalEvent]:
+    """Find PushEvents linked to a merged PR by its exact merge commit SHA."""
+
+    data = pull_request.data or {}
+    merge_sha = data.get("merge_commit_sha")
+    if not isinstance(merge_sha, str) or not merge_sha:
+        return []
+    repository = str(data.get("repo") or pull_request.source).casefold()
+    linked: list[EvalEvent] = []
+    for event in events:
+        if "push" not in event.type.casefold():
+            continue
+        push_data = event.data or {}
+        push_repository = str(push_data.get("repo") or event.source).casefold()
+        if push_repository != repository:
+            continue
+        commit_shas = {
+            str(commit.get("sha"))
+            for commit in push_data.get("commits", [])
+            if isinstance(commit, dict) and commit.get("sha") is not None
+        }
+        head = push_data.get("head")
+        if merge_sha == head or merge_sha in commit_shas:
+            linked.append(event)
+    return sorted(linked, key=lambda event: (event.time, event.id))
 
 
 def module_for_file(path: str) -> str:

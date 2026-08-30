@@ -4,7 +4,12 @@ from __future__ import annotations
 
 from typing import Any
 
-from harnext_eval.providers.embeddings import EmbeddingsProvider, FakeEmbeddings
+from harnext_eval.providers.embeddings import (
+    EmbeddingsProvider,
+    FakeEmbeddings,
+    OpenAIEmbeddings,
+    VoyageEmbeddings,
+)
 from harnext_eval.providers.llm import AnthropicLLM, FakeLLM, LLMProvider
 
 _HARNESS_CLASSES = {"fake": "FakeHarness", "claude_code": "ClaudeCodeHarness"}
@@ -96,9 +101,19 @@ def make_embeddings(cfg: Any) -> EmbeddingsProvider:
     assert_offline_ok(cfg)
     embeddings = _value(_engine(cfg), "embeddings", {})
     provider = _value(embeddings, "provider", "fake")
-    if provider != "fake":
+    if provider == "fake":
+        resolved: EmbeddingsProvider = FakeEmbeddings(dim=int(_value(embeddings, "dim", 64)))
+    elif provider in {"voyage", "openai"}:
+        model = _value(embeddings, "model")
+        revision = _value(embeddings, "revision")
+        if not isinstance(model, str) or not model.strip():
+            raise ValueError(f"{provider} embeddings require a non-empty model")
+        if not isinstance(revision, str) or not revision.strip():
+            raise ValueError(f"{provider} embeddings require a non-empty revision")
+        adapter = VoyageEmbeddings if provider == "voyage" else OpenAIEmbeddings
+        resolved = adapter(model=model, revision=revision)
+    else:
         raise ValueError(f"unsupported embeddings provider: {provider}")
-    resolved = FakeEmbeddings(dim=int(_value(embeddings, "dim", 64)))
     _record(cfg, "embeddings", type(resolved).__name__)
     return resolved
 

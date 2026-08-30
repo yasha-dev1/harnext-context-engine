@@ -149,6 +149,8 @@ def _pull_request_event(
     email = _email(user)
     title = _optional_string(pull.get("title"))
     body = _optional_string(pull.get("body"))
+    head_ref = _nested_string(pull, "head", "ref")
+    join_surface = f"{title or ''}\n{head_ref or ''}"
     data = {
         **common,
         "number": int(number),
@@ -164,10 +166,13 @@ def _pull_request_event(
         "closed_at": pull.get("closed_at"),
         "merge_commit_sha": pull.get("merge_commit_sha"),
         "base_ref": _nested_string(pull, "base", "ref"),
-        "head_ref": _nested_string(pull, "head", "ref"),
-        "changed_files": _changed_files(payload, pull),
-        "issue_keys": extract_issue_keys(f"{title or ''}\n{body or ''}"),
-        "kip_keys": extract_kip_keys(f"{title or ''}\n{body or ''}"),
+        "head_ref": head_ref,
+        # GH Archive does not promise a payload-level files array.  Preserve an
+        # explicitly enriched PR object's files when one exists; code gold
+        # otherwise resolves an exact merge-SHA-linked PushEvent.
+        "changed_files": _changed_files(pull),
+        "issue_keys": extract_issue_keys(join_surface),
+        "kip_keys": extract_kip_keys(join_surface),
     }
     return _event(
         github_id=github_id,

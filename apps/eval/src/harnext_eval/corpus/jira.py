@@ -42,6 +42,13 @@ def parse_issue(issue: Mapping[str, Any], *, mgtenant: str = "kafka") -> list[Ev
     if not isinstance(fields, Mapping):
         raise ValueError(f"Jira issue {issue_key} has no fields object")
 
+    changelog = issue.get("changelog")
+    histories = changelog.get("histories", []) if isinstance(changelog, Mapping) else []
+    if not isinstance(histories, list):
+        raise ValueError(f"Jira issue {issue_key} changelog histories must be a list")
+    creation_values = _creation_state(fields, histories)
+    _validate_export_state(issue_key, fields, histories)
+
     components = _named_values(fields.get("components"))
     creator = _identity(fields.get("creator") or fields.get("reporter"))
     baseline_components = components
@@ -53,12 +60,13 @@ def parse_issue(issue: Mapping[str, Any], *, mgtenant: str = "kafka") -> list[Ev
     }
     created_data = {
         **common,
-        "status": _named_value(fields.get("status")),
-        "priority": _named_value(fields.get("priority")),
-        "assignee": _identity_value(fields.get("assignee")),
+        "components": creation_values["components"],
+        "status": creation_values["status"],
+        "priority": creation_values["priority"],
+        "assignee": creation_values["assignee"],
         "reporter": _identity_value(fields.get("reporter")),
         "creator": creator.value,
-        "fix_versions": _named_values(fields.get("fixVersions")),
+        "fix_versions": creation_values["fixVersion"],
         "labels": fields.get("labels") if isinstance(fields.get("labels"), list) else [],
     }
     events = [
@@ -77,10 +85,6 @@ def parse_issue(issue: Mapping[str, Any], *, mgtenant: str = "kafka") -> list[Ev
         )
     ]
 
-    changelog = issue.get("changelog")
-    histories = changelog.get("histories", []) if isinstance(changelog, Mapping) else []
-    if not isinstance(histories, list):
-        raise ValueError(f"Jira issue {issue_key} changelog histories must be a list")
     for history_index, history in enumerate(histories):
         if not isinstance(history, Mapping):
             continue
@@ -94,12 +98,13 @@ def parse_issue(issue: Mapping[str, Any], *, mgtenant: str = "kafka") -> list[Ev
             if not isinstance(item, Mapping):
                 continue
             field = str(item.get("field") or item.get("fieldId") or "unknown")
+            canonical_field = _canonical_state_field(field)
             data = {
                 **common,
                 "changelog_id": history_id,
-                "field": field,
-                "from": item.get("fromString", item.get("from")),
-                "to": item.get("toString", item.get("to")),
+                "field": canonical_field,
+                "from": _changelog_value(canonical_field, item, "from"),
+                "to": _changelog_value(canonical_field, item, "to"),
                 "actor": actor.value,
                 "actor_name": actor.display_name,
                 "actor_account_id": actor.account_id,
@@ -295,6 +300,119 @@ def _named_values(value: Any) -> list[str]:
     if not isinstance(value, list):
         return []
     return [name for item in value if (name := _named_value(item)) is not None]
+
+
+_STATE_FIELDS = ("status", "assignee", "priority", "components", "fixVersion")
+
+
+def _canonical_state_field(field: str) -> str:
+    compact = field.casefold().replace(" ", "")
+    return "fixVersion" if compact in {"fixversion", "fixversions"} else field
+
+
+def _snapshot_state(fields: Mapping[str, Any]) -> dict[str, Any]:
+    return {
+        "status": _named_value(fields.get("status")),
+        "assignee": _state_identity_value(fields.get("assignee")),
+        "priority": _named_value(fields.get("priority")),
+        "components": _named_values(fields.get("components")),
+        "fixVersion": _named_values(fields.get("fixVersions")),
+    }
+
+
+def _ordered_changelog_items(
+    histories: list[Any],
+) -> list[tuple[datetime, int, int, Mapping[str, Any]]]:
+    ordered: list[tuple[datetime, int, int, Mapping[str, Any]]] = []
+    for history_index, history in enumerate(histories):
+        if not isinstance(history, Mapping):
+            continue
+        created = history.get("created")
+        items = history.get("items", [])
+        if not isinstance(created, str) or not isinstance(items, list):
+            continue
+        changed_at = _parse_time(created)
+        ordered.extend(
+            (changed_at, history_index, item_index, item)
+            for item_index, item in enumerate(items)
+            if isinstance(item, Mapping)
+        )
+    return sorted(ordered, key=lambda row: (row[0], row[1], row[2]))
+
+
+def _changelog_value(field: str, item: Mapping[str, Any], side: str) -> Any:
+    raw = item.get(side)
+    display = item.get(f"{side}String")
+    if field == "assignee":
+        if raw is None and display is None:
+            return None
+        return _state_identity_value({"accountId": raw, "displayName": display})
+    if field in {"components", "fixVersion"}:
+        value = display if display is not None else raw
+        if value is None or value == "":
+            return []
+        if isinstance(value, list):
+            return [str(item) for item in value]
+        return [part.strip() for part in str(value).split(",") if part.strip()]
+    return display if display is not None else raw
+
+
+def _state_identity_value(value: Any) -> str | None:
+    """Prefer Jira's stable account key for state replay over mutable email/display text."""
+
+    if isinstance(value, Mapping):
+        account = value.get("accountId") or value.get("key") or value.get("name")
+        if account:
+            digest = hashlib.sha256(str(account).encode()).hexdigest()[:12]
+            return f"jira-user:{digest}"
+        identity = _identity_value(value)
+        if identity is not None:
+            return identity
+        display = value.get("displayName")
+        return str(display) if display is not None else None
+    return _identity_value(value)
+
+
+def _creation_state(fields: Mapping[str, Any], histories: list[Any]) -> dict[str, Any]:
+    """Recover issue-creation state without reading changed export-snapshot fields."""
+
+    state = _snapshot_state(fields)
+    seen: set[str] = set()
+    for _, _, _, item in _ordered_changelog_items(histories):
+        raw_field = item.get("field") or item.get("fieldId")
+        if not isinstance(raw_field, str):
+            continue
+        field = _canonical_state_field(raw_field)
+        if field not in _STATE_FIELDS or field in seen:
+            continue
+        state[field] = _changelog_value(field, item, "from")
+        seen.add(field)
+    return state
+
+
+def _validate_export_state(
+    issue_key: str, fields: Mapping[str, Any], histories: list[Any]
+) -> None:
+    """Use the search snapshot only to check the changelog's export-time state."""
+
+    snapshot = _snapshot_state(fields)
+    final = _creation_state(fields, histories)
+    changed: set[str] = set()
+    for _, _, _, item in _ordered_changelog_items(histories):
+        raw_field = item.get("field") or item.get("fieldId")
+        if not isinstance(raw_field, str):
+            continue
+        field = _canonical_state_field(raw_field)
+        if field not in _STATE_FIELDS:
+            continue
+        final[field] = _changelog_value(field, item, "to")
+        changed.add(field)
+    inconsistent = [field for field in sorted(changed) if final[field] != snapshot[field]]
+    if inconsistent:
+        joined = ", ".join(inconsistent)
+        raise ValueError(
+            f"Jira issue {issue_key} search snapshot disagrees with changelog final state: {joined}"
+        )
 
 
 def _parse_time(value: str) -> datetime:

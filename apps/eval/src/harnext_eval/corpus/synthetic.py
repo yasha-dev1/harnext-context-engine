@@ -814,9 +814,89 @@ def events_hash(events: list[EvalEvent]) -> str:
     return digest.hexdigest()
 
 
-def _injected_meta(events: list[EvalEvent]) -> list[dict[str, Any]]:
+def _stable_fact_id(event_id: str, field: str) -> str:
+    return f"ws-{event_id}-{field.replace('_', '-')}"
+
+
+def _hourly_world_state(events: list[EvalEvent]) -> list[dict[str, Any]]:
+    """Replay issue state into complete, versioned UTC-hour snapshots."""
+
+    issue_keys = sorted(
+        {
+            str((event.data or {}).get("issue_key"))
+            for event in events
+            if (event.data or {}).get("issue_key")
+        }
+    )
+    states: dict[str, dict[str, tuple[Any, str]]] = {}
+    for issue in issue_keys:
+        initial = f"initial-{issue.casefold()}"
+        states[f"issue:{issue}"] = {
+            "status": ("Open", _stable_fact_id(initial, "status")),
+            "owner": (
+                _HUMANS[(int(issue.rsplit("-", 1)[-1]) - 1000) % len(_HUMANS)],
+                _stable_fact_id(initial, "owner"),
+            ),
+            "priority": ("Major", _stable_fact_id(initial, "priority")),
+            "component": (_home_component(issue), _stable_fact_id(initial, "component")),
+            "fix_version": ("4.0", _stable_fact_id(initial, "fix_version")),
+        }
+    if not events:
+        return []
+    ordered = sorted(events, key=lambda event: (event.time, event.id))
+    start = ordered[0].time.replace(minute=0, second=0, microsecond=0)
+    end = ordered[-1].time.replace(minute=0, second=0, microsecond=0) + timedelta(hours=1)
+    snapshots: list[dict[str, Any]] = []
+    cursor = 0
+    at = start
+    while at <= end:
+        while cursor < len(ordered) and ordered[cursor].time <= at:
+            event = ordered[cursor]
+            data = event.data or {}
+            issue_key = str(data.get("issue_key") or "")
+            state = states.get(f"issue:{issue_key}")
+            field = str(data.get("field") or "").casefold().replace("_", "")
+            aliases = {
+                "assignee": "owner",
+                "components": "component",
+                "fixversion": "fix_version",
+            }
+            state_field = aliases.get(field, field)
+            if state is not None and state_field in state and "to" in data:
+                value = data["to"]
+                if state_field == "component" and isinstance(value, list):
+                    value = value[0] if value else ""
+                state[state_field] = (value, _stable_fact_id(event.id, state_field))
+            cursor += 1
+        snapshots.append(
+            {
+                "schema_version": 1,
+                "snapshot_id": f"world-state-hour-{at.isoformat()}",
+                "cadence": "hourly",
+                "time": at.isoformat(),
+                "entities": {
+                    entity: {
+                        "facts": [
+                            {"id": fact_id, "field": field, "value": value}
+                            for field, (value, fact_id) in sorted(state.items())
+                        ]
+                    }
+                    for entity, state in sorted(states.items())
+                },
+            }
+        )
+        at += timedelta(hours=1)
+    return snapshots
+
+
+def _injected_meta(
+    events: list[EvalEvent],
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    """Record situation references and versioned simulator-state gold separately."""
+
     positives = [event for event in events if (event.data or {}).get("injected_positive")]
-    rows: list[dict[str, Any]] = []
+    situations: list[dict[str, Any]] = []
+    snapshots: list[dict[str, Any]] = []
     for number, event in enumerate(positives, start=1):
         outcome_id = f"situation-{number}"
         assignment = next(
@@ -829,28 +909,54 @@ def _injected_meta(events: list[EvalEvent]) -> list[dict[str, Any]]:
             ),
             None,
         )
-        scripted = (
+        if assignment is None:
+            continue
+        owner_fact_id = _stable_fact_id(event.id, "handling_owner")
+        refund_fact_id = _stable_fact_id(event.id, "refund_decision")
+        component_fact_id = _stable_fact_id(event.id, "handling_component")
+        snapshots.append(
             {
-                "owner": str((assignment.data or {})["to"]),
-                "required_ids": [str((event.data or {})["issue_key"])],
-                "time": assignment.time.isoformat(),
-                "event_ids": [assignment.id],
-                "action": "route_and_reply",
+                "schema_version": 1,
+                "snapshot_id": f"world-state-{event.id}",
+                "cadence": "situation-onset",
+                "time": event.time.isoformat(),
+                "entities": {
+                    event.subject: {
+                        "facts": [
+                            {
+                                "id": owner_fact_id,
+                                "field": "handling_owner",
+                                "value": str((assignment.data or {})["to"]),
+                                "required_for_handling": True,
+                            },
+                            {
+                                "id": refund_fact_id,
+                                "field": "refund_decision",
+                                "value": "not_applicable",
+                                "required_for_handling": True,
+                            },
+                            {
+                                "id": component_fact_id,
+                                "field": "handling_component",
+                                "value": str((event.data or {}).get("component") or ""),
+                                "required_for_handling": True,
+                            },
+                        ],
+                    }
+                },
             }
-            if assignment is not None
-            else {}
         )
-        rows.append(
+        situations.append(
             {
+                "situation_id": outcome_id,
                 "event_id": event.id,
                 "onset": event.time.isoformat(),
                 "archetype": str((event.data or {})["situation_archetype"]),
                 "cost_weight": float((event.data or {})["cost_weight"]),
                 "entity": event.subject,
-                "scripted_handling": scripted,
             }
         )
-    return rows
+    return situations, snapshots
 
 
 def generate_synthetic_corpus(
@@ -873,7 +979,9 @@ def generate_synthetic_corpus(
         seed, event_count=event_count, days=days, entity_count=entity_count
     )
     path.write_text("".join(event.model_dump_json() + "\n" for event in events), encoding="utf-8")
-    situations = _injected_meta(events)
+    situations, situation_snapshots = _injected_meta(events)
+    world_state_snapshots = [*_hourly_world_state(events), *situation_snapshots]
+    world_state_snapshots.sort(key=lambda row: (str(row["time"]), str(row["snapshot_id"])))
     subjects = Counter(event.subject.split(":", 1)[0] for event in events)
     return CorpusHandle(
         name="synthetic",
@@ -889,6 +997,7 @@ def generate_synthetic_corpus(
             "days": days,
             "sha256": events_hash(events),
             "injected_situations": situations,
+            "world_state_snapshots": world_state_snapshots,
             "injected_prevalence": len(situations) / len(events),
             "hard_negative_count": sum(
                 bool((event.data or {}).get("hard_negative")) for event in events

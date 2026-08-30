@@ -2,11 +2,15 @@
 
 from __future__ import annotations
 
+import math
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
+import pytest
 from harnext_eval.agents.envelope import STATIC_PREFIX, build, execute_tools
 from harnext_eval.config import WindowConfig
+from harnext_eval.corpus.synthetic import generate_synthetic_corpus
+from harnext_eval.e4.run import ActionPrediction, _score_action
 from harnext_eval.e4.tasks import (
     build_batch_tasks,
     build_constructed_tasks,
@@ -41,7 +45,7 @@ def _gold_events() -> list[EvalEvent]:
         _event(
             "trigger",
             0,
-            event_type="jira.issue.created",
+            event_type="org.apache.jira.issue.created",
             data={"priority": "Critical", "issue_key": "HNX-1"},
         ),
         _event(
@@ -104,6 +108,79 @@ def test_task_selection_derives_four_gold_groups_and_excludes_bots() -> None:
     )
 
 
+def test_r_fast_selection_uses_exact_triggers_and_keeps_place_or_text_only_gold() -> None:
+    reopened = _event(
+        "reopened",
+        0,
+        event_type="org.apache.jira.issue.reopened",
+        subject="issue:HNX-0",
+        data={"priority": "Critical", "issue_key": "HNX-0"},
+    )
+    place_trigger = _event(
+        "place-trigger",
+        10,
+        event_type="org.apache.jira.issue.created",
+        subject="issue:HNX-1",
+        data={"priority": "Blocker", "issue_key": "HNX-1"},
+    )
+    place_decision = _event(
+        "place-pr",
+        11,
+        event_type="github.pull_request.merged",
+        subject="pr:17",
+        data={"title": "HNX-1 implementation", "number": 17, "changed_files": ["src/a.py"]},
+    )
+    text_trigger = _event(
+        "text-trigger",
+        20,
+        event_type="org.apache.telemetry.alert",
+        subject="issue:HNX-2",
+        data={"message": "unusual source reports CVE-2026-4242", "issue_key": "HNX-2"},
+    ).model_copy(update={"source": "telemetry:kafka"})
+    text_decision = _event(
+        "text-reply",
+        21,
+        event_type="org.apache.jira.issue.comment",
+        subject="issue:HNX-2",
+        data={"body": "I will handle this.", "author": "alice", "is_committer": True},
+    )
+    reopened_decision = _event(
+        "reopened-assignee",
+        1,
+        subject="issue:HNX-0",
+        data={"field": "assignee", "to": "nobody", "actor": "human"},
+    )
+
+    tasks = select_fast_tasks(
+        [
+            reopened,
+            reopened_decision,
+            place_trigger,
+            place_decision,
+            text_trigger,
+            text_decision,
+        ],
+        corpus="real",
+    )
+
+    assert {task.trigger_event_id for task in tasks} == {"place-trigger", "text-trigger"}
+    by_trigger = {task.trigger_event_id: task for task in tasks}
+    assert by_trigger["place-trigger"].gold_coverage == {
+        "people": False,
+        "category": False,
+        "place": True,
+        "text": False,
+    }
+    assert by_trigger["text-trigger"].gold_coverage == {
+        "people": False,
+        "category": False,
+        "place": False,
+        "text": True,
+    }
+    assert math.isnan(_score_action(by_trigger["place-trigger"], ActionPrediction())["Q"])
+    assert math.isnan(_score_action(by_trigger["text-trigger"], ActionPrediction())["Q"])
+
+
 def test_batch_tasks_pair_only_probes_at_window_close() -> None:
     events = [_event("one", 0), _event("two", 1)]
     close = events[-1].time
@@ -120,13 +197,14 @@ def test_batch_tasks_pair_only_probes_at_window_close() -> None:
         events,
         [probe],
         corpus="synthetic",
-        window=WindowConfig(gap_s=30, max_events=2, max_age_s=120),
+        window=WindowConfig(gap_s=120, max_events=2, max_age_s=120),
     )
 
     assert len(tasks) == 1
     assert tasks[0].kind == "batch"
     assert tasks[0].T == close
     assert tasks[0].gold["probes"][0]["probe_id"] == "p1"
+    assert tasks[0].gold["window_event_ids"] == ["one", "two"]
 
 
 def test_envelopes_have_exact_sections_and_v6_is_larger(tmp_path: Path) -> None:
@@ -197,47 +275,121 @@ def test_envelopes_have_exact_sections_and_v6_is_larger(tmp_path: Path) -> None:
     assert used.token_count <= 12_000
 
 
-def test_constructed_s_gold_comes_from_injected_meta_and_world_state() -> None:
+def test_constructed_s_gold_is_derived_only_from_versioned_world_state() -> None:
     trigger = _event(
         "situation-1",
         0,
-        event_type="jira.issue.created",
+        event_type="org.apache.jira.issue.created",
         data={"priority": "Critical", "issue_key": "HNX-1"},
     )
-    action_time = trigger.time + timedelta(minutes=5)
+    action = _event(
+        "handling-1",
+        5,
+        data={
+            "field": "assignee",
+            "to": "oncall-alice",
+            "actor": "simulator",
+            "outcome_for": "injected-incident-1",
+        },
+    )
     meta = {
         "injected_situations": [
             {
+                "situation_id": "injected-incident-1",
                 "event_id": trigger.id,
                 "onset": trigger.time.isoformat(),
                 "entity": trigger.subject,
                 "archetype": "incident",
-                "action_time": action_time.isoformat(),
+                # These legacy scripted values are intentionally wrong. They
+                # must have no influence on constructed gold.
                 "scripted_handling": {
-                    "owner": "oncall-alice",
-                    "required_ids": ["fact-owner-1", "fact-incident-1"],
-                    "action": "page_owner",
+                    "owner": "wrong-scripted-owner",
+                    "required_ids": ["trigger-visible-id"],
+                    "refund_decision": "denied",
                 },
             }
         ],
-        "world_state": {trigger.subject: {"owner": "wrong-fallback"}},
+        "world_state_snapshots": [
+            {
+                "schema_version": 1,
+                "snapshot_id": "world-state-2026-01-01T00",
+                "time": trigger.time.isoformat(),
+                "entities": {
+                    trigger.subject: {
+                        "facts": [
+                            {
+                                "id": "fact-owner-1",
+                                "field": "handling_owner",
+                                "value": "oncall-alice",
+                                "required_for_handling": True,
+                            },
+                            {
+                                "id": "fact-refund-1",
+                                "field": "refund_decision",
+                                "value": "approved",
+                                "required_for_handling": True,
+                            },
+                        ],
+                    }
+                },
+            }
+        ],
     }
 
-    tasks = build_constructed_tasks([trigger], corpus="synthetic", corpus_meta=meta)
+    tasks = build_constructed_tasks([trigger, action], corpus="synthetic", corpus_meta=meta)
 
     assert tasks[0].gold["people"]["assignees"] == ["oncall-alice"]
-    assert tasks[0].gold["category"]["required_ids"] == [
-        "fact-owner-1",
-        "fact-incident-1",
+    assert tasks[0].gold["category"]["required_ids"] == ["fact-owner-1", "fact-refund-1"]
+    assert tasks[0].gold["refund_decision"] == "approved"
+    assert tasks[0].gold["scripted_action"] == "refund"
+    assert tasks[0].gold["_gold_source"] == "constructed-corpus-s-world-state-v1"
+
+    with pytest.raises(ValueError, match="world_state_snapshots"):
+        build_constructed_tasks(
+            [trigger, action],
+            corpus="synthetic",
+            corpus_meta={"injected_situations": meta["injected_situations"]},
+        )
+
+
+def test_synthetic_corpus_emits_fact_id_world_state_for_constructed_gold(tmp_path: Path) -> None:
+    corpus = generate_synthetic_corpus(
+        tmp_path / "corpus.jsonl", seed=7, event_count=120, entity_count=12
+    )
+
+    assert corpus.meta["world_state_snapshots"]
+    hourly = [
+        snapshot
+        for snapshot in corpus.meta["world_state_snapshots"]
+        if snapshot["cadence"] == "hourly"
     ]
-    assert tasks[0].gold["_gold_source"] == "constructed-corpus-s-meta"
+    assert hourly
+    assert all(
+        snapshot["schema_version"] == 1
+        and datetime.fromisoformat(snapshot["time"]).minute == 0
+        for snapshot in hourly
+    )
+    tasks = build_constructed_tasks(
+        list(corpus.events()), corpus="synthetic", corpus_meta=corpus.meta, limit=None
+    )
+    assert tasks
+    assert all(
+        required_id.startswith("ws-")
+        for task in tasks
+        for required_id in task.gold["category"]["required_ids"]
+    )
+    assert all(
+        task.gold["refund_decision"] == "not_applicable"
+        and task.gold["scripted_action"] == "route_and_reply"
+        for task in tasks
+    )
 
 
 def test_title_only_pr_join_horizons_and_committer_identity() -> None:
     trigger = _event(
         "trigger-title",
         0,
-        event_type="jira.issue.created",
+        event_type="org.apache.jira.issue.created",
         data={"priority": "Critical", "issue_key": "HNX-1"},
     )
     events = [
@@ -294,7 +446,7 @@ def test_gold_horizon_boundaries_multi_pr_union_and_format_exclusion() -> None:
     trigger = _event(
         "trigger-horizons",
         0,
-        event_type="jira.issue.created",
+        event_type="org.apache.jira.issue.created",
         data={"priority": "Critical", "issue_key": "HNX-1"},
     )
     events = [

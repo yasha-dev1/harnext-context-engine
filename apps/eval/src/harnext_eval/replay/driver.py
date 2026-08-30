@@ -31,6 +31,18 @@ class RouterPolicy(Protocol):
 
         ...
 
+    @property
+    def baseline_key_used(self) -> str | None:
+        """Return the key selected while scoring the current event."""
+
+        ...
+
+    @property
+    def features_fired(self) -> dict[str, Any]:
+        """Return policy-owned rule, scorer, and guard evidence."""
+
+        ...
+
 
 @dataclass(frozen=True)
 class DriverStats:
@@ -85,11 +97,13 @@ class CausalBudgetAdmission:
     """
 
     budget_pct: float
-    score_floor: float = 0.0
+    score_floor: float = -math.inf
     rule_negative_seen: int = 0
     deviations_admitted: int = 0
 
-    def consider(self, *, rule: str | None, score: float) -> tuple[bool, dict[str, Any]]:
+    def consider(
+        self, *, rule: str | None, score: float, policy_eligible: bool = True
+    ) -> tuple[bool, dict[str, Any]]:
         """Return whether the current event may attempt deviation admission."""
 
         if rule is not None:
@@ -103,7 +117,7 @@ class CausalBudgetAdmission:
             }
         self.rule_negative_seen += 1
         capacity = math.floor(self.rule_negative_seen * self.budget_pct / 100.0)
-        eligible = score >= self.score_floor
+        eligible = policy_eligible and score >= self.score_floor
         candidate = eligible and self.deviations_admitted < capacity
         return candidate, {
             "rules_floor_budget_exempt": False,
@@ -111,6 +125,7 @@ class CausalBudgetAdmission:
             "deviation_capacity": capacity,
             "deviations_admitted": self.deviations_admitted,
             "deviation_score_floor": self.score_floor,
+            "policy_eligible": policy_eligible,
             "deviation_budget_eligible": eligible,
             "deviation_budget_available": self.deviations_admitted < capacity,
         }
@@ -193,15 +208,12 @@ def run_pipeline(
         # ``absolute_floor`` is a volume guard interpreted by R5 itself, not a
         # score threshold. Callers may inject a controller with a threshold
         # frozen on prior data without changing the RouterPolicy seam.
-        score_floor=0.0,
+        score_floor=-math.inf,
     )
     windows: dict[tuple[str, str], _Window] = {}
     folds: Counter[str] = Counter()
     close_reasons: Counter[str] = Counter()
     snapshots: list[SnapshotRef] = []
-    confirmations: Counter[str] = Counter()
-    admitted_situations: set[str] = set()
-
     def fold(batch: list[EvalEvent], lane: str) -> None:
         ref = store.fold(batch, lane)
         snapshots.append(ref)
@@ -220,27 +232,48 @@ def run_pipeline(
         score = float(router_policy.score(event))
         if not math.isfinite(score):
             raise ValueError(f"router policy returned a non-finite score for {event.id}")
+        policy_features = dict(getattr(router_policy, "features_fired", {}) or {})
+        selected_key = getattr(router_policy, "baseline_key_used", None)
+        if selected_key is None:
+            selected_key = event.baseline_keys[0] if event.baseline_keys else None
+        policy_eligible = bool(policy_features.get("eligible", True))
         deviation_candidate = False
         budget_features: dict[str, Any] = {
             "deviation_budget_enabled": False,
             "rules_floor_budget_exempt": rule is not None,
         }
         if cfg.router.deviation.enabled:
-            deviation_candidate, budget_features = budget.consider(rule=rule, score=score)
+            deviation_candidate, budget_features = budget.consider(
+                rule=rule,
+                score=score,
+                policy_eligible=policy_eligible,
+            )
             budget_features["deviation_budget_enabled"] = True
         item = _ScoredEvent(event, rule, score, deviation_candidate)
 
-        lane, features = _route(
-            item,
-            cfg,
-            confirmations=confirmations,
-            admitted_situations=admitted_situations,
-        )
+        lane, features = _route(item, cfg)
         if cfg.router.deviation.enabled:
             budget_features.update(
                 budget.record(lane == "fast" and rule is None and deviation_candidate)
             )
-        features = {**budget_features, **features}
+        guard_outcomes = {
+            name: policy_features[name]
+            for name in (
+                "volume_guard",
+                "multi_window_confirmed",
+                "eligible",
+                "guard",
+            )
+            if name in policy_features
+        }
+        features = {
+            **policy_features,
+            **budget_features,
+            **features,
+            "rules_id": rule,
+            "guard_outcomes": guard_outcomes,
+            "selected_baseline_key": selected_key,
+        }
         record = RouterRecord(
             event_id=event.id,
             t=event.time,
@@ -248,7 +281,7 @@ def run_pipeline(
             lane=lane,
             policy=str(getattr(router_policy, "name", type(router_policy).__name__)),
             budget_pct=cfg.router.budget_pct,
-            baseline_key_used=event.baseline_keys[0] if event.baseline_keys else None,
+            baseline_key_used=selected_key,
             features_fired=features,
         )
         if on_decision is not None:
@@ -286,31 +319,13 @@ def run_pipeline(
 def _route(
     item: _ScoredEvent,
     cfg: EngineConfig,
-    *,
-    confirmations: Counter[str],
-    admitted_situations: set[str],
 ) -> tuple[str, dict[str, Any]]:
     features: dict[str, Any] = {}
-    fast = item.rule is not None
+    fast = item.rule is not None or item.deviation_candidate
     if item.rule is not None:
         features["rule"] = item.rule
     elif item.deviation_candidate:
-        key = item.event.baseline_keys[0] if item.event.baseline_keys else item.event.subject
-        confirmations[key] += 1
-        confirmed = not cfg.router.guards.multi_window or confirmations[key] >= 2
-        dedup_key = f"{item.event.mgtenant}:{item.event.subject}"
-        unique = not cfg.router.guards.situation_dedup or dedup_key not in admitted_situations
-        fast = confirmed and unique
-        features.update(
-            {
-                "deviation": True,
-                "absolute_floor": cfg.router.guards.absolute_floor,
-                "confirmed": confirmed,
-                "situation_unique": unique,
-            }
-        )
-        if fast:
-            admitted_situations.add(dedup_key)
+        features["deviation"] = True
 
     if cfg.lane_design == "single":
         if fast:

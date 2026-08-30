@@ -35,7 +35,9 @@ def decile_rates(
                 "n": int(selected.sum()),
                 "score_min": float(np.min(values[selected])),
                 "score_max": float(np.max(values[selected])),
-                "urgency_rate": float(np.mean(outcomes[selected] >= 0.5)),
+                # E1's exact formula is mean(y(e)); y is probabilistic for
+                # Corpus R and exact 0/1 for constructed Corpus S.
+                "urgency_rate": float(np.mean(outcomes[selected])),
             }
         )
     return pd.DataFrame(rows)
@@ -55,7 +57,7 @@ def lift_over_rules(
 ) -> float:
     """Positive rate among deviation admissions divided by all rule negatives."""
 
-    outcomes = np.asarray(labels, dtype=float) >= 0.5
+    outcomes = np.asarray(labels, dtype=float)
     deviation = np.asarray(deviation_admitted, dtype=bool)
     rules = np.asarray(rule_flags, dtype=bool)
     if not (len(outcomes) == len(deviation) == len(rules)):

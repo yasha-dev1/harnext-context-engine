@@ -9,8 +9,6 @@ from pathlib import Path
 
 from harnext_eval.types import EvalEvent
 
-FAKE_INPUT_PER_MILLION = 1.0
-FAKE_OUTPUT_PER_MILLION = 4.0
 _INSTRUCTION_OVERHEAD_BYTES = 1_024
 
 
@@ -31,6 +29,8 @@ def estimate_fake_fold_usage(
     *,
     files_read_bytes: int = 0,
     bytes_written: int | None = None,
+    input_per_million: float = 1.0,
+    output_per_million: float = 4.0,
 ) -> FakeFoldUsage:
     """Price one fold from instruction/read bytes and deterministic output bytes.
 
@@ -40,7 +40,12 @@ def estimate_fake_fold_usage(
     byte count. The fixed fake prices are deliberately not vendor prices.
     """
 
-    if files_read_bytes < 0 or (bytes_written is not None and bytes_written < 0):
+    if (
+        files_read_bytes < 0
+        or (bytes_written is not None and bytes_written < 0)
+        or input_per_million < 0
+        or output_per_million < 0
+    ):
         raise ValueError("byte counts cannot be negative")
     event_bytes = sum(len(event.model_dump_json().encode()) for event in events)
     instruction_bytes = _INSTRUCTION_OVERHEAD_BYTES + event_bytes
@@ -48,8 +53,8 @@ def estimate_fake_fold_usage(
     input_tokens = max(1, math.ceil((instruction_bytes + files_read_bytes) / 4))
     output_tokens = max(1, math.ceil(output_bytes / 4))
     cost_usd = (
-        input_tokens * FAKE_INPUT_PER_MILLION
-        + output_tokens * FAKE_OUTPUT_PER_MILLION
+        input_tokens * input_per_million
+        + output_tokens * output_per_million
     ) / 1_000_000
     return FakeFoldUsage(
         input_tokens=input_tokens,
@@ -74,6 +79,10 @@ def ensure_fake_fold_usage(
     events: list[EvalEvent],
     lane: str,
     layout: str,
+    *,
+    input_per_million: float,
+    output_per_million: float,
+    price_effective_date: str,
 ) -> bool:
     """Append one fake-provider row only when the layout emitted none itself."""
 
@@ -82,7 +91,11 @@ def ensure_fake_fold_usage(
         current_records = sum(bool(line.strip()) for line in path.read_text().splitlines())
     if current_records > prior_records:
         return False
-    usage = estimate_fake_fold_usage(events)
+    usage = estimate_fake_fold_usage(
+        events,
+        input_per_million=input_per_million,
+        output_per_million=output_per_million,
+    )
     row = {
         "cost_usd": usage.cost_usd,
         "event_count": len(events),
@@ -94,6 +107,10 @@ def ensure_fake_fold_usage(
         "model": "fake",
         "output_tokens": usage.output_tokens,
         "status": "success",
+        "usage_kind": "deterministic_projection",
+        "price_effective_date": price_effective_date,
+        "frozen_input_per_million": input_per_million,
+        "frozen_output_per_million": output_per_million,
         "tokens_in": usage.input_tokens,
         "tokens_out": usage.output_tokens,
         "total_cost_usd": usage.cost_usd,

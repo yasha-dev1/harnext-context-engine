@@ -63,6 +63,18 @@ def _numeric_values(frame: pd.DataFrame, column: str) -> list[float]:
     ]
 
 
+def _applicable_validity_failures(metrics: Mapping[str, float]) -> list[str]:
+    """Return failed, applicable E6 checks; non-finite values are declared N/A."""
+
+    return sorted(
+        name.removeprefix("checks.").removeprefix("check.")
+        for name, value in metrics.items()
+        if name.startswith(("checks.", "check."))
+        and math.isfinite(float(value))
+        and not bool(value)
+    )
+
+
 @dataclass(frozen=True)
 class RunnerConfig:
     """Transport, topology and deployment controls for one E6 cell."""
@@ -79,6 +91,7 @@ class RunnerConfig:
     burst_start_s: float | None = None
     burst_end_s: float | None = None
     service_time_tolerance_s: float = 0.002
+    deterministic_clock: bool = False
     load_generator_host: str = "local"
     kafka_bootstrap_servers: str | None = None
     kafka_input_topic: str = "cms.events.raw.v1"
@@ -133,6 +146,7 @@ class EventObservation:
     batch_fold_latency_s: float | None
     batch_staleness_s: float | None
     partition: int
+    service_order: int = 0
 
 
 @dataclass
@@ -240,24 +254,36 @@ class E6RouterPolicy:
         )
         actual: RouterPolicy
         if self.lane_design == "single":
-            actual = RulesOnlyPolicy()
+            actual = cast(RouterPolicy, RulesOnlyPolicy())
         elif policy is None:
-            # R5 supplies the causal HBOS scorer/rules. E6 applies the guards
-            # explicitly so each can be ablated against an identical schedule.
-            r5 = GuardedHBOSPolicy(absolute_floor=0.0, multi_window=False)
+            r5 = GuardedHBOSPolicy(
+                absolute_floor=self.absolute_floor,
+                multi_window=self.multi_window,
+                budget_pct=cfg.router.budget_pct,
+            )
             r5.fit(list(training_events))
             actual = r5
         else:
             actual = copy.deepcopy(policy)
-        if not isinstance(actual, RouterPolicy):
+        if not callable(getattr(actual, "rules", None)) or not callable(
+            getattr(actual, "score", None)
+        ):
             raise TypeError("E6 router must implement the shared RouterPolicy protocol")
+        if isinstance(actual, GuardedHBOSPolicy):
+            # The shared R5 object owns thresholding, volume, and confirmation.
+            # Guard ablations mutate only the corresponding registered R5 knob.
+            actual.absolute_floor = self.absolute_floor
+            actual.multi_window = self.multi_window
         self.policy = actual
-        self._volume: dict[str, deque[float]] = defaultdict(deque)
-        self._anomaly_windows: dict[str, set[int]] = defaultdict(set)
+        self._test_volume: dict[str, deque[float]] = defaultdict(deque)
+        self._test_anomaly_windows: dict[str, set[int]] = defaultdict(set)
         self._admitted_situations: set[str] = set()
+        self.events_seen = 0
+        self.admitted = 0
         self.rule_negative_seen = 0
         self.deviation_admitted = 0
         self.rule_admitted = 0
+        self.rule_overflow = 0
 
     def rules(self, event: EvalEvent) -> str | None:
         return self.policy.rules(event)
@@ -274,37 +300,53 @@ class E6RouterPolicy:
         score = float(self.score(event))
         if not math.isfinite(score):
             raise ValueError(f"R5 returned a non-finite score for {event.id}")
-        key = event.baseline_keys[0] if event.baseline_keys else event.subject
-        recent = self._volume[key]
-        while recent and recent[0] < offset_s - 300.0:
-            recent.popleft()
-        recent.append(offset_s)
-        volume_pass = len(recent) >= self.absolute_floor
-        candidate = score > -1e11
+        features = getattr(self.policy, "features_fired", {})
+        if isinstance(self.policy, GuardedHBOSPolicy):
+            candidate = score >= self.policy.threshold
+            volume_pass = bool(features.get("volume_guard", False))
+            confirmed = bool(features.get("multi_window_confirmed", False))
+            r5_eligible = candidate and bool(features.get("eligible", False))
+            baseline_key = self.policy.baseline_key_used
+        else:
+            # Test policies still use the shared RouterPolicy seam, but production
+            # two-lane cells always instantiate GuardedHBOSPolicy above.
+            candidate = score > -1e11
+            baseline_key = event.baseline_keys[0] if event.baseline_keys else event.subject
+            recent = self._test_volume[baseline_key]
+            while recent and recent[0] < offset_s - 300.0:
+                recent.popleft()
+            recent.append(offset_s)
+            volume_pass = len(recent) >= self.absolute_floor
+            window_index = math.floor(offset_s / max(self.cfg.window.gap_s, 1e-9))
+            prior_window = any(
+                index < window_index for index in self._test_anomaly_windows[baseline_key]
+            )
+            confirmed = not self.multi_window or (candidate and prior_window)
+            if candidate:
+                self._test_anomaly_windows[baseline_key].add(window_index)
+            r5_eligible = candidate and volume_pass and confirmed
         window_span = max(self.cfg.window.gap_s, 1e-9)
-        window_index = math.floor(offset_s / window_span)
-        prior_window = any(index < window_index for index in self._anomaly_windows[key])
-        confirmed = not self.multi_window or (candidate and prior_window)
-        if candidate:
-            self._anomaly_windows[key].add(window_index)
         situation = _constructed_situation_id(event, offset_s, window_span)
         unique = not self.situation_dedup or situation not in self._admitted_situations
+        self.events_seen += 1
+        allowed = math.floor(self.events_seen * self.cfg.router.budget_pct / 100.0)
+        budget_pass = self.admitted < allowed
 
-        if rule is not None:
-            self.rule_admitted += 1
+        if rule is not None and budget_pass:
             admitted = True
-            budget_pass = True
+            self.rule_admitted += 1
+        elif rule is not None:
+            admitted = False
+            self.rule_overflow += 1
         else:
             self.rule_negative_seen += 1
-            allowed = math.floor(
-                self.rule_negative_seen * self.cfg.router.budget_pct / 100.0
-            )
-            budget_pass = self.deviation_admitted < allowed
-            admitted = candidate and volume_pass and confirmed and unique and budget_pass
+            admitted = r5_eligible and unique and budget_pass
             if admitted:
                 self.deviation_admitted += 1
-        if admitted and rule is None:
-            self._admitted_situations.add(situation)
+        if admitted:
+            self.admitted += 1
+            if rule is None:
+                self._admitted_situations.add(situation)
         return (
             "fast" if admitted else "batch",
             {
@@ -312,16 +354,17 @@ class E6RouterPolicy:
                 "score": score,
                 "rule": rule,
                 "deviation_candidate": candidate,
-                "absolute_volume_count_5m": len(recent),
+                "r5_eligible": r5_eligible,
+                "baseline_key_used": baseline_key,
+                "absolute_volume_count_5m": features.get("count_5m"),
                 "absolute_floor_pass": volume_pass,
                 "multi_window_confirmed": confirmed,
                 "constructed_situation_id": situation,
                 "situation_unique": unique,
                 "budget_pass": budget_pass,
-                "budget_allowed": math.floor(
-                    self.rule_negative_seen * self.cfg.router.budget_pct / 100.0
-                ),
-                "budget_used": self.deviation_admitted,
+                "budget_allowed": allowed,
+                "budget_used": self.admitted,
+                "rule_overflow": self.rule_overflow,
             },
         )
 
@@ -343,13 +386,17 @@ def self_amplification_series(run: PipelineRun, *, bucket_s: float = 10.0) -> pd
     output: list[dict[str, float]] = []
     for bucket, group in rows.groupby("bucket_s", sort=True):
         urgent = group[group["urgent"].astype(bool)]
+        urgent_latencies = [
+            float(row["latency_s"])
+            if str(row["lane"]) in {"fast", "single"}
+            else float("inf")
+            for row in pd.DataFrame(urgent).to_dict(orient="records")
+        ]
         output.append(
             {
                 "bucket_s": float(cast(float, bucket)),
                 "fast_admission_rate_hz": float((group["lane"] == "fast").sum() / bucket_s),
-                "urgent_slo_attainment": slo_attainment(
-                    urgent["latency_s"].astype(float).tolist()
-                ),
+                "urgent_slo_attainment": slo_attainment(urgent_latencies),
             }
         )
     return pd.DataFrame(output)
@@ -384,7 +431,10 @@ async def _run_in_process(
     design = lane_design or cfg.lane_design
     lane_names = ("single",) if design == "single" else ("fast", "batch")
     queues: dict[str, list[asyncio.Queue[_QueuedFold]]] = {
-        lane: [asyncio.Queue() for _ in range(runner_cfg.partitions)]
+        lane: [
+            asyncio.Queue()
+            for _ in range(1 if lane == "single" else runner_cfg.partitions)
+        ]
         for lane in lane_names
     }
     notifications: dict[str, list[asyncio.Event]] = {
@@ -404,6 +454,9 @@ async def _run_in_process(
     kill_offset: float | None = None
     batch_windows: dict[str, list[_QueuedEvent]] = defaultdict(list)
     fold_sequence = 0
+    service_order = 0
+    service_values: list[float] = []
+    logical_available: dict[tuple[str, int], float] = defaultdict(float)
 
     def record_lag(offset_s: float) -> None:
         lag_rows.append(
@@ -415,11 +468,16 @@ async def _run_in_process(
         )
 
     async def consumer(lane: str, worker_index: int) -> None:
-        owned = [
-            partition
-            for partition in range(runner_cfg.partitions)
-            if partition % runner_cfg.workers == worker_index
-        ]
+        nonlocal service_order
+        owned = (
+            [0]
+            if lane == "single"
+            else [
+                partition
+                for partition in range(runner_cfg.partitions)
+                if partition % runner_cfg.workers == worker_index
+            ]
+        )
         event = notifications[lane][worker_index]
         while True:
             item: _QueuedFold | None = None
@@ -444,17 +502,44 @@ async def _run_in_process(
                 await asyncio.sleep(item.window_close_loop_time - loop.time())
             if runner_cfg.admission_delay_s:
                 await asyncio.sleep(runner_cfg.admission_delay_s)
-            service_start = loop.time()
-            agent_start = service_start
+            wall_service_start = loop.time()
+            service_start_offset = wall_service_start - loop_anchor
+            service_end_offset = service_start_offset
+            service_elapsed = 0.0
+            if runner_cfg.deterministic_clock:
+                ready_offset = item.window_close_loop_time - loop_anchor
+                service_start_offset = max(
+                    ready_offset + runner_cfg.admission_delay_s,
+                    logical_available[(lane, worker_index)],
+                )
+                service_end_offset = service_start_offset + runner_cfg.service_time_s
+                logical_available[(lane, worker_index)] = service_end_offset
+                service_elapsed = runner_cfg.service_time_s
+            invocation_order = service_order
+            service_order += 1
             if runner_cfg.service_time_s:
                 await asyncio.sleep(runner_cfg.service_time_s)
-            service_end = loop.time()
-            service_elapsed = service_end - service_start
-            batch = item.lane in {"batch", "single"}
-            fold_latency = max(0.0, service_end - item.window_close_loop_time) if batch else None
+            wall_service_end = loop.time()
+            if not runner_cfg.deterministic_clock:
+                service_start_offset = wall_service_start - loop_anchor
+                service_end_offset = wall_service_end - loop_anchor
+                service_elapsed = wall_service_end - wall_service_start
+            service_values.append(service_elapsed)
+            batch = item.lane == "batch"
+            close_offset = item.window_close_loop_time - loop_anchor
+            fold_latency = max(0.0, service_end_offset - close_offset) if batch else None
             for queued in item.items:
-                latency = max(0.0, agent_start - queued.intended_loop_time)
-                staleness = max(0.0, service_end - queued.intended_loop_time) if batch else None
+                agent_start_offset = service_start_offset
+                latency = (
+                    max(0.0, agent_start_offset - queued.intended_offset_s)
+                    if item.lane in {"fast", "single"}
+                    else float("inf")
+                )
+                staleness = (
+                    max(0.0, service_end_offset - queued.intended_offset_s)
+                    if batch
+                    else None
+                )
                 observations.append(
                     EventObservation(
                         event_id=queued.entry.event_id,
@@ -464,24 +549,37 @@ async def _run_in_process(
                         situation_id=queued.entry.situation_id,
                         cost_weight=queued.entry.cost_weight,
                         intended_offset_s=queued.intended_offset_s,
-                        actual_send_offset_s=queued.actual_send_loop_time - loop_anchor,
-                        send_skew_s=max(0.0, queued.actual_send_loop_time - queued.intended_loop_time),
-                        agent_start_offset_s=agent_start - loop_anchor,
+                        actual_send_offset_s=(
+                            queued.intended_offset_s
+                            if runner_cfg.deterministic_clock
+                            else queued.actual_send_loop_time - loop_anchor
+                        ),
+                        send_skew_s=(
+                            0.0
+                            if runner_cfg.deterministic_clock
+                            else max(
+                                0.0,
+                                queued.actual_send_loop_time - queued.intended_loop_time,
+                            )
+                        ),
+                        agent_start_offset_s=agent_start_offset,
                         latency_s=latency,
-                        service_start_offset_s=service_start - loop_anchor,
-                        service_end_offset_s=service_end - loop_anchor,
+                        service_start_offset_s=service_start_offset,
+                        service_end_offset_s=service_end_offset,
                         service_elapsed_s=service_elapsed,
-                        window_close_offset_s=item.window_close_loop_time - loop_anchor if batch else None,
-                        commit_offset_s=service_end - loop_anchor if batch else None,
+                        window_close_offset_s=close_offset if batch else None,
+                        commit_offset_s=service_end_offset if batch else None,
                         batch_fold_latency_s=fold_latency,
                         batch_staleness_s=staleness,
                         partition=queued.partition,
+                        service_order=invocation_order,
                     )
                 )
                 observed[item.lane].append(queued.entry.event_id)
                 lag[queued.partition] -= 1
-            record_lag(service_end - loop_anchor)
-            queues[lane][item.partition].task_done()
+            record_lag(service_end_offset)
+            queue_index = 0 if lane == "single" else item.partition
+            queues[lane][queue_index].task_done()
 
     async def enqueue_fold(
         items: Sequence[_QueuedEvent], lane: str, window_close_loop_time: float
@@ -500,8 +598,13 @@ async def _run_in_process(
             sequence=fold_sequence,
         )
         fold_sequence += 1
-        await queues[lane][partition].put(fold)
-        notifications[lane][partition % runner_cfg.workers].set()
+        queue_index = 0 if lane == "single" else partition
+        await queues[lane][queue_index].put(fold)
+        if lane == "single":
+            for notification in notifications[lane]:
+                notification.set()
+        else:
+            notifications[lane][partition % runner_cfg.workers].set()
 
     def close_deadline(items: Sequence[_QueuedEvent]) -> float:
         gap = cfg.window.gap_s * runner_cfg.window_time_scale
@@ -555,8 +658,9 @@ async def _run_in_process(
         peak_lag[partition] = max(peak_lag[partition], lag[partition])
         record_lag(actual_send - loop_anchor)
         decisions.append({"event_id": entry.event_id, "lane": lane, **features})
-        if lane == "fast" or not runner_cfg.batch_windows:
-            await enqueue_fold([item], lane, actual_send)
+        if design == "single" or lane == "fast" or not runner_cfg.batch_windows:
+            ready_time = intended_loop if runner_cfg.deterministic_clock else actual_send
+            await enqueue_fold([item], lane, ready_time)
         else:
             window = batch_windows[entry.entity]
             window.append(item)
@@ -593,7 +697,11 @@ async def _run_in_process(
         row for row in observations if burst_start <= row.intended_offset_s <= burst_end
     ]
     fast_values = [row.latency_s for row in measured if row.lane in {"fast", "single"}]
-    urgent_values = [row.latency_s for row in measured if row.urgent]
+    urgent_values = [
+        row.latency_s if row.lane in {"fast", "single"} else float("inf")
+        for row in measured
+        if row.urgent
+    ]
     fold_latencies = {
         (row.window_close_offset_s, row.commit_offset_s): row.batch_fold_latency_s
         for row in measured
@@ -604,11 +712,6 @@ async def _run_in_process(
         row.batch_staleness_s for row in measured if row.batch_staleness_s is not None
     ]
     send_skews = [row.send_skew_s for row in measured]
-    service_invocations = {
-        (row.service_start_offset_s, row.service_end_offset_s): row.service_elapsed_s
-        for row in observations
-    }
-    service_values = list(service_invocations.values())
     histograms = {
         "fast": make_histogram(fast_values),
         "urgent": make_histogram(urgent_values),
@@ -627,14 +730,19 @@ async def _run_in_process(
     )
     latency_buckets: list[float] = []
     if measured:
-        frame = pd.DataFrame([asdict(row) for row in measured])
-        frame["quartile"] = pd.cut(
-            frame["intended_offset_s"], bins=4, labels=False, duplicates="drop"
+        frame = pd.DataFrame(
+            [asdict(row) for row in measured if row.lane in {"fast", "single"}]
         )
-        for _, group in frame.groupby("quartile", dropna=True):
-            latency_buckets.append(
-                histogram_percentile(make_histogram(group["latency_s"].tolist()), 99)
+        if frame.empty:
+            latency_buckets = []
+        else:
+            frame["quartile"] = pd.cut(
+                frame["intended_offset_s"], bins=4, labels=False, duplicates="drop"
             )
+            for _, group in frame.groupby("quartile", dropna=True):
+                latency_buckets.append(
+                    histogram_percentile(make_histogram(group["latency_s"].tolist()), 99)
+                )
     p99_trend = linear_trend(latency_buckets)
     delivery = duplicates_and_missed(expected, observed)
     service_spread = max(service_values, default=0.0) - min(service_values, default=0.0)
@@ -666,12 +774,16 @@ async def _run_in_process(
         "service_time_p99_s": histogram_percentile(histograms["service"], 99),
         "service_time_spread_s": service_spread,
         "service_time_constant": float(service_spread <= runner_cfg.service_time_tolerance_s),
+        "service_invocations": float(len(service_values)),
         "observed_events": float(len(observations)),
         "producer_throughput_hz": float(len(observations) / producer_span),
         "throughput_hz": float(len(observations) / producer_span),
         "dlq": 0.0,
         "rule_admissions": float(policy.rule_admitted),
+        "rule_admission_overflow": float(policy.rule_overflow),
         "deviation_admissions": float(policy.deviation_admitted),
+        "total_admissions": float(policy.admitted),
+        "total_events_routed": float(policy.events_seen),
         "rule_negative_events": float(policy.rule_negative_seen),
         "deviation_admission_share": (
             policy.deviation_admitted / policy.rule_negative_seen
@@ -679,8 +791,8 @@ async def _run_in_process(
             else 0.0
         ),
         "budget_compliant": float(
-            policy.deviation_admitted
-            <= math.floor(policy.rule_negative_seen * cfg.router.budget_pct / 100.0)
+            policy.admitted
+            <= math.floor(policy.events_seen * cfg.router.budget_pct / 100.0)
         ),
         "broker_cpu_peak_pct": float("nan"),
         "broker_disk_util_peak_pct": float("nan"),
@@ -759,8 +871,9 @@ def external_records_to_run(
         expected[lane].append(event_id)
         observed[lane].append(event_id)
         intended_offset = (entry.intended_send_ts - first).total_seconds()
-        agent_start = datetime.fromisoformat(str(raw["agent_start_ts"]))
+        reported_agent_start = datetime.fromisoformat(str(raw["agent_start_ts"]))
         service_start = datetime.fromisoformat(str(raw.get("service_start_ts", raw["agent_start_ts"])))
+        agent_start = service_start if lane == "batch" else reported_agent_start
         service_end = datetime.fromisoformat(str(raw.get("service_end_ts", raw["agent_start_ts"])))
         close_raw = raw.get("window_close_ts")
         commit_raw = raw.get("commit_ts")
@@ -778,7 +891,11 @@ def external_records_to_run(
                 actual_send_offset_s=float(raw.get("actual_send_offset_s", intended_offset)),
                 send_skew_s=float(raw.get("send_skew_s", 0.0)),
                 agent_start_offset_s=(agent_start - first).total_seconds(),
-                latency_s=max(0.0, (agent_start - entry.intended_send_ts).total_seconds()),
+                latency_s=(
+                    max(0.0, (agent_start - entry.intended_send_ts).total_seconds())
+                    if lane in {"fast", "single"}
+                    else float("inf")
+                ),
                 service_start_offset_s=(service_start - first).total_seconds(),
                 service_end_offset_s=(service_end - first).total_seconds(),
                 service_elapsed_s=max(0.0, (service_end - service_start).total_seconds()),
@@ -805,7 +922,12 @@ def external_records_to_run(
     by_id: dict[str, EventObservation] = {}
     for row in observations:
         by_id.setdefault(row.event_id, row)
-    urgent_values = [by_id[event_id].latency_s if event_id in by_id else float("inf") for event_id in urgent_ids]
+    urgent_values = [
+        by_id[event_id].latency_s
+        if event_id in by_id and by_id[event_id].lane in {"fast", "single"}
+        else float("inf")
+        for event_id in urgent_ids
+    ]
     fast_values = [row.latency_s for row in observations if row.lane in {"fast", "single"}]
     batch_values = [row.batch_fold_latency_s for row in observations if row.batch_fold_latency_s is not None]
     staleness = [row.batch_staleness_s for row in observations if row.batch_staleness_s is not None]
@@ -1184,7 +1306,7 @@ class BenchmarkConfig:
 
     @classmethod
     def smoke(cls) -> BenchmarkConfig:
-        return cls()
+        return cls(runner=RunnerConfig(deterministic_clock=True))
 
     @classmethod
     def research(
@@ -1287,8 +1409,16 @@ def _paired_outcomes(
                 "situation_id": entry.situation_id,
                 "two_latency_s": two_latency.latency_s if two_latency else float("inf"),
                 "single_latency_s": single_latency.latency_s if single_latency else float("inf"),
-                "two_slo": float(two_latency is not None and two_latency.latency_s <= URGENT_SLO_S),
-                "single_slo": float(single_latency is not None and single_latency.latency_s <= URGENT_SLO_S),
+                "two_slo": float(
+                    two_latency is not None
+                    and two_latency.lane == "fast"
+                    and two_latency.latency_s <= URGENT_SLO_S
+                ),
+                "single_slo": float(
+                    single_latency is not None
+                    and single_latency.lane == "single"
+                    and single_latency.latency_s <= URGENT_SLO_S
+                ),
             }
         )
     if not rows:
@@ -1411,7 +1541,11 @@ async def run_benchmark(
     artifacts.append(knee_path)
 
     catalogue = tuple(situations or situations_from_meta(fit, None))
-    r5_template = GuardedHBOSPolicy(absolute_floor=0.0, multi_window=False)
+    r5_template = GuardedHBOSPolicy(
+        absolute_floor=max(2.0, cfg.router.guards.absolute_floor),
+        multi_window=True,
+        budget_pct=cfg.router.budget_pct,
+    )
     r5_template.fit(list(fit.replay_events))
     plans: list[tuple[SchedulePlan, dict[str, Any]]] = []
     cell_index = 0
@@ -1754,6 +1888,8 @@ async def run_benchmark(
         ),
         "checks.broker_telemetry_present": broker_check,
     }
+    invalid_reasons = _applicable_validity_failures(metrics)
+    valid = not invalid_reasons
     result = ExperimentResult(
         name="e6",
         metrics=metrics,
@@ -1770,10 +1906,23 @@ async def run_benchmark(
         },
         artifacts=artifacts,
         primary={
+            "valid": valid,
+            "invalid_reasons": invalid_reasons,
             "urgent_slo_attainment_gap_at_1.5x_knee": primary_gap,
             "single_lane_knee_hz": knee,
             "slo_s": URGENT_SLO_S,
             "gap_by_b_rows": len(gap_by_b),
+        },
+        check_details={
+            "primary_validity_gate": {
+                "passed": valid,
+                "value": "valid" if valid else "invalid",
+                "reason": (
+                    "all applicable E6 validity checks passed"
+                    if valid
+                    else "; ".join(invalid_reasons)
+                ),
+            }
         },
     )
     result.artifacts.extend(_write_charts(result, out_dir))
@@ -1795,15 +1944,20 @@ def _repetition_check(rows: pd.DataFrame) -> float:
         )
         if column in rows.columns
     ]
+    assessed = False
     for _, group in rows.groupby(group_columns, dropna=False):
         values = group["fast_p99_s"].replace([np.inf, -np.inf], np.nan).dropna()
+        if values.empty:
+            # No fast admission is an SLO miss elsewhere, not unstable timing.
+            continue
         if len(values) < 3:
             return 0.0
+        assessed = True
         array = values.to_numpy(dtype=float)
         median = float(np.median(array))
         if median > 0 and float((array.max() - array.min()) / median) > 0.2:
             return 0.0
-    return 1.0
+    return float(assessed)
 
 
 def _write_charts(result: ExperimentResult, out_dir: Path) -> list[Path]:
@@ -1837,8 +1991,29 @@ def _write_charts(result: ExperimentResult, out_dir: Path) -> list[Path]:
         hook = getattr(charts, hook_name, None)
         if hook is not None and not table.empty:
             returned = hook(table, output)
-            generated.append(Path(returned) if returned is not None else output)
+            generated_path = Path(returned) if returned is not None else output
+            if hook_name == "e6_burst_slo" and result.primary.get("valid") is False:
+                _annotate_invalid_chart(
+                    generated_path,
+                    [str(reason) for reason in result.primary.get("invalid_reasons", [])],
+                )
+            generated.append(generated_path)
     return generated
+
+
+def _annotate_invalid_chart(path: Path, reasons: Sequence[str]) -> None:
+    """Add an unmistakable validity banner to the headline E6 chart."""
+
+    from PIL import Image, ImageDraw
+
+    with Image.open(path) as source:
+        image = source.convert("RGB")
+    banner_height = 54
+    annotated = Image.new("RGB", (image.width, image.height + banner_height), "#fee2e2")
+    annotated.paste(image, (0, banner_height))
+    label = "INVALID PRIMARY — " + (", ".join(reasons) if reasons else "validity gate failed")
+    ImageDraw.Draw(annotated).text((12, 18), label, fill="#991b1b")
+    annotated.save(path)
 
 
 class E6Experiment:

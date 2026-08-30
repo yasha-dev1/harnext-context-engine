@@ -91,7 +91,7 @@ def test_r5_requires_absolute_volume_and_two_distinct_consecutive_windows() -> N
     assert not policy.features_fired["eligible"]
 
 
-def test_monthly_budget_is_global_respects_eligibility_and_never_drops_rules() -> None:
+def test_monthly_budget_is_global_and_declares_an_overfull_rule_floor_infeasible() -> None:
     event_ids = [f"a-{index:02d}" for index in range(50)] + [f"b-{index:02d}" for index in range(50)]
     scores = np.linspace(0, 1, len(event_ids))
     selected = budgeted_decisions(
@@ -122,9 +122,10 @@ def test_monthly_budget_is_global_respects_eligibility_and_never_drops_rules() -
         eligible=[False] * 100,
         mandatory=mandatory,
     )
-    assert floor.loc[mandatory, "admitted"].all()
-    assert floor["admitted"].sum() == 15
+    assert floor["admitted"].sum() == 10
+    assert floor.loc[~np.asarray(mandatory), "admitted"].sum() == 0
     assert floor["rules_over_budget"].iloc[0] == 5
+    assert not floor["budget_feasible"].iloc[0]
 
 
 def test_every_policy_runs_deterministically_and_exposes_distinct_semantics() -> None:

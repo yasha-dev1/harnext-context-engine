@@ -529,7 +529,7 @@ def test_primary_contrast_is_literal_equal_weight_family_macro() -> None:
     assert contrast["valid"]
 
 
-def test_code_location_primary_score_is_exact_set_with_named_secondaries() -> None:
+def test_code_location_primary_score_is_file_f1_with_named_secondaries() -> None:
     probe = Probe(
         probe_id="code",
         family="code_location",
@@ -543,8 +543,8 @@ def test_code_location_primary_score_is_exact_set_with_named_secondaries() -> No
     partial = grade_answer(probe, "src/core/a.py")
     exact = grade_answer(probe, "src/core/a.py\nsrc/core/b.py")
 
-    assert partial.metric == "exact_file_set"
-    assert partial.value == 0
+    assert partial.metric == "file_f1"
+    assert partial.value == pytest.approx(2 / 3)
     assert partial.details["file_recall"] == 0.5
     assert "module_hit" in partial.details
     assert exact.value == 1
@@ -684,7 +684,11 @@ def test_e3_curves_contrast_cost_and_erosion(tmp_path: Path) -> None:
     }
     assert set(result.tables["contrasts"]["seed_count"]) == {3}
     assert set(result.tables["contrasts"]["n_resamples"]) == {BOOTSTRAP_RESAMPLES}
-    assert result.tables["contrasts"]["valid"].all()
+    assert result.tables["contrasts"]["statistical_valid"].all()
+    assert not result.tables["contrasts"]["valid"].any()
+    assert result.tables["contrasts"]["invalid_reasons"].str.contains(
+        "dual_gold_agreement"
+    ).all()
     assert result.tables["health_seed_spread"]["status"].eq("measured").all()
     s4_curve = result.tables["curve"].query("layout == 'S4' and budget == 8000").iloc[0]
     assert s4_curve["n"] == len(probes)
@@ -701,6 +705,10 @@ def test_e3_curves_contrast_cost_and_erosion(tmp_path: Path) -> None:
         "cost.csv",
         "contrasts.csv",
     } <= {path.name for path in result.artifacts}
+    shared_s3_answers = tmp_path / "e3/shared-e2/budget-8000/accuracy/S3-sonnet-seed-1/answers.jsonl"
+    shared_rows = [json.loads(line) for line in shared_s3_answers.read_text().splitlines()]
+    assert {row["arm"] for row in shared_rows} == {"A4"}
+    assert all(row["tool_calls"] >= 2 for row in shared_rows)
 
 
 def test_e3_same_input_detects_changed_middle_event_with_same_last_id(tmp_path: Path) -> None:
@@ -738,7 +746,7 @@ def test_e3_same_input_detects_changed_middle_event_with_same_last_id(tmp_path: 
     assert details["mismatches"]["S3-sonnet-seed-3"]["ledger"]["first_difference"] == 1
 
 
-def test_e3_erosion_rederives_gold_and_skips_future_probes() -> None:
+def test_e3_erosion_reuses_one_template_and_rederives_it_at_every_checkpoint() -> None:
     events = [
         _event("e1", NOW, "Open"),
         _event("e2", NOW + timedelta(days=1), "Done"),
@@ -757,7 +765,11 @@ def test_e3_erosion_rederives_gold_and_skips_future_probes() -> None:
     )
     gold = PythonGold(events)
 
-    assert _rederive_probe(probe, NOW, events, gold) is None
+    early = _rederive_probe(probe, NOW, events, gold)
+    assert early is not None
+    assert early.T == NOW
+    assert early.gold == "Open"
+    assert early.source_event_ids == ["e1"]
     derived = _rederive_probe(probe, events[-1].time, events, gold)
 
     assert derived is not None

@@ -487,11 +487,19 @@ def budgeted_decisions(
     allowed |= required
     order = sorted(
         range(count),
-        key=lambda index: (-float(scores[index]), str(event_ids[index])),
+        key=lambda index: (
+            -int(required[index]),
+            -float(scores[index]),
+            str(event_ids[index]),
+        ),
     )
-    admitted = set(np.flatnonzero(required).tolist())
+    # R0--R6 are one total-budget comparison.  Rule hits rank first in R1/R5
+    # but never create hidden capacity.  If the rule floor alone exceeds the
+    # month capacity, the month is explicitly infeasible and deterministic
+    # event-id tie breaking selects the capacity-sized audit sample.
+    admitted: set[int] = set()
     for index in order:
-        if len(admitted) >= max(capacity, int(required.sum())):
+        if len(admitted) >= capacity:
             break
         if allowed[index]:
             admitted.add(index)
@@ -509,6 +517,7 @@ def budgeted_decisions(
             "capacity": capacity,
             "unused_capacity": max(capacity - len(admitted), 0),
             "rules_over_budget": max(int(required.sum()) - capacity, 0),
+            "budget_feasible": int(required.sum()) <= capacity,
         }
     )
 

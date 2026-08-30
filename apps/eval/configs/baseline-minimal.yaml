@@ -1,6 +1,7 @@
 offline: true
+prices: {model: fake, effective_date: offline-fake-v1, input_per_million: 1.0, output_per_million: 4.0}
+erosion_panel_size: 10
 engine:
-  prices: {model: fake, effective_date: offline-fake-v1, input_per_million: 0.0, output_per_million: 0.0}
   router:
     rules: {enabled: true}
     deviation: {enabled: false}

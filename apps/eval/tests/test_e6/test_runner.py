@@ -13,6 +13,7 @@ import pandas as pd
 import pytest
 from harnext_eval.config import EngineConfig, load_config
 from harnext_eval.corpus.synthetic import generate_synthetic_events
+from harnext_eval.e1.policies import GuardedHBOSPolicy
 from harnext_eval.e6.loadgen import (
     ScheduleEntry,
     fit_workload,
@@ -35,6 +36,7 @@ from harnext_eval.e6.run import (
 )
 from harnext_eval.registry import ExperimentResult
 from harnext_eval.types import EvalEvent
+from PIL import Image
 
 
 class AlwaysCandidate:
@@ -127,6 +129,55 @@ def test_router_never_receives_gold_and_enforces_every_causal_prefix() -> None:
         assert fast <= math.floor((index + 1) * 0.10)
         assert "urgent" not in details
     assert fast == 10
+
+
+def test_two_lane_uses_real_r5_threshold_and_its_guard_object() -> None:
+    cfg = _cfg(budget_pct=100)
+    event = _events(1, 1)[0].model_copy(
+        update={"baseline_keys": ["entity:test"], "data": {"body": "ordinary"}}
+    )
+    r5 = GuardedHBOSPolicy(absolute_floor=0, multi_window=False, budget_pct=100)
+    r5.threshold = 0.5  # An unfitted R5 has raw score 0.0.
+    router = E6RouterPolicy(
+        cfg,
+        policy=r5,
+        guard_overrides=GuardOverrides(
+            absolute_floor=0, multi_window=False, situation_dedup=False
+        ),
+    )
+    assert isinstance(router.policy, GuardedHBOSPolicy)
+    below_lane, below_details = router.route(event, 0)
+    assert below_details["deviation_candidate"] is False
+    assert below_lane == "batch"
+
+    router.policy.threshold = -0.5
+    above = event.model_copy(update={"id": "above-r5-threshold"})
+    lane, details = router.route(above, 1)
+    assert details["deviation_candidate"] is True
+    assert details["r5_eligible"] is True
+    assert lane == "fast"
+
+    registered = E6RouterPolicy(cfg, training_events=_events(20, 2))
+    assert isinstance(registered.policy, GuardedHBOSPolicy)
+    assert registered.policy.absolute_floor >= 2
+    assert registered.policy.multi_window is True
+
+
+def test_rule_admissions_are_gated_by_total_prefix_budget_and_overflow_recorded() -> None:
+    cfg = _cfg(budget_pct=10)
+    template = _events(1, 1)[0].model_copy(update={"data": {"priority": "Critical"}})
+    router = E6RouterPolicy(cfg)
+    fast = 0
+    for index in range(20):
+        event = template.model_copy(update={"id": f"rule-{index}"})
+        lane, details = router.route(event, float(index))
+        fast += lane == "fast"
+        assert details["rule"] == "declared_priority"
+        assert fast <= math.floor((index + 1) * 0.10)
+    assert fast == 2
+    assert router.rule_admitted == 2
+    assert router.rule_overflow == 18
+    assert router.admitted == 2
 
 
 def test_each_guard_ablation_is_individually_non_vacuous() -> None:
@@ -276,6 +327,77 @@ def test_batch_close_commit_and_staleness_use_window_deadline() -> None:
     assert result.metrics["batch_staleness_p99_s"] >= 0.03
 
 
+def test_urgent_batch_event_is_a_fast_slo_miss() -> None:
+    template = _events(1, 1)[0]
+    start = datetime(2035, 1, 1, tzinfo=UTC)
+    event = template.model_copy(
+        update={"id": "urgent-batch", "time": start, "intended_send_ts": start}
+    )
+    result = asyncio.run(
+        run_schedule(
+            [ScheduleEntry(start, event.subject, event, urgent=True, situation_id="urgent-1")],
+            _cfg(budget_pct=100),
+            RunnerConfig(
+                service_time_s=0.001,
+                window_time_scale=0.0001,
+                warmup_fraction=0,
+                deterministic_clock=True,
+            ),
+            lane_design="two-lane",
+            router_policy=NeverCandidate(),
+        )
+    )
+    observation = result.observations[0]
+    assert observation.lane == "batch"
+    assert observation.agent_start_offset_s == observation.service_start_offset_s
+    assert math.isinf(observation.latency_s)
+    assert result.metrics["urgent_denominator"] == 1
+    assert result.metrics["urgent_slo_attainment"] == 0
+
+
+def test_single_lane_is_fifo_per_event_with_same_fast_service_model() -> None:
+    template = _events(1, 1)[0]
+    start = datetime(2035, 1, 1, tzinfo=UTC)
+    schedule = [
+        ScheduleEntry(
+            start + timedelta(milliseconds=index),
+            template.subject,
+            template.model_copy(
+                update={
+                    "id": f"fifo-{index}",
+                    "time": start + timedelta(milliseconds=index),
+                    "intended_send_ts": start + timedelta(milliseconds=index),
+                }
+            ),
+        )
+        for index in range(3)
+    ]
+    runtime = RunnerConfig(
+        workers=2,
+        service_time_s=0.002,
+        deterministic_clock=True,
+        warmup_fraction=0,
+    )
+    single = asyncio.run(run_schedule(schedule, _cfg(budget_pct=100), runtime, lane_design="single"))
+    two = asyncio.run(
+        run_schedule(
+            schedule,
+            _cfg(budget_pct=100),
+            runtime,
+            lane_design="two-lane",
+            router_policy=AlwaysCandidate(),
+            guard_overrides=GuardOverrides(
+                absolute_floor=0, multi_window=False, situation_dedup=False
+            ),
+        )
+    )
+    assert single.metrics["service_invocations"] == len(schedule)
+    assert two.metrics["service_invocations"] == len(schedule)
+    assert [row.service_order for row in single.observations] == [0, 1, 2]
+    assert all(row.window_close_offset_s is None for row in single.observations)
+    assert single.metrics["service_time_p50_s"] == two.metrics["service_time_p50_s"]
+
+
 def test_calibration_checks_median_and_p99_flatness() -> None:
     good = asyncio.run(calibration_run(_cfg(), samples=12))
     assert calibration_valid(good)
@@ -330,6 +452,7 @@ def test_fixture_backed_kafka_schema_counts_unique_ids_and_telemetry() -> None:
     assert result.metrics["broker_disk_util_peak_pct"] == 70
     assert result.metrics["broker_disk_io_bytes"] == 300
     assert result.metrics["broker_telemetry_present"] == 1
+    assert result.metrics["urgent_slo_attainment"] == pytest.approx(1 / 3)
 
 
 def test_bounded_benchmark_has_paired_matrix_and_exact_outputs(tmp_path: Path) -> None:
@@ -346,7 +469,9 @@ def test_bounded_benchmark_has_paired_matrix_and_exact_outputs(tmp_path: Path) -
         burst_loads=(1.5,),
         entity_cardinalities=(8,),
         bootstrap_resamples=100,
-        runner=RunnerConfig(service_time_s=0, window_time_scale=0.0001),
+        runner=RunnerConfig(
+            service_time_s=0, window_time_scale=0.0001, deterministic_clock=True
+        ),
     )
     result = asyncio.run(
         run_benchmark(fit, _cfg(), tmp_path, seed=4, benchmark=settings)
@@ -377,6 +502,46 @@ def test_bounded_benchmark_has_paired_matrix_and_exact_outputs(tmp_path: Path) -
     assert list((tmp_path / "latency_hdr").glob("*.hgrm"))
     support = json.loads((tmp_path / "support_status.json").read_text())
     assert support["kafka_transport"] == "supported-not-run"
+    applicable_checks = {
+        name: value
+        for name, value in result.metrics.items()
+        if name.startswith("checks.") and math.isfinite(value)
+    }
+    assert applicable_checks
+    assert all(bool(value) for value in applicable_checks.values())
+    assert result.primary["valid"] is True
+    assert result.primary["invalid_reasons"] == []
+
+
+def test_invalid_validity_check_gates_primary_and_annotates_headline_chart(
+    tmp_path: Path,
+) -> None:
+    fit = fit_workload(_events(40, 4))
+    settings = BenchmarkConfig(
+        reference_rate_hz=40,
+        steady_duration_s=0.01,
+        burst_duration_s=0.02,
+        burst_window_s=0.01,
+        repetitions=3,
+        service_time_s=0,
+        topologies=((8, 1),),
+        shapes=("anomalous_burst",),
+        burst_loads=(1.5,),
+        entity_cardinalities=(4,),
+        bootstrap_resamples=100,
+        runner=RunnerConfig(
+            service_time_s=0,
+            service_time_tolerance_s=-1,
+            window_time_scale=0.0001,
+            deterministic_clock=True,
+        ),
+    )
+    result = asyncio.run(run_benchmark(fit, _cfg(), tmp_path, seed=3, benchmark=settings))
+    assert result.primary["valid"] is False
+    assert "service_time_constant" in result.primary["invalid_reasons"]
+    assert result.check_details["primary_validity_gate"]["passed"] is False
+    with Image.open(tmp_path / "burst_slo.png") as chart:
+        assert chart.getpixel((1, 1)) == (254, 226, 226)
 
 
 def test_chart_hooks_use_exact_output_names(tmp_path: Path) -> None:

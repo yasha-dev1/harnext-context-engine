@@ -5,11 +5,15 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import re
 from collections import Counter
 from collections.abc import Sequence
 from datetime import datetime
 from pathlib import Path
 
+from harnext_eval.grade.exact import grade_exact
+from harnext_eval.grade.links import grade_links
+from harnext_eval.grade.localisation import localisation_scores
 from harnext_eval.probes.common import load_replay, parse_time, validate_period
 from harnext_eval.probes.gen_abstention import generate_abstention_probes
 from harnext_eval.probes.gen_code_location import generate_code_location_probes
@@ -83,6 +87,7 @@ def generate_probe_set(
         generate_code_location_probes(
             events,
             **{**common, "count": code_count},
+            join_audit=links_audit,
         )
     )
     probes.extend(generate_abstention_probes(events, **common))
@@ -99,7 +104,7 @@ def generate_probe_set(
     links_audit.require_valid(evidentiary=evidentiary)
     if evidentiary:
         validate_evidentiary_population(probes, minimum_entities=minimum_entities)
-        validate_abstention_prior(probes, a0_answers)
+        validate_a0_prior(probes, a0_answers)
     return probes
 
 
@@ -122,32 +127,112 @@ def validate_evidentiary_population(
         )
 
 
-def validate_abstention_prior(
+def validate_a0_prior(
     probes: Sequence[Probe],
     answers: dict[str, str] | None,
     *,
     maximum_accuracy: float = 0.3,
-) -> float:
-    """Reject a frozen abstention set answerable by the no-material A0 prior."""
+) -> dict[str, object]:
+    """Audit A0 on temporal/update/multisource; abstention is diagnostic only."""
+
+    audited = [
+        probe
+        for probe in probes
+        if probe.family in {"temporal", "update", "multisource"}
+    ]
+    audited_families = {probe.family for probe in audited}
+    required_families = {"temporal", "update", "multisource"}
+    if audited_families != required_families:
+        missing_families = ", ".join(sorted(required_families - audited_families))
+        raise ValueError(f"A0 audit is missing required families: {missing_families}")
+    if answers is None:
+        raise ValueError("evidentiary probe generation requires --a0-audit")
+    missing = [probe.probe_id for probe in audited if probe.probe_id not in answers]
+    if missing:
+        raise ValueError(f"A0 audit is missing {len(missing)} audited answers")
+
+    scores = {probe.probe_id: _a0_score(probe, answers[probe.probe_id]) for probe in audited}
+    by_family = {
+        family: sum(scores[probe.probe_id] for probe in audited if probe.family == family)
+        / sum(probe.family == family for probe in audited)
+        for family in ("temporal", "update", "multisource")
+        if any(probe.family == family for probe in audited)
+    }
+    accuracy = sum(scores.values()) / len(scores)
+    violations = {
+        family: value for family, value in by_family.items() if value > maximum_accuracy
+    }
+    if accuracy > maximum_accuracy or violations:
+        detail = ", ".join(f"{family}={value:.3%}" for family, value in violations.items())
+        raise ValueError(
+            f"A0 accuracy exceeds {maximum_accuracy:.0%}: combined={accuracy:.3%}"
+            + (f", {detail}" if detail else "")
+        )
 
     abstentions = [probe for probe in probes if probe.family == "abstention"]
-    if not abstentions:
-        raise ValueError("A0 audit requires abstention probes")
-    if answers is None:
-        raise ValueError("evidentiary abstention generation requires --a0-audit")
-    missing = [probe.probe_id for probe in abstentions if probe.probe_id not in answers]
-    if missing:
-        raise ValueError(f"A0 audit is missing {len(missing)} abstention answers")
-    correct = sum(
-        answers[probe.probe_id].strip().casefold().rstrip(".!?") == "unknown"
-        for probe in abstentions
-    )
-    accuracy = correct / len(abstentions)
-    if accuracy > maximum_accuracy:
-        raise ValueError(
-            f"abstention A0 accuracy {accuracy:.3%} exceeds {maximum_accuracy:.0%}"
+    answered_abstentions = [probe for probe in abstentions if probe.probe_id in answers]
+    abstention_accuracy = (
+        sum(
+            grade_exact(probe.probe_id, answers[probe.probe_id], probe.gold).value
+            for probe in answered_abstentions
         )
-    return accuracy
+        / len(answered_abstentions)
+        if answered_abstentions
+        else None
+    )
+    return {
+        "population": ["temporal", "update", "multisource"],
+        "combined_accuracy": accuracy,
+        "per_family_accuracy": by_family,
+        "maximum_accuracy": maximum_accuracy,
+        "audited_probes": len(audited),
+        "abstention_diagnostic_accuracy": abstention_accuracy,
+        "abstention_diagnostic_count": len(answered_abstentions),
+    }
+
+
+def _a0_score(probe: Probe, answer: str) -> float:
+    if probe.gold_type == "links":
+        return grade_links(probe.probe_id, answer, _gold_values(probe.gold)).value
+    if probe.gold_type == "files":
+        details = localisation_scores(_answer_files(answer), _gold_values(probe.gold))
+        precision = details["file_precision"]
+        recall = details["file_recall"]
+        assert isinstance(precision, float) and isinstance(recall, float)
+        return 2 * precision * recall / (precision + recall) if precision + recall else 0.0
+    return grade_exact(probe.probe_id, answer, probe.gold).value
+
+
+def _gold_values(value: object) -> list[str]:
+    if isinstance(value, dict):
+        raw = value.get("files", value.get("links", []))
+        return _gold_values(raw)
+    if isinstance(value, (list, tuple, set)):
+        return [str(item) for item in value]
+    return [] if value is None else [str(value)]
+
+
+def _answer_files(answer: str) -> list[str]:
+    try:
+        payload = json.loads(answer)
+    except json.JSONDecodeError:
+        payload = None
+    if isinstance(payload, dict) and isinstance(payload.get("files"), list):
+        return [str(item) for item in payload["files"]]
+    if isinstance(payload, list):
+        return [str(item) for item in payload]
+    return re.findall(r"(?:[A-Za-z0-9_.-]+/)+[A-Za-z0-9_.-]+", answer)
+
+
+# Backwards-compatible import name; the audited population is no longer abstention.
+validate_abstention_prior = validate_a0_prior
+
+
+def write_a0_report(report: dict[str, object], path: str | Path) -> Path:
+    output = Path(path)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    return output
 
 
 def write_probe_set(probes: Sequence[Probe], output: str | Path) -> tuple[Path, Path, str]:
@@ -180,6 +265,7 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument("--a0-audit", type=Path)
     parser.add_argument("--gold-report", type=Path)
     parser.add_argument("--join-report", type=Path)
+    parser.add_argument("--a0-report", type=Path)
     return parser
 
 
@@ -236,6 +322,9 @@ def main(argv: Sequence[str] | None = None) -> int:
         output, sidecar, digest = write_probe_set(probes, args.out)
         write_gold_report(gold_audit, args.gold_report or Path(f"{args.out}.gold.json"))
         write_join_report(join_audit, args.join_report or Path(f"{args.out}.joins.json"))
+        if args.evidentiary:
+            a0_report = validate_a0_prior(probes, a0_answers or None)
+            write_a0_report(a0_report, args.a0_report or Path(f"{args.out}.a0.json"))
     except ValueError as exc:
         if gold_audit is not None:
             write_gold_report(

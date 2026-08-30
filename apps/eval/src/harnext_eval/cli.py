@@ -202,6 +202,8 @@ def _build_run_stores(
     if not consumers:
         return {}
     requested = {"S0"}
+    if "e2" in selected:
+        requested.add("S3")
     if cfg.engine.store.layout in {"S1", "S2", "S3", "S4", "S5"}:
         requested.add(cfg.engine.store.layout)
     if "e4" in selected and (smoke or cfg.engine.store.layout == "S3"):
@@ -530,7 +532,11 @@ def run_command(
             "builder": cfg.engine.builder.model or cfg.engine.builder.harness,
             "reader": cfg.engine.reader.provider,
         },
-        prices={key: float(value) for key, value in (cfg.engine.prices or {}).items() if isinstance(value, (int, float))},
+        prices={
+            key: float(value)
+            for key, value in cfg.prices.model_dump().items()
+            if isinstance(value, (int, float))
+        },
         seeds=cfg.seeds,
         provider_summary=provider_summary(cfg),
     )
@@ -557,6 +563,7 @@ def run_command(
                 **handle.meta,
                 "stores": conditions,
                 "read_budgets": cfg.budgets.read_tokens,
+                "erosion_panel_size": cfg.erosion_panel_size,
                 "smoke": smoke,
             },
         )

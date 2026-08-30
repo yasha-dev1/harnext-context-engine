@@ -1,24 +1,24 @@
 """E1 ranking and temporal scores from docs/evaluation-spec.md §7 E1.
 
-`vus_pr` is a deterministic discrete implementation of the VUS-PR construction
-of Paparrizos et al.: PR area is computed for linearly buffered anomaly ranges
-and averaged over buffer radii (the volume axis).  `affiliation_precision_recall`
-implements the discrete-time affiliation-zone construction of Huet et al.: each
-prediction belongs to the closest ground-truth interval and receives a
-zone-normalised distance reward.  These implementations intentionally expose
-small pure functions so reference toy series can pin their behavior.
+`vus_pr` ports the buffer-integrated RangeAUC-volume PR algorithm published by
+Paparrizos et al.  `affiliation_precision_recall` implements Huet et al.'s
+affiliation-zone probability normalisation.  Both are dependency-free ports of
+the authors' reference algorithms so offline runs and exact fixture tests use
+the same implementation.
 """
 
 # pyright: reportArgumentType=false, reportAttributeAccessIssue=false, reportGeneralTypeIssues=false
 
 from __future__ import annotations
 
-from collections.abc import Sequence
+import math
+from collections.abc import Callable, Sequence
 from dataclasses import dataclass
 from datetime import timedelta
 
 import numpy as np
 import pandas as pd
+from scipy.integrate import quad
 
 
 def _arrays(y_true: Sequence[float], admitted: Sequence[bool]) -> tuple[np.ndarray, np.ndarray]:
@@ -70,35 +70,108 @@ def scores_by_source(
     return pd.DataFrame(rows)
 
 
-def _soft_ranges(labels: np.ndarray, radius: int) -> np.ndarray:
-    soft = (labels >= 0.5).astype(float)
-    if radius <= 0:
+def _coordinate_axis(
+    length: int, timestamps: Sequence[object] | None,
+) -> np.ndarray:
+    """Return elapsed-time coordinates in median-cadence units.
+
+    Regular timestamped input is therefore numerically identical to the
+    published discrete reference, while real gaps are not collapsed into
+    adjacent rows merely because no event happened between them.
+    """
+
+    if timestamps is None:
+        return np.arange(length, dtype=float)
+    parsed = pd.to_datetime(list(timestamps), utc=True)
+    if len(parsed) != length:
+        raise ValueError("timestamps must have the same length as labels")
+    raw = parsed.asi8.astype(float) / 1_000_000_000.0
+    if len(raw) > 1 and np.any(np.diff(raw) < 0):
+        raise ValueError("timestamps must be non-decreasing")
+    positive_steps = np.diff(raw)
+    positive_steps = positive_steps[positive_steps > 0]
+    cadence = float(np.median(positive_steps)) if len(positive_steps) else 1.0
+    return (raw - raw[0]) / cadence if len(raw) else raw
+
+
+def _buffered_soft_labels(
+    binary: np.ndarray,
+    ranges: list[tuple[int, int]],
+    coordinates: np.ndarray,
+    window: float,
+) -> np.ndarray:
+    """Reference square-root transition buffer, half on either range side."""
+
+    soft = binary.astype(float).copy()
+    if window <= 0:
         return soft
-    positive_indices = np.flatnonzero(soft)
-    for index in positive_indices:
-        start = max(0, index - radius)
-        stop = min(len(soft), index + radius + 1)
-        positions = np.arange(start, stop)
-        reward = 1.0 - np.abs(positions - index) / (radius + 1.0)
-        soft[start:stop] = np.maximum(soft[start:stop], reward)
-    return soft
+    half = window / 2.0
+    for start, end in ranges:
+        left_distance = coordinates[start] - coordinates
+        right_distance = coordinates - coordinates[end]
+        distance = np.where(coordinates < coordinates[start], left_distance, right_distance)
+        outside = (coordinates < coordinates[start]) | (coordinates > coordinates[end])
+        buffered = outside & (distance > 0) & (distance <= half)
+        soft[buffered] += np.sqrt(np.maximum(0.0, 1.0 - distance[buffered] / window))
+    return np.minimum(soft, 1.0)
 
 
-def _weighted_average_precision(weights: np.ndarray, scores: np.ndarray) -> float:
-    if not len(weights) or weights.sum() == 0:
+def _buffered_index_ranges(
+    ranges: list[tuple[int, int]], coordinates: np.ndarray, window: float
+) -> list[tuple[int, int]]:
+    """Return merged reference range boundaries after a symmetric buffer."""
+
+    if not ranges:
+        return []
+    half = window / 2.0
+    expanded: list[tuple[int, int]] = []
+    for start, end in ranges:
+        left = int(np.searchsorted(coordinates, coordinates[start] - half, side="left"))
+        right = int(np.searchsorted(coordinates, coordinates[end] + half, side="right") - 1)
+        if expanded and left <= expanded[-1][1] + 1:
+            expanded[-1] = (expanded[-1][0], max(expanded[-1][1], right))
+        else:
+            expanded.append((left, right))
+    return expanded
+
+
+def _range_pr_area(
+    binary: np.ndarray,
+    scores: np.ndarray,
+    ranges: list[tuple[int, int]],
+    coordinates: np.ndarray,
+    window: float,
+    *,
+    thresholds: int,
+) -> float:
+    """One RangeAUC-PR slice, algebraically equivalent to the reference loop."""
+
+    soft = _buffered_soft_labels(binary, ranges, coordinates, window)
+    buffered_ranges = _buffered_index_ranges(ranges, coordinates, window)
+    original_positives = float(binary.sum())
+    if original_positives <= 0 or not buffered_ranges:
         return float("nan")
-    order = np.argsort(-scores, kind="stable")
-    ordered_weights = weights[order]
-    ordered_scores = scores[order]
-    cumulative_tp = np.cumsum(ordered_weights)
-    cumulative_n = np.arange(1, len(weights) + 1)
-    precision = cumulative_tp / cumulative_n
-    recall = cumulative_tp / weights.sum()
-    boundaries = np.r_[ordered_scores[1:] != ordered_scores[:-1], True]
-    precision = precision[boundaries]
-    recall = recall[boundaries]
-    delta = np.diff(np.r_[0.0, recall])
-    return float(np.sum(delta * precision))
+
+    sorted_scores = np.sort(scores)[::-1]
+    sampled = np.linspace(0, len(scores) - 1, thresholds).astype(int)
+    threshold_values = sorted_scores[sampled]
+    range_maxima = np.asarray(
+        [float(np.max(scores[start : end + 1])) for start, end in buffered_ranges]
+    )
+    recalls = np.zeros(len(threshold_values), dtype=float)
+    precisions = np.ones(len(threshold_values), dtype=float)
+    for index, threshold in enumerate(threshold_values):
+        predicted = scores >= threshold
+        predicted_count = int(predicted.sum())
+        true_positive = float(np.dot(soft, predicted))
+        buffered_credit = float(np.dot(soft - binary, predicted))
+        # The reference recomputes N_labels after masking transition-buffer
+        # labels by the prediction while restoring every original anomaly.
+        effective_positives = original_positives + buffered_credit / 2.0
+        existence_ratio = float(np.mean(range_maxima >= threshold))
+        recalls[index] = min(true_positive / effective_positives, 1.0) * existence_ratio
+        precisions[index] = true_positive / predicted_count
+    return float(np.dot(np.diff(np.r_[0.0, recalls]), precisions))
 
 
 def vus_pr(
@@ -107,8 +180,14 @@ def vus_pr(
     *,
     max_buffer: int = 0,
     n_buffers: int | None = None,
+    timestamps: Sequence[object] | None = None,
+    thresholds: int = 250,
 ) -> float:
-    """Volume under the PR surface over linearly tolerant range buffers."""
+    """Paparrizos VUS-PR over range buffers from zero through ``max_buffer``.
+
+    The default 250 threshold slices and square-root boundary weighting match
+    the authors' ``RangeAUC_volume_opt`` reference implementation.
+    """
 
     labels = np.asarray(y_true, dtype=float)
     values = np.asarray(scores, dtype=float)
@@ -116,6 +195,15 @@ def vus_pr(
         raise ValueError("labels and scores must be equal-length vectors")
     if max_buffer < 0:
         raise ValueError("max_buffer must be non-negative")
+    if thresholds <= 0:
+        raise ValueError("thresholds must be positive")
+    if not len(labels):
+        return float("nan")
+    binary = (labels >= 0.5).astype(int)
+    ranges = _intervals(binary)
+    if not ranges:
+        return float("nan")
+    coordinates = _coordinate_axis(len(labels), timestamps)
     if n_buffers is None:
         radii = np.arange(max_buffer + 1, dtype=int)
     else:
@@ -123,7 +211,15 @@ def vus_pr(
             raise ValueError("n_buffers must be positive")
         radii = np.unique(np.linspace(0, max_buffer, n_buffers).round().astype(int))
     areas = [
-        _weighted_average_precision(_soft_ranges(labels, int(radius)), values) for radius in radii
+        _range_pr_area(
+            binary,
+            values,
+            ranges,
+            coordinates,
+            float(radius),
+            thresholds=thresholds,
+        )
+        for radius in radii
     ]
     finite = [area for area in areas if np.isfinite(area)]
     return float(np.mean(finite)) if finite else float("nan")
@@ -143,61 +239,138 @@ def _intervals(mask: np.ndarray) -> list[tuple[int, int]]:
     return result
 
 
-def _distance_to_interval(point: int, interval: tuple[int, int]) -> int:
-    start, end = interval
-    return max(start - point, 0, point - end)
+type Interval = tuple[float, float]
 
 
-def _zones(intervals: list[tuple[int, int]], length: int) -> list[tuple[int, int]]:
-    zones: list[tuple[int, int]] = []
-    for index, interval in enumerate(intervals):
-        left = 0 if index == 0 else (intervals[index - 1][1] + interval[0]) // 2 + 1
-        right = (
-            length - 1
+def _affiliation_zones(intervals: list[Interval], time_range: Interval) -> list[Interval]:
+    return [
+        (
+            time_range[0] if index == 0 else (intervals[index - 1][1] + interval[0]) / 2.0,
+            time_range[1]
             if index == len(intervals) - 1
-            else (interval[1] + intervals[index + 1][0]) // 2
+            else (interval[1] + intervals[index + 1][0]) / 2.0,
         )
-        zones.append((left, right))
-    return zones
+        for index, interval in enumerate(intervals)
+    ]
+
+
+def _clip_interval(interval: Interval, zone: Interval) -> Interval | None:
+    clipped = (max(interval[0], zone[0]), min(interval[1], zone[1]))
+    return clipped if clipped[0] < clipped[1] else None
+
+
+def _integrate_piecewise(
+    function: Callable[[float], float], start: float, end: float
+) -> float:
+    """Integrate the paper's piecewise-affine distance reward."""
+
+    if end <= start:
+        return 0.0
+    value, _ = quad(function, start, end, epsabs=1e-9, epsrel=1e-9, limit=100)
+    return float(value)
+
+
+def affiliation_pr_from_events(
+    predicted_events: Sequence[Interval],
+    ground_truth_events: Sequence[Interval],
+    time_range: Interval,
+) -> tuple[float, float]:
+    """Huet affiliation P/R for continuous half-open event intervals.
+
+    The probability rewards are the closed-form distance CDFs from the paper.
+    Equal weighting across ground-truth affiliation zones matches the authors'
+    reference implementation.
+    """
+
+    origin = float(time_range[0])
+    ground_truth = sorted(
+        (float(a) - origin, float(b) - origin) for a, b in ground_truth_events
+    )
+    predicted = sorted(
+        (float(a) - origin, float(b) - origin) for a, b in predicted_events
+    )
+    time_range = (0.0, float(time_range[1]) - origin)
+    if not ground_truth:
+        raise ValueError("affiliation requires at least one ground-truth event")
+    if any(start >= end for start, end in [*ground_truth, *predicted]):
+        raise ValueError("affiliation events must have positive duration")
+    if time_range[0] > ground_truth[0][0] or time_range[1] < ground_truth[-1][1]:
+        raise ValueError("time_range must contain every ground-truth event")
+    zones = _affiliation_zones(ground_truth, time_range)
+    precision_parts: list[float] = []
+    recall_parts: list[float] = []
+    for truth, zone in zip(ground_truth, zones, strict=True):
+        affiliated = [
+            clipped for interval in predicted if (clipped := _clip_interval(interval, zone))
+        ]
+        zone_length = zone[1] - zone[0]
+        predicted_length = sum(end - start for start, end in affiliated)
+        if predicted_length:
+            def precision_reward(
+                point: float,
+                truth: Interval = truth,
+                zone: Interval = zone,
+                zone_length: float = zone_length,
+            ) -> float:
+                if truth[0] <= point <= truth[1]:
+                    return 1.0
+                distance = max(truth[0] - point, 0.0, point - truth[1])
+                other_margin = min(truth[0] - zone[0], zone[1] - truth[1])
+                return max(
+                    0.0,
+                    1.0
+                    - ((truth[1] - truth[0]) + distance + min(distance, other_margin))
+                    / zone_length,
+                )
+
+            precision_parts.append(
+                sum(
+                    _integrate_piecewise(precision_reward, start, end)
+                    for start, end in affiliated
+                )
+                / predicted_length
+            )
+        if not affiliated:
+            recall_parts.append(0.0)
+            continue
+
+        def recall_reward(
+            point: float,
+            affiliated: list[Interval] = affiliated,
+            zone: Interval = zone,
+            zone_length: float = zone_length,
+        ) -> float:
+            distance = min(
+                max(start - point, 0.0, point - end) for start, end in affiliated
+            )
+            if distance == 0:
+                return 1.0
+            random_nearer = min(distance, point - zone[0]) + min(
+                distance, zone[1] - point
+            )
+            return max(0.0, 1.0 - random_nearer / zone_length)
+
+        recall_parts.append(
+            _integrate_piecewise(recall_reward, truth[0], truth[1])
+            / (truth[1] - truth[0])
+        )
+    precision = float(np.mean(precision_parts)) if precision_parts else float("nan")
+    return precision, float(np.mean(recall_parts))
 
 
 def affiliation_precision_recall(
     y_true: Sequence[float], predictions: Sequence[bool]
 ) -> tuple[float, float]:
-    """Discrete Huet affiliation precision/recall with Voronoi affiliation zones."""
+    """Huet affiliation P/R using the reference vector-to-event convention."""
 
     labels, predicted = _arrays(y_true, predictions)
-    ground_truth = _intervals(labels >= 0.5)
+    ground_truth = [(float(start), float(end + 1)) for start, end in _intervals(labels >= 0.5)]
     if not ground_truth:
-        return (0.0 if predicted.any() else 1.0), float("nan")
-    if not predicted.any():
-        return 0.0, 0.0
-    zones = _zones(ground_truth, len(labels))
-    predicted_points = np.flatnonzero(predicted)
-
-    precision_rewards: list[float] = []
-    for point in predicted_points:
-        interval_index = min(
-            range(len(ground_truth)),
-            key=lambda index: (_distance_to_interval(int(point), ground_truth[index]), index),
-        )
-        interval = ground_truth[interval_index]
-        zone = zones[interval_index]
-        distance = _distance_to_interval(int(point), interval)
-        normalizer = max(interval[0] - zone[0], zone[1] - interval[1], 1)
-        precision_rewards.append(max(0.0, 1.0 - distance / normalizer))
-
-    recall_rewards: list[float] = []
-    for interval, zone in zip(ground_truth, zones, strict=True):
-        affiliated = predicted_points[(predicted_points >= zone[0]) & (predicted_points <= zone[1])]
-        for point in range(interval[0], interval[1] + 1):
-            if len(affiliated):
-                distance = int(np.min(np.abs(affiliated - point)))
-                normalizer = max(point - zone[0], zone[1] - point, 1)
-                recall_rewards.append(max(0.0, 1.0 - distance / normalizer))
-            else:
-                recall_rewards.append(0.0)
-    return float(np.mean(precision_rewards)), float(np.mean(recall_rewards))
+        return (float("nan"), float("nan"))
+    predicted_events = [
+        (float(start), float(end + 1)) for start, end in _intervals(predicted)
+    ]
+    return affiliation_pr_from_events(predicted_events, ground_truth, (0.0, float(len(labels))))
 
 
 def timestamped_affiliation_precision_recall(
@@ -221,56 +394,54 @@ def timestamped_affiliation_precision_recall(
         return float("nan"), float("nan")
     precision_parts: list[float] = []
     recall_parts: list[float] = []
-    fast = admissions[admissions[admitted_col].astype(bool)]
     for entity, entity_situations in situations.groupby(entity_col, sort=True):
-        entity_fast = fast[fast[entity_col] == entity]
+        entity_rows = pd.DataFrame(
+            admissions.loc[admissions[entity_col] == entity, :].copy()
+        )
+        entity_rows["_affiliation_time"] = pd.to_datetime(
+            entity_rows[time_col], utc=True
+        )
+        entity_rows = entity_rows.sort_values("_affiliation_time")
+        entity_fast = entity_rows[entity_rows[admitted_col].astype(bool)]
         starts = pd.to_datetime(entity_situations[onset_col], utc=True)
         ends = pd.to_datetime(entity_situations[end_col], utc=True).fillna(starts)
         prediction_times = pd.to_datetime(entity_fast[time_col], utc=True)
-        intervals = sorted(
-            [(start.timestamp(), end.timestamp()) for start, end in zip(starts, ends, strict=True)]
+        all_times = pd.to_datetime(entity_rows[time_col], utc=True)
+        raw_times = sorted(
+            {timestamp.timestamp() for timestamp in [*starts, *ends, *prediction_times, *all_times]}
         )
-        predictions = np.asarray([timestamp.timestamp() for timestamp in prediction_times])
-        if not len(predictions):
-            recall_parts.extend([0.0] * len(intervals))
-            continue
-        zones: list[tuple[float, float]] = []
-        outer_left = min(intervals[0][0], float(predictions.min()))
-        outer_right = max(intervals[-1][1], float(predictions.max()))
-        for index, interval in enumerate(intervals):
-            left = outer_left if index == 0 else (intervals[index - 1][1] + interval[0]) / 2
-            right = outer_right if index == len(intervals) - 1 else (interval[1] + intervals[index + 1][0]) / 2
-            zones.append((left, right))
-        for prediction in predictions:
-            interval_index = min(
-                range(len(intervals)),
-                key=lambda index: (
-                    max(intervals[index][0] - prediction, 0, prediction - intervals[index][1]),
-                    index,
-                ),
-            )
-            start, end = intervals[interval_index]
-            left, right = zones[interval_index]
-            distance = max(start - prediction, 0, prediction - end)
-            scale = max(start - left, right - end, 1.0)
-            precision_parts.append(max(0.0, 1.0 - distance / scale))
-        for (start, end), (left, right) in zip(intervals, zones, strict=True):
-            affiliated = predictions[(predictions >= left) & (predictions <= right)]
-            if not len(affiliated):
-                recall_parts.append(0.0)
-                continue
-            anchors = np.asarray([start, (start + end) / 2, end])
-            distance = np.min(np.abs(anchors[:, None] - affiliated[None, :]), axis=1)
-            scale = np.maximum(np.maximum(anchors - left, right - anchors), 1.0)
-            recall_parts.append(float(np.mean(np.maximum(0.0, 1.0 - distance / scale))))
+        steps = np.diff(raw_times)
+        tick = float(np.min(steps[steps > 0])) if np.any(steps > 0) else 1.0
+        truth = sorted(
+            (start.timestamp(), max(end.timestamp() + tick, start.timestamp() + tick))
+            for start, end in zip(starts, ends, strict=True)
+        )
+        prediction_events = _merge_intervals(
+            [(timestamp.timestamp(), timestamp.timestamp() + tick) for timestamp in prediction_times]
+        )
+        left = min(raw_times) if raw_times else truth[0][0]
+        right = max(raw_times) + tick if raw_times else truth[-1][1]
+        precision, recall = affiliation_pr_from_events(prediction_events, truth, (left, right))
+        if math.isfinite(precision):
+            precision_parts.append(precision)
+        recall_parts.append(recall)
     return (
         float(np.mean(precision_parts))
-        if precision_parts
-        else float("nan"),
+        if precision_parts else float("nan"),
         float(np.mean(recall_parts))
         if recall_parts
         else float("nan"),
     )
+
+
+def _merge_intervals(intervals: Sequence[Interval]) -> list[Interval]:
+    merged: list[Interval] = []
+    for start, end in sorted(intervals):
+        if merged and start <= merged[-1][1]:
+            merged[-1] = (merged[-1][0], max(merged[-1][1], end))
+        else:
+            merged.append((start, end))
+    return merged
 
 
 def detection_delays(
@@ -354,7 +525,12 @@ class SanityScores:
 
 
 def random_sanity_scorer(
-    y_true: Sequence[float], *, budget_pct: float, seed: int = 0, repeats: int = 200
+    y_true: Sequence[float],
+    *,
+    budget_pct: float,
+    seed: int = 0,
+    repeats: int = 200,
+    max_buffer: int = 5,
 ) -> SanityScores:
     labels = np.asarray(y_true, dtype=float)
     count = max(1, int(round(len(labels) * budget_pct / 100.0))) if len(labels) else 0
@@ -369,7 +545,7 @@ def random_sanity_scorer(
             admitted[np.argsort(-values)[:count]] = True
         precision.append(precision_at_budget(labels, admitted))
         recall.append(recall_at_budget(labels, admitted))
-        vus.append(vus_pr(labels, values))
+        vus.append(vus_pr(labels, values, max_buffer=max_buffer))
     return SanityScores(
         prevalence=float(np.mean(labels >= 0.5)) if len(labels) else float("nan"),
         precision=float(np.nanmean(precision)),
@@ -378,7 +554,9 @@ def random_sanity_scorer(
     )
 
 
-def always_flag_sanity_scorer(y_true: Sequence[float]) -> SanityScores:
+def always_flag_sanity_scorer(
+    y_true: Sequence[float], *, max_buffer: int = 5
+) -> SanityScores:
     labels = np.asarray(y_true, dtype=float)
     admitted = np.ones(len(labels), dtype=bool)
     prevalence = float(np.mean(labels >= 0.5)) if len(labels) else float("nan")
@@ -386,7 +564,7 @@ def always_flag_sanity_scorer(y_true: Sequence[float]) -> SanityScores:
         prevalence=prevalence,
         precision=precision_at_budget(labels, admitted),
         recall=recall_at_budget(labels, admitted),
-        vus_pr=vus_pr(labels, np.ones(len(labels))),
+        vus_pr=vus_pr(labels, np.ones(len(labels)), max_buffer=max_buffer),
     )
 
 

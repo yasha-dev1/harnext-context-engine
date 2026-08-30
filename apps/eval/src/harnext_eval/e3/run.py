@@ -8,7 +8,7 @@ import math
 import re
 import shutil
 from collections import defaultdict
-from collections.abc import Sequence
+from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
 from datetime import datetime, timedelta
 from pathlib import Path
@@ -22,8 +22,7 @@ from harnext_eval.agents.reader import Material, answer, truncate_to_tokens
 from harnext_eval.config import EngineConfig
 from harnext_eval.corpus import CorpusHandle
 from harnext_eval.e2.arms import build_arm
-from harnext_eval.e2.run import ProbeOutcome, grade_answer, load_probes
-from harnext_eval.grade.exact import normalize_exact
+from harnext_eval.e2.run import ProbeOutcome, evaluate_e2, grade_answer, load_probes
 from harnext_eval.health.store_health import compute_store_health
 from harnext_eval.probes.common import (
     changed_files,
@@ -89,7 +88,7 @@ def compute_erosion_slope(
     if len(checkpoints) != len(accuracies):
         raise ValueError("checkpoints and accuracies must have equal lengths")
     if len(checkpoints) < 2:
-        return 0.0
+        return math.nan
     first = checkpoints[0]
     if isinstance(first, datetime):
         origin = first
@@ -108,7 +107,7 @@ def compute_erosion_slope(
     y = np.asarray(accuracies, dtype=float)
     finite = np.isfinite(x) & np.isfinite(y)
     if np.count_nonzero(finite) < 2 or np.ptp(x[finite]) == 0:
-        return 0.0
+        return math.nan
     design = np.column_stack((np.ones(np.count_nonzero(finite)), x[finite]))
     return float(np.linalg.lstsq(design, y[finite], rcond=None)[0][1])
 
@@ -528,60 +527,46 @@ def _evaluate_condition(
     embeddings: EmbeddingsProvider | None,
     gate_rows: list[dict[str, Any]],
     phase: str,
+    shared_e2_dir: Path,
+    seed: int,
 ) -> list[ProbeOutcome]:
-    outcomes: list[ProbeOutcome] = []
-    for probe in probes:
-        try:
-            ref = condition.store.snapshot(probe.T)
-        except LookupError:
-            gate_rows.append(
-                {
-                    "phase": phase,
-                    "store": condition.stable_label,
-                    "probe_id": probe.probe_id,
-                    "T": probe.T.isoformat(),
-                    "sha": "",
-                    "status": "FAIL",
-                    "reasons": "no_snapshot_at_or_before_T",
-                }
-            )
-            continue
-        passed, reasons = _gate_probe(probe, condition, events, ref)
+    arm = "A4" if condition.layout == "S3" else condition.layout
+    cell = shared_e2_dir / phase.replace(":", "-") / condition.stable_label
+    result, outcomes = evaluate_e2(
+        cfg=cfg,
+        probes=probes,
+        events=events,
+        out_dir=cell,
+        seed=seed,
+        store=condition.store,
+        llm=llm,
+        embeddings=embeddings,
+        arms=(arm,),
+    )
+    del result
+    gate = pd.read_csv(cell / "gate.csv")
+    for row in gate.to_dict(orient="records"):
         gate_rows.append(
             {
                 "phase": phase,
                 "store": condition.stable_label,
-                "probe_id": probe.probe_id,
-                "T": probe.T.isoformat(),
-                "sha": ref.sha,
-                "status": "PASS" if passed else "FAIL",
-                "reasons": reasons,
+                "probe_id": row.get("probe_id", row.get("item_id", "")),
+                "T": row.get("T", ""),
+                "sha": row.get("sha", ""),
+                "status": row.get("result", "FAIL"),
+                "reasons": row.get("reasons", ""),
             }
-        )
-        if not passed:
-            continue
-        material = _store_material(condition, ref, probe, cfg, embeddings)
-        response = answer(probe, material, cfg, provider=llm)
-        grade = grade_answer(probe, response.text)
-        superseded = any(
-            normalize_exact(value) in normalize_exact(response.text)
-            for value in probe.superseded_values
-            if normalize_exact(value)
-        )
-        outcomes.append(
-            ProbeOutcome(
-                probe=probe,
-                answer=response,
-                grade=grade,
-                original_tokens=material.original_tokens or 0,
-                supersession_error=superseded,
-            )
         )
     return outcomes
 
 
 def _resource_summary(outcomes: Sequence[ProbeOutcome], budget: int) -> dict[str, Any]:
     fill = [outcome for outcome in outcomes if outcome.original_tokens >= budget]
+    within = (
+        all(0.9 * budget <= row.answer.tokens_read <= 1.1 * budget for row in fill)
+        if fill
+        else None
+    )
     return {
         "n": len(outcomes),
         "tokens_read": (
@@ -599,10 +584,14 @@ def _resource_summary(outcomes: Sequence[ProbeOutcome], budget: int) -> dict[str
             if outcomes
             else 0.0
         ),
-        "reader_cost_usd": 0.0,
+        "reader_cost_usd": (
+            float(np.mean([outcome.reader_cost_usd for outcome in outcomes]))
+            if outcomes
+            else 0.0
+        ),
         "budget_fill_observations": len(fill),
-        "budget_within_10_pct": bool(fill)
-        and all(0.9 * budget <= row.answer.tokens_read <= 1.1 * budget for row in fill),
+        "budget_within_10_pct": within,
+        "budget_check_status": "measured" if fill else "not_applicable_no_fill",
     }
 
 
@@ -883,6 +872,25 @@ def _fixed_erosion_panel(probes: Sequence[Probe], limit: int) -> list[Probe]:
     return panel
 
 
+def _question_safe_at_checkpoint(
+    probe: Probe, checkpoint: datetime, events: Sequence[EvalEvent], gold: PythonGold
+) -> bool:
+    """Apply E2's question-token firewall before freezing the erosion panel."""
+
+    derived = _rederive_probe(probe, checkpoint, events, gold)
+    if derived is None:
+        return False
+    before_tokens: set[str] = set()
+    after_tokens: set[str] = set()
+    for event in events:
+        target = after_tokens if event.time > checkpoint else before_tokens
+        target.update(token.casefold() for token in _WORD_RE.findall(event.model_dump_json()))
+    question_tokens = {
+        token.casefold() for token in _WORD_RE.findall(derived.question)
+    }
+    return not question_tokens.intersection(after_tokens - before_tokens)
+
+
 def _field_from_question(probe: Probe) -> str | None:
     patterns = (
         r"current\s+([\w.-]+)\s+of",
@@ -955,18 +963,32 @@ def _rederive_probe(
     events: Sequence[EvalEvent],
     gold: PythonGold,
 ) -> Probe | None:
-    if probe.T > checkpoint:
-        return None
-    if probe.family in {"extraction", "update"}:
+    if probe.family in {"extraction", "temporal", "update"}:
         field = _field_from_question(probe)
         if field is None:
             return None
-        transitions = gold.transitions(probe.entity, field, checkpoint)
-        if not transitions or transitions[-1].new_value is None:
-            return None
-        current = string_value(transitions[-1].new_value)
+        target = checkpoint
+        question = probe.question
+        if probe.family == "temporal" and " as of " in probe.question.casefold():
+            raw_target = probe.question.rsplit(" as of ", 1)[-1].rstrip("?. ")
+            try:
+                frozen_target = datetime.fromisoformat(raw_target.replace("Z", "+00:00"))
+            except ValueError:
+                frozen_target = checkpoint
+            target = min(frozen_target, checkpoint)
+            question = re.sub(
+                r"(?i)\s+as of\s+.+?[?.]*$",
+                f" as of {target.isoformat()}?",
+                probe.question,
+            )
+        transitions = gold.transitions(probe.entity, field, target)
+        current = (
+            string_value(transitions[-1].new_value)
+            if transitions and transitions[-1].new_value is not None
+            else "UNKNOWN"
+        )
         superseded = []
-        if probe.family == "update":
+        if probe.family == "update" and transitions:
             raw = [transitions[0].old_value, *(item.new_value for item in transitions[:-1])]
             superseded = list(
                 dict.fromkeys(
@@ -978,6 +1000,7 @@ def _rederive_probe(
         return probe.model_copy(
             update={
                 "T": checkpoint,
+                "question": question,
                 "gold": current,
                 "superseded_values": superseded,
                 "source_event_ids": [item.event_id for item in transitions],
@@ -994,9 +1017,6 @@ def _rederive_probe(
             update={"T": checkpoint, "gold": code_gold, "source_event_ids": source_ids}
         )
     if probe.family == "abstention":
-        field = _field_from_question(probe)
-        if field is not None and gold.transitions(probe.entity, field, checkpoint):
-            return None
         return probe.model_copy(
             update={
                 "T": checkpoint,
@@ -1101,6 +1121,7 @@ def evaluate_e3(
     erosion_probe_limit: int = EROSION_PANEL_SIZE,
     corpus_name: str = "unknown",
     smoke: bool = False,
+    validation_audit: Mapping[str, float | bool] | None = None,
 ) -> ExperimentResult:
     """Run every E3 store condition once and aggregate all configured seeds."""
 
@@ -1131,6 +1152,8 @@ def evaluate_e3(
                 embeddings=embeddings,
                 gate_rows=gate_rows,
                 phase="accuracy",
+                shared_e2_dir=out_dir / "shared-e2" / f"budget-{budget}",
+                seed=seed,
             )
             outcome_map[(condition.stable_label, budget)] = outcomes
             curve_rows.append(
@@ -1153,15 +1176,30 @@ def evaluate_e3(
             )
     curve = pd.DataFrame(curve_rows)
 
-    panel = _fixed_erosion_panel(probes, erosion_probe_limit)
+    checkpoints = _checkpoint_times(events)
+    gold = PythonGold(events)
+    earliest_checkpoint = checkpoints[0][2]
+    eligible_templates = [
+        probe
+        for probe in probes
+        if _question_safe_at_checkpoint(probe, earliest_checkpoint, events, gold)
+    ]
+    panel = _fixed_erosion_panel(eligible_templates, erosion_probe_limit)
     panel_payload = {
         "requested_size": erosion_probe_limit,
         "actual_size": len(panel),
+        "checkpoint_safe_template_count": len(eligible_templates),
         "probe_ids": [probe.probe_id for probe in panel],
         "sha256": hashlib.sha256(
             "".join(f"{probe.probe_id}\n" for probe in panel).encode()
         ).hexdigest(),
-        "status": "measured" if len(panel) == EROSION_PANEL_SIZE else "supported-not-run",
+        "status": (
+            "measured-60-probe-panel"
+            if len(panel) == EROSION_PANEL_SIZE and erosion_probe_limit == EROSION_PANEL_SIZE
+            else "non-evidentiary-configured-reduced-panel"
+            if smoke and len(panel) == erosion_probe_limit
+            else "invalid-incomplete-panel"
+        ),
     }
     panel_path = out_dir / "erosion_panel.json"
     panel_path.write_text(
@@ -1170,8 +1208,6 @@ def evaluate_e3(
 
     health_rows: list[dict[str, Any]] = []
     erosion_rows: list[dict[str, Any]] = []
-    checkpoints = _checkpoint_times(events)
-    gold = PythonGold(events)
     for condition in conditions:
         condition_erosion: list[dict[str, Any]] = []
         for checkpoint, week, at in checkpoints:
@@ -1207,6 +1243,13 @@ def evaluate_e3(
                 embeddings=embeddings,
                 gate_rows=gate_rows,
                 phase=f"erosion:{checkpoint}",
+                shared_e2_dir=out_dir / "shared-e2" / "erosion",
+                seed=seed,
+            )
+            panel_complete = len(checkpoint_probes) == len(panel) and len(outcomes) == len(panel)
+            family_complete = all(
+                family in {_macro_family(outcome.probe.family) for outcome in outcomes}
+                for family in _MACRO_FAMILIES
             )
             condition_erosion.append(
                 {
@@ -1217,16 +1260,28 @@ def evaluate_e3(
                     "seed": condition.seed,
                     "checkpoint": checkpoint,
                     "replay_week": week,
-                    "accuracy": _macro_accuracy(outcomes, require_all=False),
+                    "accuracy": (
+                        _macro_accuracy(outcomes) if panel_complete and family_complete else math.nan
+                    ),
                     "panel_size": len(panel),
                     "eligible_at_checkpoint": len(checkpoint_probes),
                     "n": len(outcomes),
                     "gate_exclusions": len(checkpoint_probes) - len(outcomes),
+                    "panel_complete": panel_complete,
+                    "family_complete": family_complete,
                 }
             )
-        slope = compute_erosion_slope(
-            [row["replay_week"] for row in condition_erosion],
-            [row["accuracy"] for row in condition_erosion],
+        slope = (
+            compute_erosion_slope(
+                [row["replay_week"] for row in condition_erosion],
+                [row["accuracy"] for row in condition_erosion],
+            )
+            if condition_erosion
+            and all(
+                bool(row["panel_complete"]) and bool(row["family_complete"])
+                for row in condition_erosion
+            )
+            else math.nan
         )
         for row in condition_erosion:
             row["slope_per_week"] = slope
@@ -1255,9 +1310,7 @@ def evaluate_e3(
             for condition in conditions
         ]
     )
-    contrasts = _primary_contrasts(
-        conditions, outcome_map, seed=seed, same_input=same_input
-    )
+    contrasts = _primary_contrasts(conditions, outcome_map, seed=seed, same_input=same_input)
     s4 = next(condition for condition in conditions if condition.layout == "S4")
     s4_recall = _s4_recall(s4, probes, events, embeddings)
 
@@ -1292,6 +1345,7 @@ def evaluate_e3(
     floor_metrics = _floor_checks(
         _with_budget(cfg, 8_000), probes, events, llm=llm
     )
+    audit = dict(validation_audit or {})
     cost_records = cost.to_dict(orient="records")
     failure_records = [row for row in cost_records if bool(row["builder_usage_applicable"])]
     failure_ok = bool(failure_records) and all(
@@ -1315,6 +1369,10 @@ def evaluate_e3(
     budget_ok = bool(budget_records) and all(
         bool(row.get("budget_within_10_pct")) for row in budget_records
     )
+    erosion_complete = bool(panel) and len(erosion_rows) == len(conditions) * len(checkpoints) and all(
+        bool(row.get("panel_complete")) and bool(row.get("family_complete"))
+        for row in erosion_rows
+    )
     recall_values = [
         float(row["recall_at_10"])
         for row in s4_recall.to_dict(orient="records")
@@ -1322,6 +1380,55 @@ def evaluate_e3(
     ]
     recall_value = float(np.mean(recall_values)) if recall_values else math.nan
     seed_count = len(sonnet_labels)
+    exact_rerun_identical = all(
+        grade_answer(row.probe, row.answer.text) == row.grade
+        for rows in outcome_map.values()
+        for row in rows
+    )
+    gold_agreement = float(audit.get("dual_gold_agreement", 0.0)) >= 0.98
+    pilot_ready = float(audit.get("pilot_kappa", 0.0)) >= 0.8
+    claims_ready = float(audit.get("claim_disagreement", 1.0)) <= 0.02
+    s1_review_ready = bool(audit.get("s1_review_passed", False))
+    consolidated_gates = {
+        "same_input": same_input,
+        "answerability_floor": floor_metrics["checks.floor_retrieve_everything_ge_0_9"] == 1,
+        "prior_floor": floor_metrics["checks.prior_leq_0_3"] == 1,
+        "exact_grader_rerun": exact_rerun_identical,
+        "dual_gold_agreement": gold_agreement,
+        "pilot_kappa": pilot_ready,
+        "claims_disagreement": claims_ready,
+        "leakage": leakage_ok,
+        "equal_budget": budget_ok,
+        "s1_review": s1_review_ready,
+        "s4_recall": np.isfinite(recall_value) and recall_value >= 0.7,
+        "seed_reliability": seed_count >= 3,
+        "builder_failures": failure_ok,
+        "erosion_panel": (
+            len(panel) == EROSION_PANEL_SIZE
+            and erosion_complete
+            and len(checkpoints) >= 2
+        ),
+        "evidentiary_profile": not smoke,
+    }
+    failed_gates = [name for name, passed in consolidated_gates.items() if not passed]
+    if not contrasts.empty:
+        contrasts["statistical_valid"] = contrasts["valid"]
+        contrasts["invalid_reasons"] = contrasts.apply(
+            lambda row: ";".join(
+                [
+                    *([] if bool(row["statistical_valid"]) else ["statistical_inference"]),
+                    *failed_gates,
+                ]
+            ),
+            axis=1,
+        )
+        contrasts["valid"] = contrasts["statistical_valid"] & (not failed_gates)
+        contrasts.loc[~contrasts["valid"], "reliable_difference"] = False
+        contrasts.loc[~contrasts["valid"], "significantly_better"] = False
+        contrasts.loc[~contrasts["valid"], "verdict"] = contrasts.loc[
+            ~contrasts["valid"], "invalid_reasons"
+        ].map(lambda reasons: f"invalid: {reasons}")
+        contrasts.to_csv(paths["contrasts"], index=False)
     metrics: dict[str, float] = {
         "checks.same_input_hash": float(same_input_details["replay_hash_identical"]),
         "checks.same_input_ledger": float(
@@ -1334,6 +1441,12 @@ def evaluate_e3(
         "checks.leakage_gate_100_pct": float(leakage_ok),
         "checks.budget_within_10_pct": float(budget_ok),
         "checks.erosion_panel_60": float(len(panel) == EROSION_PANEL_SIZE),
+        "checks.erosion_panel_complete": float(erosion_complete),
+        "checks.exact_rerun_identical": float(exact_rerun_identical),
+        "checks.dual_gold_agreement_ge_0_98": float(gold_agreement),
+        "checks.pilot_kappa_ge_0_8": float(pilot_ready),
+        "checks.claim_disagreement_le_0_02": float(claims_ready),
+        "checks.s1_review_passed": float(s1_review_ready),
         "checks.s4_recall_at_10_ge_0_7": float(
             np.isfinite(recall_value) and recall_value >= 0.7
         ),
@@ -1368,7 +1481,32 @@ def evaluate_e3(
                 "erosion_panel_60": {
                     "passed": None,
                     "value": "not-applicable-in-smoke",
-                    "reason": "smoke uses a deterministic 10-probe erosion panel; the evidentiary run requires 60",
+                    "reason": f"smoke config selects a fixed {erosion_probe_limit}-probe panel; the evidentiary profile fixes 60",
+                },
+                "budget_within_10_pct": {
+                    "passed": None,
+                    "value": "not-applicable-in-smoke",
+                    "reason": "the reduced smoke stores do not fill the registered token budget",
+                },
+                "dual_gold_agreement_ge_0_98": {
+                    "passed": None,
+                    "value": "not-applicable-in-smoke",
+                    "reason": "the independent frozen evidentiary gold audit is outside smoke",
+                },
+                "pilot_kappa_ge_0_8": {
+                    "passed": None,
+                    "value": "not-applicable-in-smoke",
+                    "reason": "the preregistered two-human pilot is outside smoke",
+                },
+                "claim_disagreement_le_0_02": {
+                    "passed": None,
+                    "value": "not-applicable-in-smoke",
+                    "reason": "the repeated claim-grader audit is outside smoke",
+                },
+                "s1_review_passed": {
+                    "passed": None,
+                    "value": "not-applicable-in-smoke",
+                    "reason": "the 20-folder S1 human review is required only for evidentiary comparison",
                 },
                 "seed_reliability_measured": {
                     "passed": None,
@@ -1427,9 +1565,17 @@ class E3Experiment:
             out_dir=out_dir,
             seed=seed,
             budgets=budgets,
-            erosion_probe_limit=10 if corpus.meta.get("smoke") else EROSION_PANEL_SIZE,
+            erosion_probe_limit=int(
+                corpus.meta.get("erosion_panel_size", EROSION_PANEL_SIZE)
+            ),
             corpus_name=corpus.name,
             smoke=bool(corpus.meta.get("smoke")),
+            validation_audit={
+                "dual_gold_agreement": float(corpus.meta.get("dual_gold_agreement", 0.0)),
+                "pilot_kappa": float(corpus.meta.get("pilot_kappa", 0.0)),
+                "claim_disagreement": float(corpus.meta.get("claim_disagreement", 1.0)),
+                "s1_review_passed": bool(corpus.meta.get("s1_review_passed", False)),
+            },
         )
 
     def chart(self, result: ExperimentResult, out_dir: Path) -> list[Path]:

@@ -71,7 +71,8 @@ def test_ours_constructs_r5_fits_only_warmup_and_audits_causal_budget(
     class SpyPolicy:
         name = "R5"
         baseline_key_used = "component:test"
-        features_fired = {"scorer": "spy-hbos"}
+        features_fired = {"scorer": "spy-hbos", "eligible": True}
+        threshold = 5.0
 
         def fit(self, events: list[EvalEvent]):
             fitted.append([event.id for event in events])
@@ -120,6 +121,46 @@ def test_ours_constructs_r5_fits_only_warmup_and_audits_causal_budget(
     assert result.decisions[-1]["rule"] == "declared"
     assert result.decisions[-1]["lane"] == "fast"
     assert {row["policy"] for row in result.decisions} == {"R5"}
+
+
+def test_ours_never_admits_an_r5_guard_ineligible_deviation(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    class IneligiblePolicy:
+        name = "R5"
+        baseline_key_used = "component:test"
+        features_fired = {"eligible": False, "multi_window_confirmed": False}
+        threshold = 1.0
+
+        def fit(self, events: list[EvalEvent]):
+            del events
+            return self
+
+        def rules(self, event: EvalEvent) -> str | None:
+            del event
+            return None
+
+        def score(self, event: EvalEvent) -> float:
+            del event
+            return 100.0
+
+    monkeypatch.setattr(
+        "harnext_eval.e5.run.make_policy",
+        lambda name, cfg, seed=0: IneligiblePolicy(),
+    )
+    events = [_event(f"event-{index}", index) for index in range(100)]
+    setting = cadence_setting("W20+rules+deviation")
+    result = _event_clock_replay(
+        events,
+        _cadence_cfg(_cfg(), setting),
+        setting,
+        _store(tmp_path),
+        warmup_cutoff=None,
+        seed=1,
+    )
+
+    assert not any(row["lane"] == "fast" for row in result.decisions)
+    assert all(row["r5_eligible"] is False for row in result.decisions)
 
 
 def test_fast_event_flushes_older_entity_state_before_fast_commit(tmp_path: Path) -> None:
@@ -203,6 +244,44 @@ def test_usage_cost_ignores_provider_dollars_and_requires_cache_prices() -> None
         update={"prices": {"input_per_million": 3.0, "output_per_million": 12.0}}
     )
     assert _prices(configured, {}).input_per_million == 3.0
+
+
+def test_usage_cost_reads_authentic_nested_sdk_usage_and_frozen_fake_prices() -> None:
+    prices = PriceTable(2.0, 10.0, 3.0, 0.5, "model-a", "2026-08-01")
+    cost, tokens = _record_cost(
+        {
+            "status": "success",
+            "model": "model-a",
+            "usage": {
+                "usage": {
+                    "input_tokens": 1_000_000,
+                    "output_tokens": 500_000,
+                    "cache_creation_input_tokens": 100_000,
+                    "cache_read_input_tokens": 200_000,
+                }
+            },
+        },
+        prices,
+    )
+
+    assert tokens == {
+        "input_tokens": 1_000_000,
+        "output_tokens": 500_000,
+        "cache_creation_input_tokens": 100_000,
+        "cache_read_input_tokens": 200_000,
+    }
+    assert cost == pytest.approx(7.4)
+    fake_cost, _ = _record_cost(
+        {
+            "status": "success",
+            "model": "fake",
+            "input_tokens": 10_000,
+            "output_tokens": 10_000,
+            "cost_usd": 999.0,
+        },
+        PriceTable(0.0, 0.0, None, None, "fake", "offline-zero"),
+    )
+    assert fake_cost == 0.0
 
 
 def test_frozen_probe_cutoff_is_preserved_and_gold_is_rederived() -> None:

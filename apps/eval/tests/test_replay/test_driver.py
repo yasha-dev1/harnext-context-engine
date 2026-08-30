@@ -8,6 +8,7 @@ from typing import cast
 
 from harnext_eval.config import EngineConfig, load_config
 from harnext_eval.corpus.synthetic import generate_synthetic_events
+from harnext_eval.e1.policies import GuardedHBOSPolicy
 from harnext_eval.replay.driver import run_pipeline
 from harnext_eval.stores.base import StoreHandle
 from harnext_eval.types import EvalEvent, SnapshotRef
@@ -231,3 +232,60 @@ def test_fast_event_flushes_its_pending_entity_window_first() -> None:
         (["fast"], "fast"),
     ]
     assert stats.windows_closed_by_reason["fast"] == 1  # type: ignore[attr-defined]
+
+
+def test_driver_consumes_r5_guard_and_selected_key_evidence_without_second_guards() -> None:
+    cfg = _cfg(gap=30, cap=20, age=120)
+    router = cfg.router.model_copy(
+        update={
+            "deviation": cfg.router.deviation.model_copy(update={"enabled": True}),
+            "budget_pct": 100.0,
+        }
+    )
+    cfg = cfg.model_copy(update={"router": router})
+    policy = GuardedHBOSPolicy(absolute_floor=2, multi_window=True, budget_pct=100)
+    policy.threshold = 5.0
+    policy._score_vector = lambda vector: 10.0  # type: ignore[method-assign]
+
+    rule = _event("rule", 0, subject="issue:RULE").model_copy(
+        update={
+            "baseline_keys": ["component:rules"],
+            "data": {"priority": "Critical"},
+        }
+    )
+    events = [rule]
+    for prefix, base in (("a", 1), ("b", 31 * 24 * 60 * 60)):
+        for suffix, offset in (("w1-1", 1), ("w1-2", 2), ("w2-1", 301), ("w2-2", 302)):
+            events.append(
+                _event(f"{prefix}-{suffix}", base + offset, subject=f"issue:{prefix.upper()}")
+                .model_copy(update={"baseline_keys": [f"component:{prefix}"]})
+            )
+    records = []
+    run_pipeline(
+        events,
+        cfg,
+        cast(StoreHandle, StubStore()),
+        policy=policy,
+        on_decision=records.append,
+    )
+    by_id = {record.event_id: record for record in records}
+
+    assert by_id["rule"].lane == "fast"
+    assert by_id["rule"].features_fired["rules_id"] == "declared_priority"
+    assert by_id["rule"].baseline_key_used == "component:rules"
+    assert {event_id for event_id, record in by_id.items() if record.lane == "fast"} == {
+        "rule",
+        "a-w2-2",
+        "b-w2-2",
+    }
+    for event_id in ("a-w2-2", "b-w2-2"):
+        record = by_id[event_id]
+        assert record.baseline_key_used == f"component:{event_id[0]}"
+        assert record.features_fired["selected_baseline_key"] == record.baseline_key_used
+        assert record.features_fired["guard_outcomes"] == {
+            "volume_guard": True,
+            "multi_window_confirmed": True,
+            "eligible": True,
+        }
+        assert "confirmed" not in record.features_fired
+        assert "situation_unique" not in record.features_fired

@@ -108,10 +108,10 @@ def grade_answer(probe: Probe, prediction: str) -> GradeResult:
             details["module_hit"] = float(gold_modules <= predicted_modules)
         precision = float(details.get("file_precision", 0.0))
         recall = float(details.get("file_recall", 0.0))
-        exact_files = float(precision == 1.0 and recall == 1.0)
-        details["exact_file_set"] = exact_files
+        file_f1 = 2 * precision * recall / (precision + recall) if precision + recall else 0.0
+        details["file_f1"] = file_f1
         return result.model_copy(
-            update={"metric": "exact_file_set", "value": exact_files, "details": details}
+            update={"metric": "file_f1", "value": file_f1, "details": details}
         )
     return grade_exact(probe.probe_id, prediction, probe.gold)
 
@@ -252,14 +252,17 @@ def _paired_contrast(
     delta = _macro_delta(left_scores, right_scores, families)
     ci_low = ci_high = math.nan
     if not invalid_reasons:
-        ci_low, ci_high = _macro_bca_interval(
-            left_scores,
-            right_scores,
-            families,
-            entities,
-            n_resamples=BOOTSTRAP_RESAMPLES,
-            seed=seed,
-        )
+        try:
+            ci_low, ci_high = _macro_bca_interval(
+                left_scores,
+                right_scores,
+                families,
+                entities,
+                n_resamples=BOOTSTRAP_RESAMPLES,
+                seed=seed,
+            )
+        except ValueError as exc:
+            invalid_reasons.append(f"bootstrap_incomplete:{exc}")
     mcnemar = mcnemar_test(
         [value >= 1.0 for value in left_scores],
         [value >= 1.0 for value in right_scores],
@@ -466,14 +469,12 @@ def _provider_identity(provider: Any) -> dict[str, str]:
 
 
 def _reader_cost(cfg: EngineConfig, accounting: Mapping[str, int | str | bool]) -> float:
-    prices = cfg.prices or {}
-    input_rate = prices.get("input_per_million", 0.0)
-    output_rate = prices.get("output_per_million", 0.0)
-    if not isinstance(input_rate, (int, float)) or not isinstance(output_rate, (int, float)):
+    prices = cfg.prices
+    if prices is None:
         return 0.0
     return (
-        int(accounting["reported_provider_input_tokens"]) * float(input_rate)
-        + int(accounting["reported_provider_output_tokens"]) * float(output_rate)
+        int(accounting["reported_provider_input_tokens"]) * prices.input_per_million
+        + int(accounting["reported_provider_output_tokens"]) * prices.output_per_million
     ) / 1_000_000
 
 
@@ -838,21 +839,31 @@ class E2Experiment:
     ) -> ExperimentResult:
         probes = load_probes(corpus.probes_path)
         events = list(corpus.events())
-        store = corpus.meta.get("store")
-        selected_store = store if isinstance(store, StoreHandle) else None
-        return evaluate_e2(
+        store = corpus.meta.get("store_handle")
+        if not isinstance(store, StoreHandle):
+            raise ValueError("E2 registry run requires the built S3 store_handle for A4")
+        if store.layout != "S3":
+            raise ValueError(f"E2 A4 requires store_handle layout S3, received {store.layout}")
+        result = evaluate_e2(
             cfg=cfg,
             probes=probes,
             events=events,
             out_dir=out_dir,
             seed=seed,
-            store=selected_store,
+            store=store,
             llm=make_llm(cfg),
             embeddings=make_embeddings(cfg),
             validation_audit={
                 "dual_gold_agreement": float(corpus.meta.get("dual_gold_agreement", 0.0)),
+                "pilot_kappa": float(corpus.meta.get("pilot_kappa", 0.0)),
+                "claim_disagreement": float(corpus.meta.get("claim_disagreement", 1.0)),
             },
         )[0]
+        if result.tables["contrasts"].empty or not (
+            result.tables["contrasts"]["contrast"] == "A4-A3"
+        ).any():
+            raise RuntimeError("E2 registry run did not produce the mandatory A4-A3 contrast row")
+        return result
 
     def chart(self, result: ExperimentResult, out_dir: Path) -> list[Path]:
         table = result.tables["metrics"]

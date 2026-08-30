@@ -59,17 +59,15 @@ def _event_markdown(event: EvalEvent, lane: str) -> str:
 
 
 def _rebuild_index(store: StoreHandle) -> None:
-    rows: list[tuple[str, str]] = []
+    paths: list[str] = []
     root = store.worktree / "events"
     if root.exists():
         for path in root.rglob("*.md"):
             relpath = path.relative_to(store.worktree).as_posix()
-            first_line = path.read_text(encoding="utf-8").splitlines()[0]
-            event_id = first_line.removeprefix("# Event ")
-            rows.append((event_id, relpath))
-    rows.sort(key=lambda row: row[1])
-    lines = ["# Event Dump", ""]
-    lines.extend(f"- [{event_id}]({relpath})" for event_id, relpath in rows)
+            paths.append(relpath)
+    paths.sort()
+    lines = ["# Event files", ""]
+    lines.extend(f"- [{relpath}]({relpath})" for relpath in paths)
     store.write("INDEX.md", "\n".join(lines).rstrip() + "\n")
 
 

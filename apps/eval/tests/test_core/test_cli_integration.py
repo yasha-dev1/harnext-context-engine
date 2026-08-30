@@ -60,6 +60,9 @@ def test_run_builds_store_chart_checks_and_report(tmp_path: Path) -> None:
     run_dir = next(path for path in tmp_path.iterdir() if path.is_dir())
     payload = json.loads((run_dir / "e2" / "seed-1" / "results.json").read_text())
     assert payload["checks"]
+    assert {row["arm"] for row in payload["tables"]["metrics"]} >= {"A3", "A4"}
+    assert [row["contrast"] for row in payload["tables"]["contrasts"]] == ["A4-A3"]
+    assert payload["primary"]["contrast"] == "A4-A3"
     assert (run_dir / "e2" / "seed-1" / "charts" / "e2_family_bars.png").is_file()
     assert (run_dir / "stores" / "s0" / "seed-1" / "snapshots.csv").is_file()
     html = (run_dir / "report.html").read_text(encoding="utf-8")

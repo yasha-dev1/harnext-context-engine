@@ -1,10 +1,12 @@
-"""Fake-provider tests for docs/evaluation-spec.md §5."""
+"""Provider tests for docs/evaluation-spec.md §5."""
 
 import json
+import sys
+from types import SimpleNamespace
 
 import numpy as np
 import pytest
-from harnext_eval.providers.embeddings import FakeEmbeddings
+from harnext_eval.providers.embeddings import FakeEmbeddings, OpenAIEmbeddings
 from harnext_eval.providers.llm import FakeLLM
 
 
@@ -200,3 +202,34 @@ def test_fake_embeddings_rank_an_exact_identifier_first() -> None:
     scores = vectors[1:] @ vectors[0]
 
     assert int(np.argmax(scores)) == 1
+
+
+def test_openai_embeddings_calls_pinned_model_without_network(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    calls: list[dict[str, object]] = []
+
+    class SpyEmbeddingsAPI:
+        def create(self, **kwargs: object) -> SimpleNamespace:
+            calls.append(kwargs)
+            return SimpleNamespace(
+                data=[
+                    SimpleNamespace(index=1, embedding=[0.0, 3.0]),
+                    SimpleNamespace(index=0, embedding=[4.0, 0.0]),
+                ]
+            )
+
+    class SpyOpenAI:
+        def __init__(self, api_key: str | None = None) -> None:
+            assert api_key is None
+            self.embeddings = SpyEmbeddingsAPI()
+
+    monkeypatch.setitem(sys.modules, "openai", SimpleNamespace(OpenAI=SpyOpenAI))
+    provider = OpenAIEmbeddings("text-embedding-3-large", "2024-01-25")
+
+    vectors = provider.embed(["first", "second"])
+
+    assert calls == [
+        {"input": ["first", "second"], "model": "text-embedding-3-large"}
+    ]
+    np.testing.assert_array_equal(vectors, np.eye(2))

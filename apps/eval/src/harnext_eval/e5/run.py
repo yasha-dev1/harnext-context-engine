@@ -9,7 +9,7 @@ import shutil
 import subprocess
 from collections import defaultdict
 from collections.abc import Iterable, Mapping, Sequence
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any
@@ -23,7 +23,13 @@ from harnext_eval.config import EngineConfig
 from harnext_eval.corpus import CorpusHandle
 from harnext_eval.e1.labels import build_labels
 from harnext_eval.e1.policies import RouterPolicy, make_policy
-from harnext_eval.e2.run import ProbeOutcome, evaluate_e2, macro_accuracy
+from harnext_eval.e2.run import (
+    BOOTSTRAP_RESAMPLES,
+    ProbeOutcome,
+    _paired_contrast,
+    evaluate_e2,
+    macro_accuracy,
+)
 from harnext_eval.health.store_health import compute_store_health
 from harnext_eval.probes.gen_code_location import code_location_gold
 from harnext_eval.probes.gen_multisource import _links_as_of
@@ -36,7 +42,6 @@ from harnext_eval.probes.gold import (
 )
 from harnext_eval.registry import ExperimentResult, register_experiment
 from harnext_eval.report.charts import e5_pareto
-from harnext_eval.stats.stats import paired_difference_bca
 from harnext_eval.stores.base import StoreHandle
 from harnext_eval.stores.fake_usage import ensure_fake_fold_usage
 from harnext_eval.stores.layouts import configure_store
@@ -84,6 +89,7 @@ class E2Result:
     outcomes: tuple[ProbeOutcome, ...]
     checks: Mapping[str, float]
     gate: pd.DataFrame
+    store_arm: str
 
 
 def cadence_setting(name: str) -> CadenceSetting:
@@ -119,9 +125,16 @@ def _write_jsonl(path: Path, rows: Iterable[Mapping[str, Any]]) -> None:
 class MeteredStoreHandle(StoreHandle):
     """Add E5 fold metadata without inventing provider usage."""
 
-    def __init__(self, *args: Any, usage_path: Path, **kwargs: Any) -> None:
+    def __init__(
+        self,
+        *args: Any,
+        usage_path: Path,
+        prices: PriceTable | None = None,
+        **kwargs: Any,
+    ) -> None:
         super().__init__(*args, **kwargs)
         self.usage_path = usage_path
+        self.prices = prices or PriceTable(0.0, 0.0, None, None, "fake", "test-default")
         self.provider_required = self.layout in PROVIDER_LAYOUTS
         self.fold_rows: list[dict[str, Any]] = []
 
@@ -137,7 +150,14 @@ class MeteredStoreHandle(StoreHandle):
         ref = super().fold(events, lane)
         if self.layout in {"S0", "S1", "S4"}:
             self.provider_required = ensure_fake_fold_usage(
-                self.usage_path, len(prior_usage), events, lane, self.layout
+                self.usage_path,
+                len(prior_usage),
+                events,
+                lane,
+                self.layout,
+                input_per_million=self.prices.input_per_million,
+                output_per_million=self.prices.output_per_million,
+                price_effective_date=self.prices.effective_date or "unspecified",
             )
         usage = _read_jsonl(self.usage_path)
         added = len(usage) - len(prior_usage)
@@ -282,6 +302,9 @@ def _event_clock_replay(
         in_warmup = warmup_cutoff is not None and event.time < warmup_cutoff
         rule = policy.rules(event) if setting.rules else None
         score = float(policy.score(event)) if setting.deviation and not in_warmup else 0.0
+        policy_features = dict(getattr(policy, "features_fired", {}))
+        policy_threshold = float(getattr(policy, "threshold", math.inf))
+        policy_eligible = bool(policy_features.get("eligible", False))
         deviation_candidate = False
         budget_capacity = math.floor(rule_negative_seen * cfg.router.budget_pct / 100.0)
         if rule is None:
@@ -290,7 +313,8 @@ def _event_clock_replay(
             deviation_candidate = (
                 setting.deviation
                 and not in_warmup
-                and score > -1e11
+                and policy_eligible
+                and score >= policy_threshold
                 and deviation_admitted < budget_capacity
             )
             if deviation_candidate:
@@ -308,7 +332,7 @@ def _event_clock_replay(
             policy=str(getattr(policy, "name", type(policy).__name__)),
             budget_pct=cfg.router.budget_pct,
             baseline_key_used=getattr(policy, "baseline_key_used", None),
-            features_fired=dict(getattr(policy, "features_fired", {})),
+            features_fired=policy_features,
         ).model_dump(mode="json")
         record.update(
             {
@@ -317,6 +341,8 @@ def _event_clock_replay(
                 "rule_negative_seen": rule_negative_seen,
                 "deviation_budget_capacity": budget_capacity,
                 "deviation_admitted_so_far": deviation_admitted,
+                "r5_threshold": policy_threshold if setting.deviation else None,
+                "r5_eligible": policy_eligible if setting.deviation else None,
                 "admission_scope": "rules-floor-plus-causal-rule-negative-budget",
             }
         )
@@ -569,7 +595,9 @@ def _run_e2(
     events: Sequence[EvalEvent],
     out_dir: Path,
     seed: int,
+    validation_audit: Mapping[str, float],
 ) -> E2Result:
+    store_arm = "A4" if store.layout == "S3" else store.layout
     result, outcomes = evaluate_e2(
         cfg=cfg,
         probes=probes,
@@ -577,7 +605,8 @@ def _run_e2(
         out_dir=out_dir,
         seed=seed,
         store=store,
-        arms=("A0", "A4", "retrieve_everything"),
+        arms=("A0", store_arm, "retrieve_everything"),
+        validation_audit=validation_audit,
     )
     gate = pd.read_csv(out_dir / "gate.csv")
     checks = {
@@ -588,7 +617,7 @@ def _run_e2(
         or key.startswith("floor_")
         or key.startswith("prior_")
     }
-    return E2Result(tuple(outcomes), checks, gate)
+    return E2Result(tuple(outcomes), checks, gate, store_arm)
 
 
 def _fixed_macro(outcomes: Sequence[ProbeOutcome]) -> float:
@@ -617,9 +646,15 @@ def _shared_health(store: StoreHandle) -> dict[str, float]:
 
 
 def _prices(cfg: EngineConfig, meta: Mapping[str, Any]) -> PriceTable:
-    candidate = getattr(cfg, "prices", None) or meta.get("prices")
-    if not isinstance(candidate, Mapping):
-        raise ValueError("E5 requires a frozen 'prices' mapping in config or corpus metadata")
+    del meta
+    configured = cfg.prices
+    if configured is None:
+        raise ValueError("E5 requires a frozen 'prices' section in ExperimentConfig")
+    candidate = (
+        dict(configured)
+        if isinstance(configured, Mapping)
+        else configured.model_dump(mode="python")
+    )
 
     def required(*names: str) -> float:
         for name in names:
@@ -632,7 +667,7 @@ def _prices(cfg: EngineConfig, meta: Mapping[str, Any]) -> PriceTable:
 
     def optional(*names: str) -> float | None:
         for name in names:
-            if name in candidate:
+            if name in candidate and candidate[name] is not None:
                 value = float(candidate[name])
                 if value < 0:
                     raise ValueError(f"price {name} must be non-negative")
@@ -658,36 +693,59 @@ def _prices(cfg: EngineConfig, meta: Mapping[str, Any]) -> PriceTable:
 
 
 def _tokens(record: Mapping[str, Any]) -> dict[str, int]:
-    nested = record.get("usage")
-    usage = nested if isinstance(nested, Mapping) else record
+    chain: list[Mapping[str, Any]] = [record]
+    current = record
+    while True:
+        nested = current.get("usage")
+        if not isinstance(nested, Mapping):
+            break
+        current = nested
+        chain.insert(0, current)
 
-    def value(*names: str) -> int:
-        for name in names:
-            if name in usage:
-                number = int(usage[name])
-                if number < 0:
-                    raise ValueError(f"usage token count {name} must be non-negative")
-                return number
+    def value(label: str, *names: str, required: bool = False) -> int:
+        for usage in chain:
+            for name in names:
+                if name in usage:
+                    number = int(usage[name])
+                    if number < 0:
+                        raise ValueError(f"usage token count {name} must be non-negative")
+                    return number
+        if required:
+            raise ValueError(f"provider usage record is missing {label}")
         return 0
 
     return {
-        "input_tokens": value("input_tokens", "prompt_tokens", "tokens_in"),
-        "output_tokens": value("output_tokens", "completion_tokens", "tokens_out"),
-        "cache_creation_input_tokens": value("cache_creation_input_tokens"),
-        "cache_read_input_tokens": value("cache_read_input_tokens"),
+        "input_tokens": value(
+            "input_tokens", "input_tokens", "prompt_tokens", "tokens_in", required=True
+        ),
+        "output_tokens": value(
+            "output_tokens", "output_tokens", "completion_tokens", "tokens_out", required=True
+        ),
+        "cache_creation_input_tokens": value(
+            "cache_creation_input_tokens", "cache_creation_input_tokens"
+        ),
+        "cache_read_input_tokens": value(
+            "cache_read_input_tokens", "cache_read_input_tokens"
+        ),
     }
 
 
 def _record_cost(record: Mapping[str, Any], prices: PriceTable) -> tuple[float, dict[str, int]]:
     if str(record.get("status", "success")) != "success":
         raise ValueError("failed provider usage record cannot be included in E5 cost")
-    if prices.model and record.get("model") not in {None, prices.model}:
+    if not isinstance(record.get("model"), str) or not str(record["model"]).strip():
+        raise ValueError("provider usage record is missing its model")
+    if prices.model and record.get("model") != prices.model:
         raise ValueError(
             f"usage model {record.get('model')} does not match price model {prices.model}"
         )
+    raw_cache_creation = int(record.get("cache_creation_input_tokens", 0))
+    raw_cache_read = int(record.get("cache_read_input_tokens", 0))
+    if raw_cache_creation and prices.cache_creation_input_per_million is None:
+        raise ValueError("cache-creation tokens require a frozen cache-creation price")
+    if raw_cache_read and prices.cache_read_input_per_million is None:
+        raise ValueError("cache-read tokens require a frozen cache-read price")
     tokens = _tokens(record)
-    if prices.model == "fake":
-        return float(record.get("cost_usd", 0.0)), tokens
     if tokens["cache_creation_input_tokens"] and prices.cache_creation_input_per_million is None:
         raise ValueError("cache-creation tokens require a frozen cache-creation price")
     if tokens["cache_read_input_tokens"] and prices.cache_read_input_per_million is None:
@@ -843,6 +901,11 @@ def run_cadences(
         else []
     )
     prices = _prices(cfg, corpus.meta)
+    validation_audit = {
+        "dual_gold_agreement": float(corpus.meta.get("dual_gold_agreement", 0.0)),
+        "pilot_kappa": float(corpus.meta.get("pilot_kappa", 0.0)),
+        "claim_disagreement": float(corpus.meta.get("claim_disagreement", 1.0)),
+    }
     labels, label_provenance, labels_frozen = _urgency_labels(all_events, corpus)
     warmup_cutoff = _warmup_cutoff(corpus, probe_list)
     cadence_names = tuple(cadences)
@@ -850,6 +913,7 @@ def run_cadences(
     freshness_rows: list[dict[str, Any]] = []
     gate_frames: list[pd.DataFrame] = []
     e2_by_cadence: dict[str, E2Result] = {}
+    e2_check_rows: list[dict[str, Any]] = []
     entity_economics: dict[str, dict[str, dict[str, float]]] = {}
 
     for cadence in cadence_names:
@@ -866,6 +930,7 @@ def run_cadences(
             f"e5-{safe_name}-{seed}",
             cadence_dir,
             usage_path=usage_path,
+            prices=prices,
         )
         configure_store(store, harness=cadence_cfg.builder.harness, model=cadence_cfg.builder.model)
         replay = _event_clock_replay(
@@ -898,10 +963,35 @@ def run_cadences(
                 events,
                 cadence_dir / "e2-frozen",
                 seed,
+                validation_audit,
             )
         else:
-            e2_result = E2Result((), {}, pd.DataFrame())
+            e2_result = E2Result((), {}, pd.DataFrame(), "")
         e2_by_cadence[cadence] = e2_result
+        e2_check_rows.extend(
+            {
+                "cadence": cadence,
+                "check": key.removeprefix("checks."),
+                "value": value,
+                "status": (
+                    "not_applicable_in_smoke"
+                    if corpus.meta.get("smoke")
+                    and key
+                    in {
+                        "checks.budget_within_10_pct",
+                        "checks.budget_fill_applicable",
+                        "checks.pilot_kappa_ge_0_8",
+                        "checks.claim_disagreement_le_0_02",
+                        "checks.non_evidentiary_smoke",
+                    }
+                    else "pass"
+                    if value == 1.0
+                    else "fail"
+                ),
+            }
+            for key, value in sorted(e2_result.checks.items())
+            if key.startswith("checks.")
+        )
         if not e2_result.gate.empty:
             gate = e2_result.gate.copy()
             gate.insert(0, "cadence", cadence)
@@ -909,6 +999,9 @@ def run_cadences(
         health = _shared_health(store)
         expected_provider_runs = len(replay.folds) if store.provider_required else 0
         successful_usage = sum(str(row.get("status", "success")) == "success" for row in usage)
+        authentic_usage = bool(usage) and all(
+            row.get("usage_kind") != "deterministic_projection" for row in usage
+        )
         rule_count = sum(row.get("rule") is not None for row in replay.decisions)
         deviation_count = sum(
             row["lane"] == "fast" and row.get("rule") is None and setting.deviation
@@ -925,7 +1018,9 @@ def run_cadences(
         routine_p50, routine_p95 = _fresh_summary(freshness, False)
         event_count = len(events)
         cost = float(usage_totals.get("cost_usd", 0.0))
-        a4 = [row for row in e2_result.outcomes if row.answer.arm == "A4"]
+        store_rows = [
+            row for row in e2_result.outcomes if row.answer.arm == e2_result.store_arm
+        ]
         cost_rows.append(
             {
                 "cadence": cadence,
@@ -945,12 +1040,16 @@ def run_cadences(
                 "cost_usd": cost,
                 "cost_1k": cost / (event_count / 1_000),
                 "runs_1k": len(replay.folds) / (event_count / 1_000),
-                "macro_acc": _fixed_macro(a4),
+                "macro_acc": _fixed_macro(store_rows),
                 "reader_tokens": (
-                    float(np.mean([row.answer.tokens_read for row in a4])) if a4 else math.nan
+                    float(np.mean([row.answer.tokens_read for row in store_rows]))
+                    if store_rows
+                    else math.nan
                 ),
                 "reader_latency_s": (
-                    float(np.mean([row.answer.latency_s for row in a4])) if a4 else math.nan
+                    float(np.mean([row.answer.latency_s for row in store_rows]))
+                    if store_rows
+                    else math.nan
                 ),
                 "builder_latency_s": float(usage_totals.get("builder_latency_s", 0.0)),
                 "files_per_entity": health["files_per_entity"],
@@ -962,6 +1061,7 @@ def run_cadences(
                 "freshness_rows_complete": len(freshness) == event_count,
                 "provider_usage_required": store.provider_required,
                 "cost_from_usage": successful_usage == expected_provider_runs,
+                "authentic_provider_usage": authentic_usage,
                 "builder_count_matches": successful_usage == expected_provider_runs,
                 "rule_admissions": rule_count,
                 "deviation_admissions": deviation_count,
@@ -976,7 +1076,9 @@ def run_cadences(
     common_probe_ids: set[str] = {probe.probe_id for probe in probe_list}
     for e2_result in e2_by_cadence.values():
         common_probe_ids.intersection_update(
-            row.probe.probe_id for row in e2_result.outcomes if row.answer.arm == "A4"
+            row.probe.probe_id
+            for row in e2_result.outcomes
+            if row.answer.arm == e2_result.store_arm
         )
     by_cadence = {str(row["cadence"]): row for row in cost_rows}
     per_probe: dict[str, dict[str, ProbeOutcome]] = {}
@@ -984,7 +1086,8 @@ def run_cadences(
         rows = {
             row.probe.probe_id: row
             for row in e2_result.outcomes
-            if row.answer.arm == "A4" and row.probe.probe_id in common_probe_ids
+            if row.answer.arm == e2_result.store_arm
+            and row.probe.probe_id in common_probe_ids
         }
         per_probe[cadence] = rows
         by_cadence[cadence]["macro_acc"] = _fixed_macro(list(rows.values()))
@@ -996,42 +1099,67 @@ def run_cadences(
         ordered_ids = sorted(common_probe_ids)
         left = [per_probe["W20+rules"][probe_id] for probe_id in ordered_ids]
         right = [per_probe["W1"][probe_id] for probe_id in ordered_ids]
-        if len({row.probe.entity for row in left}) >= 2:
-            accuracy_ci = paired_difference_bca(
-                [row.grade.value for row in left],
-                [row.grade.value for row in right],
-                [row.probe.entity for row in left],
-                n_resamples=int(corpus.meta.get("bca_resamples", 10_000)),
-                random_state=seed,
-            )
-            accuracy_delta = accuracy_ci.effect
-            accuracy_low = accuracy_ci.ci_low
-            accuracy_high = accuracy_ci.ci_high
+        paired_outcomes = [
+            replace(row, answer=row.answer.model_copy(update={"arm": "W20+rules"}))
+            for row in left
+        ] + [
+            replace(row, answer=row.answer.model_copy(update={"arm": "W1"}))
+            for row in right
+        ]
+        accuracy_contrast = _paired_contrast(
+            paired_outcomes, "W20+rules", "W1", seed
+        )
+        if not accuracy_contrast.empty:
+            accuracy_row = accuracy_contrast.iloc[0]
+            accuracy_delta = float(accuracy_row["delta"])
+            accuracy_low = float(accuracy_row["ci_low"])
+            accuracy_high = float(accuracy_row["ci_high"])
     equal_accuracy = _equal_accuracy(accuracy_high)
 
     ratio = ratio_low = ratio_high = math.nan
     if w1 and rules:
+        w1_cost_1k = float(w1["cost_1k"])
+        rules_cost_1k = float(rules["cost_1k"])
+        ratio = rules_cost_1k / w1_cost_1k if w1_cost_1k > 0 else math.nan
         entities = sorted(
             set(entity_economics["W1"]).intersection(entity_economics["W20+rules"])
         )
-        ratio, ratio_low, ratio_high = _paired_ratio_bca(
+        _, ratio_low, ratio_high = _paired_ratio_bca(
             [entity_economics["W20+rules"][entity]["cost"] for entity in entities],
             [int(entity_economics["W20+rules"][entity]["events"]) for entity in entities],
             [entity_economics["W1"][entity]["cost"] for entity in entities],
             [int(entity_economics["W1"][entity]["events"]) for entity in entities],
-            n_resamples=max(100, int(corpus.meta.get("bca_resamples", 10_000))),
+            n_resamples=BOOTSTRAP_RESAMPLES,
             seed=seed,
         )
 
     gate_frame = pd.concat(gate_frames, ignore_index=True) if gate_frames else pd.DataFrame()
     leakage_ok = bool(gate_frame.empty or (gate_frame["result"] == "PASS").all())
+    smoke = bool(corpus.meta.get("smoke"))
+    common_e2_requirements = (
+        "checks.floor_retrieve_everything_ge_0_9",
+        "checks.prior_leq_0_3",
+        "checks.leakage_gate_100_pct",
+        "checks.primary_budget_is_8000",
+        "checks.exact_rerun_identical",
+        "checks.dual_gold_agreement_ge_0_98",
+    )
+    evidentiary_e2_requirements = (
+        "checks.budget_within_10_pct",
+        "checks.budget_fill_applicable",
+        "checks.pilot_kappa_ge_0_8",
+        "checks.claim_disagreement_le_0_02",
+    )
     e2_checks_ok = bool(
         e2_by_cadence
         and all(
-            all(
-                value == 1.0
-                for key, value in e2_result.checks.items()
-                if key.startswith("checks.")
+            all(e2_result.checks.get(key) == 1.0 for key in common_e2_requirements)
+            and (
+                smoke
+                or all(
+                    e2_result.checks.get(key) == 1.0
+                    for key in evidentiary_e2_requirements
+                )
             )
             for e2_result in e2_by_cadence.values()
         )
@@ -1042,7 +1170,10 @@ def run_cadences(
     }
     family_population_ok = MACRO_FAMILIES.issubset(population_families)
     nontrivial = _nontrivial_accuracy(float(row["macro_acc"]) for row in cost_rows)
-    usage_ok = all(bool(row["cost_from_usage"]) for row in cost_rows)
+    cost_accounting_ok = all(bool(row["cost_from_usage"]) for row in cost_rows)
+    usage_ok = cost_accounting_ok and all(
+        bool(row["authentic_provider_usage"]) for row in cost_rows
+    )
     counts_ok = all(bool(row["builder_count_matches"]) for row in cost_rows)
     freshness_ok = all(bool(row["freshness_rows_complete"]) for row in cost_rows)
     w1_p95 = float(w1["fresh_routine_p95_s"]) if w1 else math.nan
@@ -1052,6 +1183,8 @@ def run_cadences(
         claim_profile
         and equal_accuracy
         and math.isfinite(ratio)
+        and math.isfinite(ratio_low)
+        and math.isfinite(ratio_high)
         and usage_ok
         and counts_ok
         and freshness_ok
@@ -1066,7 +1199,7 @@ def run_cadences(
         for name, passed in {
             "claim_profile": claim_profile,
             "equal_accuracy_ci": equal_accuracy,
-            "ratio_ci": math.isfinite(ratio),
+            "ratio_ci": all(math.isfinite(value) for value in (ratio, ratio_low, ratio_high)),
             "usage_provenance": usage_ok,
             "builder_counts": counts_ok,
             "freshness_complete": freshness_ok,
@@ -1078,7 +1211,7 @@ def run_cadences(
         }.items()
         if not passed
     ]
-    reported_ratio = ratio
+    reported_ratio = ratio if valid_primary else math.nan
     price_of_freshness = bool(
         claim_profile and math.isfinite(accuracy_high) and accuracy_high < 0
     )
@@ -1114,10 +1247,13 @@ def run_cadences(
     freshness_path = out_dir / "freshness.csv"
     pareto_path = out_dir / "pareto.csv"
     gate_path = out_dir / "gate.csv"
+    e2_checks_path = out_dir / "e2_checks.csv"
     cost_frame.to_csv(cost_path, index=False)
     freshness_frame.to_csv(freshness_path, index=False)
     pareto_frame.to_csv(pareto_path, index=False)
     gate_frame.to_csv(gate_path, index=False)
+    e2_checks_frame = pd.DataFrame(e2_check_rows)
+    e2_checks_frame.to_csv(e2_checks_path, index=False)
     chart_data = pd.DataFrame(pareto_frame).rename(
         columns={
             "cost_1k": "cost",
@@ -1130,12 +1266,16 @@ def run_cadences(
         "primary.cost_ratio_w20_rules_to_w1": reported_ratio,
         "primary.cost_ratio_ci_low": ratio_low if valid_primary else math.nan,
         "primary.cost_ratio_ci_high": ratio_high if valid_primary else math.nan,
+        "diagnostic.cost_ratio_w20_rules_to_w1": ratio,
+        "diagnostic.cost_ratio_ci_low": ratio_low,
+        "diagnostic.cost_ratio_ci_high": ratio_high,
         "accuracy_delta_w20_rules_minus_w1": accuracy_delta,
         "accuracy_delta_ci_low": accuracy_low,
         "accuracy_delta_ci_high": accuracy_high,
         "checks.valid_primary": float(valid_primary),
         "checks.equal_accuracy": float(equal_accuracy),
-        "checks.cost_from_usage": float(usage_ok),
+        "checks.cost_from_usage": float(cost_accounting_ok),
+        "checks.authentic_provider_usage": float(usage_ok),
         "checks.builder_run_count": float(counts_ok),
         "checks.freshness_complete": float(freshness_ok),
         "checks.leakage_gate": float(leakage_ok),
@@ -1151,9 +1291,9 @@ def run_cadences(
         smoke_reasons = {
             "valid_primary": "the tiny deterministic smoke validates cadence plumbing, not the preregistered equal-accuracy cost claim",
             "equal_accuracy": "the smoke probe population is too small for the paired equal-accuracy confidence interval",
-            "shared_e2": "shared E2 human-agreement claim gates are not part of deterministic smoke",
             "nontrivial_cadence_scores": "FakeLLM smoke is deterministic and is not intended to establish cadence accuracy differences",
             "claim_profile": "the E5 primary claim requires the non-smoke Corpus R-H1/S evidentiary profile",
+            "authentic_provider_usage": "offline projections are priced from config but are not authentic provider calls",
         }
         check_details.update(
             {
@@ -1173,17 +1313,32 @@ def run_cadences(
             "freshness": freshness_frame,
             "pareto": pd.DataFrame(pareto_frame),
             "gate": gate_frame,
+            "e2_checks": e2_checks_frame,
         },
-        artifacts=[cost_path, freshness_path, pareto_path, gate_path, pareto_png],
+        artifacts=[
+            cost_path,
+            freshness_path,
+            pareto_path,
+            gate_path,
+            e2_checks_path,
+            pareto_png,
+        ],
         primary={
-            "cost_ratio_w20_rules_to_w1": reported_ratio,
+            "cost_ratio_w20_rules_to_w1": ratio if valid_primary else None,
             "cost_ratio_bca_ci": [ratio_low, ratio_high] if valid_primary else None,
             "accuracy_delta_bca_ci": (
                 [accuracy_low, accuracy_high] if math.isfinite(accuracy_low) else None
             ),
-            "reported_at_equal_accuracy": equal_accuracy,
+            "reported_at_equal_accuracy": valid_primary,
             "valid_primary": valid_primary,
             "invalid_reasons": invalid_reasons,
+            "unavailable_reason": (
+                None
+                if valid_primary
+                else "primary suppressed until equal-accuracy and all CI/validity gates pass: "
+                + ", ".join(invalid_reasons)
+            ),
+            "diagnostic_ungated_cost_ratio": ratio,
             "price_of_freshness": price_of_freshness,
             "price_of_freshness_detail": price_detail if price_of_freshness else None,
             "evidence_status": "claim-eligible" if claim_profile else "plumbing-only",

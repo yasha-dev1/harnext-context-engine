@@ -4,6 +4,7 @@ import numpy as np
 import pandas as pd
 from harnext_eval.e1.calibration import calibration_spearman, decile_rates, lift_over_rules
 from harnext_eval.e1.score import (
+    affiliation_pr_from_events,
     affiliation_precision_recall,
     always_flag_sanity_scorer,
     nab_low_fn_score,
@@ -23,16 +24,39 @@ def test_point_metrics_have_known_answers() -> None:
     assert np.isnan(precision_at_budget(labels, [False] * len(labels)))
 
 
-def test_vus_and_affiliation_toy_series() -> None:
+def test_vus_matches_three_paparrizos_reference_cases() -> None:
+    # Values independently produced by the authors' RangeAUC_volume_opt
+    # implementation with 250 thresholds and buffers 0, 1, 2.
+    cases = (
+        ([0, 1, 1, 0, 0, 1, 0], [0.1, 0.9, 0.8, 0.2, 0.0, 0.7, 0.3], 1.0),
+        ([0, 1, 0, 0], [0.1, 0.8, 0.9, 0.2], 0.5923495156295323),
+        ([0, 1, 1, 0], [1.0, 1.0, 1.0, 1.0], 0.617851130197758),
+    )
+    for labels, scores, expected in cases:
+        assert vus_pr(labels, scores, max_buffer=2) == expected
+
+
+def test_affiliation_matches_three_huet_reference_cases() -> None:
+    # These are direct integrals over E=[0,6], J=[2,4].
+    cases = (
+        ([(2.0, 4.0)], (1.0, 1.0)),
+        ([(3.0, 4.0)], (1.0, 11.0 / 12.0)),
+        ([(4.0, 5.0)], (0.5, 2.0 / 3.0)),
+    )
+    for prediction, expected in cases:
+        assert np.allclose(
+            affiliation_pr_from_events(prediction, [(2.0, 4.0)], (0.0, 6.0)),
+            expected,
+        )
+
     labels = [0, 1, 1, 0, 0, 1, 0]
-    perfect_scores = [0.1, 0.9, 0.8, 0.2, 0.0, 0.7, 0.3]
     predictions = [False, True, True, False, False, True, False]
-    assert vus_pr(labels, perfect_scores, max_buffer=0) == 1.0
-    assert vus_pr(labels, [1.0] * len(labels), max_buffer=0) == np.mean(labels)
-    precision, recall = affiliation_precision_recall(labels, predictions)
-    assert precision == 1.0
-    assert recall == 1.0
-    assert affiliation_precision_recall(labels, [False] * len(labels)) == (0.0, 0.0)
+    assert affiliation_precision_recall(labels, predictions) == (1.0, 1.0)
+    empty_precision, empty_recall = affiliation_precision_recall(
+        labels, [False] * len(labels)
+    )
+    assert np.isnan(empty_precision)
+    assert empty_recall == 0.0
     assert nab_low_fn_score(labels, predictions) == 1.0
 
 
@@ -54,6 +78,15 @@ def test_calibration_and_lift_known_answers() -> None:
     rules = [False] * 100
     admitted = [False] * 50 + [True] * 50
     assert lift_over_rules(labels, admitted, rules) == 2.0
+
+    probabilistic = decile_rates([0.0, 0.1, 0.9, 1.0], [0.1, 0.3, 0.6, 0.8], bins=2)
+    assert probabilistic["urgency_rate"].tolist() == [0.2, 0.7]
+    assert np.isclose(
+        lift_over_rules(
+            [0.1, 0.3, 0.6, 0.8], [False, False, True, True], rules[:4]
+        ),
+        0.7 / 0.45,
+    )
 
 
 def test_timestamped_affiliation_uses_elapsed_time_and_situation_entities() -> None:

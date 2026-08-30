@@ -154,8 +154,10 @@ class SqlGold:
         else:
             issues = _load_raw_issues(cast(RawJiraInput, raw_jira))
             self.source = "raw-jira-export"
+        self._issues = issues
         self._connection = sqlite3.connect(":memory:")
         self._connection.create_function("raw_identity", 3, _raw_identity)
+        self._connection.create_function("jira_change_value", 3, _sql_changelog_value)
         self._connection.execute("CREATE TABLE raw_issues (payload TEXT NOT NULL)")
         self._connection.executemany(
             "INSERT INTO raw_issues (payload) VALUES (?)",
@@ -174,8 +176,43 @@ class SqlGold:
         )
         self._populate_initial_rows()
         self._populate_changelog_rows()
+        if self.source == "raw-jira-export":
+            self._validate_export_snapshots()
 
     def _populate_initial_rows(self) -> None:
+        self._connection.execute(
+            """
+            WITH changelog_items AS (
+                SELECT json_extract(issue.payload, '$.key') AS entity,
+                       CASE replace(lower(json_extract(item.value, '$.field')), ' ', '')
+                           WHEN 'fixversion' THEN 'fixVersion'
+                           WHEN 'fixversions' THEN 'fixVersion'
+                           ELSE json_extract(item.value, '$.field')
+                       END AS field,
+                       json_extract(issue.payload, '$.fields.created') AS created,
+                       json_extract(history.value, '$.created') AS changed_at,
+                       CAST(history.key AS INTEGER) AS history_order,
+                       CAST(item.key AS INTEGER) AS item_order,
+                       json_extract(item.value, '$.fromString') AS display_value,
+                       json_extract(item.value, '$.from') AS raw_value
+                FROM raw_issues AS issue
+                JOIN json_each(json_extract(issue.payload, '$.changelog.histories')) AS history
+                JOIN json_each(json_extract(history.value, '$.items')) AS item
+            ), earliest AS (
+                SELECT *, ROW_NUMBER() OVER (
+                    PARTITION BY lower(entity), lower(field)
+                    ORDER BY julianday(changed_at), history_order, item_order
+                ) AS state_order
+                FROM changelog_items
+                WHERE field IN ('status', 'assignee', 'priority', 'components', 'fixVersion')
+            )
+            INSERT INTO state_rows
+            SELECT entity, field, created, -1,
+                   jira_change_value(field, display_value, raw_value)
+            FROM earliest
+            WHERE state_order = 1
+            """
+        )
         scalar_fields = {
             "status": "$.fields.status.name",
             "priority": "$.fields.priority.name",
@@ -189,8 +226,13 @@ class SqlGold:
                        json_quote(json_extract(payload, ?))
                 FROM raw_issues
                 WHERE json_type(payload, ?) IS NOT NULL
+                  AND NOT EXISTS (
+                      SELECT 1 FROM state_rows
+                      WHERE lower(state_rows.entity) = lower(json_extract(raw_issues.payload, '$.key'))
+                        AND lower(state_rows.field) = lower(?)
+                  )
                 """,
-                (field_name, json_path, json_path),
+                (field_name, json_path, json_path, field_name),
             )
         self._connection.execute(
             """
@@ -208,6 +250,11 @@ class SqlGold:
                    ))
             FROM raw_issues
             WHERE json_type(payload, '$.fields.assignee') = 'object'
+              AND NOT EXISTS (
+                  SELECT 1 FROM state_rows
+                  WHERE lower(state_rows.entity) = lower(json_extract(raw_issues.payload, '$.key'))
+                    AND lower(state_rows.field) = 'assignee'
+              )
             """
         )
         array_fields = {
@@ -224,8 +271,13 @@ class SqlGold:
                           FROM json_each(json_extract(issue.payload, ?)) AS item)
                 FROM raw_issues AS issue
                 WHERE json_type(issue.payload, ?) = 'array'
+                  AND NOT EXISTS (
+                      SELECT 1 FROM state_rows
+                      WHERE lower(state_rows.entity) = lower(json_extract(issue.payload, '$.key'))
+                        AND lower(state_rows.field) = lower(?)
+                  )
                 """,
-                (field_name, json_path, json_path),
+                (field_name, json_path, json_path, field_name),
             )
 
     def _populate_changelog_rows(self) -> None:
@@ -233,24 +285,66 @@ class SqlGold:
             """
             INSERT INTO state_rows
             SELECT json_extract(issue.payload, '$.key'),
-                   CASE lower(json_extract(item.value, '$.field'))
-                       WHEN 'fix version' THEN 'fixVersion'
+                   CASE replace(lower(json_extract(item.value, '$.field')), ' ', '')
                        WHEN 'fixversion' THEN 'fixVersion'
+                       WHEN 'fixversions' THEN 'fixVersion'
                        ELSE json_extract(item.value, '$.field')
                    END,
                    json_extract(history.value, '$.created'),
                    CAST(history.key AS INTEGER) * 10000 + CAST(item.key AS INTEGER),
-                   json_quote(COALESCE(
+                   jira_change_value(
+                       CASE replace(lower(json_extract(item.value, '$.field')), ' ', '')
+                           WHEN 'fixversion' THEN 'fixVersion'
+                           WHEN 'fixversions' THEN 'fixVersion'
+                           ELSE json_extract(item.value, '$.field')
+                       END,
                        json_extract(item.value, '$.toString'),
                        json_extract(item.value, '$.to')
-                   ))
+                   )
             FROM raw_issues AS issue
             JOIN json_each(json_extract(issue.payload, '$.changelog.histories')) AS history
             JOIN json_each(json_extract(history.value, '$.items')) AS item
-            WHERE json_type(item.value, '$.toString') IS NOT NULL
-               OR json_type(item.value, '$.to') IS NOT NULL
             """
         )
+
+    def _validate_export_snapshots(self) -> None:
+        for issue in self._issues:
+            entity = issue.get("key")
+            fields = issue.get("fields")
+            changelog = issue.get("changelog")
+            histories = changelog.get("histories", []) if isinstance(changelog, Mapping) else []
+            if not isinstance(entity, str) or not isinstance(fields, Mapping):
+                continue
+            changed_fields = {
+                _canonical_field(str(item.get("field")))
+                for history in histories
+                if isinstance(history, Mapping)
+                for item in history.get("items", [])
+                if isinstance(item, Mapping) and item.get("field") is not None
+            }
+            for field_name in changed_fields & {
+                "status",
+                "assignee",
+                "priority",
+                "components",
+                "fixVersion",
+            }:
+                row = self._connection.execute(
+                    """
+                    SELECT value_json FROM state_rows
+                    WHERE lower(entity) = lower(?) AND lower(field) = lower(?)
+                    ORDER BY julianday(event_time) DESC, event_order DESC
+                    LIMIT 1
+                    """,
+                    (entity, field_name),
+                ).fetchone()
+                actual = json.loads(row[0]) if row is not None and row[0] is not None else None
+                expected = _raw_snapshot_value(fields, field_name)
+                if actual != expected:
+                    raise ValueError(
+                        f"Jira issue {entity} search snapshot disagrees with changelog "
+                        f"final state: {field_name}"
+                    )
 
     def close(self) -> None:
         self._connection.close()
@@ -338,8 +432,12 @@ def _event_transitions(event: EvalEvent, event_order: int) -> list[FieldTransiti
                     event_order,
                     entity,
                     _canonical_field(field_name),
-                    item.get("from"),
-                    item.get("to"),
+                    _normalise_event_change_value(
+                        _canonical_field(field_name), item.get("from")
+                    ),
+                    _normalise_event_change_value(
+                        _canonical_field(field_name), item.get("to")
+                    ),
                     "jira",
                 )
             )
@@ -427,17 +525,81 @@ def _vote_outcome(data: Mapping[str, Any], subject: str, body: str) -> str | Non
 
 def _canonical_field(field_name: str) -> str:
     compact = field_name.casefold().replace(" ", "")
-    return "fixVersion" if compact == "fixversion" else field_name
+    return "fixVersion" if compact in {"fixversion", "fixversions"} else field_name
 
 
-def _raw_identity(email: str | None, account: str | None, _display: str | None) -> str | None:
-    if email and "@" in email:
-        digest = hashlib.sha256(email.strip().casefold().encode()).hexdigest()[:12]
-        return f"contributor:{digest}"
+def _normalise_event_change_value(field_name: str, value: Any) -> Any:
+    if field_name not in {"components", "fixVersion"}:
+        return value
+    if value is None:
+        return []
+    if isinstance(value, list):
+        return value
+    return [str(value)]
+
+
+def _raw_identity(email: str | None, account: str | None, display: str | None) -> str | None:
     if account:
         digest = hashlib.sha256(str(account).encode()).hexdigest()[:12]
         return f"jira-user:{digest}"
-    return None
+    if email and "@" in email:
+        digest = hashlib.sha256(email.strip().casefold().encode()).hexdigest()[:12]
+        return f"contributor:{digest}"
+    return display
+
+
+def _sql_changelog_value(field: str, display: Any, raw: Any) -> str:
+    if field == "assignee":
+        value = _raw_identity(
+            None,
+            str(raw) if raw is not None else None,
+            str(display) if display is not None else None,
+        )
+    elif field in {"components", "fixVersion"}:
+        source = display if display is not None else raw
+        if isinstance(source, str) and source.startswith("["):
+            try:
+                decoded = json.loads(source)
+            except json.JSONDecodeError:
+                decoded = source
+            if isinstance(decoded, list):
+                source = decoded
+        if source is None or source == "":
+            value = []
+        elif isinstance(source, list):
+            value = [str(item) for item in source]
+        else:
+            value = [part.strip() for part in str(source).split(",") if part.strip()]
+    else:
+        value = display if display is not None else raw
+    return json.dumps(value, sort_keys=True)
+
+
+def _raw_snapshot_value(fields: Mapping[str, Any], field_name: str) -> Any:
+    if field_name in {"status", "priority"}:
+        raw = fields.get(field_name)
+        if isinstance(raw, Mapping):
+            return raw.get("name") or raw.get("value")
+        return raw
+    if field_name == "assignee":
+        raw = fields.get("assignee")
+        if not isinstance(raw, Mapping):
+            return None
+        account = raw.get("accountId") or raw.get("key") or raw.get("name")
+        email = raw.get("emailAddress")
+        return _raw_identity(
+            str(email) if email is not None else None,
+            str(account) if account is not None else None,
+            None,
+        )
+    raw_values = fields.get("fixVersions" if field_name == "fixVersion" else field_name)
+    if not isinstance(raw_values, list):
+        return []
+    return [
+        str(value.get("name") or value.get("value"))
+        for value in raw_values
+        if isinstance(value, Mapping) and (value.get("name") or value.get("value")) is not None
+    ]
 
 
 def _canonical_key(entity: str) -> str:

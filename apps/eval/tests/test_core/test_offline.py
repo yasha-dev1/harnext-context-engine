@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import sys
 from pathlib import Path
+from typing import Any, cast
 
 import pytest
 import yaml
@@ -23,10 +24,13 @@ from harnext_eval.providers.factory import (
 from pydantic import ValidationError
 
 CONFIGS = Path(__file__).parents[2] / "configs"
-POISONED_IMPORTS = ("anthropic", "openai", "claude_agent_sdk")
+POISONED_IMPORTS = ("anthropic", "openai", "voyageai", "claude_agent_sdk")
 
 
-@pytest.mark.parametrize("profile", ["baseline-minimal.yaml", "s1-templated.yaml"])
+@pytest.mark.parametrize(
+    "profile",
+    ["baseline-minimal.yaml", "s1-templated.yaml", "e6-twolane.yaml", "e6-single.yaml"],
+)
 def test_offline_profiles_do_not_import_real_providers(
     monkeypatch: pytest.MonkeyPatch, profile: str
 ) -> None:
@@ -55,12 +59,63 @@ def test_offline_rejects_anthropic_reader_before_construction() -> None:
         make_llm(cfg)
 
 
-def test_config_rejects_embeddings_without_an_adapter() -> None:
+@pytest.mark.parametrize("missing", ["model", "revision"])
+def test_real_embedding_config_requires_model_and_revision(missing: str) -> None:
     raw = yaml.safe_load((CONFIGS / "baseline-minimal.yaml").read_text(encoding="utf-8"))
-    raw["engine"]["embeddings"]["provider"] = "openai"
+    raw["offline"] = False
+    raw["engine"]["embeddings"] = {
+        "provider": "openai",
+        "model": "text-embedding-3-large",
+        "revision": "2024-01-25",
+    }
+    raw["engine"]["embeddings"].pop(missing)
 
-    with pytest.raises(ValidationError, match="embeddings.provider"):
+    with pytest.raises(ValidationError, match=missing):
         ExperimentConfig.model_validate(raw)
+
+
+@pytest.mark.parametrize("provider", ["voyage", "openai"])
+def test_offline_rejects_real_embeddings_before_sdk_import(
+    monkeypatch: pytest.MonkeyPatch, provider: str
+) -> None:
+    monkeypatch.setitem(sys.modules, "voyageai", None)
+    monkeypatch.setitem(sys.modules, "openai", None)
+    raw = yaml.safe_load((CONFIGS / "baseline-minimal.yaml").read_text(encoding="utf-8"))
+    raw["engine"]["embeddings"] = {
+        "provider": provider,
+        "model": "pinned-model",
+        "revision": "2026-08-30",
+    }
+    cfg = ExperimentConfig.model_validate(raw)
+
+    with pytest.raises(OfflineViolation, match=f"embeddings.provider={provider}"):
+        make_embeddings(cfg)
+
+
+@pytest.mark.parametrize(
+    ("provider", "class_name"),
+    [("voyage", "VoyageEmbeddings"), ("openai", "OpenAIEmbeddings")],
+)
+def test_real_embedding_adapters_construct_without_sdk_import(
+    monkeypatch: pytest.MonkeyPatch, provider: str, class_name: str
+) -> None:
+    monkeypatch.setitem(sys.modules, "voyageai", None)
+    monkeypatch.setitem(sys.modules, "openai", None)
+    raw = yaml.safe_load((CONFIGS / "baseline-minimal.yaml").read_text(encoding="utf-8"))
+    raw["offline"] = False
+    raw["engine"]["embeddings"] = {
+        "provider": provider,
+        "model": "pinned-model",
+        "revision": "2026-08-30",
+    }
+    cfg = ExperimentConfig.model_validate(raw)
+
+    adapter = make_embeddings(cfg)
+    pinned = cast(Any, adapter)
+
+    assert type(adapter).__name__ == class_name
+    assert pinned.model_id == "pinned-model"
+    assert pinned.model_revision == "2026-08-30"
 
 
 def test_offline_guard_covers_kafka_and_corpus_fetch() -> None:
@@ -91,6 +146,28 @@ def test_manifest_stores_resolved_provider_summary(tmp_path: Path) -> None:
     assert manifest.provider_summary["embeddings"] == "FakeEmbeddings"
     assert manifest.provider_summary["builder"] == "FakeHarness"
     assert manifest.provider_summary["offline_enforced"] is True
+    assert manifest.model_ids["embeddings"] == "fake-feature-hash-blake2b-v1@1"
+
+
+def test_real_profile_manifest_records_embedding_class_and_pinned_id(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    monkeypatch.setitem(sys.modules, "voyageai", None)
+    replay = tmp_path / "replay.jsonl"
+    replay.write_text("{}\n", encoding="utf-8")
+    cfg = load_config(CONFIGS / "s3-curated.yaml")
+
+    adapter = make_embeddings(cfg)
+    manifest = build_manifest(
+        run_id="real-profile-test",
+        config=cfg,
+        replay_path=replay,
+        provider_summary=provider_summary(cfg),
+    )
+
+    assert type(adapter).__name__ == "VoyageEmbeddings"
+    assert manifest.provider_summary["embeddings"] == "VoyageEmbeddings"
+    assert manifest.model_ids["embeddings"] == "voyage-3-large@2025-01-07"
 
 
 def test_fake_harness_child_environment_has_no_api_keys(

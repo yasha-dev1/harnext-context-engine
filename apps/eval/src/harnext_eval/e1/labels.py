@@ -8,6 +8,8 @@ applicable, fully observed horizon with no outcome casts a NEGATIVE vote.
 from __future__ import annotations
 
 import re
+from bisect import bisect_right
+from collections import defaultdict
 from collections.abc import Callable, Iterable, Sequence
 from dataclasses import dataclass
 from datetime import datetime, timedelta
@@ -339,6 +341,73 @@ DEFAULT_LABELING_FUNCTIONS: tuple[LabelingFunction, ...] = (
 )
 
 
+_REFERENCE_TOKEN_RE = re.compile(r"[A-Za-z0-9_:#./-]+")
+
+
+class _OutcomeIndex:
+    """One-pass relationship index for the 350k-event Corpus-R profile."""
+
+    def __init__(self, events: Sequence[EvalEvent]) -> None:
+        self.events = events
+        self.times = [event.time for event in events]
+        self.by_subject: defaultdict[str, set[int]] = defaultdict(set)
+        self.by_thread: defaultdict[str, set[int]] = defaultdict(set)
+        self.by_token: defaultdict[str, set[int]] = defaultdict(set)
+        self._cache: dict[int, tuple[int, ...]] = {}
+        for index, event in enumerate(events):
+            self.by_subject[event.subject].add(index)
+            roots = {
+                event.subject.removeprefix("thread:"),
+                str(_field(event, "thread_root", "in_reply_to", "message_id") or ""),
+            }
+            for root in roots - {""}:
+                self.by_thread[root].add(index)
+            surface = f"{event.subject} {_text(event)}"
+            for token in _REFERENCE_TOKEN_RE.findall(surface.casefold()):
+                self.by_token[token].add(index)
+
+    def related_indices(self, candidate_index: int) -> tuple[int, ...]:
+        cached = self._cache.get(candidate_index)
+        if cached is not None:
+            return cached
+        candidate = self.events[candidate_index]
+        related = set(self.by_subject.get(candidate.subject, set()))
+        if _is_dev_mail(candidate):
+            roots = {
+                candidate.subject.removeprefix("thread:"),
+                str(_field(candidate, "thread_root", "message_id") or ""),
+            }
+            for root in roots - {""}:
+                related.update(self.by_thread.get(root, set()))
+        else:
+            for token in _identity_tokens(candidate):
+                related.update(self.by_token.get(token.casefold(), set()))
+        candidate_time = candidate.time
+        result = tuple(
+            sorted(
+                index
+                for index in related
+                if index > candidate_index and self.events[index].time > candidate_time
+            )
+        )
+        self._cache[candidate_index] = result
+        return result
+
+    def suffix(
+        self,
+        candidate_index: int,
+        cutoff: datetime,
+        *,
+        relationships_only: bool,
+    ) -> tuple[EvalEvent, ...]:
+        stop = bisect_right(self.times, cutoff)
+        if relationships_only:
+            indices = self.related_indices(candidate_index)
+            return tuple(self.events[index] for index in indices if index < stop)
+        start = bisect_right(self.times, self.events[candidate_index].time)
+        return tuple(self.events[start:stop])
+
+
 def _apply_with_observability(
     events: Sequence[EvalEvent],
     functions: Sequence[LabelingFunction],
@@ -346,9 +415,11 @@ def _apply_with_observability(
     observation_end: datetime,
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
     ordered = sorted(events, key=lambda event: (event.time, event.id))
+    index = _OutcomeIndex(ordered)
+    default_outcomes = {function.outcome for function in DEFAULT_LABELING_FUNCTIONS}
     vote_rows: list[dict[str, int | str]] = []
     observed_rows: list[dict[str, bool | str]] = []
-    for candidate in ordered:
+    for candidate_index, candidate in enumerate(ordered):
         vote_row: dict[str, int | str] = {"event_id": candidate.id}
         observed_row: dict[str, bool | str] = {"event_id": candidate.id}
         for function in functions:
@@ -360,7 +431,11 @@ def _apply_with_observability(
                 vote_row[function.name] = ABSTAIN
                 continue
             cutoff = observation_end if function.horizon is None else candidate.time + function.horizon
-            suffix = tuple(event for event in ordered if candidate.time < event.time <= cutoff)
+            suffix = index.suffix(
+                candidate_index,
+                cutoff,
+                relationships_only=function.outcome in default_outcomes,
+            )
             vote_row[function.name] = POSITIVE if function.outcome(candidate, suffix) else NEGATIVE
         vote_rows.append(vote_row)
         observed_rows.append(observed_row)

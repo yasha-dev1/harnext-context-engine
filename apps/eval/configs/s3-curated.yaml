@@ -1,4 +1,12 @@
 offline: false
+prices:
+  model: claude-sonnet-5
+  effective_date: "2026-08-30"
+  input_per_million: 3.0
+  output_per_million: 15.0
+  cache_creation_input_per_million: 3.75
+  cache_read_input_per_million: 0.30
+erosion_panel_size: 60
 engine:
   router:
     rules: {enabled: true}
@@ -10,7 +18,7 @@ engine:
   builder: {harness: claude_code, model: claude-sonnet-5, prompt_version: v1}
   reader: {provider: anthropic, budget_tokens: 8000}
   envelope: V3
-  embeddings: {provider: fake, dim: 64}
+  embeddings: {provider: voyage, model: voyage-3-large, revision: "2025-01-07"}
   lane_design: two-lane
 budgets: {read_tokens: [2000, 8000, 32000]}
 seeds: [1, 2, 3]

@@ -56,7 +56,48 @@ class EnvelopeAwareProvider:
         return LLMResult(text=text, json=payload, usage={"input_tokens": 100, "output_tokens": 20})
 
 
+class EverythingWinsProvider:
+    """Adverse provider: V6 is correct and every smaller envelope is wrong."""
+
+    model_id = "oracle-family-a-everything-wins"
+    tokenizer_revision = "test-v1"
+
+    @staticmethod
+    def count_tokens(text: str) -> int:
+        return count_tokens(text)
+
+    def complete(
+        self,
+        system: str,
+        user: str,
+        *,
+        json_schema: dict | None = None,
+        max_tokens: int,
+    ) -> LLMResult:
+        del system, json_schema, max_tokens
+        issue = next(iter(__import__("re").findall(r"HNX-\d+", user)), "HNX-1")
+        correct = "## all_entity_files" in user
+        payload = {
+            "assignee_candidates": [],
+            "reviewer_candidates": [],
+            "component": "runtime" if correct else "wrong",
+            "duplicate_of": None,
+            "priority_change": None,
+            "suspected_locations": [],
+            "draft_reply": "Investigating.",
+            "cited_ids": [issue],
+            "action": "route_and_reply",
+        }
+        return LLMResult(
+            text=json.dumps(payload),
+            json=payload,
+            usage={"input_tokens": 100, "output_tokens": 20},
+        )
+
+
 class BatchReadOracle:
+    """Answer only when the post-delta store contains the planted V3 envelope."""
+
     model_id = "fake-batch-reader-oracle"
 
     def complete(
@@ -67,8 +108,9 @@ class BatchReadOracle:
         json_schema: dict | None = None,
         max_tokens: int,
     ) -> LLMResult:
-        del system, user, json_schema, max_tokens
-        return LLMResult(text="Open", json=None, usage={"input_tokens": 10, "output_tokens": 1})
+        del system, json_schema, max_tokens
+        answer = "Open" if "## overview" in user and "## all_entity_files" not in user else "UNKNOWN"
+        return LLMResult(text=answer, json=None, usage={"input_tokens": 10, "output_tokens": 1})
 
 
 class StableDifferentFamilyJudge:
@@ -116,7 +158,9 @@ def _three_task_events() -> list[EvalEvent]:
         trigger_data = {"issue_key": f"HNX-{index + 1}", "title": marker}
         if marker == "Critical":
             trigger_data["priority"] = "Critical"
-        trigger_type = "org.apache.mail.message" if index in {1, 2} else "jira.issue.created"
+        trigger_type = (
+            "org.apache.mail.message" if index in {1, 2} else "org.apache.jira.issue.created"
+        )
         trigger_source = "dev@kafka.apache.org" if index in {1, 2} else "jira:test"
         events.extend(
             [
@@ -267,7 +311,7 @@ def test_e4_literal_q_and_clustered_inference(tmp_path: Path) -> None:
             f"trigger-{index}",
             index * 10,
             f"issue:HNX-{index + 1}",
-            event_type="jira.issue.created",
+            event_type="org.apache.jira.issue.created",
             data={"priority": "Critical", "issue_key": f"HNX-{index + 1}"},
         )
         for index in range(2)
@@ -316,12 +360,63 @@ def test_e4_literal_q_and_clustered_inference(tmp_path: Path) -> None:
     assert result.primary["valid_primary"] is False  # one-run fixture cannot publish pass^3.
 
 
+def test_legitimate_everything_win_is_published_as_falsification(tmp_path: Path) -> None:
+    events = _three_task_events()
+    selected = select_fast_tasks(events, corpus="real", limit=3)
+    tasks = [
+        task.model_copy(
+            update={
+                "gold": {
+                    **task.gold,
+                    "place": {"files": [], "modules": [], "decision_times": [], "event_ids": []},
+                },
+                "gold_coverage": {**task.gold_coverage, "place": False},
+            }
+        )
+        for task in selected
+    ]
+    store = StoreHandle("S3", "falsification", tmp_path / "store")
+    triggers = {task.trigger_event_id: task for task in tasks}
+    for event in events:
+        task = triggers.get(event.id)
+        if task is None:
+            continue
+        kind, slug = task.entity.split(":", 1)
+        store.write(
+            f"entities/{kind}/{slug}/archive.md",
+            "\n".join(f"irrelevant archive record {index}" for index in range(20_000)),
+        )
+        store.fold([event], "fast")
+    cfg = load_config("apps/eval/configs/baseline-minimal.yaml").engine
+
+    result = run_e4(
+        tasks,
+        store,
+        cfg,
+        tmp_path / "e4-falsified",
+        provider=EverythingWinsProvider(),
+        variants=("V1", "V3", "V6"),
+        runs=3,
+        events=events,
+        expected_fast_tasks=3,
+        expected_batch_tasks=0,
+    )
+
+    assert result.metrics["checks.non_vacuous_arms"] is True
+    assert result.primary["valid_primary"] is True
+    assert result.primary["claim_outcome"] == "falsified"
+    assert result.primary["contrasts"]["V3-V6"] < 0
+    interval = result.primary["contrast_intervals"]["V3-V6"]
+    assert interval["ci_low"] <= interval["mean_delta_Q"] <= interval["ci_high"]
+    assert not result.primary["contrast_publication_reasons"]
+
+
 def test_one_variant_leak_excludes_whole_paired_task(tmp_path: Path) -> None:
     trigger = _event(
         "trigger-0",
         0,
         "issue:HNX-1",
-        event_type="jira.issue.created",
+        event_type="org.apache.jira.issue.created",
         data={"priority": "Critical", "issue_key": "HNX-1"},
     )
     prior = _event(
@@ -359,6 +454,12 @@ def test_one_variant_leak_excludes_whole_paired_task(tmp_path: Path) -> None:
 
 
 def test_batch_fold_uses_scratch_s3_and_e2_grading(tmp_path: Path) -> None:
+    prior = _event(
+        "prior-event",
+        -1,
+        "issue:HNX-1",
+        data={"field": "status", "to": "Stale", "issue_key": "HNX-1"},
+    )
     events = [
         _event(
             "event-0",
@@ -369,6 +470,7 @@ def test_batch_fold_uses_scratch_s3_and_e2_grading(tmp_path: Path) -> None:
         _event("event-1", 1, "issue:HNX-1", data={"note": "window close"}),
     ]
     store = StoreHandle("S3", "batch", tmp_path / "store")
+    base_snapshot = store.fold([prior], "batch")
     snapshot = store.fold(events, "batch")
     probe = Probe(
         probe_id="batch-status",
@@ -387,7 +489,10 @@ def test_batch_fold_uses_scratch_s3_and_e2_grading(tmp_path: Path) -> None:
         trigger_event_id="event-1",
         entity="issue:HNX-1",
         kind="batch",
-        gold={"probes": [probe.model_dump(mode="json")]},
+        gold={
+            "probes": [probe.model_dump(mode="json")],
+            "window_event_ids": [event.id for event in events],
+        },
         gold_coverage={"people": False, "category": False, "place": False, "text": False},
     )
     before = {path: store.read(snapshot, path) for path in store.list_files(snapshot)}
@@ -401,14 +506,20 @@ def test_batch_fold_uses_scratch_s3_and_e2_grading(tmp_path: Path) -> None:
         provider=BatchReadOracle(),
         variants=("V3", "V6"),
         runs=1,
-        events=events,
+        events=[prior, *events],
         expected_fast_tasks=0,
         expected_batch_tasks=1,
     )
 
     rows = [json.loads(line) for line in (tmp_path / "e4-batch" / "runs.jsonl").read_text().splitlines()]
     assert len(rows) == 2
-    assert all(row["batch_e2_acc"] == 1.0 for row in rows)
+    by_variant = {row["variant"]: row for row in rows}
+    assert by_variant["V3"]["batch_e2_acc"] == 1.0
+    assert by_variant["V6"]["batch_e2_acc"] == 0.0
+    assert all(row["batch_base_sha"] == base_snapshot.sha for row in rows)
+    assert all(row["batch_close_sha"] == snapshot.sha for row in rows)
+    assert all(row["batch_window_event_ids"] == ["event-0", "event-1"] for row in rows)
+    assert all(row["evidence_valid"] == 1.0 for row in rows)
     assert all(row["batch_result_sha"] != snapshot.sha for row in rows)
     assert all(row["batch_delta_files"] for row in rows)
     assert before == {path: store.read(snapshot, path) for path in store.list_files(snapshot)}
@@ -449,7 +560,7 @@ def test_judge_requires_200_dual_human_labels_and_swaps_order(tmp_path: Path) ->
         "trigger-0",
         0,
         "issue:HNX-1",
-        event_type="jira.issue.created",
+        event_type="org.apache.jira.issue.created",
         data={"priority": "Critical", "issue_key": "HNX-1"},
     )
     store = StoreHandle("S3", "judge", tmp_path / "store")

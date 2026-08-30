@@ -62,5 +62,5 @@ def test_multisource_code_subtype_uses_file_grader() -> None:
         gold_type="files",
     )
     result = grade_answer(probe, "core/src/Main.java")
-    assert result.metric == "exact_file_set"
+    assert result.metric == "file_f1"
     assert result.value == 1.0

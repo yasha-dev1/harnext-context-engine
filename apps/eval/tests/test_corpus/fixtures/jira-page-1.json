@@ -23,8 +23,8 @@
           "active": true
         },
         "assignee": null,
-        "status": {"name": "Open"},
-        "priority": {"name": "Major"},
+        "status": {"name": "In Progress"},
+        "priority": {"name": "Critical"},
         "fixVersions": [],
         "components": [{"name": "Streams"}, {"name": "Core"}],
         "labels": ["snapshot"],

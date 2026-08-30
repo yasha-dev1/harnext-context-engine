@@ -139,8 +139,17 @@ def test_fake_fold_usage_writer_does_not_duplicate_provider_rows(
 ) -> None:
     path = tmp_path / "usage.jsonl"
 
-    assert ensure_fake_fold_usage(path, 0, scenario_events[:2], "batch", "S0")
-    assert not ensure_fake_fold_usage(path, 0, scenario_events[:2], "batch", "S0")
+    prices = {
+        "input_per_million": 1.0,
+        "output_per_million": 4.0,
+        "price_effective_date": "offline-fake-v1",
+    }
+    assert ensure_fake_fold_usage(
+        path, 0, scenario_events[:2], "batch", "S0", **prices
+    )
+    assert not ensure_fake_fold_usage(
+        path, 0, scenario_events[:2], "batch", "S0", **prices
+    )
     row = json.loads(path.read_text())
     assert row["input_tokens"] > 0
     assert row["output_tokens"] > 0

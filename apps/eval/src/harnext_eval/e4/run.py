@@ -2,11 +2,11 @@
 
 from __future__ import annotations
 
-import hashlib
 import json
 import math
 import re
 import statistics
+import subprocess
 import tempfile
 import time
 from collections import defaultdict
@@ -123,14 +123,21 @@ def _score_action(task: Task, prediction: ActionPrediction) -> dict[str, float]:
         "component_em": _exact_alternative(prediction.component, category.get("components", [])),
         "duplicate_em": _exact_alternative(prediction.duplicate_of, category.get("duplicate_of", [])),
         "priority_em": _exact_alternative(prediction.priority_change, category.get("priority_changes", [])),
+        "action_em": _exact_alternative(
+            prediction.action,
+            [task.gold["scripted_action"]] if task.gold.get("scripted_action") else [],
+        ),
     }
     available = [value for value in field_scores.values() if not math.isnan(value)]
     required = {_normalise(value) for value in category.get("required_ids", []) if value}
-    if not available or not required:
-        raise ValueError(f"task {task.task_id} lacks a Q component")
-    field_em = statistics.fmean(available)
+    field_em = statistics.fmean(available) if available else math.nan
     cited = {_normalise(value) for value in prediction.cited_ids}
-    id_cov = len(required & cited) / len(required)
+    id_cov = len(required & cited) / len(required) if required else math.nan
+    quality = (
+        (field_em + id_cov) / 2
+        if not math.isnan(field_em) and not math.isnan(id_cov)
+        else math.nan
+    )
     local_raw = localisation_scores(
         prediction.suspected_locations,
         _list(place.get("files")),
@@ -152,7 +159,7 @@ def _score_action(task: Task, prediction: ActionPrediction) -> dict[str, float]:
         **field_scores,
         "field_em": field_em,
         "id_cov": id_cov,
-        "Q": (field_em + id_cov) / 2,
+        "Q": quality,
         **local,
         "rouge_l": rouge,
     }
@@ -217,9 +224,9 @@ def _mean(values: Iterable[Any]) -> float:
 
 
 def _price(cfg: EngineConfig, input_tokens: int, output_tokens: int) -> float:
-    prices = cfg.prices or {}
-    input_rate = float(prices.get("input_per_million", 0.0))
-    output_rate = float(prices.get("output_per_million", 0.0))
+    prices = cfg.prices
+    input_rate = prices.input_per_million if prices is not None else 0.0
+    output_rate = prices.output_per_million if prices is not None else 0.0
     return (input_tokens * input_rate + output_tokens * output_rate) / 1_000_000
 
 
@@ -276,48 +283,108 @@ def _pr_join_audit(tasks: Sequence[Task]) -> tuple[float, float, bool]:
     return precision, recall, audited > 0
 
 
+def _batch_fold_plan(
+    task: Task,
+    source: StoreHandle,
+    events: Sequence[EvalEvent],
+) -> tuple[SnapshotRef, SnapshotRef, list[EvalEvent]]:
+    """Resolve the exact source fold and its immutable pre-window parent."""
+
+    event_by_id = _event_index(events)
+    deliveries = list(source.delivery_records())
+    matching = [row for row in deliveries if row.event_id == task.trigger_event_id]
+    if len(matching) != 1:
+        raise LookupError("batch trigger must occur exactly once in the source delivery ledger")
+    closing = matching[0]
+    fold_rows = [row for row in deliveries if row.fold_index == closing.fold_index]
+    declared_ids = _list(task.gold.get("window_event_ids"))
+    window_ids = declared_ids or [row.event_id for row in fold_rows]
+    if not window_ids or window_ids[-1] != task.trigger_event_id:
+        raise ValueError("batch window must end at the task trigger event")
+    try:
+        window_events = [event_by_id[event_id] for event_id in window_ids]
+    except KeyError as exc:
+        raise LookupError(f"batch window event is absent from replay: {exc.args[0]}") from exc
+    if any(event.subject != task.entity or event.time > task.T for event in window_events):
+        raise ValueError("batch window contains a different entity or a post-close event")
+    if window_events != sorted(window_events, key=lambda event: (event.time, event.id)):
+        raise ValueError("batch window event IDs are not in event-time order")
+
+    cumulative_rows = [row for row in deliveries if row.fold_index <= closing.fold_index]
+    cumulative_last = max(cumulative_rows, key=lambda row: (row.event_time, row.event_id))
+    close_ref = SnapshotRef(
+        sha=closing.sha,
+        T_last_event=closing.snapshot_T_last_event,
+        last_event_id=cumulative_last.event_id,
+        lane=closing.lane,
+    )
+    parent_sha = subprocess.run(
+        ["git", "-C", str(source.worktree), "rev-parse", f"{closing.sha}^"],
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout.strip()
+    prior_rows = [row for row in deliveries if row.fold_index < closing.fold_index]
+    if prior_rows:
+        prior = prior_rows[-1]
+        base_ref = SnapshotRef(
+            sha=parent_sha,
+            T_last_event=prior.snapshot_T_last_event,
+            last_event_id=prior.event_id,
+            lane=prior.lane,
+        )
+    else:
+        base_ref = SnapshotRef(
+            sha=parent_sha,
+            T_last_event=window_events[0].time,
+            last_event_id="seed",
+            lane="seed",
+        )
+    return base_ref, close_ref, window_events
+
+
 def _scratch_batch_fold(
     task: Task,
     envelope: Envelope,
-    snapshot: SnapshotRef,
+    base_snapshot: SnapshotRef,
+    close_snapshot: SnapshotRef,
+    window_events: Sequence[EvalEvent],
     source: StoreHandle,
     cfg: EngineConfig,
     events: Sequence[EvalEvent],
     reader: LLMProvider,
-    repetition: int,
     variant: str,
 ) -> dict[str, Any]:
-    """Fold Vx on an isolated S3 copy, then grade the post-delta state with E2."""
+    """Fold the real window plus Vx on a pre-window copy, then run E2 at close."""
 
     from harnext_eval.agents.reader import Material
     from harnext_eval.agents.reader import answer as read_answer
     from harnext_eval.e2.arms import a4
     from harnext_eval.e2.run import grade_answer
 
-    source_files = {path: source.read(snapshot, path) or "" for path in source.list_files(snapshot)}
+    source_files = {
+        path: source.read(base_snapshot, path) or ""
+        for path in source.list_files(base_snapshot)
+    }
     with tempfile.TemporaryDirectory(prefix="harnext-e4-batch-") as temp:
         scratch = StoreHandle("S3", "scratch", Path(temp) / "store")
         configure_store(scratch, harness=make_harness_name(cfg), model=cfg.builder.model)
         for path, content in source_files.items():
             scratch.write(path, content)
-        visible_ids = sorted(
-            event.id for event in events if event.time <= task.T and event.id in envelope.text
+        builder_events = list(window_events)
+        close_event = builder_events[-1]
+        builder_events[-1] = close_event.model_copy(
+            update={
+                "data": {
+                    **(close_event.data or {}),
+                    "e4_context_envelope": {
+                        "variant": variant,
+                        "text": envelope.text,
+                    },
+                }
+            }
         )
-        envelope_digest = hashlib.sha256(envelope.text.encode()).hexdigest()[:12]
-        builder_event = EvalEvent(
-            id=f"e4-builder-{task.trigger_event_id}-{envelope_digest}-{repetition}",
-            source="harnext-eval:e4",
-            type="dev.harnext.eval.envelope_fold",
-            subject=task.entity,
-            time=task.T,
-            mgtenant="e4-scratch",
-            data={
-                "envelope_variant": variant,
-                "context_envelope": envelope.text,
-                "evidence_event_ids": visible_ids,
-            },
-        )
-        ref = scratch.fold([builder_event], "batch")
+        ref = scratch.fold(builder_events, "batch")
         after_files = {path: scratch.read(ref, path) or "" for path in scratch.list_files(ref)}
         changed = sorted(
             path for path in set(source_files) | set(after_files)
@@ -363,6 +430,9 @@ def _scratch_batch_fold(
         output_tokens = int(usage.get("output_tokens", usage.get("tokens_out", 0)))
         return {
             "batch_e2_acc": _mean(grades),
+            "batch_base_sha": base_snapshot.sha,
+            "batch_close_sha": close_snapshot.sha,
+            "batch_window_event_ids": [event.id for event in window_events],
             "batch_result_sha": ref.sha,
             "batch_delta_files": changed,
             "batch_probe_count": len(grades),
@@ -559,14 +629,23 @@ def run_e4(
 
     for task in sorted(task_list, key=lambda item: item.task_id):
         try:
-            snapshot = store.snapshot(task.T)
-        except LookupError:
+            if task.kind == "batch":
+                batch_base, batch_close, batch_events = _batch_fold_plan(
+                    task, store, event_list
+                )
+                snapshot = batch_base
+            else:
+                snapshot = store.snapshot(task.T)
+                batch_base = batch_close = None
+                batch_events = []
+        except (LookupError, ValueError, subprocess.CalledProcessError) as exc:
             excluded_tasks.add(task.task_id)
             manual_gate_rows.append(
                 {
                     "task_id": task.task_id, "variant": "", "probe_id": "",
                     "item_id": task.task_id, "T": task.T.isoformat(), "sha": "",
-                    "last_event_id": "", "result": "FAIL", "reasons": "snapshot_unavailable",
+                    "last_event_id": "", "result": "FAIL",
+                    "reasons": f"batch_or_snapshot_unavailable:{type(exc).__name__}",
                 }
             )
             continue
@@ -627,16 +706,18 @@ def run_e4(
             envelope = built[variant]
             for repetition in range(1, runs + 1):
                 if task.kind == "batch":
+                    assert batch_base is not None and batch_close is not None
                     outcome = _scratch_batch_fold(
-                        task, envelope, snapshot, store, cfg, event_list, provider, repetition,
-                        variant,
+                        task, envelope, batch_base, batch_close, batch_events,
+                        store, cfg, event_list, provider, variant,
                     )
                     input_tokens = int(outcome["tokens"])
                     output_tokens = int(outcome["output_tokens"])
                     run_rows.append(
                         {
                             "task_id": task.task_id, "entity": task.entity, "kind": task.kind,
-                            "variant": variant, "run": repetition, "snapshot_sha": snapshot.sha,
+                            "variant": variant, "run": repetition,
+                            "snapshot_sha": batch_close.sha,
                             "provider_model": provider_model,
                             "tool_calls": envelope.observed_tool_calls,
                             "cost_usd": _price(cfg, input_tokens, output_tokens),
@@ -710,7 +791,8 @@ def run_e4(
 
     metric_names = (
         "Q", "field_em", "id_cov", "assignee_hit_at_3", "reviewer_hit_at_3",
-        "component_em", "duplicate_em", "priority_em", "file_hit_at_5", "file_recall",
+        "component_em", "duplicate_em", "priority_em", "action_em",
+        "file_hit_at_5", "file_recall",
         "file_precision", "module_hit", "rouge_l", "judge_win", "batch_e2_acc",
         "evidence_valid", "tokens", "output_tokens", "cost_usd", "latency_s", "tool_calls",
     )
@@ -777,17 +859,29 @@ def run_e4(
         and not math.isnan(float(quality))
     ]
     arm_spread = max(arm_q) - min(arm_q) if arm_q else math.nan
-    q_by_variant = {
-        str(row["variant"]): float(row["Q"])
-        for row in metric_rows
-        if isinstance(row.get("Q"), (int, float)) and not math.isnan(float(row["Q"]))
-    }
-    non_vacuous_arms = bool(
-        q_by_variant.get("V0", math.nan) < q_by_variant.get("V3", math.nan)
-        and not math.isclose(
-            q_by_variant.get("V6", math.nan),
-            q_by_variant.get("V3", math.nan),
+    task_arm_outputs: dict[tuple[str, str], set[str]] = defaultdict(set)
+    for row in run_rows:
+        quality = row.get("Q")
+        quality_value = (
+            float(quality)
+            if isinstance(quality, (int, float)) and not math.isnan(float(quality))
+            else None
         )
+        output = {
+            "prediction": row.get("prediction"),
+            "Q": quality_value,
+            "batch_probe_grades": row.get("batch_probe_grades"),
+        }
+        task_arm_outputs[(str(row["task_id"]), str(row["variant"]))].add(
+            json.dumps(output, sort_keys=True)
+        )
+    # This is a plumbing/non-vacuity check only. Direction and ties are results,
+    # never validity criteria for the claim under test.
+    output_sets_by_task: dict[str, set[tuple[str, ...]]] = defaultdict(set)
+    for (task_id, _), outputs in task_arm_outputs.items():
+        output_sets_by_task[task_id].add(tuple(sorted(outputs)))
+    non_vacuous_arms = any(
+        len(variant_outputs) > 1 for variant_outputs in output_sets_by_task.values()
     )
     repeated_predictions: dict[tuple[str, str], set[str]] = defaultdict(set)
     for row in run_rows:
@@ -798,6 +892,10 @@ def run_e4(
     repetition_variation = any(len(values) > 1 for values in repeated_predictions.values())
     pr_precision, pr_recall, pr_audited = _pr_join_audit(fast_tasks)
 
+    primary_rows = contrasts_frame.loc[contrasts_frame["family"] == "primary"]
+    primary_inference = bool(
+        not primary_rows.empty and primary_rows["inference_valid"].all()
+    )
     mandatory = {
         "s3_fixed_store": store.layout == "S3",
         "leakage_gate_100_pct": bool(task_list) and not excluded_tasks,
@@ -808,7 +906,7 @@ def run_e4(
         "three_runs": runs == 3,
         "real_action_provider": not fake,
         "non_vacuous_arms": non_vacuous_arms,
-        "primary_inference": bool(not contrasts_frame.empty and contrasts_frame.loc[contrasts_frame["family"] == "primary", "inference_valid"].all()),
+        "primary_inference": primary_inference,
         "pr_join_audited": pr_audited or not any(task.gold_coverage.get("place") for task in fast_tasks),
     }
     invalid_reasons = sorted(name for name, passed in mandatory.items() if not passed)
@@ -859,17 +957,58 @@ def run_e4(
     )
     if out_dir.name.startswith("seed-"):
         artifacts.append(out_dir.parent / "seed_spread.csv")
+    contrast_size_gate = bool(
+        mandatory["leakage_gate_100_pct"]
+        and mandatory["v3_median_le_12k"]
+        and mandatory["v6_median_ge_3x_v3"]
+    )
+    publishable_primary_rows = primary_rows.loc[primary_rows["inference_valid"]]
+    published_rows = (
+        publishable_primary_rows.to_dict("records") if contrast_size_gate else []
+    )
+    effects = {
+        str(record["contrast"]): float(record["mean_delta_Q"])
+        for record in published_rows
+    }
+    intervals = {
+        str(record["contrast"]): {
+            "mean_delta_Q": float(record["mean_delta_Q"]),
+            "ci_low": float(record["ci_low"]),
+            "ci_high": float(record["ci_high"]),
+            "confidence_level": float(record["confidence_level"]),
+            "n": int(record["n"]),
+            "practically_meaningful": bool(record["practically_meaningful"]),
+        }
+        for record in published_rows
+    }
+    if invalid_reasons:
+        claim_outcome = "insufficient_evidence"
+    elif any(effect <= 0 for effect in effects.values()):
+        claim_outcome = "falsified"
+    elif effects and all(
+        interval["ci_low"] > 0 and interval["practically_meaningful"]
+        for interval in intervals.values()
+    ):
+        claim_outcome = "supported"
+    else:
+        claim_outcome = "inconclusive"
     primary = {
         "evidence_status": "plumbing-only" if fake else "substantive",
         "valid_primary": not invalid_reasons,
         "invalid_reasons": invalid_reasons,
-        "contrasts": {
-            str(record["contrast"]): float(record["mean_delta_Q"])
-            for record in contrasts_frame.to_dict("records")
-            if record["family"] == "primary"
-        }
-        if not invalid_reasons
-        else {},
+        "claim_outcome": claim_outcome,
+        "contrasts": effects,
+        "contrast_intervals": intervals,
+        "contrast_publication_reasons": [] if published_rows else [
+            name
+            for name in (
+                "leakage_gate_100_pct",
+                "v3_median_le_12k",
+                "v6_median_ge_3x_v3",
+                "primary_inference",
+            )
+            if not mandatory[name]
+        ],
     }
     check_details: dict[str, dict[str, Any]] = {}
     if fake:
