@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import math
 from dataclasses import replace
 from datetime import UTC, datetime
 from pathlib import Path
@@ -17,6 +18,7 @@ from harnext_eval.corpus.synthetic import generate_synthetic_corpus
 from harnext_eval.manifest import build_manifest, write_manifest
 from harnext_eval.probes.common import load_replay, parse_time
 from harnext_eval.probes.gen import generate_probe_set, write_probe_set
+from harnext_eval.probes.gold import GoldAuditTrail, write_gold_report
 from harnext_eval.providers.factory import (
     assert_offline_ok,
     make_embeddings,
@@ -45,26 +47,33 @@ def _discover_experiments() -> None:
     from harnext_eval.e6 import run as _e6  # noqa: F401
 
 
-def _check_results(metrics: dict[str, float]) -> dict[str, bool]:
+def _check_results(metrics: dict[str, float]) -> dict[str, bool | dict[str, object]]:
     count_metrics = {
         "checks.leakage_gate_passed",
         "checks.leakage_gate_failed",
         "checks.tasks_accepted",
     }
-    return {
-        name.split(".", 1)[1]: bool(value)
-        for name, value in metrics.items()
-        if name.startswith(("check.", "checks."))
-        and name not in count_metrics
-    }
+    checks: dict[str, bool | dict[str, object]] = {}
+    for name, value in metrics.items():
+        if not name.startswith(("check.", "checks.")) or name in count_metrics:
+            continue
+        check_name = name.split(".", 1)[1]
+        checks[check_name] = (
+            {"passed": None, "value": "not-applicable", "reason": "metric is undefined"}
+            if isinstance(value, float) and not math.isfinite(value)
+            else bool(value)
+        )
+    return checks
 
 
 def _write_result(result: ExperimentResult, out_dir: Path) -> None:
     out_dir.mkdir(parents=True, exist_ok=True)
+    checks = _check_results(result.metrics)
+    checks.update(result.check_details)
     payload = {
         "name": result.name,
         "metrics": result.metrics,
-        "checks": _check_results(result.metrics),
+        "checks": checks,
         "tables": {name: table.to_dict(orient="records") for name, table in result.tables.items()},
         "artifacts": [str(path) for path in result.artifacts],
         "primary": result.primary,
@@ -134,18 +143,30 @@ def _generate_probes(
     probe_end: datetime | None = None,
 ) -> CorpusHandle:
     start, end = _probe_window(handle)
-    probes = generate_probe_set(
-        list(handle.events()),
-        per_family=per_family,
-        seed=seed,
-        probe_start=probe_start or start,
-        probe_end=probe_end or end,
-    )
+    audit = GoldAuditTrail(source="normalised-smoke-adapter")
+    gold_report = Path(f"{output}.gold.json")
+    try:
+        probes = generate_probe_set(
+            list(handle.events()),
+            per_family=per_family,
+            seed=seed,
+            probe_start=probe_start or start,
+            probe_end=probe_end or end,
+            gold_audit=audit,
+        )
+    finally:
+        write_gold_report(audit, gold_report)
     probe_path, _, digest = write_probe_set(probes, output)
     return replace(
         handle,
         probes_path=probe_path,
-        meta={**handle.meta, "probe_count": len(probes), "probe_hash": digest},
+        meta={
+            **handle.meta,
+            "probe_count": len(probes),
+            "probe_hash": digest,
+            "dual_gold_agreement": audit.agreement_rate,
+            "dual_gold_report": str(gold_report),
+        },
     )
 
 

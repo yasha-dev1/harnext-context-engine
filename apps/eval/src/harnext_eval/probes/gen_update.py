@@ -6,7 +6,13 @@ import random
 from datetime import datetime, timedelta
 
 from harnext_eval.probes.common import string_value, uniform_time, unique, validate_period
-from harnext_eval.probes.gold import PythonGold, SqlGold
+from harnext_eval.probes.gold import (
+    GoldAuditTrail,
+    GoldRequest,
+    PythonGold,
+    RawJiraInput,
+    SqlGold,
+)
 from harnext_eval.probes.schema import ProbeCandidate, stratified_sample
 from harnext_eval.types import EvalEvent, Probe
 
@@ -18,6 +24,8 @@ def generate_update_probes(
     seed: int,
     probe_start: datetime,
     probe_end: datetime,
+    raw_jira: RawJiraInput | None = None,
+    gold_audit: GoldAuditTrail | None = None,
 ) -> list[Probe]:
     """Ask for latest state after at least two transitions and retain old values."""
 
@@ -25,8 +33,10 @@ def generate_update_probes(
     python = PythonGold(events)
     rng = random.Random(f"update:{seed}")
     candidates: list[ProbeCandidate] = []
-    with SqlGold(events) as sql:
+    with SqlGold(raw_jira if raw_jira is not None else events) as sql:
         for history in python.histories().values():
+            if not history or any(item.source_kind != "jira" for item in history):
+                continue
             for index in range(1, len(history)):
                 latest = history[index]
                 lower = max(start, latest.time)
@@ -37,7 +47,12 @@ def generate_update_probes(
                 snapshot_time = uniform_time(rng, lower, upper)
                 py_value = python.field_value(latest.entity, latest.field, snapshot_time)
                 sql_value = sql.field_value(latest.entity, latest.field, snapshot_time)
-                if py_value != sql_value or py_value is None:
+                request = GoldRequest(latest.entity, latest.field, snapshot_time)
+                if gold_audit is not None:
+                    py_value = gold_audit.compare(request, py_value, sql_value)
+                elif py_value != sql_value:
+                    py_value = None
+                if py_value is None:
                     continue
                 gold = string_value(py_value)
                 raw_superseded = [history[0].old_value]
@@ -64,7 +79,7 @@ def generate_update_probes(
                         gold_type="exact",
                         superseded_values=superseded,
                         source_event_ids=tuple(item.event_id for item in history[: index + 1]),
-                        stratum=f"{latest.entity.casefold()}:{latest.field.casefold()}",
+                        stratum=latest.entity.casefold(),
                     )
                 )
     return stratified_sample(candidates, count, seed=seed)

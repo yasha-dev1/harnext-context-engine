@@ -52,6 +52,17 @@ from harnext_eval.stats.stats import paired_difference_bca
 from harnext_eval.types import EvalEvent
 
 
+def _numeric_values(frame: pd.DataFrame, column: str) -> list[float]:
+    """Extract one numeric column without pandas' ambiguous scalar/Series typing."""
+
+    return [
+        float(value)
+        for row in frame.to_dict(orient="records")
+        if isinstance((value := row.get(column)), (int, float, np.integer, np.floating))
+        and not math.isnan(float(value))
+    ]
+
+
 @dataclass(frozen=True)
 class RunnerConfig:
     """Transport, topology and deployment controls for one E6 cell."""
@@ -334,7 +345,7 @@ def self_amplification_series(run: PipelineRun, *, bucket_s: float = 10.0) -> pd
         urgent = group[group["urgent"].astype(bool)]
         output.append(
             {
-                "bucket_s": float(bucket),
+                "bucket_s": float(cast(float, bucket)),
                 "fast_admission_rate_hz": float((group["lane"] == "fast").sum() / bucket_s),
                 "urgent_slo_attainment": slo_attainment(
                     urgent["latency_s"].astype(float).tolist()
@@ -681,9 +692,8 @@ async def _run_in_process(
         metrics[f"duplicates_{lane}"] = float(delivery.duplicates_by_lane.get(lane, 0))
         metrics[f"missed_{lane}"] = float(delivery.missed_by_lane.get(lane, 0))
     pre_burst = lag_frame[lag_frame["time_s"] < burst_start]
-    baseline_lag = (
-        float(pre_burst["total_lag"].median()) if not pre_burst.empty else 0.0
-    )
+    pre_burst_lag = _numeric_values(pd.DataFrame(pre_burst), "total_lag")
+    baseline_lag = float(np.median(pre_burst_lag)) if pre_burst_lag else 0.0
     metrics["baseline_lag"] = baseline_lag
     metrics["drain_time_s"] = drain_time(
         lag_frame["time_s"].tolist(),
@@ -693,7 +703,8 @@ async def _run_in_process(
     )
     if kill_offset is not None:
         before = lag_frame[lag_frame["time_s"] < kill_offset]
-        pre_kill = float(before.iloc[-1]["total_lag"]) if not before.empty else 0.0
+        before_lag = _numeric_values(pd.DataFrame(before), "total_lag")
+        pre_kill = before_lag[-1] if before_lag else 0.0
         metrics["recovery_time_s"] = recovery_time(
             lag_frame["time_s"].tolist(),
             lag_frame["total_lag"].tolist(),
@@ -1078,7 +1089,8 @@ def find_knee(
     ]
     if stable.empty:
         return None
-    return float(stable["rate_hz"].max())
+    stable_rates = _numeric_values(pd.DataFrame(stable), "rate_hz")
+    return max(stable_rates) if stable_rates else None
 
 
 async def sweep_steady(
@@ -1292,32 +1304,44 @@ def _gap_by_b(paired: pd.DataFrame, *, resamples: int, seed: int) -> pd.DataFram
     rows: list[dict[str, Any]] = []
     group_columns = ["shape", "b_level", "load", "partitions", "workers"]
     for keys, group in paired.groupby(group_columns, dropna=False, sort=True):
-        key_values = dict(zip(group_columns, keys, strict=True))
-        if group["entity"].nunique() >= 2:
+        key_tuple = keys if isinstance(keys, tuple) else (keys,)
+        if len(key_tuple) != len(group_columns):
+            raise ValueError("unexpected E6 grouped-key shape")
+        key_values = dict(zip(group_columns, key_tuple, strict=True))
+        records = group.to_dict(orient="records")
+        entities = [str(row["entity"]) for row in records]
+        two_slo = [float(row["two_slo"]) for row in records]
+        single_slo = [float(row["single_slo"]) for row in records]
+        if len(set(entities)) >= 2:
             interval = paired_difference_bca(
-                group["two_slo"].to_numpy(),
-                group["single_slo"].to_numpy(),
-                group["entity"].to_numpy(),
+                np.asarray(two_slo),
+                np.asarray(single_slo),
+                np.asarray(entities),
                 n_resamples=resamples,
                 random_state=seed,
             )
             ci_low, ci_high = interval.ci_low, interval.ci_high
         else:
             ci_low = ci_high = float("nan")
+        target_b = [
+            float(row["target_b"])
+            for row in records
+            if isinstance(row.get("target_b"), (int, float))
+            and not math.isnan(float(row["target_b"]))
+        ]
+        realised_b = [float(row["realised_b"]) for row in records]
         rows.append(
             {
                 **key_values,
-                "target_b": float(group["target_b"].median())
-                if group["target_b"].notna().any()
-                else float("nan"),
-                "realised_b": float(group["realised_b"].mean()),
-                "two_slo_attainment": float(group["two_slo"].mean()),
-                "single_slo_attainment": float(group["single_slo"].mean()),
-                "gap": float((group["two_slo"] - group["single_slo"]).mean()),
+                "target_b": float(np.median(target_b)) if target_b else float("nan"),
+                "realised_b": float(np.mean(realised_b)),
+                "two_slo_attainment": float(np.mean(two_slo)),
+                "single_slo_attainment": float(np.mean(single_slo)),
+                "gap": float(np.mean(np.asarray(two_slo) - np.asarray(single_slo))),
                 "ci_low": ci_low,
                 "ci_high": ci_high,
-                "n_events": len(group),
-                "n_entities": group["entity"].nunique(),
+                "n_events": len(records),
+                "n_entities": len(set(entities)),
                 "bootstrap_resamples": resamples,
             }
         )
@@ -1590,7 +1614,9 @@ async def run_benchmark(
             router_policy=r5_template,
         )
         if name == "full":
-            full_decisions = result.route_decisions[["event_id", "lane"]].rename(
+            full_decisions = pd.DataFrame(
+                result.route_decisions.loc[:, ["event_id", "lane"]]
+            ).rename(
                 columns={"lane": "full_lane"}
             )
             changed = 0
@@ -1683,9 +1709,12 @@ async def run_benchmark(
     anomaly = gap_by_b[
         (gap_by_b["shape"] == "anomalous_burst") & (gap_by_b["load"] == 1.5)
     ]
-    primary_gap = float(anomaly["gap"].mean()) if not anomaly.empty else float(gap_by_b["gap"].mean())
+    anomaly_gaps = _numeric_values(pd.DataFrame(anomaly), "gap")
+    all_gaps = _numeric_values(gap_by_b, "gap")
+    primary_gap = float(np.mean(anomaly_gaps or all_gaps))
     poisson = gap_by_b[gap_by_b["shape"] == "poisson"]
-    poisson_gap = float(poisson["gap"].mean()) if not poisson.empty else float("nan")
+    poisson_gaps = _numeric_values(pd.DataFrame(poisson), "gap")
+    poisson_gap = float(np.mean(poisson_gaps)) if poisson_gaps else float("nan")
     service_constant = float((burst["service_time_constant"] == 1.0).all())
     broker_check = (
         float((burst["broker_telemetry_present"] == 1.0).all())

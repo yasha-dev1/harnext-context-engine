@@ -252,12 +252,10 @@ def _usage_cost(condition: StoreCondition) -> dict[str, float | bool]:
 
 
 def _current_ledger(store: StoreHandle) -> list[str] | None:
-    delivered = getattr(store, "delivered_event_ids", None)
-    if callable(delivered):
-        try:
-            return [str(event_id) for event_id in delivered()]
-        except (OSError, ValueError):
-            return None
+    try:
+        return [str(event_id) for event_id in store.delivered_event_ids()]
+    except (OSError, ValueError):
+        return None
     try:
         path = Path(store.worktree) / _DELIVERED_PATH
     except (AttributeError, TypeError):
@@ -345,12 +343,10 @@ def _same_input_proof(conditions: Sequence[StoreCondition]) -> tuple[bool, dict[
 
 
 def _snapshot_ledger(store: StoreHandle, ref: SnapshotRef) -> list[str] | None:
-    delivered = getattr(store, "delivered_event_ids", None)
-    if callable(delivered):
-        try:
-            return [str(event_id) for event_id in delivered(ref)]
-        except (OSError, ValueError):
-            return None
+    try:
+        return [str(event_id) for event_id in store.delivered_event_ids(ref)]
+    except (OSError, ValueError):
+        return None
     content = store.read(ref, _DELIVERED_PATH)
     if content is None:
         return None
@@ -668,10 +664,14 @@ def _condition_frame(
 def _macro_from_frame(frame: pd.DataFrame, score_column: str) -> float:
     if frame.empty:
         return math.nan
-    means = frame.groupby("family", sort=False)[score_column].mean()
-    if any(family not in means.index for family in _MACRO_FAMILIES):
+    scores: dict[str, list[float]] = defaultdict(list)
+    for row in frame.to_dict(orient="records"):
+        value = row.get(score_column)
+        if isinstance(value, (int, float, np.integer, np.floating)):
+            scores[str(row.get("family"))].append(float(value))
+    if any(not scores.get(family) for family in _MACRO_FAMILIES):
         return math.nan
-    return float(np.mean([means[family] for family in _MACRO_FAMILIES]))
+    return float(np.mean([np.mean(scores[family]) for family in _MACRO_FAMILIES]))
 
 
 def _macro_effect(frame: pd.DataFrame, left_columns: Sequence[str], right: str) -> float:
@@ -700,14 +700,12 @@ def _macro_clustered_bca(
     family_index = {family: index for index, family in enumerate(families)}
     sums = np.zeros((len(entities), len(families), len(condition_columns)), dtype=float)
     counts = np.zeros((len(entities), len(families)), dtype=float)
-    for row in frame.itertuples(index=False):
-        entity_position = entity_index[row.entity]
-        family_position = family_index[row.family]
+    for row in frame.to_dict(orient="records"):
+        entity_position = entity_index[row["entity"]]
+        family_position = family_index[row["family"]]
         counts[entity_position, family_position] += 1
         for condition_position, column in enumerate(condition_columns):
-            sums[entity_position, family_position, condition_position] += float(
-                getattr(row, column)
-            )
+            sums[entity_position, family_position, condition_position] += float(row[column])
     rng = np.random.default_rng(seed)
     cluster_weights = rng.multinomial(
         len(entities),
@@ -732,7 +730,11 @@ def _macro_clustered_bca(
     bias = float(norm.ppf(np.clip(proportion_less, epsilon, 1 - epsilon)))
     jackknife = np.asarray(
         [
-            _macro_effect(frame[frame["entity"] != entity], left_columns, right_column)
+            _macro_effect(
+                pd.DataFrame(frame.loc[frame["entity"] != entity]),
+                left_columns,
+                right_column,
+            )
             for entity in entities
         ],
         dtype=float,
@@ -1007,7 +1009,7 @@ def _rederive_probe(
 
 
 def _health_seed_spread(health: pd.DataFrame, sonnet_labels: set[str]) -> pd.DataFrame:
-    selected = health[health["store"].isin(sonnet_labels)]
+    selected = pd.DataFrame(health.loc[health["store"].isin(sorted(sonnet_labels))])
     id_columns = {
         "corpus",
         "store",
@@ -1026,14 +1028,20 @@ def _health_seed_spread(health: pd.DataFrame, sonnet_labels: set[str]) -> pd.Dat
     ]
     rows: list[dict[str, Any]] = []
     for checkpoint, frame in selected.groupby("checkpoint", sort=False):
+        records = frame.to_dict(orient="records")
         for metric in numeric:
-            values = frame[metric].dropna().astype(float)
+            values = [
+                float(value)
+                for row in records
+                if isinstance((value := row.get(metric)), (int, float, np.integer, np.floating))
+                and not math.isnan(float(value))
+            ]
             rows.append(
                 {
                     "checkpoint": checkpoint,
                     "metric": metric,
                     "seed_count": len(values),
-                    "seed_spread": float(values.std(ddof=1)) if len(values) >= 3 else math.nan,
+                    "seed_spread": float(np.std(values, ddof=1)) if len(values) >= 3 else math.nan,
                     "status": "measured" if len(values) >= 3 else "supported-not-run",
                 }
             )
@@ -1092,6 +1100,7 @@ def evaluate_e3(
     budgets: Sequence[int] = READ_BUDGETS,
     erosion_probe_limit: int = EROSION_PANEL_SIZE,
     corpus_name: str = "unknown",
+    smoke: bool = False,
 ) -> ExperimentResult:
     """Run every E3 store condition once and aggregate all configured seeds."""
 
@@ -1283,22 +1292,35 @@ def evaluate_e3(
     floor_metrics = _floor_checks(
         _with_budget(cfg, 8_000), probes, events, llm=llm
     )
-    failure_rows = cost[cost["builder_usage_applicable"].astype(bool)]
-    failure_ok = bool(
-        not failure_rows.empty
-        and failure_rows["builder_usage_present"].astype(bool).all()
-        and failure_rows["builder_failure_rate"].notna().all()
-        and (failure_rows["builder_failure_rate"] <= 0.05).all()
+    cost_records = cost.to_dict(orient="records")
+    failure_records = [row for row in cost_records if bool(row["builder_usage_applicable"])]
+    failure_ok = bool(failure_records) and all(
+        bool(row["builder_usage_present"])
+        and isinstance(row["builder_failure_rate"], (int, float))
+        and not math.isnan(float(row["builder_failure_rate"]))
+        and float(row["builder_failure_rate"]) <= 0.05
+        for row in failure_records
     )
-    accuracy_gate = gate[gate["phase"] == "accuracy"] if not gate.empty else gate
-    leakage_ok = bool(not accuracy_gate.empty and (accuracy_gate["status"] == "PASS").all())
-    budget_rows = curve[curve["budget_fill_observations"] > 0]
-    budget_ok = bool(
-        not budget_rows.empty and budget_rows["budget_within_10_pct"].astype(bool).all()
+    accuracy_gate_records = [
+        row for row in gate.to_dict(orient="records") if row.get("phase") == "accuracy"
+    ]
+    leakage_ok = bool(accuracy_gate_records) and all(
+        row.get("status") == "PASS" for row in accuracy_gate_records
     )
-    recall_value = (
-        float(s4_recall["recall_at_10"].mean()) if not s4_recall.empty else math.nan
+    budget_records = [
+        row
+        for row in curve.to_dict(orient="records")
+        if float(row.get("budget_fill_observations", 0)) > 0
+    ]
+    budget_ok = bool(budget_records) and all(
+        bool(row.get("budget_within_10_pct")) for row in budget_records
     )
+    recall_values = [
+        float(row["recall_at_10"])
+        for row in s4_recall.to_dict(orient="records")
+        if isinstance(row.get("recall_at_10"), (int, float))
+    ]
+    recall_value = float(np.mean(recall_values)) if recall_values else math.nan
     seed_count = len(sonnet_labels)
     metrics: dict[str, float] = {
         "checks.same_input_hash": float(same_input_details["replay_hash_identical"]),
@@ -1320,8 +1342,13 @@ def evaluate_e3(
         "gate_exclusion_count": float((gate["status"] == "FAIL").sum()),
         **floor_metrics,
     }
-    for (layout, budget), frame in curve.groupby(["layout", "budget"], sort=False):
-        metrics[f"acc.{layout}.{int(budget)}"] = float(frame["macro_acc"].mean())
+    accuracy_groups: dict[tuple[str, int], list[float]] = defaultdict(list)
+    for row in curve.to_dict(orient="records"):
+        accuracy_groups[(str(row["layout"]), int(row["budget"]))].append(
+            float(row["macro_acc"])
+        )
+    for (layout, budget), values in accuracy_groups.items():
+        metrics[f"acc.{layout}.{budget}"] = float(np.mean(values))
     primary = {
         str(row["contrast"]): {
             "delta": row["delta"],
@@ -1334,6 +1361,27 @@ def evaluate_e3(
         }
         for row in contrasts.to_dict(orient="records")
     }
+    check_details: dict[str, dict[str, Any]] = {}
+    if smoke:
+        check_details.update(
+            {
+                "erosion_panel_60": {
+                    "passed": None,
+                    "value": "not-applicable-in-smoke",
+                    "reason": "smoke uses a deterministic 10-probe erosion panel; the evidentiary run requires 60",
+                },
+                "seed_reliability_measured": {
+                    "passed": None,
+                    "value": "not-applicable-in-smoke",
+                    "reason": "smoke builds one configured S3 seed; reliability inference requires three Sonnet seeds",
+                },
+                "s4_recall_at_10_ge_0_7": {
+                    "passed": None,
+                    "value": "not-applicable-in-smoke",
+                    "reason": "smoke uses FakeEmbeddings; the S4 fairness gate applies to the pinned evidentiary embedding model",
+                },
+            }
+        )
     return ExperimentResult(
         name="e3",
         metrics=metrics,
@@ -1355,6 +1403,7 @@ def evaluate_e3(
             erosion_chart,
         ],
         primary=primary,
+        check_details=check_details,
     )
 
 
@@ -1380,6 +1429,7 @@ class E3Experiment:
             budgets=budgets,
             erosion_probe_limit=10 if corpus.meta.get("smoke") else EROSION_PANEL_SIZE,
             corpus_name=corpus.name,
+            smoke=bool(corpus.meta.get("smoke")),
         )
 
     def chart(self, result: ExperimentResult, out_dir: Path) -> list[Path]:

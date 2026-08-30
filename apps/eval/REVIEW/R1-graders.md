@@ -156,5 +156,30 @@ The implementation is not faithful enough to support trusted E2/E4 conclusions: 
 
 ## Fixes applied
 
+### FX-e2 assigned findings
+
+- **3** → `apps/eval/src/harnext_eval/e2/arms.py:217` performs a real, budgeted `StoreHandle.list_files/read` traversal from root `INDEX.md`/`OVERVIEW.md`, resolves canonical `entities/<kind>/<key>`, and recursively follows links opened from entity files → `apps/eval/tests/test_e2e3/test_e2e3.py:414`.
+- **4** → `apps/eval/src/harnext_eval/e2/run.py:480` explicitly resolves the configured reader and embedding providers, records immutable identities/prompt hash, caches paired responses, and marks any fake reader/embedding/tokenizer run `non-evidentiary-smoke` with `valid_primary=false`; the online S3 profile selects Anthropic at `apps/eval/configs/s3-curated.yaml:11` → `apps/eval/tests/test_e2e3/test_e2e3.py:609`.
+- **8, 9** → `apps/eval/src/harnext_eval/e2/run.py:154` requires the five macro families and `:212` computes the literal equal-family A4−A3 estimand with a 10,000-draw entity-clustered BCa interval; fewer than two clusters is invalid rather than a zero-width CI. Per-family CIs and Holm adjustment are at `:364` → `apps/eval/tests/test_e2e3/test_e2e3.py:504`.
+- **12** → `apps/eval/src/harnext_eval/e2/arms.py:114` implements separately labelled `A1-N20` and `A1-N100`, includes events at `T`, and orders ties deterministically; the answer/metric records include `N` → `apps/eval/tests/test_e2e3/test_e2e3.py:353`.
+- **supported-not-run** → the deterministic fake provider/tokenizer remains the small offline smoke profile and is never publishable evidence. The configured Sonnet reader, provider tokenizer, injected pinned embeddings, full audits, and 300-probe corpus are supported but no paid/network or real-corpus run was performed.
+- No assigned finding was deliberately left unfixed.
+
 - **2** → `apps/eval/src/harnext_eval/replay/gate.py:46` replaces filtered-event and fabricated-action evidence with exact store/SHA ledger proof, probe-specific source/question/material checks, recursive task gold/time checks, and canonical audit reasons. Historical snapshot calls resolve only through a uniquely registered live store and otherwise fail closed → `apps/eval/tests/test_replay/test_gate.py:55`, `:79`, `:109`, `:131`, `:153`, and `:173`.
 - E2/E4 call-site integration outside FX-core ownership was deliberately left to the designated module owners; the shared gate API and compatibility adapter needed by those callers are complete.
+
+## Fixes applied
+
+- **1** → `apps/eval/src/harnext_eval/probes/gen_code_location.py:24` now derives only issue-trigger+14-day PR unions visible by T, and `apps/eval/src/harnext_eval/probes/gen_code_location.py:71` asks after the final qualifying merge → `apps/eval/tests/test_probes/test_generators.py:146`.
+- **10** → `apps/eval/src/harnext_eval/probes/gen.py:28` allocates exactly one 60-slot multi-source family with an explicit link/code split and five equal macro-family counts; `apps/eval/src/harnext_eval/probes/schema.py:14` removes the sixth candidate family → `apps/eval/tests/test_probes/test_generators.py:44` and `apps/eval/tests/test_probes/test_cli.py:14`.
+- **11** → `apps/eval/src/harnext_eval/grade/links.py:35` parses collision-free repository-qualified PRs, namespaced threads, repository-qualified commits, tickets, and multiple comma/newline-delimited IDs into sets → `apps/eval/tests/test_grade/test_exact_links.py:36`.
+- The real 300-probe corpus execution and audited joins are **supported-not-run** in smoke; use `python -m harnext_eval.probes.gen --evidentiary --per-family 60 --minimum-entities 150 --raw-jira ... --join-audit ... --a0-audit ...`.
+- No assigned R1-graders finding was deliberately left unfixed.
+
+## Fixes applied
+
+- **5** → `apps/eval/src/harnext_eval/e4/run.py:279` performs an envelope-conditioned builder fold on an isolated S3 copy, records the resulting delta, and runs the shared E2 reader/graders at window close → `apps/eval/tests/test_e4e5/test_runs.py:354`.
+- **6** → `apps/eval/src/harnext_eval/e4/tasks.py:391` dispatches injected Corpus-S situations to scripted handling/world-state gold with owner, action time, and required fact IDs, failing closed for incomplete substantive metadata → `apps/eval/tests/test_e4e5/test_tasks_envelopes.py:200`.
+- **7** → `apps/eval/src/harnext_eval/e4/run.py:407` uses sorted task pairs, 10,000 seeded entity-clustered BCa resamples, McNemar correctness, practical thresholds, and Holm-adjusted secondaries; invalid inference cannot become a primary claim → `apps/eval/tests/test_e4e5/test_runs.py:257`.
+
+- The 150+150 real-corpus population, three real S3 seeds, and Opus tier are **supported-not-run** in smoke; `apps/eval/src/harnext_eval/e4/run.py:476` emits partial seed aggregation with that status until all configured seeds exist. No assigned blocker/major code finding was deliberately left unfixed.

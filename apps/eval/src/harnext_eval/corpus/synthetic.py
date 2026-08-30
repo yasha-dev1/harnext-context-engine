@@ -459,9 +459,10 @@ def _scenario_event(
         )
     if scenario_local == 4:
         predicted_from_raw = {
-            "declared-critical": "dev-07",
-            "security-cve": "dev-02",
-            "vote-thread": "dev-00",
+            "declared-critical": "responder-declared",
+            "security-cve": "responder-security",
+            "vote-thread": "responder-vote",
+            "silent-burst": "responder-burst",
         }
         return _transition(
             index=index,
@@ -814,17 +815,42 @@ def events_hash(events: list[EvalEvent]) -> str:
 
 
 def _injected_meta(events: list[EvalEvent]) -> list[dict[str, Any]]:
-    return [
-        {
-            "event_id": event.id,
-            "onset": event.time.isoformat(),
-            "archetype": str((event.data or {})["situation_archetype"]),
-            "cost_weight": float((event.data or {})["cost_weight"]),
-            "entity": event.subject,
-        }
-        for event in events
-        if (event.data or {}).get("injected_positive")
-    ]
+    positives = [event for event in events if (event.data or {}).get("injected_positive")]
+    rows: list[dict[str, Any]] = []
+    for number, event in enumerate(positives, start=1):
+        outcome_id = f"situation-{number}"
+        assignment = next(
+            (
+                candidate
+                for candidate in events
+                if candidate.time > event.time
+                and (candidate.data or {}).get("outcome_for") == outcome_id
+                and (candidate.data or {}).get("field") == "assignee"
+            ),
+            None,
+        )
+        scripted = (
+            {
+                "owner": str((assignment.data or {})["to"]),
+                "required_ids": [str((event.data or {})["issue_key"])],
+                "time": assignment.time.isoformat(),
+                "event_ids": [assignment.id],
+                "action": "route_and_reply",
+            }
+            if assignment is not None
+            else {}
+        )
+        rows.append(
+            {
+                "event_id": event.id,
+                "onset": event.time.isoformat(),
+                "archetype": str((event.data or {})["situation_archetype"]),
+                "cost_weight": float((event.data or {})["cost_weight"]),
+                "entity": event.subject,
+                "scripted_handling": scripted,
+            }
+        )
+    return rows
 
 
 def generate_synthetic_corpus(

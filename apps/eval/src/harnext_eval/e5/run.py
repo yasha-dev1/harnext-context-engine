@@ -16,6 +16,7 @@ from typing import Any
 
 import numpy as np
 import pandas as pd
+from numpy.typing import NDArray
 from scipy.stats import norm
 
 from harnext_eval.config import EngineConfig
@@ -26,7 +27,13 @@ from harnext_eval.e2.run import ProbeOutcome, evaluate_e2, macro_accuracy
 from harnext_eval.health.store_health import compute_store_health
 from harnext_eval.probes.gen_code_location import code_location_gold
 from harnext_eval.probes.gen_multisource import _links_as_of
-from harnext_eval.probes.gold import PythonGold, SqlGold
+from harnext_eval.probes.gold import (
+    GoldAuditTrail,
+    GoldRequest,
+    PythonGold,
+    SqlGold,
+    write_gold_report,
+)
 from harnext_eval.registry import ExperimentResult, register_experiment
 from harnext_eval.report.charts import e5_pareto
 from harnext_eval.stats.stats import paired_difference_bca
@@ -488,11 +495,17 @@ def _temporal_target(probe: Probe) -> datetime:
         raise ValueError(f"cannot parse temporal cutoff for probe {probe.probe_id}") from exc
 
 
-def _rederive_probes(probes: Sequence[Probe], events: Sequence[EvalEvent]) -> list[Probe]:
+def _rederive_probes(
+    probes: Sequence[Probe],
+    events: Sequence[EvalEvent],
+    *,
+    report_path: Path | None = None,
+) -> list[Probe]:
     """Keep frozen cutoffs and independently rederive every probe's gold at that cutoff."""
 
     python = PythonGold(events)
     derived: list[Probe] = []
+    audit = GoldAuditTrail(source="normalised-smoke-adapter")
     with SqlGold(events) as sql:
         for probe in probes:
             if probe.family in {"extraction", "temporal", "update"}:
@@ -501,12 +514,12 @@ def _rederive_probes(probes: Sequence[Probe], events: Sequence[EvalEvent]) -> li
                     raise ValueError(f"cannot identify gold field for probe {probe.probe_id}")
                 target = _temporal_target(probe)
                 py_value = python.field_value(probe.entity, field, target)
-                sql_value = sql.field_value(probe.entity, field, target)
-                if py_value != sql_value:
-                    raise ValueError(f"Python/SQL gold disagree for probe {probe.probe_id}")
                 history = python.transitions(probe.entity, field, target)
                 if py_value is None or not history:
                     raise ValueError(f"probe {probe.probe_id} has no gold at its frozen cutoff")
+                if all(item.source_kind == "jira" for item in history):
+                    sql_value = sql.field_value(probe.entity, field, target)
+                    audit.compare(GoldRequest(probe.entity, field, target), py_value, sql_value)
                 superseded = probe.superseded_values
                 if probe.family == "update":
                     values = [item.old_value for item in history[:1]] + [
@@ -536,6 +549,9 @@ def _rederive_probes(probes: Sequence[Probe], events: Sequence[EvalEvent]) -> li
                 )
             else:
                 derived.append(probe.model_copy(update={"gold": "UNKNOWN"}))
+    if report_path is not None:
+        write_gold_report(audit, report_path)
+    audit.require_valid(evidentiary=False)
     return derived
 
 
@@ -713,7 +729,7 @@ def _quantile(values: Iterable[float], q: float) -> float:
 
 
 def _ratio_stat(
-    rows: Sequence[int],
+    rows: NDArray[np.integer[Any]],
     numerator_cost: np.ndarray,
     numerator_events: np.ndarray,
     denominator_cost: np.ndarray,
@@ -817,7 +833,15 @@ def run_cadences(
     if not all_events:
         raise ValueError("E5 requires a non-empty replay")
     frozen_probes = list(probes) if probes is not None else _load_probes(corpus.probes_path)
-    probe_list = _rederive_probes(frozen_probes, all_events) if frozen_probes else []
+    probe_list = (
+        _rederive_probes(
+            frozen_probes,
+            all_events,
+            report_path=out_dir / "gold-agreement.json",
+        )
+        if frozen_probes
+        else []
+    )
     prices = _prices(cfg, corpus.meta)
     labels, label_provenance, labels_frozen = _urgency_labels(all_events, corpus)
     warmup_cutoff = _warmup_cutoff(corpus, probe_list)
@@ -1000,7 +1024,7 @@ def run_cadences(
         )
 
     gate_frame = pd.concat(gate_frames, ignore_index=True) if gate_frames else pd.DataFrame()
-    leakage_ok = bool(gate_frame.empty or (gate_frame["status"] == "PASS").all())
+    leakage_ok = bool(gate_frame.empty or (gate_frame["result"] == "PASS").all())
     e2_checks_ok = bool(
         e2_by_cadence
         and all(
@@ -1094,7 +1118,7 @@ def run_cadences(
     freshness_frame.to_csv(freshness_path, index=False)
     pareto_frame.to_csv(pareto_path, index=False)
     gate_frame.to_csv(gate_path, index=False)
-    chart_data = pareto_frame.rename(
+    chart_data = pd.DataFrame(pareto_frame).rename(
         columns={
             "cost_1k": "cost",
             "macro_acc": "acc",
@@ -1122,13 +1146,32 @@ def run_cadences(
         "checks.labels_frozen": float(labels_frozen),
         "checks.claim_profile": float(claim_profile),
     }
+    check_details: dict[str, dict[str, Any]] = {}
+    if corpus.meta.get("smoke"):
+        smoke_reasons = {
+            "valid_primary": "the tiny deterministic smoke validates cadence plumbing, not the preregistered equal-accuracy cost claim",
+            "equal_accuracy": "the smoke probe population is too small for the paired equal-accuracy confidence interval",
+            "shared_e2": "shared E2 human-agreement claim gates are not part of deterministic smoke",
+            "nontrivial_cadence_scores": "FakeLLM smoke is deterministic and is not intended to establish cadence accuracy differences",
+            "claim_profile": "the E5 primary claim requires the non-smoke Corpus R-H1/S evidentiary profile",
+        }
+        check_details.update(
+            {
+                name: {
+                    "passed": None,
+                    "value": "not-applicable-in-smoke",
+                    "reason": reason,
+                }
+                for name, reason in smoke_reasons.items()
+            }
+        )
     return ExperimentResult(
         name="e5",
         metrics=metrics,
         tables={
             "cost": cost_frame,
             "freshness": freshness_frame,
-            "pareto": pareto_frame,
+            "pareto": pd.DataFrame(pareto_frame),
             "gate": gate_frame,
         },
         artifacts=[cost_path, freshness_path, pareto_path, gate_path, pareto_png],
@@ -1145,6 +1188,7 @@ def run_cadences(
             "price_of_freshness_detail": price_detail if price_of_freshness else None,
             "evidence_status": "claim-eligible" if claim_profile else "plumbing-only",
         },
+        check_details=check_details,
     )
 
 

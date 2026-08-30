@@ -9,20 +9,48 @@ from typing import Any
 from harnext_eval.grade.exact import normalize_exact
 from harnext_eval.types import GradeResult
 
-_KEY_RE = re.compile(r"(?<![\w-])(?:[A-Za-z][A-Za-z0-9]+\s*[-_]\s*\d+|#\d+)(?![\w-])")
+_LINK_RE = re.compile(
+    r"(?ix)(?<![\w:])(?:"
+    r"pr:[a-z0-9_.-]+(?:/[a-z0-9_.-]+)*\#\d+|"
+    r"pr:\d+|"
+    r"thread:[a-z0-9_.@-]+/[a-z0-9_.@<>-]+|"
+    r"thread:[a-z0-9_.@<>-]+|"
+    r"commit:[a-z0-9_.-]+(?:/[a-z0-9_.-]+)*@[a-z0-9_.:-]+|"
+    r"ticket:[a-z][a-z0-9]+\s*[-_]\s*\d+|"
+    r"[a-z][a-z0-9]+\s*[-_]\s*\d+|"
+    r"\#\d+"
+    r")(?![\w])"
+)
+
+
+def _canonical_link(value: Any) -> str:
+    text = str(value).strip().casefold().rstrip(".,;:!?")
+    if text.startswith("ticket:"):
+        return f"ticket:{normalize_exact(text.removeprefix('ticket:'))}"
+    if re.fullmatch(r"[a-z][a-z0-9]+\s*[-_]\s*\d+", text):
+        return normalize_exact(text)
+    return text
 
 
 def normalise_keys(values: str | Iterable[Any] | None) -> set[str]:
-    """Normalise a key collection, extracting ticket keys from free text."""
+    """Extract every canonical PR/thread/commit/ticket identifier from text."""
 
     if values is None:
         return set()
     if isinstance(values, str):
-        matches = _KEY_RE.findall(values)
+        matches = _LINK_RE.findall(values)
         raw_values: Iterable[Any] = matches if matches else (values,)
     else:
         raw_values = values
-    return {key for value in raw_values if (key := normalize_exact(value))}
+    canonical: set[str] = set()
+    for value in raw_values:
+        if isinstance(value, str):
+            matches = _LINK_RE.findall(value)
+            pieces: Iterable[Any] = matches if matches else (value,)
+        else:
+            pieces = (value,)
+        canonical.update(key for piece in pieces if (key := _canonical_link(piece)))
+    return canonical
 
 
 def grade_links(

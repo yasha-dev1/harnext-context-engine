@@ -13,11 +13,20 @@ from pathlib import Path
 from typing import cast
 
 import pytest
-from harnext_eval.agents.reader import Material, answer
+from harnext_eval.agents.reader import Material, answer, truncate_to_tokens
 from harnext_eval.cli import _build_e3_conditions
 from harnext_eval.config import EngineConfig, load_config
-from harnext_eval.e2.arms import a1, a2, a3, a4, retrieve_everything
-from harnext_eval.e2.run import evaluate_e2
+from harnext_eval.e2.arms import a1, a2, a3, a4, retrieve_everything, store_read
+from harnext_eval.e2.run import (
+    BOOTSTRAP_RESAMPLES as E2_BOOTSTRAP_RESAMPLES,
+)
+from harnext_eval.e2.run import (
+    ProbeOutcome,
+    _contains_complete_value,
+    _paired_contrast,
+    evaluate_e2,
+    grade_answer,
+)
 from harnext_eval.e3.run import (
     BOOTSTRAP_RESAMPLES,
     READ_BUDGETS,
@@ -31,9 +40,10 @@ from harnext_eval.e3.run import (
 from harnext_eval.probes.gold import PythonGold
 from harnext_eval.providers.embeddings import FakeEmbeddings
 from harnext_eval.providers.llm import FakeLLM
+from harnext_eval.providers.tokenizer import CallableTokenCounter
 from harnext_eval.stores.base import StoreHandle
 from harnext_eval.stores.layouts import configure_store
-from harnext_eval.types import EvalEvent, Probe, SnapshotRef
+from harnext_eval.types import Answer, EvalEvent, GradeResult, Probe, SnapshotRef
 
 NOW = datetime(2026, 5, 1, tzinfo=UTC)
 CONFIG_PATH = Path(__file__).parents[2] / "configs" / "baseline-minimal.yaml"
@@ -58,9 +68,34 @@ def _event(event_id: str, at: datetime, status: str, *, padding: str = "") -> Ev
     )
 
 
+def _related_pr(at: datetime) -> EvalEvent:
+    return EvalEvent(
+        id="pr7",
+        source="github:test",
+        type="pull_request.merged",
+        subject="pr:7",
+        baseline_keys=["issue:HNX-1"],
+        time=at,
+        mgtenant="test",
+        data={"number": 7, "title": "HNX-1 fix", "state": "merged"},
+    )
+
+
 def _probes() -> list[Probe]:
-    common = {"entity": "HNX-1", "T": NOW + timedelta(days=1), "gold_type": "exact"}
+    common = {
+        "entity": "issue:HNX-1",
+        "T": NOW + timedelta(days=1),
+        "gold_type": "exact",
+    }
     return [
+        Probe(
+            probe_id="temporal",
+            family="temporal",
+            question=f"What was the status of HNX-1 as of {(NOW - timedelta(hours=2)).isoformat()}?",
+            gold="Open",
+            source_event_ids=["e1"],
+            **common,
+        ),
         Probe(
             probe_id="extract",
             family="extraction",
@@ -68,6 +103,16 @@ def _probes() -> list[Probe]:
             gold="Done",
             source_event_ids=["e2"],
             **common,
+        ),
+        Probe(
+            probe_id="links",
+            family="multisource",
+            question="Which pull requests or mail threads are related to HNX-1?",
+            gold=["pr:7"],
+            gold_type="links",
+            source_event_ids=["pr7"],
+            entity="issue:HNX-1",
+            T=NOW + timedelta(days=1),
         ),
         Probe(
             probe_id="update",
@@ -98,8 +143,13 @@ class ToyStore:
         self.worktree.mkdir(parents=True)
         self.snapshots_csv = root / "snapshots.csv"
         self._files = {
-            "INDEX.md": "# Index\n- [HNX-1](entities/HNX-1/OVERVIEW.md)\n",
-            "entities/HNX-1/OVERVIEW.md": f"HNX-1 status: {status}\n",
+            "INDEX.md": "# Index\n- [issue:HNX-1](entities/issue/HNX-1/OVERVIEW.md)\n",
+            "entities/issue/HNX-1/OVERVIEW.md": (
+                f"# issue:HNX-1\n- status: {status}\n"
+                "- [facts](facts.md)\n- [shared](../../../shared/status.md)\n"
+            ),
+            "entities/issue/HNX-1/facts.md": f"issue:HNX-1 status={status}\n",
+            "shared/status.md": f"issue:HNX-1 status: {status}\n",
         }
         with self.snapshots_csv.open("w", newline="", encoding="utf-8") as destination:
             writer = csv.DictWriter(
@@ -300,6 +350,250 @@ def test_arms_enforce_budget(tmp_path: Path) -> None:
     assert (retrieve_everything(probe, events, cfg).original_tokens or 0) > 30
 
 
+def test_a1_runs_both_n_conditions_includes_cutoff_and_matches_exact_keys() -> None:
+    probe = Probe(
+        probe_id="boundary",
+        family="extraction",
+        entity="issue:KAFKA-1",
+        T=NOW,
+        question="What is the status of KAFKA-1?",
+        gold="Done",
+        gold_type="exact",
+    )
+    events = [
+        EvalEvent(
+            id="owned",
+            source="jira:test",
+            type="transition",
+            subject="issue:KAFKA-1",
+            time=NOW,
+            mgtenant="test",
+            data={"field": "status", "to": "Done"},
+        ),
+        EvalEvent(
+            id="prefix-collision",
+            source="jira:test",
+            type="transition",
+            subject="issue:KAFKA-10",
+            time=NOW,
+            mgtenant="test",
+            data={"field": "status", "to": "Wrong"},
+        ),
+        EvalEvent(
+            id="prose-mention",
+            source="mail:test",
+            type="message",
+            subject="thread:other",
+            time=NOW,
+            mgtenant="test",
+            data={"body": "KAFKA-1 was mentioned, but this event belongs elsewhere"},
+        ),
+        EvalEvent(
+            id="relation",
+            source="github:test",
+            type="pull_request.merged",
+            subject="pr:9",
+            baseline_keys=["issue:KAFKA-1"],
+            time=NOW,
+            mgtenant="test",
+            data={"number": 9},
+        ),
+    ]
+
+    n20 = a1(probe, events, _cfg(), n=20)
+    n100 = a1(probe, events, _cfg(), n=100)
+
+    assert n20.arm == "A1-N20"
+    assert n100.arm == "A1-N100"
+    assert '"id":"owned"' in n20.text
+    assert '"id":"relation"' in n20.text
+    assert "prefix-collision" not in n20.text
+    assert "prose-mention" not in n20.text
+
+
+def test_a4_starts_at_index_and_recursively_opens_canonical_entity_links(
+    tmp_path: Path,
+) -> None:
+    probe = _probes()[0]
+    material = a4(probe, _as_store(ToyStore(tmp_path / "store", "S3", "Done")), _cfg())
+
+    assert material.text.startswith("[file:INDEX.md]")
+    assert "[file:entities/issue/HNX-1/OVERVIEW.md]" in material.text
+    assert "[file:entities/issue/HNX-1/facts.md]" in material.text
+    assert "[file:shared/status.md]" in material.text
+    assert material.tool_calls == 5  # list_files plus four actual reads
+
+
+@pytest.mark.parametrize("layout", ["S4", "S5"])
+def test_vector_layouts_are_read_only_through_snapshot_top_k(
+    tmp_path: Path, layout: str
+) -> None:
+    events = [_event("e1", NOW, "Done")]
+    store = _real_store(tmp_path / layout.casefold(), layout, events)
+    material = store_read(
+        _probes()[0],
+        store,
+        _cfg(),
+        embeddings=FakeEmbeddings(),
+    )
+
+    assert material.arm == layout
+    assert material.tool_calls == 1
+    assert "Done" in material.text
+    assert "[source:" in material.text
+
+
+def test_provider_tokenizer_controls_truncation_and_logged_input_count() -> None:
+    tokenizer = CallableTokenCounter(
+        len,
+        tokenizer_id="fixture-character-tokenizer",
+        tokenizer_revision="2026-08-30",
+    )
+    accounting: dict[str, int | str | bool] = {}
+    material = Material(arm="A2", text="abcdef", original_tokens=6)
+
+    assert truncate_to_tokens("abcdef", 3, tokenizer=tokenizer) == "abc"
+    response = answer(
+        _probes()[0],
+        material,
+        _cfg(3),
+        provider=FakeLLM(),
+        tokenizer=tokenizer,
+        accounting=accounting,
+    )
+
+    assert response.tokens_read == 3
+    assert accounting["selected_material_tokens"] == 3
+    assert accounting["provider_input_tokens"] > response.tokens_read
+    assert accounting["tokenizer_id"] == "fixture-character-tokenizer"
+
+
+def _outcome(
+    probe_id: str,
+    family: str,
+    entity: str,
+    arm: str,
+    score: float,
+) -> ProbeOutcome:
+    probe = Probe(
+        probe_id=probe_id,
+        family=family,  # type: ignore[arg-type]
+        entity=entity,
+        T=NOW,
+        question="fixture",
+        gold="fixture",
+        gold_type="exact",
+    )
+    return ProbeOutcome(
+        probe=probe,
+        answer=Answer(
+            probe_id=probe_id,
+            arm=arm,
+            text="fixture",
+            cited_ids=[],
+            tokens_read=1,
+            tool_calls=0,
+            latency_s=0,
+        ),
+        grade=GradeResult(item_id=probe_id, metric="fixture", value=score, details={}),
+        original_tokens=1,
+        supersession_error=False,
+    )
+
+
+def test_primary_contrast_is_literal_equal_weight_family_macro() -> None:
+    outcomes: list[ProbeOutcome] = []
+    for entity in ("issue:A-1", "issue:A-2"):
+        for arm, right_score in (("A4", 1.0), ("A3", 0.0)):
+            outcomes.append(
+                _outcome(f"{entity}-extract-1", "extraction", entity, arm, right_score)
+            )
+            outcomes.append(
+                _outcome(f"{entity}-extract-2", "extraction", entity, arm, 0.0)
+            )
+            for family in ("temporal", "update", "multisource", "abstention"):
+                outcomes.append(
+                    _outcome(
+                        f"{entity}-{family}",
+                        family,
+                        entity,
+                        arm,
+                        right_score,
+                    )
+                )
+
+    contrast = _paired_contrast(outcomes, "A4", "A3", seed=7).iloc[0]
+
+    assert contrast["delta"] == pytest.approx(0.9)
+    assert contrast["n_resamples"] == E2_BOOTSTRAP_RESAMPLES
+    assert contrast["valid"]
+
+
+def test_code_location_primary_score_is_exact_set_with_named_secondaries() -> None:
+    probe = Probe(
+        probe_id="code",
+        family="code_location",
+        entity="issue:HNX-1",
+        T=NOW,
+        question="Which files changed?",
+        gold=["src/core/a.py", "src/core/b.py"],
+        gold_type="files",
+    )
+
+    partial = grade_answer(probe, "src/core/a.py")
+    exact = grade_answer(probe, "src/core/a.py\nsrc/core/b.py")
+
+    assert partial.metric == "exact_file_set"
+    assert partial.value == 0
+    assert partial.details["file_recall"] == 0.5
+    assert "module_hit" in partial.details
+    assert exact.value == 1
+
+    typed_probe = probe.model_copy(update={"gold": ["Dockerfile", "scripts/release"]})
+    typed = grade_answer(
+        typed_probe,
+        json.dumps({"files": ["Dockerfile", "scripts/release"], "modules": ["scripts/release"]}),
+    )
+    assert typed.value == 1
+
+
+def test_supersession_detection_uses_complete_values_not_substrings() -> None:
+    assert _contains_complete_value("Open", "Open")
+    assert not _contains_complete_value("Reopened", "Open")
+
+
+def test_leakage_gate_excludes_post_cutoff_source_and_preserves_reason(tmp_path: Path) -> None:
+    before = _event("before", NOW, "Open")
+    after = _event("after", NOW + timedelta(hours=1), "Done")
+    store = _real_store(tmp_path / "store", "S3", [before])
+    probe = Probe(
+        probe_id="leaky",
+        family="extraction",
+        entity="issue:HNX-1",
+        T=NOW,
+        question="What is the status of HNX-1?",
+        gold="Done",
+        gold_type="exact",
+        source_event_ids=["after"],
+    )
+
+    result, outcomes = evaluate_e2(
+        cfg=_cfg(),
+        probes=[probe],
+        events=[before, after],
+        out_dir=tmp_path / "e2",
+        seed=1,
+        store=store,
+        llm=FakeLLM(),
+        embeddings=FakeEmbeddings(),
+        arms=("A0",),
+    )
+
+    assert not outcomes
+    assert result.metrics["gate_exclusion_count"] == 1
+    assert "source_event_after_T:after" in (tmp_path / "e2" / "gate.csv").read_text()
+
+
 def test_reader_returns_unknown_without_evidence() -> None:
     response = answer(
         _probes()[0],
@@ -313,7 +607,11 @@ def test_reader_returns_unknown_without_evidence() -> None:
 
 
 def test_e2_tiny_end_to_end_writes_metrics_and_checks(tmp_path: Path) -> None:
-    events = [_event("e1", NOW - timedelta(hours=2), "Open"), _event("e2", NOW, "Done")]
+    events = [
+        _event("e1", NOW - timedelta(hours=2), "Open"),
+        _related_pr(NOW - timedelta(hours=1)),
+        _event("e2", NOW, "Done"),
+    ]
     store = _real_store(tmp_path / "store", "S3", events, seed=1)
 
     result, outcomes = evaluate_e2(
@@ -335,6 +633,9 @@ def test_e2_tiny_end_to_end_writes_metrics_and_checks(tmp_path: Path) -> None:
     }
     assert not result.tables["metrics"].empty
     assert result.primary["contrast"] == "A4-A3"
+    assert result.primary["evidence_status"] == "non-evidentiary-smoke"
+    assert result.primary["valid_primary"] is False
+    assert {"A1-N20", "A1-N100"} <= set(result.tables["metrics"]["arm"])
 
 
 def test_e3_curves_contrast_cost_and_erosion(tmp_path: Path) -> None:

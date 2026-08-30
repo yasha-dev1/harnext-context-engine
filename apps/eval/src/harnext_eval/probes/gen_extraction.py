@@ -6,7 +6,13 @@ import random
 from datetime import datetime, timedelta
 
 from harnext_eval.probes.common import string_value, uniform_time, validate_period
-from harnext_eval.probes.gold import PythonGold, SqlGold
+from harnext_eval.probes.gold import (
+    GoldAuditTrail,
+    GoldRequest,
+    PythonGold,
+    RawJiraInput,
+    SqlGold,
+)
 from harnext_eval.probes.schema import ProbeCandidate, stratified_sample
 from harnext_eval.types import EvalEvent, Probe
 
@@ -18,14 +24,16 @@ def generate_extraction_probes(
     seed: int,
     probe_start: datetime,
     probe_end: datetime,
+    raw_jira: RawJiraInput | None = None,
+    gold_audit: GoldAuditTrail | None = None,
 ) -> list[Probe]:
-    """Ask for a current field value at a sampled snapshot time."""
+    """Ask for current Jira, PR, KIP, thread, or world-state values."""
 
     start, end = validate_period(probe_start, probe_end)
     python = PythonGold(events)
     rng = random.Random(f"extraction:{seed}")
     candidates: list[ProbeCandidate] = []
-    with SqlGold(events) as sql:
+    with SqlGold(raw_jira if raw_jira is not None else events) as sql:
         for history in python.histories().values():
             for index, transition in enumerate(history):
                 lower = max(start, transition.time)
@@ -37,8 +45,18 @@ def generate_extraction_probes(
                 py_value = python.field_value(
                     transition.entity, transition.field, snapshot_time
                 )
-                sql_value = sql.field_value(transition.entity, transition.field, snapshot_time)
-                if py_value != sql_value or py_value is None:
+                if transition.source_kind == "jira":
+                    sql_value = sql.field_value(
+                        transition.entity, transition.field, snapshot_time
+                    )
+                    request = GoldRequest(
+                        transition.entity, transition.field, snapshot_time
+                    )
+                    if gold_audit is not None:
+                        py_value = gold_audit.compare(request, py_value, sql_value)
+                    elif py_value != sql_value:
+                        py_value = None
+                if py_value is None:
                     continue
                 candidates.append(
                     ProbeCandidate(
@@ -52,7 +70,7 @@ def generate_extraction_probes(
                         gold=string_value(py_value),
                         gold_type="exact",
                         source_event_ids=(transition.event_id,),
-                        stratum=f"{transition.entity.casefold()}:{transition.field.casefold()}",
+                        stratum=transition.entity.casefold(),
                     )
                 )
     return stratified_sample(candidates, count, seed=seed)

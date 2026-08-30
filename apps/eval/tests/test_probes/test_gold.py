@@ -1,11 +1,15 @@
-"""Dual-gold validity tests for docs/evaluation-spec.md §4 and §7 E2."""
+"""Independent and catalogue-complete gold tests for evaluation-spec §4/§7 E2."""
 
 from __future__ import annotations
 
+from datetime import UTC, datetime, timedelta
+
+import pytest
+from harnext_eval.corpus.jira import parse_issue
 from harnext_eval.probes.gold import (
+    GoldAuditTrail,
     GoldRequest,
     PythonGold,
-    cross_check_field_value,
     cross_check_gold,
     field_value_python,
     field_value_sql,
@@ -13,32 +17,155 @@ from harnext_eval.probes.gold import (
 from harnext_eval.types import EvalEvent
 
 
-def test_python_and_sql_gold_agree_on_synthetic_transitions(
-    synthetic_events: list[EvalEvent],
-) -> None:
-    python = PythonGold(synthetic_events)
-    requests = [
-        GoldRequest(
-            entity=history[-1].entity,
-            field=history[-1].field,
-            T=transition.time,
-        )
-        for history in python.histories().values()
-        for transition in history
-    ]
+def _raw_issue(*, raw_final: str = "Closed") -> dict[str, object]:
+    return {
+        "id": "1",
+        "key": "KAFKA-1",
+        "fields": {
+            "created": "2026-05-01T00:00:00Z",
+            "status": {"name": "Open"},
+            "assignee": {"displayName": "Alice", "accountId": "alice"},
+            "priority": {"name": "Major"},
+            "components": [{"name": "core"}],
+            "fixVersions": [{"name": "4.0"}],
+            "creator": {"displayName": "Alice", "accountId": "alice"},
+            "reporter": {"displayName": "Alice", "accountId": "alice"},
+            "comment": {"comments": []},
+        },
+        "changelog": {
+            "histories": [
+                {
+                    "id": "h1",
+                    "created": "2026-05-02T00:00:00Z",
+                    "items": [
+                        {"field": "status", "fromString": "Open", "toString": "In Progress"}
+                    ],
+                },
+                {
+                    "id": "h2",
+                    "created": "2026-05-03T00:00:00Z",
+                    "items": [
+                        {
+                            "field": "status",
+                            "fromString": "In Progress",
+                            "toString": raw_final,
+                        }
+                    ],
+                },
+            ]
+        },
+    }
 
-    assert requests
-    assert cross_check_gold(synthetic_events, requests) == []
 
-    example = requests[len(requests) // 2]
-    expected = field_value_python(
-        synthetic_events, example.entity, example.field, example.T
+def test_sql_reads_untouched_raw_jira_independently_from_python_replay() -> None:
+    raw = _raw_issue()
+    events = parse_issue(raw)
+    at = datetime(2026, 5, 4, tzinfo=UTC)
+    requests = [GoldRequest("KAFKA-1", "status", at)]
+
+    assert field_value_python(events, "KAFKA-1", "status", at) == "Closed"
+    assert field_value_sql(raw, "KAFKA-1", "status", at) == "Closed"
+    assert cross_check_gold(events, requests, raw_jira=raw) == []
+    assert field_value_sql(raw, "KAFKA-1", "components", at) == ["core"]
+    assert field_value_sql(raw, "KAFKA-1", "fixVersion", at) == ["4.0"]
+    assert field_value_sql(raw, "KAFKA-1", "assignee", at) == field_value_python(
+        events, "KAFKA-1", "assignee", at
     )
-    assert expected is not None
-    assert field_value_sql(synthetic_events, example.entity, example.field, example.T) == expected
-    assert (
-        cross_check_field_value(
-            synthetic_events, example.entity, example.field, example.T
-        )
-        is None
+
+
+def test_correlated_normalisation_error_is_exposed_and_fails_98_percent_gate() -> None:
+    raw = _raw_issue(raw_final="Closed")
+    events = parse_issue(_raw_issue(raw_final="Done"))
+    at = datetime(2026, 5, 4, tzinfo=UTC)
+    disagreement = cross_check_gold(
+        events,
+        [GoldRequest("KAFKA-1", "status", at)],
+        raw_jira=raw,
     )
+    assert len(disagreement) == 1
+    assert disagreement[0].python_value == "Done"
+    assert disagreement[0].sql_value == "Closed"
+
+    audit = GoldAuditTrail(source="raw-jira-export")
+    audit.compare(disagreement[0].request, "Done", "Closed")
+    assert audit.report()["disagreements"]
+    with pytest.raises(ValueError, match="below 98%"):
+        audit.require_valid(evidentiary=True)
+
+
+def _event(
+    event_id: str,
+    minute: int,
+    *,
+    source: str,
+    event_type: str,
+    subject: str,
+    data: dict[str, object],
+) -> EvalEvent:
+    return EvalEvent(
+        id=event_id,
+        source=source,
+        type=event_type,
+        subject=subject,
+        time=datetime(2026, 5, 1, tzinfo=UTC) + timedelta(minutes=minute),
+        mgtenant="test",
+        data=data,
+    )
+
+
+def test_python_gold_covers_initial_pr_kip_thread_and_world_state_fields() -> None:
+    raw = _raw_issue()
+    events = parse_issue(raw)
+    events.extend(
+        [
+            _event(
+                "pr",
+                1,
+                source="github:apache/kafka",
+                event_type="com.github.pull_request.merged",
+                subject="pr:apache/kafka#1",
+                data={"title": "KAFKA-1 fix", "merged_at": "2026-05-01T00:01:00Z"},
+            ),
+            _event(
+                "vote",
+                2,
+                source="mail:dev@kafka.apache.org",
+                event_type="org.apache.mail.message",
+                subject="thread:vote",
+                data={
+                    "subject": "[RESULT] KIP-1 vote accepted",
+                    "body": "accepted",
+                    "author": "committer",
+                    "in_reply_to": "root",
+                },
+            ),
+            _event(
+                "world",
+                3,
+                source="orgforge:test",
+                event_type="orgforge.world_state.dump",
+                subject="world:1",
+                data={
+                    "world_state": {
+                        "entities": {
+                            "account:7": {
+                                "plan": "enterprise",
+                                "status": "active",
+                            }
+                        }
+                    }
+                },
+            ),
+        ]
+    )
+    gold = PythonGold(sorted(events, key=lambda event: event.time))
+    at = datetime(2026, 5, 5, tzinfo=UTC)
+
+    assert str(gold.field_value("KAFKA-1", "assignee", at)).startswith("jira-user:")
+    assert gold.field_value("KAFKA-1", "priority", at) == "Major"
+    assert gold.field_value("KAFKA-1", "components", at) == ["core"]
+    assert gold.field_value("KAFKA-1", "fixVersion", at) == ["4.0"]
+    assert gold.field_value("pr:apache/kafka#1", "state", at) == "merged"
+    assert gold.field_value("KIP-1", "vote_outcome", at) == "accepted"
+    assert gold.field_value("thread:vote", "answered_by", at) == "committer"
+    assert gold.field_value("account:7", "plan", at) == "enterprise"

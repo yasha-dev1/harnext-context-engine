@@ -13,7 +13,7 @@ import pytest
 from harnext_eval.agents.reader import answer
 from harnext_eval.config import load_config
 from harnext_eval.corpus.synthetic import generate_synthetic_events
-from harnext_eval.e2.arms import a4
+from harnext_eval.e2.arms import a4, store_read
 from harnext_eval.providers.embeddings import FakeEmbeddings
 from harnext_eval.providers.llm import FakeLLM
 from harnext_eval.replay.driver import run_pipeline
@@ -323,7 +323,7 @@ def test_fake_reader_scores_actual_curated_layout_differently_from_s1(
         source_event_ids=[event.id],
     )
 
-    s1_answer = answer(probe, a4(probe, s1, cfg), cfg, provider=FakeLLM())
+    s1_answer = answer(probe, store_read(probe, s1, cfg), cfg, provider=FakeLLM())
     s3_answer = answer(probe, a4(probe, s3, cfg), cfg, provider=FakeLLM())
 
     expected_paths = {"src/context/store.py", "tests/test_store.py"}

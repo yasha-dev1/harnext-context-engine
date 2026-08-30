@@ -5,6 +5,7 @@ from __future__ import annotations
 from collections.abc import Sequence
 from datetime import datetime
 from pathlib import Path
+from typing import Any
 
 from harnext_eval.types import EvalEvent, Probe
 
@@ -16,6 +17,7 @@ def generate_probe_set(
     seed: int,
     probe_start: datetime,
     probe_end: datetime,
+    **options: Any,
 ) -> list[Probe]:
     """Lazily import the generator so ``python -m ...probes.gen`` stays warning-free."""
 
@@ -27,6 +29,7 @@ def generate_probe_set(
         seed=seed,
         probe_start=probe_start,
         probe_end=probe_end,
+        **options,
     )
 
 

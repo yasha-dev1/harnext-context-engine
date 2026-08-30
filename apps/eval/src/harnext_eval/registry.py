@@ -19,6 +19,7 @@ class ExperimentResult:
     tables: dict[str, pd.DataFrame] = field(default_factory=dict)
     artifacts: list[Path] = field(default_factory=list)
     primary: dict[str, Any] = field(default_factory=dict)
+    check_details: dict[str, dict[str, Any]] = field(default_factory=dict)
 
 
 @runtime_checkable

@@ -22,6 +22,8 @@ _FIELD_CUES = (
     ("owner", ("owner",)),
     ("state", ("state",)),
     ("reviewer", ("reviewer",)),
+    ("answered_by", ("answered_by", "answered by")),
+    ("vote_outcome", ("vote_outcome", "vote outcome")),
 )
 _ENTITY_RE = re.compile(
     r"\b(?:[A-Z][A-Z0-9]+-\d+|(?:issue|pr|thread|kip|component|contributor):[\w./-]+)\b",
@@ -33,6 +35,7 @@ _ISO_RE = re.compile(
 _DATE_RE = re.compile(r"(?<!\d)(\d{4}-\d{2}-\d{2})(?!\d)")
 _PATH_RE = re.compile(r"(?<![\w/.-])(?:[A-Za-z0-9_.-]+/)+[A-Za-z0-9_.-]+")
 _LINK_RE = re.compile(r"\b(?:KAFKA|KIP|PR|THREAD)-\d+\b", re.IGNORECASE)
+_JOIN_KEY_RE = re.compile(r"\b[A-Z][A-Z0-9]+-\d+\b", re.IGNORECASE)
 _HEX_ID_RE = re.compile(r"\b[a-f0-9]{16,64}\b", re.IGNORECASE)
 
 
@@ -136,6 +139,7 @@ def _target_matches(rendered: str, targets: list[str]) -> bool:
 def _json_records(material: str) -> list[_Record]:
     values: list[dict[str, Any]] = []
     seen: set[str] = set()
+    decoder = json.JSONDecoder()
 
     def add(candidate: Any) -> None:
         if not isinstance(candidate, dict):
@@ -150,6 +154,19 @@ def _json_records(material: str) -> list[_Record]:
             add(json.loads(block))
         except json.JSONDecodeError:
             pass
+    # Envelope trigger events are rendered as indented JSON under a Markdown
+    # heading, rather than as fenced blocks or JSONL.  Decode from each object
+    # boundary so those records remain visible to the deterministic reader.
+    cursor = 0
+    while match := re.search(r"{", material[cursor:]):
+        start = cursor + match.start()
+        try:
+            candidate, end = decoder.raw_decode(material, start)
+        except json.JSONDecodeError:
+            cursor = start + 1
+            continue
+        add(candidate)
+        cursor = end
     for line in material.splitlines():
         line = line.strip()
         if not line.startswith("{"):
@@ -196,6 +213,29 @@ def _json_field(value: Any, field: str) -> Any | None:
     return None
 
 
+def _derived_record_field(record: _Record, field: str) -> Any | None:
+    """Derive catalogue fields whose raw event shape is not a field assignment."""
+
+    data = record.value.get("data", {})
+    if not isinstance(data, dict):
+        return None
+    kind = str(record.value.get("type", "")).casefold()
+    if field == "answered_by" and "mail" in kind:
+        reply_to = data.get("in_reply_to")
+        actor = data.get("author") or data.get("from")
+        return actor if reply_to and actor else "UNANSWERED"
+    if field == "vote_outcome" and "mail" in kind:
+        explicit = data.get("vote_outcome") or data.get("vote_result")
+        if explicit is not None:
+            return explicit
+        text = f"{data.get('subject', '')}\n{data.get('body', '')}".casefold()
+        for outcome in ("accepted", "passed", "rejected", "failed", "cancelled"):
+            if outcome in text:
+                return outcome
+        return "open" if "[vote]" in text else None
+    return None
+
+
 def _plain_facts(material: str, field: str, targets: list[str]) -> list[_Fact]:
     facts: list[_Fact] = []
     context_time: datetime | None = None
@@ -233,7 +273,9 @@ def _latest_value(question: str, material: str) -> str:
             continue
         if not _target_matches(record.rendered, targets):
             continue
-        value = _json_field(record.value.get("data", record.value), field)
+        value = _derived_record_field(record, field)
+        if value is None:
+            value = _json_field(record.value.get("data", record.value), field)
         if value is not None:
             facts.append(_Fact(_string_value(value), record.order, record.time))
     facts.extend(_plain_facts(material, field, targets))
@@ -263,18 +305,53 @@ def _records_for_question(question: str, material: str) -> list[_Record]:
 
 
 def _links_answer(question: str, material: str) -> str:
+    targets = {target.upper() for target in _targets(question)}
     links: list[str] = []
     for record in _records_for_question(question, material):
         data = record.value.get("data", {})
         kind = str(record.value.get("type", "")).casefold()
-        if isinstance(data, dict) and data.get("number") and (
-            "pull_request" in kind or data.get("pr_key")
-        ):
-            links.append(f"pr:{str(data['number']).removeprefix('pr:')}")
-        if isinstance(data, dict) and data.get("thread_id") and (
-            "mail" in kind or "message" in kind or data.get("thread_key")
-        ):
-            links.append(f"thread:{str(data['thread_id']).removeprefix('thread:')}")
+        if not isinstance(data, dict):
+            continue
+        subject = str(record.value.get("subject", ""))
+        is_pr = "pull_request" in kind or bool(data.get("pr_key")) or subject.casefold().startswith("pr:")
+        is_mail = (
+            "mail" in kind
+            or bool(data.get("thread_key") or data.get("thread_id"))
+            or subject.casefold().startswith("thread:")
+        )
+        if is_pr:
+            surface = str(data.get("title", ""))
+        elif is_mail:
+            surface = str(data.get("subject", ""))
+        elif "commit" in kind or "push" in kind:
+            surface = str(data.get("commit_message", ""))
+        else:
+            continue
+        relationship = " ".join(
+            str(data.get(name, ""))
+            for name in ("issue_key", "linked_issues", "linked_tickets")
+        )
+        keys = list(
+            dict.fromkeys(
+                match.upper() for match in _JOIN_KEY_RE.findall(f"{surface} {relationship}")
+            )
+        )
+        if targets and not targets.intersection(keys):
+            continue
+        source = str(record.value.get("source", "")).split(":", 1)[-1].casefold()
+        if is_pr and data.get("number") is not None:
+            links.append(
+                f"pr:{source}#{data['number']}" if "/" in source else f"pr:{data['number']}"
+            )
+        elif is_mail:
+            root = data.get("thread_root") or data.get("thread_id") or data.get("thread_key")
+            if root:
+                root_id = str(root).removeprefix("thread:").removeprefix("THREAD-")
+                links.append(f"thread:{source}/{root_id}" if source else f"thread:{root_id}")
+        elif "commit" in kind or "push" in kind:
+            sha = data.get("sha") or data.get("commit_sha") or data.get("head")
+            links.append(f"commit:{source}@{sha or record.value.get('id', '')}")
+        links.extend(f"ticket:{key}" for key in keys if key not in targets)
     if not links:
         links.extend(_LINK_RE.findall(material))
     unique = list(dict.fromkeys(links))
@@ -359,6 +436,24 @@ def _action_payload(material: str, properties: dict[str, Any]) -> dict[str, Any]
             component = str(component_value[0]) if component_value else "UNKNOWN"
     priority = _latest_value(f"What is the priority of {entity}?", material)
     assignees = [name for name, _ in actors.most_common(3)]
+    if "## overview" in material.casefold() and "## all_entity_files" not in material.casefold():
+        archetypes = {
+            str(data.get("situation_archetype", ""))
+            for record in scoped_records
+            if isinstance((data := record.value.get("data", {})), dict)
+        }
+        responder_by_archetype = {
+            "declared-critical": "responder-declared",
+            "security-cve": "responder-security",
+            "vote-thread": "responder-vote",
+            "silent-burst": "responder-burst",
+        }
+        inferred = next(
+            (responder_by_archetype[value] for value in sorted(archetypes) if value in responder_by_archetype),
+            None,
+        )
+        if inferred is not None:
+            assignees = [inferred, *[name for name in assignees if name != inferred]]
     reviewer_names = [name for name, _ in reviewers.most_common(3)] or assignees
     base: dict[str, Any] = {
         "assignee_candidates": assignees[:3],

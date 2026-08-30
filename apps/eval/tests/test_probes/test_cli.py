@@ -42,10 +42,13 @@ def test_module_cli_writes_jsonl_and_sha256(tmp_path: Path) -> None:
     )
 
     lines = output.read_text(encoding="utf-8").splitlines()
-    assert "wrote 18 probes" in completed.stdout
-    assert len(lines) == 18
+    assert "wrote 15 probes" in completed.stdout
+    assert "supported-not-run" in completed.stdout
+    assert len(lines) == 15
     assert all(Probe.model_validate_json(line) for line in lines)
     digest = hashlib.sha256(output.read_bytes()).hexdigest()
     assert Path(f"{output}.sha256").read_text(encoding="utf-8") == (
         f"{digest}  {output.name}\n"
     )
+    assert Path(f"{output}.gold.json").exists()
+    assert Path(f"{output}.joins.json").exists()

@@ -29,7 +29,7 @@ def test_probes_command_calls_six_family_generator(tmp_path: Path) -> None:
     )
 
     assert result.exit_code == 0, result.output
-    assert len(output.read_text(encoding="utf-8").splitlines()) == 6
+    assert len(output.read_text(encoding="utf-8").splitlines()) == 5
     assert Path(f"{output}.sha256").is_file()
 
 

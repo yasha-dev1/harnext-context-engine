@@ -6,6 +6,7 @@ import random
 from datetime import datetime, timedelta
 
 from harnext_eval.probes.common import (
+    canonical_entity,
     changed_files,
     is_formatting_only,
     is_merged_pr,
@@ -23,13 +24,16 @@ _MERGE_HORIZON = timedelta(days=14)
 def code_location_gold(
     events: list[EvalEvent], entity: str, at: datetime
 ) -> tuple[dict[str, list[str]], list[str]]:
-    """Union files/modules over qualifying PRs merged in (T, T + 14 days]."""
+    """Union PR files merged within 14 days of the issue trigger and visible by T."""
 
     files: set[str] = set()
     source_ids: list[str] = []
-    horizon = at + _MERGE_HORIZON
+    trigger = issue_trigger_time(events, entity)
+    if trigger is None:
+        return {"files": [], "modules": []}, []
+    horizon = trigger + _MERGE_HORIZON
     for event in events:
-        if event.time <= at or event.time > horizon:
+        if event.time < trigger or event.time > horizon or event.time > at:
             continue
         if not is_merged_pr(event) or is_formatting_only(event):
             continue
@@ -45,6 +49,25 @@ def code_location_gold(
     return {"files": sorted_files, "modules": modules}, source_ids
 
 
+def issue_trigger_time(events: list[EvalEvent], entity: str) -> datetime | None:
+    """Return the issue's creation/trigger time, falling back to its first event."""
+
+    exact = [
+        event.time
+        for event in events
+        if canonical_entity(event).casefold() == entity.casefold()
+        and "jira.issue.created" in event.type.casefold()
+    ]
+    if exact:
+        return min(exact)
+    fallback = [
+        event.time
+        for event in events
+        if canonical_entity(event).casefold() == entity.casefold()
+    ]
+    return min(fallback) if fallback else None
+
+
 def generate_code_location_probes(
     events: list[EvalEvent],
     *,
@@ -53,38 +76,54 @@ def generate_code_location_probes(
     probe_start: datetime,
     probe_end: datetime,
 ) -> list[Probe]:
-    """Sample T before a merge and derive future 14-day localisation gold."""
+    """Place E2's T after every qualifying fixing PR merge."""
 
     start, end = validate_period(probe_start, probe_end)
     rng = random.Random(f"code-location:{seed}")
     candidates: list[ProbeCandidate] = []
+    entities: set[str] = set()
     for event in events:
         if not is_merged_pr(event) or is_formatting_only(event) or not changed_files(event):
             continue
-        upper = min(end, event.time - timedelta(microseconds=1))
-        lower = max(start, event.time - _MERGE_HORIZON)
-        if lower > upper:
+        entities.update(issue_keys_for_pr(event))
+    by_id = {event.id: event for event in events}
+    for entity in sorted(entities):
+        trigger = issue_trigger_time(events, entity)
+        if trigger is None:
             continue
-        for entity in issue_keys_for_pr(event):
-            snapshot_time = uniform_time(rng, lower, upper, exclude_end=True)
-            gold, source_ids = code_location_gold(events, entity, snapshot_time)
-            if not gold["files"]:
-                continue
-            candidates.append(
-                ProbeCandidate(
-                    family="code_location",
-                    entity=entity,
-                    T=snapshot_time,
-                    question=(
-                        f"Which files and modules are changed by pull requests carrying "
-                        f"{entity} that merge within 14 days after the snapshot?"
-                    ),
-                    gold=gold,
-                    gold_type="files",
-                    source_event_ids=tuple(source_ids),
-                    stratum=entity.casefold(),
-                )
+        qualifying = [
+            event
+            for event in events
+            if trigger <= event.time <= trigger + _MERGE_HORIZON
+            and is_merged_pr(event)
+            and not is_formatting_only(event)
+            and bool(changed_files(event))
+            and entity.casefold() in {key.casefold() for key in issue_keys_for_pr(event)}
+        ]
+        if not qualifying:
+            continue
+        lower = max(start, max(event.time for event in qualifying) + timedelta(microseconds=1))
+        if lower > end:
+            continue
+        snapshot_time = uniform_time(rng, lower, end)
+        gold, source_ids = code_location_gold(events, entity, snapshot_time)
+        if not gold["files"] or any(by_id[event_id].time >= snapshot_time for event_id in source_ids):
+            continue
+        candidates.append(
+            ProbeCandidate(
+                family="multisource",
+                entity=entity,
+                T=snapshot_time,
+                question=(
+                    f"Which files and modules were changed by fixing pull requests for "
+                    f"{entity} merged within 14 days of the issue trigger?"
+                ),
+                gold=gold,
+                gold_type="files",
+                source_event_ids=tuple(source_ids),
+                stratum=f"code:{entity.casefold()}",
             )
+        )
     return stratified_sample(candidates, count, seed=seed)
 
 

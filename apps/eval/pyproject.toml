@@ -12,6 +12,7 @@ dependencies = [
     "typer>=0.12",
     "numpy>=1.26",
     "pandas>=2.2",
+    "pyarrow>=17.0",
     "scipy>=1.13",
     "scikit-learn>=1.5",
     "pyod>=2.0",

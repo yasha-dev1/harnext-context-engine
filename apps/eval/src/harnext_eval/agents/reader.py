@@ -1,14 +1,27 @@
-"""Fixed, budgeted read agent from docs/evaluation-spec.md §5 and §7 E2."""
+"""Fixed, budgeted read agent from docs/evaluation-spec.md §5 and §7 E2.
+
+Material is line-oriented so the deterministic fake reader and real reader see
+the same evidence shapes:
+
+* raw events are one complete CloudEvent-shaped JSON object per line;
+* files begin with ``[file:<relative path>]`` and retain their Markdown/JSONL;
+* vector hits begin with ``[source:<index item id>]`` followed by the indexed
+  raw-event or curated-file chunk.
+
+These formats keep entity, timestamp, field/value, link, file, and provenance
+facts parseable without adding answer-only hints.
+"""
 
 from __future__ import annotations
 
 import time
+from collections.abc import MutableMapping
 from dataclasses import dataclass, field
 from typing import Any
 
 from harnext_eval.providers.factory import make_llm
 from harnext_eval.providers.llm import LLMProvider
-from harnext_eval.providers.tokenizer import count_tokens
+from harnext_eval.providers.tokenizer import FakeTokenCounter, TokenCounter, tokenizer_for
 from harnext_eval.types import Answer, Probe
 
 SYSTEM_PROMPT = "answer only from the provided material; UNKNOWN if not present; cite IDs"
@@ -30,19 +43,25 @@ class Material:
             raise ValueError("tool_calls cannot be negative")
 
 
-def truncate_to_tokens(text: str, budget_tokens: int) -> str:
+def truncate_to_tokens(
+    text: str,
+    budget_tokens: int,
+    *,
+    tokenizer: TokenCounter | None = None,
+) -> str:
     """Return the longest text prefix whose provider-token count fits the budget."""
 
+    counter = tokenizer or FakeTokenCounter()
     if budget_tokens < 0:
         raise ValueError("budget_tokens cannot be negative")
     if not text or budget_tokens == 0:
         return ""
-    if count_tokens(text) <= budget_tokens:
+    if counter.count(text) <= budget_tokens:
         return text
     low, high = 0, len(text)
     while low < high:
         midpoint = (low + high + 1) // 2
-        if count_tokens(text[:midpoint]) <= budget_tokens:
+        if counter.count(text[:midpoint]) <= budget_tokens:
             low = midpoint
         else:
             high = midpoint - 1
@@ -93,22 +112,42 @@ def answer(
     cfg: Any,
     *,
     provider: LLMProvider | None = None,
+    tokenizer: TokenCounter | None = None,
+    accounting: MutableMapping[str, int | str | bool] | None = None,
 ) -> Answer:
     """Answer one probe using only budgeted material and record read costs."""
 
+    selected_provider = provider or _provider(cfg)
+    counter = tokenizer or tokenizer_for(selected_provider)
     budget = _budget(cfg)
     selected = (
-        truncate_to_tokens(material.text, budget) if material.enforce_budget else material.text
+        truncate_to_tokens(material.text, budget, tokenizer=counter)
+        if material.enforce_budget
+        else material.text
     )
-    tokens_read = count_tokens(selected)
+    tokens_read = counter.count(selected)
+    user_prompt = f"Question: {probe.question}\nMaterial:\n{selected}"
+    provider_input_tokens = counter.count(f"{SYSTEM_PROMPT}\n{user_prompt}")
     started = time.perf_counter()
-    result = (provider or _provider(cfg)).complete(
+    result = selected_provider.complete(
         SYSTEM_PROMPT,
-        f"Question: {probe.question}\nMaterial:\n{selected}",
+        user_prompt,
         max_tokens=max(1, min(512, budget)),
     )
     latency = time.perf_counter() - started
     response = result.text.strip() or "UNKNOWN"
+    if accounting is not None:
+        accounting.update(
+            {
+                "selected_material_tokens": tokens_read,
+                "provider_input_tokens": provider_input_tokens,
+                "reported_provider_input_tokens": int(result.usage.get("input_tokens", 0)),
+                "reported_provider_output_tokens": int(result.usage.get("output_tokens", 0)),
+                "tokenizer_id": counter.tokenizer_id,
+                "tokenizer_revision": counter.tokenizer_revision,
+                "smoke_only_tokenizer": counter.smoke_only,
+            }
+        )
     return Answer(
         probe_id=probe.probe_id,
         arm=material.arm,

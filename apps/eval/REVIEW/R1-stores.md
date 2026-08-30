@@ -93,3 +93,9 @@
 - **11** → `apps/eval/src/harnext_eval/replay/gate.py:46` resolves the store plus `T`, reads the exact ledger through the selected SHA, checks replay/source/material evidence, applies task-only real action checks, preserves reasons, and fails closed for an absent SHA mapping; the compatibility adapter never trusts the caller's filtered event list → `apps/eval/tests/test_replay/test_gate.py:55`, `:79`, `:109`, `:131`, `:153`, and `:173`.
 - **12** → `StoreHandle.delivered_event_ids(ref)` at `apps/eval/src/harnext_eval/stores/base.py:222` exposes the complete ordered cumulative ledger needed by E3's replay-hash/list comparison; the E3 caller-side invalidation is recorded in the FX-e3 section above → `apps/eval/tests/test_core/test_store.py:55` and `apps/eval/tests/test_e2e3/test_e2e3.py:405`.
 - No FX-core assigned blocker/major was deliberately left unfixed. Large/real-provider execution requirements are not part of these findings.
+
+### FX-e2 assigned finding
+
+- **2** → `apps/eval/src/harnext_eval/e2/arms.py:323` dispatches S4/S5 to `StoreVectorIndex.query(question, top-k, at=snapshot(T))` and materialises only the returned index documents; `:351` keeps S3 filesystem traversal separate and labels non-S3 conditions by their real layout rather than A4 → `apps/eval/tests/test_e2e3/test_e2e3.py:428`.
+- **supported-not-run** → network-backed embeddings were not called; the immutable snapshot/top-k path is exercised offline with the configured fake embeddings.
+- No assigned finding was deliberately left unfixed.

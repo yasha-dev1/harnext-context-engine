@@ -8,7 +8,7 @@ engine:
   window: {gap_s: 30, max_events: 20, max_age_s: 120}
   store: {layout: S3, backend: git}
   builder: {harness: claude_code, model: claude-sonnet-5, prompt_version: v1}
-  reader: {provider: fake, budget_tokens: 8000}
+  reader: {provider: anthropic, budget_tokens: 8000}
   envelope: V3
   embeddings: {provider: fake, dim: 64}
   lane_design: two-lane

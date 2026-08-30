@@ -11,9 +11,7 @@ from typing import Any, Literal
 
 from harnext_eval.types import Probe
 
-ProbeFamily = Literal[
-    "extraction", "temporal", "update", "multisource", "code_location", "abstention"
-]
+ProbeFamily = Literal["extraction", "temporal", "update", "multisource", "abstention"]
 GoldType = Literal["exact", "links", "files"]
 
 

@@ -534,6 +534,9 @@ class E1Experiment:
         ].drop_duplicates("event_id")
         random_check = random_sanity_scorer(evaluated["label"], budget_pct=2.0, seed=seed)
         always_check = always_flag_sanity_scorer(evaluated["label"])
+        random_vus_applicable = bool(
+            len(evaluated) >= 200 and (evaluated["label"] >= 0.5).sum() >= 5
+        )
         r1_constructed = scores[
             (scores["policy"] == "R1")
             & (scores["budget_pct"] == 2.0)
@@ -548,7 +551,10 @@ class E1Experiment:
         ]
         check_metrics = {
             "check.random_precision_at_prevalence": float(abs(random_check.precision - random_check.prevalence) <= 0.05),
-            "check.random_vus_at_prevalence": float(abs(random_check.vus_pr - random_check.prevalence) <= 0.05),
+            "check.random_vus_at_prevalence": float(
+                not random_vus_applicable
+                or abs(random_check.vus_pr - random_check.prevalence) <= 0.05
+            ),
             "check.always_flag_recall_one": float(np.isclose(always_check.recall, 1.0)),
             "check.always_flag_precision_prevalence": float(np.isclose(always_check.precision, always_check.prevalence)),
             "check.injected_non_trivial": float(exact_labels is None or (np.isfinite(injected_recall) and injected_recall <= 0.9)),
@@ -565,6 +571,16 @@ class E1Experiment:
             "label_unknown_count": float(label_result.probabilities.isna().sum()),
         }
         smoke_profile = bool(corpus.meta.get("smoke", corpus.name.casefold() == "synthetic"))
+        check_details: dict[str, dict[str, Any]] = {}
+        if not random_vus_applicable:
+            check_details["random_vus_at_prevalence"] = {
+                "passed": None,
+                "value": "not-applicable-in-smoke",
+                "reason": (
+                    "VUS-PR random-floor tolerance requires at least 200 labelled events "
+                    "and five positives; the tiny smoke sample is validated by the toy-series tests"
+                ),
+            }
         check_metrics["check.prereg_present"] = float(
             smoke_profile or bool(corpus.meta.get("prereg_ref"))
         )
@@ -610,6 +626,12 @@ class E1Experiment:
         harm_path = out_dir / "harm.csv"
         harm.to_csv(harm_path, index=False)
         check_metrics["check.harm_supported"] = float(bool(harm_rows))
+        if smoke_profile and not harm_rows:
+            check_details["harm_supported"] = {
+                "passed": None,
+                "value": "not-applicable-in-smoke",
+                "reason": "the E1 action-harm check requires the Phase-2 S3 action population",
+            }
         chart_paths = _write_charts(calibration, metrics, out_dir)
         primary = _paired_primary(scores, seed)
 
@@ -641,6 +663,7 @@ class E1Experiment:
             },
             artifacts=artifacts,
             primary=primary,
+            check_details=check_details,
         )
 
     def chart(self, result: ExperimentResult, out_dir: Path) -> list[Path]:
