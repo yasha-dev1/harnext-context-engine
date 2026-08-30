@@ -4,8 +4,7 @@ from __future__ import annotations
 
 import json
 import re
-import shutil
-from collections.abc import Iterable, Sequence
+from collections.abc import Callable, Iterable, Sequence
 from pathlib import Path
 from typing import Any
 
@@ -185,13 +184,19 @@ def a3(
     return _material("A3", documents, _budget(cfg))
 
 
-def _store_documents(root: Path, entity: str, budget: int) -> tuple[list[tuple[str, str]], int]:
-    files = sorted(
-        path
-        for path in root.rglob("*")
-        if path.is_file() and ".git" not in path.parts and path.name != "snapshots.csv"
-    )
-    relative = {path.relative_to(root).as_posix(): path for path in files}
+def _store_documents(
+    files: Iterable[str],
+    read: Callable[[str], str | None],
+    entity: str,
+    budget: int,
+) -> tuple[list[tuple[str, str]], int]:
+    relative = sorted({
+        relpath
+        for raw in files
+        if (relpath := str(Path(raw)).replace("\\", "/")) != "snapshots.csv"
+        and ".git" not in Path(relpath).parts
+    })
+    relative_set = set(relative)
     starts = [
         relpath
         for relpath in relative
@@ -210,13 +215,13 @@ def _store_documents(root: Path, entity: str, budget: int) -> tuple[list[tuple[s
 
     def add(relpath: str) -> None:
         normalised = str(Path(relpath)).replace("\\", "/")
-        if normalised in relative and normalised not in ordered:
+        if normalised in relative_set and normalised not in ordered:
             ordered.append(normalised)
 
     for relpath in starts:
         add(relpath)
     for relpath in starts:
-        content = relative[relpath].read_text(encoding="utf-8", errors="replace")
+        content = read(relpath) or ""
         cached[relpath] = content
         for target in _LINK_RE.findall(content):
             resolved = (Path(relpath).parent / target).as_posix()
@@ -230,7 +235,7 @@ def _store_documents(root: Path, entity: str, budget: int) -> tuple[list[tuple[s
     for relpath in ordered:
         content = cached.get(relpath)
         if content is None:
-            content = relative[relpath].read_text(encoding="utf-8", errors="replace")
+            content = read(relpath) or ""
         document = f"[file:{relpath}]\n{content}"
         documents.append((relpath, document))
         loaded_tokens += count_tokens(document)
@@ -246,13 +251,14 @@ def a4(probe: Probe, store: StoreHandle, cfg: Any) -> Material:
         ref = store.snapshot(probe.T)
     except LookupError:
         return Material(arm="A4", text="", original_tokens=0, tool_calls=1)
-    checkout = store.materialise(ref)
-    try:
-        budget = _budget(cfg)
-        documents, opened = _store_documents(checkout, probe.entity, budget)
-        return _material("A4", documents, budget, tool_calls=opened + 1)
-    finally:
-        shutil.rmtree(checkout, ignore_errors=True)
+    budget = _budget(cfg)
+    documents, opened = _store_documents(
+        store.list_files(ref),
+        lambda relpath: store.read(ref, relpath),
+        probe.entity,
+        budget,
+    )
+    return _material("A4", documents, budget, tool_calls=opened + 1)
 
 
 def retrieve_everything(probe: Probe, events: Iterable[EvalEvent], cfg: Any) -> Material:

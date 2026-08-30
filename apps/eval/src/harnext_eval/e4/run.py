@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import importlib
 import json
 import math
 import re
@@ -24,22 +23,17 @@ from harnext_eval.e4.tasks import (
     DEFAULT_BOT_ACCOUNTS,
     GOLD_GROUPS,
     build_tasks,
-    is_rule_promoted,
 )
+from harnext_eval.grade.action import grade_action, grade_rouge_l
+from harnext_eval.grade.localisation import localisation_scores
 from harnext_eval.providers.llm import FakeLLM, LLMProvider, LLMResult
 from harnext_eval.providers.tokenizer import count_tokens
 from harnext_eval.registry import ExperimentResult, register_experiment
-from harnext_eval.stores.base import StoreHandle, register_layout
+from harnext_eval.replay.driver import run_pipeline
+from harnext_eval.report.charts import e4_envelopes
+from harnext_eval.stores.base import StoreHandle
+from harnext_eval.stores.layouts import configure_store
 from harnext_eval.types import EvalEvent, Probe, SnapshotRef, Task
-
-try:
-    from harnext_eval.grade.action import grade_action as _shared_grade_action
-    from harnext_eval.grade.action import grade_rouge_l as _shared_grade_rouge_l
-    from harnext_eval.grade.localisation import localisation_scores as _shared_localisation
-except ModuleNotFoundError:  # TODO(integration): permits isolated T8 checkout.
-    _shared_grade_action = None
-    _shared_grade_rouge_l = None
-    _shared_localisation = None
 
 VARIANTS = tuple(f"V{index}" for index in range(9))
 CONTRASTS = (("V3", "V1"), ("V3", "V6"), ("V7", "V3"), ("V8", "V3"))
@@ -260,59 +254,51 @@ def _score_action(task: Task, prediction: ActionPrediction) -> dict[str, float]:
     required = {_normalise(value) for value in category.get("required_ids", []) if value}
     cited = {_normalise(value) for value in prediction.cited_ids}
     id_cov = len(required.intersection(cited)) / len(required) if required else 1.0
-    local = _local_localisation(prediction.suspected_locations, _list(place.get("files")))
-    if _shared_grade_action is not None:
-        shared_action = _shared_grade_action(
-            task.task_id,
-            prediction.model_dump(),
-            task.gold,
-            gold_coverage=task.gold_coverage,
-        )
-        field_em = float(shared_action.details.get("field_em") or 0.0)
-        id_cov = float(shared_action.details.get("id_cov") or 0.0)
-        field_scores.update(
-            {
-                "assignee_hit_at_3": float(
-                    shared_action.details.get("assignee_hit@3", field_scores["assignee_hit_at_3"])
-                ),
-                "reviewer_hit_at_3": float(
-                    shared_action.details.get("reviewer_hit@3", field_scores["reviewer_hit_at_3"])
-                ),
-                "component_em": float(
-                    shared_action.details.get("component_exact", field_scores["component_em"])
-                ),
-                "duplicate_em": float(
-                    shared_action.details.get("duplicate_of_exact", field_scores["duplicate_em"])
-                ),
-                "priority_em": float(
-                    shared_action.details.get("priority_change_exact", field_scores["priority_em"])
-                ),
-            }
-        )
-        quality = shared_action.value
-    else:
-        quality = statistics.fmean((field_em, id_cov))
-    if _shared_localisation is not None:
-        shared_local = _shared_localisation(
-            prediction.suspected_locations,
-            _list(place.get("files")),
-            k=5,
-            agentless_superset=True,
-        )
-        local = {
-            "file_hit_at_5": _numeric_metric(shared_local, "file_hit@5"),
-            "file_recall": _numeric_metric(shared_local, "file_recall"),
-            "file_precision": _numeric_metric(shared_local, "file_precision"),
-            "module_hit": _numeric_metric(shared_local, "module_hit"),
+    shared_action = grade_action(
+        task.task_id,
+        prediction.model_dump(),
+        task.gold,
+        gold_coverage=task.gold_coverage,
+    )
+    field_em = float(shared_action.details.get("field_em") or 0.0)
+    id_cov = float(shared_action.details.get("id_cov") or 0.0)
+    field_scores.update(
+        {
+            "assignee_hit_at_3": float(
+                shared_action.details.get("assignee_hit@3", field_scores["assignee_hit_at_3"])
+            ),
+            "reviewer_hit_at_3": float(
+                shared_action.details.get("reviewer_hit@3", field_scores["reviewer_hit_at_3"])
+            ),
+            "component_em": float(
+                shared_action.details.get("component_exact", field_scores["component_em"])
+            ),
+            "duplicate_em": float(
+                shared_action.details.get("duplicate_of_exact", field_scores["duplicate_em"])
+            ),
+            "priority_em": float(
+                shared_action.details.get("priority_change_exact", field_scores["priority_em"])
+            ),
         }
+    )
+    quality = shared_action.value
+    shared_local = localisation_scores(
+        prediction.suspected_locations,
+        _list(place.get("files")),
+        k=5,
+        agentless_superset=True,
+    )
+    local = {
+        "file_hit_at_5": _numeric_metric(shared_local, "file_hit@5"),
+        "file_recall": _numeric_metric(shared_local, "file_recall"),
+        "file_precision": _numeric_metric(shared_local, "file_precision"),
+        "module_hit": _numeric_metric(shared_local, "module_hit"),
+    }
     replies = _list(text.get("replies"))
-    if _shared_grade_rouge_l is not None and replies:
-        rouge_score = max(
-            _shared_grade_rouge_l(task.task_id, prediction.draft_reply, reply).value
-            for reply in replies
-        )
-    else:
-        rouge_score = rouge_l(prediction.draft_reply, replies)
+    rouge_score = max(
+        (grade_rouge_l(task.task_id, prediction.draft_reply, reply).value for reply in replies),
+        default=math.nan,
+    )
     return {
         **field_scores,
         "field_em": field_em,
@@ -609,13 +595,14 @@ def run_e4(
     v6_median = medians.get("V6", math.nan)
     gate_passes = sum(bool(row.get("PASS")) for row in gate_rows)
     checks = {
+        "checks.leakage_gate_100_pct": float(gate_passes == len(gate_rows)),
         "checks.leakage_gate_passed": float(gate_passes),
         "checks.leakage_gate_failed": float(len(gate_rows) - gate_passes),
         "checks.v3_median_le_12k": float(not math.isnan(v3_median) and v3_median <= 12_000),
         "checks.v6_median_ge_3x_v3": float(
             not math.isnan(v3_median) and not math.isnan(v6_median) and v6_median >= 3 * v3_median
         ),
-        "checks.tasks_accepted": float(len(accepted_tasks)),
+        "checks.tasks_accepted_gt_0": float(bool(accepted_tasks)),
         "checks.gold_actions_after_T": float(
             all(
                 datetime_from_iso(value) > task.T
@@ -646,6 +633,9 @@ def run_e4(
             not math.isnan(max_archetype_share) and max_archetype_share <= 0.40
         ),
         "max_archetype_share": max_archetype_share,
+        "gate_pass_count": float(gate_passes),
+        "gate_exclusion_count": float(len(gate_rows) - gate_passes),
+        "tasks_accepted": float(len(accepted_tasks)),
     }
     artifacts = [
         out_dir / "runs.jsonl",
@@ -692,60 +682,6 @@ def run_e4(
     )
 
 
-def _entity_relpath(entity: str) -> str:
-    if ":" in entity:
-        kind, slug = entity.split(":", 1)
-        return f"entities/{kind}/{slug.replace('/', '__')}"
-    return f"entities/{entity}"
-
-
-def _fallback_layout(store: StoreHandle, events: list[EvalEvent], lane: str) -> None:
-    """Minimal local S3-shaped fold used only when T5 is unavailable."""
-
-    del lane
-    for event in events:
-        base = _entity_relpath(event.subject)
-        timeline_path = store.worktree / base / "timeline.md"
-        facts_path = store.worktree / base / "facts.md"
-        old_timeline = timeline_path.read_text(encoding="utf-8") if timeline_path.exists() else ""
-        old_facts = facts_path.read_text(encoding="utf-8") if facts_path.exists() else ""
-        rendered = json.dumps(event.data, sort_keys=True, default=str)
-        store.write(
-            f"{base}/timeline.md",
-            old_timeline + f"- {event.time.isoformat()} [{event.source}#{event.id}] {rendered}\n",
-        )
-        store.write(f"{base}/facts.md", old_facts + f"- [{event.id}] {rendered}\n")
-        store.write(
-            f"{base}/OVERVIEW.md",
-            f"# {event.subject}\n\nCurrent state from [{event.id}]: {rendered}\n",
-        )
-
-
-def _build_fallback_store(
-    events: list[EvalEvent], tasks: list[Task], out_dir: Path, seed: int
-) -> StoreHandle:
-    register_layout("T8E4", _fallback_layout)
-    store = StoreHandle("T8E4", f"e4-{seed}", out_dir / "store")
-    cutoff = max((task.T for task in tasks), default=None)
-    window: list[EvalEvent] = []
-    for event in events:
-        if cutoff is not None and event.time > cutoff:
-            break
-        if is_rule_promoted(event):
-            if window:
-                store.fold(window, "batch")
-                window = []
-            store.fold([event], "fast")
-        else:
-            window.append(event)
-            if len(window) >= 20:
-                store.fold(window, "batch")
-                window = []
-    if window:
-        store.fold(window, "batch")
-    return store
-
-
 def _build_experiment_store(
     events: list[EvalEvent],
     tasks: list[Task],
@@ -753,21 +689,16 @@ def _build_experiment_store(
     out_dir: Path,
     seed: int,
 ) -> StoreHandle:
-    """Build the fixed S3 store through shared T2/T5, with an isolated fallback."""
+    """Build the fixed S3 store through the shared replay and layout modules."""
 
-    try:
-        layouts = importlib.import_module("harnext_eval.stores.layouts")
-        driver = importlib.import_module("harnext_eval.replay.driver")
-    except ModuleNotFoundError:
-        return _build_fallback_store(events, tasks, out_dir, seed)
     store = StoreHandle("S3", f"e4-{seed}", out_dir / "store")
-    layouts.configure_store(
+    configure_store(
         store,
         harness=cfg.builder.harness,
         model=cfg.builder.model,
     )
     cutoff = max((task.T for task in tasks), default=None)
-    driver.run_pipeline(events, cfg, store, cutoff=cutoff, on_decision=None)
+    run_pipeline(events, cfg, store, cutoff=cutoff, on_decision=None)
     return store
 
 
@@ -815,12 +746,23 @@ class E4Experiment:
             cfg,
             out_dir,
             provider=self.provider,
+            variants=("V1", "V3", "V6", "V7", "V8")
+            if corpus.meta.get("smoke")
+            else VARIANTS,
+            runs=1 if corpus.meta.get("smoke") else 3,
             events=events,
         )
 
     def chart(self, result: ExperimentResult, out_dir: Path) -> list[Path]:
-        del result, out_dir
-        return []
+        table = result.tables["metrics"]
+        if table.empty:
+            return []
+        return [
+            e4_envelopes(
+                table.rename(columns={"variant": "envelope", "median_tokens": "tokens"}),
+                out_dir,
+            )
+        ]
 
 
 register_experiment(E4Experiment())

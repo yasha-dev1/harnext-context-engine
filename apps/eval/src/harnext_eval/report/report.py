@@ -107,7 +107,7 @@ def _extract_checks(
         if isinstance(direct, Mapping):
             candidates.extend((str(name), value) for name, value in direct.items())
         metrics = payload.get("metrics", {})
-        if isinstance(metrics, Mapping):
+        if isinstance(metrics, Mapping) and not isinstance(direct, Mapping):
             nested = metrics.get("checks")
             if isinstance(nested, Mapping):
                 candidates.extend((str(name), value) for name, value in nested.items())
@@ -135,7 +135,12 @@ def _extract_checks(
     for path in check_csvs:
         try:
             frame = pd.read_csv(path)
-        except (OSError, pd.errors.ParserError, UnicodeDecodeError):
+        except (
+            OSError,
+            pd.errors.EmptyDataError,
+            pd.errors.ParserError,
+            UnicodeDecodeError,
+        ):
             continue
         relative = path.relative_to(run_dir)
         experiment = (_experiment_name(relative) or relative.parent.name or "run").upper()
@@ -250,7 +255,12 @@ def build_report(run_dir: str | Path) -> Path:
                 continue
             try:
                 columns, records = _normalise_records(pd.read_csv(path))
-            except (OSError, pd.errors.ParserError, UnicodeDecodeError):
+            except (
+                OSError,
+                pd.errors.EmptyDataError,
+                pd.errors.ParserError,
+                UnicodeDecodeError,
+            ):
                 columns, records = ["error"], [{"error": "Could not read CSV"}]
             contrasts.append(
                 {

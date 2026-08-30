@@ -3,28 +3,30 @@
 from __future__ import annotations
 
 import csv
-import importlib
-import inspect
 import json
 import math
 import shutil
-import statistics
 from collections import defaultdict
-from collections.abc import Callable, Iterable, Mapping, Sequence
+from collections.abc import Iterable, Mapping
 from dataclasses import dataclass
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Any, cast
+from typing import Any
 
 import numpy as np
 import pandas as pd
 
 from harnext_eval.config import EngineConfig
 from harnext_eval.corpus import CorpusHandle
+from harnext_eval.e2.run import evaluate_e2
 from harnext_eval.e4.tasks import is_rule_promoted
+from harnext_eval.health.store_health import compute_store_health
 from harnext_eval.providers.tokenizer import count_tokens
 from harnext_eval.registry import ExperimentResult, register_experiment
-from harnext_eval.stores.base import StoreHandle, register_layout
+from harnext_eval.replay.driver import run_pipeline
+from harnext_eval.report.charts import e5_pareto
+from harnext_eval.stores.base import StoreHandle
+from harnext_eval.stores.layouts import configure_store
 from harnext_eval.types import EvalEvent, Probe, SnapshotRef
 
 CADENCES = ("W1", "W5", "W20", "W50", "W20+rules", "W20+rules+deviation")
@@ -57,35 +59,6 @@ def cadence_setting(name: str) -> CadenceSetting:
         raise ValueError(f"unknown cadence {name!r}") from exc
 
 
-def _entity_relpath(entity: str) -> str:
-    if ":" in entity:
-        kind, slug = entity.split(":", 1)
-        return f"entities/{kind}/{slug.replace('/', '__')}"
-    return f"entities/{entity}"
-
-
-def _fallback_layout(store: StoreHandle, events: list[EvalEvent], lane: str) -> None:
-    """Minimal S3-shaped fold used only when replay/T5 are absent."""
-
-    del lane
-    for event in events:
-        base = _entity_relpath(event.subject)
-        timeline_path = store.worktree / base / "timeline.md"
-        facts_path = store.worktree / base / "facts.md"
-        timeline = timeline_path.read_text(encoding="utf-8") if timeline_path.exists() else ""
-        facts = facts_path.read_text(encoding="utf-8") if facts_path.exists() else ""
-        payload = json.dumps(event.data, sort_keys=True, default=str)
-        store.write(
-            f"{base}/timeline.md",
-            timeline + f"- {event.time.isoformat()} [{event.source}#{event.id}] {payload}\n",
-        )
-        store.write(f"{base}/facts.md", facts + f"- [{event.id}] {payload}\n")
-        store.write(
-            f"{base}/OVERVIEW.md",
-            f"# {event.subject}\n\nCurrent state from [{event.id}]: {payload}\n",
-        )
-
-
 class MeteredStoreHandle(StoreHandle):
     """Store wrapper that records Fake-builder provider usage per fold."""
 
@@ -97,13 +70,7 @@ class MeteredStoreHandle(StoreHandle):
 
     def fold(self, events: list[EvalEvent], lane: str) -> SnapshotRef:
         prior_usage_count = len(_read_jsonl(self.usage_path))
-        try:
-            ref = super().fold(events, lane)
-        except RuntimeError as exc:
-            if "no fold callable registered" not in str(exc):
-                raise
-            register_layout(self.layout, _fallback_layout)
-            ref = super().fold(events, lane)
+        ref = super().fold(events, lane)
         self.fold_count += 1
         input_tokens = sum(count_tokens(event.model_dump_json()) for event in events)
         output_tokens = max(1, round(input_tokens * 0.2))
@@ -217,22 +184,9 @@ def _local_replay(
     return close_count
 
 
-def _shared_replay(
-    events: list[EvalEvent], cfg: EngineConfig, store: MeteredStoreHandle
-) -> tuple[bool, int]:
-    try:
-        module = importlib.import_module("harnext_eval.replay.driver")
-    except ModuleNotFoundError:
-        return False, 0  # TODO(integration): T2 absent in isolated T8 tests.
-    runner = getattr(module, "run_pipeline", None)
-    if not callable(runner):
-        return False, 0
-    stats = runner(events, cfg, store, cutoff=None, on_decision=None)
-    for name in ("folds", "fold_count", "builder_runs", "windows_closed"):
-        value = getattr(stats, name, None)
-        if isinstance(value, int):
-            return True, value
-    return True, store.fold_count
+def _shared_replay(events: list[EvalEvent], cfg: EngineConfig, store: MeteredStoreHandle) -> int:
+    run_pipeline(events, cfg, store, cutoff=None, on_decision=None)
+    return store.fold_count
 
 
 def _read_jsonl(path: Path) -> list[dict[str, Any]]:
@@ -330,45 +284,6 @@ def _snapshots(store: StoreHandle) -> list[SnapshotRef]:
         ]
 
 
-def _probe_values(gold: Any) -> list[str]:
-    if isinstance(gold, Mapping):
-        return [str(value) for value in gold.values()]
-    if isinstance(gold, Sequence) and not isinstance(gold, (str, bytes)):
-        return [str(value) for value in gold]
-    return [str(gold)]
-
-
-def _local_e2(store: StoreHandle, probes: list[Probe]) -> float:
-    refs = _snapshots(store)
-    if not refs or not probes:
-        return math.nan
-    final = refs[-1]
-    files = {
-        path: content
-        for path in store.list_files(final)
-        if (content := store.read(final, path)) is not None
-    }
-    by_family: dict[str, list[float]] = defaultdict(list)
-    for probe in probes:
-        entity_bits = {
-            probe.entity.casefold(),
-            probe.entity.split(":", 1)[-1].casefold(),
-        }
-        material = "\n".join(
-            body
-            for path, body in files.items()
-            if any(
-                bit and (bit in path.casefold() or bit in body.casefold()) for bit in entity_bits
-            )
-        )
-        values = _probe_values(probe.gold)
-        by_family[probe.family].append(
-            float(any(value.casefold() in material.casefold() for value in values))
-        )
-    family_means = [statistics.fmean(values) for values in by_family.values() if values]
-    return statistics.fmean(family_means) if family_means else math.nan
-
-
 def _shared_e2(
     store: StoreHandle,
     probes: list[Probe],
@@ -377,109 +292,36 @@ def _shared_e2(
     out_dir: Path,
     seed: int,
 ) -> float | None:
-    try:
-        module = importlib.import_module("harnext_eval.e2.run")
-    except ModuleNotFoundError:
-        return None  # TODO(integration): T7 absent in isolated T8 tests.
-    evaluator = getattr(module, "evaluate_store", None)
-    if not callable(evaluator):
-        evaluate_e2 = getattr(module, "evaluate_e2", None)
-        refs = _snapshots(store)
-        if not callable(evaluate_e2) or not refs or not probes:
-            return None
-        final_probes = [probe.model_copy(update={"T": refs[-1].T_last_event}) for probe in probes]
-        try:
-            raw_result = cast(Callable[..., Any], evaluate_e2)(
-                cfg=cfg,
-                probes=final_probes,
-                events=events,
-                out_dir=out_dir,
-                seed=seed,
-                store=store,
-                arms=("A4",),
-            )
-        except (TypeError, ValueError):
-            return None
-        if not isinstance(raw_result, tuple) or not raw_result:
-            return None
-        result = raw_result[0]
-        if not hasattr(result, "metrics"):
-            return None
-        value = result.metrics.get("macro_acc.A4")
-        return float(value) if value is not None else None
-    try:
-        parameters = inspect.signature(evaluator).parameters
-        kwargs: dict[str, Any] = {}
-        if "store" in parameters:
-            kwargs["store"] = store
-        if "probes" in parameters:
-            kwargs["probes"] = probes
-        if "cfg" in parameters:
-            kwargs["cfg"] = cfg
-        result = evaluator(**kwargs)
-    except (TypeError, ValueError):
+    refs = _snapshots(store)
+    if not refs or not probes:
         return None
-    if isinstance(result, Mapping) and result.get("macro_acc") is not None:
-        return float(result["macro_acc"])
-    value = getattr(result, "macro_acc", None)
+    final_probes = [probe.model_copy(update={"T": refs[-1].T_last_event}) for probe in probes]
+    result, _ = evaluate_e2(
+        cfg=cfg,
+        probes=final_probes,
+        events=events,
+        out_dir=out_dir,
+        seed=seed,
+        store=store,
+        arms=("A4",),
+    )
+    value = result.metrics.get("macro_acc.A4")
     return float(value) if value is not None else None
 
 
-def _local_health(store: StoreHandle) -> dict[str, float]:
+def _shared_health(store: StoreHandle) -> dict[str, float]:
     refs = _snapshots(store)
     if not refs:
         return {"files_per_entity": math.nan, "dup_rate": math.nan}
-    final = refs[-1]
-    paths = store.list_files(final)
-    entity_files = [
-        path for path in paths if path.startswith("entities/") and not path.endswith(".gitkeep")
-    ]
-    entities = {"/".join(path.split("/")[:3]) for path in entity_files if len(path.split("/")) >= 3}
-    fact_lines: list[str] = []
-    for path in entity_files:
-        if Path(path).name.casefold() != "facts.md":
-            continue
-        body = store.read(final, path) or ""
-        fact_lines.extend(line.strip().casefold() for line in body.splitlines() if line.strip())
-    duplicates = len(fact_lines) - len(set(fact_lines))
-    return {
-        "files_per_entity": len(entity_files) / len(entities) if entities else 0.0,
-        "dup_rate": duplicates / len(fact_lines) if fact_lines else 0.0,
-    }
-
-
-def _shared_health(store: StoreHandle) -> dict[str, float] | None:
+    checkout = store.materialise(refs[-1])
     try:
-        module = importlib.import_module("harnext_eval.health.store_health")
-    except ModuleNotFoundError:
-        return None  # TODO(integration): T4 absent in isolated T8 tests.
-    compute = getattr(module, "compute_store_health", None)
-    refs = _snapshots(store)
-    if callable(compute) and refs:
-        checkout = store.materialise(refs[-1])
-        try:
-            result = compute(checkout)
-        finally:
-            shutil.rmtree(checkout)
-        if isinstance(result, Mapping):
-            return {
-                "files_per_entity": float(result.get("files_per_entity", 0.0)),
-                "dup_rate": float(result.get("near_duplicate_fact_rate", 0.0)),
-            }
-    for name in ("measure_store", "store_health", "evaluate"):
-        evaluator = getattr(module, name, None)
-        if not callable(evaluator):
-            continue
-        try:
-            result = evaluator(store)
-        except TypeError:
-            continue
-        if isinstance(result, Mapping):
-            files = result.get("files_per_entity")
-            dup = result.get("dup_rate", result.get("duplicate_fact_rate"))
-            if files is not None and dup is not None:
-                return {"files_per_entity": float(files), "dup_rate": float(dup)}
-    return None
+        result = compute_store_health(checkout)
+    finally:
+        shutil.rmtree(checkout, ignore_errors=True)
+    return {
+        "files_per_entity": float(result.get("files_per_entity", 0.0)),
+        "dup_rate": float(result.get("near_duplicate_fact_rate", 0.0)),
+    }
 
 
 def _quantile(values: Iterable[float], q: float) -> float:
@@ -506,10 +348,6 @@ def run_cadences(
     """Build and measure each E5 cadence on the identical frozen replay."""
 
     out_dir.mkdir(parents=True, exist_ok=True)
-    try:
-        importlib.import_module("harnext_eval.stores.layouts")
-    except ModuleNotFoundError:
-        pass  # TODO(integration): T5 absent in isolated T8 tests.
     all_events = list(corpus.events())
     probe_list = list(probes) if probes is not None else _load_probes(corpus.probes_path)
     prices = _prices(cfg, corpus.meta)
@@ -528,15 +366,19 @@ def run_cadences(
             cadence_dir,
             usage_path=usage_path,
         )
-        used_shared, expected_runs = (
-            (False, 0) if setting.name == "W1" else _shared_replay(events, cadence_cfg, store)
+        configure_store(
+            store,
+            harness=cadence_cfg.builder.harness,
+            model=cadence_cfg.builder.model,
         )
-        if not used_shared:
+        if setting.name == "W1":
             expected_runs = _local_replay(events, cadence_cfg, setting, store)
+        else:
+            expected_runs = _shared_replay(events, cadence_cfg, store)
         usage = _read_jsonl(usage_path)
         freshness = _freshness(cadence, seed, events, usage)
         freshness_rows.extend(freshness)
-        shared_acc = _shared_e2(
+        macro_acc = _shared_e2(
             store,
             probe_list,
             cadence_cfg,
@@ -544,8 +386,7 @@ def run_cadences(
             cadence_dir / "e2-final",
             seed,
         )
-        macro_acc = shared_acc if shared_acc is not None else _local_e2(store, probe_list)
-        health = _shared_health(store) or _local_health(store)
+        health = _shared_health(store)
         event_count = len(events)
         dollars = _usage_cost(usage, prices)
         urgent_delays = [float(row["freshness_s"]) for row in freshness if row["urgent"]]
@@ -560,7 +401,7 @@ def run_cadences(
                 "cost_usd": dollars,
                 "cost_1k": dollars / (event_count / 1_000) if event_count else math.nan,
                 "runs_1k": len(usage) / (event_count / 1_000) if event_count else math.nan,
-                "macro_acc": macro_acc,
+                "macro_acc": macro_acc if macro_acc is not None else math.nan,
                 "files_per_entity": health["files_per_entity"],
                 "dup_rate": health["dup_rate"],
                 "fresh_urgent_p50_s": _quantile(urgent_delays, 0.50),
@@ -637,11 +478,25 @@ class E5Experiment:
     def run(
         self, cfg: EngineConfig, corpus: CorpusHandle, out_dir: Path, seed: int
     ) -> ExperimentResult:
-        return run_cadences(cfg, corpus, out_dir, seed)
+        cadences = (
+            ("W1", "W20+rules", "W20+rules+deviation")
+            if corpus.meta.get("smoke")
+            else CADENCES
+        )
+        return run_cadences(cfg, corpus, out_dir, seed, cadences=cadences)
 
     def chart(self, result: ExperimentResult, out_dir: Path) -> list[Path]:
-        del result, out_dir
-        return []
+        table = result.tables["pareto"]
+        if table.empty:
+            return []
+        chart_data = table.rename(
+            columns={
+                "cost_1k": "cost",
+                "macro_acc": "acc",
+                "fresh_urgent_p95_s": "freshness",
+            }
+        )
+        return [e5_pareto(chart_data, out_dir)]
 
 
 register_experiment(E5Experiment())

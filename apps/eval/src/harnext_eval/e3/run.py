@@ -4,10 +4,8 @@ from __future__ import annotations
 
 import csv
 import hashlib
-import importlib
 import json
 import math
-import re
 import shutil
 from collections import Counter, defaultdict
 from collections.abc import Sequence
@@ -22,16 +20,17 @@ from harnext_eval.config import EngineConfig
 from harnext_eval.corpus import CorpusHandle
 from harnext_eval.e2.arms import build_arm
 from harnext_eval.e2.run import ProbeOutcome, evaluate_e2, load_probes, macro_accuracy
+from harnext_eval.health.store_health import compute_store_health
 from harnext_eval.providers.embeddings import EmbeddingsProvider
 from harnext_eval.providers.llm import LLMProvider
 from harnext_eval.registry import ExperimentResult, register_experiment
+from harnext_eval.report.charts import e3_curve, erosion, health_table
 from harnext_eval.stats.stats import mcnemar_test, paired_difference_bca
 from harnext_eval.stores.base import StoreHandle
 from harnext_eval.types import EvalEvent, Probe, SnapshotRef
 
 READ_BUDGETS = (2_000, 8_000, 32_000)
 _CHECKPOINT_WEEKS: tuple[int | str, ...] = (1, 2, 4, 8, "end")
-_LINK_RE = re.compile(r"\[[^]]*]\(([^)#]+)(?:#[^)]+)?\)")
 
 
 def compute_erosion_slope(
@@ -110,93 +109,13 @@ def _checkpoint_times(events: Sequence[EvalEvent]) -> list[tuple[str, float, dat
     return checkpoints
 
 
-def _external_health(store: StoreHandle, ref: SnapshotRef) -> dict[str, Any] | None:
-    try:
-        module = importlib.import_module("harnext_eval.health.store_health")
-    except ModuleNotFoundError:
-        return None
-    for name in ("store_health", "measure_store_health", "compute_store_health"):
-        function = getattr(module, name, None)
-        if function is None:
-            continue
-        if name == "compute_store_health":
-            checkout = store.materialise(ref)
-            try:
-                result = function(checkout)
-            finally:
-                shutil.rmtree(checkout, ignore_errors=True)
-        else:
-            try:
-                result = function(store, ref)
-            except TypeError:
-                continue
-        if isinstance(result, dict):
-            return result
-        if hasattr(result, "model_dump"):
-            return dict(result.model_dump())
-    return None
-
-
-def _local_health(store: StoreHandle, ref: SnapshotRef, probes: Sequence[Probe]) -> dict[str, Any]:
-    # TODO(integration): retain only as a fallback for deployments without T4 health.
-    files = store.list_files(ref)
-    contents = {path: store.read(ref, path) or "" for path in files}
-    markdown = {path: text for path, text in contents.items() if path.casefold().endswith(".md")}
-    refs = 0
-    dangling = 0
-    for source, text in markdown.items():
-        for target in _LINK_RE.findall(text):
-            refs += 1
-            resolved = (Path(source).parent / target).as_posix()
-            if resolved not in contents:
-                dangling += 1
-    index_entries = 0
-    index_resolving = 0
-    for source, text in markdown.items():
-        if Path(source).name.casefold() != "index.md":
-            continue
-        for target in _LINK_RE.findall(text):
-            index_entries += 1
-            resolved = (Path(source).parent / target).as_posix()
-            index_resolving += int(resolved in contents)
-    fact_lines = [
-        line.strip().casefold()
-        for path, text in markdown.items()
-        if Path(path).name.casefold() == "facts.md"
-        for line in text.splitlines()
-        if line.strip()
-    ]
-    duplicates = len(fact_lines) - len(set(fact_lines))
-    overview = "\n".join(
-        text for path, text in markdown.items() if Path(path).name.casefold() == "overview.md"
-    ).casefold()
-    superseded_entities = {
-        probe.entity: [value.casefold() for value in probe.superseded_values]
-        for probe in probes
-        if probe.superseded_values
-    }
-    leaking = sum(
-        any(value in overview for value in values) for values in superseded_entities.values()
-    )
-    return {
-        "file_count": len(files),
-        "bytes": sum(len(text.encode()) for text in contents.values()),
-        "over_cap_share": (
-            sum(len(text.splitlines()) > 200 for text in contents.values()) / len(files)
-            if files
-            else 0.0
-        ),
-        "index_accuracy": index_resolving / index_entries if index_entries else 1.0,
-        "dangling_refs": dangling / refs if refs else 0.0,
-        "duplicate_fact_rate": duplicates / len(fact_lines) if fact_lines else 0.0,
-        "supersession_leakage": (
-            leaking / len(superseded_entities) if superseded_entities else 0.0
-        ),
-    }
-
-
 def _health(store: StoreHandle, ref: SnapshotRef, probes: Sequence[Probe]) -> dict[str, Any]:
-    return _external_health(store, ref) or _local_health(store, ref, probes)
+    del probes
+    checkout = store.materialise(ref)
+    try:
+        return compute_store_health(checkout)
+    finally:
+        shutil.rmtree(checkout, ignore_errors=True)
 
 
 def _usage_files(store: StoreHandle) -> list[Path]:
@@ -362,6 +281,7 @@ def evaluate_e3(
     llm: LLMProvider | None = None,
     embeddings: EmbeddingsProvider | None = None,
     budgets: Sequence[int] = READ_BUDGETS,
+    erosion_probe_limit: int = 60,
 ) -> ExperimentResult:
     """Run E2 over store layouts, budgets, health checkpoints and usage logs."""
 
@@ -403,7 +323,7 @@ def evaluate_e3(
 
     health_rows: list[dict[str, Any]] = []
     erosion_rows: list[dict[str, Any]] = []
-    fixed_subset = sorted(probes, key=lambda probe: probe.probe_id)[:60]
+    fixed_subset = sorted(probes, key=lambda probe: probe.probe_id)[:erosion_probe_limit]
     checkpoints = _checkpoint_times(events)
     for label, store in labelled:
         checkpoint_accuracies: list[float] = []
@@ -540,11 +460,32 @@ class E3Experiment:
             events=list(corpus.events()),
             out_dir=out_dir,
             seed=seed,
+            erosion_probe_limit=10 if corpus.meta.get("smoke") else 60,
         )
 
     def chart(self, result: ExperimentResult, out_dir: Path) -> list[Path]:
-        del result, out_dir
-        return []
+        generated: list[Path] = []
+        curve = result.tables["curve"]
+        if not curve.empty:
+            generated.append(e3_curve(curve.rename(columns={"macro_acc": "acc"}), out_dir))
+        erosion_data = result.tables["erosion"]
+        if not erosion_data.empty:
+            generated.append(
+                erosion(erosion_data.rename(columns={"accuracy": "acc"}), out_dir)
+            )
+        health = result.tables["health"]
+        scalar_columns = [
+            column
+            for column in ("files", "bytes", "over_cap_share", "index_resolution_rate")
+            if column in health
+        ]
+        if not health.empty and scalar_columns:
+            latest = health.sort_values("replay_week").groupby("store", as_index=False).tail(1)
+            long = latest.melt(
+                id_vars="store", value_vars=scalar_columns, var_name="metric", value_name="value"
+            )
+            generated.append(health_table(long, out_dir))
+        return generated
 
 
 EXPERIMENT = register_experiment(E3Experiment())

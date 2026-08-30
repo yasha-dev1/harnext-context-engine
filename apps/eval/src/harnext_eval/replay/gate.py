@@ -22,6 +22,8 @@ _GATE_FIELDS: tuple[str, ...] = (
     "reasons",
 )
 _TOKEN_RE = re.compile(r"[\w-]+", re.UNICODE)
+_EVENT_TOKEN_CACHE: dict[tuple[str, str], frozenset[str]] = {}
+_EVENT_TOKEN_CACHE_LIMIT = 10_000
 
 
 def leakage_gate(
@@ -57,7 +59,7 @@ def leakage_gate(
         event_time = _event_time(row)
         if event_time is None:
             continue
-        tokens = _tokens(_record_text(row))
+        tokens = _record_tokens(row)
         (post_tokens if event_time > cutoff else pre_tokens).update(tokens)
     only_post = _tokens(question_text) & (post_tokens - pre_tokens)
     if only_post:
@@ -146,6 +148,20 @@ def _record_text(row: EvalEvent | Mapping[str, Any]) -> str:
     if isinstance(row, EvalEvent):
         return row.model_dump_json()
     return json.dumps(row, sort_keys=True, default=str)
+
+
+def _record_tokens(row: EvalEvent | Mapping[str, Any]) -> set[str] | frozenset[str]:
+    if not isinstance(row, EvalEvent):
+        return _tokens(_record_text(row))
+    key = (row.source, row.id)
+    cached = _EVENT_TOKEN_CACHE.get(key)
+    if cached is not None:
+        return cached
+    if len(_EVENT_TOKEN_CACHE) >= _EVENT_TOKEN_CACHE_LIMIT:
+        _EVENT_TOKEN_CACHE.clear()
+    tokens = frozenset(_tokens(row.model_dump_json()))
+    _EVENT_TOKEN_CACHE[key] = tokens
+    return tokens
 
 
 def _tokens(text: str) -> set[str]:

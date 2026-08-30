@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import csv
-import importlib
 import json
 import math
 import os
@@ -28,6 +27,8 @@ from harnext_eval.grade.localisation import grade_localisation
 from harnext_eval.providers.embeddings import EmbeddingsProvider
 from harnext_eval.providers.llm import LLMProvider
 from harnext_eval.registry import ExperimentResult, register_experiment
+from harnext_eval.replay.gate import leakage_gate
+from harnext_eval.report.charts import e2_family_bars
 from harnext_eval.stats.stats import mcnemar_test, paired_difference_bca
 from harnext_eval.stores.base import StoreHandle
 from harnext_eval.types import Answer, EvalEvent, GradeResult, Probe, SnapshotRef
@@ -62,48 +63,14 @@ def load_probes(path: Path | None) -> list[Probe]:
         return [Probe.model_validate_json(line) for line in source if line.strip()]
 
 
-def _external_gate(
-    probe: Probe,
-    events: Sequence[EvalEvent],
-    snapshot: Any,
-) -> bool | None:
-    try:
-        module = importlib.import_module("harnext_eval.replay.gate")
-    except ModuleNotFoundError:
-        return None
-    for name in ("check_probe", "check_leakage", "leakage_gate"):
-        function = getattr(module, name, None)
-        if function is None:
-            continue
-        try:
-            result = function(
-                probe,
-                snapshot,
-                [event for event in events if event.time <= probe.T],
-                all_events=events,
-                gold_action_time=probe.T + timedelta(microseconds=1),
-                out_csv=Path(os.devnull),
-            )
-        except TypeError:
-            continue
-        if isinstance(result, bool):
-            return result
-        if hasattr(result, "passed"):
-            return bool(result.passed)
-        if isinstance(result, dict) and "passed" in result:
-            return bool(result["passed"])
-    return None
-
-
 def _passes_leakage_gate(probe: Probe, events: Sequence[EvalEvent], snapshot: Any) -> bool:
-    external = _external_gate(probe, events, snapshot)
-    if external is not None:
-        return external
-    # TODO(integration): replace this compatibility gate when replay.gate lands.
-    by_id = {event.id: event for event in events}
-    return all(
-        event_id not in by_id or by_id[event_id].time <= probe.T
-        for event_id in probe.source_event_ids
+    return leakage_gate(
+        probe,
+        snapshot,
+        [event for event in events if event.time <= probe.T],
+        all_events=events,
+        gold_action_time=probe.T + timedelta(microseconds=1),
+        out_csv=Path(os.devnull),
     )
 
 
@@ -424,8 +391,11 @@ class E2Experiment:
         )[0]
 
     def chart(self, result: ExperimentResult, out_dir: Path) -> list[Path]:
-        del result, out_dir
-        return []
+        table = result.tables["metrics"]
+        if table.empty:
+            return []
+        chart_data = pd.DataFrame(table[table["family"] != "macro"])
+        return [e2_family_bars(chart_data, out_dir)]
 
 
 EXPERIMENT = register_experiment(E2Experiment())

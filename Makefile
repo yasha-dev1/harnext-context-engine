@@ -68,7 +68,7 @@ beat:
 	uv run --package harnext-ingest celery -A harnext_ingest.celery_app beat --loglevel=info
 
 eval-smoke:
-	uv run harnext-eval run --config apps/eval/configs/baseline-minimal.yaml --corpus synthetic --all
+	uv run harnext-eval run --config apps/eval/configs/baseline-minimal.yaml --corpus synthetic --all --event-count 120 --entity-count 12 --per-family 10 --smoke
 
 eval-test:
 	uv run pytest apps/eval/tests -q
