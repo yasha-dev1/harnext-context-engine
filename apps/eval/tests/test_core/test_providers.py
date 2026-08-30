@@ -1,5 +1,7 @@
 """Fake-provider tests for docs/evaluation-spec.md §5."""
 
+import json
+
 import numpy as np
 import pytest
 from harnext_eval.providers.embeddings import FakeEmbeddings
@@ -32,6 +34,150 @@ def test_fake_llm_abstains_without_matching_material() -> None:
     assert result.text == "UNKNOWN"
 
 
+def test_fake_llm_reads_raw_history_at_the_question_cutoff() -> None:
+    material = "\n".join(
+        json.dumps(record)
+        for record in (
+            {
+                "id": "a" * 24,
+                "time": "2026-01-01T00:00:00+00:00",
+                "subject": "issue:KAFKA-7",
+                "data": {"field": "status", "to": "Open"},
+            },
+            {
+                "id": "b" * 24,
+                "time": "2026-01-03T00:00:00+00:00",
+                "subject": "issue:KAFKA-7",
+                "data": {"field": "status", "to": "Resolved"},
+            },
+        )
+    )
+
+    result = FakeLLM().complete(
+        "",
+        "Question: What was the status of KAFKA-7 as of "
+        f"2026-01-02T00:00:00Z?\nMaterial:\n{material}",
+        max_tokens=20,
+    )
+
+    assert result.text == "Open"
+
+
+def test_fake_llm_reads_curated_fact_formats() -> None:
+    material = """[file:entities/issue/KAFKA-7/OVERVIEW.md]
+# issue:KAFKA-7
+_Last updated: 2026-01-02T00:00:00+00:00 [jira#old]_
+- status: Open
+[file:entities/issue/KAFKA-7/facts.md]
+- 2026-01-03 [jira#new] status=Resolved
+"""
+
+    result = FakeLLM().complete(
+        "",
+        f"Question: What is the current status of KAFKA-7?\nMaterial:\n{material}",
+        max_tokens=20,
+    )
+
+    assert result.text == "Resolved"
+
+
+def test_fake_llm_lists_all_related_links_and_changed_files() -> None:
+    material = "\n".join(
+        json.dumps(record)
+        for record in (
+            {
+                "time": "2026-01-01T00:00:00+00:00",
+                "subject": "pr:PR-7",
+                "data": {
+                    "issue_key": "KAFKA-7",
+                    "pr_key": "PR-7",
+                    "number": 7,
+                    "changed_files": ["services/api/handler.py"],
+                },
+            },
+            {
+                "time": "2026-01-02T00:00:00+00:00",
+                "subject": "thread:THREAD-9",
+                "data": {
+                    "issue_key": "KAFKA-7",
+                    "thread_key": "THREAD-9",
+                    "thread_id": "9",
+                },
+            },
+        )
+    )
+    provider = FakeLLM()
+
+    links = provider.complete(
+        "",
+        f"Question: Which pull requests or mail threads are related to KAFKA-7?\n"
+        f"Material:\n{material}",
+        max_tokens=50,
+    )
+    files = provider.complete(
+        "",
+        f"Question: Which files and modules are changed for KAFKA-7?\nMaterial:\n{material}",
+        max_tokens=50,
+    )
+
+    assert links.text.splitlines() == ["pr:7", "thread:9"]
+    assert files.text == "services/api/handler.py"
+
+
+def test_fake_llm_builds_action_json_from_the_envelope() -> None:
+    material = "\n".join(
+        json.dumps(record)
+        for record in (
+            {
+                "id": "a" * 24,
+                "time": "2026-01-01T00:00:00+00:00",
+                "subject": "issue:KAFKA-7",
+                "data": {
+                    "issue_key": "KAFKA-7",
+                    "actor": "dev-a",
+                    "components": ["api"],
+                    "changed_files": ["services/api/handler.py"],
+                    "linked_issues": ["KAFKA-9"],
+                },
+            },
+            {
+                "id": "b" * 24,
+                "time": "2026-01-02T00:00:00+00:00",
+                "subject": "issue:KAFKA-7",
+                "data": {"issue_key": "KAFKA-7", "actor": "dev-a"},
+            },
+        )
+    )
+    schema = {
+        "type": "object",
+        "properties": {
+            "assignee_candidates": {"type": "array", "items": {"type": "string"}},
+            "reviewer_candidates": {"type": "array", "items": {"type": "string"}},
+            "component": {"type": ["string", "null"]},
+            "duplicate_of": {"type": ["string", "null"]},
+            "priority_change": {"type": ["string", "null"]},
+            "suspected_locations": {"type": "array", "items": {"type": "string"}},
+            "draft_reply": {"type": "string"},
+            "cited_ids": {"type": "array", "items": {"type": "string"}},
+            "action": {"type": "string"},
+        },
+    }
+
+    result = FakeLLM().complete(
+        "Return a typed action.",
+        f"Question: Route KAFKA-7.\nMaterial:\n{material}",
+        json_schema=schema,
+        max_tokens=200,
+    )
+
+    assert isinstance(result.json, dict)
+    assert result.json["assignee_candidates"] == ["dev-a"]
+    assert result.json["component"] == "api"
+    assert result.json["duplicate_of"] == "KAFKA-9"
+    assert result.json["suspected_locations"] == ["services/api/handler.py"]
+    assert "KAFKA-7" in result.json["cited_ids"]
+
+
 def test_fake_embeddings_are_normalised_and_deterministic() -> None:
     provider = FakeEmbeddings(dim=16)
     vectors = provider.embed(["alpha beta alpha", "", "alpha beta alpha"])
@@ -39,3 +185,18 @@ def test_fake_embeddings_are_normalised_and_deterministic() -> None:
     np.testing.assert_array_equal(vectors[0], vectors[2])
     assert np.linalg.norm(vectors[0]) == pytest.approx(1)
     assert np.linalg.norm(vectors[1]) == 0
+
+
+def test_fake_embeddings_rank_an_exact_identifier_first() -> None:
+    provider = FakeEmbeddings(dim=64)
+    vectors = provider.embed(
+        [
+            "What is the current status of KAFKA-1042?",
+            "KAFKA-1004 status Resolved",
+            "KAFKA-1042 status In Review",
+            "A generic status update without an issue key",
+        ]
+    )
+    scores = vectors[1:] @ vectors[0]
+
+    assert int(np.argmax(scores)) == 1

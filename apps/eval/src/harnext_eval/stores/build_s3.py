@@ -15,6 +15,7 @@ from harnext_builder.work_item import WorkItem
 from harnext_shared import CloudEvent
 
 from harnext_eval.stores.base import StoreHandle
+from harnext_eval.stores.fake_curator import curate_events
 from harnext_eval.stores.layouts import (
     append_usage,
     record_input_metadata,
@@ -115,7 +116,10 @@ def fold_s3(store: StoreHandle, events: list[EvalEvent], lane: str) -> None:
     if not accepted:
         return
     record_input_metadata(store, accepted)
-    run_builder_harness(store, accepted, lane)
+    if runtime_for(store).harness == "fake":
+        curate_events(store, accepted, lane, global_organisation=True)
+    else:
+        run_builder_harness(store, accepted, lane)
 
 
 fold = fold_s3

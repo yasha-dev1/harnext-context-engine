@@ -75,6 +75,60 @@ class _ScoredEvent:
     deviation_candidate: bool
 
 
+@dataclass
+class CausalBudgetAdmission:
+    """Prefix-only deviation budget; rules are an explicit, audited floor.
+
+    Capacity is ``floor(rule_negative_events_seen * budget_pct / 100)``. A
+    candidate can consume only capacity already earned by the current prefix,
+    so appending future events cannot change an earlier decision.
+    """
+
+    budget_pct: float
+    score_floor: float = 0.0
+    rule_negative_seen: int = 0
+    deviations_admitted: int = 0
+
+    def consider(self, *, rule: str | None, score: float) -> tuple[bool, dict[str, Any]]:
+        """Return whether the current event may attempt deviation admission."""
+
+        if rule is not None:
+            return False, {
+                "rules_floor_budget_exempt": True,
+                "deviation_seen": self.rule_negative_seen,
+                "deviation_capacity": math.floor(
+                    self.rule_negative_seen * self.budget_pct / 100.0
+                ),
+                "deviations_admitted": self.deviations_admitted,
+            }
+        self.rule_negative_seen += 1
+        capacity = math.floor(self.rule_negative_seen * self.budget_pct / 100.0)
+        eligible = score >= self.score_floor
+        candidate = eligible and self.deviations_admitted < capacity
+        return candidate, {
+            "rules_floor_budget_exempt": False,
+            "deviation_seen": self.rule_negative_seen,
+            "deviation_capacity": capacity,
+            "deviations_admitted": self.deviations_admitted,
+            "deviation_score_floor": self.score_floor,
+            "deviation_budget_eligible": eligible,
+            "deviation_budget_available": self.deviations_admitted < capacity,
+        }
+
+    def record(self, admitted: bool) -> dict[str, int]:
+        """Commit the current candidate outcome and return post-decision audit counts."""
+
+        if admitted:
+            self.deviations_admitted += 1
+        return {
+            "deviation_seen": self.rule_negative_seen,
+            "deviation_capacity": math.floor(
+                self.rule_negative_seen * self.budget_pct / 100.0
+            ),
+            "deviations_admitted": self.deviations_admitted,
+        }
+
+
 class RulesOnlyPolicy:
     """The config-driven R1 floor used when no E1 policy is supplied."""
 
@@ -114,12 +168,14 @@ def run_pipeline(
     cutoff: datetime | None = None,
     on_decision: Callable[[RouterRecord], None] | None = None,
     policy: RouterPolicy | None = None,
+    admission: CausalBudgetAdmission | None = None,
 ) -> DriverStats:
     """Route and fold events in deterministic event-time order.
 
-    Deviation admission is the top configured percentage of rule-negative
-    events. Rules remain an unconditional floor. A cutoff is inclusive: an
-    event at ``cutoff`` is processed and the first event after it is not.
+    Deviation admission is budgeted from the event prefix only. Rules remain an
+    unconditional, explicitly audited floor outside that deviation budget. A
+    cutoff is inclusive: an event at ``cutoff`` is processed and the first
+    event after it is not.
     """
 
     router_policy = policy or RulesOnlyPolicy()
@@ -132,7 +188,13 @@ def run_pipeline(
             break
         selected.append(event)
 
-    scored = _score_events(selected, cfg, router_policy)
+    budget = admission or CausalBudgetAdmission(
+        budget_pct=cfg.router.budget_pct,
+        # ``absolute_floor`` is a volume guard interpreted by R5 itself, not a
+        # score threshold. Callers may inject a controller with a threshold
+        # frozen on prior data without changing the RouterPolicy seam.
+        score_floor=0.0,
+    )
     windows: dict[tuple[str, str], _Window] = {}
     folds: Counter[str] = Counter()
     close_reasons: Counter[str] = Counter()
@@ -150,10 +212,23 @@ def run_pipeline(
         fold(window.events, "batch")
         close_reasons[reason] += 1
 
-    for item in scored:
-        event = item.event
+    for event in selected:
         for key, reason in _due_windows(windows, event.time, cfg):
             close(key, reason)
+
+        rule = router_policy.rules(event) if cfg.router.rules.enabled else None
+        score = float(router_policy.score(event))
+        if not math.isfinite(score):
+            raise ValueError(f"router policy returned a non-finite score for {event.id}")
+        deviation_candidate = False
+        budget_features: dict[str, Any] = {
+            "deviation_budget_enabled": False,
+            "rules_floor_budget_exempt": rule is not None,
+        }
+        if cfg.router.deviation.enabled:
+            deviation_candidate, budget_features = budget.consider(rule=rule, score=score)
+            budget_features["deviation_budget_enabled"] = True
+        item = _ScoredEvent(event, rule, score, deviation_candidate)
 
         lane, features = _route(
             item,
@@ -161,10 +236,15 @@ def run_pipeline(
             confirmations=confirmations,
             admitted_situations=admitted_situations,
         )
+        if cfg.router.deviation.enabled:
+            budget_features.update(
+                budget.record(lane == "fast" and rule is None and deviation_candidate)
+            )
+        features = {**budget_features, **features}
         record = RouterRecord(
             event_id=event.id,
             t=event.time,
-            score=item.score,
+            score=score,
             lane=lane,
             policy=str(getattr(router_policy, "name", type(router_policy).__name__)),
             budget_pct=cfg.router.budget_pct,
@@ -175,6 +255,9 @@ def run_pipeline(
             on_decision(record)
 
         if lane == "fast":
+            key = (event.mgtenant, event.subject)
+            if key in windows:
+                close(key, "fast")
             fold([event], "fast")
             continue
 
@@ -198,34 +281,6 @@ def run_pipeline(
         windows_closed_by_reason=dict(close_reasons),
         snapshots=tuple(snapshots),
     )
-
-
-def _score_events(
-    events: list[EvalEvent], cfg: EngineConfig, policy: RouterPolicy
-) -> list[_ScoredEvent]:
-    raw: list[tuple[EvalEvent, str | None, float]] = []
-    for event in events:
-        rule = policy.rules(event) if cfg.router.rules.enabled else None
-        score = float(policy.score(event))
-        if not math.isfinite(score):
-            raise ValueError(f"router policy returned a non-finite score for {event.id}")
-        raw.append((event, rule, score))
-
-    candidate_indexes: set[int] = set()
-    if cfg.router.deviation.enabled:
-        eligible = [
-            (index, score, event)
-            for index, (event, rule, score) in enumerate(raw)
-            if rule is None and score >= cfg.router.guards.absolute_floor
-        ]
-        requested = math.ceil(len([row for row in raw if row[1] is None]) * cfg.router.budget_pct / 100)
-        ranked = sorted(eligible, key=lambda row: (-row[1], row[2].time, row[2].id))
-        candidate_indexes = {index for index, _, _ in ranked[:requested]}
-
-    return [
-        _ScoredEvent(event, rule, score, index in candidate_indexes)
-        for index, (event, rule, score) in enumerate(raw)
-    ]
 
 
 def _route(

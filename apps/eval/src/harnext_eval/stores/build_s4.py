@@ -70,6 +70,7 @@ def fold_s4(store: StoreHandle, events: list[EvalEvent], lane: str) -> None:
         documents,
         records=records,
         indexed_event_count=len(delivered_event_ids(store)),
+        chunking="one-raw-event-per-document-v1",
     )
     last_event = max(events, key=lambda event: (event.time, event.id))
     folds = index_dir / "snapshot_counts.jsonl"

@@ -1,6 +1,7 @@
 """Hand-built metric series for docs/evaluation-spec.md §7 E1 validity checks."""
 
 import numpy as np
+import pandas as pd
 from harnext_eval.e1.calibration import calibration_spearman, decile_rates, lift_over_rules
 from harnext_eval.e1.score import (
     affiliation_precision_recall,
@@ -9,6 +10,7 @@ from harnext_eval.e1.score import (
     precision_at_budget,
     random_sanity_scorer,
     recall_at_budget,
+    timestamped_affiliation_precision_recall,
     vus_pr,
 )
 
@@ -18,6 +20,7 @@ def test_point_metrics_have_known_answers() -> None:
     admitted = [True, False, False, True]
     assert recall_at_budget(labels, admitted) == 0.5
     assert precision_at_budget(labels, admitted) == 0.5
+    assert np.isnan(precision_at_budget(labels, [False] * len(labels)))
 
 
 def test_vus_and_affiliation_toy_series() -> None:
@@ -51,3 +54,30 @@ def test_calibration_and_lift_known_answers() -> None:
     rules = [False] * 100
     admitted = [False] * 50 + [True] * 50
     assert lift_over_rules(labels, admitted, rules) == 2.0
+
+
+def test_timestamped_affiliation_uses_elapsed_time_and_situation_entities() -> None:
+    situations = pd.DataFrame(
+        [
+            {"situation_id": "a", "entity": "one", "onset": "2026-01-01T00:00:00Z", "end": "2026-01-01T00:00:10Z"},
+            {"situation_id": "b", "entity": "two", "onset": "2026-01-01T00:00:00Z", "end": "2026-01-01T00:00:10Z"},
+        ]
+    )
+    exact = pd.DataFrame(
+        [
+            {"entity": entity, "time": f"2026-01-01T00:00:{second:02d}Z", "admitted": True}
+            for entity in ("one", "two")
+            for second in (0, 5, 10)
+        ]
+    )
+    assert timestamped_affiliation_precision_recall(situations, exact) == (1.0, 1.0)
+
+    late = exact.copy()
+    late.loc[late["entity"] == "one", "time"] = "2026-01-01T00:01:00Z"
+    late_precision, late_recall = timestamped_affiliation_precision_recall(situations, late)
+    assert late_precision < 1.0
+    assert late_recall < 1.0
+
+    wrong_entity = exact[exact["entity"] == "one"].copy()
+    _, missing_recall = timestamped_affiliation_precision_recall(situations, wrong_entity)
+    assert missing_recall == 0.5

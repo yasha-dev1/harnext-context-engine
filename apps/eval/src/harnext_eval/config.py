@@ -70,6 +70,7 @@ class EmbeddingsConfig(StrictModel):
 
 
 class EngineConfig(StrictModel):
+    prices: dict[str, float | str] | None = None
     router: RouterConfig
     window: WindowConfig
     store: StoreConfig

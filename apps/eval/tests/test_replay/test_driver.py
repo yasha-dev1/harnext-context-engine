@@ -145,6 +145,8 @@ def test_router_uses_rules_floor_and_budgeted_policy_scores() -> None:
         on_decision=records.append,
     )
     assert records[0].lane == "fast"
+    assert records[0].features_fired["deviation_budget_enabled"] is False
+    assert records[0].features_fired["rules_floor_budget_exempt"] is True
     assert rule_store.folds[0][1] == "fast"
 
     router = cfg.router.model_copy(
@@ -173,3 +175,59 @@ def test_router_uses_rules_floor_and_budgeted_policy_scores() -> None:
         "low": "batch",
         "high": "fast",
     }
+
+
+def test_deviation_budget_is_prefix_causal_and_audited() -> None:
+    cfg = _cfg(gap=100, cap=20, age=100)
+    router = cfg.router.model_copy(
+        update={
+            "rules": cfg.router.rules.model_copy(update={"enabled": False}),
+            "deviation": cfg.router.deviation.model_copy(update={"enabled": True}),
+            "budget_pct": 50,
+        }
+    )
+    cfg = cfg.model_copy(update={"router": router})
+    low = _event("low", 1, subject="issue:LOW")
+    high = _event("high", 2, subject="issue:HIGH")
+    assert low.data is not None and high.data is not None
+    low.data["score"] = 0.1
+    high.data["score"] = 0.9
+
+    prefix_records = []
+    run_pipeline(
+        [low],
+        cfg,
+        cast(StoreHandle, StubStore()),
+        on_decision=prefix_records.append,
+        policy=ScoredPolicy(),
+    )
+    extended_records = []
+    run_pipeline(
+        [low, high],
+        cfg,
+        cast(StoreHandle, StubStore()),
+        on_decision=extended_records.append,
+        policy=ScoredPolicy(),
+    )
+
+    assert prefix_records[0].lane == extended_records[0].lane == "batch"
+    assert extended_records[1].lane == "fast"
+    assert extended_records[1].features_fired["deviation_seen"] == 2
+    assert extended_records[1].features_fired["deviation_capacity"] == 1
+    assert extended_records[1].features_fired["deviations_admitted"] == 1
+
+
+def test_fast_event_flushes_its_pending_entity_window_first() -> None:
+    cfg = _cfg(gap=100, cap=20, age=100)
+    pending = _event("pending", 0)
+    fast = _event("fast", 1)
+    assert fast.data is not None
+    fast.data["body"] = "[VOTE] urgent decision"
+
+    store, stats = _run([pending, fast], cfg)
+
+    assert [([event.id for event in events], lane) for events, lane in store.folds] == [
+        (["pending"], "batch"),
+        (["fast"], "fast"),
+    ]
+    assert stats.windows_closed_by_reason["fast"] == 1  # type: ignore[attr-defined]

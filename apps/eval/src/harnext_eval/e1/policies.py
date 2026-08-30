@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import math
+import re
 from collections import defaultdict
 from collections.abc import Sequence
 from dataclasses import dataclass
@@ -55,6 +56,19 @@ def _walk(value: Any) -> list[str]:
     return [] if value is None else [str(value)]
 
 
+def _field_values(value: Any, names: set[str]) -> list[Any]:
+    found: list[Any] = []
+    if isinstance(value, dict):
+        for key, item in value.items():
+            if str(key).casefold() in names and not isinstance(item, (dict, list)):
+                found.append(item)
+            found.extend(_field_values(item, names))
+    elif isinstance(value, list):
+        for item in value:
+            found.extend(_field_values(item, names))
+    return found
+
+
 def match_rule(event: EvalEvent, settings: RuleSettings = _DEFAULT_RULE_SETTINGS) -> str | None:
     """Rules floor configured by enablement and the dispute amount threshold."""
 
@@ -62,18 +76,21 @@ def match_rule(event: EvalEvent, settings: RuleSettings = _DEFAULT_RULE_SETTINGS
         return None
     data = event.data or {}
     text = " ".join(_walk(data)).casefold()
-    if any(token in text for token in ("critical", "blocker")):
+    declared = _field_values(data, {"priority", "severity"})
+    if any(str(value).strip().casefold() in {"critical", "blocker"} for value in declared):
         return "declared_priority"
     if "[vote]" in text:
         return "vote"
-    if "cve-" in text or " cve " in f" {text} ":
+    if re.search(r"(?<![\w-])cve(?:-\d{4}-\d+)?(?![\w-])", text):
         return "cve"
+    if re.search(r"(?<![\w-])blocker(?![\w-])", text):
+        return "blocker_word"
     if "on-call" in text or "oncall" in text or "pagerduty" in text:
         return "on_call_page"
     if "dispute" in text:
-        for key in ("amount", "dispute_amount", "value"):
+        for amount in _field_values(data, {"amount", "dispute_amount", "value", "total"}):
             try:
-                if float(data.get(key, 0)) >= settings.dispute_amount:
+                if float(amount) >= settings.dispute_amount:
                     return "large_dispute"
             except (TypeError, ValueError):
                 continue
@@ -148,6 +165,7 @@ class GlobalPolicy(_PolicyBase):
         self, *, method: str = "hbos", rules: RuleSettings = _DEFAULT_RULE_SETTINGS
     ) -> None:
         super().__init__(rules=rules)
+        self.extractor = CausalFeatureExtractor(global_only=True)
         if method not in {"z", "hbos"}:
             raise ValueError("R2 method must be 'z' or 'hbos'")
         self.method = method
@@ -156,7 +174,7 @@ class GlobalPolicy(_PolicyBase):
         self.scale = np.ones(len(FEATURE_NAMES))
 
     def fit(self, events: Sequence[EvalEvent]) -> GlobalPolicy:
-        vectors = [vector for event in events for vector in self._vectors(event)]
+        vectors = [self._vectors(event)[0] for event in events]
         x = _matrix(vectors)
         if len(x):
             self.median = np.median(x, axis=0)
@@ -168,18 +186,14 @@ class GlobalPolicy(_PolicyBase):
         return self
 
     def score(self, event: EvalEvent) -> float:
-        vectors = self._vectors(event)
-        scored: list[tuple[float, FeatureVector]] = []
-        for vector in vectors:
-            x = vector.as_array()[None, :]
-            if self.model is not None:
-                result = self.model.decision_function(x)
-                assert result is not None
-                value = float(result[0])
-            else:
-                value = float(np.max(np.abs((x[0] - self.median) / self.scale)))
-            scored.append((value, vector))
-        value, vector = max(scored, key=lambda item: item[0])
+        vector = self._vectors(event)[0]
+        x = vector.as_array()[None, :]
+        if self.model is not None:
+            result = self.model.decision_function(x)
+            assert result is not None
+            value = float(result[0])
+        else:
+            value = float(np.max(np.abs((x[0] - self.median) / self.scale)))
         return self._record(vector, value, scorer=f"global_{self.method}")
 
 
@@ -190,23 +204,16 @@ class RobustGapPolicy(_PolicyBase):
 
     def __init__(self, *, rules: RuleSettings = _DEFAULT_RULE_SETTINGS) -> None:
         super().__init__(rules=rules)
-        self.stats: dict[str, tuple[float, float]] = {}
-
     def fit(self, events: Sequence[EvalEvent]) -> RobustGapPolicy:
-        values: defaultdict[str, list[float]] = defaultdict(list)
         for event in events:
-            for vector in self._vectors(event):
-                values[vector.baseline_key].append(vector.values["log_gap_s"])
-        for key, samples in values.items():
-            median = float(np.median(samples))
-            mad = float(np.median(np.abs(np.asarray(samples) - median)))
-            self.stats[key] = (median, max(1.4826 * mad, 0.1))
+            self._vectors(event)
         return self
 
     def score(self, event: EvalEvent) -> float:
         scored = []
         for vector in self._vectors(event):
-            median, scale = self.stats.get(vector.baseline_key, (0.0, 1.0))
+            median = vector.context["baseline_median_log_gap"]
+            scale = max(1.4826 * vector.context["baseline_mad_log_gap"], 0.1)
             # Bursts have unexpectedly short gaps, hence the one-sided sign.
             value = max(0.0, (median - vector.values["log_gap_s"]) / scale)
             scored.append((value, vector))
@@ -250,10 +257,26 @@ class EntityHBOSPolicy(_PolicyBase):
         assert result is not None
         return float(result[0])
 
+    def _hbos_terms(self, vector: FeatureVector) -> dict[str, float]:
+        model = self.models.get(vector.baseline_key, self.fallback)
+        if model is None or model.hist_ is None or model.bin_edges_ is None:
+            return {}
+        terms: dict[str, float] = {}
+        all_edges = np.asarray(model.bin_edges_, dtype=float)
+        all_histograms = np.asarray(model.hist_, dtype=float)
+        for index, name in enumerate(FEATURE_NAMES):
+            edges = all_edges[:, index]
+            hist = all_histograms[:, index]
+            bin_index = int(np.clip(np.searchsorted(edges, vector.as_array()[index], side="right") - 1, 0, len(hist) - 1))
+            terms[name] = float(-np.log(max(hist[bin_index], 1e-12)))
+        return terms
+
     def score(self, event: EvalEvent) -> float:
         scored = [(self._score_vector(vector), vector) for vector in self._vectors(event)]
         value, vector = max(scored, key=lambda item: item[0])
-        return self._record(vector, value, scorer="per_entity_hbos")
+        return self._record(
+            vector, value, scorer="per_entity_hbos", hbos_terms=self._hbos_terms(vector)
+        )
 
 
 class GuardedHBOSPolicy(EntityHBOSPolicy):
@@ -264,23 +287,29 @@ class GuardedHBOSPolicy(EntityHBOSPolicy):
     def __init__(
         self,
         *,
-        absolute_floor: float = 1.0,
+        absolute_floor: float = 3.0,
         multi_window: bool = True,
+        budget_pct: float = 2.0,
         rules: RuleSettings = _DEFAULT_RULE_SETTINGS,
     ) -> None:
         super().__init__(rules=rules)
         self.absolute_floor = absolute_floor
         self.multi_window = multi_window
-        self.thresholds: dict[str, float] = {}
-        self._previous_anomaly: defaultdict[str, bool] = defaultdict(bool)
+        self.budget_pct = budget_pct
+        self.threshold = float("inf")
+        self._previous_anomaly_window: dict[str, float] = {}
+        self._confirmed_windows: set[tuple[str, float]] = set()
 
     def fit(self, events: Sequence[EvalEvent]) -> GuardedHBOSPolicy:
         super().fit(events)
-        # Thresholds are learned solely from the tuning vectors already retained
-        # by the fitted PyOD estimators.
-        for key, model in self.models.items():
-            assert model.decision_scores_ is not None
-            self.thresholds[key] = float(np.quantile(model.decision_scores_, 0.95))
+        training_scores = [
+            float(score)
+            for model in [*self.models.values(), self.fallback]
+            if model is not None and model.decision_scores_ is not None
+            for score in model.decision_scores_
+        ]
+        if training_scores:
+            self.threshold = float(np.quantile(training_scores, 1.0 - self.budget_pct / 100.0))
         return self
 
     def score(self, event: EvalEvent) -> float:
@@ -289,26 +318,32 @@ class GuardedHBOSPolicy(EntityHBOSPolicy):
         if rule:
             vector = vectors[0]
             return self._record(vector, 1_000_000.0, rule=rule, guard="rule_floor")
-        candidates: list[tuple[float, FeatureVector, bool]] = []
+        candidates: list[tuple[float, FeatureVector, bool, bool]] = []
         for vector in vectors:
             raw = self._score_vector(vector)
             enough_volume = vector.context["count_5m"] >= self.absolute_floor
-            anomalous = raw >= self.thresholds.get(vector.baseline_key, float("inf"))
-            confirmed = not self.multi_window or (
-                anomalous and self._previous_anomaly[vector.baseline_key]
-            )
-            self._previous_anomaly[vector.baseline_key] = anomalous
-            guarded = raw if enough_volume and confirmed else -float("inf")
-            candidates.append((guarded, vector, confirmed))
-        value, vector, confirmed = max(candidates, key=lambda item: item[0])
-        if not np.isfinite(value):
-            value = -1e12
+            anomalous = raw >= self.threshold
+            window = vector.context["window_epoch_5m"]
+            previous = self._previous_anomaly_window.get(vector.baseline_key)
+            confirmation_key = (vector.baseline_key, window)
+            confirmed = not self.multi_window or confirmation_key in self._confirmed_windows
+            if anomalous and previous != window:
+                confirmed = not self.multi_window or previous == window - 300.0
+                self._previous_anomaly_window[vector.baseline_key] = window
+                if confirmed:
+                    self._confirmed_windows.add(confirmation_key)
+            elif not anomalous and previous is not None and previous != window:
+                self._previous_anomaly_window.pop(vector.baseline_key, None)
+            candidates.append((raw, vector, confirmed, enough_volume))
+        value, vector, confirmed, enough_volume = max(candidates, key=lambda item: item[0])
         return self._record(
             vector,
             value,
             scorer="guarded_per_entity_hbos",
-            volume_guard=vector.context["count_5m"] >= self.absolute_floor,
+            volume_guard=enough_volume,
             multi_window_confirmed=confirmed,
+            eligible=enough_volume and confirmed,
+            hbos_terms=self._hbos_terms(vector),
         )
 
 
@@ -383,19 +418,25 @@ POLICY_CLASSES = {
 }
 
 
-def make_policy(name: str, cfg: RouterConfig, *, seed: int = 0) -> _PolicyBase:
+def make_policy(
+    name: str, cfg: RouterConfig, *, seed: int = 0, budget_pct: float | None = None
+) -> _PolicyBase:
     """Construct a preregistered policy from shared router configuration."""
 
     normalized = name.upper()
-    settings = RuleSettings(enabled=cfg.rules.enabled)
+    settings = RuleSettings(
+        enabled=cfg.rules.enabled,
+        dispute_amount=float(getattr(cfg.rules, "dispute_amount", 1_000.0)),
+    )
     if normalized == "R0":
         return RandomPolicy(seed=seed, rules=settings)
     if normalized == "R5":
         return GuardedHBOSPolicy(
-            absolute_floor=max(cfg.guards.absolute_floor, 1.0),
+            absolute_floor=max(cfg.guards.absolute_floor, 3.0),
             # R5 is the guarded condition even when the engine profile under
             # evaluation is the R1 baseline with its deviation guard disabled.
             multi_window=True,
+            budget_pct=budget_pct or cfg.budget_pct,
             rules=settings,
         )
     try:
@@ -411,6 +452,8 @@ def budgeted_decisions(
     *,
     budget_pct: float,
     tuning_scores: Sequence[float],
+    eligible: Sequence[bool] | None = None,
+    mandatory: Sequence[bool] | None = None,
 ) -> pd.DataFrame:
     """Select the stable top b% in a month; theta comes only from tuning scores.
 
@@ -429,8 +472,29 @@ def budgeted_decisions(
     capacity = min(count, int(round(count * budget_pct / 100.0)))
     if budget_pct > 0 and count and capacity == 0:
         capacity = 1
-    order = sorted(range(count), key=lambda index: (-float(scores[index]), str(event_ids[index])))
-    admitted = set(order[:capacity])
+    allowed = (
+        np.ones(count, dtype=bool)
+        if eligible is None
+        else np.asarray(eligible, dtype=bool).copy()
+    )
+    required = (
+        np.zeros(count, dtype=bool)
+        if mandatory is None
+        else np.asarray(mandatory, dtype=bool).copy()
+    )
+    if len(allowed) != count or len(required) != count:
+        raise ValueError("eligible and mandatory must match event_ids")
+    allowed |= required
+    order = sorted(
+        range(count),
+        key=lambda index: (-float(scores[index]), str(event_ids[index])),
+    )
+    admitted = set(np.flatnonzero(required).tolist())
+    for index in order:
+        if len(admitted) >= max(capacity, int(required.sum())):
+            break
+        if allowed[index]:
+            admitted.add(index)
     rank = {index: position + 1 for position, index in enumerate(order)}
     return pd.DataFrame(
         {
@@ -440,6 +504,11 @@ def budgeted_decisions(
             "rank": [rank[index] for index in range(count)],
             "theta": theta,
             "above_tuning_theta": [float(value) >= theta for value in scores],
+            "eligible": allowed,
+            "mandatory": required,
+            "capacity": capacity,
+            "unused_capacity": max(capacity - len(admitted), 0),
+            "rules_over_budget": max(int(required.sum()) - capacity, 0),
         }
     )
 

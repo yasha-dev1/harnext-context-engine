@@ -46,12 +46,13 @@ class _KeyState:
     recent: deque[tuple[datetime, str]]
     bucket_counts: dict[datetime, int]
     bucket_types: dict[datetime, Counter[str]]
+    gaps: deque[tuple[datetime, float]]
     actors: set[str]
     subjects: set[str]
 
 
 def _new_state() -> _KeyState:
-    return _KeyState(None, None, deque(), {}, {}, set(), set())
+    return _KeyState(None, None, deque(), {}, {}, deque(), set(), set())
 
 
 def _bucket(t: datetime) -> datetime:
@@ -137,8 +138,11 @@ def _counter_median(distribution: Counter[float], total: int) -> float:
 class CausalFeatureExtractor:
     """Stateful feature fold; `update` rejects out-of-order event-time input."""
 
-    def __init__(self, *, history: timedelta = timedelta(weeks=4)) -> None:
+    def __init__(
+        self, *, history: timedelta = timedelta(weeks=4), global_only: bool = False
+    ) -> None:
         self.history = history
+        self.global_only = global_only
         self._states: defaultdict[str, _KeyState] = defaultdict(_new_state)
         self._last_event_time: datetime | None = None
 
@@ -146,7 +150,7 @@ class CausalFeatureExtractor:
         if self._last_event_time is not None and event.time < self._last_event_time:
             raise ValueError("events must be supplied in non-decreasing event-time order")
         self._last_event_time = event.time
-        keys = sorted(set(event.baseline_keys)) or ["__global__"]
+        keys = ["__global__"] if self.global_only else sorted(set(event.baseline_keys)) or ["__global__"]
         vectors = [self._update_key(key, event) for key in keys]
         return vectors
 
@@ -180,10 +184,25 @@ class CausalFeatureExtractor:
         for value, frequency in count_distribution.items():
             deviation_distribution[abs(value - median_5m)] += frequency
         mad_5m = _counter_median(deviation_distribution, completed_bucket_count)
+        hourly_by_bucket: Counter[datetime] = Counter()
+        for stamp, count in state.bucket_counts.items():
+            for offset in range(12):
+                hour_stamp = stamp + timedelta(minutes=5 * offset)
+                if effective_start <= hour_stamp < current_bucket:
+                    hourly_by_bucket[hour_stamp] += count
+        hourly_distribution: Counter[float] = Counter(
+            float(value) for value in hourly_by_bucket.values()
+        )
+        hourly_distribution[0.0] += completed_bucket_count - len(hourly_by_bucket)
+        median_1h = _counter_median(hourly_distribution, completed_bucket_count)
+        hourly_deviations: Counter[float] = Counter()
+        for value, frequency in hourly_distribution.items():
+            hourly_deviations[abs(value - median_1h)] += frequency
+        mad_1h = _counter_median(hourly_deviations, completed_bucket_count)
         current_5m = state.bucket_counts.get(current_bucket, 0) + 1
         current_1h = sum(1 for stamp, _ in state.recent if stamp > now - timedelta(hours=1)) + 1
-        scale_5m = max(median_5m + 1.4826 * mad_5m, 1.0)
-        scale_1h = max(12.0 * scale_5m, 1.0)
+        baseline_5m = max(median_5m, 1.0)
+        baseline_1h = max(median_1h, 1.0)
 
         recent_types = Counter(
             kind for stamp, kind in state.recent if stamp > now - timedelta(hours=1)
@@ -200,10 +219,18 @@ class CausalFeatureExtractor:
             if state.last_time
             else self.history.total_seconds()
         )
+        log_gap = math.log1p(max(gap, 0.0))
+        while state.gaps and state.gaps[0][0] < now - self.history:
+            state.gaps.popleft()
+        historic_gaps = np.asarray([value for _, value in state.gaps], dtype=float)
+        median_gap = float(np.median(historic_gaps)) if len(historic_gaps) else log_gap
+        mad_gap = (
+            float(np.median(np.abs(historic_gaps - median_gap))) if len(historic_gaps) else 0.0
+        )
         values = {
-            "log_gap_s": math.log1p(max(gap, 0.0)),
-            "count_5m_ratio": current_5m / scale_5m,
-            "count_1h_ratio": current_1h / scale_1h,
+            "log_gap_s": log_gap,
+            "count_5m_ratio": current_5m / baseline_5m,
+            "count_1h_ratio": current_1h / baseline_1h,
             "type_mix_js": _js(recent_types, baseline_types),
             "actor_novelty": float(bool(actor) and actor not in state.actors),
             "subject_novelty": float(event.subject not in state.subjects),
@@ -215,6 +242,7 @@ class CausalFeatureExtractor:
         state.recent.append((now, event.type))
         state.bucket_counts[current_bucket] = current_5m
         state.bucket_types.setdefault(current_bucket, Counter())[event.type] += 1
+        state.gaps.append((now, log_gap))
         if actor:
             state.actors.add(actor)
         state.subjects.add(event.subject)
@@ -228,6 +256,13 @@ class CausalFeatureExtractor:
                 "count_1h": float(current_1h),
                 "baseline_median_5m": median_5m,
                 "baseline_mad_5m": mad_5m,
+                "baseline_median_1h": median_1h,
+                "baseline_mad_1h": mad_1h,
+                "robust_z_5m": (current_5m - median_5m) / max(1.4826 * mad_5m, 1.0),
+                "robust_z_1h": (current_1h - median_1h) / max(1.4826 * mad_1h, 1.0),
+                "baseline_median_log_gap": median_gap,
+                "baseline_mad_log_gap": mad_gap,
+                "window_epoch_5m": current_bucket.timestamp(),
             },
         )
 

@@ -7,6 +7,7 @@ from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
 import pandas as pd
+import pytest
 from harnext_eval.config import load_config
 from harnext_eval.corpus import CorpusHandle
 from harnext_eval.e4.run import run_e4
@@ -151,26 +152,29 @@ def test_e4_three_tasks_three_variants_three_runs(tmp_path: Path) -> None:
 
 def test_e5_two_cadences_produce_cost_and_freshness(tmp_path: Path) -> None:
     events = [
-        _event(
-            f"event-{index}",
-            index,
-            f"issue:HNX-{index % 3}",
-            data={"field": "status", "to": f"state-{index}", "issue_key": f"HNX-{index % 3}"},
+        EvalEvent(
+            id=f"event-{index}",
+            source="jira:test",
+            type="jira.event",
+            subject="issue:HNX-1",
+            time=datetime(2026, 2, 1, tzinfo=UTC) + timedelta(seconds=second),
+            mgtenant="test",
+            data={"field": "status", "to": f"state-{index}", "issue_key": "HNX-1"},
         )
-        for index in range(30)
+        for index, second in enumerate((0, 1, 2, 20))
     ]
     replay = tmp_path / "replay.jsonl"
     replay.write_text("".join(event.model_dump_json() + "\n" for event in events), encoding="utf-8")
     probes = [
         Probe(
-            probe_id="p-final",
+            probe_id="p-cutoff",
             family="extraction",
-            entity="issue:HNX-2",
-            T=events[-1].time,
-            question="What state was observed?",
-            gold="state-29",
+            entity="issue:HNX-1",
+            T=events[2].time,
+            question="What is the current status of issue:HNX-1 at the snapshot time?",
+            gold="stale-on-purpose",
             gold_type="exact",
-            source_event_ids=["event-29"],
+            source_event_ids=["event-2"],
         )
     ]
     corpus = CorpusHandle(
@@ -179,7 +183,14 @@ def test_e5_two_cadences_produce_cost_and_freshness(tmp_path: Path) -> None:
         probes_path=None,
         tasks_path=None,
         window="test",
-        meta={"prices": {"input_per_million": 2.0, "output_per_million": 8.0}},
+        meta={
+            "prices": {"input_per_million": 2.0, "output_per_million": 8.0},
+            "injected_situations": [
+                {"event_id": "event-0", "onset": events[0].time.isoformat(), "cost_weight": 3}
+            ],
+            "bca_resamples": 200,
+            "smoke": True,
+        },
     )
     cfg = load_config("apps/eval/configs/baseline-minimal.yaml").engine
     result = run_cadences(
@@ -194,10 +205,33 @@ def test_e5_two_cadences_produce_cost_and_freshness(tmp_path: Path) -> None:
     costs = pd.read_csv(tmp_path / "e5" / "cost.csv")
     freshness = pd.read_csv(tmp_path / "e5" / "freshness.csv")
     assert set(costs["cadence"]) == {"W1", "W5"}
-    assert (costs["cost_1k"] > 0).all()
+    assert (costs["cost_1k"] > 0).all()  # deterministic fake-harness projection is billed
     assert (costs["runs_1k"] > 0).all()
-    assert not freshness.empty
-    assert (freshness["freshness_s"] >= 0).all()
+    assert costs.set_index("cadence").loc["W1", "classifier_folds"] == 4
+    assert costs.set_index("cadence").loc["W5", "classifier_folds"] == 2
+    w1 = freshness[freshness["cadence"] == "W1"]
+    w5 = freshness[freshness["cadence"] == "W5"]
+    assert w1["freshness_s"].tolist() == [0.0, 0.0, 0.0, 0.0]
+    assert w5["freshness_s"].tolist() == [9.5, 8.5, 7.5, 7.5]
+    assert w5["urgent"].tolist() == [True, False, False, False]
+    assert set(w5["urgency_provenance"]) == {"constructed-injected"}
     assert result.metrics["checks.cost_from_usage"] == 1
     assert result.metrics["checks.builder_run_count"] == 1
+    assert result.primary["evidence_status"] == "plumbing-only"
+    assert result.primary["valid_primary"] is False
+    assert "claim_profile" in result.primary["invalid_reasons"]
+    assert "probe_families" in result.primary["invalid_reasons"]
     assert (tmp_path / "e5" / "pareto.csv").exists()
+    assert (tmp_path / "e5" / "pareto.png").exists()
+    assert (tmp_path / "e5" / "gate.csv").exists()
+    assert {"input_tokens", "output_tokens", "reader_latency_s"}.issubset(costs.columns)
+
+    with pytest.raises(FileExistsError, match="not empty"):
+        run_cadences(
+            cfg,
+            corpus,
+            tmp_path / "e5",
+            seed=1,
+            cadences=("W1", "W5"),
+            probes=probes,
+        )

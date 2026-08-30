@@ -16,7 +16,9 @@ def test_stream_has_derivable_cross_source_gold() -> None:
     events = generate_synthetic_events(seed=2, event_count=200)
     sources = {event.source.split(":", 1)[0] for event in events}
 
-    assert sources == {"jira", "mail", "github"}
+    # Synthetic v2 adds component telemetry for the silent-urgent archetype.
+    assert {"jira", "mail", "github"}.issubset(sources)
+    assert sources <= {"jira", "mail", "github", "telemetry"}
     assert any(event.data and event.data.get("changelog") for event in events)
     assert any(event.data and event.data.get("in_reply_to") for event in events)
     assert any(event.data and event.data.get("changed_files") for event in events)

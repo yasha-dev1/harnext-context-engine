@@ -7,6 +7,7 @@ import shutil
 
 from harnext_eval.stores.base import StoreHandle
 from harnext_eval.stores.layouts import (
+    delivered_event_ids,
     record_input_metadata,
     safe_component,
     unseen_events,
@@ -14,15 +15,34 @@ from harnext_eval.stores.layouts import (
 from harnext_eval.types import EvalEvent
 
 
-def _reset_seed_to_dump(store: StoreHandle) -> None:
-    for relpath in ("CLAUDE.md", "_meta/schema.md", "_meta/superseded.md"):
-        path = store.worktree / relpath
-        if path.exists():
-            path.unlink()
-    for dirname in ("entities", "topics"):
-        path = store.worktree / dirname
-        if path.exists():
+def _reset_seed_to_dump(store: StoreHandle, allowed_event_ids: set[str]) -> None:
+    keep_top_level = {".git", "_meta", "events", "INDEX.md"}
+    for path in store.worktree.iterdir():
+        if path.name in keep_top_level:
+            continue
+        if path.is_dir():
             shutil.rmtree(path)
+        else:
+            path.unlink()
+    metadata = store.worktree / "_meta"
+    if metadata.exists():
+        keep_metadata = {"delivered_event_ids.jsonl", "input.json"}
+        for path in metadata.iterdir():
+            if path.name in keep_metadata:
+                continue
+            if path.is_dir():
+                shutil.rmtree(path)
+            else:
+                path.unlink()
+    events = store.worktree / "events"
+    if events.exists():
+        for path in events.rglob("*"):
+            if not path.is_file():
+                continue
+            lines = path.read_text(encoding="utf-8").splitlines() if path.suffix == ".md" else []
+            event_id = lines[0].removeprefix("# Event ") if lines else ""
+            if path.suffix != ".md" or event_id not in allowed_event_ids:
+                path.unlink()
 
 
 def _event_markdown(event: EvalEvent, lane: str) -> str:
@@ -57,7 +77,10 @@ def fold_s0(store: StoreHandle, events: list[EvalEvent], lane: str) -> None:
     """Write one immutable markdown representation per newly delivered event."""
 
     accepted = unseen_events(store, events)
-    _reset_seed_to_dump(store)
+    _reset_seed_to_dump(
+        store,
+        {*delivered_event_ids(store), *(event.id for event in accepted)},
+    )
     for event in accepted:
         date = event.time.date()
         event_id = safe_component(event.id, fallback="event")
@@ -68,4 +91,3 @@ def fold_s0(store: StoreHandle, events: list[EvalEvent], lane: str) -> None:
 
 
 fold = fold_s0
-

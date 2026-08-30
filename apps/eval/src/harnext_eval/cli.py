@@ -156,12 +156,13 @@ def _build_store(
     cfg: ExperimentConfig,
     root: Path,
     seed: int,
+    model: str | None = None,
 ) -> tuple[StoreHandle, DriverStats]:
     store = StoreHandle(layout, f"eval-{layout.casefold()}-{seed}", root)
     configure_store(
         store,
         harness=make_harness_name(cfg),
-        model=cfg.engine.builder.model,
+        model=model if model is not None else cfg.engine.builder.model,
         embeddings=make_embeddings(cfg),
     )
     return store, run_pipeline(events, cfg.engine, store, cutoff=None, on_decision=None)
@@ -176,12 +177,10 @@ def _build_run_stores(
     seed: int,
     smoke: bool,
 ) -> dict[str, StoreHandle]:
-    consumers = {"e2", "e3", "e4", "e5"}.intersection(selected)
+    consumers = {"e2", "e4", "e5"}.intersection(selected)
     if not consumers:
         return {}
     requested = {"S0"}
-    if "e3" in selected:
-        requested.update(("S1", "S4"))
     if cfg.engine.store.layout in {"S1", "S2", "S3", "S4", "S5"}:
         requested.add(cfg.engine.store.layout)
     if "e4" in selected and (smoke or cfg.engine.store.layout == "S3"):
@@ -222,6 +221,136 @@ def _build_run_stores(
         json.dumps(registry_rows, indent=2, sort_keys=True) + "\n", encoding="utf-8"
     )
     return stores
+
+
+def _write_e3_condition_metadata(condition: object) -> None:
+    from harnext_eval.e3.run import StoreCondition
+
+    if not isinstance(condition, StoreCondition):
+        raise TypeError("expected an E3 StoreCondition")
+    payload = {
+        "label": condition.stable_label,
+        "layout": condition.layout,
+        "seed": condition.seed,
+        "tier": condition.tier,
+        "model": condition.model,
+        "replay_hash": condition.replay_hash,
+    }
+    path = Path(condition.store.root) / "e3-condition.json"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+
+def _build_e3_conditions(
+    *,
+    cfg: ExperimentConfig,
+    events: list[EvalEvent],
+    root: Path,
+    replay_hash: str,
+    smoke: bool,
+    optional_stores: set[str],
+    opus_model: str | None,
+) -> list[object]:
+    """Build one complete E3 matrix, aggregating all configured seeds."""
+
+    from harnext_eval.e3.run import StoreCondition
+
+    invalid_optional = optional_stores - {"S2", "S5"}
+    if invalid_optional:
+        joined = ", ".join(sorted(invalid_optional))
+        raise typer.BadParameter(
+            f"E3 optional stores may only contain S2/S5, got {joined}",
+            param_hint="--e3-optional-stores",
+        )
+    if cfg.engine.store.layout in {"S2", "S5"}:
+        optional_stores.add(cfg.engine.store.layout)
+
+    configured_model = cfg.engine.builder.model
+    configured_opus = (
+        configured_model
+        if configured_model is not None and "opus" in configured_model.casefold()
+        else None
+    )
+    resolved_opus = opus_model or configured_opus
+    sonnet_model = "claude-sonnet-5" if configured_opus else configured_model
+    if resolved_opus and not smoke and cfg.engine.builder.harness != "claude_code":
+        raise typer.BadParameter(
+            "an Opus-tier E3 build requires engine.builder.harness=claude_code",
+            param_hint="--e3-opus-model",
+        )
+
+    conditions: list[StoreCondition] = []
+
+    def build(
+        layout: str,
+        *,
+        seed: int | None,
+        tier: str,
+        model: str | None,
+        label: str | None = None,
+    ) -> None:
+        build_seed = cfg.seeds[0] if seed is None else seed
+        stable_label = label or (
+            layout if layout in {"S0", "S1", "S4"} else f"{layout}-{tier}-seed-{build_seed}"
+        )
+        typer.echo(f"building {stable_label} from the shared E3 replay ({len(events)} events)")
+        store, _ = _build_store(
+            layout=layout,
+            events=events,
+            cfg=cfg,
+            root=root / stable_label.casefold(),
+            seed=build_seed,
+            model=model,
+        )
+        condition = StoreCondition(
+            store=store,
+            seed=seed,
+            tier=tier,
+            replay_hash=replay_hash,
+            model=model or cfg.engine.builder.harness,
+            label=stable_label,
+        )
+        _write_e3_condition_metadata(condition)
+        conditions.append(condition)
+
+    for layout in ("S0", "S1", "S4"):
+        build(layout, seed=None, tier="baseline", model=None)
+    for configured_seed in cfg.seeds:
+        build("S3", seed=configured_seed, tier="sonnet", model=sonnet_model)
+    for layout in sorted(optional_stores):
+        for configured_seed in cfg.seeds:
+            build(layout, seed=configured_seed, tier="sonnet", model=sonnet_model)
+    if resolved_opus and not smoke:
+        build("S3", seed=1, tier="opus", model=resolved_opus)
+
+    registry = [
+        {
+            "label": condition.stable_label,
+            "layout": condition.layout,
+            "seed": condition.seed,
+            "tier": condition.tier,
+            "model": condition.model,
+            "status": "built",
+        }
+        for condition in conditions
+    ]
+    if resolved_opus and smoke:
+        registry.append(
+            {
+                "label": "S3-opus-seed-1",
+                "layout": "S3",
+                "seed": 1,
+                "tier": "opus",
+                "model": resolved_opus,
+                "status": "supported-not-run",
+                "reason": "the smoke profile intentionally omits the optional Opus tier",
+            }
+        )
+    root.mkdir(parents=True, exist_ok=True)
+    (root / "e3-registry.json").write_text(
+        json.dumps(registry, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+    )
+    return list(conditions)
 
 
 @app.command("corpus")
@@ -326,6 +455,10 @@ def run_command(
     event_count: Annotated[int, typer.Option("--event-count", min=1)] = 120,
     entity_count: Annotated[int, typer.Option("--entity-count", min=1)] = 12,
     smoke: Annotated[bool, typer.Option("--smoke")] = False,
+    e3_optional_stores: Annotated[
+        str | None, typer.Option("--e3-optional-stores")
+    ] = None,
+    e3_opus_model: Annotated[str | None, typer.Option("--e3-opus-model")] = None,
 ) -> None:
     """Run registered experiments and write a reproducible run directory."""
 
@@ -376,14 +509,47 @@ def run_command(
             "builder": cfg.engine.builder.model or cfg.engine.builder.harness,
             "reader": cfg.engine.reader.provider,
         },
+        prices={key: float(value) for key, value in (cfg.engine.prices or {}).items() if isinstance(value, (int, float))},
         seeds=cfg.seeds,
         provider_summary=provider_summary(cfg),
     )
     write_manifest(manifest, run_dir)
     events = list(handle.events())
+    if "e3" in selected:
+        optional_stores = {
+            item.strip().upper()
+            for item in (e3_optional_stores or "").split(",")
+            if item.strip()
+        }
+        conditions = _build_e3_conditions(
+            cfg=cfg,
+            events=events,
+            root=run_dir / "stores" / "e3",
+            replay_hash=manifest.replay_hash,
+            smoke=smoke,
+            optional_stores=optional_stores,
+            opus_model=e3_opus_model,
+        )
+        e3_handle = replace(
+            handle,
+            meta={
+                **handle.meta,
+                "stores": conditions,
+                "read_budgets": cfg.budgets.read_tokens,
+                "smoke": smoke,
+            },
+        )
+        runner = get_experiment("e3")
+        experiment_dir = run_dir / "e3"
+        typer.echo(f"running e3 across configured seeds {cfg.seeds}")
+        result = runner.run(cfg.engine, e3_handle, experiment_dir, cfg.seeds[0])
+        result.artifacts.extend(runner.chart(result, experiment_dir))
+        _write_result(result, experiment_dir)
+
+    per_seed_selected = [name for name in selected if name != "e3"]
     for seed in cfg.seeds:
         stores = _build_run_stores(
-            selected=selected,
+            selected=per_seed_selected,
             cfg=cfg,
             events=events,
             root=run_dir / "stores",
@@ -399,7 +565,7 @@ def run_command(
                 "stores": [stores[name] for name in sorted(stores)],
             },
         )
-        for name in selected:
+        for name in per_seed_selected:
             runner = get_experiment(name)
             experiment_dir = run_dir / name / f"seed-{seed}"
             typer.echo(f"running {name} seed {seed}")

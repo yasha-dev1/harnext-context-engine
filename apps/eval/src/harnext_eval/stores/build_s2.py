@@ -6,6 +6,7 @@ import shutil
 
 from harnext_eval.stores.base import StoreHandle
 from harnext_eval.stores.build_s3 import run_builder_harness
+from harnext_eval.stores.fake_curator import curate_events
 from harnext_eval.stores.layouts import record_input_metadata, runtime_for, unseen_events
 from harnext_eval.types import EvalEvent
 
@@ -48,12 +49,12 @@ def fold_s2(store: StoreHandle, events: list[EvalEvent], lane: str) -> None:
         return
     _apply_flat_seed(store)
     runtime = runtime_for(store)
-    index = store.worktree / "INDEX.md"
-    if runtime.harness == "fake" and not index.exists():
-        # The production fake harness uses INDEX.md as its deterministic edit target.
-        store.write("INDEX.md", "# Temporary fake-harness target\n")
     record_input_metadata(store, accepted)
-    run_builder_harness(store, accepted, lane, system_prompt=_FLAT_PROMPT)
+    if runtime.harness == "fake":
+        curate_events(store, accepted, lane, global_organisation=False)
+    else:
+        run_builder_harness(store, accepted, lane, system_prompt=_FLAT_PROMPT)
+    index = store.worktree / "INDEX.md"
     if index.exists():
         index.unlink()
     topics = store.worktree / "topics"
@@ -62,4 +63,3 @@ def fold_s2(store: StoreHandle, events: list[EvalEvent], lane: str) -> None:
 
 
 fold = fold_s2
-

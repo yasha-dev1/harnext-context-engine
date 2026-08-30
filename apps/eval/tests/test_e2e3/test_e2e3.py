@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import csv
+import hashlib
 import json
 import shutil
 import tempfile
@@ -13,13 +14,25 @@ from typing import cast
 
 import pytest
 from harnext_eval.agents.reader import Material, answer
+from harnext_eval.cli import _build_e3_conditions
 from harnext_eval.config import EngineConfig, load_config
 from harnext_eval.e2.arms import a1, a2, a3, a4, retrieve_everything
 from harnext_eval.e2.run import evaluate_e2
-from harnext_eval.e3.run import READ_BUDGETS, compute_erosion_slope, evaluate_e3
+from harnext_eval.e3.run import (
+    BOOTSTRAP_RESAMPLES,
+    READ_BUDGETS,
+    StoreCondition,
+    _checkpoint_times,
+    _rederive_probe,
+    _same_input_proof,
+    compute_erosion_slope,
+    evaluate_e3,
+)
+from harnext_eval.probes.gold import PythonGold
 from harnext_eval.providers.embeddings import FakeEmbeddings
 from harnext_eval.providers.llm import FakeLLM
 from harnext_eval.stores.base import StoreHandle
+from harnext_eval.stores.layouts import configure_store
 from harnext_eval.types import EvalEvent, Probe, SnapshotRef
 
 NOW = datetime(2026, 5, 1, tzinfo=UTC)
@@ -147,6 +160,124 @@ def _as_store(store: ToyStore) -> StoreHandle:
     return cast(StoreHandle, store)
 
 
+def _real_store(
+    root: Path,
+    layout: str,
+    events: list[EvalEvent],
+    *,
+    seed: int | None = None,
+) -> StoreHandle:
+    store = StoreHandle(layout, f"test-{layout.casefold()}-{seed or 0}", root)
+    configure_store(store, embeddings=FakeEmbeddings())
+    store.fold(events, "batch")
+    return store
+
+
+def _e3_events() -> list[EvalEvent]:
+    return [
+        _event("e1", NOW, "Open"),
+        EvalEvent(
+            id="e2",
+            source="jira:test",
+            type="issue.transition",
+            subject="issue:HNX-2",
+            time=NOW + timedelta(hours=1),
+            mgtenant="test",
+            data={"issue_key": "HNX-2", "field": "status", "to": "Open"},
+        ),
+        EvalEvent(
+            id="e3",
+            source="github:test",
+            type="pull_request.merged",
+            subject="pr:7",
+            time=NOW + timedelta(hours=2),
+            mgtenant="test",
+            data={
+                "number": 7,
+                "title": "HNX-1 implement fix",
+                "state": "merged",
+                "changed_files": ["src/core/fix.py"],
+            },
+        ),
+        _event("e4", NOW + timedelta(hours=3), "Done"),
+        EvalEvent(
+            id="e5",
+            source="jira:test",
+            type="issue.transition",
+            subject="issue:HNX-2",
+            time=NOW + timedelta(hours=4),
+            mgtenant="test",
+            data={"issue_key": "HNX-2", "field": "status", "to": "Done"},
+        ),
+    ]
+
+
+def _e3_probes(events: list[EvalEvent]) -> list[Probe]:
+    at = events[-1].time
+    return [
+        Probe(
+            probe_id="extract-1",
+            family="extraction",
+            entity="HNX-1",
+            T=at,
+            question="What is the current status of HNX-1 at the snapshot time?",
+            gold="Done",
+            gold_type="exact",
+            source_event_ids=["e4"],
+        ),
+        Probe(
+            probe_id="extract-2",
+            family="extraction",
+            entity="HNX-2",
+            T=at,
+            question="What is the current status of HNX-2 at the snapshot time?",
+            gold="Done",
+            gold_type="exact",
+            source_event_ids=["e5"],
+        ),
+        Probe(
+            probe_id="temporal",
+            family="temporal",
+            entity="HNX-1",
+            T=at,
+            question=f"What was the status of HNX-1 as of {NOW.isoformat()}?",
+            gold="Open",
+            gold_type="exact",
+            source_event_ids=["e1"],
+        ),
+        Probe(
+            probe_id="update",
+            family="update",
+            entity="HNX-1",
+            T=at,
+            question="After all updates through the snapshot, what is the latest status of HNX-1?",
+            gold="Done",
+            gold_type="exact",
+            superseded_values=["Open"],
+            source_event_ids=["e1", "e4"],
+        ),
+        Probe(
+            probe_id="links",
+            family="multisource",
+            entity="HNX-1",
+            T=at,
+            question="Which pull requests or mail threads are related to HNX-1?",
+            gold=["pr:7"],
+            gold_type="links",
+            source_event_ids=["e3"],
+        ),
+        Probe(
+            probe_id="absent",
+            family="abstention",
+            entity="MISSING-1",
+            T=at,
+            question="What is the status of MISSING-1?",
+            gold="UNKNOWN",
+            gold_type="exact",
+        ),
+    ]
+
+
 def test_arms_enforce_budget(tmp_path: Path) -> None:
     cfg = _cfg(30)
     events = [
@@ -183,7 +314,7 @@ def test_reader_returns_unknown_without_evidence() -> None:
 
 def test_e2_tiny_end_to_end_writes_metrics_and_checks(tmp_path: Path) -> None:
     events = [_event("e1", NOW - timedelta(hours=2), "Open"), _event("e2", NOW, "Done")]
-    store = _as_store(ToyStore(tmp_path / "store", "S3", "Done"))
+    store = _real_store(tmp_path / "store", "S3", events, seed=1)
 
     result, outcomes = evaluate_e2(
         cfg=_cfg(80),
@@ -207,34 +338,190 @@ def test_e2_tiny_end_to_end_writes_metrics_and_checks(tmp_path: Path) -> None:
 
 
 def test_e3_curves_contrast_cost_and_erosion(tmp_path: Path) -> None:
-    events = [_event("e1", NOW - timedelta(hours=2), "Open"), _event("e2", NOW, "Done")]
-    s3 = _as_store(ToyStore(tmp_path / "s3", "S3", "Done"))
-    s1 = _as_store(ToyStore(tmp_path / "s1", "S1", "Open"))
+    events = _e3_events()
+    probes = _e3_probes(events)
+    replay_hash = hashlib.sha256(
+        "".join(event.model_dump_json() + "\n" for event in events).encode()
+    ).hexdigest()
+    conditions = [
+        StoreCondition(
+            _real_store(tmp_path / layout.casefold(), layout, events),
+            tier="baseline",
+            replay_hash=replay_hash,
+        )
+        for layout in ("S0", "S1", "S4")
+    ]
+    conditions.extend(
+        StoreCondition(
+            _real_store(tmp_path / f"s3-{seed}", "S3", events, seed=seed),
+            seed=seed,
+            tier="sonnet",
+            replay_hash=replay_hash,
+            model="fake",
+        )
+        for seed in (1, 2, 3)
+    )
 
     result = evaluate_e3(
-        stores=[s3, s1],
+        stores=conditions,
         cfg=_cfg(),
-        probes=_probes(),
+        probes=probes,
         events=events,
         out_dir=tmp_path / "e3",
         seed=3,
         llm=FakeLLM(),
         embeddings=FakeEmbeddings(),
+        erosion_probe_limit=len(probes),
+        corpus_name="fixture",
     )
 
     assert set(result.tables["curve"]["budget"]) == set(READ_BUDGETS)
-    assert len(result.tables["curve"]) == 6
-    assert result.tables["contrasts"].iloc[0]["contrast"] == "S3-S1@8000"
-    assert result.tables["contrasts"].iloc[0]["delta"] > 0
-    assert result.tables["cost"]["build_tokens"].tolist() == [120, 120]
+    assert set(result.tables["curve"]["layout"]) == {"S0", "S1", "S3", "S4"}
+    assert set(result.tables["contrasts"]["contrast"]) == {
+        "S3-S1@8000",
+        "S3-S4@8000",
+    }
+    assert set(result.tables["contrasts"]["seed_count"]) == {3}
+    assert set(result.tables["contrasts"]["n_resamples"]) == {BOOTSTRAP_RESAMPLES}
+    assert result.tables["contrasts"]["valid"].all()
+    assert result.tables["health_seed_spread"]["status"].eq("measured").all()
+    s4_curve = result.tables["curve"].query("layout == 'S4' and budget == 8000").iloc[0]
+    assert s4_curve["n"] == len(probes)
+    assert s4_curve["macro_acc"] > 0
+    assert result.metrics["s4_recall_at_10"] == pytest.approx(1.0)
     assert result.metrics["checks.same_input_hash"] == 1
-    assert {path.name for path in result.artifacts} == {
+    assert result.metrics["checks.same_input_ledger"] == 1
+    assert {
         "curve.csv",
+        "curve.png",
         "health.csv",
         "erosion.csv",
+        "erosion.png",
         "cost.csv",
         "contrasts.csv",
+    } <= {path.name for path in result.artifacts}
+
+
+def test_e3_same_input_detects_changed_middle_event_with_same_last_id(tmp_path: Path) -> None:
+    events = _e3_events()
+    replay_hash = "frozen-replay"
+    stores = [
+        _real_store(tmp_path / layout.casefold(), layout, events)
+        for layout in ("S0", "S1", "S4")
+    ]
+    stores.extend(
+        _real_store(tmp_path / f"s3-{seed}", "S3", events, seed=seed)
+        for seed in (1, 2, 3)
+    )
+    ledger = stores[-1].delivered_jsonl
+    rows = [json.loads(line) for line in ledger.read_text(encoding="utf-8").splitlines()]
+    rows[1]["event_id"] = "different-middle-event"
+    ledger.write_text(
+        "".join(json.dumps(row, sort_keys=True) + "\n" for row in rows),
+        encoding="utf-8",
+    )
+    conditions = [
+        StoreCondition(
+            store,
+            seed=index - 2 if index >= 3 else None,
+            tier="sonnet" if index >= 3 else "baseline",
+            replay_hash=replay_hash,
+        )
+        for index, store in enumerate(stores)
+    ]
+
+    same_input, details = _same_input_proof(conditions)
+
+    assert not same_input
+    assert not details["ledger_identical"]
+    assert details["mismatches"]["S3-sonnet-seed-3"]["ledger"]["first_difference"] == 1
+
+
+def test_e3_erosion_rederives_gold_and_skips_future_probes() -> None:
+    events = [
+        _event("e1", NOW, "Open"),
+        _event("e2", NOW + timedelta(days=1), "Done"),
+        _event("e3", NOW + timedelta(days=2), "Closed"),
+    ]
+    probe = Probe(
+        probe_id="update-late",
+        family="update",
+        entity="HNX-1",
+        T=events[1].time,
+        question="After all updates through the snapshot, what is the latest status of HNX-1?",
+        gold="Done",
+        gold_type="exact",
+        superseded_values=["Open"],
+        source_event_ids=["e1", "e2"],
+    )
+    gold = PythonGold(events)
+
+    assert _rederive_probe(probe, NOW, events, gold) is None
+    derived = _rederive_probe(probe, events[-1].time, events, gold)
+
+    assert derived is not None
+    assert derived.T == events[-1].time
+    assert derived.gold == "Closed"
+    assert derived.superseded_values == ["Open", "Done"]
+    assert derived.source_event_ids == ["e1", "e2", "e3"]
+    assert _checkpoint_times(events) == [("end", pytest.approx(2 / 7), events[-1].time)]
+
+
+def test_e3_fails_closed_when_mandatory_s4_is_missing(tmp_path: Path) -> None:
+    events = _e3_events()
+    conditions = [
+        StoreCondition(
+            _real_store(tmp_path / layout.casefold(), layout, events),
+            tier="baseline",
+            replay_hash="same",
+        )
+        for layout in ("S0", "S1")
+    ]
+    conditions.append(
+        StoreCondition(
+            _real_store(tmp_path / "s3", "S3", events, seed=1),
+            seed=1,
+            tier="sonnet",
+            replay_hash="same",
+        )
+    )
+
+    with pytest.raises(ValueError, match="missing S4"):
+        evaluate_e3(
+            stores=conditions,
+            cfg=_cfg(),
+            probes=_e3_probes(events),
+            events=events,
+            out_dir=tmp_path / "e3",
+            seed=1,
+            llm=FakeLLM(),
+            embeddings=FakeEmbeddings(),
+        )
+
+
+def test_cli_builds_one_aggregate_e3_matrix_and_skips_opus_in_smoke(
+    tmp_path: Path,
+) -> None:
+    conditions = _build_e3_conditions(
+        cfg=load_config(CONFIG_PATH),
+        events=_e3_events(),
+        root=tmp_path / "stores",
+        replay_hash="replay-hash",
+        smoke=True,
+        optional_stores=set(),
+        opus_model="claude-opus-5",
+    )
+
+    typed = [condition for condition in conditions if isinstance(condition, StoreCondition)]
+    assert {condition.stable_label for condition in typed} == {
+        "S0",
+        "S1",
+        "S4",
+        "S3-sonnet-seed-1",
     }
+    registry = json.loads((tmp_path / "stores" / "e3-registry.json").read_text())
+    opus = next(row for row in registry if row["tier"] == "opus")
+    assert opus["status"] == "supported-not-run"
 
 
 def test_erosion_slope_uses_ols_per_week() -> None:

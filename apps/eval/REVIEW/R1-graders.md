@@ -153,3 +153,8 @@
 ## Verdict
 
 The implementation is not faithful enough to support trusted E2/E4 conclusions: E2 contains post-T code-location gold, a non-proving leakage gate, a broken canonical A4 traversal, fake providers that make several families invariant, and a primary statistic that is not the literal macro contrast; E4's batch experiment is not implemented, Corpus S gold is wrong, the leakage/evidence gates are incomplete, and its primary contrasts have no required inference. Before results can be trusted, separate E2/E4 gold semantics, enforce the temporal firewall with real delivery/material evidence, run the pinned real providers and all specified conditions, implement the actual batch and judge procedures, compute literal scores with 10,000-resample entity-clustered inference/McNemar/Holm and seed aggregation, enforce every validity gate, and replace the smoke-level tests with adversarial full-family/full-condition tests.
+
+## Fixes applied
+
+- **2** → `apps/eval/src/harnext_eval/replay/gate.py:46` replaces filtered-event and fabricated-action evidence with exact store/SHA ledger proof, probe-specific source/question/material checks, recursive task gold/time checks, and canonical audit reasons. Historical snapshot calls resolve only through a uniquely registered live store and otherwise fail closed → `apps/eval/tests/test_replay/test_gate.py:55`, `:79`, `:109`, `:131`, `:153`, and `:173`.
+- E2/E4 call-site integration outside FX-core ownership was deliberately left to the designated module owners; the shared gate API and compatibility adapter needed by those callers are complete.

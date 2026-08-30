@@ -37,7 +37,7 @@ def recall_at_budget(y_true: Sequence[float], admitted: Sequence[bool]) -> float
 
 def precision_at_budget(y_true: Sequence[float], admitted: Sequence[bool]) -> float:
     labels, decisions = _arrays(y_true, admitted)
-    return float(np.mean(labels[decisions] >= 0.5)) if decisions.any() else 0.0
+    return float(np.mean(labels[decisions] >= 0.5)) if decisions.any() else float("nan")
 
 
 def scores_by_source(
@@ -125,7 +125,8 @@ def vus_pr(
     areas = [
         _weighted_average_precision(_soft_ranges(labels, int(radius)), values) for radius in radii
     ]
-    return float(np.nanmean(areas)) if areas else float("nan")
+    finite = [area for area in areas if np.isfinite(area)]
+    return float(np.mean(finite)) if finite else float("nan")
 
 
 def _intervals(mask: np.ndarray) -> list[tuple[int, int]]:
@@ -197,6 +198,79 @@ def affiliation_precision_recall(
             else:
                 recall_rewards.append(0.0)
     return float(np.mean(precision_rewards)), float(np.mean(recall_rewards))
+
+
+def timestamped_affiliation_precision_recall(
+    situations: pd.DataFrame,
+    admissions: pd.DataFrame,
+    *,
+    entity_col: str = "entity",
+    onset_col: str = "onset",
+    end_col: str = "end",
+    time_col: str = "time",
+    admitted_col: str = "admitted",
+) -> tuple[float, float]:
+    """Affiliation P/R over timestamped, entity-separated situation intervals.
+
+    Voronoi affiliation zones and rewards are calculated in elapsed seconds.
+    This preserves real distance and never merges distinct entities or
+    separately injected situations into one row-index interval.
+    """
+
+    if situations.empty:
+        return float("nan"), float("nan")
+    precision_parts: list[float] = []
+    recall_parts: list[float] = []
+    fast = admissions[admissions[admitted_col].astype(bool)]
+    for entity, entity_situations in situations.groupby(entity_col, sort=True):
+        entity_fast = fast[fast[entity_col] == entity]
+        starts = pd.to_datetime(entity_situations[onset_col], utc=True)
+        ends = pd.to_datetime(entity_situations[end_col], utc=True).fillna(starts)
+        prediction_times = pd.to_datetime(entity_fast[time_col], utc=True)
+        intervals = sorted(
+            [(start.timestamp(), end.timestamp()) for start, end in zip(starts, ends, strict=True)]
+        )
+        predictions = np.asarray([timestamp.timestamp() for timestamp in prediction_times])
+        if not len(predictions):
+            recall_parts.extend([0.0] * len(intervals))
+            continue
+        zones: list[tuple[float, float]] = []
+        outer_left = min(intervals[0][0], float(predictions.min()))
+        outer_right = max(intervals[-1][1], float(predictions.max()))
+        for index, interval in enumerate(intervals):
+            left = outer_left if index == 0 else (intervals[index - 1][1] + interval[0]) / 2
+            right = outer_right if index == len(intervals) - 1 else (interval[1] + intervals[index + 1][0]) / 2
+            zones.append((left, right))
+        for prediction in predictions:
+            interval_index = min(
+                range(len(intervals)),
+                key=lambda index: (
+                    max(intervals[index][0] - prediction, 0, prediction - intervals[index][1]),
+                    index,
+                ),
+            )
+            start, end = intervals[interval_index]
+            left, right = zones[interval_index]
+            distance = max(start - prediction, 0, prediction - end)
+            scale = max(start - left, right - end, 1.0)
+            precision_parts.append(max(0.0, 1.0 - distance / scale))
+        for (start, end), (left, right) in zip(intervals, zones, strict=True):
+            affiliated = predictions[(predictions >= left) & (predictions <= right)]
+            if not len(affiliated):
+                recall_parts.append(0.0)
+                continue
+            anchors = np.asarray([start, (start + end) / 2, end])
+            distance = np.min(np.abs(anchors[:, None] - affiliated[None, :]), axis=1)
+            scale = np.maximum(np.maximum(anchors - left, right - anchors), 1.0)
+            recall_parts.append(float(np.mean(np.maximum(0.0, 1.0 - distance / scale))))
+    return (
+        float(np.mean(precision_parts))
+        if precision_parts
+        else float("nan"),
+        float(np.mean(recall_parts))
+        if recall_parts
+        else float("nan"),
+    )
 
 
 def detection_delays(

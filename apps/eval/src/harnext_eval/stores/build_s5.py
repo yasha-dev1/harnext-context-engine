@@ -69,6 +69,7 @@ def fold_s5(store: StoreHandle, events: list[EvalEvent], lane: str) -> None:
         documents,
         records=records,
         indexed_event_count=len(event_ids),
+        chunking="whole-durable-file-plus-event-citations-v1",
     )
     last_event = max(events, key=lambda event: (event.time, event.id))
     with (index_dir / "snapshot_counts.jsonl").open("a", encoding="utf-8") as destination:
@@ -87,4 +88,3 @@ def fold_s5(store: StoreHandle, events: list[EvalEvent], lane: str) -> None:
 
 
 fold = fold_s5
-
