@@ -1,4 +1,4 @@
-.PHONY: help up down logs ps install topics ingest classifier builder mcp web worker beat fmt lint typecheck test clean
+.PHONY: help up down logs ps install topics ingest classifier builder mcp web worker beat eval-smoke eval-test fmt lint typecheck test clean
 
 help:
 	@echo "Infra:"
@@ -20,6 +20,8 @@ help:
 	@echo "Quality:"
 	@echo "  make install    — uv sync + pnpm install"
 	@echo "  make fmt / lint / typecheck / test"
+	@echo "  make eval-smoke — run the offline synthetic evaluation"
+	@echo "  make eval-test  — run the evaluation test suite"
 
 up:
 	docker compose -f infra/docker-compose.yml up -d
@@ -64,6 +66,12 @@ worker:
 
 beat:
 	uv run --package harnext-ingest celery -A harnext_ingest.celery_app beat --loglevel=info
+
+eval-smoke:
+	uv run harnext-eval run --config apps/eval/configs/baseline-minimal.yaml --corpus synthetic --all
+
+eval-test:
+	uv run pytest apps/eval/tests -q
 
 fmt:
 	uv run ruff format .

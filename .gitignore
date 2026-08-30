@@ -54,3 +54,6 @@ data/*
 *.sqlite-journal
 *.db
 /exports/
+
+# Evaluation run artifacts
+apps/eval/out/

@@ -1,0 +1,15 @@
+engine:
+  router:
+    rules: {enabled: true}
+    deviation: {enabled: false}
+    budget_pct: 2.0
+    guards: {absolute_floor: 0, multi_window: false, situation_dedup: false}
+  window: {gap_s: 30, max_events: 20, max_age_s: 120}
+  store: {layout: S0, backend: git}
+  builder: {harness: fake, model: null, prompt_version: v1}
+  reader: {provider: fake, budget_tokens: 8000}
+  envelope: V3
+  embeddings: {provider: fake, dim: 64}
+  lane_design: two-lane
+budgets: {read_tokens: [2000, 8000, 32000]}
+seeds: [1]
