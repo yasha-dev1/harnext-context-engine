@@ -1,0 +1,88 @@
+{
+  "startAt": 0,
+  "maxResults": 1,
+  "total": 2,
+  "issues": [
+    {
+      "id": "19876",
+      "key": "KAFKA-19876",
+      "fields": {
+        "summary": "Snapshot recovery can lose the final batch",
+        "description": "Recovery should retain the last committed offset.",
+        "created": "2026-01-02T08:30:00.000+0000",
+        "creator": {
+          "displayName": "Alice Committer",
+          "emailAddress": "alice@apache.org",
+          "key": "alice",
+          "active": true
+        },
+        "reporter": {
+          "displayName": "Alice Committer",
+          "emailAddress": "alice@apache.org",
+          "key": "alice",
+          "active": true
+        },
+        "assignee": null,
+        "status": {"name": "Open"},
+        "priority": {"name": "Major"},
+        "fixVersions": [],
+        "components": [{"name": "Streams"}, {"name": "Core"}],
+        "labels": ["snapshot"],
+        "comment": {
+          "startAt": 0,
+          "maxResults": 1,
+          "total": 1,
+          "comments": [
+            {
+              "id": "501",
+              "author": {
+                "displayName": "Bob Reviewer",
+                "emailAddress": "bob@example.net",
+                "key": "bob",
+                "active": true
+              },
+              "body": "I can reproduce this on trunk; a fix is ready.",
+              "created": "2026-01-02T09:10:00.000+0000",
+              "updated": "2026-01-02T09:10:00.000+0000"
+            }
+          ]
+        }
+      },
+      "changelog": {
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 1,
+        "histories": [
+          {
+            "id": "7001",
+            "author": {
+              "displayName": "Bob Reviewer",
+              "emailAddress": "bob@example.net",
+              "key": "bob",
+              "active": true
+            },
+            "created": "2026-01-02T09:15:00.000+0000",
+            "items": [
+              {
+                "field": "status",
+                "fieldtype": "jira",
+                "from": "1",
+                "fromString": "Open",
+                "to": "3",
+                "toString": "In Progress"
+              },
+              {
+                "field": "priority",
+                "fieldtype": "jira",
+                "from": "3",
+                "fromString": "Major",
+                "to": "2",
+                "toString": "Critical"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

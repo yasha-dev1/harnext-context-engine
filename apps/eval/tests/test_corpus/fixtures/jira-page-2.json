@@ -1,0 +1,61 @@
+{
+  "startAt": 1,
+  "maxResults": 1,
+  "total": 2,
+  "issues": [
+    {
+      "id": "19900",
+      "key": "KAFKA-19900",
+      "fields": {
+        "summary": "Consumer retry policy should expose the backoff",
+        "description": "Expose retry backoff in the public configuration.",
+        "created": "2026-01-03T11:30:00.000+0000",
+        "creator": {
+          "displayName": "Carol User",
+          "emailAddress": "carol@example.org",
+          "key": "carol",
+          "active": true
+        },
+        "reporter": {
+          "displayName": "Carol User",
+          "emailAddress": "carol@example.org",
+          "key": "carol",
+          "active": true
+        },
+        "assignee": {
+          "displayName": "Alice Committer",
+          "emailAddress": "alice@apache.org",
+          "key": "alice",
+          "active": true
+        },
+        "status": {"name": "Resolved"},
+        "priority": {"name": "Minor"},
+        "fixVersions": [{"name": "4.2.0"}],
+        "components": [{"name": "Clients"}],
+        "labels": [],
+        "comment": {"comments": []}
+      },
+      "changelog": {
+        "histories": [
+          {
+            "id": "7002",
+            "author": {
+              "displayName": "Alice Committer",
+              "emailAddress": "alice@apache.org",
+              "key": "alice",
+              "active": true
+            },
+            "created": "2026-01-03T13:00:00.000+0000",
+            "items": [
+              {
+                "field": "fixVersion",
+                "fromString": null,
+                "toString": "4.2.0"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

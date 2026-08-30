@@ -1,0 +1,32 @@
+From alice@apache.org Fri Jan 02 09:00:00 2026
+Message-ID: <root.vote@kafka.apache.org>
+Date: Fri, 2 Jan 2026 09:00:00 +0000
+From: Alice Committer <alice@apache.org>
+To: dev@kafka.apache.org
+Subject: [VOTE] KIP-1150: Add safe snapshots for KAFKA-19876
+Content-Type: text/plain; charset=utf-8
+
+I would like to start a vote on KIP-1150. This also addresses KAFKA-19876.
+
+From bob@example.net Fri Jan 02 09:35:00 2026
+Message-ID: <reply.one@example.net>
+Date: Fri, 2 Jan 2026 09:35:00 +0000
+From: Bob Reviewer <bob@example.net>
+To: dev@kafka.apache.org
+Subject: Re: [VOTE] KIP-1150: Add safe snapshots for KAFKA-19876
+In-Reply-To: <root.vote@kafka.apache.org>
+References: <root.vote@kafka.apache.org>
+Content-Type: text/plain; charset=utf-8
+
++1 (binding). The KAFKA-19876 compatibility concern is resolved.
+
+From carol@example.org Sat Jan 03 12:00:00 2026
+Message-ID: <discuss.new@example.org>
+Date: Sat, 3 Jan 2026 12:00:00 +0000
+From: Carol User <carol@example.org>
+To: dev@kafka.apache.org
+Subject: [DISCUSS] KAFKA-19900 consumer retry behavior
+Content-Type: text/plain; charset=utf-8
+
+This is not a blocker, but the retry behavior needs a decision.
+

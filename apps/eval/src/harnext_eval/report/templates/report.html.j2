@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ title }}</title>
+  <style>
+    :root { color-scheme: light; --ink:#172033; --muted:#64748b; --line:#dbe3ed; --panel:#f8fafc; --blue:#2563eb; --pass:#166534; --pass-bg:#dcfce7; --fail:#991b1b; --fail-bg:#fee2e2; }
+    * { box-sizing: border-box; }
+    body { margin:0; color:var(--ink); background:#fff; font:15px/1.5 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+    main { max-width:1180px; margin:0 auto; padding:42px 28px 72px; }
+    h1 { margin:0 0 8px; font-size:2rem; letter-spacing:-.03em; }
+    h2 { margin:44px 0 16px; padding-bottom:8px; border-bottom:2px solid var(--line); }
+    h3 { margin:28px 0 10px; }
+    .lede,.muted { color:var(--muted); }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(340px,1fr)); gap:18px; }
+    .card { border:1px solid var(--line); border-radius:10px; padding:18px; background:#fff; overflow:auto; }
+    table { width:100%; border-collapse:collapse; font-size:.92rem; }
+    th,td { padding:8px 10px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; }
+    th { color:#334155; background:var(--panel); font-weight:650; }
+    td:first-child { font-weight:550; }
+    pre { margin:0; padding:18px; overflow:auto; border:1px solid var(--line); border-radius:10px; background:#0f172a; color:#e2e8f0; font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace; }
+    figure { margin:0; border:1px solid var(--line); border-radius:10px; padding:14px; background:#fff; }
+    figure img { display:block; width:100%; height:auto; }
+    figcaption { margin-top:8px; color:var(--muted); font-size:.85rem; }
+    .status { display:inline-block; min-width:54px; padding:2px 8px; border-radius:999px; text-align:center; font-weight:700; font-size:.78rem; }
+    .pass { color:var(--pass); background:var(--pass-bg); }
+    .fail { color:var(--fail); background:var(--fail-bg); }
+    .info { color:#475569; background:#e2e8f0; }
+    .links { columns:2 280px; padding-left:20px; }
+    a { color:var(--blue); text-decoration:none; }
+    a:hover { text-decoration:underline; }
+    @media print { main { max-width:none; padding:20px; } figure,table { break-inside:avoid; } }
+  </style>
+</head>
+<body>
+<main>
+  <h1>{{ title }}</h1>
+  <p class="lede">Reproducible measurements, validity checks, engine nudges, and run artifacts.</p>
+
+  <h2>Run manifest</h2>
+  {% if manifest %}
+  <div class="card"><table><tbody>{% for row in manifest %}<tr><th>{{ row.name }}</th><td>{{ row.value }}</td></tr>{% endfor %}</tbody></table></div>
+  {% else %}<p class="muted">No manifest.json was found.</p>{% endif %}
+
+  <h2>Resolved engine configuration</h2>
+  {% if nudges %}
+  <h3>Nudges summary</h3>
+  <div class="card"><table><thead><tr><th>Component</th><th>Resolved setting</th></tr></thead><tbody>{% for row in nudges %}<tr><td>{{ row.component }}</td><td>{{ row.setting }}</td></tr>{% endfor %}</tbody></table></div>
+  {% endif %}
+  <h3>Resolved YAML</h3>
+  <pre>{{ config_yaml }}</pre>
+
+  <h2>Validity checks</h2>
+  {% if checks %}
+  <div class="card"><table><thead><tr><th>Experiment</th><th>Check</th><th>Value</th><th>Status</th></tr></thead><tbody>
+  {% for row in checks %}<tr><td>{{ row.experiment }}</td><td>{{ row.check }}</td><td>{{ row.value }}</td><td>{% if row.passed is sameas true %}<span class="status pass">PASS</span>{% elif row.passed is sameas false %}<span class="status fail">FAIL</span>{% else %}<span class="status info">INFO</span>{% endif %}</td></tr>{% endfor %}
+  </tbody></table></div>
+  {% else %}<p class="muted">No machine-readable validity checks were found.</p>{% endif %}
+
+  {% for experiment in experiments %}
+  <section>
+    <h2>{{ experiment.name }}</h2>
+    {% if experiment.results %}
+    <h3>Primary metrics</h3>
+    <div class="grid">{% for result in experiment.results %}<div class="card"><div class="muted">{{ result.run }}</div><table><tbody>{% for row in result.primary %}<tr><th>{{ row.name }}</th><td>{{ row.value }}</td></tr>{% endfor %}</tbody></table></div>{% endfor %}</div>
+    {% endif %}
+    {% if experiment.contrasts %}
+    <h3>Contrasts and confidence intervals</h3>
+    {% for table in experiment.contrasts %}<div class="card"><table><thead><tr>{% for column in table.columns %}<th>{{ column }}</th>{% endfor %}</tr></thead><tbody>{% for row in table.records %}<tr>{% for column in table.columns %}<td>{{ row[column] }}</td>{% endfor %}</tr>{% endfor %}</tbody></table><p><a href="{{ table.path }}">Open source CSV</a></p></div>{% endfor %}
+    {% endif %}
+    {% if experiment.charts %}
+    <h3>Charts</h3>
+    <div class="grid">{% for chart in experiment.charts %}<figure><img src="{{ chart.data_uri }}" alt="{{ chart.name }}"><figcaption>{{ chart.name }} · {{ chart.path }}</figcaption></figure>{% endfor %}</div>
+    {% endif %}
+    {% if experiment.csvs %}
+    <h3>CSV outputs</h3><ul class="links">{% for csv in experiment.csvs %}<li><a href="{{ csv }}">{{ csv }}</a></li>{% endfor %}</ul>
+    {% endif %}
+  </section>
+  {% endfor %}
+
+  {% if unassigned_charts %}
+  <h2>Run-level charts</h2><div class="grid">{% for chart in unassigned_charts %}<figure><img src="{{ chart.data_uri }}" alt="{{ chart.name }}"><figcaption>{{ chart.name }} · {{ chart.path }}</figcaption></figure>{% endfor %}</div>
+  {% endif %}
+  {% if unassigned_csvs %}
+  <h2>Run-level CSV outputs</h2><ul class="links">{% for csv in unassigned_csvs %}<li><a href="{{ csv }}">{{ csv }}</a></li>{% endfor %}</ul>
+  {% endif %}
+  {% if not experiments and not unassigned_charts and not all_csvs %}<p class="muted">No experiment outputs were found yet.</p>{% endif %}
+</main>
+</body>
+</html>

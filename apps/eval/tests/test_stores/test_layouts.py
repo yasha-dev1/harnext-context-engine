@@ -1,0 +1,175 @@
+"""Synthetic-corpus coverage for store variants in evaluation spec §7 E3."""
+
+from __future__ import annotations
+
+import csv
+import hashlib
+import json
+from datetime import UTC, datetime, timedelta
+from pathlib import Path
+
+import pytest
+from harnext_eval.config import load_config
+from harnext_eval.corpus.synthetic import generate_synthetic_events
+from harnext_eval.providers.embeddings import FakeEmbeddings
+from harnext_eval.replay.driver import run_pipeline
+from harnext_eval.stores.base import StoreHandle
+from harnext_eval.stores.layouts import configure_store
+from harnext_eval.stores.vector_index import VectorIndex, search_store
+from harnext_eval.types import EvalEvent
+
+
+def _state_event(
+    event_id: str,
+    at: datetime,
+    *,
+    status: str,
+    old_status: str | None = None,
+) -> EvalEvent:
+    data: dict[str, object] = {
+        "issue_key": "HNX-1",
+        "field": "status",
+        "from": old_status,
+        "to": status,
+        "linked_keys": ["HNX-2"],
+    }
+    if old_status is None:
+        data["state"] = {
+            "status": status,
+            "assignee": "alice",
+            "priority": "Critical",
+            "components": ["builder", "api"],
+            "fixVersion": "1.2.0",
+        }
+    return EvalEvent(
+        id=event_id,
+        source="jira:test",
+        type="org.harnext.jira.issue.transition",
+        subject="issue:HNX-1",
+        time=at,
+        mgtenant="test",
+        baseline_keys=["component:builder"],
+        data=data,
+    )
+
+
+def _store(tmp_path: Path, layout: str) -> StoreHandle:
+    store = StoreHandle(layout, "synthetic", tmp_path / layout.lower())
+    configure_store(store, harness="fake", embeddings=FakeEmbeddings(dim=128), timeout_s=30)
+    return store
+
+
+@pytest.mark.parametrize("layout", ["S0", "S1", "S2", "S3", "S4", "S5"])
+def test_every_layout_folds_and_records_same_input(
+    tmp_path: Path, layout: str
+) -> None:
+    events = generate_synthetic_events(seed=7, event_count=6, days=2, entity_count=3)
+    store = _store(tmp_path, layout)
+    cfg = load_config("apps/eval/configs/baseline-minimal.yaml")
+
+    stats = run_pipeline(events, cfg.engine, store)
+
+    assert stats.events == len(events)
+    assert stats.snapshots
+    with store.snapshots_csv.open(newline="", encoding="utf-8") as source:
+        rows = list(csv.DictReader(source))
+    assert len(rows) == len(stats.snapshots)
+    metadata = json.loads((store.worktree / "_meta" / "input.json").read_text())
+    delivered = (store.worktree / "_meta" / "delivered_event_ids.jsonl").read_text()
+    expected = hashlib.sha256(delivered.encode()).hexdigest()
+    assert metadata["same_input_hash"] == expected
+    assert metadata["event_count"] == len(events)
+    assert set(delivered.splitlines()) == {event.id for event in events}
+
+    if layout in {"S2", "S3", "S5"}:
+        usage_rows = (store.root / "usage.jsonl").read_text().splitlines()
+        assert len(usage_rows) == len(stats.snapshots)
+        assert all(json.loads(row)["harness"] == "fake" for row in usage_rows)
+
+
+def test_s0_is_one_markdown_file_per_event_with_minimal_index(tmp_path: Path) -> None:
+    event = generate_synthetic_events(seed=2, event_count=1, days=1, entity_count=1)[0]
+    store = _store(tmp_path, "S0")
+
+    ref = store.fold([event], "batch")
+
+    relpath = f"events/{event.time:%Y/%m/%d}/{event.id}.md"
+    assert store.read(ref, relpath) is not None
+    assert event.id in (store.read(ref, "INDEX.md") or "")
+    context_markdown = [path for path in store.list_files(ref) if path.endswith(".md")]
+    assert context_markdown == ["INDEX.md", relpath]
+
+
+def test_s1_tracks_latest_fields_and_moves_superseded_values(tmp_path: Path) -> None:
+    start = datetime(2026, 1, 1, tzinfo=UTC)
+    first = _state_event("state-open", start, status="Open")
+    second = _state_event(
+        "state-resolved",
+        start + timedelta(days=1),
+        status="Resolved",
+        old_status="Open",
+    )
+    store = _store(tmp_path, "S1")
+
+    store.fold([first], "batch")
+    ref = store.fold([second], "fast")
+
+    overview = store.read(ref, "entities/issue/HNX-1/OVERVIEW.md") or ""
+    facts = store.read(ref, "entities/issue/HNX-1/facts.md") or ""
+    timeline = store.read(ref, "entities/issue/HNX-1/timeline.md") or ""
+    superseded = store.read(ref, "_meta/superseded.md") or ""
+    index = store.read(ref, "INDEX.md") or ""
+    assert "status: Resolved" in overview
+    assert "assignee: alice" in overview
+    assert "priority: Critical" in overview
+    assert 'components: ["builder","api"]' in overview
+    assert "fixVersion: 1.2.0" in overview
+    assert 'linked_keys: ["HNX-2"]' in overview
+    assert "status=Open" not in facts
+    assert "status=Resolved" in facts
+    assert "status=Open" in superseded
+    assert "state-open" in timeline and "state-resolved" in timeline
+    assert "entities/issue/HNX-1/OVERVIEW.md" in index
+
+
+def test_s2_has_no_global_index_or_topics(tmp_path: Path) -> None:
+    event = generate_synthetic_events(seed=3, event_count=1, days=1, entity_count=1)[0]
+    store = _store(tmp_path, "S2")
+
+    ref = store.fold([event], "batch")
+
+    files = store.list_files(ref)
+    assert "INDEX.md" not in files
+    assert not any(path.startswith("topics/") for path in files)
+    assert store.read(ref, "_meta/last_build.md") is not None
+
+
+def test_s4_exact_id_search_and_historical_snapshot(tmp_path: Path) -> None:
+    events = generate_synthetic_events(seed=4, event_count=2, days=1, entity_count=2)
+    store = _store(tmp_path, "S4")
+    first = store.fold([events[0]], "batch")
+    second = store.fold([events[1]], "batch")
+    provider = FakeEmbeddings(dim=128)
+
+    assert search_store(store, events[1].id, top_k=1) == [events[1].id]
+    assert search_store(store, events[0].id, top_k=1, provider=provider, ref=first) == [
+        events[0].id
+    ]
+    assert events[1].id not in search_store(
+        store, events[1].id, top_k=10, provider=provider, ref=first
+    )
+    assert VectorIndex.from_store(store, provider=provider, ref=second).count == 2
+    counts = (store.worktree / "_vector" / "snapshot_counts.jsonl").read_text().splitlines()
+    assert [json.loads(row)["indexed_events"] for row in counts] == [1, 2]
+
+
+def test_s5_search_returns_event_ids_from_curated_files(tmp_path: Path) -> None:
+    events = generate_synthetic_events(seed=5, event_count=3, days=1, entity_count=2)
+    store = _store(tmp_path, "S5")
+
+    ref = store.fold(events, "batch")
+
+    provider = FakeEmbeddings(dim=128)
+    for event in events:
+        assert search_store(store, event.id, top_k=1, provider=provider, ref=ref) == [event.id]
+    assert "INDEX.md" in store.list_files(ref)
