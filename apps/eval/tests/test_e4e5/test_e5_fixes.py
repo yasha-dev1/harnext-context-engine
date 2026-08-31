@@ -308,6 +308,25 @@ def test_frozen_probe_cutoff_is_preserved_and_gold_is_rederived() -> None:
     assert derived.source_event_ids == ["opened"]
 
 
+def test_w1_keeps_full_history_and_rederived_list_gold_is_canonical_json() -> None:
+    events = [
+        _event("component", 0, data={"field": "components", "to": ["builder"]}),
+    ]
+    probe = Probe(
+        probe_id="p-components",
+        family="extraction",
+        entity="issue:HNX-1",
+        T=events[0].time,
+        question="What is the current components of issue:HNX-1 at the snapshot time?",
+        gold="stale",
+        gold_type="exact",
+        source_event_ids=["component"],
+    )
+
+    assert cadence_setting("W1").last_events is None
+    assert _rederive_probes([probe], events)[0].gold == '["builder"]'
+
+
 def test_urgency_uses_frozen_e1_artifact_and_rejects_negative_freshness(
     tmp_path: Path,
 ) -> None:

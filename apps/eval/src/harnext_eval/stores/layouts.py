@@ -27,6 +27,7 @@ class LayoutRuntime:
 
     harness: str = "fake"
     model: str | None = None
+    seed: int | None = None
     embeddings: EmbeddingsProvider | None = None
     max_turns: int = 40
     timeout_s: int = 300
@@ -40,6 +41,7 @@ def configure_store(
     *,
     harness: str = "fake",
     model: str | None = None,
+    seed: int | None = None,
     embeddings: EmbeddingsProvider | None = None,
     max_turns: int = 40,
     timeout_s: int = 300,
@@ -51,6 +53,7 @@ def configure_store(
     _RUNTIMES[store] = LayoutRuntime(
         harness=harness,
         model=model,
+        seed=seed,
         embeddings=embeddings,
         max_turns=max_turns,
         timeout_s=timeout_s,
@@ -141,6 +144,7 @@ def record_input_metadata(store: StoreHandle, events: Iterable[EvalEvent]) -> di
         "same_input_hash": hashlib.sha256(ids_payload).hexdigest(),
         "events_sha256": event_digest.hexdigest(),
         "last_event_id": existing[-1] if existing else None,
+        "builder_seed": runtime_for(store).seed,
     }
     store.write(_DELIVERED_PATH, ids_payload.decode())
     store.write(_INPUT_META_PATH, json.dumps(metadata, indent=2, sort_keys=True) + "\n")
@@ -186,6 +190,7 @@ def append_usage(
         "lane": lane,
         "layout": store.layout,
         "model": transcript.model,
+        "seed": runtime_for(store).seed,
         "output_tokens": output_tokens,
         "status": "success" if transcript.ok else "failed",
         "stop_reason": transcript.stop_reason,

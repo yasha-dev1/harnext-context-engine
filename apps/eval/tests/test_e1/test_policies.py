@@ -48,6 +48,22 @@ def test_r1_is_exact_field_and_boundary_aware_with_configurable_dispute_floor() 
     assert match_rule(_event("small", at, data={"dispute": {"amount": 4_999}}), settings) is None
     assert match_rule(_event("noncritical", at, data={"body": "noncritical path"}), settings) is None
     assert match_rule(_event("plural", at, data={"body": "blockers discussed"}), settings) is None
+    assert (
+        match_rule(
+            _event(
+                "historical",
+                at,
+                data={
+                    "field": "priority",
+                    "from": "Blocker",
+                    "to": "Major",
+                    "changelog": {"items": [{"fromString": "Blocker"}]},
+                },
+            ),
+            settings,
+        )
+        is None
+    )
 
 
 def test_r2_has_one_global_stream_and_never_reports_an_entity_key() -> None:

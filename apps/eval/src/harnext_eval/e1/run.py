@@ -638,6 +638,30 @@ def _gold_action_time(task: Task) -> datetime | None:
     return min(parsed) if parsed else None
 
 
+def _post_t_action_gold(task: Task) -> dict[str, Any]:
+    """Return only post-cutoff human decisions for leakage inspection.
+
+    Constructed tasks also carry the trigger event and state facts required to
+    make the decision. Those inputs belong in the envelope and are not the
+    future action whose absence the leakage gate must prove.
+    """
+
+    people = task.gold.get("people", {})
+    category = task.gold.get("category", {})
+    text = task.gold.get("text", {})
+    return {
+        "assignees": people.get("assignees", []) if isinstance(people, Mapping) else [],
+        "reviewers": people.get("reviewers", []) if isinstance(people, Mapping) else [],
+        "duplicate_of": (
+            category.get("duplicate_of", []) if isinstance(category, Mapping) else []
+        ),
+        "priority_changes": (
+            category.get("priority_changes", []) if isinstance(category, Mapping) else []
+        ),
+        "replies": text.get("replies", []) if isinstance(text, Mapping) else [],
+    }
+
+
 def _run_action(
     task: Task,
     cutoff: datetime,
@@ -661,7 +685,7 @@ def _run_action(
         T=cutoff,
         all_events=events,
         envelope=envelope.text,
-        gold_action=task.gold,
+        gold_action=_post_t_action_gold(task),
         gold_action_time=_gold_action_time(task),
         out_csv=gate_path,
     )
@@ -1303,41 +1327,68 @@ class E1Experiment:
         )
         for name, key, reason in (
             ("harm_store_s3", "store_s3", "harm execution requires an S3 store handle"),
+            (
+                "harm_minimum_five_promotions",
+                "promoted",
+                "smoke harm requires at least five R5 2%-budget promotions",
+            ),
             ("harm_paired_coverage", "paired", "every R5 promotion requires now/close scores"),
             ("harm_leakage", "leakage_pass", "both action envelopes must pass §4.2"),
             ("harm_non_vacuous", "non_vacuous", "paired action scores must vary"),
             ("harm_real_provider", "real_provider", "evidentiary harm requires a pinned non-fake provider"),
         ):
-            if name == "harm_paired_coverage":
+            if name == "harm_minimum_five_promotions":
+                passed = int(harm_evidence.get("promoted", 0)) >= 5
+                value = int(harm_evidence.get("promoted", 0))
+            elif name == "harm_paired_coverage":
                 passed = bool(
                     harm_evidence.get("promoted", 0) > 0
                     and harm_evidence.get("paired") == harm_evidence.get("promoted")
                 )
-                value: Any = {
+                value = {
                     "paired": harm_evidence.get("paired", 0),
                     "promoted": harm_evidence.get("promoted", 0),
                 }
             else:
                 passed = bool(harm_evidence.get(key, False))
                 value = harm_evidence.get(key)
+            applicable = bool(harm_evidence.get("store_provided"))
+            required = True
+            detail_reason = reason
+            if name == "harm_real_provider" and smoke_profile:
+                applicable = False
+                required = False
+                detail_reason = (
+                    "offline smoke uses FakeLLM; real-provider harm is evidentiary-only"
+                )
             _add_gate(
                 check_metrics,
                 check_details,
                 required_results,
                 name,
-                passed=passed if harm_evidence.get("store_provided") else None,
+                passed=passed if applicable else None,
                 value=value,
-                reason=reason,
+                reason=detail_reason,
+                required=required,
             )
 
         valid = all(required_results)
+        failed_required = [
+            f"{name} ({detail.get('status')}): {detail.get('reason')}"
+            for name, detail in check_details.items()
+            if detail.get("required") and detail.get("passed") is not True
+        ]
         check_metrics["check.valid"] = float(valid)
         check_details["valid"] = {
             "status": "pass" if valid else "fail",
             "passed": valid,
             "required": True,
             "value": valid,
-            "reason": "single conjunction of every required E1 validity item",
+            "reason": (
+                "all required E1 validity items passed"
+                if valid
+                else f"failed required E1 validity items: {failed_required}"
+            ),
         }
         validity = pd.DataFrame(
             [{"gate": name, **detail} for name, detail in check_details.items()]

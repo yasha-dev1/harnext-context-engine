@@ -65,6 +65,114 @@ def test_fake_llm_reads_raw_history_at_the_question_cutoff() -> None:
     assert result.text == "Open"
 
 
+def test_fake_llm_does_not_assign_state_to_incidentally_mentioned_entity() -> None:
+    material = json.dumps(
+        {
+            "time": "2026-01-01T00:00:00+00:00",
+            "subject": "issue:KAFKA-7",
+            "data": {
+                "issue_key": "KAFKA-7",
+                "linked_kip": "KIP-900",
+                "field": "status",
+                "to": "Resolved",
+            },
+        }
+    )
+
+    result = FakeLLM().complete(
+        "",
+        f"Question: What is the current status of KIP-900?\nMaterial:\n{material}",
+        max_tokens=20,
+    )
+
+    assert result.text == "UNKNOWN"
+
+
+def test_fake_llm_uses_transition_value_not_embedded_state_snapshot() -> None:
+    material = "\n".join(
+        json.dumps(record)
+        for record in (
+            {
+                "time": "2026-01-01T00:00:00+00:00",
+                "subject": "issue:KAFKA-7",
+                "data": {"issue_key": "KAFKA-7", "field": "state", "to": "merged"},
+            },
+            {
+                "time": "2026-01-02T00:00:00+00:00",
+                "subject": "issue:KAFKA-7",
+                "data": {
+                    "issue_key": "KAFKA-7",
+                    "field": "status",
+                    "to": "Resolved",
+                    "state": {"status": "Resolved", "components": ["api"]},
+                },
+            },
+        )
+    )
+
+    state = FakeLLM().complete(
+        "", f"Question: What is the current state of KAFKA-7?\nMaterial:\n{material}", max_tokens=20
+    )
+    components = FakeLLM().complete(
+        "",
+        f"Question: What is the current components of KAFKA-7?\nMaterial:\n{material}",
+        max_tokens=20,
+    )
+
+    assert state.text == "merged"
+    assert components.text == "UNKNOWN"
+
+
+def test_fake_llm_normalises_multivalue_transition_fields() -> None:
+    material = json.dumps(
+        {
+            "time": "2026-01-01T00:00:00+00:00",
+            "subject": "issue:KAFKA-7",
+            "data": {
+                "issue_key": "KAFKA-7",
+                "field": "fixVersion",
+                "to": "4.2",
+            },
+        }
+    )
+
+    result = FakeLLM().complete(
+        "",
+        f"Question: What is the current fixVersion of KAFKA-7?\nMaterial:\n{material}",
+        max_tokens=20,
+    )
+
+    assert result.text == '["4.2"]'
+
+
+def test_fake_llm_uses_vote_subject_tag_as_kip_owner() -> None:
+    material = json.dumps(
+        {
+            "time": "2026-01-01T00:00:00+00:00",
+            "type": "org.apache.mail.message",
+            "subject": "issue:KAFKA-7",
+            "data": {
+                "subject": "[VOTE] KIP-900 required for KAFKA-7",
+                "subject_tags": ["KAFKA-7", "KIP-900"],
+            },
+        }
+    )
+
+    result = FakeLLM().complete(
+        "",
+        f"Question: What is the current vote_outcome of KIP-900?\nMaterial:\n{material}",
+        max_tokens=20,
+    )
+    issue_result = FakeLLM().complete(
+        "",
+        f"Question: What is the current vote_outcome of KAFKA-7?\nMaterial:\n{material}",
+        max_tokens=20,
+    )
+
+    assert result.text == "open"
+    assert issue_result.text == "UNKNOWN"
+
+
 def test_fake_llm_reads_curated_fact_formats() -> None:
     material = """[file:entities/issue/KAFKA-7/OVERVIEW.md]
 # issue:KAFKA-7
@@ -178,6 +286,53 @@ def test_fake_llm_builds_action_json_from_the_envelope() -> None:
     assert result.json["duplicate_of"] == "KAFKA-9"
     assert result.json["suspected_locations"] == ["services/api/handler.py"]
     assert "KAFKA-7" in result.json["cited_ids"]
+
+
+def test_fake_llm_smoke_action_uses_post_onset_situation_evidence() -> None:
+    records = "\n".join(
+        json.dumps(record)
+        for record in (
+            {
+                "subject": "issue:KAFKA-7",
+                "data": {
+                    "issue_key": "KAFKA-7",
+                    "situation_archetype": "vote-thread",
+                },
+            },
+            {
+                "subject": "issue:KAFKA-7",
+                "data": {
+                    "issue_key": "KAFKA-7",
+                    "body": "I am taking KAFKA-7",
+                    "outcome_for": "situation-3",
+                },
+            },
+        )
+    )
+    schema = {
+        "type": "object",
+        "properties": {
+            "assignee_candidates": {"type": "array", "items": {"type": "string"}},
+            "reviewer_candidates": {"type": "array", "items": {"type": "string"}},
+            "component": {"type": ["string", "null"]},
+            "duplicate_of": {"type": ["string", "null"]},
+            "priority_change": {"type": ["string", "null"]},
+            "suspected_locations": {"type": "array", "items": {"type": "string"}},
+            "draft_reply": {"type": "string"},
+            "cited_ids": {"type": "array", "items": {"type": "string"}},
+            "action": {"type": "string"},
+        },
+    }
+
+    result = FakeLLM().complete(
+        "",
+        f"Question: Route KAFKA-7.\nMaterial:\n## overview\n{records}",
+        json_schema=schema,
+        max_tokens=200,
+    )
+
+    assert isinstance(result.json, dict)
+    assert result.json["assignee_candidates"][0] == "responder-vote-thread-3"
 
 
 def test_fake_embeddings_are_normalised_and_deterministic() -> None:

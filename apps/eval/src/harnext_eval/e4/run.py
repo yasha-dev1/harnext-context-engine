@@ -38,7 +38,7 @@ from harnext_eval.replay.gate import leakage_gate as replay_leakage_gate
 from harnext_eval.report.charts import e4_envelopes
 from harnext_eval.stats.stats import holm_bonferroni, mcnemar_test, paired_difference_bca
 from harnext_eval.stores.base import StoreHandle
-from harnext_eval.stores.layouts import configure_store
+from harnext_eval.stores.layouts import configure_store, runtime_for
 from harnext_eval.types import EvalEvent, Probe, SnapshotRef, Task
 
 VARIANTS = ("V0", "V1-N20", "V1-N100", "V2", "V3", "V4", "V5", "V6", "V7", "V8")
@@ -368,7 +368,12 @@ def _scratch_batch_fold(
     }
     with tempfile.TemporaryDirectory(prefix="harnext-e4-batch-") as temp:
         scratch = StoreHandle("S3", "scratch", Path(temp) / "store")
-        configure_store(scratch, harness=make_harness_name(cfg), model=cfg.builder.model)
+        configure_store(
+            scratch,
+            harness=make_harness_name(cfg),
+            model=cfg.builder.model,
+            seed=runtime_for(source).seed,
+        )
         for path, content in source_files.items():
             scratch.write(path, content)
         builder_events = list(window_events)
@@ -1050,7 +1055,9 @@ def _build_experiment_store(
     """Build the fixed S3 store through the shared replay/layout modules."""
 
     store = StoreHandle("S3", f"e4-{seed}", out_dir / "store")
-    configure_store(store, harness=make_harness_name(cfg), model=cfg.builder.model)
+    configure_store(
+        store, harness=make_harness_name(cfg), model=cfg.builder.model, seed=seed
+    )
     cutoff = max((task.T for task in tasks), default=None)
     run_pipeline(events, cfg, store, cutoff=cutoff, on_decision=None)
     return store

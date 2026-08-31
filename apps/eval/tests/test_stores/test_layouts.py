@@ -21,6 +21,7 @@ from harnext_eval.providers.factory import make_embeddings
 from harnext_eval.providers.llm import FakeLLM
 from harnext_eval.replay.driver import run_pipeline
 from harnext_eval.stores.base import StoreHandle
+from harnext_eval.stores.build_s3 import run_builder_harness
 from harnext_eval.stores.layouts import configure_store
 from harnext_eval.stores.vector_index import StoreVectorIndex, VectorIndex, search_store
 from harnext_eval.types import EvalEvent, Probe
@@ -351,6 +352,7 @@ def test_s3_fake_curator_adds_index_and_topics(tmp_path: Path) -> None:
         status="Open",
     )
     store = _store(tmp_path, "S3")
+    configure_store(store, harness="fake", seed=17)
 
     ref = store.fold([event], "batch")
 
@@ -359,6 +361,51 @@ def test_s3_fake_curator_adds_index_and_topics(tmp_path: Path) -> None:
     assert "offline fake-curator" in index.casefold()
     assert "entities/issue/HNX-1/OVERVIEW.md" in index
     assert "HNX-1" in topic
+    metadata = json.loads(store.read(ref, "_meta/input.json") or "{}")
+    usage = json.loads((store.root / "usage.jsonl").read_text().splitlines()[0])
+    assert metadata["builder_seed"] == 17
+    assert usage["seed"] == 17
+
+
+def test_live_builder_request_carries_seed_and_usage_records_it(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    event = _state_event(
+        "seeded-live",
+        datetime(2026, 1, 1, tzinfo=UTC),
+        status="Open",
+    )
+    store = _store(tmp_path, "S3")
+    configure_store(store, harness="claude_code", model="fixture-model", seed=23)
+    captured: dict[str, object] = {}
+
+    def fake_run_build(
+        org_id: str,
+        command: list[str],
+        env: dict[str, str],
+        timeout_s: int,
+    ) -> SimpleNamespace:
+        del org_id, command, timeout_s
+        request = json.loads(Path(env["REQUEST_PATH"]).read_text())
+        captured.update(request)
+        Path(env["RESULT_PATH"]).write_text(
+            json.dumps(
+                {
+                    "harness": "claude_code",
+                    "model": "fixture-model",
+                    "usage": {"input_tokens": 2, "output_tokens": 1},
+                    "stop_reason": "completed",
+                }
+            )
+        )
+        return SimpleNamespace(returncode=0, stdout="", stderr="")
+
+    monkeypatch.setattr(store.backend, "run_build", fake_run_build)
+    run_builder_harness(store, [event], "batch")
+
+    assert captured["seed"] == 23
+    usage = json.loads((store.root / "usage.jsonl").read_text().splitlines()[0])
+    assert usage["seed"] == 23
 
 
 def test_s4_exact_id_search_and_historical_snapshot(tmp_path: Path) -> None:

@@ -47,29 +47,57 @@ def _discover_experiments() -> None:
     from harnext_eval.e6 import run as _e6  # noqa: F401
 
 
-def _check_results(metrics: dict[str, float]) -> dict[str, bool | dict[str, object]]:
+def _check_results(
+    metrics: dict[str, float],
+    details: dict[str, dict[str, object]] | None = None,
+) -> dict[str, dict[str, object]]:
+    """Return one structured record for every machine-readable check.
+
+    A failed check is never serialized as a bare boolean: it always retains the
+    observed value and a reason. Experiment-specific details take precedence;
+    the fallback reason keeps newly added checks machine-auditable until they
+    grow a more specific diagnostic.
+    """
+
     count_metrics = {
         "checks.leakage_gate_passed",
         "checks.leakage_gate_failed",
         "checks.tasks_accepted",
     }
-    checks: dict[str, bool | dict[str, object]] = {}
+    checks: dict[str, dict[str, object]] = {}
     for name, value in metrics.items():
         if not name.startswith(("check.", "checks.")) or name in count_metrics:
             continue
         check_name = name.split(".", 1)[1]
-        checks[check_name] = (
-            {"passed": None, "value": "not-applicable", "reason": "metric is undefined"}
-            if isinstance(value, float) and not math.isfinite(value)
-            else bool(value)
-        )
+        if isinstance(value, float) and not math.isfinite(value):
+            checks[check_name] = {
+                "passed": None,
+                "value": "not-applicable",
+                "reason": "metric is undefined",
+            }
+            continue
+        passed = bool(value)
+        record: dict[str, object] = {"passed": passed, "value": value}
+        if not passed:
+            record["reason"] = (
+                f"{check_name} evaluated false; observed value={value!r}"
+            )
+        checks[check_name] = record
+
+    for name, raw in (details or {}).items():
+        record = dict(raw)
+        passed = record.get("passed")
+        record.setdefault("value", passed)
+        if passed is not True and not str(record.get("reason", "")).strip():
+            state = "not applicable" if passed is None else "evaluated false"
+            record["reason"] = f"{name} {state}; observed value={record['value']!r}"
+        checks[name] = record
     return checks
 
 
 def _write_result(result: ExperimentResult, out_dir: Path) -> None:
     out_dir.mkdir(parents=True, exist_ok=True)
-    checks = _check_results(result.metrics)
-    checks.update(result.check_details)
+    checks = _check_results(result.metrics, result.check_details)
     payload = {
         "name": result.name,
         "metrics": result.metrics,
@@ -105,6 +133,7 @@ def _resolve_corpus(
     seed: int,
     event_count: int,
     entity_count: int,
+    days: int,
 ) -> CorpusHandle:
     if replay is not None:
         return _handle_for_replay(replay, corpus if corpus != "synthetic" else replay.stem)
@@ -120,6 +149,7 @@ def _resolve_corpus(
         output,
         seed,
         event_count=event_count,
+        days=days,
         entity_count=entity_count,
     )
 
@@ -184,6 +214,7 @@ def _build_store(
         store,
         harness=make_harness_name(cfg),
         model=model if model is not None else cfg.engine.builder.model,
+        seed=seed,
         embeddings=make_embeddings(cfg),
     )
     return store, run_pipeline(events, cfg.engine, store, cutoff=None, on_decision=None)
@@ -198,11 +229,11 @@ def _build_run_stores(
     seed: int,
     smoke: bool,
 ) -> dict[str, StoreHandle]:
-    consumers = {"e2", "e4", "e5"}.intersection(selected)
+    consumers = {"e1", "e2", "e4", "e5"}.intersection(selected)
     if not consumers:
         return {}
     requested = {"S0"}
-    if "e2" in selected:
+    if {"e1", "e2"}.intersection(selected):
         requested.add("S3")
     if cfg.engine.store.layout in {"S1", "S2", "S3", "S4", "S5"}:
         requested.add(cfg.engine.store.layout)
@@ -385,6 +416,7 @@ def corpus_command(
     replay: Annotated[Path | None, typer.Option("--replay", exists=True, dir_okay=False)] = None,
     event_count: Annotated[int, typer.Option("--event-count", min=1)] = 2_000,
     entity_count: Annotated[int, typer.Option("--entity-count", min=1)] = 40,
+    days: Annotated[int, typer.Option("--days", min=1)] = 60,
     fetch: Annotated[str | None, typer.Option("--fetch")] = None,
     config: Annotated[Path | None, typer.Option("--config", exists=True, dir_okay=False)] = None,
 ) -> None:
@@ -406,6 +438,7 @@ def corpus_command(
         seed=seed,
         event_count=event_count,
         entity_count=entity_count,
+        days=days,
     )
     action = "loaded" if replay is not None else "wrote"
     typer.echo(f"{action} {handle.meta['event_count']} events from {handle.replay_path}")
@@ -477,6 +510,7 @@ def run_command(
     per_family: Annotated[int, typer.Option("--per-family", min=0)] = 10,
     event_count: Annotated[int, typer.Option("--event-count", min=1)] = 120,
     entity_count: Annotated[int, typer.Option("--entity-count", min=1)] = 12,
+    days: Annotated[int, typer.Option("--days", min=1)] = 60,
     smoke: Annotated[bool, typer.Option("--smoke")] = False,
     e3_optional_stores: Annotated[
         str | None, typer.Option("--e3-optional-stores")
@@ -510,6 +544,7 @@ def run_command(
         seed=cfg.seeds[0],
         event_count=event_count,
         entity_count=entity_count,
+        days=days,
     )
     handle = _generate_probes(
         handle,

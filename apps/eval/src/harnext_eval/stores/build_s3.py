@@ -15,13 +15,6 @@ from harnext_builder.work_item import WorkItem
 from harnext_shared import CloudEvent
 
 from harnext_eval.stores.base import StoreHandle
-from harnext_eval.stores.fake_curator import curate_events
-from harnext_eval.stores.layouts import (
-    append_usage,
-    record_input_metadata,
-    runtime_for,
-    unseen_events,
-)
 from harnext_eval.types import EvalEvent
 
 
@@ -55,6 +48,8 @@ def run_builder_harness(
 ) -> ConversationTranscript:
     """Run the production harness protocol locally against the git worktree."""
 
+    from harnext_eval.stores.layouts import append_usage, runtime_for
+
     runtime = runtime_for(store)
     request = HarnessRequest(
         harness=runtime.harness,
@@ -63,6 +58,7 @@ def run_builder_harness(
         system_prompt=system_prompt,
         event_files=event_files(cast(list[CloudEvent], events)),
         model=runtime.model,
+        seed=runtime.seed,
         max_turns=runtime.max_turns,
         timeout_s=runtime.timeout_s,
     )
@@ -111,6 +107,13 @@ def run_builder_harness(
 
 def fold_s3(store: StoreHandle, events: list[EvalEvent], lane: str) -> None:
     """Curate a fold with the standard harnext seed and builder prompt."""
+
+    from harnext_eval.stores.fake_curator import curate_events
+    from harnext_eval.stores.layouts import (
+        record_input_metadata,
+        runtime_for,
+        unseen_events,
+    )
 
     accepted = unseen_events(store, events)
     if not accepted:

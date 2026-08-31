@@ -47,7 +47,15 @@ def test_build_report_discovers_outputs_and_embeds_charts(tmp_path: Path) -> Non
     (run_dir / "config.yaml").write_text(yaml.safe_dump(config), encoding="utf-8")
     results = {
         "name": "e2",
-        "metrics": {"macro_acc": 0.82, "checks.leakage_gate": True},
+        "metrics": {"macro_acc": 0.82},
+        "checks": {
+            "leakage_gate": {"passed": True, "value": 1.0},
+            "answerability": {
+                "passed": False,
+                "value": 0.88,
+                "reason": "retrieve-everything macro accuracy was 0.88",
+            },
+        },
         "primary": {"A4_minus_A3": 0.12, "ci_low": 0.04, "ci_high": 0.2},
     }
     (experiment_dir / "results.json").write_text(json.dumps(results), encoding="utf-8")
@@ -83,6 +91,8 @@ def test_build_report_discovers_outputs_and_embeds_charts(tmp_path: Path) -> Non
     assert "A4_minus_A3" in html
     assert "A4 - A3" in html
     assert "leakage_gate" in html
+    assert "Reason" in html
+    assert "retrieve-everything macro accuracy was 0.88" in html
     assert "PASS" in html
     assert "data:image/png;base64," in html
     assert chart.name in html

@@ -7,7 +7,7 @@ import numpy as np
 import pandas as pd
 from harnext_eval.config import load_config
 from harnext_eval.corpus.synthetic import generate_synthetic_corpus
-from harnext_eval.e1.run import E1Experiment, _run_harm_check
+from harnext_eval.e1.run import E1Experiment, _post_t_action_gold, _run_harm_check
 from harnext_eval.providers.llm import LLMResult
 from harnext_eval.registry import get_experiment
 from harnext_eval.stores.base import DeliveryRecord, StoreHandle
@@ -18,7 +18,7 @@ def test_e1_uses_sidecar_gold_global_monthly_admission_and_required_outputs(
     tmp_path, monkeypatch
 ) -> None:
     corpus = generate_synthetic_corpus(
-        tmp_path / "replay.jsonl", seed=5, event_count=300, days=70, entity_count=10
+        tmp_path / "replay.jsonl", seed=1, event_count=140, days=240, entity_count=10
     )
     corpus = replace(corpus, meta={**corpus.meta, "smoke": True})
     cfg = load_config("apps/eval/configs/baseline-minimal.yaml").engine
@@ -31,7 +31,7 @@ def test_e1_uses_sidecar_gold_global_monthly_admission_and_required_outputs(
         ),
     )
     out = tmp_path / "e1"
-    result = experiment.run(cfg, corpus, out, seed=5)
+    result = experiment.run(cfg, corpus, out, seed=1)
 
     assert result.primary["metric"] == "recall_at_2pct_rule_negative"
     assert {"r5_minus_r1_ci_low", "r5_minus_r1_ci_high", "r5_minus_r2_ci_low", "r5_minus_r2_ci_high"} <= set(result.primary)
@@ -65,6 +65,10 @@ def test_e1_uses_sidecar_gold_global_monthly_admission_and_required_outputs(
 
     r5 = evaluated[(evaluated["policy"] == "R5") & (evaluated["population"] == "full")]
     assert not r5.loc[~r5["eligible"] & ~r5["mandatory"], "admitted"].any()
+    smoke_promotions = r5[
+        (r5["budget_pct"] == 2.0) & r5["admitted"]
+    ].drop_duplicates("event_id")
+    assert len(smoke_promotions) >= 5
     assert result.metrics["check.r5_ineligible_never_admitted"] == 1.0
     assert result.metrics["check.tuning_precedes_evaluation"] == 1.0
     assert result.metrics["check.r7_always_fast"] == 1.0
@@ -305,3 +309,30 @@ def test_harm_check_executes_each_r5_promotion_now_and_at_next_window_close(
         "real_provider": True,
     }
     assert len((tmp_path / "harm-gate.csv").read_text().splitlines()) == 3
+
+
+def test_harm_leakage_gold_excludes_trigger_and_required_state() -> None:
+    start = datetime(2026, 1, 1, tzinfo=UTC)
+    task = Task(
+        task_id="constructed",
+        corpus="synthetic",
+        T=start,
+        trigger_event_id="trigger",
+        entity="issue:HNX-1",
+        kind="fast",
+        gold={
+            "people": {"assignees": ["future-owner"], "reviewers": []},
+            "category": {"required_ids": ["state-fact"], "components": ["builder"]},
+            "text": {"replies": []},
+            "_trigger_event": {"id": "trigger", "body": "visible evidence"},
+        },
+        gold_coverage={"people": True, "category": True, "place": False, "text": False},
+    )
+
+    assert _post_t_action_gold(task) == {
+        "assignees": ["future-owner"],
+        "reviewers": [],
+        "duplicate_of": [],
+        "priority_changes": [],
+        "replies": [],
+    }

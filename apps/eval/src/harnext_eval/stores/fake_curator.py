@@ -16,7 +16,7 @@ from typing import Any
 
 from harnext_eval.stores.base import StoreHandle
 from harnext_eval.stores.fake_usage import estimate_fake_fold_usage
-from harnext_eval.stores.layouts import ordered_events, safe_component
+from harnext_eval.stores.layouts import ordered_events, runtime_for, safe_component
 from harnext_eval.stores.templated import entity_relpath, structured_updates
 from harnext_eval.types import EvalEvent
 
@@ -244,6 +244,7 @@ def _record_usage(
         "lane": lane,
         "layout": store.layout,
         "model": FAKE_CURATOR_MODEL,
+        "seed": runtime_for(store).seed,
         "output_tokens": usage.output_tokens,
         "status": "success",
         "stop_reason": "offline_fake_curator_complete",

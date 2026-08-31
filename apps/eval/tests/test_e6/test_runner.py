@@ -540,6 +540,9 @@ def test_invalid_validity_check_gates_primary_and_annotates_headline_chart(
     assert result.primary["valid"] is False
     assert "service_time_constant" in result.primary["invalid_reasons"]
     assert result.check_details["primary_validity_gate"]["passed"] is False
+    repetition = result.check_details["repetitions_p99_within_20pct"]
+    assert repetition["reason"]
+    assert "max_relative_spread" in repetition["value"]
     with Image.open(tmp_path / "burst_slo.png") as chart:
         assert chart.getpixel((1, 1)) == (254, 226, 226)
 

@@ -41,10 +41,24 @@ class RuleSettings:
 _DEFAULT_RULE_SETTINGS = RuleSettings()
 
 
+_HISTORICAL_RULE_FIELDS = {
+    "changelog",
+    "from",
+    "fromstring",
+    "old",
+    "old_value",
+    "previous",
+}
+
+
 def _walk(value: Any) -> list[str]:
     if isinstance(value, dict):
         result: list[str] = []
         for key, item in value.items():
+            if str(key).casefold().replace("_", "") in {
+                name.replace("_", "") for name in _HISTORICAL_RULE_FIELDS
+            }:
+                continue
             result.append(str(key))
             result.extend(_walk(item))
         return result

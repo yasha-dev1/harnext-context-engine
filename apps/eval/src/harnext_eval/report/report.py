@@ -119,16 +119,19 @@ def _extract_checks(
         for name, value in candidates:
             passed: bool | None = value if isinstance(value, bool) else None
             display_value: object = value
+            reason: object = None
             if isinstance(value, Mapping):
                 candidate = value.get("passed")
                 passed = candidate if isinstance(candidate, bool) else None
                 display_value = value.get("value", candidate)
+                reason = value.get("reason")
             checks.append(
                 {
                     "experiment": str(experiment).upper(),
                     "check": name,
                     "value": _display(display_value),
                     "passed": passed,
+                    "reason": _display(reason),
                 }
             )
 
@@ -176,12 +179,21 @@ def _extract_checks(
                 (row[column] for column in ("value", "observed", "count") if column in row),
                 raw_passed,
             )
+            reason = next(
+                (row[column] for column in ("reason", "reasons", "detail") if column in row),
+                None,
+            )
+            if passed is False and (
+                reason is None or (isinstance(reason, float) and math.isnan(reason))
+            ):
+                reason = f"CSV check evaluated false; observed value={value!r}"
             checks.append(
                 {
                     "experiment": experiment,
                     "check": str(name),
                     "value": _display(value),
                     "passed": passed,
+                    "reason": _display(reason),
                 }
             )
     return checks

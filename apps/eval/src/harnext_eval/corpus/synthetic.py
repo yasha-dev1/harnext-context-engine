@@ -130,19 +130,20 @@ def _scenario_clusters(cluster_count: int, scenario_count: int) -> dict[int, str
     selected: dict[int, str] = {}
     start = cluster_count // 2 if scenario_count <= cluster_count // 2 else 0
     for index in range(scenario_count):
-        # Keep the final, rule-negative archetype in the held-out tail.  The
-        # earlier declared cases still exercise the rules floor without making
-        # the tiny rolling-month smoke population exceed the 6% prevalence cap.
-        if index == scenario_count - 1:
-            cluster = cluster_count - 1
-        else:
-            cluster = start + index
+        # Spread situations across the held-out half rather than packing them
+        # into one month. This preserves rolling-month E1 coverage and keeps the
+        # final, rule-negative archetype in the tail.
+        span = max(0, cluster_count - start - 1)
+        cluster = (
+            start
+            if scenario_count <= 1
+            else start + round(index * span / (scenario_count - 1))
+        )
         while cluster in selected and cluster + 1 < cluster_count:
             cluster += 1
         while cluster in selected and cluster > 0:
             cluster -= 1
-        archetype_index = index % len(_ARCHETYPES)
-        selected[cluster] = _ARCHETYPES[archetype_index]
+        selected[cluster] = "silent-burst" if index == 3 else _ARCHETYPES[index % 3]
     return selected
 
 
@@ -434,7 +435,7 @@ def _scenario_event(
             update["baseline_keys"] = [f"component:{component}"]
             data["actor"] = f"burst-sensor-{scenario_number}-onset"
             update["data"] = data
-            update["subject"] = f"component:{component}:burst-onset"
+            update["subject"] = f"issue:{issue}"
         return event.model_copy(update=update)
     if scenario_local == 3:
         committer = _HUMANS[scenario_number % len(_COMMITTERS)]
@@ -458,12 +459,7 @@ def _scenario_event(
             },
         )
     if scenario_local == 4:
-        predicted_from_raw = {
-            "declared-critical": "responder-declared",
-            "security-cve": "responder-security",
-            "vote-thread": "responder-vote",
-            "silent-burst": "responder-burst",
-        }
+        responder = f"responder-{archetype}-{scenario_number}"
         return _transition(
             index=index,
             seed=seed,
@@ -473,9 +469,7 @@ def _scenario_event(
             component=component,
             state=state,
             field="assignee",
-            value=predicted_from_raw.get(
-                archetype, _HUMANS[scenario_number % len(_HUMANS)]
-            ),
+            value=responder,
             extra={"outcome_for": outcome_id},
         )
     if scenario_local in {5, 6}:
@@ -726,8 +720,13 @@ def generate_synthetic_events(
     }
     times = _timestamps(event_count, days)
     cluster_count = math.ceil(event_count / _CLUSTER_SIZE)
-    scenario_count = min(cluster_count, max(0, round(event_count * 0.03)))
-    scenarios = _scenario_clusters(cluster_count, scenario_count)
+    complete_cluster_count = event_count // _CLUSTER_SIZE
+    smoke_floor = 8 if event_count >= 100 else 1
+    scenario_count = min(
+        complete_cluster_count,
+        max(smoke_floor, round(event_count * 0.03)),
+    )
+    scenarios = _scenario_clusters(complete_cluster_count, scenario_count)
     non_scenario = [cluster for cluster in range(cluster_count) if cluster not in scenarios]
     hard_count = min(len(non_scenario), max(1, scenario_count // 2)) if non_scenario else 0
     stride = max(1, len(non_scenario) // max(1, hard_count))
@@ -755,6 +754,7 @@ def generate_synthetic_events(
         )
         archetype = scenarios.get(cluster)
         if archetype is not None:
+            onset_local = 3 if archetype == "silent-burst" else 2
             if archetype == "silent-burst":
                 cluster_start = times[cluster * _CLUSTER_SIZE]
                 window_start = cluster_start.replace(
@@ -767,6 +767,14 @@ def generate_synthetic_events(
                     if local == 0
                     else window_start + timedelta(seconds=300 + local)
                 )
+                onset_at = window_start + timedelta(seconds=300 + onset_local)
+            else:
+                onset_at = times[cluster * _CLUSTER_SIZE + onset_local]
+            if local > onset_local:
+                # Put the first post-onset evidence in a new window and the
+                # gold assignment in the following window. Both E1 action arms
+                # therefore precede the outcome used for grading.
+                at = onset_at + timedelta(seconds=40 * (local - onset_local))
             event = _scenario_event(
                 local=local,
                 archetype=archetype,

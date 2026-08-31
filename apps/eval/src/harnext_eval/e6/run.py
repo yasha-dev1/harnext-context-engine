@@ -1855,6 +1855,7 @@ async def run_benchmark(
         if settings.runner.transport == "kafka"
         else float("nan")
     )
+    repetition = _repetition_diagnostics(burst)
     metrics = {
         "knee_hz": knee,
         "primary_gap_b": primary_gap,
@@ -1872,7 +1873,7 @@ async def run_benchmark(
         "checks.calibration_10ms_and_flat_p99": 1.0,
         "checks.generator_p99_skew_le_1ms": float(all(generator_checks)),
         "checks.service_time_constant": service_constant,
-        "checks.repetitions_p99_within_20pct": _repetition_check(burst),
+        "checks.repetitions_p99_within_20pct": float(repetition["passed"]),
         "checks.urgent_gold_nonempty": float((burst["urgent_denominator"] > 0).all()),
         "checks.paired_schedule_ids": float(
             paired.groupby(
@@ -1914,13 +1915,30 @@ async def run_benchmark(
             "gap_by_b_rows": len(gap_by_b),
         },
         check_details={
+            "repetitions_p99_within_20pct": {
+                "passed": bool(repetition["passed"]),
+                "value": {
+                    "max_relative_spread": repetition["max_relative_spread"],
+                    "threshold": 0.2,
+                    "assessed_groups": repetition["assessed_groups"],
+                    "worst_group": repetition["worst_group"],
+                },
+                "reason": str(repetition["reason"]),
+            },
             "primary_validity_gate": {
                 "passed": valid,
                 "value": "valid" if valid else "invalid",
                 "reason": (
                     "all applicable E6 validity checks passed"
                     if valid
-                    else "; ".join(invalid_reasons)
+                    else "; ".join(
+                        (
+                            f"{name}: {repetition['reason']}"
+                            if name == "repetitions_p99_within_20pct"
+                            else name
+                        )
+                        for name in invalid_reasons
+                    )
                 ),
             }
         },
@@ -1930,6 +1948,14 @@ async def run_benchmark(
 
 
 def _repetition_check(rows: pd.DataFrame) -> float:
+    """Compatibility wrapper for the registered 20% repetition gate."""
+
+    return float(_repetition_diagnostics(rows)["passed"])
+
+
+def _repetition_diagnostics(rows: pd.DataFrame) -> dict[str, Any]:
+    """Measure and explain the worst within-cell p99 repetition spread."""
+
     group_columns = [
         column
         for column in (
@@ -1944,20 +1970,55 @@ def _repetition_check(rows: pd.DataFrame) -> float:
         )
         if column in rows.columns
     ]
-    assessed = False
-    for _, group in rows.groupby(group_columns, dropna=False):
+    assessed_groups = 0
+    max_spread = 0.0
+    worst_group: dict[str, object] | None = None
+    for identifiers, group in rows.groupby(group_columns, dropna=False):
         values = group["fast_p99_s"].replace([np.inf, -np.inf], np.nan).dropna()
         if values.empty:
             # No fast admission is an SLO miss elsewhere, not unstable timing.
             continue
         if len(values) < 3:
-            return 0.0
-        assessed = True
+            label_values = identifiers if isinstance(identifiers, tuple) else (identifiers,)
+            worst_group = dict(zip(group_columns, label_values, strict=True))
+            return {
+                "passed": False,
+                "max_relative_spread": None,
+                "assessed_groups": assessed_groups,
+                "worst_group": worst_group,
+                "reason": (
+                    f"repetition stability requires at least 3 finite p99 values; "
+                    f"observed {len(values)} in {worst_group}"
+                ),
+            }
+        assessed_groups += 1
         array = values.to_numpy(dtype=float)
         median = float(np.median(array))
-        if median > 0 and float((array.max() - array.min()) / median) > 0.2:
-            return 0.0
-    return float(assessed)
+        spread = float((array.max() - array.min()) / median) if median > 0 else 0.0
+        if spread >= max_spread:
+            max_spread = spread
+            label_values = identifiers if isinstance(identifiers, tuple) else (identifiers,)
+            worst_group = dict(zip(group_columns, label_values, strict=True))
+            worst_group["p99_values_s"] = [float(value) for value in array]
+    passed = assessed_groups > 0 and max_spread <= 0.2
+    if not assessed_groups:
+        reason = "no repetition group contained a finite fast-lane p99"
+    elif passed:
+        reason = (
+            f"maximum finite within-cell p99 spread {max_spread:.6f} is within 0.20"
+        )
+    else:
+        reason = (
+            f"maximum finite within-cell p99 spread {max_spread:.6f} exceeds 0.20; "
+            f"worst_group={worst_group}"
+        )
+    return {
+        "passed": passed,
+        "max_relative_spread": max_spread if assessed_groups else None,
+        "assessed_groups": assessed_groups,
+        "worst_group": worst_group,
+        "reason": reason,
+    }
 
 
 def _write_charts(result: ExperimentResult, out_dir: Path) -> list[Path]:

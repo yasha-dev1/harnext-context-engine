@@ -31,6 +31,7 @@ from harnext_eval.e2.run import (
     macro_accuracy,
 )
 from harnext_eval.health.store_health import compute_store_health
+from harnext_eval.probes.common import string_value
 from harnext_eval.probes.gen_code_location import code_location_gold
 from harnext_eval.probes.gen_multisource import _links_as_of
 from harnext_eval.probes.gold import (
@@ -44,7 +45,7 @@ from harnext_eval.registry import ExperimentResult, register_experiment
 from harnext_eval.report.charts import e5_pareto
 from harnext_eval.stores.base import StoreHandle
 from harnext_eval.stores.fake_usage import ensure_fake_fold_usage
-from harnext_eval.stores.layouts import configure_store
+from harnext_eval.stores.layouts import configure_store, runtime_for
 from harnext_eval.types import EvalEvent, Probe, RouterRecord, SnapshotRef
 
 CADENCES = ("W1", "W5", "W20", "W50", "W20+rules", "W20+rules+deviation")
@@ -94,7 +95,11 @@ class E2Result:
 
 def cadence_setting(name: str) -> CadenceSetting:
     settings = {
-        "W1": CadenceSetting("W1", 1, True, False, 1_000),
+        # W1 is a cadence, not a history-retention policy. Truncating it to the
+        # last 1,000 events made frozen pre-window probes unanswerable and gave
+        # its retrieve-everything floor a different population from every other
+        # cadence.
+        "W1": CadenceSetting("W1", 1, True, False),
         "W5": CadenceSetting("W5", 5, False, False),
         "W20": CadenceSetting("W20", 20, False, False),
         "W50": CadenceSetting("W50", 50, False, False),
@@ -173,6 +178,7 @@ class MeteredStoreHandle(StoreHandle):
                     "snapshot_sha": ref.sha,
                     "commit_time": commit_time.isoformat(),
                     "close_reason": close_reason,
+                    "seed": runtime_for(self).seed,
                 }
             )
         if added:
@@ -557,7 +563,7 @@ def _rederive_probes(
                 derived.append(
                     probe.model_copy(
                         update={
-                            "gold": str(py_value),
+                            "gold": string_value(py_value),
                             "superseded_values": superseded,
                             "source_event_ids": [item.event_id for item in history],
                         }
@@ -932,7 +938,12 @@ def run_cadences(
             usage_path=usage_path,
             prices=prices,
         )
-        configure_store(store, harness=cadence_cfg.builder.harness, model=cadence_cfg.builder.model)
+        configure_store(
+            store,
+            harness=cadence_cfg.builder.harness,
+            model=cadence_cfg.builder.model,
+            seed=seed,
+        )
         replay = _event_clock_replay(
             events,
             cadence_cfg,
@@ -973,7 +984,7 @@ def run_cadences(
                 "cadence": cadence,
                 "check": key.removeprefix("checks."),
                 "value": value,
-                "status": (
+                        "status": (
                     "not_applicable_in_smoke"
                     if corpus.meta.get("smoke")
                     and key
@@ -987,7 +998,24 @@ def run_cadences(
                     else "pass"
                     if value == 1.0
                     else "fail"
-                ),
+                        ),
+                        "reason": (
+                            None
+                            if value == 1.0
+                            else (
+                                "not applicable to the reduced deterministic smoke profile"
+                                if corpus.meta.get("smoke")
+                                and key
+                                in {
+                                    "checks.budget_within_10_pct",
+                                    "checks.budget_fill_applicable",
+                                    "checks.pilot_kappa_ge_0_8",
+                                    "checks.claim_disagreement_le_0_02",
+                                    "checks.non_evidentiary_smoke",
+                                }
+                                else f"{key.removeprefix('checks.')} observed {value!r}"
+                            )
+                        ),
             }
             for key, value in sorted(e2_result.checks.items())
             if key.startswith("checks.")
@@ -1287,6 +1315,31 @@ def run_cadences(
         "checks.claim_profile": float(claim_profile),
     }
     check_details: dict[str, dict[str, Any]] = {}
+    failed_shared_e2 = [
+        {
+            "cadence": str(row["cadence"]),
+            "check": str(row["check"]),
+            "value": float(row["value"]),
+        }
+        for row in e2_check_rows
+        if row["status"] == "fail"
+    ]
+    check_details["shared_e2"] = {
+        "passed": e2_checks_ok,
+        "value": {
+            "cadences": sorted(e2_by_cadence),
+            "failed_checks": failed_shared_e2,
+        },
+        "reason": (
+            "all applicable shared E2 cadence checks passed"
+            if e2_checks_ok
+            else "shared E2 failed: "
+            + "; ".join(
+                f"{row['cadence']}.{row['check']}={row['value']}"
+                for row in failed_shared_e2
+            )
+        ),
+    }
     if corpus.meta.get("smoke"):
         smoke_reasons = {
             "valid_primary": "the tiny deterministic smoke validates cadence plumbing, not the preregistered equal-accuracy cost claim",

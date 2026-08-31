@@ -53,8 +53,8 @@
 
   <h2>Validity checks</h2>
   {% if checks %}
-  <div class="card"><table><thead><tr><th>Experiment</th><th>Check</th><th>Value</th><th>Status</th></tr></thead><tbody>
-  {% for row in checks %}<tr><td>{{ row.experiment }}</td><td>{{ row.check }}</td><td>{{ row.value }}</td><td>{% if row.passed is sameas true %}<span class="status pass">PASS</span>{% elif row.passed is sameas false %}<span class="status fail">FAIL</span>{% else %}<span class="status info">INFO</span>{% endif %}</td></tr>{% endfor %}
+  <div class="card"><table><thead><tr><th>Experiment</th><th>Check</th><th>Value</th><th>Status</th><th>Reason</th></tr></thead><tbody>
+  {% for row in checks %}<tr><td>{{ row.experiment }}</td><td>{{ row.check }}</td><td>{{ row.value }}</td><td>{% if row.passed is sameas true %}<span class="status pass">PASS</span>{% elif row.passed is sameas false %}<span class="status fail">FAIL</span>{% else %}<span class="status info">INFO</span>{% endif %}</td><td>{{ row.reason }}</td></tr>{% endfor %}
   </tbody></table></div>
   {% else %}<p class="muted">No machine-readable validity checks were found.</p>{% endif %}
 

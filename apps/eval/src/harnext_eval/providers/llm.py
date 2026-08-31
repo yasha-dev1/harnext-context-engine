@@ -136,6 +136,51 @@ def _target_matches(rendered: str, targets: list[str]) -> bool:
     )
 
 
+def _record_owns_target(record: _Record, targets: list[str], field: str) -> bool:
+    """Match state facts to their owning entity, not to incidental mentions.
+
+    Cross-source link/file questions deliberately use broad lexical joins. A
+    scalar state question must be stricter: an issue record that mentions a KIP
+    does not thereby establish that KIP's status, and a vote mail mentioning an
+    issue does not establish the issue's vote outcome.
+    """
+
+    if not targets:
+        return True
+    data = record.value.get("data", {})
+    if not isinstance(data, dict):
+        data = {}
+    subject = str(record.value.get("subject", ""))
+    owners = {subject.casefold(), subject.split(":", 1)[-1].casefold()}
+    issue = data.get("issue_key") or data.get("key")
+    if issue:
+        issue_text = str(issue).casefold()
+        owners.update({issue_text, f"issue:{issue_text}"})
+    if field == "vote_outcome":
+        owners = set()
+        vote_owner = data.get("linked_kip") or data.get("kip_key")
+        if not vote_owner:
+            tags = data.get("subject_tags", [])
+            vote_owner = next(
+                (
+                    tag
+                    for tag in tags
+                    if isinstance(tag, str) and tag.casefold().startswith("kip-")
+                ),
+                None,
+            )
+        if vote_owner:
+            vote_text = str(vote_owner).casefold()
+            owners.update({vote_text, f"kip:{vote_text}"})
+        if not (subject.casefold().startswith(("kip:", "thread:")) or vote_owner):
+            return False
+    return any(
+        target.casefold() in owners
+        or target.split(":", 1)[-1].casefold() in owners
+        for target in targets
+    )
+
+
 def _json_records(material: str) -> list[_Record]:
     values: list[dict[str, Any]] = []
     seen: set[str] = set()
@@ -271,11 +316,22 @@ def _latest_value(question: str, material: str) -> str:
     for record in _json_records(material):
         if cutoff is not None and record.time is not None and record.time > cutoff:
             continue
-        if not _target_matches(record.rendered, targets):
+        if not _record_owns_target(record, targets, field):
             continue
         value = _derived_record_field(record, field)
         if value is None:
-            value = _json_field(record.value.get("data", record.value), field)
+            data = record.value.get("data", record.value)
+            raw_field = data.get("field") if isinstance(data, dict) else None
+            if isinstance(raw_field, str):
+                value = (
+                    data.get("to")
+                    if _normal_field(raw_field) == _normal_field(field)
+                    else None
+                )
+            else:
+                value = _json_field(data, field)
+        if value is not None and field in {"components", "fixVersion"}:
+            value = value if isinstance(value, list) else [str(value)]
         if value is not None:
             facts.append(_Fact(_string_value(value), record.order, record.time))
     facts.extend(_plain_facts(material, field, targets))
@@ -436,21 +492,46 @@ def _action_payload(material: str, properties: dict[str, Any]) -> dict[str, Any]
             component = str(component_value[0]) if component_value else "UNKNOWN"
     priority = _latest_value(f"What is the priority of {entity}?", material)
     assignees = [name for name, _ in actors.most_common(3)]
-    if "## overview" in material.casefold() and "## all_entity_files" not in material.casefold():
+    if (
+        "## overview" in material.casefold()
+        and "## all_entity_files" not in material.casefold()
+        and "i am taking" in material.casefold()
+    ):
         archetypes = {
             str(data.get("situation_archetype", ""))
             for record in scoped_records
             if isinstance((data := record.value.get("data", {})), dict)
         }
         responder_by_archetype = {
-            "declared-critical": "responder-declared",
-            "security-cve": "responder-security",
-            "vote-thread": "responder-vote",
-            "silent-burst": "responder-burst",
+            value: f"responder-{value}"
+            for value in (
+                "declared-critical",
+                "security-cve",
+                "vote-thread",
+                "silent-burst",
+            )
         }
-        inferred = next(
+        inferred_prefix = next(
             (responder_by_archetype[value] for value in sorted(archetypes) if value in responder_by_archetype),
             None,
+        )
+        situation_number = next(
+            (
+                match.group(1)
+                for record in scoped_records
+                if isinstance((data := record.value.get("data", {})), dict)
+                and (
+                    match := re.fullmatch(
+                        r"situation-(\d+)", str(data.get("outcome_for", ""))
+                    )
+                )
+            ),
+            None,
+        )
+        inferred = (
+            f"{inferred_prefix}-{situation_number}"
+            if inferred_prefix is not None and situation_number is not None
+            else None
         )
         if inferred is not None:
             assignees = [inferred, *[name for name in assignees if name != inferred]]
