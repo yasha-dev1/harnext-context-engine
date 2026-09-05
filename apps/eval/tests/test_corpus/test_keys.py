@@ -66,3 +66,11 @@ def test_subject_derivation_keeps_native_pr_and_uses_cross_source_key_for_push()
         == "kip:1150"
     )
 
+
+
+def test_contributor_key_accepts_github_bot_addresses() -> None:
+    from harnext_eval.corpus.keys import contributor_key
+
+    key = contributor_key("49699333+dependabot[bot]@users.noreply.github.com")
+    assert key.startswith("contributor:") and len(key) == len("contributor:") + 12
+    assert key == contributor_key("<49699333+DEPENDABOT[bot]@users.noreply.github.com>")

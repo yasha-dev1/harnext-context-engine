@@ -104,7 +104,13 @@ def contributor_key(email: str) -> str:
         return email
     address = parseaddr(email)[1].strip().casefold()
     if not address or "@" not in address:
-        raise ValueError(f"not an email address: {email!r}")
+        # RFC 822 parsing rejects GitHub bot addresses such as
+        # ``12345+dependabot[bot]@users.noreply.github.com``; accept bare addr-specs.
+        bare = email.strip().strip("<>").casefold()
+        if "@" in bare and not any(ch.isspace() for ch in bare):
+            address = bare
+        else:
+            raise ValueError(f"not an email address: {email!r}")
     digest = hashlib.sha256(address.encode("utf-8")).hexdigest()[:12]
     return f"contributor:{digest}"
 
