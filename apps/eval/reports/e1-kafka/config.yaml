@@ -1,0 +1,51 @@
+offline: true
+e1:
+  exclude_label_functions:
+  - github_trunk_ci_failure_fix_6h
+prices:
+  model: fake
+  effective_date: offline-fake-v1
+  input_per_million: 1.0
+  output_per_million: 4.0
+  cache_creation_input_per_million: null
+  cache_read_input_per_million: null
+engine:
+  router:
+    rules:
+      enabled: true
+    deviation:
+      enabled: true
+    budget_pct: 2.0
+    guards:
+      absolute_floor: 3.0
+      multi_window: true
+      situation_dedup: false
+  window:
+    gap_s: 30.0
+    max_events: 20
+    max_age_s: 120.0
+  store:
+    layout: S0
+    backend: git
+  builder:
+    harness: fake
+    model: null
+    prompt_version: v1
+  reader:
+    provider: fake
+    budget_tokens: 8000
+  envelope: V3
+  embeddings:
+    provider: fake
+    dim: 64
+    model: null
+    revision: null
+  lane_design: two-lane
+budgets:
+  read_tokens:
+  - 2000
+  - 8000
+  - 32000
+seeds:
+- 1
+erosion_panel_size: 10
