@@ -117,6 +117,7 @@ class _PolicyBase:
     def __init__(self, *, rules: RuleSettings = _DEFAULT_RULE_SETTINGS) -> None:
         self.rule_settings = rules
         self.extractor = CausalFeatureExtractor()
+        self.feature_cache: dict[str, list[FeatureVector]] | None = None
         self.baseline_key_used: str | None = None
         self.features_fired: dict[str, Any] = {}
 
@@ -131,6 +132,8 @@ class _PolicyBase:
         raise NotImplementedError
 
     def _vectors(self, event: EvalEvent) -> list[FeatureVector]:
+        if self.feature_cache is not None:
+            return self.feature_cache[event.id]
         return self.extractor.update(event)
 
     def _record(self, vector: FeatureVector, score: float, **extra: Any) -> float:

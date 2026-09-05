@@ -1,0 +1,279 @@
+# Source: https://kafka.apache.org/committers
+# Canonical redirect: https://kafka.apache.org/community/committers/
+# Fetched once: 2026-09-05 UTC (including the source URL's HTML redirect).
+# Structure: Bootstrap committer-card divs; h6 name; social anchors (GitHub).
+# No Apache ids are published in these cards: empty lists mean unavailable,
+# not inferred from GitHub handles. Match Jira/mail by the published names.
+# Current roster applied retrospectively; historical appointment dates unavailable.
+page_sha256: a8ffc87ce23eca83a852efe41aef3421f8b1560cf4d9a705603fd1a3bd1249c5
+committers:
+- name: Jun Rao
+  apache_ids: []
+  github:
+  - junrao
+- name: Neha Narkhede
+  apache_ids: []
+  github:
+  - nehanarkhede
+- name: Joe Stein
+  apache_ids: []
+  github:
+  - joestein
+- name: Jay Kreps
+  apache_ids: []
+  github:
+  - jkreps
+- name: Joel Koshy
+  apache_ids: []
+  github:
+  - jjkoshy
+- name: Prashanth Menon
+  apache_ids: []
+  github:
+  - pmenon
+- name: Jakob Homan
+  apache_ids: []
+  github:
+  - jghoman
+- name: David Arthur
+  apache_ids: []
+  github:
+  - mumrah
+- name: Sriram Subramanian
+  apache_ids: []
+  github:
+  - sriramsub
+- name: Guozhang Wang
+  apache_ids: []
+  github:
+  - guozhangwang
+- name: Gwen Shapira
+  apache_ids: []
+  github:
+  - gwenshap
+- name: Sriharsha Chintalapani
+  apache_ids: []
+  github:
+  - harshach
+- name: Ewen Cheslack-Postava
+  apache_ids: []
+  github:
+  - ewencp
+- name: Ismael Juma
+  apache_ids: []
+  github:
+  - ijuma
+- name: Jason Gustafson
+  apache_ids: []
+  github:
+  - hachikuji
+- name: Jiangjie (Becket) Qin
+  apache_ids: []
+  github:
+  - becketqin
+- name: Grant Henke
+  apache_ids: []
+  github:
+  - granthenke
+- name: Rajini Sivaram
+  apache_ids: []
+  github:
+  - rajinisivaram
+- name: Damian Guy
+  apache_ids: []
+  github:
+  - dguy
+- name: Onur Karaman
+  apache_ids: []
+  github:
+  - onurkaraman
+- name: Matthias J. Sax
+  apache_ids: []
+  github:
+  - mjsax
+- name: Dong Lin
+  apache_ids: []
+  github:
+  - lindong28
+- name: Colin P. McCabe
+  apache_ids: []
+  github:
+  - cmccabe
+- name: Manikumar Reddy
+  apache_ids: []
+  github:
+  - omkreddy
+- name: Vahid Hashemian
+  apache_ids: []
+  github:
+  - vahidhashemian
+- name: Bill Bejeck
+  apache_ids: []
+  github:
+  - bbejeck
+- name: Randall Hauch
+  apache_ids: []
+  github:
+  - rhauch
+- name: Mickael Maison
+  apache_ids: []
+  github:
+  - mimaison
+- name: John Roesler
+  apache_ids: []
+  github:
+  - vvcephei
+- name: Konstantine Karantasis
+  apache_ids: []
+  github:
+  - kkonstantine
+- name: Boyang Chen
+  apache_ids: []
+  github:
+  - abbccdda
+- name: Xi Hu
+  apache_ids: []
+  github:
+  - huxihx
+- name: David Jacot
+  apache_ids: []
+  github:
+  - dajac
+- name: Chia-Ping Tsai
+  apache_ids: []
+  github:
+  - chia7712
+- name: Anna Sophie Blee-Goldman
+  apache_ids: []
+  github:
+  - ableegoldman
+- name: Tom Bentley
+  apache_ids: []
+  github:
+  - tombentley
+- name: Bruno Cadonna
+  apache_ids: []
+  github:
+  - cadonna
+- name: Luke Chen
+  apache_ids: []
+  github:
+  - showuon
+- name: José Armando García Sancio
+  apache_ids: []
+  github:
+  - jsancio/
+- name: Chris Egerton
+  apache_ids: []
+  github:
+  - C0urante/
+- name: Ziming Deng
+  apache_ids: []
+  github:
+  - dengziming
+- name: Viktor Somogyi-Vass
+  apache_ids: []
+  github:
+  - viktorsomogyi/
+- name: Josep Prat
+  apache_ids: []
+  github:
+  - jlprat
+- name: Satish Duggana
+  apache_ids: []
+  github:
+  - satishd
+- name: Ron Dagostino
+  apache_ids: []
+  github:
+  - rondagostino/
+- name: Justine Olshan
+  apache_ids: []
+  github:
+  - jolshan/
+- name: Edoardo Comar
+  apache_ids: []
+  github:
+  - edoardocomar/
+- name: Walker Carlson
+  apache_ids: []
+  github:
+  - wcarlson5
+- name: Stanislav Kozlovski
+  apache_ids: []
+  github:
+  - stanislavkozlovski/
+- name: Divij Vaidya
+  apache_ids: []
+  github:
+  - divijvaidya/
+- name: Greg Harris
+  apache_ids: []
+  github:
+  - gharris1727/
+- name: Lucas Bradstreet
+  apache_ids: []
+  github:
+  - lbradstreet/
+- name: Yash Mayya
+  apache_ids: []
+  github:
+  - yashmayya
+- name: Lucas Brutschy
+  apache_ids: []
+  github:
+  - lucasbru
+- name: Igor Soarez
+  apache_ids: []
+  github:
+  - soarez
+- name: Christo Lolov
+  apache_ids: []
+  github:
+  - clolov
+- name: Lianet Magrans
+  apache_ids: []
+  github:
+  - lianetm
+- name: Kamal Chandraprakash
+  apache_ids: []
+  github:
+  - kamalcph
+- name: Jeff Kim
+  apache_ids: []
+  github:
+  - jeffkbkim
+- name: Andrew Schofield
+  apache_ids: []
+  github:
+  - AndrewJSchofield
+- name: TengYao Chi
+  apache_ids: []
+  github:
+  - frankvicky
+- name: Apoorv Mittal
+  apache_ids: []
+  github:
+  - apoorvmittal10
+- name: Omnia Ibrahim
+  apache_ids: []
+  github:
+  - OmniaGM
+- name: PoAn Yang
+  apache_ids: []
+  github:
+  - FrankYang0529
+- name: Kirk True
+  apache_ids: []
+  github:
+  - kirktrue
+- name: Sean Quah
+  apache_ids: []
+  github:
+  - squah-confluent
+- name: Jiunn-Yang Huang
+  apache_ids: []
+  github:
+  - m1a2st
+  - apache/kafka-site//commit/379dba2230101f7ca1b73658808d67e6e48bf909
+  - apache/kafka

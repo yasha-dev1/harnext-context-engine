@@ -89,3 +89,7 @@ test:
 clean:
 	rm -rf .venv .ruff_cache .pytest_cache
 	find . -type d -name __pycache__ -exec rm -rf {} + 2>/dev/null || true
+
+.PHONY: eval-e1-kafka
+eval-e1-kafka:
+	OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 uv run harnext-eval run --config apps/eval/configs/e1-kafka.yaml --replay $(or $(REPLAY),apps/eval/out/corpus/kafka/replay/kafka-rlong.jsonl) --experiments e1 --window $(or $(WINDOW),2022-01-01 2026-07-01) --prereg $(or $(PREREG),apps/eval/PREREG.md)

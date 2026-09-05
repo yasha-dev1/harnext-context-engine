@@ -122,8 +122,16 @@ class BudgetsConfig(StrictModel):
         return self
 
 
+class E1Config(StrictModel):
+    """E1-specific, preregistered choices."""
+
+    exclude_label_functions: list[str] = Field(default_factory=list)
+    """Labeling functions dropped by a registered amendment (e.g. uncomputable from the sources)."""
+
+
 class ExperimentConfig(StrictModel):
     offline: bool = True
+    e1: E1Config = Field(default_factory=E1Config)
     prices: PricesConfig
     engine: EngineConfig
     budgets: BudgetsConfig

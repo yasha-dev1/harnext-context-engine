@@ -17,6 +17,7 @@ from typing import Any, BinaryIO, cast
 from urllib.parse import urlencode
 from urllib.request import urlopen
 
+from harnext_eval.corpus.committers import load_roster
 from harnext_eval.corpus.keys import (
     contributor_key,
     derive_baseline_keys,
@@ -132,7 +133,7 @@ def parse_mbox(
         )
         for record in records
     ]
-    return sorted(events, key=lambda event: (event.time, event.id))
+    return sorted((load_roster().stamp(event) for event in events), key=lambda event: (event.time, event.id))
 
 
 def fetch(
@@ -228,6 +229,7 @@ def _to_event(
         "body": body,
         "author": author,
         "author_name": from_name or None,
+        "author_email": author_email or None,
     }
     event_id = f"mail:{hashlib.sha256(record.message_id.encode()).hexdigest()[:24]}"
     return EvalEvent(

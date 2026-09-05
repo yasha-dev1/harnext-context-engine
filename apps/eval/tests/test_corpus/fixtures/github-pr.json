@@ -1,0 +1,15 @@
+{
+  "id": "PR_7", "number": 7, "title": "KAFKA-123 fix hotfix (#6)",
+  "body": "Implements KIP-42 and KAFKA-456", "author": {"login": "alice", "email": "alice@example.org"},
+  "authorAssociation": "MEMBER", "createdAt": "2020-01-01T00:00:00Z",
+  "updatedAt": "2022-01-01T00:00:00Z", "mergedAt": "2020-01-03T00:00:00Z",
+  "closedAt": "2020-01-03T00:00:00Z", "merged": true,
+  "mergedBy": {"login": "bob", "email": ""}, "baseRefName": "trunk",
+  "headRefName": "KAFKA-789-KIP-43", "mergeCommit": {"oid": "abc"},
+  "files": {"nodes": [{"path": "a.py", "additions": 2, "deletions": 1}], "pageInfo": {"hasNextPage": true, "endCursor": "files/one"}},
+  "labels": {"nodes": [{"name": "bug"}], "pageInfo": {"hasNextPage": false, "endCursor": null}},
+  "reviews": {"nodes": [{"id": "R_1", "author": {"login": "bob"}, "authorAssociation": "OWNER", "state": "APPROVED", "submittedAt": "2020-01-02T00:00:00Z", "body": "looks good", "commit": {"oid": "abc"},
+    "comments": {"nodes": [{"id": "RC_1", "author": {"login": "bob"}, "authorAssociation": "OWNER", "body": "fix this", "createdAt": "2020-01-01T12:00:00Z", "updatedAt": "2020-01-01T12:00:00Z", "path": "a.py", "line": 1, "position": 1, "commit": {"oid": "abc"}}], "pageInfo": {"hasNextPage": true, "endCursor": "rc/one"}}
+  }], "pageInfo": {"hasNextPage": false, "endCursor": null}},
+  "comments": {"nodes": [{"id": "IC_1", "author": {"login": "carol"}, "authorAssociation": "CONTRIBUTOR", "createdAt": "2020-01-02T01:00:00Z", "updatedAt": "2020-01-02T01:00:00Z", "body": "thanks"}], "pageInfo": {"hasNextPage": false, "endCursor": null}}
+}

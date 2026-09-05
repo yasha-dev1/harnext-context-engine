@@ -107,12 +107,16 @@ def _buffered_soft_labels(
         return soft
     half = window / 2.0
     for start, end in ranges:
-        left_distance = coordinates[start] - coordinates
-        right_distance = coordinates - coordinates[end]
-        distance = np.where(coordinates < coordinates[start], left_distance, right_distance)
-        outside = (coordinates < coordinates[start]) | (coordinates > coordinates[end])
-        buffered = outside & (distance > 0) & (distance <= half)
-        soft[buffered] += np.sqrt(np.maximum(0.0, 1.0 - distance[buffered] / window))
+        # Only boundary slices can receive buffer credit. Scanning the full
+        # replay per range makes the 200-repeat sanity check quadratic.
+        left = int(np.searchsorted(coordinates, coordinates[start] - half, side="left"))
+        left_stop = int(np.searchsorted(coordinates, coordinates[start], side="left"))
+        right_start = int(np.searchsorted(coordinates, coordinates[end], side="right"))
+        right = int(np.searchsorted(coordinates, coordinates[end] + half, side="right"))
+        distance = coordinates[start] - coordinates[left:left_stop]
+        soft[left:left_stop] += np.sqrt(np.maximum(0.0, 1.0 - distance / window))
+        distance = coordinates[right_start:right] - coordinates[end]
+        soft[right_start:right] += np.sqrt(np.maximum(0.0, 1.0 - distance / window))
     return np.minimum(soft, 1.0)
 
 
@@ -152,25 +156,22 @@ def _range_pr_area(
     if original_positives <= 0 or not buffered_ranges:
         return float("nan")
 
-    sorted_scores = np.sort(scores)[::-1]
+    # Prefix sums give exactly the same inclusive-threshold credits without
+    # allocating/scanning one N-event prediction vector per threshold.
+    order = np.argsort(scores, kind="stable")[::-1]
+    sorted_scores = scores[order]
     sampled = np.linspace(0, len(scores) - 1, thresholds).astype(int)
     threshold_values = sorted_scores[sampled]
-    range_maxima = np.asarray(
+    counts = len(scores) - np.searchsorted(sorted_scores[::-1], threshold_values, side="left")
+    soft_sum = np.cumsum(soft[order])[counts - 1]
+    credit = np.cumsum((soft - binary)[order])[counts - 1]
+    range_maxima = np.sort(np.asarray(
         [float(np.max(scores[start : end + 1])) for start, end in buffered_ranges]
-    )
-    recalls = np.zeros(len(threshold_values), dtype=float)
-    precisions = np.ones(len(threshold_values), dtype=float)
-    for index, threshold in enumerate(threshold_values):
-        predicted = scores >= threshold
-        predicted_count = int(predicted.sum())
-        true_positive = float(np.dot(soft, predicted))
-        buffered_credit = float(np.dot(soft - binary, predicted))
-        # The reference recomputes N_labels after masking transition-buffer
-        # labels by the prediction while restoring every original anomaly.
-        effective_positives = original_positives + buffered_credit / 2.0
-        existence_ratio = float(np.mean(range_maxima >= threshold))
-        recalls[index] = min(true_positive / effective_positives, 1.0) * existence_ratio
-        precisions[index] = true_positive / predicted_count
+    ))
+    existence = (len(range_maxima) - np.searchsorted(range_maxima, threshold_values, side="left")) / len(range_maxima)
+    effective_positives = original_positives + credit / 2.0
+    recalls = np.minimum(soft_sum / effective_positives, 1.0) * existence
+    precisions = soft_sum / counts
     return float(np.dot(np.diff(np.r_[0.0, recalls]), precisions))
 
 

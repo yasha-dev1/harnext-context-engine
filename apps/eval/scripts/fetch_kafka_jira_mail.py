@@ -94,29 +94,68 @@ def fetch_mail():
 
 
 def parse():
-    sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+    """Sweep every cached page/month, deduplicate, and report before publishing."""
+    from collections import Counter, defaultdict
+
     from harnext_eval.corpus.build_replay import write_replay
     from harnext_eval.corpus.jira import parse_search_page
     from harnext_eval.corpus.pony_mail import parse_mbox
 
-    jira_events = []
-    for path in sorted(RAW_JIRA.glob("*-p*.json")):
-        jira_events.extend(parse_search_page(path.read_bytes()))
-    seen = {}
-    for e in jira_events:
-        seen[e.id] = e  # issues updated in several months repeat; last wins (identical content)
-    art = write_replay(sorted(seen.values(), key=lambda e: (e.time, e.id)), PARSED / "jira.jsonl")
-    print(f"parsed jira: {art.event_count} events -> {art.path}", flush=True)
-
-    mail_events = []
-    for path in sorted(RAW_MAIL.glob("dev-*.mbox")):
-        month = path.stem.removeprefix("dev-")
-        try:
-            mail_events.extend(parse_mbox(path, list_name="dev", domain="kafka.apache.org", month=month))
-        except Exception as exc:  # noqa: BLE001 - keep going, report
-            print(f"  mail parse failed {path.name}: {exc}", flush=True)
-    art = write_replay(sorted(mail_events, key=lambda e: (e.time, e.id)), PARSED / "mail.jsonl")
-    print(f"parsed mail: {art.event_count} events -> {art.path}", flush=True)
+    report = ["# K2 full JIRA/mail parse report", "", f"Parsed on {date.today()}.", "",
+              "Counts below are deduplicated by event ID; sorted raw paths use last occurrence.",
+              "Inconsistencies count distinct issues per field across all snapshots.",
+              "Roster matches use a current snapshot retrospectively; Apache IDs were not published on the source page.", ""]
+    failures = []
+    for source, paths in (("jira", sorted(RAW_JIRA.glob("*.json"))),
+                          ("mail", sorted(RAW_MAIL.glob("dev-*.mbox")))):
+        seen = {}
+        inconsistencies = defaultdict(set)
+        raw_count = 0
+        conflicts = 0
+        failed = []
+        expected = set(months(START, END))
+        present = {path.name[:7] if source == "jira" else path.name[4:11] for path in paths}
+        missing = sorted(expected - present)
+        markers = {path.stem for path in RAW_JIRA.glob("*.done")} if source == "jira" else expected
+        for path in paths:
+            try:
+                events = (parse_search_page(path.read_bytes()) if source == "jira" else
+                          parse_mbox(path, list_name="dev", domain="kafka.apache.org",
+                                     month=path.stem.removeprefix("dev-")))
+                for event in events:
+                    raw_count += 1
+                    if event.id in seen and seen[event.id] != event:
+                        conflicts += 1
+                    seen[event.id] = event
+                    for field in event.data.get("state_inconsistencies", []):
+                        inconsistencies[field].add(event.subject)
+            except Exception as exc:  # noqa: BLE001 - finish sweep, fail publication
+                failed.append(f"{path.name}: {exc}")
+        counts = Counter(event.type for event in seen.values())
+        matches = Counter(event.type for event in seen.values() if event.data.get("is_committer"))
+        report.extend([f"## {source}", "", f"Files: {len(paths)}; parsed occurrences: {raw_count:,}; "
+                       f"unique events: {len(seen):,}; duplicates removed: {raw_count - len(seen):,}.", "",
+                       f"Months: {len(present)} ({min(present)} through {max(present)}); "
+                       f"missing months: {missing or 'none'}; "
+                       f"missing completion markers: {sorted(expected - markers) or 'none'}.",
+                       f"Repeated IDs with differing payloads: {conflicts} (last sorted occurrence retained).", "",
+                       "| Event type | Count | Roster matches |", "|---|---:|---:|"])
+        report.extend(f"| {kind} | {count:,} | {matches[kind]:,} |" for kind, count in sorted(counts.items()))
+        affected = set().union(*inconsistencies.values()) if inconsistencies else set()
+        report.extend(["", f"Distinct inconsistent issues: {len(affected):,}."])
+        report.extend(f"- {field}: {len(issues):,}" for field, issues in sorted(inconsistencies.items()))
+        report.extend(["", "Failed files/months: " + ("; ".join(failed) if failed else "none"), ""])
+        failures.extend(failed)
+        if not failed:
+            art = write_replay(sorted(seen.values(), key=lambda event: (event.time, event.id)),
+                               PARSED / f"{source}.jsonl")
+            report.extend([f"Output: `{art.path.relative_to(ROOT)}`; SHA-256: `{art.sha256}`.", ""])
+            print(f"parsed {source}: {art.event_count} events -> {art.path}", flush=True)
+        del seen
+    report_path = Path(__file__).resolve().parents[1] / "STATUS" / "K2-parse-report.md"
+    report_path.write_text("\n".join(report) + "\n")
+    if failures:
+        raise RuntimeError(f"{len(failures)} files failed; see {report_path}")
 
 
 if __name__ == "__main__":

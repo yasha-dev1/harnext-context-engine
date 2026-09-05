@@ -184,16 +184,20 @@ class CausalFeatureExtractor:
         for value, frequency in count_distribution.items():
             deviation_distribution[abs(value - median_5m)] += frequency
         mad_5m = _counter_median(deviation_distribution, completed_bucket_count)
-        hourly_by_bucket: Counter[datetime] = Counter()
+        # Dense 4-week bucket array and prefix sums replace a Python 12x loop
+        # over every occupied bucket. Include spill-in before effective_start.
+        counts = np.zeros(completed_bucket_count + 12, dtype=np.int64)
         for stamp, count in state.bucket_counts.items():
-            for offset in range(12):
-                hour_stamp = stamp + timedelta(minutes=5 * offset)
-                if effective_start <= hour_stamp < current_bucket:
-                    hourly_by_bucket[hour_stamp] += count
-        hourly_distribution: Counter[float] = Counter(
-            float(value) for value in hourly_by_bucket.values()
-        )
-        hourly_distribution[0.0] += completed_bucket_count - len(hourly_by_bucket)
+            offset = int((stamp - effective_start).total_seconds() // 300) + 11
+            if 0 <= offset < len(counts):
+                counts[offset] = count
+        prefix = np.r_[0, np.cumsum(counts)]
+        hourly = prefix[12:12 + completed_bucket_count] - prefix[:completed_bucket_count]
+        values_1h, frequencies = np.unique(hourly, return_counts=True)
+        hourly_distribution: Counter[float] = Counter({
+            float(value): int(frequency)
+            for value, frequency in zip(values_1h, frequencies, strict=True)
+        })
         median_1h = _counter_median(hourly_distribution, completed_bucket_count)
         hourly_deviations: Counter[float] = Counter()
         for value, frequency in hourly_distribution.items():

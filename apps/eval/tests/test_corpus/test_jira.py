@@ -53,3 +53,37 @@ def test_parse_created_transition_items_and_comments() -> None:
     comments = [event for event in events if event.type.endswith(".comment")]
     assert len(comments) == 1
     assert "fix is ready" in str((comments[0].data or {})["body"])
+
+
+def test_lossy_snapshot_is_diagnostic_and_changelog_remains_truth() -> None:
+    # Minimal reproduction of the KAFKA-294 deleted/renamed-version export shape.
+    page = _page("jira-page-2.json")
+    issue = page["issues"][0]
+    issue["fields"]["fixVersions"] = [{"name": "renamed-after-history"}]
+    events = parse_search_pages([page])
+    created = next(event for event in events if event.type.endswith(".created"))
+    assert "fixVersion" in (created.data or {})["state_inconsistencies"]
+    assert (created.data or {})["fix_versions"] != ["renamed-after-history"]
+    transitions = [event for event in events if (event.data or {}).get("field") == "fixVersion"]
+    assert transitions
+    assert (transitions[-1].data or {})["to"] != ["renamed-after-history"]
+
+
+def test_roster_stamps_jira_and_github_without_substring_matches() -> None:
+    from harnext_eval.corpus.committers import CommitterRoster, stamp_events
+
+    roster = CommitterRoster([{"name": "Jun Rao", "apache_ids": ["junrao"], "github": ["junrao"]}])
+    assert roster.matches("jira:KAFKA", {"actor_name": " JUN  RAO "})
+    assert roster.matches("jira:KAFKA", {"author_account_id": "junrao"})
+    assert not roster.matches("jira:KAFKA", {"actor_name": "Jun Rao Jr"})
+    assert roster.matches("github:apache/kafka", {"actor_login": "junrao"})
+    assert roster.matches("github:apache/kafka", {"author_association": "MEMBER"})
+    assert not roster.matches("github:apache/kafka", {"author_association": "CONTRIBUTOR"})
+    page = _page("jira-page-1.json")
+    page["issues"][0]["fields"]["creator"] = {"displayName": "Jun Rao"}
+    events = parse_search_pages([page])
+    created = next(e for e in events if e.type.endswith(".created"))
+    assert (created.data or {})["is_committer"] is True
+    stamped, counts = stamp_events([created], roster)
+    assert (stamped[0].data or {})["is_committer"] is True
+    assert counts == {"jira.total": 1, "jira.matched": 1}

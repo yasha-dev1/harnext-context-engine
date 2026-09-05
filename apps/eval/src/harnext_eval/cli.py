@@ -14,7 +14,8 @@ import yaml
 
 from harnext_eval.config import ExperimentConfig, load_config
 from harnext_eval.corpus import CorpusHandle
-from harnext_eval.corpus.synthetic import generate_synthetic_corpus
+from harnext_eval.corpus.synthetic import generate_synthetic_corpus, generate_synthetic_events
+from harnext_eval.e1.prereg import parse_window, verify_prereg, write_prereg
 from harnext_eval.manifest import build_manifest, write_manifest
 from harnext_eval.probes.common import load_replay, parse_time
 from harnext_eval.probes.gen import generate_probe_set, write_probe_set
@@ -102,9 +103,14 @@ def _write_result(result: ExperimentResult, out_dir: Path) -> None:
         "name": result.name,
         "metrics": result.metrics,
         "checks": checks,
-        "tables": {name: table.to_dict(orient="records") for name, table in result.tables.items()},
+        "tables": {
+            name: table.to_dict(orient="records")
+            for name, table in result.tables.items()
+            if not (result.name == "e1" and name == "scores")
+        },
         "artifacts": [str(path) for path in result.artifacts],
         "primary": result.primary,
+        "prereg_hash": result.primary.get("prereg_hash"),
     }
     (out_dir / "results.json").write_text(
         json.dumps(payload, indent=2, sort_keys=True, default=str) + "\n", encoding="utf-8"
@@ -431,6 +437,20 @@ def corpus_command(
             param_hint="--fetch",
         )
 
+    if replay is None:
+        # This command only emits a replay. Avoid materialising discarded hourly
+        # world-state copies (1600 days x 2000 entities at the E1 scale).
+        from harnext_eval.corpus.build_replay import write_replay
+
+        generated = generate_synthetic_events(
+            seed, event_count=event_count, days=days, entity_count=entity_count,
+        )
+        if output.suffix != ".jsonl":
+            output = output / "synthetic.jsonl"
+        write_replay(generated, output)
+        typer.echo(f"wrote {len(generated)} events from {output}")
+        return
+
     handle = _resolve_corpus(
         corpus="synthetic" if replay is None else replay.stem,
         replay=replay,
@@ -516,9 +536,12 @@ def run_command(
         str | None, typer.Option("--e3-optional-stores")
     ] = None,
     e3_opus_model: Annotated[str | None, typer.Option("--e3-opus-model")] = None,
+    e1_window: Annotated[tuple[str, str] | None, typer.Option("--window", "--e1-window")] = None,
+    prereg: Annotated[Path, typer.Option("--prereg")] = Path("apps/eval/PREREG.md"),
 ) -> None:
     """Run registered experiments and write a reproducible run directory."""
 
+    run_started = datetime.now(UTC)
     _discover_experiments()
     requested = list(experiment or [])
     if experiments:
@@ -546,13 +569,21 @@ def run_command(
         entity_count=entity_count,
         days=days,
     )
-    handle = _generate_probes(
-        handle,
-        run_dir / "probes" / f"{handle.name}.jsonl",
-        per_family=per_family,
-        seed=cfg.seeds[0],
-    )
-    handle = replace(handle, meta={**handle.meta, "smoke": smoke})
+    e1_only = selected == ["e1"]
+    if not e1_only:
+        handle = _generate_probes(
+            handle,
+            run_dir / "probes" / f"{handle.name}.jsonl",
+            per_family=per_family,
+            seed=cfg.seeds[0],
+        )
+    window = parse_window(e1_window)
+    prereg_meta = verify_prereg(prereg, handle.replay_path, cfg, window, run_started) if "e1" in selected else {}
+    handle = replace(handle, meta={
+        **handle.meta, "smoke": smoke, "e1_only": e1_only, "e1_window": window,
+        "e1_exclude_label_functions": list(cfg.e1.exclude_label_functions),
+        **prereg_meta,
+    })
     resolved = cfg.model_dump(mode="json")
     (run_dir / "config.yaml").parent.mkdir(parents=True, exist_ok=True)
     (run_dir / "config.yaml").write_text(
@@ -574,9 +605,10 @@ def run_command(
         },
         seeds=cfg.seeds,
         provider_summary=provider_summary(cfg),
+        prereg_ref=handle.meta.get("prereg_hash"),
     )
     write_manifest(manifest, run_dir)
-    events = list(handle.events())
+    events = [] if e1_only else list(handle.events())
     if "e3" in selected:
         optional_stores = {
             item.strip().upper()
@@ -611,7 +643,7 @@ def run_command(
 
     per_seed_selected = [name for name in selected if name != "e3"]
     for seed in cfg.seeds:
-        stores = _build_run_stores(
+        stores = {} if e1_only else _build_run_stores(
             selected=per_seed_selected,
             cfg=cfg,
             events=events,
@@ -638,6 +670,21 @@ def run_command(
     report = build_report(run_dir)
     typer.echo(f"report: {report}")
     typer.echo(str(run_dir))
+
+
+@app.command("prereg")
+def prereg_command(
+    replay: Annotated[Path, typer.Option("--replay", exists=True, dir_okay=False)],
+    config: Annotated[Path, typer.Option("--config", exists=True, dir_okay=False)],
+    out: Annotated[Path, typer.Option("--out")] = Path("apps/eval/PREREG.md"),
+    window: Annotated[tuple[str, str] | None, typer.Option("--window", "--e1-window")] = None,
+) -> None:
+    """Write E1 hashes/conditions for review and commit before evaluation."""
+    try:
+        path = write_prereg(replay, load_config(config), out, parse_window(window))
+    except (ValueError, FileExistsError) as exc:
+        raise typer.BadParameter(str(exc)) from exc
+    typer.echo(f"wrote {path}; commit it before the evidentiary run")
 
 
 @app.command("report")

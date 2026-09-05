@@ -6,8 +6,11 @@ from __future__ import annotations
 
 import json
 import math
+import multiprocessing
+import os
 import time
 from collections.abc import Iterable, Mapping, Sequence
+from concurrent.futures import ProcessPoolExecutor
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any
@@ -20,6 +23,7 @@ from harnext_eval.agents.envelope import build as build_envelope
 from harnext_eval.config import EngineConfig
 from harnext_eval.corpus import CorpusHandle
 from harnext_eval.e1.calibration import calibration_spearman, decile_rates, lift_over_rules
+from harnext_eval.e1.features import CausalFeatureExtractor, FeatureVector
 from harnext_eval.e1.labels import (
     ABSTAIN,
     DEFAULT_LABELING_FUNCTIONS,
@@ -53,6 +57,24 @@ from harnext_eval.types import EvalEvent, RouterRecord, Task
 _BUDGETS = (1.0, 2.0, 5.0, 10.0)
 _POLICIES = tuple(f"R{index}" for index in range(8))
 _VUS_MAX_BUFFER = 5
+_SCORE_ROW_GROUP_SIZE = 100_000
+# Same causal fold reused by policies/budgets within a rolling month. Fit/model
+# state is never shared. The calibration suffix has the same earlier history.
+_FEATURE_CACHE: dict[bool, dict[str, list[FeatureVector]]] = {}
+
+
+def _fitted_policy(
+    name: str, tuning: list[EvalEvent], cfg: EngineConfig, seed: int, budget: float,
+):
+    policy = make_policy(name, cfg.router, seed=seed, budget_pct=budget)
+    policy.feature_cache = _FEATURE_CACHE.get(name == "R2")
+    return policy.fit(tuning)
+
+
+def _tuning_start(month: str) -> str:
+    """Fit on the trailing 12 calendar months, strictly before evaluation."""
+    return f"{int(month[:4]) - 1:04d}{month[4:]}"
+
 _GOLD_ONLY_FIELDS = {
     "cost_weight",
     "hard_negative",
@@ -101,6 +123,16 @@ def _situation_gold(
     """Read Corpus S's sidecar manifest as exact gold when it is present."""
 
     raw: Any = corpus.meta.get("injected_situations", corpus.meta.get("situations"))
+    if not isinstance(raw, list) and events and all(
+        isinstance((event.data or {}).get("injected_positive"), bool) for event in events
+    ):
+        # The synthetic replay carries exact construction flags even when its
+        # in-memory world-state sidecar is absent after a CLI round trip.
+        raw = [
+            {"event_id": event.id, "entity": event.subject, "onset": event.time,
+             "cost_weight": (event.data or {}).get("cost_weight", 1.0)}
+            for event in events if (event.data or {})["injected_positive"]
+        ]
     if not isinstance(raw, list):
         return None, pd.DataFrame(
             columns=["situation_id", "entity", "onset", "end", "label", "cost_weight"]
@@ -201,7 +233,7 @@ def _calibration_scores(
     if not score_events:
         score_events = fit_events[-1:]
         fit_events = fit_events[:-1]
-    policy = make_policy(name, cfg.router, seed=seed, budget_pct=budget).fit(fit_events)
+    policy = _fitted_policy(name, fit_events, cfg, seed, budget)
     values = [policy.score(event) for event in score_events]
     return [float(value) for value in values if np.isfinite(value)]
 
@@ -215,7 +247,7 @@ def _score_month(
     budget: float,
 ) -> tuple[pd.DataFrame, list[float]]:
     tuning_scores = _calibration_scores(name, tuning, cfg, seed, budget)
-    policy = make_policy(name, cfg.router, seed=seed, budget_pct=budget).fit(tuning)
+    policy = _fitted_policy(name, tuning, cfg, seed, budget)
     rows: list[dict[str, Any]] = []
     for event in evaluation:
         score = policy.score(event)
@@ -302,15 +334,46 @@ def _admit_month(
     full = admitted.assign(population="full")
     rule_negative = admitted[~admitted["rule_flag"].astype(bool)].copy()
     rule_negative["population"] = "rule_negative"
-    return pd.concat([full, rule_negative], ignore_index=True)
+    result = pd.concat([full, rule_negative], ignore_index=True)
+    for column in ("event_id", "policy", "lane", "source", "subject", "rule", "month", "population", "baseline_key_used"):
+        result[column] = result[column].astype("category")
+    return result
+
+
+def _population_groups(frame: pd.DataFrame):
+    """Derive report slices without retaining duplicate population score rows."""
+    full = frame[frame["population"] == "full"]
+    for identifiers, group in full.groupby(["month", "policy", "budget_pct"], sort=True, observed=True):
+        yield (*identifiers, "full"), group
+        negative = group[~group["rule_flag"].astype(bool)]
+        if not negative.empty:
+            yield (*identifiers, "rule_negative"), negative
+
+
+def _policy_month(args):
+    name, tuning, evaluation, cfg, seed, event_labels, constructed, *selection = args
+    budgets = selection[0] if selection else _BUDGETS
+    parts = []
+    budget_scores = {}
+    for budget in (budgets if name == "R5" else (_BUDGETS[0],)):
+        budget_scores[budget] = _score_month(name, tuning, evaluation, cfg, seed, budget)
+    for budget in budgets:
+        scored, tuning_scores = budget_scores[budget if name == "R5" else _BUDGETS[0]]
+        scored = scored.copy()
+        scored["budget_pct"] = budget
+        scored["p_urgent"] = scored["event_id"].map(event_labels).astype(float)
+        scored["label"] = scored["p_urgent"]
+        scored["constructed_label"] = constructed
+        part = _admit_month(scored, name=name, budget=budget, tuning_scores=tuning_scores)
+        parts.append(part[part["population"] == "full"].copy())
+    return pd.concat(parts, ignore_index=True)
 
 
 def _metric_rows(frame: pd.DataFrame) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
-    keys = ["month", "policy", "budget_pct", "population"]
-    for identifiers, month_group in frame.groupby(keys, sort=True):
+    for identifiers, month_group in _population_groups(frame):
         month, policy, budget, population = identifiers
-        source_groups = [("all", month_group), *month_group.groupby("source", sort=True)]
+        source_groups = [("all", month_group), *month_group.groupby("source", sort=True, observed=True)]
         for source, group in source_groups:
             known = group[group["label"].notna()]
             ordered = known.sort_values(["t", "event_id"])
@@ -364,12 +427,12 @@ def _metric_rows(frame: pd.DataFrame) -> list[dict[str, Any]]:
 def _paired_primary(scores: pd.DataFrame, seed: int) -> dict[str, Any]:
     subset = scores[
         (scores["budget_pct"] == 2.0)
-        & (scores["population"] == "rule_negative")
+        & (~scores["rule_flag"].astype(bool))
         & scores["label"].notna()
         & (scores["label"] >= 0.5)
     ]
     pivot = subset.pivot_table(
-        index=["event_id", "subject"], columns="policy", values="admitted", aggfunc="first"
+        index=["event_id", "subject"], columns="policy", values="admitted", aggfunc="first", observed=True
     ).reset_index()
     by_policy = {
         str(name): float(pivot[name].mean()) for name in _POLICIES if name in pivot.columns
@@ -408,7 +471,7 @@ def _situation_metrics(
     delay_parts: list[pd.DataFrame] = []
     rows: list[dict[str, Any]] = []
     full = scores[scores["population"] == "full"]
-    for (policy, budget), relevant in full.groupby(["policy", "budget_pct"], sort=True):
+    for (policy, budget), relevant in full.groupby(["policy", "budget_pct"], sort=True, observed=True):
         relevant = relevant.drop_duplicates("event_id")
         condition_situations = situations[
             situations["event_id"].isin(relevant["event_id"])
@@ -453,15 +516,24 @@ def _situation_metrics(
     )
 
 
-def _write_scores(frame: pd.DataFrame, path: Path) -> bool:
-    serializable = frame.copy()
+def _score_chunk(frame: pd.DataFrame) -> pd.DataFrame:
+    serializable = frame.drop(columns="population").copy()
+    serializable["rule_negative"] = ~serializable["rule_flag"].astype(bool)
     serializable["features_fired"] = serializable["features_fired"].map(
         lambda value: json.dumps(value, sort_keys=True, default=str)
     )
+    return serializable
+
+
+def _write_scores(frame: pd.DataFrame, path: Path) -> bool:
+    # Avoid materializing JSON strings and Arrow buffers for millions of rows
+    # at once. The frame itself already stores only the full population.
+    full = frame if frame["population"].eq("full").all() else frame[frame["population"] == "full"]
     try:
-        serializable.to_parquet(path, index=False)
+        import pyarrow as pa
+        import pyarrow.parquet as pq
     except ImportError:
-        payload = serializable.to_json(orient="table", date_format="iso")
+        payload = _score_chunk(full).to_json(orient="table", date_format="iso")
         assert payload is not None
         path.write_text(payload, encoding="utf-8")
         path.with_suffix(".parquet.format.json").write_text(
@@ -469,6 +541,17 @@ def _write_scores(frame: pd.DataFrame, path: Path) -> bool:
             encoding="utf-8",
         )
         return False
+    writer = None
+    try:
+        for start in range(0, max(len(full), 1), _SCORE_ROW_GROUP_SIZE):
+            chunk = _score_chunk(full.iloc[start:start + _SCORE_ROW_GROUP_SIZE])
+            table = pa.Table.from_pandas(chunk, preserve_index=False)
+            if writer is None:
+                writer = pq.ParquetWriter(path, table.schema, compression="zstd")
+            writer.write_table(table, row_group_size=_SCORE_ROW_GROUP_SIZE)
+    finally:
+        if writer is not None:
+            writer.close()
     return True
 
 
@@ -509,7 +592,7 @@ def _write_charts(calibration: pd.DataFrame, metrics: pd.DataFrame, out_dir: Pat
     plt.close(fig)
     fig, axis = plt.subplots(figsize=(6, 4))
     selected = metrics[(metrics["source"] == "all") & (metrics["population"] == "rule_negative")]
-    for policy, group in selected.groupby("policy", sort=True):
+    for policy, group in selected.groupby("policy", sort=True, observed=True):
         curve = group.groupby("budget_pct", as_index=False)["recall_at_b"].mean()
         axis.plot(curve["budget_pct"], curve["recall_at_b"], marker="o", label=policy)
     axis.set(xlabel="admission budget (%)", ylabel="recall", title="E1 operating curves")
@@ -921,12 +1004,30 @@ class E1Experiment:
     ) -> ExperimentResult:
         out_dir.mkdir(parents=True, exist_ok=True)
         original_events = sorted(corpus.events(), key=lambda event: (event.time, event.id))
+        window = corpus.meta.get("e1_window")
+        if window:
+            original_events = [event for event in original_events if window[0] <= event.time < window[1]]
+        from harnext_eval.corpus.committers import stamp_events
+
+        original_events, committer_counts = stamp_events(original_events)
         if not original_events:
             raise ValueError("E1 requires a non-empty replay")
         exact_labels, situations = _situation_gold(corpus, original_events)
         run_weak_diagnostics = bool(corpus.meta.get("run_weak_label_diagnostics", False))
+        excluded_functions = list(corpus.meta.get("e1_exclude_label_functions", []) or [])
+        known_functions = {function.name for function in DEFAULT_LABELING_FUNCTIONS}
+        unknown = sorted(set(excluded_functions) - known_functions)
+        if unknown:
+            raise ValueError(f"unknown labeling functions in e1.exclude_label_functions: {unknown}")
+        active_functions = [
+            function for function in DEFAULT_LABELING_FUNCTIONS if function.name not in excluded_functions
+        ]
         label_result = (
-            build_labels(original_events, observation_end=original_events[-1].time)
+            build_labels(
+                original_events,
+                active_functions,
+                observation_end=window[1] if window else original_events[-1].time,
+            )
             if exact_labels is None or run_weak_diagnostics
             else _constructed_label_result(exact_labels)
         )
@@ -940,46 +1041,62 @@ class E1Experiment:
         evaluated_months = months[2:] if len(months) > 2 else months[1:]
         score_pieces: list[pd.DataFrame] = []
         chronology: list[bool] = []
+        _FEATURE_CACHE.clear()
+        extractors = {kind: CausalFeatureExtractor(global_only=kind) for kind in (False, True)}
+        for kind in extractors:
+            _FEATURE_CACHE[kind] = {}
+        folded_months: set[str] = set()
         for month_index, month in enumerate(evaluated_months):
-            tuning = [event for event in events if _month(event) < month]
+            tuning = [event for event in events if _tuning_start(month) <= _month(event) < month]
             evaluation = [event for event in events if _month(event) == month]
             if not tuning or not evaluation:
                 continue
             chronology.append(max(event.time for event in tuning) < min(event.time for event in evaluation))
-            for policy_name in _POLICIES:
-                budget_scores: dict[float, tuple[pd.DataFrame, list[float]]] = {}
-                for budget in (_BUDGETS if policy_name == "R5" else (_BUDGETS[0],)):
-                    budget_scores[budget] = _score_month(
-                        policy_name, tuning, evaluation, cfg, seed + month_index, budget
-                    )
-                for budget in _BUDGETS:
-                    scored, tuning_scores = budget_scores.get(budget, budget_scores[_BUDGETS[0]])
-                    scored = scored.copy()
-                    scored["budget_pct"] = budget
-                    scored["p_urgent"] = scored["event_id"].map(event_labels).astype(float)
-                    scored["label"] = scored["p_urgent"]
-                    scored["constructed_label"] = exact_labels is not None
-                    score_pieces.append(
-                        _admit_month(
-                            scored,
-                            name=policy_name,
-                            budget=budget,
-                            tuning_scores=tuning_scores,
-                        )
-                    )
+            # Feature state follows the causal stream once, independently of
+            # model refits. Cache only the trailing fit window and current month.
+            retained_ids = {event.id for event in [*tuning, *evaluation]}
+            new_events = [event for event in [*tuning, *evaluation] if _month(event) not in folded_months]
+            for kind, extractor in extractors.items():
+                cache = _FEATURE_CACHE[kind]
+                for event_id in list(cache):
+                    if event_id not in retained_ids:
+                        del cache[event_id]
+                cache.update((event.id, extractor.update(event)) for event in new_events)
+            folded_months.update(_month(event) for event in new_events)
+            # R5 refits independently at each budget; distribute those jobs
+            # too, so one worker does not serialize all four expensive fits.
+            jobs = [
+                (name, tuning, evaluation, cfg, seed + month_index, event_labels,
+                 exact_labels is not None, budgets)
+                for name in _POLICIES
+                for budgets in ([(budget,) for budget in _BUDGETS] if name == "R5" else [_BUDGETS])
+            ]
+            workers = int(corpus.meta.get("e1_workers", os.environ.get("HARNEXT_E1_WORKERS", "4")))
+            if len(events) >= 5_000 and workers > 1 and "fork" in multiprocessing.get_all_start_methods():
+                # Fork shares this month's immutable feature cache; each policy
+                # fits its own model and guard state. Bound BLAS threads externally.
+                with ProcessPoolExecutor(max_workers=workers, mp_context=multiprocessing.get_context("fork")) as pool:
+                    score_pieces.extend(pool.map(_policy_month, jobs))
+            else:
+                score_pieces.extend(_policy_month(job) for job in jobs)
+            print(f"E1 scored {month} ({len(evaluation)} events; fit {len(tuning)})", flush=True)
+        _FEATURE_CACHE.clear()
         if not score_pieces:
             raise ValueError("E1 produced no evaluable rolling months")
         scores = pd.concat(score_pieces, ignore_index=True)
+        del score_pieces
+        for column in ("event_id", "policy", "lane", "source", "subject", "rule", "month", "population", "baseline_key_used"):
+            scores[column] = scores[column].astype("category")
         metrics = pd.DataFrame(_metric_rows(scores))
 
         primary_scores = scores[
             (scores["policy"] == "R5")
             & (scores["budget_pct"] == 2.0)
-            & (scores["population"] == "rule_negative")
+            & (~scores["rule_flag"].astype(bool))
             & scores["label"].notna()
         ]
         calibration_parts: list[pd.DataFrame] = []
-        for month, group in primary_scores.groupby("month", sort=True):
+        for month, group in primary_scores.groupby("month", sort=True, observed=True):
             finite_scores = group["score"].replace([np.inf, -np.inf], np.nan).fillna(-1e30)
             curve = decile_rates(finite_scores, group["label"])
             curve["month"] = month
@@ -992,9 +1109,7 @@ class E1Experiment:
         calibration = pd.concat(calibration_parts, ignore_index=True) if calibration_parts else pd.DataFrame()
 
         robustness_rows: list[dict[str, Any]] = []
-        for identifiers, group in scores.groupby(
-            ["month", "policy", "budget_pct", "population"], sort=True
-        ):
+        for identifiers, group in _population_groups(scores):
             known = group[group["label"].notna()]
             flipped = flip_labels(known["label"], seed=seed)
             robustness_rows.append(
@@ -1155,8 +1270,8 @@ class E1Experiment:
         ]
         capacity_respected = bool(
             (
-                compared.groupby(["month", "policy", "budget_pct"])["admitted"].sum()
-                <= compared.groupby(["month", "policy", "budget_pct"])["capacity"].first()
+                compared.groupby(["month", "policy", "budget_pct"], observed=True)["admitted"].sum()
+                <= compared.groupby(["month", "policy", "budget_pct"], observed=True)["capacity"].first()
             ).all()
         )
         _add_gate(
@@ -1187,7 +1302,7 @@ class E1Experiment:
                 check_details,
                 required_results,
                 f"lf.{function}.accuracy",
-                passed=(accuracy >= 0.6 if label_required and math.isfinite(accuracy) else None),
+                passed=(math.isfinite(accuracy) and accuracy >= 0.6 if label_required else None),
                 value=accuracy if math.isfinite(accuracy) else None,
                 reason=(
                     "estimated LF accuracy must be at least 0.6"
@@ -1271,7 +1386,7 @@ class E1Experiment:
             passed=prereg_ok if not smoke_profile else None,
             value=corpus.meta.get("prereg_ref"),
             reason=(
-                "verified preregistration must predate evaluation"
+                str(corpus.meta.get("prereg_reason", "verified preregistration must predate evaluation"))
                 if not smoke_profile
                 else "offline smoke has no evidentiary preregistration chronology"
             ),
@@ -1355,6 +1470,10 @@ class E1Experiment:
             applicable = bool(harm_evidence.get("store_provided"))
             required = True
             detail_reason = reason
+            if corpus.meta.get("e1_only"):
+                applicable = False
+                required = False
+                detail_reason = "no real action provider / no S3 store in this profile"
             if name == "harm_real_provider" and smoke_profile:
                 applicable = False
                 required = False
@@ -1379,6 +1498,12 @@ class E1Experiment:
             if detail.get("required") and detail.get("passed") is not True
         ]
         check_metrics["check.valid"] = float(valid)
+        check_details["excluded_label_functions"] = {
+            "passed": None,
+            "required": False,
+            "value": excluded_functions,
+            "reason": "labeling functions dropped by registered amendment (config e1.exclude_label_functions)",
+        }
         check_details["valid"] = {
             "status": "pass" if valid else "fail",
             "passed": valid,
@@ -1396,6 +1521,10 @@ class E1Experiment:
         validity.to_csv(out_dir / "validity.csv", index=False)
         chart_paths = _write_charts(calibration, metrics, out_dir)
         primary = _paired_primary(scores, seed)
+        primary["prereg_hash"] = corpus.meta.get("prereg_hash")
+        primary["committer_matches"] = committer_counts
+        primary["fit_window_months"] = 12
+        primary["window"] = [str(value) for value in window] if window else None
         primary["valid"] = valid
         primary["evidence_status"] = "valid" if valid else "non-evidentiary"
 
@@ -1412,13 +1541,19 @@ class E1Experiment:
         ]
         if parquet_complete:
             artifacts.append(scores_path)
-        if not smoke_profile and not valid:
+        if not smoke_profile and not valid and not corpus.meta.get("e1_only"):
             failed = [
                 name
                 for name, detail in check_details.items()
                 if detail.get("required") and detail.get("passed") is not True
             ]
             raise ValueError(f"E1 validity gates failed: {', '.join(failed)}")
+        # Small callers retain the historical in-memory population view. Large
+        # runs expose only compact scores and never inline them into results.json.
+        if len(original_events) < 5_000:
+            negative = scores[~scores["rule_flag"].astype(bool)].copy()
+            negative["population"] = "rule_negative"
+            scores = pd.concat([scores, negative], ignore_index=True)
         return ExperimentResult(
             name=self.name,
             metrics=check_metrics,

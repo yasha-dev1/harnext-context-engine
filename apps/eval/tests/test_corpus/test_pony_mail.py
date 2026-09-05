@@ -35,3 +35,20 @@ def test_parse_stats_lua_json_count() -> None:
     stats = parse_stats_json(payload)
     assert stats_message_count(stats, "2026-01") == 3
 
+
+
+def test_mail_roster_matches_name_and_apache_local_part(tmp_path) -> None:
+    from harnext_eval.corpus.committers import CommitterRoster
+
+    roster = CommitterRoster([{"name": "Jun Rao", "apache_ids": ["junrao"], "github": []}])
+    assert roster.matches("mail:dev@kafka.apache.org", {"author_email": "junrao@apache.org"})
+    assert not roster.matches("mail:dev@kafka.apache.org", {"author_email": "junrao2@apache.org"})
+    path = tmp_path / "dev-2026-01.mbox"
+    path.write_text(
+        'From junrao@example.org Thu Jan 01 10:00:00 2026\n'
+        'From: Jun Rao <junrao@example.org>\n'
+        'Date: Thu, 01 Jan 2026 10:00:00 +0000\n'
+        'Message-ID: <test-roster@example.org>\nSubject: test\n\nbody\n'
+    )
+    events = parse_mbox(path, list_name="dev", domain="kafka.apache.org", month="2026-01")
+    assert (events[0].data or {})["is_committer"] is True

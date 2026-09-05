@@ -271,10 +271,18 @@ def _hotfix_reference(candidate: EvalEvent, events: Sequence[EvalEvent]) -> bool
     )
 
 
+def _is_ci_event(event: EvalEvent) -> bool:
+    """Only actual CI/check/status observations establish CI stream coverage."""
+    return _is_github(event) and bool(re.search(
+        r"(?:^|[._])(?:ci|check_run|check_suite|check|status)(?:[._]|$)",
+        event.type.casefold(),
+    ))
+
+
 def _is_trunk_failure(event: EvalEvent) -> bool:
-    text = f"{event.type} {_text(event)}"
+    text = _text(event)
     branch = str(_field(event, "branch", "ref") or "").casefold()
-    return ("ci" in text or "check" in text) and any(
+    return _is_ci_event(event) and any(
         token in text for token in ("fail", "failure", "failed")
     ) and branch in {"", "main", "master", "trunk", "refs/heads/main", "refs/heads/trunk"}
 
@@ -341,7 +349,10 @@ DEFAULT_LABELING_FUNCTIONS: tuple[LabelingFunction, ...] = (
 )
 
 
-_REFERENCE_TOKEN_RE = re.compile(r"[A-Za-z0-9_:#./-]+")
+_REFERENCE_TOKEN_RE = re.compile(
+    r"(?<![\w-])(?:kafka-\d+|flink-\d+|kip-\d+|#\d+|pr:\d+)(?![\w-])"
+    r"|[a-z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-z0-9.-]+", re.IGNORECASE
+)
 
 
 class _OutcomeIndex:
@@ -390,6 +401,7 @@ class _OutcomeIndex:
                 if index > candidate_index and self.events[index].time > candidate_time
             )
         )
+        self._cache.clear()  # only the current candidate is reused across its LFs
         self._cache[candidate_index] = result
         return result
 
@@ -417,6 +429,7 @@ def _apply_with_observability(
     ordered = sorted(events, key=lambda event: (event.time, event.id))
     index = _OutcomeIndex(ordered)
     default_outcomes = {function.outcome for function in DEFAULT_LABELING_FUNCTIONS}
+    ci_observed = any(_is_ci_event(event) for event in ordered)
     vote_rows: list[dict[str, int | str]] = []
     observed_rows: list[dict[str, bool | str]] = []
     for candidate_index, candidate in enumerate(ordered):
@@ -426,6 +439,8 @@ def _apply_with_observability(
             applicable = function.applies_to(candidate)
             complete = function.horizon is None or candidate.time + function.horizon <= observation_end
             observable = applicable and complete
+            if function.outcome is _trunk_failure_fixed and not ci_observed:
+                observable = False
             observed_row[function.name] = observable
             if not observable:
                 vote_row[function.name] = ABSTAIN

@@ -11,6 +11,7 @@ from typing import Any, BinaryIO, cast
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 
+from harnext_eval.corpus.committers import load_roster
 from harnext_eval.corpus.keys import contributor_key, derive_baseline_keys, issue_subject
 from harnext_eval.types import EvalEvent
 
@@ -47,7 +48,7 @@ def parse_issue(issue: Mapping[str, Any], *, mgtenant: str = "kafka") -> list[Ev
     if not isinstance(histories, list):
         raise ValueError(f"Jira issue {issue_key} changelog histories must be a list")
     creation_values = _creation_state(fields, histories)
-    _validate_export_state(issue_key, fields, histories)
+    inconsistencies = _validate_export_state(issue_key, fields, histories)
 
     components = _named_values(fields.get("components"))
     creator = _identity(fields.get("creator") or fields.get("reporter"))
@@ -66,6 +67,9 @@ def parse_issue(issue: Mapping[str, Any], *, mgtenant: str = "kafka") -> list[Ev
         "assignee": creation_values["assignee"],
         "reporter": _identity_value(fields.get("reporter")),
         "creator": creator.value,
+        "creator_name": creator.display_name,
+        "creator_account_id": creator.account_id,
+        "state_inconsistencies": inconsistencies,
         "fix_versions": creation_values["fixVersion"],
         "labels": fields.get("labels") if isinstance(fields.get("labels"), list) else [],
     }
@@ -153,7 +157,7 @@ def parse_issue(issue: Mapping[str, Any], *, mgtenant: str = "kafka") -> list[Ev
                 data=data,
             )
         )
-    return sorted(events, key=lambda event: (event.time, event.id))
+    return sorted((load_roster().stamp(event) for event in events), key=lambda event: (event.time, event.id))
 
 
 def iter_search_pages(
@@ -392,8 +396,10 @@ def _creation_state(fields: Mapping[str, Any], histories: list[Any]) -> dict[str
 
 def _validate_export_state(
     issue_key: str, fields: Mapping[str, Any], histories: list[Any]
-) -> None:
-    """Use the search snapshot only to check the changelog's export-time state."""
+) -> list[str]:
+    """Diagnose lossy exports; changelog values remain authoritative (§4.1)."""
+
+    del issue_key
 
     snapshot = _snapshot_state(fields)
     final = _creation_state(fields, histories)
@@ -408,11 +414,7 @@ def _validate_export_state(
         final[field] = _changelog_value(field, item, "to")
         changed.add(field)
     inconsistent = [field for field in sorted(changed) if final[field] != snapshot[field]]
-    if inconsistent:
-        joined = ", ".join(inconsistent)
-        raise ValueError(
-            f"Jira issue {issue_key} search snapshot disagrees with changelog final state: {joined}"
-        )
+    return inconsistent
 
 
 def _parse_time(value: str) -> datetime:
