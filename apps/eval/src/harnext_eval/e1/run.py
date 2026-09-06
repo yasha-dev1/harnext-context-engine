@@ -369,9 +369,42 @@ def _population_groups(frame: pd.DataFrame):
             yield (*identifiers, "rule_negative"), negative
 
 
+_WORKER_STATE: dict[str, Any] = {}
+
+
+def _init_worker(
+    tuning: list[EvalEvent],
+    evaluation: list[EvalEvent],
+    cfg: EngineConfig,
+    seed: int,
+    event_labels: dict[str, float],
+    constructed: bool,
+    caches: dict[bool, dict[str, list[FeatureVector]]],
+) -> None:
+    """Receive one month's inputs once per spawned worker (no parent-heap inheritance).
+
+    A forked worker copied the parent's whole, ever-growing heap through
+    copy-on-write (about 7 GB per worker by month 15); a spawned worker holds
+    only this month's events, labels and feature cache.
+    """
+
+    _WORKER_STATE.update(
+        tuning=tuning, evaluation=evaluation, cfg=cfg, seed=seed,
+        event_labels=event_labels, constructed=constructed,
+    )
+    _FEATURE_CACHE.clear()
+    _FEATURE_CACHE.update(caches)
+
+
 def _policy_month(args):
-    name, tuning, evaluation, cfg, seed, event_labels, constructed, *selection = args
-    budgets = selection[0] if selection else _BUDGETS
+    if len(args) == 2:
+        name, budgets = args
+        state = _WORKER_STATE
+        tuning, evaluation, cfg, seed = state["tuning"], state["evaluation"], state["cfg"], state["seed"]
+        event_labels, constructed = state["event_labels"], state["constructed"]
+    else:
+        name, tuning, evaluation, cfg, seed, event_labels, constructed, *selection = args
+        budgets = selection[0] if selection else _BUDGETS
     parts = []
     budget_scores = {}
     guarded = name in GUARDED_POLICIES
@@ -385,7 +418,13 @@ def _policy_month(args):
         scored["label"] = scored["p_urgent"]
         scored["constructed_label"] = constructed
         part = _admit_month(scored, name=name, budget=budget, tuning_scores=tuning_scores)
-        parts.append(part[part["population"] == "full"].copy())
+        part = part[part["population"] == "full"].copy()
+        # Compact the per-event feature payload here, in the worker: one JSON
+        # string per row instead of a ~20-key dict kept alive for 15M rows.
+        part["features_fired"] = part["features_fired"].map(
+            lambda value: value if isinstance(value, str) else json.dumps(value, sort_keys=True, default=str)
+        )
+        parts.append(part)
     return pd.concat(parts, ignore_index=True)
 
 
@@ -569,7 +608,7 @@ def _score_chunk(frame: pd.DataFrame) -> pd.DataFrame:
     serializable = frame.drop(columns="population").copy()
     serializable["rule_negative"] = ~serializable["rule_flag"].astype(bool)
     serializable["features_fired"] = serializable["features_fired"].map(
-        lambda value: json.dumps(value, sort_keys=True, default=str)
+        lambda value: value if isinstance(value, str) else json.dumps(value, sort_keys=True, default=str)
     )
     return serializable
 
@@ -604,6 +643,16 @@ def _write_scores(frame: pd.DataFrame, path: Path) -> bool:
     return True
 
 
+def _features_dict(value: Any) -> dict[str, Any]:
+    if isinstance(value, str):
+        try:
+            loaded = json.loads(value)
+        except ValueError:
+            return {}
+        return loaded if isinstance(loaded, dict) else {}
+    return value if isinstance(value, dict) else {}
+
+
 def _write_attribution(scores: pd.DataFrame, path: Path) -> None:
     lines = ["# E1 feature attribution", ""]
     for policy in ("R5", "R8"):
@@ -616,14 +665,14 @@ def _write_attribution(scores: pd.DataFrame, path: Path) -> None:
             & (scores["label"] >= 0.5)
         ].drop_duplicates("event_id")
         totals: dict[str, float] = {}
-        for features in selected["features_fired"]:
+        for features in selected["features_fired"].map(_features_dict):
             for name, value in features.get("hbos_terms", {}).items():
                 totals[name] = totals.get(name, 0.0) + float(value)
         lines.extend([f"## {policy}: HBOS contributions on true-positive deviation admissions", ""])
         lines.extend(f"- {name}: {value:.6f}" for name, value in sorted(totals.items(), key=lambda item: -item[1]))
         lines.extend(["", f"### {policy}: audited cases", ""])
         for _, row in selected.head(10).iterrows():
-            terms = row["features_fired"].get("hbos_terms", {})
+            terms = _features_dict(row["features_fired"]).get("hbos_terms", {})
             leading = sorted(terms.items(), key=lambda item: -float(item[1]))[:3]
             lines.append(f"- `{row['event_id']}` ({row['subject']}): {leading}")
         if selected.empty:
@@ -1267,28 +1316,35 @@ class E1Experiment:
             folded_months.update(_month(event) for event in new_events)
             # R5 refits independently at each budget; distribute those jobs
             # too, so one worker does not serialize all four expensive fits.
-            jobs = [
-                (name, tuning, evaluation, cfg, seed + month_index, event_labels,
-                 exact_labels is not None, budgets)
+            selections = [
+                (name, budgets)
                 for name in _POLICIES
                 for budgets in ([(budget,) for budget in _BUDGETS] if name in GUARDED_POLICIES else [_BUDGETS])
             ]
             workers = int(corpus.meta.get("e1_workers", os.environ.get("HARNEXT_E1_WORKERS", "4")))
-            if len(events) >= 5_000 and workers > 1 and "fork" in multiprocessing.get_all_start_methods():
-                # Fork shares this month's immutable feature cache; each policy
+            if len(events) >= 5_000 and workers > 1:
+                # Spawned workers receive this month's inputs once through the
+                # initializer and never inherit the parent's heap. Each policy
                 # fits its own model and guard state. Bound BLAS threads externally.
-                # Freeze the collector so a worker's cyclic GC never walks the
-                # inherited parent heap (that copy-on-write duplicated the growing
-                # score tables into every worker: ~7 GB x workers at month 15).
+                context = multiprocessing.get_context(
+                    "forkserver" if "forkserver" in multiprocessing.get_all_start_methods() else "spawn"
+                )
+                month_labels = {event.id: event_labels[event.id] for event in [*tuning, *evaluation] if event.id in event_labels}
+                with ProcessPoolExecutor(
+                    max_workers=workers,
+                    mp_context=context,
+                    initializer=_init_worker,
+                    initargs=(tuning, evaluation, cfg, seed + month_index, month_labels,
+                              exact_labels is not None, _FEATURE_CACHE),
+                ) as pool:
+                    score_pieces.extend(pool.map(_policy_month, selections))
                 gc.collect()
-                gc.freeze()
-                try:
-                    with ProcessPoolExecutor(max_workers=workers, mp_context=multiprocessing.get_context("fork")) as pool:
-                        score_pieces.extend(pool.map(_policy_month, jobs))
-                finally:
-                    gc.unfreeze()
             else:
-                score_pieces.extend(_policy_month(job) for job in jobs)
+                score_pieces.extend(
+                    _policy_month((name, tuning, evaluation, cfg, seed + month_index, event_labels,
+                                   exact_labels is not None, budgets))
+                    for name, budgets in selections
+                )
             print(f"E1 scored {month} ({len(evaluation)} events; fit {len(tuning)})", flush=True)
         _FEATURE_CACHE.clear()
         if not score_pieces:
