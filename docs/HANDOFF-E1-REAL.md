@@ -14,7 +14,8 @@ laptop that produced it.
 | 4a. Corpus R-long built (Kafka JIRA + dev@ + GitHub API, 2019-01 → 2026-06) | **done** — 629,458 events, SHA `397da1ac…f8a28` |
 | 4b. E1 run 1 on the primary window 2022-01 → 2026-07 | **done, exploratory/invalid** — see `apps/eval/REPORT-E1-KAFKA.md` |
 | 4c. Independent review of run 1 | **done** — `apps/eval/STATUS/REVIEW-E1-KAFKA.md`, 10 findings, 2 blockers |
-| 4d. Amendments + run 2 (registered `apps/eval/PREREG-run2.md`) | **running on the laptop since 09:25, ETA ≈ 11:30** |
+| 4d. Amendments + run 2 (registered `apps/eval/PREREG-run2.md`) | **done** — verdict unchanged; `apps/eval/reports/e1-kafka-run2/`, §0 of `REPORT-E1-KAFKA.md` |
+| 4e. Label-fusion sensitivity, human sanity-sample sheets | **done** — `reports/e1-kafka-label-sensitivity/`, `reports/e1-kafka-human-sample/annotation_sheet.csv` (200 items, two annotator columns) |
 | 5. Evidentiary runs for E2–E6 | not started |
 
 ## 2. Run 1 result in one paragraph
@@ -84,13 +85,21 @@ Outputs: `apps/eval/out/<ts>-e1-kafka/e1/seed-1/{results.json,metrics.csv,label_
 validity.csv,calibration.csv,robustness.csv,scores.parquet}` and `report.html`. Copy the small
 files into `apps/eval/reports/e1-kafka-run2/` and commit them; `scores.parquet` (100 MB) stays out.
 
-## 6. Decisions still open (Yasha)
+## 6. Run 2 in one line
+
+Rule share 2.32 % → 1.55 %, infeasible months at 2 % 33 → 13, positives 378 → 815; R5 still 0.000
+(R2 0.108, random 0.010); R5 − R2 = −0.092 [−0.115, −0.072]; calibration inverted (ρ = −0.53).
+The guards, not the budget, are the binding constraint. Non-evidentiary until the human sample
+and remediation record exist.
+
+## 7. Decisions still open (Yasha)
 
 1. **Label definition.** Registered: weighted model, p ≥ 0.5 → 0.11 % prevalence. Sensitivity job
    output (`apps/eval/out/label-sensitivity/fusion_prevalence.csv` on the laptop) gives prevalence
-   under: model minus bad LF; any outcome LF; ≥ 2 outcome LFs; ≥ half; strict majority. The spec's
-   remedy is the human sanity sample (100 top rule-negative events, two annotators, κ) — do it
-   before changing the label model, then register run 3 if it changes.
+   under: registered model 0.23 %; strict majority 0.81 %; ≥ 2 outcome LFs 3.2 %; ≥ half 3.9 %;
+   any outcome LF 18.6 % (committed in `reports/e1-kafka-label-sensitivity/`). **Next action:**
+   annotate `reports/e1-kafka-human-sample/annotation_sheet.csv` (two people, yes/no/unsure), then
+   score κ with `annotation_key.csv` as described in its README; pick the label rule; register run 3.
 2. **If run 2 still shows R5 ≤ random:** C1 as designed is falsified. Next are two *new*
    pre-registered policies: budgeted (non-mandatory) rule floor; guard-free scoring on
    low-density entities. Do not tune R5's guards on these months.

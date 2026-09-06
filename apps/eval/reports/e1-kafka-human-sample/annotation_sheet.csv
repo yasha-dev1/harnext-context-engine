@@ -1,0 +1,2773 @@
+item,sheet,event_id,subject,source,t,type,title,body,annotator_1,annotator_2
+1,A_top_r5,github:api:apache/kafka:commit-97c8c6b595bbff31b06e457aa08131965c845040,issue:KAFKA-19733,github,2025-09-25 15:37:02+00:00,com.github.push,,KAFKA-19733 Fix arguments to assertEquals() in clients module (#20586),,
+2,A_top_r5,mail:756f8cc31c107c66e0bb3799,thread:CAGa7TviCVzBA7q+aHOMfPLmQixs95jOtaig2eTbTchSofOR0eQ@mail.gmail.com,mail,2025-02-12 00:57:34+00:00,org.apache.mail.message,Re: [DISCUSS] KIP-890 Server Side Defense,"Thanks Calvin,
+
+The changes make sense to me. Can we add the defaults to the KIP page as
+well? Thanks!
+
+Justine
+
+On Tue, Feb 11, 2025 at 3:27 PM Calvin Liu <caliu@confluent.io.invalid>
+wrote:
+
+> Hi Jun,
+> Thanks for the feedback, will update the name as suggested.
+> The default values are
+> add.partitions.to.txn.retry.backoff.ms=20
+> -- This is because the client side AddPartitionsToTxn retry backoff is
+> 20ms.
+> add.partitions.to.txn.retry.backoff.max.ms=100
+> -- We want this value to be small to avoid client side timeout and retry,
+> but also long enough for the markers to propagate.
+>
+>
+> On Tue, Feb 11, 2025 at 2:36 PM Jun Rao <jun@confluent.io.invalid> wrote:
+>
+> > Hi, Calvin,
+> >
+> > Thanks for the update. The change looks good to me. Some minor comments.
+> >
+> > For retry timeout, our convention is to use retry.backoff.max.ms and
+> > retry.backoff.ms. So, to be consistent, the new configurations should be
+> > add.partitions.to.txn.retry.backoff.max.ms and
+> > add.partitions.to.txn.retry.backoff.ms.
+> >
+> > Also, could you specify the defaults for these two values?
+> >
+> > Thanks,
+> >
+> > Jun
+> >
+> >
+> >
+> >
+> > On Mon, Feb 10, 2025 at 2:45 PM Calvin Liu <caliu@confluent.io.i",,
+3,A_top_r5,mail:76d2f13d04c9065a17bdd9d4,thread:PR_kwDOMRGlbM50s5_Y@gitbox.apache.org,mail,2024-07-08 14:09:30+00:00,org.apache.mail.message,[PR] ISSUE-1003 Add a failing change [kafka-merge-queue-sandbox],"mumrah opened a new pull request, #11:
+URL: https://github.com/apache/kafka-merge-queue-sandbox/pull/11
+
+   This should hopefully not be able to merge
+
+
+-- 
+This is an automated message from the Apache Git Service.
+To respond to the message, please log on to GitHub and use the
+URL above to go to the specific comment.
+
+To unsubscribe, e-mail: dev-unsubscribe@kafka.apache.org
+
+For queries about this service, please contact Infrastructure at:
+users@infra.apache.org",,
+4,B_label_audit,github:api:apache/kafka:review-comment-PRRC_kwDOACG9q87Jc6x_,pr:22356,github,2026-06-09 10:16:06+00:00,com.github.review_comment,KAFKA-20601: Allow static member rejoin when consumer group is full.,"@dajac 
+I don't think we should remove it. This follows the existing test pattern(for examplle, `testReplaceStaticMemberInStableStateSucceeds`) where we complete the append future to simulate a successful log append before asserting that the response future is done. Without this line, the join future is not completed in this path. 
+
+What do you think?",,
+5,B_label_audit,mail:4037c3c2c7ecaa4a193c4e26,thread:CANd744xqqQ8HPuHphSdSTpzkf40-naE5VH7h_EShRB=xzGVd3w@mail.gmail.com,mail,2023-08-20 22:14:04+00:00,org.apache.mail.message,Re: requesting permissions to contribute to Apache Kafka,"Hey Neil,
+
+I've given you permissions for wiki access. You should be able to create a
+KIP now. Let me know if you have any other issues.
+
+Justine
+
+On Sun, Aug 20, 2023 at 5:46 AM Neil Buesing <buesing.dev@gmail.com> wrote:
+
+> Wiki ID: neil.buesing
+>
+> JIRA ID: nbuesing
+>
+> when I click on the signup link through in the KIP page I get the following
+> message
+> --
+> (Public signup for this instance is disabled. Go to our Self serve sign up
+> page to request an account.)
+> >You can't sign up right now
+> --
+> I am not sure if I have to go through that process or if someone allows
+> 'nbuesing' account to have access.
+>
+> Thanks,
+> Neil
+>",,
+6,B_label_audit,github:api:apache/kafka:review-PRR_kwDOACG9q85bLr1Z,pr:14011,github,2023-07-14 07:35:36+00:00,com.github.review,MINOR: Fix MiniKdc Java 17 issue in system tests,,,
+7,A_top_r5,mail:5f22d02c369d75eda80c2e80,thread:JIRA.13579129.1715622213000@Atlassian.JIRA,mail,2024-05-13 17:44:00+00:00,org.apache.mail.message,"[jira] [Created] (KAFKA-16750) Implement acknowledge API in
+ SharePartitionManager","Apoorv Mittal created KAFKA-16750:
+-------------------------------------
+
+             Summary: Implement acknowledge API in SharePartitionManager
+                 Key: KAFKA-16750
+                 URL: https://issues.apache.org/jira/browse/KAFKA-16750
+             Project: Kafka
+          Issue Type: Sub-task
+            Reporter: Apoorv Mittal
+            Assignee: Chirag Wadhwa
+
+
+
+
+
+
+--
+This message was sent by Atlassian Jira
+(v8.20.10#820010)",,
+8,A_top_r5,mail:ee6a11bb4e5bff097671ec05,thread:PR_kwDOMRGlbM50t7TH@gitbox.apache.org,mail,2024-07-08 16:17:46+00:00,org.apache.mail.message,[PR] add PARALLEL2 [kafka-merge-queue-sandbox],"mumrah opened a new pull request, #27:
+URL: https://github.com/apache/kafka-merge-queue-sandbox/pull/27
+
+   (no comment)
+
+
+-- 
+This is an automated message from the Apache Git Service.
+To respond to the message, please log on to GitHub and use the
+URL above to go to the specific comment.
+
+To unsubscribe, e-mail: dev-unsubscribe@kafka.apache.org
+
+For queries about this service, please contact Infrastructure at:
+users@infra.apache.org",,
+9,A_top_r5,mail:ff394a7bccd3365073eed21b,thread:JIRA.13642401.1771413410000@Atlassian.JIRA,mail,2026-04-08 18:59:00+00:00,org.apache.mail.message,"[jira] [Resolved] (KAFKA-20194) DSL Opt-in Support for Header-Aware
+ State Stores","[ https://issues.apache.org/jira/browse/KAFKA-20194?page=com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel ]
+
+Matthias J. Sax resolved KAFKA-20194.
+-------------------------------------
+    Resolution: Fixed
+
+Resolving this one for AK 4.3 release (so it's tracked properly in the release notes). Created https://issues.apache.org/jira/browse/KAFKA-20420 for AK 4.4 follow ups.
+
+> DSL Opt-in Support for Header-Aware State Stores
+> ------------------------------------------------
+>
+>                 Key: KAFKA-20194
+>                 URL: https://issues.apache.org/jira/browse/KAFKA-20194
+>             Project: Kafka
+>          Issue Type: New Feature
+>          Components: streams
+>            Reporter: Alieh Saeedi
+>            Assignee: Alieh Saeedi
+>            Priority: Major
+>              Labels: kip
+>             Fix For: 4.3.0
+>
+>
+> Allow DSL users to leverage the header-aware stores introduced by KIP-1271: [https://cwiki.apache.org/confluence/display/KAFKA/KIP-1285%3A+DSL+Opt-in+Support+for+Header-Aware+State+Stores]
+>  
+
+
+
+--
+This message was sent by Atlassian Jira
+(v8.20.10#820010)",,
+10,B_label_audit,github:api:apache/kafka:review-PRR_kwDOACG9q86eotd8,pr:19115,github,2025-03-05 15:18:51+00:00,com.github.review,HOTFIX client java doc compile error,,,
+11,B_label_audit,github:api:apache/kafka:review-PRR_kwDOACG9q87V5QI_,pr:21165,github,2025-12-17 16:25:52+00:00,com.github.review,MINOR: code cleanup in InternalTopicManager,"LGTM, thanks",,
+12,A_top_r5,mail:c51f9139f9525b59f545ff0f,thread:PR_kwDOAnbs784tgWEx@gitbox.apache.org,mail,2024-06-17 15:43:42+00:00,org.apache.mail.message,Re: [PR] Selected Kafka Americas 2021 presentations [kafka-site],"mjsax closed pull request #378: Selected Kafka Americas 2021 presentations
+URL: https://github.com/apache/kafka-site/pull/378
+
+
+-- 
+This is an automated message from the Apache Git Service.
+To respond to the message, please log on to GitHub and use the
+URL above to go to the specific comment.
+
+To unsubscribe, e-mail: dev-unsubscribe@kafka.apache.org
+
+For queries about this service, please contact Infrastructure at:
+users@infra.apache.org",,
+13,A_top_r5,mail:d25d095542e691f379e7af17,thread:JIRA.13271348.1575018294000@Atlassian.JIRA,mail,2023-02-24 19:35:00+00:00,org.apache.mail.message,"[jira] [Resolved] (KAFKA-9250) Kafka streams stuck in rebalancing
+ state after UnknownHostException","[ https://issues.apache.org/jira/browse/KAFKA-9250?page=com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel ]
+
+Matthias J. Sax resolved KAFKA-9250.
+------------------------------------
+    Resolution: Fixed
+
+> Kafka streams stuck in rebalancing state after UnknownHostException
+> -------------------------------------------------------------------
+>
+>                 Key: KAFKA-9250
+>                 URL: https://issues.apache.org/jira/browse/KAFKA-9250
+>             Project: Kafka
+>          Issue Type: Bug
+>          Components: clients, config, network, streams
+>    Affects Versions: 2.2.0
+>            Reporter: Vijay
+>            Priority: Critical
+>
+> We are using kafka streams (2.2.0) application for reading messages from source topic do some transformation and send to destination topic. Application started fine and processed messages till it encountered UnknownHostException, after which application is hung in rebalancing state and not processing messages.
+>  
+> Below are the properties we have configured :
+> application.id = *****
+> bootstrap.servers = ""hostname1:port1,hostname2:port2,hostname3:port3""
+> num.stream.threads=3
+> replication.factor=3
+> num.standby.replica",,
+14,A_top_r5,github:api:apache/kafka:commit-ee71156295fd32927644ac10771fd60c3d23d63d,issue:KAFKA-17332,github,2024-08-20 00:44:23+00:00,com.github.push,,KAFKA-17332; Controller always flush and can call resign on observers…,,
+15,B_label_audit,jira:13558125:change:22355517:1,issue:KAFKA-15835,jira,2025-01-13 14:02:31.576000+00:00,org.apache.jira.issue.transition,Group commit/callbacks triggering logic,"issuetype: Sub-task → Improvement
+The new consumer reconciliation logic triggers a commit request, revocation callback and assignment callbacks sequentially to ensure that they are executed in that order. This means that we could require multiple iterations of the poll loop to complete reconciling an assignment. 
+
+We could consider triggering them all together, to be executed in the same poll iteration, while still making sure that they are executed in the right order. Note that the sequence sometimes should not block on failures (ex. if commit fails revocation proceeds anyways), and other times it does block (if revocation callbacks fail onPartitionsAssigned is not called).
+
+As part of this task, review the time boundaries for the commit request issued when the assignment changes. It will be effectively time bounded by the rebalance timeout enforced by the broker, so initial approach is to use the same rebalance timeout as boundary on the client. ",,
+16,B_label_audit,github:api:apache/kafka:review-comment-PRRC_kwDOACG9q85odc6J,pr:17046,github,2024-09-10 18:54:47+00:00,com.github.review_comment,KAFKA-17347: Add missing client-metrics option to kafka-configs.sh,`groups` seems have similar issue.,,
+17,B_label_audit,mail:e1c2828143e5d7df3b56f9db,thread:CAOJ18G5P62TCdtpZ+gkkAYG2jER5oQuvR7mZBMaWdAiCMHs8fA@mail.gmail.com,mail,2023-12-22 12:31:48+00:00,org.apache.mail.message,[DISCUSS] KIP-1012: The need for a Kafka 3.8.x release,"Hi all!
+As agreed on the ""Road to Kafka 4.0"" email thread, I created KIP-1012 to
+discuss and I'd like to open it up for discussion:
+https://cwiki.apache.org/confluence/display/KAFKA/KIP-1012%3A+The+need+for+a+Kafka+3.8.x+release
+
+Let's use this KIP to:
+a) Leave a papertrail agreement for the need of a 3.8 version
+b) Define which KIPs are the must-haves in regards to KRaft that should be
+included there.
+
+Please let me know your feedback and suggestions.
+
+Best,
+
+-- 
+[image: Aiven] <https://www.aiven.io>
+
+*Josep Prat*
+Open Source Engineering Director, *Aiven*
+josep.prat@aiven.io   |   +491715557497
+aiven.io <https://www.aiven.io>   |   <https://www.facebook.com/aivencloud>
+  <https://www.linkedin.com/company/aiven/>   <https://twitter.com/aiven_io>
+*Aiven Deutschland GmbH*
+Alexanderufer 3-7, 10117 Berlin
+Geschäftsführer: Oskari Saarenmaa & Hannu Valtonen
+Amtsgericht Charlottenburg, HRB 209739 B",,
+18,A_top_r5,mail:7c6ed1b0b14ec0ab529cb1d8,thread:PR_kwDOMRGlbM50tTOS@gitbox.apache.org,mail,2024-07-08 14:54:18+00:00,org.apache.mail.message,[PR] ISSUE-1011 adding BATCH2 [kafka-merge-queue-sandbox],"mumrah opened a new pull request, #17:
+URL: https://github.com/apache/kafka-merge-queue-sandbox/pull/17
+
+   (no comment)
+
+
+-- 
+This is an automated message from the Apache Git Service.
+To respond to the message, please log on to GitHub and use the
+URL above to go to the specific comment.
+
+To unsubscribe, e-mail: dev-unsubscribe@kafka.apache.org
+
+For queries about this service, please contact Infrastructure at:
+users@infra.apache.org",,
+19,B_label_audit,jira:13555518:change:21729992:0,issue:KAFKA-15684,jira,2023-12-06 19:09:46.645000+00:00,org.apache.jira.issue.transition,Add support to describe all subscriptions through utility,"RemoteIssueLink: This issue links to ""GitHub Pull Request #14933 (Web Link)"" → This issue links to ""GitHub Pull Request #14933 (Web Link)""
+Open PR to support client-metrics through kafka-configs.sh doesn't list all subscriptions. The functionality is missing because of missing support to list client subscription in config repository and admin client. This task should provide a workaround to fetch all subscriptions from config repository by adding a method in KRaftMetadataCache. Later a KIP might be needed to add support in AdminClient.",,
+20,A_top_r5,mail:80e95caa79b0f4743ddb7eea,thread:JIRA.13648421.1776450296000@Atlassian.JIRA,mail,2026-04-17 18:25:00+00:00,org.apache.mail.message,"[jira] [Created] (KAFKA-20473) KIP-892: Wire uncommitted bytes
+ through metered store wrappers and add metric","Bill Bejeck created KAFKA-20473:
+-----------------------------------
+
+             Summary: KIP-892: Wire uncommitted bytes through metered store wrappers and add metric
+                 Key: KAFKA-20473
+                 URL: https://issues.apache.org/jira/browse/KAFKA-20473
+             Project: Kafka
+          Issue Type: Sub-task
+            Reporter: Bill Bejeck
+
+
+Add uncommitted-state-bytes gauge metric and wire approximateNumUncommittedBytes() through all metered wrappers.
+
+- StateStoreMetrics.java — new uncommitted-state-bytes gauge
+- MeteredKeyValueStore, MeteredSessionStore, MeteredWindowStore, MeteredVersionedKeyValueStore
+- Headers-enabled metered wrappers (KIP-1271):
+  - MeteredTimestampedKeyValueStoreWithHeaders
+  - MeteredTimestampedWindowStoreWithHeaders
+  - MeteredSessionStoreWithHeaders
+
+
+
+--
+This message was sent by Atlassian Jira
+(v8.20.10#820010)",,
+21,A_top_r5,mail:adf8c98fc80cd612d25155b3,thread:JIRA.13648430.1776450352000@Atlassian.JIRA,mail,2026-04-17 18:26:00+00:00,org.apache.mail.message,"[jira] [Created] (KAFKA-20482) KIP-892: Wire isolation level
+ through KafkaStreams, StreamThread, and IQ","Bill Bejeck created KAFKA-20482:
+-----------------------------------
+
+             Summary: KIP-892: Wire isolation level through KafkaStreams, StreamThread, and IQ
+                 Key: KAFKA-20482
+                 URL: https://issues.apache.org/jira/browse/KAFKA-20482
+             Project: Kafka
+          Issue Type: Sub-task
+            Reporter: Bill Bejeck
+
+
+Top-level wiring and Interactive Query isolation.
+
+- KafkaStreams.java — isolation level wiring
+- StreamThread.java — thread-level changes
+- TopologyMetadata.java — metadata propagation
+- AbstractReadOnlyDecorator, StoreToProcessorContextAdapter — decorators/adapters
+- StoreQueryUtils.java — IQ reads committed-only data (IQ threads read RocksDB directly, not the batch)
+- TaskCorruptedException.java — minor exception change
+
+
+
+--
+This message was sent by Atlassian Jira
+(v8.20.10#820010)",,
+22,A_top_r5,mail:b91456796ed3967113da3ce4,thread:JIRA.13582875.1718625422000@Atlassian.JIRA,mail,2024-06-17 12:05:00+00:00,org.apache.mail.message,"[jira] [Resolved] (KAFKA-16979) Prepare Docker Official Image
+ Source for 3.7.0 release","[ https://issues.apache.org/jira/browse/KAFKA-16979?page=com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel ]
+
+Krish Vora resolved KAFKA-16979.
+--------------------------------
+    Resolution: Done
+
+> Prepare Docker Official Image Source for 3.7.0 release
+> ------------------------------------------------------
+>
+>                 Key: KAFKA-16979
+>                 URL: https://issues.apache.org/jira/browse/KAFKA-16979
+>             Project: Kafka
+>          Issue Type: Sub-task
+>    Affects Versions: 3.7.0
+>            Reporter: Krish Vora
+>            Assignee: Krish Vora
+>            Priority: Major
+>
+> Provide the image type and kafka version to {{Docker Prepare Docker Official Image Source}} workflow. It will generate a artifact containing the static Dockerfile and assets for that specific version. Download the same from the workflow.
+> image_type: jvm
+> kafka_version: 3.7.0
+>  
+
+
+
+--
+This message was sent by Atlassian Jira
+(v8.20.10#820010)",,
+23,A_top_r5,mail:94f4c39e7cfc250bbcf820ae,thread:JIRA.13628910.1757927831000@Atlassian.JIRA,mail,2026-03-19 10:27:00+00:00,org.apache.mail.message,"[jira] [Resolved] (KAFKA-19712) Implement new behaviour in
+ ProcessorStateManager","[ https://issues.apache.org/jira/browse/KAFKA-19712?page=com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel ]
+
+Nicholas Telford resolved KAFKA-19712.
+--------------------------------------
+    Resolution: Fixed
+
+> Implement new behaviour in ProcessorStateManager
+> ------------------------------------------------
+>
+>                 Key: KAFKA-19712
+>                 URL: https://issues.apache.org/jira/browse/KAFKA-19712
+>             Project: Kafka
+>          Issue Type: Sub-task
+>          Components: streams
+>            Reporter: Nicholas Telford
+>            Assignee: Nicholas Telford
+>            Priority: Major
+>
+> Update {{ProcessorStateManager}} to start passing offsets to {{StateStore#commit}} and loading offsets using {{{}StateStore#getCommittedOffsets{}}}.
+
+
+
+--
+This message was sent by Atlassian Jira
+(v8.20.10#820010)",,
+24,A_top_r5,github:api:apache/kafka:commit-23e2af1e0f721a38014315cae4b336114b223346,issue:KAFKA-20192,github,2026-02-27 09:07:22+00:00,com.github.push,,KAFKA-20192: Fix brittle logic in ReconfigurableQuorumIntegrationTest…,,
+25,A_top_r5,mail:b485150737c80122d994f8e3,thread:JIRA.13643965.1772703129000@Atlassian.JIRA,mail,2026-03-19 10:27:00+00:00,org.apache.mail.message,"[jira] [Resolved] (KAFKA-20257) Implement new behaviour in
+ GlobalStateManagerImpl","[ https://issues.apache.org/jira/browse/KAFKA-20257?page=com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel ]
+
+Nicholas Telford resolved KAFKA-20257.
+--------------------------------------
+      Assignee: Nicholas Telford
+    Resolution: Fixed
+
+> Implement new behaviour in GlobalStateManagerImpl
+> -------------------------------------------------
+>
+>                 Key: KAFKA-20257
+>                 URL: https://issues.apache.org/jira/browse/KAFKA-20257
+>             Project: Kafka
+>          Issue Type: Sub-task
+>          Components: streams
+>            Reporter: Nicholas Telford
+>            Assignee: Nicholas Telford
+>            Priority: Major
+>
+
+
+
+
+--
+This message was sent by Atlassian Jira
+(v8.20.10#820010)",,
+26,B_label_audit,jira:13548464:change:21542757:0,issue:KAFKA-15399,jira,2023-08-25 09:56:48.273000+00:00,org.apache.jira.issue.transition,Enable OffloadAndConsumeFromLeader test,"RemoteIssueLink: This issue links to ""GitHub Pull Request #14285 (Web Link)"" → This issue links to ""GitHub Pull Request #14285 (Web Link)""
+Build / JDK 17 and Scala 2.13 / initializationError – org.apache.kafka.tiered.storage.integration.OffloadAndConsumeFromLeaderTest",,
+27,A_top_r5,mail:fa1a479314515fa29c4f0da5,thread:PR_kwDOAnbs785O3IIu@gitbox.apache.org,mail,2023-04-21 15:21:42+00:00,org.apache.mail.message,[GitHub] [kafka-site] machi1990 closed pull request #504: KAFKA-10883: link to get started in the top navigation header,"machi1990 closed pull request #504: KAFKA-10883: link to get started in the top navigation header
+URL: https://github.com/apache/kafka-site/pull/504
+
+
+-- 
+This is an automated message from the Apache Git Service.
+To respond to the message, please log on to GitHub and use the
+URL above to go to the specific comment.
+
+To unsubscribe, e-mail: dev-unsubscribe@kafka.apache.org
+
+For queries about this service, please contact Infrastructure at:
+users@infra.apache.org",,
+28,A_top_r5,github:api:apache/kafka:commit-34c158f67f3d583b758bd134b43737edfa3fa017,contributor:e63c28dbebcb,github,2024-09-24 11:29:11+00:00,com.github.push,,MINOR: Replace gt and lt char with html encoding (#17235),,
+29,B_label_audit,jira:13545604:change:21628297:0,issue:KAFKA-15278,jira,2023-10-04 17:43:37.872000+00:00,org.apache.jira.issue.transition,Implement client support for KIP-848 ConsumerGroupHeartbeat protocol RPC,"RemoteIssueLink: This issue links to ""GitHub Pull Request #14364 (Web Link)"" → This issue links to ""GitHub Pull Request #14364 (Web Link)""
+The necessary Java code that represents the {{ConsumerGroupHeartbeatRequest}} and {{ConsumerGroupHeartbeatResponse}} are already present in the codebase. It is assumed that the scaffolding for the other two will come along in time.
+ * Implement {{ConsumerGroupRequestManager}}
+ * Ensure that {{DefaultBackgroundThread}} correctly calculates I/O timeouts so that the heartbeat occurs within the {{group.consumer.session.timeout.ms}} interval regardless of other {{RequestManager}} instance activity
+ * Ensure error is handled correctly
+ * Ensure MembershipStateManager is updated on both successful and failures cases, and the state machine is transioned to the correct state.
+
+This task is part of the work to implement support for the new KIP-848 consumer group protocol.",,
+30,A_top_r5,mail:bdfe47790305390ea420757c,thread:JIRA.13582037.1717844709000@Atlassian.JIRA,mail,2024-08-06 19:12:00+00:00,org.apache.mail.message,[jira] [Resolved] (KAFKA-16919) Flaky test  testNoCheckpointsIfNoRecordsAreMirrored() – org.apache.kafka.connect.mirror.integration.MirrorConnectorsIntegrationSSLTest,"[ https://issues.apache.org/jira/browse/KAFKA-16919?page=com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel ]
+
+Chris Egerton resolved KAFKA-16919.
+-----------------------------------
+    Fix Version/s: 4.0.0
+       Resolution: Fixed
+
+> Flaky test  testNoCheckpointsIfNoRecordsAreMirrored() – org.apache.kafka.connect.mirror.integration.MirrorConnectorsIntegrationSSLTest
+> --------------------------------------------------------------------------------------------------------------------------------------
+>
+>                 Key: KAFKA-16919
+>                 URL: https://issues.apache.org/jira/browse/KAFKA-16919
+>             Project: Kafka
+>          Issue Type: Test
+>            Reporter: Igor Soarez
+>            Priority: Minor
+>             Fix For: 4.0.0
+>
+>
+> Source [https://ci-builds.apache.org/blue/organizations/jenkins/Kafka%2Fkafka-pr/detail/PR-16251/1/tests]
+>  
+> {code:java}
+> java.lang.AssertionError: Workers of backup-connect-cluster did not start in time.
+>     at org.apache.kafka.connect.util.clusters.ConnectAssertions.assertAtLeastNumWorkersAreUp(ConnectAssertions.java:74)
+>     at org.apache.kafka.connect.mirror.integration.MirrorConnectorsIntegrationBaseT",,
+31,A_top_r5,mail:8c4b84292bcd93aecdbfe2bf,thread:JIRA.13638629.1767988682000@Atlassian.JIRA,mail,2026-04-08 18:59:00+00:00,org.apache.mail.message,"[jira] [Resolved] (KAFKA-20056) Allow to Store Record Headers in
+ State Stores","[ https://issues.apache.org/jira/browse/KAFKA-20056?page=com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel ]
+
+Matthias J. Sax resolved KAFKA-20056.
+-------------------------------------
+    Resolution: Fixed
+
+I am resolving this ticket, so it's properly tracked in the AK 4.3 release notes. Created https://issues.apache.org/jira/browse/KAFKA-20421 as follow up.
+
+> Allow to Store Record Headers in State Stores
+> ---------------------------------------------
+>
+>                 Key: KAFKA-20056
+>                 URL: https://issues.apache.org/jira/browse/KAFKA-20056
+>             Project: Kafka
+>          Issue Type: New Feature
+>          Components: streams
+>            Reporter: Alieh Saeedi
+>            Assignee: Alieh Saeedi
+>            Priority: Major
+>              Labels: kip
+>             Fix For: 4.3.0
+>
+>
+> [KIP-1271|https://cwiki.apache.org/confluence/display/KAFKA/KIP-1271%3A+Allow+to+Store+Record+Headers+in+State+Stores]
+
+
+
+--
+This message was sent by Atlassian Jira
+(v8.20.10#820010)",,
+32,B_label_audit,jira:13656197:change:23127138:0,issue:KAFKA-20749,jira,2026-06-30 13:25:03.459000+00:00,org.apache.jira.issue.transition,KStream-KStream outer/left join crashes under EOS with transactional state stores,"description: RocksDBTransactionBuffer's staging map (AbstractTransactionBuffer.pendingWrites) is keyed by key bytes only, with no column-family dimension. Writes to the offsets column family (the ""position"" key, written when the store persists its Position) are staged into that shared map and then surface in data-column-family range()/all() scans. The outer-join ListValueStore tries to  deserialize the 40-byte serialized Position as a value list and fails. get() was already gated against the offsets CF; the iterator paths were not. Non-transactional stores write straight to the offsets CF and never leak, which is why it's transactional-only.  → R{{{}ocksDBTransactionBuffer{}}}'s staging map ({{{}AbstractTransactionBuffer.pendingWrites{}}}) is keyed by key bytes only, with no column-family dimension. Writes to the offsets column family (the ""position"" key, written when the store persists its Position) are staged into that shared map and then surface in data-column-family range()/all() scans. The outer-join ListValueStore tries to  deserialize the 40-byte serialized Position as a value list and fails. The {{get()}} methods was already gated against the offsets CF; the iterator paths ",,
+33,B_label_audit,jira:13279557:change:20735314:0,issue:KAFKA-9436,jira,2022-06-14 12:09:45.451000+00:00,org.apache.jira.issue.transition,New Kafka Connect SMT for plainText => Struct(or Map),"RemoteIssueLink: None → This issue links to ""https://github.com/apache/kafka/pull/12219 (Web Link)""
+I'd like to parse and convert plain text rows to struct(or map) data, and load into documented database such as mongoDB, elasticSearch, etc... with SMT
+
+ 
+
+For example
+
+ 
+
+1. String parse ( with timemillis )
+{code:java}
+{
+   ""code"" : ""dev_kafka_pc001_1580372261372""
+   ,""recode1"" : ""a""
+   ,""recode2"" : ""b"" 
+}{code}
+{code:java}
+""transforms"": ""RegexTransform"",
+""transforms.RegexTransform.type"": ""org.apache.kafka.connect.transforms.ToStructByRegexTransform$Value"",
+
+""transforms.RegexTransform.struct.field"": ""message"",
+""transforms.RegexTransform.regex"": ""^(.{3,4})_(.*)_(pc|mw|ios|and)([0-9]{3})_([0-9]{13})"" ""transforms.RegexTransform.mapping"": ""env,serviceId,device,sequence,datetime:TIMEMILLIS""{code}
+ 
+
+ 
+
+2. plain text apache log
+{code:java}
+""111.61.73.113 - - [08/Aug/2019:18:15:29 +0900] \""OPTIONS /api/v1/service_config HTTP/1.1\"" 200 - 101989 \""http://local.test.com/\"" \""Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36\""""
+{code}
+SMT connect config with regular expression below can easily ",,
+34,B_label_audit,jira:13647192:change:23011243:0,issue:KAFKA-20398,jira,2026-04-07 17:57:08.056000+00:00,org.apache.jira.issue.transition,Memory leak when stream threads are replaced,"fixVersion: [] → ['4.3.0']
+It appears there are some unreleased objects when stream threads are replaced. This didn't occur before 4.x, but in testing multiple client versions since 4.x, we've seen memory fill up when stream threads are frequently replaced from within our 
+StreamsUncaughtExceptionHandler.
+
+In the heap dump extracted from one of our testing instances that went OOM (5 stream threads, 128M heap):
+{noformat}
+444 instances of org.apache.kafka.clients.consumer.KafkaConsumer, loaded by jdk.internal.loader.ClassLoaders$AppClassLoader @ 0xfacdc630 occupy 67.01 MB (54.63%) bytes.
+
+222 instances of org.apache.kafka.streams.processor.internals.TaskManager, loaded by jdk.internal.loader.ClassLoaders$AppClassLoader @ 0xfacdc630occupy 29.70 MB (24.21%) bytes.{noformat}
+ These class counts line up pretty closely to the number of thread replacements between starting the application and termination due to OOM. The TaskManager class count is almost 1:1 to the number of thread replacements.
+ 
+In one test, we triggered thread replacements in a slow loop for a few hours, then allowed it to run normally after that point. During the thread replacement loops, the memory filled up",,
+35,B_label_audit,jira:13468435:change:20805344:0,issue:KAFKA-14024,jira,2022-07-19 15:47:21.258000+00:00,org.apache.jira.issue.transition,Consumer stuck during cooperative rebalance for Commit offset in onJoinPrepare,"RemoteIssueLink: This issue links to ""GitHub Pull Request #12349 (Web Link)"" → This issue links to ""GitHub Pull Request #12349 (Web Link)""
+Hi 
+
+In https://issues.apache.org/jira/browse/KAFKA-13310. we tried to fix a issue that consumer#poll(duration) will be returned after the provided duration. It's because if rebalance needed, we'll try to commit current offset first before rebalance synchronously. And if the offset committing takes too long, the consumer#poll will spend more time than provided duration. To fix that, we change commit sync with commit async before rebalance (i.e. onPrepareJoin).
+
+ 
+
+However, in this ticket, we found the async commit will keep sending a new commit request during each Consumer#poll, because the offset commit never completes in time. The impact is that the existing consumer will be kicked out of the group after rebalance timeout without joining the group. That is, suppose we have consumer A in group G, and now consumer B joined the group, after the rebalance, only consumer B in the group.
+
+ 
+
+The workaround for this issue is to change the assignor back to eager assignors, ex: StickyAssignor, RoundRobinAssignor.
+
+ 
+
+To fix the issue, we ",,
+36,A_top_r5,github:api:apache/kafka:pr-15974-opened,pr:15974,github,2024-05-16 06:22:46+00:00,com.github.pull_request.opened,KAFKA-16625: Reverse lookup map from topic partitions to members,"During performance testing we observed that calculating the unassigned partitions by first initializing the set with all of the topic partitions within the Uniform assignor is a costly process, this can be improved by using a reverse lookup map between topicIdPartition and the member.
+
+This patch adds the following:
+
+1.  A new map to the consumer group state called **partitionAssignments** which is a reverse lookup map from each partition to the member it is assigned to. This map is updated every time the target assignment is updated.
+2. A new interface called GroupSpec which is implemented by the existing assignmentSpec.
+3. The GroupSpec interface contains a new method called isPartitionAssigned.
+
+The most performance improvements should be noticeable in the Uniform Optimized Assignment Builder.
+
+
+",,
+37,B_label_audit,jira:13617929:change:22544528:0,issue:KAFKA-19275,jira,2025-05-13 08:03:00.908000+00:00,org.apache.jira.issue.transition,"client-state and thread-state metrics are always """"Unavailable""","assignee: jira-user:eff4858a720a → jira-user:81591b897e92
+ 
+
+ 
+
+!image-2025-05-13-15-52-35-046.png|width=461,height=237!
+
+ 
+
+!image-2025-05-13-15-52-52-129.png|width=423,height=287!",,
+38,A_top_r5,mail:8b6b325306ea991eee519059,thread:JIRA.13596411.1729656031000@Atlassian.JIRA,mail,2024-12-14 04:13:00+00:00,org.apache.mail.message,"[jira] [Resolved] (KAFKA-17858) Remove ZK-related configuration
+ from the log4j configuration.","[ https://issues.apache.org/jira/browse/KAFKA-17858?page=com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel ]
+
+TengYao Chi resolved KAFKA-17858.
+---------------------------------
+    Resolution: Done
+
+> Remove ZK-related configuration from the log4j configuration.
+> -------------------------------------------------------------
+>
+>                 Key: KAFKA-17858
+>                 URL: https://issues.apache.org/jira/browse/KAFKA-17858
+>             Project: Kafka
+>          Issue Type: Task
+>            Reporter: TengYao Chi
+>            Assignee: TengYao Chi
+>            Priority: Major
+>             Fix For: 4.0.0
+>
+>
+> This is a follow-up task of KAFKA-9366.
+> Since we are getting rid of zk, we should also do some clean-up to log4j configuration and bat/sh file.
+
+
+
+--
+This message was sent by Atlassian Jira
+(v8.20.10#820010)",,
+39,A_top_r5,mail:5aa056211a92f62348389d2c,thread:PR_kwDOAnbs785QhpWz@gitbox.apache.org,mail,2023-05-15 15:17:14+00:00,org.apache.mail.message,"[GitHub] [kafka-site] vvcephei opened a new pull request, #511: MINOR: Update collaborators to 10","vvcephei opened a new pull request, #511:
+URL: https://github.com/apache/kafka-site/pull/511
+
+   The wiki page documented a limit of 20 people in the collaborators list, but when we merged the change, we were notified that that limit is actually 10 people.
+
+
+-- 
+This is an automated message from the Apache Git Service.
+To respond to the message, please log on to GitHub and use the
+URL above to go to the specific comment.
+
+To unsubscribe, e-mail: dev-unsubscribe@kafka.apache.org
+
+For queries about this service, please contact Infrastructure at:
+users@infra.apache.org",,
+40,B_label_audit,jira:13588053:created,issue:KAFKA-17276,jira,2024-08-06 19:58:01+00:00,org.apache.jira.issue.created,"Add ""ignorable=true"" to `replicaDirectoryId` (FetchSnapshotRequest and FetchRequest) to make it work with older version",see discussion: https://github.com/apache/kafka/pull/16235#discussion_r1706045071,,
+41,B_label_audit,github:api:apache/kafka:pr-16794-opened,pr:16794,github,2024-08-05 08:25:58+00:00,com.github.pull_request.opened,KAFKA-17227: Update zstd-jni lib (#16763),"* KAFKA-17227: Update zstd-jni lib
+* Add note in upgrade docs
+* Change zstd-jni version in docker native file and add warning in dependencies.gradle file
+* Add reference to snappy in upgrade
+
+Reviewers:  Chia-Ping Tsai <chia7712@gmail.com>,  Mickael Maison <mickael.maison@gmail.com>
+
+*More detailed description of your change,
+if necessary. The PR title and PR message become
+the squashed commit message, so use a separate
+comment to ping reviewers.*
+
+*Summary of testing strategy (including rationale)
+for the feature or bug fix. Unit and/or integration
+tests are expected for any behaviour change and
+system tests should be considered for larger changes.*
+
+### Committer Checklist (excluded from commit message)
+- [ ] Verify design and implementation 
+- [ ] Verify test coverage and CI build status
+- [ ] Verify documentation (including upgrade notes)
+",,
+42,B_label_audit,github:api:apache/kafka:comment-IC_kwDOACG9q86Yn6Bw,pr:11204,github,2024-12-24 03:39:03+00:00,com.github.issue_comment,KAFKA-13188 - Release the memory back into MemoryPool ,"This PR is being marked as stale since it has not had any activity in 90 days. If you
+would like to keep this PR alive, please leave a comment asking for a review. If the PR has 
+merge conflicts, update it with the latest from the base branch.
+<p>
+If you are having difficulty finding a reviewer, please reach out on the 
+[mailing list](https://kafka.apache.org/contact).
+<p>
+If this PR is no longer valid or desired, please feel free to close it. If no activity
+occurs in the next 30 days, it will be automatically closed.",,
+43,B_label_audit,jira:13585363:comment:17864841,issue:KAFKA-17116,jira,2024-07-11 00:01:05.276000+00:00,org.apache.jira.issue.comment,New consumer may not send effective leave group if member ID received after close ,"Hi [~lianetm] 
+
+I would like to investigate this issue, may i have this one?
+
+Many thanks!",,
+44,A_top_r5,mail:d5502d1886a2825ae812d532,thread:JIRA.13038376.1485501582000@Atlassian.JIRA,mail,2023-02-24 19:36:00+00:00,org.apache.mail.message,[jira] [Resolved] (KAFKA-4706) Unify StreamsKafkaClient instances,"[ https://issues.apache.org/jira/browse/KAFKA-4706?page=com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel ]
+
+Matthias J. Sax resolved KAFKA-4706.
+------------------------------------
+    Resolution: Fixed
+
+> Unify StreamsKafkaClient instances
+> ----------------------------------
+>
+>                 Key: KAFKA-4706
+>                 URL: https://issues.apache.org/jira/browse/KAFKA-4706
+>             Project: Kafka
+>          Issue Type: Improvement
+>          Components: streams
+>    Affects Versions: 0.10.2.0
+>            Reporter: Matthias J. Sax
+>            Assignee: Sharad
+>            Priority: Minor
+>              Labels: beginner, easyfix, newbie
+>             Fix For: 1.1.0
+>
+>
+> Kafka Streams currently used two instances of {{StreamsKafkaClient}} (one in {{KafkaStreams}} and one in {{InternalTopicManager}}).
+> We want to unify both such that only a single instance is used.
+
+
+
+--
+This message was sent by Atlassian Jira
+(v8.20.10#820010)",,
+45,A_top_r5,mail:aad9695c3da100e2e14d3329,thread:JIRA.13648419.1776450283000@Atlassian.JIRA,mail,2026-04-17 18:25:00+00:00,org.apache.mail.message,"[jira] [Created] (KAFKA-20471) KIP-892: Implement Generic
+ Transaction Buffer (Phase 0)","Bill Bejeck created KAFKA-20471:
+-----------------------------------
+
+             Summary: KIP-892: Implement Generic Transaction Buffer (Phase 0)
+                 Key: KAFKA-20471
+                 URL: https://issues.apache.org/jira/browse/KAFKA-20471
+             Project: Kafka
+          Issue Type: Sub-task
+            Reporter: Bill Bejeck
+
+
+Deliver the TransactionBuffer abstraction as a standalone, independently mergeable piece before KIP-892 core work begins. This must land and stabilize before Phase 1 begins. Can proceed in parallel with the StateStore.java interface design.
+
+Files to create:
+- state/internals/TransactionBuffer.java — interface
+- state/internals/AbstractTransactionBuffer.java — shared ConcurrentSkipListMap + ReentrantReadWriteLock logic
+- state/internals/RocksDBTransactionBuffer.java — RocksDB implementation (plain WriteBatch)
+- state/internals/InMemoryTransactionBuffer.java — in-memory implementation
+- state/internals/StagedMergeIterator.java — merge iterator over staging snapshot + base iterator
+
+Files to modify:
+- StreamsConfig.java — add transactional.state.stores boolean config
+- state/internals/RocksDBStore.java — add TransactionalDBAccessor inner cla",,
+46,A_top_r5,github:api:apache/kafka:commit-24994ef231fe12cd18604125e5e7c27dd34847ff,issue:KAFKA-20084,github,2026-01-29 08:24:57+00:00,com.github.push,,KAFKA-20084 Move LogCleanerManagerTest to storage module (#21343),,
+47,B_label_audit,jira:13522812:change:21191311:0,issue:KAFKA-14674,jira,2023-02-02 16:17:58.488000+00:00,org.apache.jira.issue.transition,Backport fix for KAFKA-14455 to 3.3 and 3.4 branches,"Link: None → This issue relates to KAFKA-14455
+The 3.4 branch is currently frozen for the upcoming 3.4.0 release. Once the release is complete, we can and should backport the change in [https://github.com/apache/kafka/pull/12984] onto the 3.3 and 3.4 branches before putting out any subsequent releases on those branches.",,
+48,A_top_r5,mail:2e840563bc800ef8b34cb767,thread:JIRA.13516362.1672771682000@Atlassian.JIRA,mail,2024-12-03 18:00:00+00:00,org.apache.mail.message,"[jira] [Resolved] (KAFKA-14562) Implement epoch bump after every
+ transaction","[ https://issues.apache.org/jira/browse/KAFKA-14562?page=com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel ]
+
+Justine Olshan resolved KAFKA-14562.
+------------------------------------
+    Fix Version/s: 4.0.0
+       Resolution: Fixed
+
+> Implement epoch bump after every transaction
+> --------------------------------------------
+>
+>                 Key: KAFKA-14562
+>                 URL: https://issues.apache.org/jira/browse/KAFKA-14562
+>             Project: Kafka
+>          Issue Type: Sub-task
+>            Reporter: Justine Olshan
+>            Assignee: Justine Olshan
+>            Priority: Major
+>             Fix For: 4.0.0
+>
+>
+> This is part 1 of KIP-890
+>  # *Uniquely identify transactions by bumping the producer epoch after every commit/abort marker. That way, each transaction can be identified by (producer id, epoch).* 
+> See KIP-890 for more information: [https://cwiki.apache.org/confluence/display/KAFKA/KIP-890%3A+Transactions+Server-Side+Defense] 
+
+
+
+--
+This message was sent by Atlassian Jira
+(v8.20.10#820010)",,
+49,B_label_audit,jira:13571875:change:22116954:0,issue:KAFKA-16373,jira,2024-07-28 11:48:51.008000+00:00,org.apache.jira.issue.transition,Docker Official Image for Apache Kafka,"RemoteIssueLink: This issue links to ""GitHub Pull Request #16664 (Web Link)"" → This issue links to ""GitHub Pull Request #16664 (Web Link)""
+KIP-1028: Docker Official Image for Apache Kafka: 
+
+[https://cwiki.apache.org/confluence/display/KAFKA/KIP-1028%3A+Docker+Official+Image+for+Apache+Kafka]
+
+ 
+
+ ",,
+50,B_label_audit,github:api:apache/kafka:review-PRR_kwDOACG9q86rBacu,pr:19761,github,2025-05-27 00:29:06+00:00,com.github.review,KAFKA-17747: [4/N] Replace subscription metadata with metadata hash in consumer group,,,
+51,A_top_r5,mail:ad2f784a85a5d2b25c9c0969,thread:JIRA.13246747.1563954862000@Atlassian.JIRA,mail,2024-10-09 08:49:00+00:00,org.apache.mail.message,"[jira] [Resolved] (KAFKA-8708) Zookeeper Session expired either
+ before or while waiting for connection","[ https://issues.apache.org/jira/browse/KAFKA-8708?page=com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel ]
+
+Mickael Maison resolved KAFKA-8708.
+-----------------------------------
+    Resolution: Won't Fix
+
+We are now removing ZooKeeper support so closing this issue.
+
+> Zookeeper Session expired either before or while waiting for connection
+> -----------------------------------------------------------------------
+>
+>                 Key: KAFKA-8708
+>                 URL: https://issues.apache.org/jira/browse/KAFKA-8708
+>             Project: Kafka
+>          Issue Type: Bug
+>          Components: zkclient
+>    Affects Versions: 2.0.1
+>            Reporter: Chethan Bheemaiah
+>            Priority: Major
+>
+> Recently we had encountered an issue in one of our kafka cluster. One of the node went down and was not joining the kafka cluster on restart. We had observed Session expired error messages in server.log
+> Below is one message
+> ERROR kafka.common.ZkNodeChangeNotificationListener: Error while processing notification change for path = /config/changes
+> kafka.zookeeper.ZooKeeperClientExpiredException: Session expired either before or while waiting for connection
+>     at",,
+52,B_label_audit,github:api:apache/kafka:review-comment-PRRC_kwDOACG9q85QCS4y,pr:14364,github,2023-10-02 14:37:07+00:00,com.github.review_comment,KAFKA-15278: Implement HeartbeatRequestManager to handle heartbeat requests,"The heartbeat request depends on the state of the state machine, so for most of the non-retriables, it should transition the state to a failure state to prevent additional requests being sent.
+
+The non-retriable also send an error to the handler (`nonRetriableErrorHandler`) to send the error to the user to handle the failure case.",,
+53,B_label_audit,github:api:apache/kafka:review-PRR_kwDOACG9q841vGVH,pr:11857,github,2022-03-07 11:03:14+00:00,com.github.review,KAFKA-12648: fix bug where thread is re-added to TopologyMetadata when shutting down,,,
+54,A_top_r5,mail:3d7b22a720bb408742fcd31f,thread:JIRA.13648433.1776450374000@Atlassian.JIRA,mail,2026-04-17 18:27:00+00:00,org.apache.mail.message,"[jira] [Created] (KAFKA-20485) KIP-892: Add integration tests for
+ KIP-892","Bill Bejeck created KAFKA-20485:
+-----------------------------------
+
+             Summary: KIP-892: Add integration tests for KIP-892
+                 Key: KAFKA-20485
+                 URL: https://issues.apache.org/jira/browse/KAFKA-20485
+             Project: Kafka
+          Issue Type: Sub-task
+            Reporter: Bill Bejeck
+
+
+End-to-end integration tests for KIP-892.
+
+- EosIntegrationTest — verify no state wipe on crash under READ_COMMITTED
+- EOSUncleanShutdownIntegrationTest — remove (no longer needed when state is not wiped)
+- IQv2IntegrationTest — verify IQ sees only committed data
+- StandbyTaskEOSIntegrationTest — standby behavior with transactional stores
+- PositionRestartIntegrationTest — restart position correctness
+- MetricsIntegrationTest — uncommitted bytes metric end-to-end
+- VersionedKeyValueStoreIntegrationTest
+
+
+
+--
+This message was sent by Atlassian Jira
+(v8.20.10#820010)",,
+55,A_top_r5,github:api:apache/kafka:commit-20b0bf063bcb2750db3af7817439f753901661c6,contributor:3ad2aa267ec9,github,2023-11-29 02:50:22+00:00,com.github.push,,MINOR: Fix the flaky TBRLMM `testInternalTopicExists` test (#14840),,
+56,B_label_audit,jira:13594780:change:22220547:0,issue:KAFKA-17751,jira,2024-10-09 12:16:49.994000+00:00,org.apache.jira.issue.transition,Contoller high CPU when formatted with --initial-controllers ,"Attachment: c4.properties → None
+Hey,
+
+I'm using 3.9.0 RC0.
+
+The issue only affects kraft.
+
+I noticed that formatting a simple three node controller cluster with --initial-controllers and starting the controller leads to a situation where the non-leader voters consume a lot of CPU.
+
+Here are the steps to reproduce. The needed configuration files are attached.
+
+Clean up and setup the environment.
+
+rm -rf /tmp/controllers && \
+mkdir -p /tmp/controllers/c1 && \
+mkdir -p /tmp/controllers/c2 && \
+mkdir -p /tmp/controllers/c3
+
+export KAFKA_HOME=<your_kafka_3_9_home>
+
+Format the controllers
+
+$KAFKA_HOME/bin/kafka-storage.sh format --cluster-id 00000000-0000-0000-0000-000000000001 --initial-controllers 1001@localhost:10001:AAAAAAAAAAEAAAAAAAAAAA,1002@localhost:10002:AAAAAAAAAAEAAAAAAAAAAA,1003@localhost:10003:AAAAAAAAAAEAAAAAAAAAAA --config c1.properties
+$KAFKA_HOME/bin/kafka-storage.sh format --cluster-id 00000000-0000-0000-0000-000000000001 --initial-controllers 1001@localhost:10001:AAAAAAAAAAEAAAAAAAAAAA,1002@localhost:10002:AAAAAAAAAAEAAAAAAAAAAA,1003@localhost:10003:AAAAAAAAAAEAAAAAAAAAAA --config c2.properties
+$KAFKA_HOME/bin/kafka-storage.sh format --cluster-i",,
+57,B_label_audit,jira:13576930:change:22039126:0,issue:KAFKA-16606,jira,2024-06-07 08:11:59.689000+00:00,org.apache.jira.issue.transition,JBOD support in KRaft does not seem to be gated by the metadata version,"RemoteIssueLink: This issue links to ""GitHub Pull Request #15834 (Web Link)"" → This issue links to ""GitHub Pull Request #15834 (Web Link)""
+JBOD support in KRaft should be supported since Kafka 3.7.0. The Kafka [source code|https://github.com/apache/kafka/blob/1b301b30207ed8fca9f0aea5cf940b0353a1abca/server-common/src/main/java/org/apache/kafka/server/common/MetadataVersion.java#L194-L195] suggests that it is supported with the metadata version {{{}3.7-IV2{}}}. However, it seems to be possible to run KRaft cluster with JBOD even with older metadata versions such as {{{}3.6{}}}. For example, I have a cluster using the {{3.6}} metadata version:
+{code:java}
+bin/kafka-features.sh --bootstrap-server localhost:9092 describe
+Feature: metadata.version       SupportedMinVersion: 3.0-IV1    SupportedMaxVersion: 3.7-IV4    FinalizedVersionLevel: 3.6-IV2  Epoch: 1375 {code}
+Yet a KRaft cluster with JBOD seems to run fine:
+{code:java}
+bin/kafka-log-dirs.sh --bootstrap-server localhost:9092 --describe
+Querying brokers for log directories information
+Received log directory information from brokers 2000,3000,1000
+{""brokers"":[{""broker"":2000,""logDirs"":[{""partitions"":[{""partition"":""__consumer",,
+58,B_label_audit,jira:13550383:change:21740754:0,issue:KAFKA-15456,jira,2023-12-13 14:57:28.405000+00:00,org.apache.jira.issue.transition,Add support for OffsetFetch version 9 in consumer,"RemoteIssueLink: This issue links to ""GitHub Pull Request #14557 (Web Link)"" → This issue links to ""GitHub Pull Request #14557 (Web Link)""
+",,
+59,B_label_audit,github:api:apache/kafka:review-comment-PRRC_kwDOACG9q851a9IE,pr:18917,github,2025-02-25 15:20:00+00:00,com.github.review_comment,MINOR: TopicIdPartition Records Benchmark,Using a set makes it harder to interpret the benchmarks. We can simply do a benchmark for `equals` and one for `hashCode`.,,
+60,B_label_audit,jira:13435222:comment:17511516,issue:KAFKA-13759,jira,2022-03-23 22:27:47.857000+00:00,org.apache.jira.issue.comment,Disable producer idempotence by default in producers instantiated by Connect,"This issue has been now been merged on the 3.2 and 3.1 branches to avoid a breaking change when Connect contacts older brokers and idempotence is enabled in the producer by default. 
+[~cadonna] [~tombentley] fyi. 
+Hopefully this fix makes to the upcoming releases but please let me know if the targeted versions need to be adjusted. ",,
+61,B_label_audit,github:api:apache/kafka:review-comment-PRRC_kwDOACG9q854Mwql,pr:19275,github,2025-03-27 13:36:21+00:00,com.github.review_comment,KAFKA-18913: Removing _state.updater.enabled_ flag through the Stream…,Could you please revert the additional indentation?,,
+62,A_top_r5,mail:4aa27250de42cc20aab8f9a0,thread:JIRA.13559768.1701202546000@Atlassian.JIRA,mail,2024-08-06 18:58:00+00:00,org.apache.mail.message,"[jira] [Resolved] (KAFKA-15914) Flaky test -
+ testAlterSinkConnectorOffsetsOverriddenConsumerGroupId -
+ OffsetsApiIntegrationTest","[ https://issues.apache.org/jira/browse/KAFKA-15914?page=com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel ]
+
+Chris Egerton resolved KAFKA-15914.
+-----------------------------------
+    Fix Version/s: 4.0.0
+       Resolution: Fixed
+
+> Flaky test - testAlterSinkConnectorOffsetsOverriddenConsumerGroupId - OffsetsApiIntegrationTest
+> -----------------------------------------------------------------------------------------------
+>
+>                 Key: KAFKA-15914
+>                 URL: https://issues.apache.org/jira/browse/KAFKA-15914
+>             Project: Kafka
+>          Issue Type: Bug
+>          Components: connect
+>            Reporter: Lucas Brutschy
+>            Priority: Major
+>              Labels: flaky-test
+>             Fix For: 4.0.0
+>
+>
+> Test intermittently gives the following result:
+> {code}
+> org.opentest4j.AssertionFailedError: Condition not met within timeout 30000. Sink connector consumer group offsets should catch up to the topic end offsets ==> expected: <true> but was: <false>
+> 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+> 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailure",,
+63,A_top_r5,mail:6c7aa8be4bdaeac27a974441,thread:SJ0PR15MB46308884DAD2F317420FD1A1DAD02@SJ0PR15MB4630.namprd15.prod.outlook.com,mail,2024-10-23 16:59:12+00:00,org.apache.mail.message,Re: [VOTE] KIP-1054: Support external schemas in JSONConverter,"Hi Priyanka,
+
+This is definitely an improvement for single-schema Connectors, and simple
+to configure.
+I think mutable or multiple schemas are fair to consider out-of-scope, as
+they are currently served by the existing schema management tooling and
+would complicate this design.
+
+I'm also interested to see where knowing the schema ahead-of-time could
+improve other parts of the Connector development process, and this could be
+the first step in that work.
+
++1 (binding)
+
+Thanks!
+Greg
+
+On Tue, Oct 15, 2024 at 12:29 PM Chris Egerton <fearthecellos@gmail.com>
+wrote:
+
+> Hi Priyanka,
+>
+> Sorry for the delay! +1 (binding), thanks for the KIP.
+>
+> Cheers,
+>
+> Chris
+>
+> On Wed, Sep 4, 2024, 01:35 Priyanka K U <Priyanka.K.U@ibm.com.invalid>
+> wrote:
+>
+> > Hi Everyone,
+> >
+> > Please go through the proposal and requesting everyone to support with
+> > your votes  :
+> >
+> https://cwiki.apache.org/confluence/display/KAFKA/KIP-1054%3A+Support+external+schemas+in+JSONConverter
+> > . If you need any further clarifications please post your queries in the
+> > discussion thread :
+> > https://lists.apache.org/thread/rwxkh1fnbxh5whobsyrt4gystyl9yhc5
+> >
+> > Thank you,
+> >
+> > Priyanka
+> >
+> >
+> > From: Pri",,
+64,A_top_r5,mail:2ac02b0d014d2f13d39f72db,thread:PR_kwDOMRGlbM50VCgn@gitbox.apache.org,mail,2024-07-03 13:37:59+00:00,org.apache.mail.message,[PR] Adding test file [kafka-merge-queue-sandbox],"mumrah opened a new pull request, #3:
+URL: https://github.com/apache/kafka-merge-queue-sandbox/pull/3
+
+   (no comment)
+
+
+-- 
+This is an automated message from the Apache Git Service.
+To respond to the message, please log on to GitHub and use the
+URL above to go to the specific comment.
+
+To unsubscribe, e-mail: dev-unsubscribe@kafka.apache.org
+
+For queries about this service, please contact Infrastructure at:
+users@infra.apache.org",,
+65,A_top_r5,mail:cd49f820946ec0fc873ffbe0,thread:JIRA.13423320.1642522340000@Atlassian.JIRA,mail,2023-02-24 19:35:00+00:00,org.apache.mail.message,[jira] [Resolved] (KAFKA-13599) Upgrade RocksDB to 6.27.3,"[ https://issues.apache.org/jira/browse/KAFKA-13599?page=com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel ]
+
+Matthias J. Sax resolved KAFKA-13599.
+-------------------------------------
+    Resolution: Fixed
+
+> Upgrade RocksDB to 6.27.3
+> -------------------------
+>
+>                 Key: KAFKA-13599
+>                 URL: https://issues.apache.org/jira/browse/KAFKA-13599
+>             Project: Kafka
+>          Issue Type: Task
+>          Components: streams
+>            Reporter: Jonathan Albrecht
+>            Assignee: Jonathan Albrecht
+>            Priority: Major
+>             Fix For: 3.2.0
+>
+>         Attachments: compat_report.html
+>
+>
+> RocksDB v6.27.3 has been released and it is the first release to support s390x. RocksDB is currently the only dependency in gradle/dependencies.gradle without s390x support.
+> RocksDB v6.27.3 has added some new options that require an update to streams/src/main/java/org/apache/kafka/streams/state/internals/RocksDBGenericOptionsToDbOptionsColumnFamilyOptionsAdapter.java but no other changes are needed to upgrade.
+> A compatibility report is attached for the current version 6.22.1.1 -> 6.27.3
+
+
+
+--
+This message was sent by Atlassian",,
+66,A_top_r5,github:api:apache/kafka:commit-b6d2503710274b809aba58d943c5efa89df41207,issue:KAFKA-20410,github,2026-04-21 11:28:24+00:00,com.github.push,,KAFKA-20410: Add DLQ configuration parameters for Share Groups (KIP-1…,,
+67,B_label_audit,github:api:apache/kafka:review-comment-PRRC_kwDOACG9q85Kytlz,pr:13961,github,2023-07-06 18:53:56+00:00,com.github.review_comment,KAFKA-14462; [21/N] Add CoordinatorTimer implementation in CoordinatorRuntime,"The confusion may come from [here](https://github.com/apache/kafka/pull/13961/files#diff-4b9dd21d7748bfb375634ef6e39037e99f53ed2546519bec32fa1707bd262fe8R271). CoordinatorResult is the part which could accept a null response now. In this particular case, it will be null because we have no response, only records. The null response will be eventually used to complete the event.future. As we use event.future.exceptionally, the null response is never used here either.",,
+68,B_label_audit,github:api:apache/kafka:review-PRR_kwDOACG9q85uNqby,pr:15272,github,2024-01-29 16:15:00+00:00,com.github.review,MINOR: Clean up core server classes,"LGTM, pending a good CI result",,
+69,A_top_r5,mail:4d830c5cbdcb96f31aff1244,thread:JIRA.13648424.1776450300000@Atlassian.JIRA,mail,2026-04-17 18:26:00+00:00,org.apache.mail.message,"[jira] [Created] (KAFKA-20476) KIP-892: Add transactional interface
+ compliance to in-memory stores","Bill Bejeck created KAFKA-20476:
+-----------------------------------
+
+             Summary: KIP-892: Add transactional interface compliance to in-memory stores
+                 Key: KAFKA-20476
+                 URL: https://issues.apache.org/jira/browse/KAFKA-20476
+             Project: Kafka
+          Issue Type: Sub-task
+            Reporter: Bill Bejeck
+
+
+Minimal changes to in-memory stores for interface compliance with the new StateStore API.
+
+- InMemoryKeyValueStore
+- InMemorySessionStore
+- InMemoryWindowStore
+- MemoryLRUCache
+- InMemoryTimeOrderedKeyValueChangeBuffer
+
+
+
+--
+This message was sent by Atlassian Jira
+(v8.20.10#820010)",,
+70,A_top_r5,mail:b7d7b571d9c27debdd8ebe0e,thread:PR_kwDOAnbs785QhpWz@gitbox.apache.org,mail,2023-05-15 15:17:21+00:00,org.apache.mail.message,[GitHub] [kafka-site] vvcephei commented on pull request #511: MINOR: Update collaborators to 10,"vvcephei commented on PR #511:
+URL: https://github.com/apache/kafka-site/pull/511#issuecomment-1548063495
+
+   See https://github.com/apache/kafka/pull/13722
+
+
+-- 
+This is an automated message from the Apache Git Service.
+To respond to the message, please log on to GitHub and use the
+URL above to go to the specific comment.
+
+To unsubscribe, e-mail: dev-unsubscribe@kafka.apache.org
+
+For queries about this service, please contact Infrastructure at:
+users@infra.apache.org",,
+71,A_top_r5,mail:7cafffead482fab2f773589b,thread:JIRA.13648426.1776450347000@Atlassian.JIRA,mail,2026-04-17 18:26:00+00:00,org.apache.mail.message,"[jira] [Created] (KAFKA-20478) KIP-892: Update
+ ProcessorStateManager for transactional commit/rollback","Bill Bejeck created KAFKA-20478:
+-----------------------------------
+
+             Summary: KIP-892: Update ProcessorStateManager for transactional commit/rollback
+                 Key: KAFKA-20478
+                 URL: https://issues.apache.org/jira/browse/KAFKA-20478
+             Project: Kafka
+          Issue Type: Sub-task
+            Reporter: Bill Bejeck
+
+
+Update ProcessorStateManager for isolation-level-aware state management.
+
+- approximateNumUncommittedBytes() — sum across all registered stores
+- Under READ_COMMITTED + EOS: on TaskCorruptedException, do NOT wipe state stores — discard uncommitted batch (rollback)
+- Under READ_UNCOMMITTED + EOS: preserve current behavior (wipe on corruption)
+
+
+
+--
+This message was sent by Atlassian Jira
+(v8.20.10#820010)",,
+72,A_top_r5,mail:22248e7fc4c5146ccd037739,thread:9F3CBFFA-45BE-47FB-8975-790540AA3A50@gmail.com,mail,2024-11-20 03:47:12+00:00,org.apache.mail.message,"Re: [VOTE] KIP-1099: Extend kafka-consumer-groups command line tool
+ to support new consumer group","+1 (binding)
+
+On 2024/11/18 14:52:22 PoAn Yang wrote:
+> Hi All,
+> 
+> I would like to start vote on KIP-1099:
+> https://cwiki.apache.org/confluence/display/KAFKA/KIP-1099%3A+Extend+kafka-consumer-groups+command+line+tool+to+support+new+consumer+group
+> 
+> Discussion thread:
+> https://lists.apache.org/thread/lo64123wm3kjmjsx72xg67wvjx9nykk8
+> 
+> Thanks,
+> PoAn",,
+73,B_label_audit,jira:13444029:comment:17541841,issue:KAFKA-13888,jira,2022-05-25 06:11:36.436000+00:00,org.apache.jira.issue.comment,KIP-836: Expose replication information of the cluster metadata,[~Niket Goel] thanks your reply. I will continue the work. thanks. ,,
+74,B_label_audit,jira:13587236:change:22118676:4,issue:KAFKA-17214,jira,2024-07-30 02:03:08.778000+00:00,org.apache.jira.issue.transition,Add 3.8.0 Streams and Core to system tests,"Component: None → streams
+As per Release Instructions we should add 3.8.0 version to system tests. Example PRs:
+ * Broker and clients: [https://github.com/apache/kafka/pull/12210]
+ * Streams: [https://github.com/apache/kafka/pull/12209]",,
+75,B_label_audit,jira:13656197:change:23127182:0,issue:KAFKA-20749,jira,2026-06-30 13:43:38.866000+00:00,org.apache.jira.issue.transition,KStream-KStream outer/left join crashes under EOS with transactional state stores,"RemoteIssueLink: None → This issue links to ""GitHub Pull Request #22709 (Web Link)""
+R{{{}ocksDBTransactionBuffer{}}}'s staging map ({{{}AbstractTransactionBuffer.pendingWrites{}}}) is keyed by key bytes only, with no column-family dimension. Writes to the offsets column family (the ""position"" key, written when the store persists its Position) are staged into that shared map and then surface in data-column-family range()/all() scans. The outer-join ListValueStore tries to  deserialize the 40-byte serialized Position as a value list and fails. The {{get()}} methods was already gated against the offsets CF; the iterator paths were not. Non-transactional stores write straight to the offsets CF and never leak, which is why it's transactional-only. ",,
+76,B_label_audit,github:api:apache/kafka:review-comment-PRRC_kwDOACG9q85E-ODM,pr:12607,github,2023-04-04 12:19:09+00:00,com.github.review_comment,KAFKA-14133: Replace EasyMock with Mockito in streams tests,"This needs to become verification
+
+```java
+        verify(activeTaskCreator).closeAndRemoveTaskProducerIfNeeded(statefulTask.id());
+```
+
+in the verification block further down.",,
+77,A_top_r5,github:api:apache/kafka:commit-72fdd9f62a6f97068da41222bf5c5a58307a6918,kip:941,github,2023-10-19 00:20:09+00:00,com.github.push,,MINOR: add KIP-941 to Kafka Streams upgrade docs (#14577),,
+78,B_label_audit,github:api:apache/kafka:review-comment-PRRC_kwDOACG9q85Lsd4o,pr:13998,github,2023-07-20 20:48:49+00:00,com.github.review_comment,KAFKA-14702: Extend server side assignor to support rack aware replica placement,yes mb didn't add the access specifier ,,
+79,A_top_r5,mail:498a9c82768c66a309ee8f8e,thread:JIRA.13579082.1715602947000@Atlassian.JIRA,mail,2024-05-13 12:23:00+00:00,org.apache.mail.message,"[jira] [Created] (KAFKA-16732) Support for
+ share-coordinator-metrics in the broker","Andrew Schofield created KAFKA-16732:
+----------------------------------------
+
+             Summary: Support for share-coordinator-metrics in the broker
+                 Key: KAFKA-16732
+                 URL: https://issues.apache.org/jira/browse/KAFKA-16732
+             Project: Kafka
+          Issue Type: Sub-task
+            Reporter: Andrew Schofield
+            Assignee: Andrew Schofield
+
+
+
+
+
+
+--
+This message was sent by Atlassian Jira
+(v8.20.10#820010)",,
+80,B_label_audit,github:api:apache/kafka:review-comment-PRRC_kwDOACG9q847p4X_,pr:12758,github,2022-10-20 16:02:38+00:00,com.github.review_comment,"KAFKA-13152: KIP-770, cache size config deprecation",done,,
+81,B_label_audit,jira:13584808:change:22072631:0,issue:KAFKA-17085,jira,2024-07-09 16:35:38.998000+00:00,org.apache.jira.issue.transition,Streams Cooperative Rebalance Upgrade Test fails in System Tests,"RemoteIssueLink: This issue links to ""GitHub Pull Request #16555 (Web Link)"" → This issue links to ""GitHub Pull Request #16555 (Web Link)""
+StreamsCooperativeRebalanceUpgradeTest fails on system tests when upgrading from: 2.1.1, 2.2.2 and 2.3.1.
+
+
+Tests that fail:
+
+ 
+{noformat}
+Module: kafkatest.tests.streams.streams_cooperative_rebalance_upgrade_test
+Class:  StreamsCooperativeRebalanceUpgradeTest
+Method: test_upgrade_to_cooperative_rebalance
+Arguments:
+{
+  ""upgrade_from_version"": ""2.1.1""
+}
+ 
+{noformat}
+and
+
+ 
+{noformat}
+Module: kafkatest.tests.streams.streams_cooperative_rebalance_upgrade_test
+Class:  StreamsCooperativeRebalanceUpgradeTest
+Method: test_upgrade_to_cooperative_rebalance
+Arguments:
+{
+  ""upgrade_from_version"": ""2.2.2""
+}
+{noformat}
+and
+
+ 
+
+ 
+{noformat}
+Module: kafkatest.tests.streams.streams_cooperative_rebalance_upgrade_test
+Class:  StreamsCooperativeRebalanceUpgradeTest
+Method: test_upgrade_to_cooperative_rebalance
+Arguments:
+{
+  ""upgrade_from_version"": ""2.3.1""
+}
+{noformat}
+ 
+
+Failure for 2.1.1 is:
+{noformat}
+TimeoutError(""Never saw 'first_bounce_phase-Processed [0-9]* records so far' message ubuntu@worker28"")
+Traceback (",,
+82,A_top_r5,github:api:apache/kafka:commit-474798afbed318c7ff316b2ca38e559aa1a136ad,issue:KAFKA-20072,github,2026-04-30 12:21:43+00:00,com.github.push,,KAFKA-20072: Don't generate IDs with hyphens (#21313),,
+83,A_top_r5,github:api:apache/kafka:commit-a619c6bb95200108cbeabd041242b8ff01a0c3dc,contributor:e63c28dbebcb,github,2025-05-14 00:06:38+00:00,com.github.push,,MINOR; Remove cast for Records' slice (#19661),,
+84,B_label_audit,github:api:apache/kafka:review-PRR_kwDOACG9q86b1yCR,pr:18825,github,2025-02-13 10:34:03+00:00,com.github.review,MINOR: Align assertFutureThrows method signature with JUnit conventions,,,
+85,B_label_audit,mail:00ecc74c68d63e057a106e52,thread:JIRA.13586579.1721681306000@Atlassian.JIRA,mail,2024-07-22 20:49:00+00:00,org.apache.mail.message,"[jira] [Created] (KAFKA-17182) Consumer's fetch sessions are
+ evicted too quickly","Kirk True created KAFKA-17182:
+---------------------------------
+
+             Summary: Consumer's fetch sessions are evicted too quickly
+                 Key: KAFKA-17182
+                 URL: https://issues.apache.org/jira/browse/KAFKA-17182
+             Project: Kafka
+          Issue Type: Bug
+          Components: clients, consumer
+    Affects Versions: 3.8.0
+            Reporter: Kirk True
+            Assignee: Kirk True
+             Fix For: 4.0.0
+
+
+In stress testing the new consumer, the new consumer is evicting fetch sessions on the broker much more frequently than expected. There is an ongoing investigation into this behavior, but it appears to stem from a race condition due to the design of the new consumer.
+
+In the background thread, fetch requests are sent in a near continuous fashion for partitions that are ""fetchable."" A timing bug appears to cause partitions to be ""unfetchable,"" which then causes them to end up in the ""removed"" set of partitions. The broker then removes them from the fetch session, which causes the number of remaining partitions for that session to drop below a threshold that allows it to be evicted by another competing session. Within a few millisec",,
+86,A_top_r5,github:api:apache/kafka:commit-9be27e715a209a892941bf35e66859d9c39c28c4,contributor:e63c28dbebcb,github,2024-06-28 01:24:25+00:00,com.github.push,,MINOR; Fix incompatible change to the kafka config (#16464),,
+87,A_top_r5,mail:d7aa473475f1c3b2e09625a7,thread:JIRA.13602191.1734284854000@Atlassian.JIRA,mail,2024-12-15 17:48:00+00:00,org.apache.mail.message,[jira] [Created] (KAFKA-18257) Update Documentation,"Swikar Patel created KAFKA-18257:
+------------------------------------
+
+             Summary: Update Documentation
+                 Key: KAFKA-18257
+                 URL: https://issues.apache.org/jira/browse/KAFKA-18257
+             Project: Kafka
+          Issue Type: Sub-task
+            Reporter: Swikar Patel
+            Assignee: Swikar Patel
+
+
+Update any relevant Kafka documentation to reflect the RocksDB upgrade and any API changes that might affect users or developers.
+
+
+
+--
+This message was sent by Atlassian Jira
+(v8.20.10#820010)",,
+88,B_label_audit,jira:13564012:created,issue:KAFKA-16097,jira,2024-01-09 08:22:12+00:00,org.apache.jira.issue.created,State updater removes task without pending action in EOSv2,"A long-running soak encountered the following exception:
+
+ 
+{code:java}
+[2024-01-08 03:06:00,586] ERROR [i-081c089d2ed054443-StreamThread-3] Thread encountered an error processing soak test (org.apache.kafka.streams.StreamsSoakTest)
+java.lang.IllegalStateException: Got a removed task 1_0 from the state updater that is not for recycle, closing, or updating input partitions; this should not happen
+    at org.apache.kafka.streams.processor.internals.TaskManager.handleRemovedTasksFromStateUpdater(TaskManager.java:939)
+    at org.apache.kafka.streams.processor.internals.TaskManager.checkStateUpdater(TaskManager.java:788)
+    at org.apache.kafka.streams.processor.internals.StreamThread.checkStateUpdater(StreamThread.java:1141)
+    at org.apache.kafka.streams.processor.internals.StreamThread.runOnceWithoutProcessingThreads(StreamThread.java:949)
+    at org.apache.kafka.streams.processor.internals.StreamThread.runLoop(StreamThread.java:686)
+    at org.apache.kafka.streams.processor.internals.StreamThread.run(StreamThread.java:645)
+[2024-01-08 03:06:00,587] ERROR [i-081c089d2ed054443-StreamThread-3] stream-client [i-081c089d2ed054443] Encountered the following exception during p",,
+89,B_label_audit,jira:13604955:change:22366662:0,issue:KAFKA-18529,jira,2025-01-18 02:09:02.112000+00:00,org.apache.jira.issue.transition,ConsumerRebootstrapTest should run for async consumer,"RemoteIssueLink: This issue links to ""GitHub Pull Request #18554 (Web Link)"" → This issue links to ""GitHub Pull Request #18554 (Web Link)""
+All tests in the file are parametrized to run for Classic only, so they won't run with the new async consumer. We should enabled them so that they run both consumers.",,
+90,A_top_r5,mail:c65e84ddd4f0d2f7891b8a4f,thread:JIRA.13650298.1778146968000@Atlassian.JIRA,mail,2026-05-07 09:48:00+00:00,org.apache.mail.message,"[jira] [Resolved] (KAFKA-20556) JaasBasicAuthFilter should use
+ jakarta.annotation","[ https://issues.apache.org/jira/browse/KAFKA-20556?page=com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel ]
+
+Mickael Maison resolved KAFKA-20556.
+------------------------------------
+    Resolution: Fixed
+
+> JaasBasicAuthFilter should use jakarta.annotation
+> -------------------------------------------------
+>
+>                 Key: KAFKA-20556
+>                 URL: https://issues.apache.org/jira/browse/KAFKA-20556
+>             Project: Kafka
+>          Issue Type: Bug
+>          Components: connect
+>    Affects Versions: 4.0.0, 4.0.1, 4.1.0, 4.2.0, 4.3.0, 4.0.2, 4.1.1, 4.1.2, 4.2.1
+>            Reporter: Mickael Maison
+>            Assignee: Mickael Maison
+>            Priority: Major
+>
+> In Kafka 4.0, we bumped Jetty to 12 and switched from javax web services to jakarta web services, javax.ws.rs to jakarta.ws.rs.
+> However, we missed the javax.annotation.Priority usage in JaasBasicAuthFilter. Jetty 12 ignores javax.annotation.Priority and instead uses jakarta.annotation.Priority to order filters in its processing chains.
+> The impact is that JaasBasicAuthFilter currently does not have a priority which can lead to undefined filter execution order when other Connect R",,
+91,A_top_r5,mail:d36821637ff5b97931a02d05,thread:JIRA.12734482.1408126974000@Atlassian.JIRA,mail,2024-10-09 09:19:00+00:00,org.apache.mail.message,"[jira] [Resolved] (KAFKA-1599) Change preferred replica election
+ admin command to handle large clusters","[ https://issues.apache.org/jira/browse/KAFKA-1599?page=com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel ]
+
+Mickael Maison resolved KAFKA-1599.
+-----------------------------------
+    Resolution: Won't Do
+
+We are now removing ZooKeeper support so closing this issue.
+
+> Change preferred replica election admin command to handle large clusters
+> ------------------------------------------------------------------------
+>
+>                 Key: KAFKA-1599
+>                 URL: https://issues.apache.org/jira/browse/KAFKA-1599
+>             Project: Kafka
+>          Issue Type: Improvement
+>    Affects Versions: 0.8.2.0
+>            Reporter: Todd Palino
+>            Assignee: Abhishek Nigam
+>            Priority: Major
+>              Labels: newbie++
+>
+> We ran into a problem with a cluster that has 70k partitions where we could not trigger a preferred replica election for all topics and partitions using the admin tool. Upon investigation, it was determined that this was because the JSON object that was being written to the admin znode to tell the controller to start the election was 1.8 MB in size. As the default Zookeeper data size limit is 1MB, and it is non-trivial to cha",,
+92,A_top_r5,mail:982b3e78bd4b552f31f8b88a,thread:JIRA.13570383.1709251108000@Atlassian.JIRA,mail,2024-06-14 08:54:00+00:00,org.apache.mail.message,"[jira] [Resolved] (KAFKA-16317) Add event rate in
+ GroupCoordinatorRuntimeMetrics","[ https://issues.apache.org/jira/browse/KAFKA-16317?page=com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel ]
+
+David Jacot resolved KAFKA-16317.
+---------------------------------
+    Resolution: Won't Do
+
+> Add event rate in GroupCoordinatorRuntimeMetrics
+> ------------------------------------------------
+>
+>                 Key: KAFKA-16317
+>                 URL: https://issues.apache.org/jira/browse/KAFKA-16317
+>             Project: Kafka
+>          Issue Type: Sub-task
+>            Reporter: Jeff Kim
+>            Assignee: Jeff Kim
+>            Priority: Major
+>
+> We want a sensor to record every time we process a new event in the coordinator runtime.
+
+
+
+--
+This message was sent by Atlassian Jira
+(v8.20.10#820010)",,
+93,B_label_audit,jira:13565118:change:21788253:10,issue:KAFKA-16157,jira,2024-01-17 16:40:56.745000+00:00,org.apache.jira.issue.transition,Topic recreation with offline disk doesn't update leadership/shrink ISR correctly,"Attachment: None → broker.log.10
+In a cluster with 4 brokers, `broker-1..broker-4` with 2 disks `d1` and `d2` in each broker, we perform the following operations:
+
+ 
+ # Create a topic `foo.test` with 10 partitions and RF 4. Let's assume the topic was created with id `rAujIqcjRbu_-E4UxgQT8Q`.
+ # Start a producer in the background to produce to `foo.test`.
+ # Break disk `d1` in `broker-1`. We simulate this by marking the log dir read-only.
+ # Delete topic `foo.test`
+ # Recreate topic `foo.test`. Let's assume the topic was created with id `bgdrsv-1QjCLFEqLOzVCHg`.
+ # Wait for 5 minutes
+ # Describe the recreated topic `foo.test`.
+
+ 
+
+We observe that `broker-1` is the leader and in-sync for few partitions
+
+ 
+
+ 
+{code:java}
+ 
+Topic: foo.test TopicId: bgdrsv-1QjCLFEqLOzVCHg PartitionCount: 10      ReplicationFactor: 4    Configs: min.insync.replicas=1,unclean.leader.election.enable=false
+        Topic: foo.test Partition: 0    Leader: 101     Replicas: 101,102,103,104       Isr: 101,102,103,104
+        Topic: foo.test Partition: 1    Leader: 102     Replicas: 102,103,104,101       Isr: 102,103,104
+        Topic: foo.test Partition: 2    Leader: 103     Replicas: 103",,
+94,B_label_audit,jira:13602495:change:22326209:0,issue:KAFKA-18291,jira,2024-12-19 08:15:12.330000+00:00,org.apache.jira.issue.transition,Remove deprecated methods of ListConsumerGroupOffsetsOptions,"RemoteIssueLink: None → This issue links to ""GitHub Pull Request #18265 (Web Link)""
+they are deprecated by KAFKA-13043 (3.3.0, 2022)",,
+95,B_label_audit,mail:5a849b027f1ca40cef021ff5,thread:CA+0Ze6rnwQA7FND+AMU8zATJ_GR5YZBnXx5s8G=dAGffs8c-=g@mail.gmail.com,mail,2024-12-02 15:56:31+00:00,org.apache.mail.message,Re: [ANNOUNCE] New committer: Andrew Schofield,"Hi,
+
+Congrats!
+Well deserved!
+
+Best,
+Bruno
+
+On 02.12.24 16:21, Lucas Brutschy wrote:
+> Congrats! Well deserved.
+> 
+> Cheers,
+> Lucas
+> 
+> On Mon, Dec 2, 2024 at 4:20 PM Bill Bejeck <bbejeck@gmail.com> wrote:
+>>
+>> Congrats Andrew! Well deserved.
+>>
+>> -Bill
+>>
+>> On Mon, Dec 2, 2024 at 10:11 AM Yash Mayya <yash.mayya@gmail.com> wrote:
+>>
+>>> Congrats Andrew!
+>>>
+>>> On Mon, 2 Dec, 2024, 20:26 PoAn Yang, <yangpoan@gmail.com> wrote:
+>>>
+>>>> Congratulations Andrew!
+>>>>
+>>>> PoAn
+>>>>
+>>>>> On Dec 2, 2024, at 10:36 PM, Rajini Sivaram <rajinisivaram@gmail.com>
+>>>> wrote:
+>>>>>
+>>>>> Congratulations, Andrew! Well deserved!
+>>>>>
+>>>>> Regards,
+>>>>>
+>>>>> Rajini
+>>>>>
+>>>>> On Mon, Dec 2, 2024 at 2:31 PM Kamal Chandraprakash <
+>>>>> kamal.chandraprakash@gmail.com> wrote:
+>>>>>
+>>>>>> Congrats Andrew!
+>>>>>>
+>>>>>> On Mon, Dec 2, 2024 at 7:57 PM Abhinav Dixit
+>>>> <adixit@confluent.io.invalid>
+>>>>>> wrote:
+>>>>>>
+>>>>>>> Congratulations Andrew. Very happy for you :)
+>>>>>>>
+>>>>>>> On Mon, Dec 2, 2024 at 7:52 PM TengYao Chi <kitingiao@gmail.com>
+>>>> wrote:
+>>>>>>>
+>>>>>>>> Congratulations Andrew
+>>>>>>>> Very well deserved.
+>>>>>>>>
+>>>>>>>>
+>>>>>>>> Mayank Shekhar Narula <mayanks.na",,
+96,B_label_audit,jira:13514171:change:21447842:0,issue:KAFKA-14500,jira,2023-06-20 14:43:24.601000+00:00,org.apache.jira.issue.transition,Implement JoinGroup/SyncGroup APIs,"RemoteIssueLink: This issue links to ""GitHub Pull Request #13870 (Web Link)"" → This issue links to ""GitHub Pull Request #13870 (Web Link)""
+Implement JoinGroup/SyncGroup APIs in the new group coordinator.",,
+97,B_label_audit,github:api:apache/kafka:pr-19627-opened,pr:19627,github,2025-05-02 22:47:51+00:00,com.github.pull_request.opened,MINOR: fix bug in MockConsumer,"Reviewers: Chia-Ping Tsai <chia7712@gmail.com>, TengYao Chi
+ <frankvicky@apache.org>
+",,
+98,B_label_audit,github:api:apache/kafka:review-PRR_kwDOACG9q86dVNjB,pr:18983,github,2025-02-25 06:22:19+00:00,com.github.review,KAFKA-14121: AlterPartitionReassignments API should allow callers to specify the option of preserving the replication factor,,,
+99,B_label_audit,jira:13379681:comment:17869799,issue:KAFKA-12823,jira,2024-07-31 03:06:48.603000+00:00,org.apache.jira.issue.comment,Remove Deprecated method KStream#through,"got it, I will start working on this now, could you assign this to me? ",,
+100,B_label_audit,jira:13532559:comment:17712497,issue:KAFKA-14904,jira,2023-04-14 18:28:08.506000+00:00,org.apache.jira.issue.comment,Flaky Test  kafka.api.TransactionsBounceTest.testWithGroupId(),"The issue is the first request we verify is still in pending state. I suspect if we check the transaction is in pending ongoing state + verify + confirm the transaction we should be good to proceed. However, I will need to look a bit closer at what pending means here.",,
+101,A_top_r5,mail:0ccf808b9e1430af1b828617,thread:CAKq-o4uNLRXzMBuHdx4fVCh_yRt8eDAga1qb3NThVBncOG5XeQ@mail.gmail.com,mail,2024-08-15 08:00:55+00:00,org.apache.mail.message,"Re: [DISCUSS] KIP-1073 Return inactive observer nodes in
+ DescribeQuorum response","Hi Colin and Jose,
+
+Thanks for taking a look at the KIP and providing feedback.
+
+I overlooked that the memory state containing observers will be lost when a
+controller restarts. You also made a good point about other observers that
+might be connecting to the quorum to read the current metadata. I agree
+that we should implement a way to list the fenced brokers using the
+DescribeClusterRequest instead of the DescribeQuorum API.
+
+I will update the KIP and get back to you all for further feedback. Thanks.
+
+Regards,
+Gantigmaa
+
+On Fri, Aug 9, 2024 at 11:48 PM José Armando García Sancio
+<jsancio@confluent.io.invalid> wrote:
+
+> Thanks for the KIP Gantigmaa!
+>
+> I agree with the motivation but it is not clear to me that this should be
+> solved in the KRaft layer. The KRaft leader only keeps track, in-memory, of
+> observers that have fetched. It is possible, after a kraft leader change,
+> for this state to get lost. If the shutdown brokers never fetch they will
+> not show up in the kraft leader's observer list.
+>
+> As Colin has pointed out it is better to solve this in the metadata module
+> and the KRaft/Quorum controller. The QuorumController knows of all of the
+> registered brokers and the",,
+102,A_top_r5,mail:7ec1e04d25b68fc3ca184abd,thread:CAGa7TviCVzBA7q+aHOMfPLmQixs95jOtaig2eTbTchSofOR0eQ@mail.gmail.com,mail,2025-02-11 23:26:32+00:00,org.apache.mail.message,Re: [DISCUSS] KIP-890 Server Side Defense,"Hi Jun,
+Thanks for the feedback, will update the name as suggested.
+The default values are
+add.partitions.to.txn.retry.backoff.ms=20
+-- This is because the client side AddPartitionsToTxn retry backoff is 20ms.
+add.partitions.to.txn.retry.backoff.max.ms=100
+-- We want this value to be small to avoid client side timeout and retry,
+but also long enough for the markers to propagate.
+
+
+On Tue, Feb 11, 2025 at 2:36 PM Jun Rao <jun@confluent.io.invalid> wrote:
+
+> Hi, Calvin,
+>
+> Thanks for the update. The change looks good to me. Some minor comments.
+>
+> For retry timeout, our convention is to use retry.backoff.max.ms and
+> retry.backoff.ms. So, to be consistent, the new configurations should be
+> add.partitions.to.txn.retry.backoff.max.ms and
+> add.partitions.to.txn.retry.backoff.ms.
+>
+> Also, could you specify the defaults for these two values?
+>
+> Thanks,
+>
+> Jun
+>
+>
+>
+>
+> On Mon, Feb 10, 2025 at 2:45 PM Calvin Liu <caliu@confluent.io.invalid>
+> wrote:
+>
+> > Hey team,
+> > In order to address the performance issue in the
+> > https://issues.apache.org/jira/browse/KAFKA-18654. We are making a
+> change
+> > to retry the AddPartitionToTxn requests on the server side when hitting
+> the
+> > CO",,
+103,A_top_r5,mail:85144cf95dbecef6c032a369,thread:JIRA.13579075.1715602820000@Atlassian.JIRA,mail,2024-05-13 12:21:00+00:00,org.apache.mail.message,"[jira] [Created] (KAFKA-16726) Add dynamic group configuration for
+ offset reset","Andrew Schofield created KAFKA-16726:
+----------------------------------------
+
+             Summary: Add dynamic group configuration for offset reset
+                 Key: KAFKA-16726
+                 URL: https://issues.apache.org/jira/browse/KAFKA-16726
+             Project: Kafka
+          Issue Type: Sub-task
+            Reporter: Andrew Schofield
+            Assignee: Andrew Schofield
+
+
+
+
+
+
+--
+This message was sent by Atlassian Jira
+(v8.20.10#820010)",,
+104,B_label_audit,jira:13500994:change:21075987:0,issue:KAFKA-14379,jira,2022-12-02 20:49:40.266000+00:00,org.apache.jira.issue.transition,consumer should refresh preferred read replica on update metadata,"fixVersion: [] → ['3.4.0']
+The consumer (fetcher) refreshes the preferred read replica only on three conditions:
+ # the consumer receives an OFFSET_OUT_OF_RANGE error
+ # the follower does not exist in the client's metadata (i.e., offline)
+ # after metadata.max.age.ms (5 min default)
+
+For other errors, it will continue to reach to the possibly unavailable follower and only after 5 minutes will it refresh the preferred read replica and go back to the leader.
+
+A specific example is when a partition is reassigned. the consumer will get NOT_LEADER_OR_FOLLOWER which triggers a metadata update but the preferred read replica will not be refreshed as the follower is still online. it will continue to reach out to the old follower until the preferred read replica expires.
+
+the consumer can instead refresh its preferred read replica whenever it makes a metadata update request. so when the consumer receives i.e. NOT_LEADER_OR_FOLLOWER it can find the new preferred read replica without waiting for the expiration.
+
+ ",,
+105,A_top_r5,mail:83691bcdc99303e4dafea1fa,thread:785359263.5478.1676458829303@ci-builds-he-fi.apache.org,mail,2023-02-21 17:08:45+00:00,org.apache.mail.message,Build failed in Jenkins: Kafka » Kafka Branch Builder » 3.1 #142,"See <https://ci-builds.apache.org/job/Kafka/job/kafka/job/3.1/142/display/redirect>
+
+Changes:
+
+
+------------------------------------------
+[...truncated 220376 lines...]
+[2023-02-21T17:03:08.543Z] > Task :metadata:testClasses UP-TO-DATE
+[2023-02-21T17:03:08.543Z] > Task :clients:generateMetadataFileForMavenJavaPublication
+[2023-02-21T17:03:08.543Z] > Task :clients:generatePomFileForMavenJavaPublication
+[2023-02-21T17:03:08.543Z] 
+[2023-02-21T17:03:08.543Z] > Task :streams:processMessages
+[2023-02-21T17:03:08.543Z] Execution optimizations have been disabled for task ':streams:processMessages' to ensure correctness due to the following reasons:
+[2023-02-21T17:03:08.543Z]   - Gradle detected a problem with the following location: '/home/jenkins/jenkins-agent/workspace/Kafka_kafka_3.1/streams/src/generated/java/org/apache/kafka/streams/internals/generated'. Reason: Task ':streams:srcJar' uses this output of task ':streams:processMessages' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.2/userguide/validation_problems.html#implicit_dependency",,
+106,A_top_r5,github:api:apache/kafka:commit-b420e4092efab73a428ab53f3011c94e5bb7461f,contributor:77130ab64955,github,2025-06-10 00:05:20+00:00,com.github.push,,MINOR: ELR release note for 4.1 (#19909),,
+107,A_top_r5,mail:a9abce54e9765be3a3de7d4c,thread:JIRA.13579135.1715622324000@Atlassian.JIRA,mail,2024-05-13 17:46:00+00:00,org.apache.mail.message,"[jira] [Created] (KAFKA-16756) Implement max delivery count
+ functionality in SharePartition","Apoorv Mittal created KAFKA-16756:
+-------------------------------------
+
+             Summary: Implement max delivery count functionality in SharePartition
+                 Key: KAFKA-16756
+                 URL: https://issues.apache.org/jira/browse/KAFKA-16756
+             Project: Kafka
+          Issue Type: Sub-task
+            Reporter: Apoorv Mittal
+            Assignee: Chirag Wadhwa
+
+
+
+
+
+
+--
+This message was sent by Atlassian Jira
+(v8.20.10#820010)",,
+108,B_label_audit,jira:13516365:change:22281546:0,issue:KAFKA-14563,jira,2024-11-19 18:53:15.096000+00:00,org.apache.jira.issue.transition,Remove AddPartitionsToTxn call for newer clients as optimization,"RemoteIssueLink: This issue links to ""GitHub Pull Request #17698 (Web Link)"" → This issue links to ""GitHub Pull Request #17698 (Web Link)""
+This is part 2 of KIP-890:
+
+{*}2. Remove the addPartitionsToTxn call and implicitly just add partitions to the transaction on the first produce request during a transaction{*}.
+
+See KIP-890 for more information: https://cwiki.apache.org/confluence/display/KAFKA/KIP-890%3A+Transactions+Server-Side+Defense",,
+109,A_top_r5,github:api:apache/kafka:commit-74ebbae8ece464573c1288e8f233ef804074fe7b,issue:KAFKA-19132,github,2026-01-29 11:53:34+00:00,com.github.push,,KAFKA-19132: Move FetchSession and related classes to server module (…,,
+110,B_label_audit,github:api:apache/kafka:pr-11803-closed,pr:11803,github,2025-01-26 03:34:08+00:00,com.github.pull_request.closed,KAFKA-13691: Rename target topic to custom name,"*More detailed description of your change,
+if necessary. The PR title and PR message become
+the squashed commit message, so use a separate
+comment to ping reviewers.*
+
+*Summary of testing strategy (including rationale)
+for the feature or bug fix. Unit and/or integration
+tests are expected for any behaviour change and
+system tests should be considered for larger changes.*
+
+### Committer Checklist (excluded from commit message)
+- [*] Verify design and implementation 
+- [*] Verify test coverage and CI build status
+- [*] Verify documentation (including upgrade notes)
+",,
+111,A_top_r5,mail:9a44ce16239057963d6b0197,thread:=?utf-8?q?=3CCY8PR11MB76859C1C67CB6E3FB41232D7989C2=40CY8PR11MB7?=,mail,2024-09-24 11:23:49+00:00,org.apache.mail.message,RE: [VOTE] KIP-1052: Enable warmup in producer performance test,"Oh, I apologize for not enabling idempotence on my email producer... :(
+
+On 2024/09/04 22:20:15 ""Welch, Matt"" wrote:
+> Hi Kafka devs, 
+> 
+> Bumping this VOTE thread again for visibility.
+> 
+> Thanks,
+> Matt
+> 
+> -----Original Message-----
+> From: Welch, Matt <matt.welch@intel.com> 
+> Sent: Friday, August 23, 2024 4:26 PM
+> To: dev@kafka.apache.org
+> Subject: RE: [VOTE] KIP-1052: Enable warmup in producer performance test
+> 
+> Hi Kafka devs, 
+> 
+> Bumping this VOTE thread for visibility.
+> 
+> Thanks,
+> Matt
+> 
+> -----Original Message-----
+> From: Federico Valeri <fedevaleri@gmail.com>
+> Sent: Monday, August 19, 2024 12:38 AM
+> To: dev@kafka.apache.org
+> Subject: Re: [VOTE] KIP-1052: Enable warmup in producer performance test
+> 
+> Hi Matt, +1 (non binding) from me. Thanks!
+> 
+> Just a suggestion: I think that the following output line does not add much value and could be removed.
+> 
+> ""Warmup first 100000 records. Steady-state results will print after the complete-test summary.""
+> 
+> On Wed, Aug 14, 2024 at 8:06 PM Welch, Matt <matt.welch@intel.com> wrote:
+> >
+> >
+> > Hi all,
+> >
+> > It seems discussion has been quiet for a couple of weeks so I'd like 
+> > to call a vote on KIP-1052 ",,
+112,B_label_audit,jira:13580795:change:22025318:0,issue:KAFKA-16860,jira,2024-05-29 16:17:16.621000+00:00,org.apache.jira.issue.transition,Introduce `group.version` feature flag,"RemoteIssueLink: This issue links to ""GitHub Pull Request #16120 (Web Link)"" → This issue links to ""GitHub Pull Request #16120 (Web Link)""
+",,
+113,A_top_r5,mail:66a4ec73195775ea7eb31a3e,thread:CAJ95Jxko-Mi5KOMa1MgDCTCF0qWBugNm-W6v9-W-csGM31oVAw@mail.gmail.com,mail,2024-09-16 13:54:25+00:00,org.apache.mail.message,Re: [VOTE] KIP-1079: Deprecate `delete-config` of TopicCommand,"Thanks for the update! Looks good to me now.
+
++1 (binding)
+
+Cheers,
+
+Lianet
+
+On Mon, Sep 16, 2024 at 9:31 AM TengYao Chi <kitingiao@gmail.com> wrote:
+
+> Hi Lianet,
+>
+> Thanks for comment.
+> It is very helpful and I have applied it to the content of this KIP.
+> Please take a look.
+>
+> Sincerely,
+> TengYao
+>
+> Lianet M. <lianetmr@gmail.com> 於 2024年9月16日 週一 下午7:16寫道：
+>
+> > Hello TengYao.
+> >
+> > Thanks for the KIP, nice cleanup. Just one question left. I wonder how we
+> > make sure that we don't just bring in this KIP, deprecate the arg and
+> > forget about it?. First we could maybe mention in the KIP that is with
+> the
+> > intention of removing the option in 5.0 (just for reference), and also
+> > create and include here the jira for it already (maybe in the
+> > ""Compatibility, Deprecation, and Migration Plan"" section)?
+> >
+> > Thanks!
+> >
+> > Lianet
+> >
+> > On Mon, Sep 16, 2024 at 1:01 AM TengYao Chi <kitingiao@gmail.com> wrote:
+> >
+> > > Hello everyone,
+> > > I hope this message finds you well.
+> > > As the vote has been pending for two weeks, I would like to push it
+> > > manually.
+> > >
+> > > Thank you for your attention.
+> > >
+> > > Sincerely,
+> > > TengYao
+> > >
+> > > Andrew Sch",,
+114,A_top_r5,mail:b5121847bd716b3ed4378f87,thread:GV1PR09MB58987174CA68313607152A6D9D9B2@GV1PR09MB5898.eurprd09.prod.outlook.com,mail,2024-12-05 15:23:27+00:00,org.apache.mail.message,Re: [VOTE] KIP-1034: Dead letter queue in Kafka Streams,"Hi Sebastien,
+
+I believe the new proposal has a similar problem (since fields in
+interfaces are always static). Would you consider adding an overload
+of `handle` instead that passes a collection of DLQ records that can
+be mutated? That wouldn't be as clean as returning it in the return
+value, but would be correct and easy to implement. Needs a good
+Javadoc comment though!
+
+Cheers,
+Lucas
+
+On Wed, Dec 4, 2024 at 10:26 PM Sebastien Viale
+<sebastien.viale@michelin.com> wrote:
+>
+> Hi all,
+>
+> During the implementation of the KIP, we realized that the proposal adds some mutable fields to enums:
+>
+> - ProductionExceptionHandlerResponse from ProductionExceptionHandler
+> - DeserializationHandlerResponse from DeserializationExceptionHandler
+> - ProcessingHandlerResponse from ProcessingExceptionHandler
+>
+> This is considered an anti-pattern.
+>
+> To ensure a cleaner design, we decided to remove mutable fields and methods from the enums and move them into their respective classes:
+>
+> - ProductionExceptionHandler
+> - DeserializationExceptionHandler
+> - ProcessingExceptionHandler
+>
+> We have updated the KIP accordingly and are now calling for a new vote to maintain transparency.
+>
+> Cheers,
+> Lo",,
+115,A_top_r5,mail:5882085aa5c4076a831c799d,thread:JIRA.13648431.1776450372000@Atlassian.JIRA,mail,2026-04-17 18:27:00+00:00,org.apache.mail.message,"[jira] [Created] (KAFKA-20483) KIP-892: Add unit tests for RocksDB
+ transaction buffering","Bill Bejeck created KAFKA-20483:
+-----------------------------------
+
+             Summary: KIP-892: Add unit tests for RocksDB transaction buffering
+                 Key: KAFKA-20483
+                 URL: https://issues.apache.org/jira/browse/KAFKA-20483
+             Project: Kafka
+          Issue Type: Sub-task
+            Reporter: Bill Bejeck
+
+
+Unit tests for core RocksDB buffering and store layers.
+
+- RocksDBStoreTest — buffering, commit, rollback, read-your-writes, uncommitted bytes tracking
+- Segment tests — KeyValueSegmentTest, TimestampedSegmentTest, KeyValueSegmentsTest, TimestampedSegmentsTest
+- Window store tests — RocksDBWindowStoreTest, TimeOrderedWindowStoreTest, TimeOrderedCachingPersistentWindowStoreTest
+- Caching store tests — CachingInMemoryKeyValueStoreTest, CachingInMemorySessionStoreTest, CachingPersistentSessionStoreTest, CachingPersistentWindowStoreTest
+- Metered store tests — MeteredKeyValueStoreTest, MeteredTimestampedKeyValueStoreTest, MeteredWindowStoreTest, MeteredVersionedKeyValueStoreTest
+- Mock/stub updates — MockKeyValueStore, NoOpReadOnlyStore, StateManagerStub, GlobalStateManagerStub, InternalMockProcessorContext
+- StateStoreMetricsTest — uncommit",,
+116,B_label_audit,jira:13656197:change:23127323:0,issue:KAFKA-20749,jira,2026-06-30 15:19:09.094000+00:00,org.apache.jira.issue.transition,KStream-KStream outer/left join crashes under EOS with transactional state stores,"RemoteIssueLink: This issue links to ""GitHub Pull Request #22710 (Web Link)"" → This issue links to ""GitHub Pull Request #22710 (Web Link)""
+R{{{}ocksDBTransactionBuffer{}}}'s staging map ({{{}AbstractTransactionBuffer.pendingWrites{}}}) is keyed by key bytes only, with no column-family dimension. Writes to the offsets column family (the ""position"" key, written when the store persists its Position) are staged into that shared map and then surface in data-column-family range()/all() scans. The outer-join ListValueStore tries to  deserialize the 40-byte serialized Position as a value list and fails. The {{get()}} methods was already gated against the offsets CF; the iterator paths were not. Non-transactional stores write straight to the offsets CF and never leak, which is why it's transactional-only. ",,
+117,A_top_r5,mail:edd9cd8e42a7beb38a75a5ca,thread:JIRA.13579085.1715603036000@Atlassian.JIRA,mail,2024-05-13 12:24:00+00:00,org.apache.mail.message,"[jira] [Created] (KAFKA-16735) Deprecate
+ offsets.commit.required.acks in 3.8","David Jacot created KAFKA-16735:
+-----------------------------------
+
+             Summary: Deprecate offsets.commit.required.acks in 3.8
+                 Key: KAFKA-16735
+                 URL: https://issues.apache.org/jira/browse/KAFKA-16735
+             Project: Kafka
+          Issue Type: Sub-task
+            Reporter: David Jacot
+            Assignee: David Jacot
+
+
+
+
+
+
+--
+This message was sent by Atlassian Jira
+(v8.20.10#820010)",,
+118,B_label_audit,github:api:apache/kafka:review-comment-PRRC_kwDOACG9q85qcOye,pr:17325,github,2024-10-03 07:51:43+00:00,com.github.review_comment,KAFKA-16106: Schedule timeout task to refresh classic group size metric,nit: `Collections.emptyMap()`?,,
+119,A_top_r5,github:api:apache/kafka:commit-a3d5ca07f8315363bd84e26312fdaed2ed39fb40,contributor:8af2352bc9ca,github,2025-05-28 07:56:29+00:00,com.github.push,,MINOR: Change `Streams group` to `streams group` (#19813),,
+120,A_top_r5,mail:7668e7240c3d8281d8fe3ef1,thread:JIRA.13648422.1776450297000@Atlassian.JIRA,mail,2026-04-17 18:25:00+00:00,org.apache.mail.message,"[jira] [Created] (KAFKA-20474) KIP-892: Add isolation awareness to
+ caching wrappers","Bill Bejeck created KAFKA-20474:
+-----------------------------------
+
+             Summary: KIP-892: Add isolation awareness to caching wrappers
+                 Key: KAFKA-20474
+                 URL: https://issues.apache.org/jira/browse/KAFKA-20474
+             Project: Kafka
+          Issue Type: Sub-task
+            Reporter: Bill Bejeck
+
+
+Update caching store wrappers for isolation level awareness.
+
+- CachingKeyValueStore
+- CachingSessionStore
+- CachingWindowStore
+- TimeOrderedCachingWindowStore
+- CachingKeyValueStoreWithHeaders (KIP-1271)
+
+
+
+--
+This message was sent by Atlassian Jira
+(v8.20.10#820010)",,
+121,A_top_r5,mail:aec3ed0c27fcc581f8ea023a,thread:CAKq-o4uNLRXzMBuHdx4fVCh_yRt8eDAga1qb3NThVBncOG5XeQ@mail.gmail.com,mail,2024-08-08 16:56:04+00:00,org.apache.mail.message,"Re: [DISCUSS] KIP-1073 Return inactive observer nodes in
+ DescribeQuorum response","Thank you Luke for taking a look at the KIP.
+
+I have corrected the typo and taken the suggestion of including replication
+states for inactive observers when ""–include-inactive-observers"" option is
+used with ""
+kafka-metadata-quorum.sh describe --replication"", as this might be useful
+for finding out how long an observer node has been inactive.
+
+Regards,
+Gantigmaa
+
+On Thu, Aug 8, 2024 at 9:31 AM Luke Chen <showuon@gmail.com> wrote:
+
+> Hi Gantigmaa,
+>
+> Thanks for the KIP!
+> The motivation and change looks good to me.
+>
+> Some comments:
+> 1. typo: When a KRaft broker node shuts down, it is in ""fenced"" state, not
+> ""unfenced"" state
+> 2. Will the ""–include-inactive-observers"" option apply to ""
+> kafka-metadata-quorum.sh describe --replication""?
+> I don't think we must have it, but maybe it's useful to let users know the
+> offset lag for the inactive observers?
+>
+> Thank you.
+> Luke
+>
+> On Thu, Jul 25, 2024 at 9:21 PM Gantigmaa Selenge <gselenge@redhat.com>
+> wrote:
+>
+> > Hi everyone,
+> >
+> > I would like to start a discussion on KIP-1073 that includes inactive
+> > observer nodes in the response for describeQuorum request.
+> >
+> >
+> https://cwiki.apache.org/confluence/display/KAFKA/KIP-10",,
+122,A_top_r5,mail:b815ace095c4974e78743064,thread:JIRA.13344237.1607087994000@Atlassian.JIRA,mail,2024-05-02 09:26:00+00:00,org.apache.mail.message,"[jira] [Resolved] (KAFKA-10809) Make all system tests stably run on
+ either Travis CI or local","[ https://issues.apache.org/jira/browse/KAFKA-10809?page=com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel ]
+
+Chia-Ping Tsai resolved KAFKA-10809.
+------------------------------------
+    Resolution: Fixed
+
+> Make all system tests stably run on either Travis CI or local
+> -------------------------------------------------------------
+>
+>                 Key: KAFKA-10809
+>                 URL: https://issues.apache.org/jira/browse/KAFKA-10809
+>             Project: Kafka
+>          Issue Type: Improvement
+>            Reporter: Chia-Ping Tsai
+>            Assignee: Chia-Ping Tsai
+>            Priority: Major
+>
+> It can encourage us to write more system tests if Travis CI can run a subset of system tests automatically.
+> This initial work is https://github.com/apache/kafka/pull/9652
+
+
+
+--
+This message was sent by Atlassian Jira
+(v8.20.10#820010)",,
+123,B_label_audit,jira:13612609:change:22513365:1,issue:KAFKA-19024,jira,2025-04-17 08:15:05.267000+00:00,org.apache.jira.issue.transition,Enhance the client behaviour when it tries to exceed the `group.share.max.groups`,"resolution: Fixed → None
+For share groups we use the `group.share.max.groups` config to define the number of max share groups we allow. However, when we exceed the same, the client logs do not specify any such error and simply do not consume. The group doesn't get created but the client continues to send Heartbeats hoping for one of the existing groups to shut down and allowing it to form a group. Having a log or an exception in the client logs will help them debug such situations accurately.",,
+124,B_label_audit,mail:2f31eae4083f25c1f8398df8,thread:CA+OCqnZMR4nHOa+NkygS6k_Y0k1AzpWhtC6dUCW0L_xvxxov3Q@mail.gmail.com,mail,2025-03-19 11:58:37+00:00,org.apache.mail.message,[DISCUSS] Apache Kafka 4.1.0 release,"Hi,
+
+I'd like to volunteer to be the release manager for the Apache Kafka
+4.1.0 release.
+
+If there are no objections, I'll start building the release plan in
+the next few days.
+
+Thanks,
+Mickael",,
+125,B_label_audit,jira:13603353:change:22336080:0,issue:KAFKA-18359,jira,2024-12-29 05:30:00.846000+00:00,org.apache.jira.issue.transition,"Set zkConnect to null in LocalLeaderEndPointTest, HighwatermarkPersistenceTest, IsrExpirationTest, ReplicaManagerQuotasTest, OffsetsForLeaderEpochTest","status: Open → In Progress
+",,
+126,A_top_r5,mail:7203f9d07c8a254566e8fff7,thread:JIRA.13579083.1715602972000@Atlassian.JIRA,mail,2024-05-13 12:23:00+00:00,org.apache.mail.message,"[jira] [Created] (KAFKA-16733) Add support for formatting new
+ records written to offsets topic","Andrew Schofield created KAFKA-16733:
+----------------------------------------
+
+             Summary: Add support for formatting new records written to offsets topic
+                 Key: KAFKA-16733
+                 URL: https://issues.apache.org/jira/browse/KAFKA-16733
+             Project: Kafka
+          Issue Type: Sub-task
+            Reporter: Andrew Schofield
+            Assignee: Andrew Schofield
+
+
+
+
+
+
+--
+This message was sent by Atlassian Jira
+(v8.20.10#820010)",,
+127,B_label_audit,jira:13555062:created,issue:KAFKA-15664,jira,2023-10-21 11:40:33+00:00,org.apache.jira.issue.created,Add 3.4.0 streams upgrade/compatibility tests,"Per the penultimate bullet on the release checklist, Kafka v3.4.0 is released. We should add this version to the system tests.
+
+Example PR: https://github.com/apache/kafka/pull/6597/files",,
+128,B_label_audit,jira:13641473:change:22968214:0,issue:KAFKA-20162,jira,2026-03-10 15:40:28.116000+00:00,org.apache.jira.issue.transition,Validation and enforcement of group configurations,"RemoteIssueLink: This issue links to ""GitHub Pull Request #21633 (Web Link)"" → This issue links to ""GitHub Pull Request #21633 (Web Link)""
+Part of KIP-1240.
+* Tighten up and correct the validation and enforcement of existing group configurations such as group.consumer.session.timeout.ms.
+* When a broker is restarted, static broker configurations are applied. It is possible that the group configurations might now lie outside the broker limits. In some cases, this causes the broker not to start.
+* When a group configuration is updated, the value is validated against the broker configuration limits. If the validation fails, the request is rejected. (No change)
+* When a broker configuration is updated, the existing group configurations are not validated. There are no cascading checks of all of the group configurations. This ensures that the administrator is able to tighten or relax limits easily.
+* When a broker starts, if a group configuration lies outside the broker configuration limits, the broker is permitted to start. The broker writes a log line indicating that a group configuration was outside the broker limits, and that the effective value will be within the broker limits.",,
+129,B_label_audit,jira:13656197:change:23127298:0,issue:KAFKA-20749,jira,2026-06-30 14:59:36.737000+00:00,org.apache.jira.issue.transition,KStream-KStream outer/left join crashes under EOS with transactional state stores,"RemoteIssueLink: This issue links to ""GitHub Pull Request #22710 (Web Link)"" → This issue links to ""GitHub Pull Request #22710 (Web Link)""
+R{{{}ocksDBTransactionBuffer{}}}'s staging map ({{{}AbstractTransactionBuffer.pendingWrites{}}}) is keyed by key bytes only, with no column-family dimension. Writes to the offsets column family (the ""position"" key, written when the store persists its Position) are staged into that shared map and then surface in data-column-family range()/all() scans. The outer-join ListValueStore tries to  deserialize the 40-byte serialized Position as a value list and fails. The {{get()}} methods was already gated against the offsets CF; the iterator paths were not. Non-transactional stores write straight to the offsets CF and never leak, which is why it's transactional-only. ",,
+130,A_top_r5,mail:cdcb182145b4f587b7ca436a,thread:PR_kwDOMRGlbM50t7OJ@gitbox.apache.org,mail,2024-07-08 16:17:38+00:00,org.apache.mail.message,[PR] add PARALLEL1 [kafka-merge-queue-sandbox],"mumrah opened a new pull request, #26:
+URL: https://github.com/apache/kafka-merge-queue-sandbox/pull/26
+
+   (no comment)
+
+
+-- 
+This is an automated message from the Apache Git Service.
+To respond to the message, please log on to GitHub and use the
+URL above to go to the specific comment.
+
+To unsubscribe, e-mail: dev-unsubscribe@kafka.apache.org
+
+For queries about this service, please contact Infrastructure at:
+users@infra.apache.org",,
+131,A_top_r5,mail:db968d1db281b9b5d616b00a,thread:JIRA.13598544.1731453810000@Atlassian.JIRA,mail,2024-12-03 18:02:00+00:00,org.apache.mail.message,"[jira] [Resolved] (KAFKA-18001) KafkaNetworkChannel missing
+ UpdateRaftVoterRequestData logic","[ https://issues.apache.org/jira/browse/KAFKA-18001?page=com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel ]
+
+Colin McCabe resolved KAFKA-18001.
+----------------------------------
+      Assignee: Alyssa Huang
+    Resolution: Fixed
+
+> KafkaNetworkChannel missing UpdateRaftVoterRequestData logic
+> ------------------------------------------------------------
+>
+>                 Key: KAFKA-18001
+>                 URL: https://issues.apache.org/jira/browse/KAFKA-18001
+>             Project: Kafka
+>          Issue Type: Bug
+>    Affects Versions: 3.9.0, 3.9.1
+>            Reporter: Alyssa Huang
+>            Assignee: Alyssa Huang
+>            Priority: Major
+>             Fix For: 3.9.1
+>
+>
+> buildRequest needs an if case for UpdateRaftVoterRequestData
+
+
+
+--
+This message was sent by Atlassian Jira
+(v8.20.10#820010)",,
+132,A_top_r5,github:api:apache/kafka:commit-4a8a0637e07734779b40ba9785842311144f922c,issue:KAFKA-18723,github,2025-02-26 01:09:19+00:00,com.github.push,,KAFKA-18723; Better handle invalid records during replication (#18852),,
+133,B_label_audit,github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86coyfq,pr:21168,github,2025-12-17 17:28:26+00:00,com.github.review_comment,MINOR: Add `SanityCheck` #21165 [S3599] ,if desired will undo.,,
+134,B_label_audit,jira:13583458:comment:17856798,issue:KAFKA-17017,jira,2024-06-21 15:03:02.409000+00:00,org.apache.jira.issue.comment,AsyncConsumer#unsubscribe does not clean the assigned partitions,"It seems we need two fixes:
+
+1) `AsyncConsumer#unsubscribe` should call  `subscriptions.unsubscribe` if `groupMetadata` is undefined (it means there is no group)
+2) `MembershipManagerImpl#leaveGroup` should call `subscriptions.unsubscribe` if the `isNotInGroup` is true",,
+135,B_label_audit,github:api:apache/kafka:review-comment-PRRC_kwDOACG9q85h6zQW,pr:16353,github,2024-06-17 13:19:14+00:00,com.github.review_comment,KAFKA-16977: Reapply dynamic remote configs after broker restart,@kamalcph @satishd sounds good to me :),,
+136,A_top_r5,mail:04ac613b52a9a72ba848f24f,thread:JIRA.13544907.1690353951000@Atlassian.JIRA,mail,2023-07-26 06:49:00+00:00,org.apache.mail.message,"[jira] [Resolved] (KAFKA-15254) Task is not stopped until the poll
+ interval passes in case of task restarting.","[ https://issues.apache.org/jira/browse/KAFKA-15254?page=com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel ]
+
+Nikita resolved KAFKA-15254.
+----------------------------
+    Resolution: Duplicate
+
+> Task is not stopped until the poll interval passes in case of task restarting.
+> ------------------------------------------------------------------------------
+>
+>                 Key: KAFKA-15254
+>                 URL: https://issues.apache.org/jira/browse/KAFKA-15254
+>             Project: Kafka
+>          Issue Type: Bug
+>          Components: KafkaConnect
+>            Reporter: Nikita
+>            Priority: Major
+>
+> We face a problem with the restarting of the tasks, sometimes it leads to resource leak. 
+> We used the jdbc source connector and noticed an increasing of count of opened sessions on Vertica side. But this problem is applicable for all databases and possibly for all source connectors.
+> Our case is the next: 
+> 1) Run jdbc source connector (io.confluent.connect.jdbc.JdbcSourceConnector) and set poll.interval.ms (86400000) > task.shutdown.graceful.timeout.ms (it's the property on Kafka-connect side, we set 10000)
+> 2) Send POST /connectors/<connector_name>/tasks",,
+137,B_label_audit,github:api:apache/kafka:review-comment-PRRC_kwDOACG9q85r1jNn,pr:17402,github,2024-10-21 17:11:08+00:00,com.github.review_comment,KAFKA-14562 [2/3]: Implement epoch bump after every transaction (KIP-890),"> As currently written with v2 we'll fall through to transition to fatal error.
+
+Yeah this makes sense, in the current test failures there's a few that are failing due to fatal errors when using the new V2 version, so definitely got to fix that",,
+138,A_top_r5,mail:d553a769fd3a094bbcfd812e,thread:JIRA.13509845.1670235549000@Atlassian.JIRA,mail,2023-02-24 19:35:00+00:00,org.apache.mail.message,"[jira] [Reopened] (KAFKA-14442) GlobalKTable restoration waits
+ requestTimeout during application restart","[ https://issues.apache.org/jira/browse/KAFKA-14442?page=com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel ]
+
+Matthias J. Sax reopened KAFKA-14442:
+-------------------------------------
+
+> GlobalKTable restoration waits requestTimeout during application restart
+> ------------------------------------------------------------------------
+>
+>                 Key: KAFKA-14442
+>                 URL: https://issues.apache.org/jira/browse/KAFKA-14442
+>             Project: Kafka
+>          Issue Type: Bug
+>          Components: streams
+>    Affects Versions: 3.0.0
+>            Reporter: Gergo L��p
+>            Priority: Major
+>             Fix For: 3.2.0
+>
+>
+> Using ""exactly_once_beta"" the highWatermark ""skips"" an offset after a transaction but in this case the global .checkpoint file contains different value (smaller by 1) than the highWatermark.
+> During restoration because of the difference between the checkpoint and highWatermark a poll will be attempted but sometimes there is no new record on the partition and the GlobalStreamThread has to wait for the requestTimeout to continue.
+> If there is any new record on the partition the problem does not occure.
+
+
+
+--
+This message w",,
+139,B_label_audit,jira:13580795:change:22027315:0,issue:KAFKA-16860,jira,2024-05-30 19:38:13.941000+00:00,org.apache.jira.issue.transition,Introduce `group.version` feature flag,"RemoteIssueLink: This issue links to ""GitHub Pull Request #16120 (Web Link)"" → This issue links to ""GitHub Pull Request #16120 (Web Link)""
+",,
+140,B_label_audit,jira:13474697:change:20919256:0,issue:KAFKA-14133,jira,2022-09-21 10:42:18.132000+00:00,org.apache.jira.issue.transition,Remaining EasyMock to Mockito tests,"RemoteIssueLink: This issue links to ""GitHub Pull Request #12524 (Web Link)"" → This issue links to ""GitHub Pull Request #12524 (Web Link)""
+{color:#de350b}There are tests which use both PowerMock and EasyMock. I have put those in https://issues.apache.org/jira/browse/KAFKA-14132. Tests here rely solely on EasyMock.{color}
+
+Unless stated in brackets the tests are in the streams module.
+
+A list of tests which still require to be moved from EasyMock to Mockito as of 2nd of August 2022 which do not have a Jira issue and do not have pull requests I am aware of which are opened:
+
+{color:#ff8b00}In Review{color}
+{color:#00875a}Merged{color}
+ # {color:#00875a}WorkerConnectorTest{color} (connect) (owner: [~yash.mayya] )
+ # {color:#00875a}WorkerCoordinatorTest{color} (connect) (owner: [~yash.mayya] )
+ # {color:#00875a}RootResourceTest{color} (connect) (owner: [~yash.mayya] )
+ # {color:#00875a}ByteArrayProducerRecordEquals{color} (connect) (owner: [~yash.mayya] )
+ # {color:#00875a}KStreamFlatTransformTest{color} (owner: Christo)
+ # {color:#00875a}KStreamFlatTransformValuesTest{color} (owner: Christo)
+ # {color:#00875a}KStreamPrintTest{color} (owner: Christo)
+ # {color:#00875a}KS",,
+141,B_label_audit,mail:cdcb8a71d89797a9525eb704,thread:f79f0da5-afc9-be4b-a84b-079d472b0902@apache.org,mail,2023-06-13 17:11:08+00:00,org.apache.mail.message,Re: [ANNOUNCE] New committer: Divij Vaidya,"Congratulations Divij.
+
+On Tue 13 Jun 2023 at 17:50, Bruno Cadonna <cadonna@apache.org> wrote:
+
+> Hi all,
+>
+> The PMC of Apache Kafka is pleased to announce a new Kafka committer
+> Divij Vaidya.
+>
+> Divij's major contributions are:
+>
+> GDPR compliance enforcement of kafka-site -
+> https://issues.apache.org/jira/browse/KAFKA-13868
+>
+> Performance improvements:
+>
+> Improve performance of VarInt encoding and decoding -
+> https://github.com/apache/kafka/pull/13312
+>
+> Reduce data copy & buffer allocation during decompression -
+> https://github.com/apache/kafka/pull/13135
+>
+> He also was heavily involved in the migration to Mockito.
+>
+> Furthermore, Divij is very active on the mailing lists as well as in
+> maintaining and reviewing pull requests.
+>
+> Congratulations, Divij!
+>
+> Thanks,
+>
+> Bruno (on behalf of the Apache Kafka PMC)
+>
+>
+> --
+Manyanda Chitimbo.",,
+142,B_label_audit,jira:13516677:change:21988348:0,issue:KAFKA-14588,jira,2024-05-02 09:35:13.448000+00:00,org.apache.jira.issue.transition,Move ConfigCommand to tools,"RemoteIssueLink: This issue links to ""GitHub Pull Request #15832 (Web Link)"" → This issue links to ""GitHub Pull Request #15832 (Web Link)""
+",,
+143,B_label_audit,github:api:apache/kafka:review-comment-PRRC_kwDOACG9q85vb9JB,pr:18031,github,2024-12-04 14:08:35+00:00,com.github.review_comment,KAFKA-17598; Command line validation tool for RE2J regex,"agree, but should we then update the bootstrap doc that states it's required?",,
+144,B_label_audit,jira:13540312:change:22046884:0,issue:KAFKA-15094,jira,2024-06-13 00:55:06.927000+00:00,org.apache.jira.issue.transition,Add RemoteIndexCache metrics like misses/evictions/load-failures.,"fixVersion: [] → ['3.9.0']
+Add metrics like hits/misses/evictions/load-failures for RemoteIndexCache.",,
+145,A_top_r5,mail:77c8134a1a8662d7ffdaf6fd,thread:JIRA.13481591.1663201715000@Atlassian.JIRA,mail,2024-10-09 08:52:00+00:00,org.apache.mail.message,"[jira] [Resolved] (KAFKA-14234) /admin/delete_topics is not in the
+ list of zookeeper watchers","[ https://issues.apache.org/jira/browse/KAFKA-14234?page=com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel ]
+
+Mickael Maison resolved KAFKA-14234.
+------------------------------------
+    Resolution: Cannot Reproduce
+
+We are now removing ZooKeeper support so closing this issue.
+
+> /admin/delete_topics is not in the list of zookeeper watchers
+> -------------------------------------------------------------
+>
+>                 Key: KAFKA-14234
+>                 URL: https://issues.apache.org/jira/browse/KAFKA-14234
+>             Project: Kafka
+>          Issue Type: Bug
+>          Components: controller
+>    Affects Versions: 3.2.1
+>            Reporter: Yan Xue
+>            Priority: Minor
+>
+> I deployed the Kafka cluster on Kuberentes and am trying to figure out how topic deletion works. I know Kafka controller has the topic deletion manager which watches the node change in the zookeeper. Whenever a topic is deleted, the manager is triggered. I expected to see that the {{/admin/delete_topics}} is in the watcher list. However, I didn't find it. Sample output:
+> root@kafka-broker-2:/opt/kafka# echo wchc | nc ZOOKEEPER_IP 2181
+> 0x200100211390000
+>     /admin/preferred_repli",,
+146,A_top_r5,github:api:apache/kafka:commit-7ee5a2ac26a9149fbbddc2d62f5fd7f6228beda3,issue:KAFKA-19446,github,2025-11-14 02:21:55+00:00,com.github.push,,KAFKA-19446: Add Transaction Version to request builder [2/3] (#20868),,
+147,A_top_r5,github:api:apache/kafka:commit-e990941f5a84763005deeb6d9ea89956b7ec0706,issue:KAFKA-19825,github,2025-11-14 19:12:45+00:00,com.github.push,,KAFKA-19825 [2/2]: Add coordinator batch flush rate metric (#20754),,
+148,B_label_audit,mail:22c55ac7d9261d63a7252bf2,thread:CAFc58G_Q7cEAU=TRCZ+8QrwQUu9g2QMt=g83YX2XbkW4fSyK-Q@mail.gmail.com,mail,2023-03-09 18:11:41+00:00,org.apache.mail.message,[ANNOUNCE] New Kafka PMC Member: Chris Egerton,"Hi, Everyone,
+
+Chris Egerton has been a Kafka committer since July 2022. He has been very
+instrumental to the community since becoming a committer. It's my pleasure
+to announce that Chris is now a member of Kafka PMC.
+
+Congratulations Chris!
+
+Jun
+on behalf of Apache Kafka PMC",,
+149,B_label_audit,github:api:apache/kafka:comment-IC_kwDOACG9q85KnoDT,pr:12148,github,2022-09-20 06:34:35+00:00,com.github.issue_comment,MINOR: Remove unnecessary log4j-appender dependency and tweak explicit log4j dependency,@ijuma  sorry missed this. Can you rebase the PR.,,
+150,A_top_r5,mail:b314553f76ab238f6c458036,thread:85E54C6B-1B16-4432-86D5-87A1C9DA4789@gmail.com,mail,2026-05-26 15:42:38+00:00,org.apache.mail.message,Re: [VOTE] KIP-1299 Use key range in ProducerPerformance,"+1 (binding)
+
+On 2026/05/19 11:53:34 黃竣陽 wrote:
+> Hello all
+> 
+> I would like to call a vote on KIP-1299 Use key range in ProducerPerformance
+> 
+> KIP:
+> <https://cwiki.apache.org/confluence/x/XpQ8G>
+> 
+> Discussion thread:
+> <https://lists.apache.org/thread/vdp8scrrzdq7ofvl0mm84dhphq8kmzgc>
+> 
+> Best Regards,
+> Jiunn-Yang",,
+151,A_top_r5,mail:700ee2cdaa28b459a5325b35,thread:JIRA.13648429.1776450351000@Atlassian.JIRA,mail,2026-04-17 18:26:00+00:00,org.apache.mail.message,"[jira] [Created] (KAFKA-20481) KIP-892: Update TaskManager and task
+ registry for isolation level","Bill Bejeck created KAFKA-20481:
+-----------------------------------
+
+             Summary: KIP-892: Update TaskManager and task registry for isolation level
+                 Key: KAFKA-20481
+                 URL: https://issues.apache.org/jira/browse/KAFKA-20481
+             Project: Kafka
+          Issue Type: Sub-task
+            Reporter: Bill Bejeck
+
+
+Wire isolation level through task management infrastructure.
+
+- TaskManager.java — isolation-level-aware task management
+- Tasks.java, TasksRegistry.java — task registry extensions
+- StateManager.java — interface changes
+- GlobalStateManagerImpl.java — global store transactional support
+- GlobalStateUpdateTask.java, RecordCollectorImpl.java — minor changes
+
+
+
+--
+This message was sent by Atlassian Jira
+(v8.20.10#820010)",,
+152,A_top_r5,mail:d42d86d3dc739e49102da34b,thread:=?utf-8?q?=3CCY8PR11MB76859C1C67CB6E3FB41232D7989C2=40CY8PR11MB7?=,mail,2024-09-24 11:20:56+00:00,org.apache.mail.message,RE: [VOTE] KIP-1052: Enable warmup in producer performance test,"hi Matt
+
+Apologies for the delayed response. I completely agree that ProducerPerformance should separate warmup statistics from steady-state metrics. Overall +1, but I have a small question:
+
+Have you considered implementing an explicit check for warmup instead of relying on sending a set number of records? My concern is that users may not know how many records are necessary to complete the warmup. Rather than relying on a rule of thumb, ProducerPerformance could check the metadata and node latency (via metrics) to ensure that the node information (such as connection, DNS, and metadata) is ready. 
+
+In summary, this approach introduces a flag called enable-warmup instead of using warmup-records. The advantage is that users no longer need to specify the number of warmup records. When the flag is enabled, ProducerPerformance will continue sending warmup records until the node information is fully ready.
+
+Best,
+Chia-Ping
+
+On 2024/09/04 22:20:15 ""Welch, Matt"" wrote:
+> Hi Kafka devs, 
+> 
+> Bumping this VOTE thread again for visibility.
+> 
+> Thanks,
+> Matt
+> 
+> -----Original Message-----
+> From: Welch, Matt <matt.welch@intel.com> 
+> Sent: Friday, August 23, 2024 4:26 PM
+> To: dev@kafka.ap",,
+153,A_top_r5,mail:44e98c5d115d3760ff7a43b8,thread:CAKq-o4uNLRXzMBuHdx4fVCh_yRt8eDAga1qb3NThVBncOG5XeQ@mail.gmail.com,mail,2024-08-28 10:33:44+00:00,org.apache.mail.message,"Re: [DISCUSS] KIP-1073 Return inactive observer nodes in
+ DescribeQuorum response","Thank you both for reviewing the KIP again.
+
+Addressing Colin's comments:
+
+ > The admin client changes don't seem to include a way to find out if a
+given broker is fenced, by examining the result. Seems like we need that as
+well?
+
+I think admins usually send describeCluster requests to find out about
+cluster's node ids and their descriptions. So I'm not sure if we really
+need the ability to describe a specific node as they would still need to
+send a request to find out the node id first, which could already include
+the fenced state. However, if you think it's useful to only describe a
+particular node, we can add that to the admin client changes. I guess we
+would need to add another field to the DescribeClusterOptions to specify a
+node id so that the response returns the description for that node only
+(ignoring rest of the nodes in the result returned from broker)?
+
+> You need to describe what happens when the client requests to see fenced
+brokers, but the protocol doesn't support that. I would suggest
+UnsupportedVersionException.
+
+With Jose's suggestion to remove the includeFencedBroker option, we might
+not need this exception anymore. Admin clients connecting to older brokers
+woul",,
+154,A_top_r5,mail:b21c7fb3b7df789c5f8af166,thread:JIRA.13646344.1774541705000@Atlassian.JIRA,mail,2026-03-31 14:56:00+00:00,org.apache.mail.message,"[jira] [Resolved] (KAFKA-20361) Fix LazyDownConversionRecordsTest
+ in using zlib-ng","[ https://issues.apache.org/jira/browse/KAFKA-20361?page=com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel ]
+
+Chia-Ping Tsai resolved KAFKA-20361.
+------------------------------------
+    Fix Version/s: 3.9.3
+       Resolution: Fixed
+
+> Fix LazyDownConversionRecordsTest in using zlib-ng
+> --------------------------------------------------
+>
+>                 Key: KAFKA-20361
+>                 URL: https://issues.apache.org/jira/browse/KAFKA-20361
+>             Project: Kafka
+>          Issue Type: Test
+>            Reporter: Chia-Ping Tsai
+>            Assignee: Muralidhar Basani
+>            Priority: Minor
+>             Fix For: 3.9.3
+>
+>
+> {{LazyDownConversionRecordsTest}} fails when using {{zlib-ng}} since it assumes the *v1 records* should be *smaller or equal to* the size of {*}v2{*}. This may *not be correct* anymore because the *longer match size* used by {{zlib-ng}} can cause the *v1 format* to not be compressed as well as the original zlib.
+
+
+
+--
+This message was sent by Atlassian Jira
+(v8.20.10#820010)",,
+155,A_top_r5,mail:57e1408b0e4292d4bb47e930,thread:JIRA.13582877.1718625506000@Atlassian.JIRA,mail,2024-06-17 12:05:00+00:00,org.apache.mail.message,"[jira] [Resolved] (KAFKA-16981) Remove any versions for which
+ Docker Official Images should not be supported IF ANY","[ https://issues.apache.org/jira/browse/KAFKA-16981?page=com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel ]
+
+Krish Vora resolved KAFKA-16981.
+--------------------------------
+    Resolution: Done
+
+> Remove any versions for which Docker Official Images should not be supported IF ANY
+> -----------------------------------------------------------------------------------
+>
+>                 Key: KAFKA-16981
+>                 URL: https://issues.apache.org/jira/browse/KAFKA-16981
+>             Project: Kafka
+>          Issue Type: Sub-task
+>    Affects Versions: 3.7.0
+>            Reporter: Krish Vora
+>            Assignee: Krish Vora
+>            Priority: Major
+>
+> # If there any versions for which Docker Official Images should not be supported, remove the corresponding directories under {{{}docker/docker_official_images{}}}.
+>  # *Commit these changes to AK trunk.*
+
+
+
+--
+This message was sent by Atlassian Jira
+(v8.20.10#820010)",,
+156,A_top_r5,mail:9058cd03064bf33577daeccd,thread:64C1498400010CF508CE0001_0_3347274@omsg-tt-771,mail,2023-07-26 16:27:48+00:00,org.apache.mail.message,Re: Apache Kafka 3.6.0 release,"Yes, still need one more binding vote to pass. I'll send a reminder if the vote is still pending after the waiting period.
+
+Cheers,
+
+From: dev@kafka.apache.org At: 07/26/23 12:17:10 UTC-4:00To:  dev@kafka.apache.org
+Subject: Re: Apache Kafka 3.6.0 release
+
+Hi Hector/Yash,
+Are you planning to reach out to other committers to vote on the KIP
+and close the vote in the next couple of days?
+
+Thanks,
+Satish.
+
+On Wed, 26 Jul 2023 at 20:08, Yash Mayya <yash.mayya@gmail.com> wrote:
+>
+> Hi Hector,
+>
+> KIP-959 actually still requires 2 more binding votes to be accepted (
+> https://cwiki.apache.org/confluence/display/KAFKA/Bylaws#Bylaws-Approvals).
+> The non-binding votes from people who aren't committers (including myself)
+> don't count towards the required lazy majority.
+>
+> Thanks,
+> Yash
+>
+> On Wed, Jul 26, 2023 at 7:35 PM Satish Duggana <satish.duggana@gmail.com>
+> wrote:
+>
+> > Hi Hector,
+> > Thanks for the update on KIP-959.
+> >
+> > ~Satish.
+> >
+> > On Wed, 26 Jul 2023 at 18:38, Hector Geraldino (BLOOMBERG/ 919 3RD A)
+> > <hgeraldino@bloomberg.net> wrote:
+> > >
+> > > Hi Satish,
+> > >
+> > > I added KIP-959 [1] to the list. The KIP has received enough votes to
+> > pass, but I'm waiting the",,
+157,B_label_audit,jira:13516361:change:21297204:0,issue:KAFKA-14561,jira,2023-04-12 17:17:53.105000+00:00,org.apache.jira.issue.transition,Improve transactions experience for older clients by ensuring ongoing transaction,"RemoteIssueLink: This issue links to ""GitHub Pull Request #13391 (Web Link)"" → This issue links to ""GitHub Pull Request #13391 (Web Link)""
+This is part 3 of KIP-890:
+
+3. *To cover older clients, we will ensure a transaction is ongoing before we write to a transaction. We can do this by querying the transaction coordinator and caching the result.*
+
+See KIP-890 for more details: https://cwiki.apache.org/confluence/display/KAFKA/KIP-890%3A+Transactions+Server-Side+Defense",,
+158,A_top_r5,mail:576710995cf5b5a076e8e90d,thread:JIRA.13648425.1776450337000@Atlassian.JIRA,mail,2026-04-17 18:26:00+00:00,org.apache.mail.message,"[jira] [Created] (KAFKA-20477) KIP-892: Add KIP-892 configuration
+ to StreamsConfig","Bill Bejeck created KAFKA-20477:
+-----------------------------------
+
+             Summary: KIP-892: Add KIP-892 configuration to StreamsConfig
+                 Key: KAFKA-20477
+                 URL: https://issues.apache.org/jira/browse/KAFKA-20477
+             Project: Kafka
+          Issue Type: Sub-task
+            Reporter: Bill Bejeck
+
+
+Add new configuration options for KIP-892.
+
+StreamsConfig.java:
+- statestore.uncommitted.max.bytes (default: 64MB, -1 to disable) — memory threshold for early commit
+- default.state.isolation.level (READ_UNCOMMITTED | READ_COMMITTED) — controls buffering and IQ visibility
+- Default for ALOS: READ_UNCOMMITTED (backward compat). Default for EOS: READ_COMMITTED
+
+TopologyConfig.java — propagate isolation level
+StreamsConfigUtils.java — config utilities
+
+
+
+--
+This message was sent by Atlassian Jira
+(v8.20.10#820010)",,
+159,B_label_audit,jira:13532109:change:21322532:0,issue:KAFKA-14888,jira,2023-05-01 11:47:35.245000+00:00,org.apache.jira.issue.transition,RemoteLogManager - deleting expired/size breached log segments to remote storage implementation ,"RemoteIssueLink: This issue links to ""GitHub Pull Request #13561 (Web Link)"" → This issue links to ""GitHub Pull Request #13561 (Web Link)""
+Implementation of RLM as mentioned in the HLD section of KIP-405, this JIRA covers deleting time/size breached log segments in remote storage.
+
+[https://cwiki.apache.org/confluence/display/KAFKA/KIP-405%3A+Kafka+Tiered+Storage#KIP-405:KafkaTieredStorage-High-leveldesign]",,
+160,B_label_audit,github:api:apache/kafka:review-comment-PRRC_kwDOACG9q85Lvssg,pr:14017,github,2023-07-21 15:14:09+00:00,com.github.review_comment,KAFKA-14500; [6/6] Implement SyncGroup protocol in new GroupCoordinator,nit: indentation.,,
+161,B_label_audit,mail:d34a6a0ff1cedbe96bea60c5,thread:JIRA.13587010.1721981623000@Atlassian.JIRA,mail,2024-07-31 02:47:00+00:00,org.apache.mail.message,"[jira] [Resolved] (KAFKA-17205) Allow topic config validation in
+ controller level in KRaft mode","[ https://issues.apache.org/jira/browse/KAFKA-17205?page=com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel ]
+
+Luke Chen resolved KAFKA-17205.
+-------------------------------
+    Resolution: Fixed
+
+> Allow topic config validation in controller level in KRaft mode
+> ---------------------------------------------------------------
+>
+>                 Key: KAFKA-17205
+>                 URL: https://issues.apache.org/jira/browse/KAFKA-17205
+>             Project: Kafka
+>          Issue Type: Sub-task
+>            Reporter: Luke Chen
+>            Assignee: Luke Chen
+>            Priority: Major
+>             Fix For: 3.9.0
+>
+>
+> Allow topic config validation in controller level. This is required because we need to fail the invalid config change before it is written into metadata log, especially for tiered storage feature.
+>  
+> Note: This ticket only changes for KRaft mode.
+
+
+
+--
+This message was sent by Atlassian Jira
+(v8.20.10#820010)",,
+162,A_top_r5,github:api:apache/kafka:commit-efec0f5756510bb02ee578b1a01dd8388237c14b,issue:KAFKA-15267,github,2023-08-30 00:04:20+00:00,com.github.push,,KAFKA-15267: Do not allow Tiered Storage to be disabled while topics …,,
+163,B_label_audit,github:api:apache/kafka:review-comment-PRRC_kwDOACG9q85MoSAs,pr:14116,github,2023-08-07 09:39:00+00:00,com.github.review_comment,KAFKA-15167: Tiered Storage Test Harness Framework,"again, `KafkaServerTestHarness.deleteTopic()` could be used directly here. We don't need to implement this.",,
+164,B_label_audit,jira:13561533:change:22075163:0,issue:KAFKA-15996,jira,2024-07-10 16:03:28.378000+00:00,org.apache.jira.issue.transition,json serializer too slow,"Link: None → This issue causes KAFKA-17111
+I use `org.apache.kafka.connect.json.JsonConverter` as debezium default serializer, but JSON serializers and deserializers are too slow.
+
+ 
+
+Related link:  https://issues.redhat.com/browse/DBZ-7240",,
+165,B_label_audit,mail:9305f98a5b8288d7b0eeb5b1,thread:CAOJ18G7OE7JtmSpA81g0tDkOOuvx2UqmtyJfxDAhSzZugVRUWg@mail.gmail.com,mail,2024-06-12 16:09:12+00:00,org.apache.mail.message,Re: [DISCUSS] Apache Kafka 3.8.0 release,"Hi Josep, I understand I am still in time to cherry-pick on 3.8.0
+https://github.com/apache/kafka/pull/16229
+
+right?
+thanks
+
+On Wed, 12 Jun 2024 at 11:34, Ivan Yurchenko <ivan@ivanyu.me> wrote:
+>
+> Hi,
+>
+> I'll try to do all the fixes and changes for KIP-899 [1] sooner today, but please proceed with the release if I don't manage.
+>
+> Ivan
+>
+> [1] https://github.com/apache/kafka/pull/13277
+>
+> On Wed, Jun 12, 2024, at 12:54, Josep Prat wrote:
+> > Hi Luke,
+> > I think Jose, also mentioned that it won't be ready for v3.8.0 (but he can
+> > confirm this). My question now would be, given that it seems we would need
+> > a v3.9.0, do you think it's important to include
+> > https://github.com/apache/kafka/pull/16284 in v3.8.0?
+> >
+> > Best,
+> >
+> > On Wed, Jun 12, 2024 at 11:40 AM Luke Chen <showuon@gmail.com> wrote:
+> >
+> > > Hi Josep
+> > >
+> > > For KIP-966, I think Calvin had mentioned he won't complete in v3.8.0.
+> > > https://lists.apache.org/thread/fsnr8wy5fznzfso7jgk90skgyo277fmw
+> > >
+> > > For unclean leader election, all we need is this PR:
+> > > https://github.com/apache/kafka/pull/16284
+> > > For this PR, I think it needs one more week to be completed.
+> > >
+> > > Thanks.
+> > > ",,
+166,A_top_r5,mail:e5bf044a94d5cfb1f30d45ec,thread:JIRA.12959752.1461005282000@Atlassian.JIRA,mail,2023-02-24 19:35:00+00:00,org.apache.mail.message,[jira] [Reopened] (KAFKA-3576) Unify KStream and KTable API,"[ https://issues.apache.org/jira/browse/KAFKA-3576?page=com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel ]
+
+Matthias J. Sax reopened KAFKA-3576:
+------------------------------------
+
+> Unify KStream and KTable API
+> ----------------------------
+>
+>                 Key: KAFKA-3576
+>                 URL: https://issues.apache.org/jira/browse/KAFKA-3576
+>             Project: Kafka
+>          Issue Type: Sub-task
+>          Components: streams
+>            Reporter: Matthias J. Sax
+>            Assignee: Damian Guy
+>            Priority: Major
+>              Labels: api
+>             Fix For: 0.10.1.0
+>
+>
+> For KTable aggregations, it has a pattern of {{table.groupBy(...).aggregate(...)}}, and the data is repartitioned in an inner topic based on the selected key in {{groupBy(...)}}.
+> For KStream aggregations, though, it has a pattern of {{stream.selectKey(...).through(...).aggregateByKey(...)}}. In other words, users need to manually use a topic to repartition data, and the syntax is a bit different with KTable as well.
+> h2. Goal
+> To have similar APIs for aggregations of KStream and KTable
+
+
+
+--
+This message was sent by Atlassian Jira
+(v8.20.10#820010)",,
+167,A_top_r5,mail:76c250661a610d99bba091a4,thread:JIRA.13648420.1776450294000@Atlassian.JIRA,mail,2026-04-17 18:25:00+00:00,org.apache.mail.message,"[jira] [Created] (KAFKA-20472) KIP-892: Add
+ approximateNumUncommittedBytes to StateStore API and WrappedStateStore","Bill Bejeck created KAFKA-20472:
+-----------------------------------
+
+             Summary: KIP-892: Add approximateNumUncommittedBytes to StateStore API and WrappedStateStore
+                 Key: KAFKA-20472
+                 URL: https://issues.apache.org/jira/browse/KAFKA-20472
+             Project: Kafka
+          Issue Type: Sub-task
+            Reporter: Bill Bejeck
+
+
+Extend the StateStore public API and wire through wrapper layers.
+
+- StateStore.java — add approximateNumUncommittedBytes() default method, isolation-level-related API
+- BatchWritingStore.java — generalize to WriteBatchInterface (supports both WriteBatch and WriteBatchWithIndex)
+- WrappedStateStore.java — delegate approximateNumUncommittedBytes() to inner store
+
+
+
+--
+This message was sent by Atlassian Jira
+(v8.20.10#820010)",,
+168,B_label_audit,github:api:apache/kafka:review-comment-PRRC_kwDOACG9q85MBD0g,pr:14099,github,2023-07-26 18:30:28+00:00,com.github.review_comment,KAFKA-14702: Extend server side assignor to support rack aware replica placement,moved memberSpec to the next line,,
+169,A_top_r5,mail:e8de27f83a4c400e476e1e01,thread:=?utf-8?q?=3CCY8PR11MB76859C1C67CB6E3FB41232D7989C2=40CY8PR11MB7?=,mail,2024-09-24 11:21:40+00:00,org.apache.mail.message,RE: [VOTE] KIP-1052: Enable warmup in producer performance test,"hi Matt
+
+Apologies for the delayed response. I completely agree that ProducerPerformance should separate warmup statistics from steady-state metrics. Overall +1, but I have a small question:
+
+Have you considered implementing an explicit check for warmup instead of relying on sending a set number of records? My concern is that users may not know how many records are necessary to complete the warmup. Rather than relying on a rule of thumb, ProducerPerformance could check the metadata and node latency (via metrics) to ensure that the node information (such as connection, DNS, and metadata) is ready. 
+
+In summary, this approach introduces a flag called enable-warmup instead of using warmup-records. The advantage is that users no longer need to specify the number of warmup records. When the flag is enabled, ProducerPerformance will continue sending warmup records until the node information is fully ready.
+
+Best,
+Chia-Ping
+
+On 2024/09/04 22:20:15 ""Welch, Matt"" wrote:
+> Hi Kafka devs, 
+> 
+> Bumping this VOTE thread again for visibility.
+> 
+> Thanks,
+> Matt
+> 
+> -----Original Message-----
+> From: Welch, Matt <matt.welch@intel.com> 
+> Sent: Friday, August 23, 2024 4:26 PM
+> To: dev@kafka.ap",,
+170,A_top_r5,mail:ec11b1937018f2089b467bd3,thread:JIRA.13643972.1772703944000@Atlassian.JIRA,mail,2026-03-05 09:46:00+00:00,org.apache.mail.message,"[jira] [Created] (KAFKA-20261) Upgrade path for plain window store
+ to headers store","Alieh Saeedi created KAFKA-20261:
+------------------------------------
+
+             Summary: Upgrade path for plain window store to headers store
+                 Key: KAFKA-20261
+                 URL: https://issues.apache.org/jira/browse/KAFKA-20261
+             Project: Kafka
+          Issue Type: Sub-task
+            Reporter: Alieh Saeedi
+
+
+
+
+
+
+--
+This message was sent by Atlassian Jira
+(v8.20.10#820010)",,
+171,A_top_r5,mail:e0cced6afe9fcfea64ea4d5f,thread:6d728fa5-29fb-4df1-9965-4ff1f828998a@app.fastmail.com,mail,2024-09-18 14:21:52+00:00,org.apache.mail.message,Re: [VOTE] 3.9.0 RC0,"One more thing I noticed - the documentation at
+https://kafka.apache.org/39/documentation.html#brokerconfigs seems to be
+missing all the configuration options for brokers, producers, consumers etc.
+
+Not sure if that is normal for RCs or if this is some bug in the docs
+generator.
+
+Thanks & Regards
+Jakub
+
+On Wed, Sep 18, 2024 at 5:07 AM Colin McCabe <cmccabe@apache.org> wrote:
+
+> Hello Kafka users, developers and client-developers,
+>
+>
+>
+> This is the first candidate for release of Apache Kafka 3.9.0.
+>
+>
+> - This is a major release, the final one in the 3.x line. (There may of
+> course be other minor releases in this line, such as 3.9.1.)
+> - Tiered storage will be considered production-ready in this release.
+> - This will be the final major release to feature the deprecated ZooKeeper
+> mode.
+>
+> This release includes the following KIPs:
+> - KIP-853: Support dynamically changing KRaft controller membership
+> - KIP-1057: Add remote log metadata flag to the dump log tool
+> - KIP-1049: Add config log.summary.interval.ms to Kafka Streams
+> - KIP-1040: Improve handling of nullable values in InsertField,
+> ExtractField, and other transformations
+> - KIP-1031: Control offset translation in",,
+172,A_top_r5,mail:6b81dd443578aafc24c96a58,thread:ddc64109-a255-4e9c-b42b-8af5d6c8a288@app.fastmail.com,mail,2026-03-02 13:43:25+00:00,org.apache.mail.message,Re: [DISCUSS] KIP-1164: Topic Based Batch Coordinator,"Hi all,
+
+The parent KIP-1150 was voted for and accepted. Let's now focus on the technical details presented in this KIP-1164 and also in KIP-1163: Diskless Core [1].
+
+Best,
+Ivan
+
+[1] https://cwiki.apache.org/confluence/display/KAFKA/KIP-1163%3A+Diskless+Core
+
+On Tue, Apr 29, 2025, at 07:54, yuxia wrote:
+> Thanks Giuseppe for the explanation! It make sense to me.
+> 
+> Best regards,
+> Yuxia
+> 
+> ----- 原始邮件 -----
+> 发件人: ""Giuseppe Lillo"" <giuseppe.lillo@aiven.io.INVALID>
+> 收件人: ""dev"" <dev@kafka.apache.org>
+> 发送时间: 星期二, 2025年 4 月 29日 上午 12:14:14
+> 主题: Re: [SPAM][DISCUSS] KIP-1164: Topic Based Batch Coordinator
+> 
+> Hello Yuxia, thanks for your question and interest!
+> 
+> When producing, the broker will call the relevant Batch Coordinator with a
+> CommitBatches request.
+> The Batch Coordinator will then write the metadata about these batches into
+> the __diskless-metadata topic and update its internal state persisted on
+> SQLite. It will then reply with the assigned offsets.
+> Read-only Batch Coordinators will also replicate those metadata into their
+> own internal state.
+> 
+> When consuming, the broker will call the relevant Batch Coordinator with a
+> FindBatches request.
+> The Batch Co",,
+173,A_top_r5,github:api:apache/kafka:commit-22787de48285a7e7059a06816c8a38b830d70a9c,contributor:9412aa62a440,github,2024-07-03 21:08:27+00:00,com.github.push,,MINOR; Update the properties files for controller with advertised.lis…,,
+174,A_top_r5,mail:deb41d3d6b8cab1f5ccd784e,thread:JIRA.13509845.1670235549000@Atlassian.JIRA,mail,2023-02-24 19:35:00+00:00,org.apache.mail.message,"[jira] [Resolved] (KAFKA-14442) GlobalKTable restoration waits
+ requestTimeout during application restart","[ https://issues.apache.org/jira/browse/KAFKA-14442?page=com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel ]
+
+Matthias J. Sax resolved KAFKA-14442.
+-------------------------------------
+    Resolution: Fixed
+
+> GlobalKTable restoration waits requestTimeout during application restart
+> ------------------------------------------------------------------------
+>
+>                 Key: KAFKA-14442
+>                 URL: https://issues.apache.org/jira/browse/KAFKA-14442
+>             Project: Kafka
+>          Issue Type: Bug
+>          Components: streams
+>    Affects Versions: 3.0.0
+>            Reporter: Gergo L��p
+>            Priority: Major
+>             Fix For: 3.2.0
+>
+>
+> Using ""exactly_once_beta"" the highWatermark ""skips"" an offset after a transaction but in this case the global .checkpoint file contains different value (smaller by 1) than the highWatermark.
+> During restoration because of the difference between the checkpoint and highWatermark a poll will be attempted but sometimes there is no new record on the partition and the GlobalStreamThread has to wait for the requestTimeout to continue.
+> If there is any new record on the partition the problem does not occure",,
+175,B_label_audit,jira:13532109:change:21322524:0,issue:KAFKA-14888,jira,2023-05-01 11:24:23.056000+00:00,org.apache.jira.issue.transition,RemoteLogManager - deleting expired/size breached log segments to remote storage implementation ,"RemoteIssueLink: This issue links to ""GitHub Pull Request #13561 (Web Link)"" → This issue links to ""GitHub Pull Request #13561 (Web Link)""
+Implementation of RLM as mentioned in the HLD section of KIP-405, this JIRA covers deleting time/size breached log segments in remote storage.
+
+[https://cwiki.apache.org/confluence/display/KAFKA/KIP-405%3A+Kafka+Tiered+Storage#KIP-405:KafkaTieredStorage-High-leveldesign]",,
+176,B_label_audit,jira:13530211:change:21286412:0,issue:KAFKA-14850,jira,2023-04-05 07:50:59.350000+00:00,org.apache.jira.issue.transition,Introduce InMemoryLeaderEpochCheckpoint to allow quick write/read,"RemoteIssueLink: This issue links to ""GitHub Pull Request #13456 (Web Link)"" → This issue links to ""GitHub Pull Request #13456 (Web Link)""
+",,
+177,A_top_r5,mail:fa9b19e567a6839dc6ada468,thread:JIRA.13579081.1715602937000@Atlassian.JIRA,mail,2024-05-13 12:23:00+00:00,org.apache.mail.message,"[jira] [Created] (KAFKA-16731) Support for share-group-metrics in
+ the broker","Andrew Schofield created KAFKA-16731:
+----------------------------------------
+
+             Summary: Support for share-group-metrics in the broker
+                 Key: KAFKA-16731
+                 URL: https://issues.apache.org/jira/browse/KAFKA-16731
+             Project: Kafka
+          Issue Type: Sub-task
+            Reporter: Andrew Schofield
+            Assignee: Andrew Schofield
+
+
+
+
+
+
+--
+This message was sent by Atlassian Jira
+(v8.20.10#820010)",,
+178,A_top_r5,mail:e3b6d4796ba2521e8cc54856,thread:JIRA.13579130.1715622234000@Atlassian.JIRA,mail,2024-05-13 17:44:00+00:00,org.apache.mail.message,"[jira] [Created] (KAFKA-16751) Implement release acquired records
+ in SharePartitionManager","Apoorv Mittal created KAFKA-16751:
+-------------------------------------
+
+             Summary: Implement release acquired records in SharePartitionManager
+                 Key: KAFKA-16751
+                 URL: https://issues.apache.org/jira/browse/KAFKA-16751
+             Project: Kafka
+          Issue Type: Sub-task
+            Reporter: Apoorv Mittal
+            Assignee: Abhinav Dixit
+
+
+
+
+
+
+--
+This message was sent by Atlassian Jira
+(v8.20.10#820010)",,
+179,A_top_r5,mail:fc25bf04fcb22b2894d12bbb,thread:JIRA.13652566.1779898736000@Atlassian.JIRA,mail,2026-05-27 16:19:00+00:00,org.apache.mail.message,"[jira] [Created] (KAFKA-20626) Add topology description to Admin
+ client, DescribeStreamsGroups handler, and CLI tools","Alieh Saeedi created KAFKA-20626:
+------------------------------------
+
+             Summary: Add topology description to Admin client, DescribeStreamsGroups handler, and CLI tools
+                 Key: KAFKA-20626
+                 URL: https://issues.apache.org/jira/browse/KAFKA-20626
+             Project: Kafka
+          Issue Type: Sub-task
+            Reporter: Alieh Saeedi
+             Fix For: 4.4.0
+
+
+
+
+
+
+--
+This message was sent by Atlassian Jira
+(v8.20.10#820010)",,
+180,A_top_r5,mail:a459583871535c240a16b1d5,thread:JIRA.13648427.1776450349000@Atlassian.JIRA,mail,2026-04-17 18:26:00+00:00,org.apache.mail.message,"[jira] [Created] (KAFKA-20479) KIP-892: Add memory-pressure commit
+ trigger to TaskExecutor","Bill Bejeck created KAFKA-20479:
+-----------------------------------
+
+             Summary: KIP-892: Add memory-pressure commit trigger to TaskExecutor
+                 Key: KAFKA-20479
+                 URL: https://issues.apache.org/jira/browse/KAFKA-20479
+             Project: Kafka
+          Issue Type: Sub-task
+            Reporter: Bill Bejeck
+
+
+Add memory-pressure-based early commit triggering.
+
+- TaskExecutor.java — check approximateNumUncommittedBytes() >= maxUncommittedStateBytes, force early commit
+- TaskExecutionMetadata.java — isolation level tracking per topology
+
+
+
+--
+This message was sent by Atlassian Jira
+(v8.20.10#820010)",,
+181,B_label_audit,jira:13628908:change:22979601:0,issue:KAFKA-19710,jira,2026-03-19 03:02:29.846000+00:00,org.apache.jira.issue.transition,Add downgrade support,"RemoteIssueLink: This issue links to ""GitHub Pull Request #21814 (Web Link)"" → This issue links to ""GitHub Pull Request #21814 (Web Link)""
+{{RocksDbStateStore#close}} will need to detect when {{upgrade.from}} is set to a version that doesn't support offsets, and downgrade by porting them out to {{.checkpoint}} and removing the column family.",,
+182,B_label_audit,jira:13516361:change:21269958:0,issue:KAFKA-14561,jira,2023-03-24 16:12:10.128000+00:00,org.apache.jira.issue.transition,Improve transactions experience for older clients by ensuring ongoing transaction,"RemoteIssueLink: This issue links to ""GitHub Pull Request #13391 (Web Link)"" → This issue links to ""GitHub Pull Request #13391 (Web Link)""
+This is part 3 of KIP-890:
+
+3. *To cover older clients, we will ensure a transaction is ongoing before we write to a transaction. We can do this by querying the transaction coordinator and caching the result.*
+
+See KIP-890 for more details: https://cwiki.apache.org/confluence/display/KAFKA/KIP-890%3A+Transactions+Server-Side+Defense",,
+183,B_label_audit,jira:13563490:change:21768174:0,issue:KAFKA-16077,jira,2024-01-04 10:55:40.913000+00:00,org.apache.jira.issue.transition,Streams fails to close task after restoration when input partitions are updated,"assignee: None → jira-user:b592eb7a745a
+There is a race condition in the state updater that can cause the following:
+ # We have an active task in the state updater
+ # We get fenced. We recreate the producer, transactions now uninitialized. We ask the state updater to give back the task, add a pending action to close the task clean once it’s handed back
+ # We get a new assignment with updated input partitions. The task is still owned by the state updater, so we ask the state updater again to hand it back and add a pending action to update its input partition
+ # The task is handed back by the state updater. We update its input partitions but forget to close it clean (pending action was overwritten)
+ # Now the task is in an initialized state, but the underlying producer does not have transactions initialized
+
+This can lead to an exception like this:
+{code:java}
+streams-soak-3-7-eos-v2_20240103131321/18.237.32.3/streams.log-org.apache.kafka.streams.errors.StreamsException: Exception caught in process. taskId=1_0, processor=KSTREAM-SOURCE-0000000005, topic=node-name-repartition, partition=0, offset=618798, stacktrace=java.lang.IllegalStateException: TransactionalId stream-soak-",,
+184,B_label_audit,jira:13648014:change:23054678:0,issue:KAFKA-20444,jira,2026-05-10 07:14:51.149000+00:00,org.apache.jira.issue.transition,Align TxnOffsetCommit API with OffsetCommit API (KIP-1319),"RemoteIssueLink: This issue links to ""GitHub Pull Request #22238 (Web Link)"" → This issue links to ""GitHub Pull Request #22238 (Web Link)""
+Track implementation of https://cwiki.apache.org/confluence/display/KAFKA/KIP-1319%3A+Align+TxnOffsetCommit+API+with+OffsetCommit+API.",,
+185,B_label_audit,jira:13552187:change:21674879:0,issue:KAFKA-15514,jira,2023-11-02 14:01:38.529000+00:00,org.apache.jira.issue.transition,Controller-side replica management changes,"RemoteIssueLink: This issue links to ""GitHub Pull Request #14516 (Web Link)"" → This issue links to ""GitHub Pull Request #14516 (Web Link)""
+The new ""Assignments"" field replaces the ""Replicas"" field in PartitionRecord and PartitionChangeRecord.
+
+Any changes to partitions need to consider both fields.
+ * ISR updates
+ * Partiton reassignments & reverts
+ * Partition creation",,
+186,B_label_audit,github:api:apache/kafka:review-comment-PRRC_kwDOACG9q85q9kAC,pr:17426,github,2024-10-10 02:33:28+00:00,com.github.review_comment,KAFKA-17739: Clean up build.gradle to adopt the minimum Java version as 11,"Oops, I got it wrong. I will fix it soon. ",,
+187,A_top_r5,mail:211f768f2ddcc910702d30c8,thread:CAKq-o4tXFFntKGo4PJZ8R1+N91=DPLvXugo7pHCG5VZ=Xrkgkg@mail.gmail.com,mail,2024-11-19 21:18:35+00:00,org.apache.mail.message,Re: [VOTE] KIP-1073: Return fenced brokers in DescribeCluster response,"Thank you so much everyone for taking the time to review and vote.
+
+This KIP passed the voting with 3 binding +1 and 1 non-binding +1.
+
+Regards,
+Tina
+
+
+On Tue, Nov 19, 2024 at 4:30 PM Edoardo Comar <edoardlists@gmail.com> wrote:
+
+> +1 (binding), thanks for this KIP Tina
+>
+> Edo
+>
+> On Mon, 18 Nov 2024 at 12:31, Mickael Maison <mickael.maison@gmail.com>
+> wrote:
+> >
+> > Hi,
+> >
+> > +1 (binding), thanks for the KIP
+> >
+> > Mickael
+> >
+> > On Wed, Nov 6, 2024 at 9:05 AM Gantigmaa Selenge <gselenge@redhat.com>
+> wrote:
+> > >
+> > > Hi everyone,
+> > >
+> > > A quick reminder that this KIP is still awaiting more votes. You can
+> find
+> > > the implementation of this KIP in this draft PR:
+> > > https://github.com/apache/kafka/pull/17524.
+> > >
+> > > Thanks!
+> > > Regards,
+> > > Tina
+> > >
+> > > On Fri, Oct 18, 2024 at 4:37 PM Gantigmaa Selenge <gselenge@redhat.com
+> >
+> > > wrote:
+> > >
+> > > > Hi,
+> > > >
+> > > > I have raised a draft PR implementing this KIP here:
+> > > > https://github.com/apache/kafka/pull/17524, in case anyone is
+> interested
+> > > > in taking a look.
+> > > >
+> > > > Regards,
+> > > > Tina
+> > > >
+> > > > On Mon, Oct 7, 2024 at 12:53 PM Gantigmaa Selenge <
+> gselenge@re",,
+188,B_label_audit,jira:13564973:comment:17807772,issue:KAFKA-16150,jira,2024-01-17 15:26:45.117000+00:00,org.apache.jira.issue.comment,Fix PlaintextConsumerTest.testPerPartitionLagMetricsCleanUpWithSubscribe,[~kirktrue] this seems the same as https://issues.apache.org/jira/browse/KAFKA-16134 reported as part of the 3.7 RC validation.,,
+189,A_top_r5,mail:1788bfe1095ed3987241d040,thread:JIRA.13544908.1690353953000@Atlassian.JIRA,mail,2023-07-26 06:49:00+00:00,org.apache.mail.message,"[jira] [Resolved] (KAFKA-15255) Task is not stopped until the poll
+ interval passes in case of task restarting.","[ https://issues.apache.org/jira/browse/KAFKA-15255?page=com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel ]
+
+Nikita resolved KAFKA-15255.
+----------------------------
+    Resolution: Duplicate
+
+> Task is not stopped until the poll interval passes in case of task restarting.
+> ------------------------------------------------------------------------------
+>
+>                 Key: KAFKA-15255
+>                 URL: https://issues.apache.org/jira/browse/KAFKA-15255
+>             Project: Kafka
+>          Issue Type: Bug
+>          Components: KafkaConnect
+>            Reporter: Nikita
+>            Priority: Major
+>
+> We face a problem with the restarting of the tasks, sometimes it leads to resource leak. 
+> We used the jdbc source connector and noticed an increasing of count of opened sessions on Vertica side. But this problem is applicable for all databases and possibly for all source connectors.
+> Our case is the next: 
+> 1) Run jdbc source connector (io.confluent.connect.jdbc.JdbcSourceConnector) and set poll.interval.ms (86400000) > task.shutdown.graceful.timeout.ms (it's the property on Kafka-connect side, we set 10000)
+> 2) Send POST /connectors/<connector_name>/tasks",,
+190,B_label_audit,jira:13603941:comment:17913920,issue:KAFKA-18413,jira,2025-01-17 02:30:09.742000+00:00,org.apache.jira.issue.comment,Remove AdminZkClient,It looks like TopicAlreadyMarkedForDeletionException has been deleted.,,
+191,A_top_r5,github:api:apache/kafka:commit-a0203dc0fc9be294ef3b4ba9d9b6a1115efe9794,issue:KAFKA-20322,github,2026-03-18 15:03:28+00:00,com.github.push,,KAFKA-20322: Add API version discovery true for transaction manager (…,,
+192,B_label_audit,github:api:apache/kafka:review-comment-PRRC_kwDOACG9q85VX-DM,pr:14985,github,2023-12-20 07:26:36+00:00,com.github.review_comment,KAFKA-14505; [3/N] Wire WriteTxnMarkers API,"I think that it is possible to actually have a transaction without any records. In this case, the pending offset commits would be empty.",,
+193,B_label_audit,jira:13581693:change:22051061:0,issue:KAFKA-16898,jira,2024-06-16 08:39:12.385000+00:00,org.apache.jira.issue.transition,move TimeIndexTest and TransactionIndexTest to storage module,"RemoteIssueLink: This issue links to ""GitHub Pull Request #16341 (Web Link)"" → This issue links to ""GitHub Pull Request #16341 (Web Link)""
+",,
+194,B_label_audit,jira:13620379:change:22580627:0,issue:KAFKA-19389,jira,2025-06-09 22:47:14.765000+00:00,org.apache.jira.issue.transition,High memory consumption for completed share fetch requests,"RemoteIssueLink: This issue links to ""GitHub Pull Request #19928 (Web Link)"" → This issue links to ""GitHub Pull Request #19928 (Web Link)""
+This problem can cause broker OOM if tiered storage is used and a backlog of records is present to be consumed. It only occurs if there is no concurrent producing of records, because this activity has the side-effect of causing the memory to be released more promptly.",,
+195,A_top_r5,mail:4fccb20525573346de4f7530,thread:JIRA.13654754.1781620985000@Atlassian.JIRA,mail,2026-06-16 14:44:00+00:00,org.apache.mail.message,"[jira] [Created] (KAFKA-20706) Implement query type 4
+ (WindowRangeQueryWithHeaders)","Jess Jin created KAFKA-20706:
+--------------------------------
+
+             Summary: Implement query type 4 (WindowRangeQueryWithHeaders)
+                 Key: KAFKA-20706
+                 URL: https://issues.apache.org/jira/browse/KAFKA-20706
+             Project: Kafka
+          Issue Type: Sub-task
+            Reporter: Jess Jin
+
+
+
+
+
+
+--
+This message was sent by Atlassian Jira
+(v8.20.10#820010)",,
+196,B_label_audit,jira:13604525:change:22361364:0,issue:KAFKA-18472,jira,2025-01-15 17:37:55.781000+00:00,org.apache.jira.issue.transition,Remove MetadataSupport,"summary: Remove ZkSupport and cleanup MetadataSupport → Remove MetadataSupport
+",,
+197,B_label_audit,jira:13594885:comment:17888234,issue:KAFKA-17760,jira,2024-10-10 11:01:33.244000+00:00,org.apache.jira.issue.comment,Remove client instance from cache when received telemetry terminating request,"{quote}
+If we remove the client the moment we receive terminating flag in broker, then a rogue client can send metrics with teminating as always true, and would not be throttled on push interval.
+{quote}
+
+If a rogue client is a real case we need to handle, I'm ok to keep terminating flag :)",,
+198,A_top_r5,mail:44bdc169c16c6e89ff236b2a,thread:JIRA.13554866.1697760223000@Atlassian.JIRA,mail,2024-12-03 18:02:00+00:00,org.apache.mail.message,[jira] [Resolved] (KAFKA-15654) Address Transactions Errors,"[ https://issues.apache.org/jira/browse/KAFKA-15654?page=com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel ]
+
+Justine Olshan resolved KAFKA-15654.
+------------------------------------
+    Resolution: Duplicate
+
+Closing this since we have KIP-1050 https://issues.apache.org/jira/browse/KAFKA-16906
+
+> Address Transactions Errors 
+> ----------------------------
+>
+>                 Key: KAFKA-15654
+>                 URL: https://issues.apache.org/jira/browse/KAFKA-15654
+>             Project: Kafka
+>          Issue Type: Sub-task
+>            Reporter: Justine Olshan
+>            Assignee: Justine Olshan
+>            Priority: Major
+>
+> In addition to the work in KIP-691, I propose we handle and clean up transactional error handling. 
+
+
+
+--
+This message was sent by Atlassian Jira
+(v8.20.10#820010)",,
+199,B_label_audit,jira:13586544:change:22143756:0,issue:KAFKA-17180,jira,2024-08-17 23:30:43.990000+00:00,org.apache.jira.issue.transition,Upgrade gradle from 8.8 to 8.10,"description: I guess this will be the last 8.x, and it would be great the verify all commands in the readme after upgrading to 8.9 → -I guess this will be the last 8.x, and it would be great the verify all commands in the readme after upgrading to 8.9-
+
+gradle 8.10 is released, and it supports the JDK 23!
+
+https://docs.gradle.org/8.10/release-notes.html?_gl=1*1k8gowr*_gcl_au*MTU2NjE0OTE0MC4xNzIxNjUwNzMz*_ga*MTU1MDI3MTQ5Mi4xNzIxNjUwNzMz*_ga_7W7NC6YNPT*MTcyMzkzNzM2My42LjEuMTcyMzkzNzM3NS40OC4wLjA.
+-I guess this will be the last 8.x, and it would be great the verify all commands in the readme after upgrading to 8.9-
+
+gradle 8.10 is released, and it supports the JDK 23!
+
+https://docs.gradle.org/8.10/release-notes.html?_gl=1*1k8gowr*_gcl_au*MTU2NjE0OTE0MC4xNzIxNjUwNzMz*_ga*MTU1MDI3MTQ5Mi4xNzIxNjUwNzMz*_ga_7W7NC6YNPT*MTcyMzkzNzM2My42LjEuMTcyMzkzNzM3NS40OC4wLjA.",,
+200,A_top_r5,mail:1aff9f066a566f3fc5afdcb6,thread:CA+RHNrU_zAKfo8dj=LFRrs=ZwHUwW7mx2_Az0mxqv6X2XyhNHg@mail.gmail.com,mail,2025-10-05 05:38:04+00:00,org.apache.mail.message,Re: [DISCUSS] KIP-1172: Improve EndToEndLatency tool,"hi Nick
+
+Sorry for raising issue on this voted KIP, but I have a small question.
+
+chia_04: Should we add a `common-property` for consistency with other tools
+
+Best,
+Chia-Ping
+
+On 2025/06/10 14:15:08 Junwang Guo wrote:
+> Hi everyone,
+> 
+> I would like to start a discussion on a KIP to improve the
+> `EndToEndLatency` tool.
+> 
+> KIP Link: https://cwiki.apache.org/confluence/x/Awu9F
+> 
+> Thank you!
+> 
+> Best regards,
+> Nick Guo
+>",,

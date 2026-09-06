@@ -115,7 +115,7 @@ img.fig{width:100%;max-width:640px;display:block;background:#fff;border-radius:2
 
 <div class="verdict" style="margin-top:16px">
   <div>
-    <h2>Run 1 verdict: claim C1 is not supported at the pre-registered budget</h2>
+    <h2>Run 1 verdict: claim C1 is not supported at the pre-registered budget (run 2 below confirms it)</h2>
     <p>Primary metric: recall@2 % of revealed-urgent events on the <strong>rule-negative</strong> population (378 positives, 103 entity clusters). Our policy R5 admits none of them. It ties the rules-only floor exactly and loses to the un-keyed global HBOS baseline by 7 points with a confidence interval that excludes zero. Random admission at the same budget finds 2.4 %.</p>
   </div>
   <div class="contrasts">
@@ -124,6 +124,31 @@ img.fig{width:100%;max-width:640px;display:block;background:#fff;border-radius:2
     <div class="contrast"><span class="k">evidence status</span><span class="v" style="font-size:20px;padding-top:6px">non-evidentiary <span class="pill na">by own gates</span></span><span class="ci">rule floor infeasible · human sanity sample pending · phase preflight (Flink, Corpus S)</span></div>
   </div>
 </div>
+
+
+<section id="run2">
+  <h2>Run 2 (2026-09-06): amendments applied, verdict unchanged</h2>
+  <div class="prose"><p>Registered in <code>PREREG-run2.md</code> before the run. Same replay, window, policies, budgets, primary metric and label model; the broken release function abstains and is excluded, <code>[VOTE]</code> fires only on thread-starting messages, and transitions to Blocker or Critical count as declared priority. 1 h 51 min, 15.2 GB, exit 0.</p></div>
+  <div class="tablewrap"><table>
+    <thead><tr><th></th><th class="n">run 1</th><th class="n">run 2</th></tr></thead>
+    <tbody>
+      <tr><td>rule hits, share of events</td><td class="n">2.32 %</td><td class="n"><b>1.55 %</b></td></tr>
+      <tr><td>months with rules over capacity at 2 %</td><td class="n">33 / 52</td><td class="n"><b>13 / 52</b></td></tr>
+      <tr><td>R5 unused slots at 2 %</td><td class="n">493</td><td class="n"><b>2,256</b></td></tr>
+      <tr><td>rule-negative positives (entity clusters)</td><td class="n">378 (103)</td><td class="n"><b>815 (211)</b></td></tr>
+      <tr><td>R5 rule-negative admissions at 2 % / positives among them</td><td class="n">83 / 0</td><td class="n">184 / <b>0</b></td></tr>
+      <tr class="hi"><td>recall@2 % rule-negative: R5 / R2 / random</td><td class="n">0.000 / 0.071 / 0.024</td><td class="n">0.000 / 0.108 / 0.010</td></tr>
+      <tr><td>R5 &minus; R2, 95 % CI</td><td class="n">&minus;0.071 [&minus;0.103, &minus;0.047]</td><td class="n"><b>&minus;0.092 [&minus;0.115, &minus;0.072]</b></td></tr>
+      <tr><td>R5 recall at 10 %</td><td class="n">0.000</td><td class="n">0.001 (1 of 815)</td></tr>
+      <tr><td>calibration, median monthly Spearman &rho;</td><td class="n">+0.03</td><td class="n"><b>&minus;0.53</b> (inverted)</td></tr>
+    </tbody>
+  </table></div>
+  <div class="prose">
+    <p>With the budget no longer binding, the guards are the whole story: 255 of 381,408 rule-negative events are ever eligible at 2 %, and one of 2,788 admitted at 10 % is urgent. Higher R5 scores now mean clearly <em>less</em> revealed urgency (0.38 % in the lowest decile, 0.12 % in the highest). Per source at 2 %: R2 0.123 on JIRA; R3 0.224 and R6 0.083 on dev@; nothing above random on GitHub; R5 zero everywhere. Still non-evidentiary by its own gates: the human sanity sample and remediation record are missing, and the rule floor still exceeds capacity in 13 months.</p>
+    <p><strong>Label-fusion sensitivity (post-hoc).</strong> Same votes, different fusion: registered model 0.23 %; strict majority 0.81 %; two or more distinct outcome functions 3.2 %; at least half of votes 3.9 %; any outcome function 18.6 %. GitHub has only two outcome functions and is starved under every rule but "at least half". The registered model is the most conservative choice; changing it is a research-design decision for the human sanity sample, not for whichever rule flatters R5.</p>
+  </div>
+  <p class="note">Artifacts: <code>apps/eval/reports/e1-kafka-run2/</code> and <code>apps/eval/reports/e1-kafka-label-sensitivity/</code>. Not addressed by run 2: symmetric negative voting in the label model, adjacent-bucket confirmation semantics, snapshot-text provenance, row-index lateness metrics.</p>
+</section>
 
 <section id="recall">
   <h2>Recall at every budget: the design never beats chance</h2>

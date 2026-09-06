@@ -21,6 +21,68 @@ loop; total model cost $0. Artifacts copied to `apps/eval/reports/e1-kafka/`
 > corrections are being registered as dated amendments and a second run will follow; the
 > section below is the record of the first run and is left unchanged.
 
+## 0. Run 2 (2026-09-06) — after the review amendments
+
+Run `20260906T072507Z-e1-kafka`, registered in `apps/eval/PREREG-run2.md` (config hash
+`c40229de…`, committed before the run). Same replay, window, policies, budgets, primary metric and
+label model as run 1; differences: `jira_fix_version_in_flight_later` excluded (abstains without
+release fields), `[VOTE]` fires only on thread-starting messages, changelog transitions to
+Blocker/Critical count as declared priority. 1 h 51 min, 15.2 GB peak RSS, exit 0.
+Artifacts: `apps/eval/reports/e1-kafka-run2/`.
+
+**The amendments worked as intended and the verdict did not move.**
+
+| | run 1 | run 2 |
+|---|---:|---:|
+| rule hits, share of events | 2.32 % | **1.55 %** (`[VOTE]` 3,965 → 444; declared 501 → 939) |
+| months with rules over capacity at b = 2 % | 33 / 52 | **13 / 52** |
+| R5 unused slots at b = 2 % | 493 | **2,256** |
+| positives (rule-negative) | 378 | **815** (JIRA 698 · GitHub 69 · dev@ 48), 211 clusters |
+| R5 rule-negative admissions at 2 % / positives among them | 83 / 0 | 184 / **0** |
+| R5 eligible after guards at 2 % / 5 % / 10 % | 255 / 849 / 2,787 | 255 / 849 / 2,788 |
+
+| Primary: recall@2 %, rule-negative (815 positives, 211 entity clusters) | Δ | 95 % CI |
+|---|---:|---|
+| R5 − R1 | 0.000 | [0.000, 0.000] |
+| R5 − R2 | **−0.092** | [−0.115, −0.072] |
+
+Recall@b on rule-negatives, pooled:
+
+| Policy | 1 % | 2 % | 5 % | 10 % |
+|---|---:|---:|---:|---:|
+| R0 random | 0.004 | 0.010 | 0.042 | 0.083 |
+| R1 rules only | 0.000 | 0.000 | 0.000 | 0.000 |
+| **R2 global HBOS** | **0.047** | **0.108** | **0.174** | **0.204** |
+| R3 per-entity gap z | 0.009 | 0.013 | 0.041 | 0.077 |
+| R4 per-entity HBOS, no guards | 0.003 | 0.003 | 0.023 | 0.042 |
+| **R5 ours** | **0.000** | **0.000** | **0.000** | **0.001** |
+| R6 LOF | 0.013 | 0.015 | 0.064 | 0.145 |
+
+With the budget no longer binding (2,256 free slots at 2 %, 29,955 at 10 %), the guards are the
+whole story: 255 of 381,408 rule-negative events are ever eligible at 2 %, and one of 2,788
+admitted events at 10 % is a positive. Calibration is now clearly **inverted**: pooled urgency
+rate by R5 score decile falls from 0.38 % (lowest decile) to 0.12 % (highest); median monthly
+Spearman ρ = −0.53. Per source at 2 %: R2 0.123 on JIRA; R3 0.224 and R6 0.083 on dev@; nothing
+above random on GitHub; R5 0.000 everywhere. Gates: same required failures as run 1 minus
+nothing (rule-floor feasibility still fails in 13 months; human sanity sample and remediation
+record still missing; phase preflight). `evidence_status = non-evidentiary`.
+
+**Label-fusion sensitivity (post-hoc, `apps/eval/reports/e1-kafka-label-sensitivity/`).** With the
+same votes, prevalence would be 0.23 % under the registered model, 0.81 % under strict majority,
+3.2 % under "≥ 2 distinct outcome functions", 3.9 % under "≥ half of votes", 18.6 % under "any
+outcome function". GitHub has only two outcome functions and is starved under every rule except
+"≥ half" (69 vs 11,392 positives). Individual functions fire on 2–23 % of the events they observe.
+The registered model is the most conservative choice available; changing it is a research-design
+decision to be settled by the human sanity sample (§11), not by which rule makes R5 look better.
+
+Remaining known defects not addressed by run 2 (review findings 2, 5, 7, 8): symmetric negative
+voting in the label model; adjacent-bucket confirmation semantics; snapshot-text provenance;
+row-index lateness metrics. They are documented, not fixed.
+
+---
+
+## Run 1 (2026-09-05) — record, unchanged
+
 ## 1. Verdict
 
 **Claim C1 is not supported on Corpus R at the pre-registered budget.** The rule floor by itself
