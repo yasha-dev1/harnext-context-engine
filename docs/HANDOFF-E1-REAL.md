@@ -1,122 +1,106 @@
-# Handoff — E1 on the real Kafka corpus (written 2026-09-05)
+# Handoff — E1 on the real Kafka corpus (updated 2026-09-06 09:40)
 
-Read this first when resuming on another machine. It summarises the 5 Sep session, the
-decisions taken, what is running/blocked, and the exact next steps. Branch: `eval-framework`.
+Read this first when resuming on another machine. Branch: `eval-framework`. Everything below is
+committed; `apps/eval/out/` (raw corpus, replay, run outputs) is git-ignored and lives only on the
+laptop that produced it.
 
 ## 1. Where the thesis evaluation stands
 
 | Stage | State |
 |---|---|
-| 1. Evaluation spec (`docs/evaluation-spec.md`, masters repo `eval/evaluation.md`) | done |
-| 2. Eval framework (`apps/eval`, E1–E6, YAML-configured engine, 258 tests, offline) | done, pushed (`6b0b8ac`) |
-| 3. Offline proof-out on the synthetic smoke corpus | done — see verdicts below |
-| **4. First real run: E1 on Corpus R-long (Kafka)** | **in progress — this handoff** |
-| 5. Evidentiary runs for E2–E6 (real model, Kafka R-H1, PREREG, human κ gates) | not started |
+| 1. Evaluation spec (`docs/evaluation-spec.md`) | done |
+| 2. Eval framework (`apps/eval`, E1–E6, 295 tests, offline) | done |
+| 3. Offline proof-out on the synthetic smoke corpus | done |
+| 4a. Corpus R-long built (Kafka JIRA + dev@ + GitHub API, 2019-01 → 2026-06) | **done** — 629,458 events, SHA `397da1ac…f8a28` |
+| 4b. E1 run 1 on the primary window 2022-01 → 2026-07 | **done, exploratory/invalid** — see `apps/eval/REPORT-E1-KAFKA.md` |
+| 4c. Independent review of run 1 | **done** — `apps/eval/STATUS/REVIEW-E1-KAFKA.md`, 10 findings, 2 blockers |
+| 4d. Amendments + run 2 (registered `apps/eval/PREREG-run2.md`) | **running on the laptop since 09:25, ETA ≈ 11:30** |
+| 5. Evidentiary runs for E2–E6 | not started |
 
-Smoke-run verdicts (fake providers, 140 synthetic events, nothing evidentiary):
-E2 / E3 / E4 discriminate between arms (E3: S0 0.20 < S1 0.46 < S4 0.52 < S3 0.62 at 32k tokens);
-E1 and E5 are degenerate at that size; E6's primary is correctly stamped INVALID.
+## 2. Run 1 result in one paragraph
 
-Artifacts (claude.ai/code): eval proof-out with charts `cb233702-…`, experiments guide E1–E6
-`882cefc9-…`, full E1 report of the smoke run `e0b9e726-…`, build report `09e1a896-…`.
+Primary metric recall@2 % on rule-negative events (378 positives, 103 entity clusters):
+R5 (ours) 0.000 = R1; R2 global HBOS 0.071; R0 random 0.024; R5 − R2 = −0.071 [−0.103, −0.047].
+Mechanism: the rules floor flags 2.32 % of events and saturates b ≤ 2 % in 33/52 months (R5 ≡ R1);
+above that the guards leave only 0.74 % of rule-negatives eligible and none is positive; the
+per-entity HBOS scorer without guards (R4) is below random. Label prevalence is 0.11 %.
+Published report: https://claude.ai/code/artifact/8fcf3f48-6f39-4d4f-a9e0-e8fe154d087e
 
-## 2. Decision: E1 first, on real data, no LLM anywhere
+The review reproduces every number but finds the evaluation not yet sound: (1) blocker —
+`jira_fix_version_in_flight_later` needs release fields no event has and cast 145k negative
+votes; (2) blocker — rule/feature/label text is export-time snapshot text (no proof it existed at
+*t*); (3) the label model's symmetric negative voting makes urgency a conjunction of rare outcomes,
+0.95 accuracy is a cap; (4) declared-priority rule missed `→ Critical` transitions, `[VOTE]` fired
+on replies; (5) affiliation/NAB use row-index distance; (6) human sanity sample and metric
+remediation record missing.
 
-Yasha's instruction: get real E1 results now ("prove the classifier for batch lane and fast
-lane"), other experiments later. E1 has no model in the loop (its harm check is the only LLM
-touchpoint and is reported N/A-with-reason in this phase). No provider API key is used.
+## 3. What was changed for run 2 (commits 84405fa, 9f49f3c)
 
-Corpus window: **2019-01-01 → 2026-06-30**, a superset of the spec's 2022-01 → 2026-06.
-The spec window stays the pre-registered primary; the longer window is an extra (more
-evaluation months, more revealed positives). Spec amendment to record in PREREG.
+- `e1/labels.py`: in-flight-release LF abstains unless release-state fields exist in the corpus.
+- `e1/policies.py`: changelog `field=priority, to∈{Blocker,Critical}` → `declared_priority`;
+  `RuleSettings.vote_thread_start_only` (config `engine.router.rules.vote_thread_start_only`).
+- `configs/e1-kafka.yaml`: `vote_thread_start_only: true`; `e1.exclude_label_functions` =
+  `[github_trunk_ci_failure_fix_6h, jira_fix_version_in_flight_later]`.
+- `config.py`: `e1.exclude_label_functions` knob; recorded in PREREG and in `results.json`
+  `check_details.excluded_label_functions`.
+- `scripts/e1_label_sensitivity.py`: applies the LFs once and reports prevalence under
+  alternative fusion rules (post-hoc; feeds the label-definition decision, §5).
+- Label fusion model unchanged in run 2 on purpose.
 
-## 3. Why the smoke E1 said nothing about C1 (analysis of run 20260831T005148Z)
+## 4. Reproducing the corpus on a new machine (≈ 4 h wall, ≈ 3 GB disk)
 
-- 110 evaluated events over 7 months → 10–20 events/month → 2 % budget rounds to **one slot
-  per month**, and rule hits are mandatory, so the slot was gone before any deviation
-  admission was considered. R5 ≡ R1 at every budget ≤ 5 %.
-- 0.58 events/day → the volume guard (≥ 3 events in a 5-min bucket) was satisfied for 10 of
-  105 rule-negative events. Real Kafka is ≈ 250 events/day.
-- Exactly one rule-negative positive → every paired contrast NaN (n_entities = 1).
-- **Harm check artefact:** all five harm deltas are exactly −0.5, Q(now) = 0 every time (fake
-  provider; the state file likely does not exist at admission time). Must be fixed before any
-  real-provider harm run.
-- **Weak-label path never exercised on a replay:** the synthetic corpus supplies constructed
-  labels, so the 13 revealed-urgency functions have coverage 0 (only unit-tested).
-- R5 in the eval (`e1/policies.py:GuardedHBOSPolicy`) is a reference implementation; the
-  production classifier (`apps/classifier/.../anomaly.py`) is arm R3 (gap-only robust-z).
-  If R5 wins, the classifier must be upgraded to match.
-
-## 4. Corpus acquisition — what exists, what is running
-
-**GH Archive is dropped.** It is the whole GitHub firehose (~300 GB per 6-month window, most
-discarded). GitHub comes from the GitHub GraphQL API for the single repo `apache/kafka`
-(~1 GB). Spec amendment.
-
-| Source | Mechanism | Status on the laptop (5 Sep) |
-|---|---|---|
-| KAFKA JIRA (changelog + comments) | `apps/eval/scripts/fetch_kafka_jira_mail.py` — one JQL window per month of `updated`, raw pages to `apps/eval/out/corpus/kafka/raw/jira/`, resumable (`.done` markers) | complete through 2026-06 |
-| dev@kafka.apache.org | same script, Pony Mail `mbox.lua` per month → `raw/mail/dev-YYYY-MM.mbox` | was at 2023-09 when this handoff was written; resumable |
-| GitHub apache/kafka | **to be built** by agent K1 (`corpus/github_api.py`) | not started (codex auth failed) |
-| merge | `python -m harnext_eval.corpus.build_replay --input jira.jsonl --input mail.jsonl --input github.jsonl -o apps/eval/out/corpus/kafka/replay/kafka-rlong.jsonl` (existing) | after the above |
-
-`apps/eval/out/` is git-ignored: **raw data is not in the repo.** On a new machine, re-run the
-script (`UV_NO_SYNC=1 uv run python apps/eval/scripts/fetch_kafka_jira_mail.py jira mail`);
-JIRA takes ~20 min, mail ~40 min. Disk: ~2 GB for raw + parsed + replay; E1 outputs a few GB
-per run. GitHub API needs `GH_TOKEN=$(gh auth token)` (5 000 req/h).
-
-Verified live: JIRA REST 200 (7 153 issues created 2022–2026; 9 138 updated since 2022),
-Pony Mail 200 (~640 msgs/month), GitHub API 200 (23 359 PRs all-time).
-
-**Known real-data failure already reproduced:** `corpus/jira.py::parse_search_page` raises
-`Jira issue KAFKA-294 search snapshot disagrees with changelog final state: fixVersion` on
-`raw/jira/2024-03-p000.json`. Real changelogs are lossy; the parser must record, not raise.
-(K2 item 1.) The mail parser has not yet been run on a real month.
-
-## 5. Work packages for codex agents (briefs are committed)
-
-- `apps/eval/PLAN-E1-REAL.md` — the phase plan with disjoint ownership.
-- `apps/eval/PROMPTS/K1.md` — GitHub API extractor (cached, resumable, same event shapes as
-  `gharchive.py`, fixture tests only).
-- `apps/eval/PROMPTS/K2.md` — E1 real-corpus readiness: tolerant JIRA parser + parse report
-  over all raw pages; Kafka committer roster (`configs/kafka-committers.yaml`,
-  `corpus/committers.py`, stamps `is_committer` — the "committer replied" label functions
-  need it and nothing provides it today); E1-only run path (skip probes/stores, harm N/A,
-  `--window`); scale to 350 k events (label token index restricted to identity tokens,
-  trailing-12-month fit window, compact `scores.parquet`, multiprocessing); real-corpus label
-  gates; `harnext-eval prereg` command + `prereg_chronology` gate; `make eval-e1-kafka`.
-
-Launch pattern (from repo root, keys scrubbed, stdin closed — codex blocks on stdin otherwise):
-
-```
-for k in K1 K2; do
-  nohup env -u OPENAI_API_KEY -u ANTHROPIC_API_KEY -u OPENROUTER_API_KEY -u GH_TOKEN \
-    codex exec --dangerously-bypass-approvals-and-sandbox -C "$PWD" \
-    "$(cat apps/eval/PROMPTS/$k.md)" < /dev/null > .codex-logs/$k.log 2>&1 &
-done
+```sh
+# JIRA (~20 min) + dev@ mail (~40 min) + parse (~10 min)
+UV_NO_SYNC=1 uv run python apps/eval/scripts/fetch_kafka_jira_mail.py jira mail parse
+# GitHub GraphQL, resumable, ~3 h at 5 000 req/h (20 789 cached pages)
+GH_TOKEN=$(gh auth token) UV_NO_SYNC=1 uv run --package harnext-eval python -m harnext_eval.corpus.github_api \
+  --repo apache/kafka --since 2019-01-01 --until 2026-07-01 \
+  --raw-dir apps/eval/out/corpus/kafka/raw --output apps/eval/out/corpus/kafka/parsed/github.jsonl
+uv run python -m harnext_eval.corpus.build_replay \
+  --input apps/eval/out/corpus/kafka/parsed/jira.jsonl --input apps/eval/out/corpus/kafka/parsed/mail.jsonl \
+  --input apps/eval/out/corpus/kafka/parsed/github.jsonl --output apps/eval/out/corpus/kafka/replay/kafka-rlong.jsonl
+sha256sum -c apps/eval/out/corpus/kafka/replay/kafka-rlong.jsonl.sha256   # must be 397da1ac…f8a28
 ```
 
-**Blocker on 5 Sep:** both launches died with `Your access token could not be refreshed
-because your refresh token was already used. Please log out and sign in again.` Run
-`codex logout && codex login` before relaunching. (Launching two agents in the same second
-may have raced the token refresh; if it recurs, stagger launches by ~30 s.)
+Alternative: copy `apps/eval/out/corpus/kafka/{parsed,replay}` (≈ 2.6 GB) from the laptop.
+The GitHub snapshot is time-dependent (PR bodies, associations), so a re-fetch may not reproduce
+the SHA exactly; if it differs, register a new PREREG (the `prereg` command refuses to overwrite).
 
-## 6. Run sequence once K1/K2 land
+## 5. Run sequence
 
-1. Parse: `UV_NO_SYNC=1 uv run python apps/eval/scripts/fetch_kafka_jira_mail.py parse`
-   → `parsed/jira.jsonl`, `parsed/mail.jsonl` (needs K2's parser fix).
-2. GitHub: `GH_TOKEN=$(gh auth token) uv run python -m harnext_eval.corpus.github_api --repo apache/kafka --since 2019-01-01 --until 2026-07-01 --raw-dir apps/eval/out/corpus/kafka/raw --output apps/eval/out/corpus/kafka/parsed/github.jsonl`
-3. Merge → `replay/kafka-rlong.jsonl` + `.sha256`.
-4. `uv run harnext-eval prereg --replay … --config apps/eval/configs/e1-kafka.yaml --out apps/eval/PREREG.md`; commit PREREG.
-5. `uv run harnext-eval run --config apps/eval/configs/e1-kafka.yaml --replay … --experiments e1 --window 2022-01-01 2026-07-01`; then the full 2019–2026 window.
-6. Fresh codex review agent over the E1 outputs; E1 report section with real curves
-   (recall@2 % rule-negative R5 vs R1/R2 with entity-clustered CIs, calibration by decile,
-   lift over rules, per-source recall, label-function diagnostics, declared-vs-outcome
-   agreement, robustness).
-7. Then: fix the harm-check artefact; Flink replication if time; E2–E6 real-model phase.
+```sh
+# run 2 (already registered; PREREG-run2.md is committed)
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 HARNEXT_E1_WORKERS=4 UV_NO_SYNC=1 \
+uv run harnext-eval run --config apps/eval/configs/e1-kafka.yaml \
+  --replay apps/eval/out/corpus/kafka/replay/kafka-rlong.jsonl \
+  --experiments e1 --window 2022-01-01 2026-07-01 --prereg apps/eval/PREREG-run2.md
+```
 
-## 7. Files touched this session
+≈ 2 h, 15.3 GB peak RSS for 387k events; launch with `setsid nohup … < /dev/null & disown`
+(two reboots killed runs on 2026-09-05). The secondary window 2019-01 → 2026-07
+(`PREREG-full.md`) needs ≈ 24 GB free and has not been run.
 
-- `apps/eval/PLAN-E1-REAL.md`, `apps/eval/PROMPTS/K1.md`, `apps/eval/PROMPTS/K2.md`,
-  `apps/eval/scripts/fetch_kafka_jira_mail.py`, this file.
-- Local only (not committed): `apps/eval/out/corpus/kafka/{raw,fetch.log}`, `.codex-logs/`.
+Outputs: `apps/eval/out/<ts>-e1-kafka/e1/seed-1/{results.json,metrics.csv,label_diagnostics.csv,
+validity.csv,calibration.csv,robustness.csv,scores.parquet}` and `report.html`. Copy the small
+files into `apps/eval/reports/e1-kafka-run2/` and commit them; `scores.parquet` (100 MB) stays out.
+
+## 6. Decisions still open (Yasha)
+
+1. **Label definition.** Registered: weighted model, p ≥ 0.5 → 0.11 % prevalence. Sensitivity job
+   output (`apps/eval/out/label-sensitivity/fusion_prevalence.csv` on the laptop) gives prevalence
+   under: model minus bad LF; any outcome LF; ≥ 2 outcome LFs; ≥ half; strict majority. The spec's
+   remedy is the human sanity sample (100 top rule-negative events, two annotators, κ) — do it
+   before changing the label model, then register run 3 if it changes.
+2. **If run 2 still shows R5 ≤ random:** C1 as designed is falsified. Next are two *new*
+   pre-registered policies: budgeted (non-mandatory) rule floor; guard-free scoring on
+   low-density entities. Do not tune R5's guards on these months.
+3. **Provenance blocker:** components as baseline keys should be rebuilt as-of-event from
+   changelog transitions (`corpus/jira.py`); comment/PR body edits cannot be recovered from the
+   APIs and must be stated as a limitation.
+
+## 7. Files that matter
+
+`apps/eval/REPORT-E1-KAFKA.md` · `apps/eval/reports/e1-kafka/` · `apps/eval/STATUS/REVIEW-E1-KAFKA.md`
+· `apps/eval/STATUS/{K1,K2}.md`, `K2-parse-report.md` · `apps/eval/PREREG.md`, `PREREG-run2.md`,
+`PREREG-full.md` · `apps/eval/PROMPTS/{K1,K2,K2-resume,REVIEW-E1-KAFKA}.md` (codex briefs; launch
+pattern in §5 of the previous handoff, staggered by ~30 s).

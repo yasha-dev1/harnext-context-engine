@@ -57,3 +57,4 @@ data/*
 
 # Evaluation run artifacts
 apps/eval/out/
+.codex-logs/
