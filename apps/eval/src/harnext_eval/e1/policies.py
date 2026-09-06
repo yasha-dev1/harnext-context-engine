@@ -13,6 +13,7 @@ from typing import Any, Protocol, runtime_checkable
 import numpy as np
 import pandas as pd
 from pyod.models.hbos import HBOS
+from pyod.models.iforest import IForest
 from pyod.models.lof import LOF
 from sklearn.preprocessing import StandardScaler
 
@@ -210,22 +211,100 @@ def _matrix(vectors: Sequence[FeatureVector]) -> np.ndarray:
     return np.vstack([vector.as_array() for vector in vectors])
 
 
+_GLOBAL_METHODS = ("z", "hbos", "iforest", "ecod", "lof")
+
+
+class _ECOD:
+    """Empirical-CDF outlier score (Li et al., ECOD) with O(log n) per-event scoring.
+
+    pyod's ECOD re-concatenates the training matrix on every ``decision_function``
+    call, which is prohibitive for 387k single-event calls; this keeps the sorted
+    training columns and their skewness and applies the same scoring rule:
+    the maximum of the left-tail, right-tail and skewness-selected tail sums of
+    -log(ECDF).
+    """
+
+    def __init__(self) -> None:
+        self.columns: np.ndarray | None = None
+        self.skew_negative: np.ndarray | None = None
+
+    def fit(self, x: np.ndarray) -> _ECOD:
+        self.columns = np.sort(x, axis=0)
+        centred = x - x.mean(axis=0)
+        std = np.maximum(centred.std(axis=0), 1e-12)
+        self.skew_negative = (np.mean(centred**3, axis=0) / std**3) < 0
+        return self
+
+    def decision_function(self, x: np.ndarray) -> np.ndarray:
+        assert self.columns is not None and self.skew_negative is not None
+        n = len(self.columns)
+        out = np.empty(len(x))
+        width = self.columns.shape[1]
+        for row_index, row in enumerate(x):
+            below = np.array([np.searchsorted(self.columns[:, j], row[j], side="right") for j in range(width)], dtype=float)
+            above = n - np.array([np.searchsorted(self.columns[:, j], row[j], side="left") for j in range(width)], dtype=float)
+            left_tail = -np.log(np.clip(below / n, 1.0 / n, 1.0))
+            right_tail = -np.log(np.clip(above / n, 1.0 / n, 1.0))
+            auto_tail = np.where(self.skew_negative, left_tail, right_tail)
+            out[row_index] = max(float(left_tail.sum()), float(right_tail.sum()), float(auto_tail.sum()))
+        return out
+
+
+def _global_model(method: str, count: int, seed: int) -> Any:
+    if method == "hbos":
+        return HBOS(n_bins=min(10, max(3, int(math.sqrt(count)))), contamination=0.1)
+    if method == "iforest":
+        return IForest(n_estimators=100, contamination=0.1, random_state=seed, n_jobs=1)
+    if method == "ecod":
+        return _ECOD()
+    if method == "lof":
+        return LOF(n_neighbors=min(20, max(2, count - 1)), contamination=0.1, novelty=True)
+    raise ValueError(f"unknown global method {method!r}")
+
+
 class GlobalPolicy(_PolicyBase):
-    """R2: global robust z or HBOS, with no baseline-key conditioning."""
+    """R2 and its registered variants: one global detector over the feature vector, no entity keying."""
 
     name = "R2"
+    global_features = True
 
     def __init__(
-        self, *, method: str = "hbos", rules: RuleSettings = _DEFAULT_RULE_SETTINGS
+        self,
+        *,
+        method: str = "hbos",
+        rules: RuleSettings = _DEFAULT_RULE_SETTINGS,
+        seed: int = 0,
+        name: str | None = None,
     ) -> None:
         super().__init__(rules=rules)
         self.extractor = CausalFeatureExtractor(global_only=True)
-        if method not in {"z", "hbos"}:
-            raise ValueError("R2 method must be 'z' or 'hbos'")
+        if method not in _GLOBAL_METHODS:
+            raise ValueError(f"global method must be one of {_GLOBAL_METHODS}")
+        if name is not None:
+            self.name = name
         self.method = method
-        self.model: HBOS | None = None
+        self.seed = seed
+        self.model: Any = None
+        self.scaler: StandardScaler | None = None
         self.median = np.zeros(len(FEATURE_NAMES))
         self.scale = np.ones(len(FEATURE_NAMES))
+
+    def _fit_matrix(self, x: np.ndarray) -> Any:
+        if self.method == "z" or len(x) < 2:
+            return None
+        if self.method == "lof":
+            self.scaler = StandardScaler().fit(x)
+            x = np.asarray(self.scaler.transform(x), dtype=float)
+        model = _global_model(self.method, len(x), self.seed)
+        model.fit(x)
+        return model
+
+    def _score_matrix(self, model: Any, x: np.ndarray) -> float:
+        if self.method == "lof" and self.scaler is not None:
+            x = np.asarray(self.scaler.transform(x), dtype=float)
+        result = model.decision_function(x)
+        assert result is not None
+        return float(result[0])
 
     def fit(self, events: Sequence[EvalEvent]) -> GlobalPolicy:
         vectors = [self._vectors(event)[0] for event in events]
@@ -234,21 +313,79 @@ class GlobalPolicy(_PolicyBase):
             self.median = np.median(x, axis=0)
             mad = np.median(np.abs(x - self.median), axis=0)
             self.scale = np.maximum(1.4826 * mad, 1e-6)
-        if self.method == "hbos" and len(x) >= 2:
-            self.model = HBOS(n_bins=min(10, max(3, int(math.sqrt(len(x))))), contamination=0.1)
-            self.model.fit(x)
+        self.model = self._fit_matrix(x)
         return self
 
     def score(self, event: EvalEvent) -> float:
         vector = self._vectors(event)[0]
         x = vector.as_array()[None, :]
         if self.model is not None:
-            result = self.model.decision_function(x)
-            assert result is not None
-            value = float(result[0])
+            value = self._score_matrix(self.model, x)
         else:
             value = float(np.max(np.abs((x[0] - self.median) / self.scale)))
         return self._record(vector, value, scorer=f"global_{self.method}")
+
+
+def _event_source(event: EvalEvent) -> str:
+    return event.source.split(":", 1)[0]
+
+
+class PerSourceGlobalPolicy(GlobalPolicy):
+    """R10: one global HBOS per source, scores calibrated to within-source percentiles.
+
+    Run 3 showed the urgency signal is source-specific (global HBOS on JIRA, the
+    gap on dev@, per-entity HBOS on GitHub). Fitting one detector per source and
+    ranking by the percentile of the raw score within that source's training
+    distribution makes the monthly top-b% cut allocate the budget across sources
+    in proportion to how anomalous each source's events are, not to the scale of
+    one detector's scores.
+    """
+
+    name = "R10"
+
+    def __init__(self, *, rules: RuleSettings = _DEFAULT_RULE_SETTINGS, seed: int = 0) -> None:
+        super().__init__(method="hbos", rules=rules, seed=seed, name="R10")
+        self.source_models: dict[str, Any] = {}
+        self.source_scores: dict[str, np.ndarray] = {}
+
+    def fit(self, events: Sequence[EvalEvent]) -> PerSourceGlobalPolicy:
+        # One causal pass over the events: the extractor is stateful and ordered.
+        vectors = [self._vectors(event)[0] for event in events]
+        x = _matrix(vectors)
+        if len(x):
+            self.median = np.median(x, axis=0)
+            mad = np.median(np.abs(x - self.median), axis=0)
+            self.scale = np.maximum(1.4826 * mad, 1e-6)
+        self.model = self._fit_matrix(x)
+        groups: defaultdict[str, list[np.ndarray]] = defaultdict(list)
+        for event, vector in zip(events, vectors, strict=True):
+            groups[_event_source(event)].append(vector.as_array())
+        for source, rows in groups.items():
+            x = np.vstack(rows)
+            model = self._fit_matrix(x)
+            if model is None:
+                continue
+            self.source_models[source] = model
+            scores = model.decision_function(x)
+            assert scores is not None
+            self.source_scores[source] = np.sort(np.asarray(scores, dtype=float))
+        return self
+
+    def score(self, event: EvalEvent) -> float:
+        vector = self._vectors(event)[0]
+        x = vector.as_array()[None, :]
+        source = _event_source(event)
+        model = self.source_models.get(source, self.model)
+        reference = self.source_scores.get(source)
+        if model is None:
+            value = float(np.max(np.abs((x[0] - self.median) / self.scale)))
+            return self._record(vector, value, scorer="per_source_hbos", source_model=False)
+        raw = self._score_matrix(model, x)
+        if reference is None or not len(reference):
+            value = raw
+        else:
+            value = float(np.searchsorted(reference, raw, side="right") / len(reference))
+        return self._record(vector, value, scorer="per_source_hbos", raw_score=raw, source_model=source in self.source_models)
 
 
 class RobustGapPolicy(_PolicyBase):
@@ -481,14 +618,15 @@ POLICY_CLASSES = {
     "R5": GuardedHBOSPolicy,
     "R6": EntityLOFPolicy,
     "R7": AlwaysFastPolicy,
-    "R8": GuardedHBOSPolicy,
-    "R9": GuardedHBOSPolicy,
+    "R10": PerSourceGlobalPolicy,
 }
+# Registered R2 variants (run 4): the same global fit with a different detector.
+GLOBAL_VARIANTS = {"R11": "iforest", "R12": "ecod", "R13": "lof"}
 
 # Guarded per-entity HBOS conditions whose operating threshold depends on the budget.
-GUARDED_POLICIES = frozenset({"R5", "R8", "R9"})
-# Conditions whose rule hits are admitted outside the budget (amendment 2026-09-06).
-RULE_EXEMPT_POLICIES = frozenset({"R8", "R9"})
+GUARDED_POLICIES = frozenset({"R5"})
+# Conditions whose rule hits are admitted outside the budget (R8/R9 in run 3; none registered for run 4).
+RULE_EXEMPT_POLICIES: frozenset[str] = frozenset()
 
 
 def make_policy(
@@ -506,10 +644,6 @@ def make_policy(
     if normalized == "R0":
         return RandomPolicy(seed=seed, rules=settings)
     if normalized in GUARDED_POLICIES:
-        # R5 is the registered design (rules share the budget). R8 is the same
-        # scorer and guards with rule hits admitted outside the budget (the rule
-        # floor is the operator's choice; the deviation layer gets the whole
-        # budget). R9 additionally lets any baseline key satisfy the guards.
         return GuardedHBOSPolicy(
             absolute_floor=max(cfg.guards.absolute_floor, 3.0),
             # R5 is the guarded condition even when the engine profile under
@@ -517,9 +651,12 @@ def make_policy(
             multi_window=True,
             budget_pct=budget_pct or cfg.budget_pct,
             rules=settings,
-            any_key=normalized == "R9",
             name=normalized,
         )
+    if normalized in GLOBAL_VARIANTS:
+        return GlobalPolicy(method=GLOBAL_VARIANTS[normalized], rules=settings, seed=seed, name=normalized)
+    if normalized == "R10":
+        return PerSourceGlobalPolicy(rules=settings, seed=seed)
     try:
         policy_class = POLICY_CLASSES[normalized]
     except KeyError as exc:

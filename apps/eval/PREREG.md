@@ -118,3 +118,27 @@ Changes registered for run 3, each tied to a review finding:
 
 Not changed: budgets, window, fit window, primary metric/population, label model, the R5
 guards (retained as the registered ablation; not tuned on these months).
+
+## Amendment 2026-09-06, run 4 (appended; the registration block above is unchanged)
+
+Run 3 (`20260906T145312Z-e1-kafka`, `PREREG-run3.md`) showed R8 and R9 identical to R5 in every
+admission (the guards, not the budget, block the deviation layer) and the urgency signal to be
+source-specific (global HBOS on JIRA only, the gap scorer on dev@, per-entity HBOS on GitHub).
+Run 4 is registered in `PREREG-run4.md` against the same replay and config:
+
+1. **R8 and R9 removed** (redundant with R5; the rule-exempt accounting question is settled).
+2. **R10 per-source global HBOS** (new design condition): one global HBOS fitted per source
+   (jira / github / mail) on the trailing 12 months; each event is ranked by the percentile of
+   its raw score within its source's training-score distribution, so the monthly top-b % cut
+   allocates the budget across sources by within-source anomaly rather than by one detector's
+   scale. Unseen sources fall back to the global model.
+3. **R11, R12, R13 = R2 with a different global detector**: IsolationForest (100 trees, seeded),
+   ECOD (empirical-CDF tail score, O(log n) per event, same rule as pyod's ECOD), and LOF
+   (k = 20, standardised features, novelty mode). COPOD was considered and dropped as a
+   near-duplicate of ECOD on this feature vector.
+4. Registered contrasts: R5−R1, R5−R2, R2−R0, R4−R0, R10−R0, R10−R2, R11−R2, R12−R2, R13−R2.
+   Design condition for the metric-remediation record: R10. Human sanity sample: 50 top R10 +
+   50 top R2 rule-negative events.
+5. Everything else (budgets, window, fit window, primary metric and population, label model,
+   label-definition sensitivity, rules, gates) is unchanged from run 3. The candidate set was
+   chosen after seeing run 3 and is stated as such; no parameter was tuned on evaluation months.

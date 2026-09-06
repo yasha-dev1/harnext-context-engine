@@ -5,7 +5,7 @@ robustness.csv, calibration.csv, validity.csv, metric_remediation.csv) and write
 
   recall_at_budget_rule_negative_pooled.csv / fig_recall_at_budget.png
   rule_hit_share_by_month.csv / fig_rule_floor_saturation.png
-  guard_funnel.csv                    (R5/R8/R9 eligible → admitted → positives per budget)
+  guard_funnel.csv                    (R5 eligible → admitted → positives per budget)
   per_source_recall_2pct.csv
   primary_contrasts.csv
   lateness_rule_negative.csv          (timestamped affiliation / detection delay per policy)
@@ -37,14 +37,16 @@ POLICY_LABEL = {
     "R0": "R0 random", "R1": "R1 rules only", "R2": "R2 global HBOS", "R3": "R3 gap robust-z",
     "R4": "R4 per-entity HBOS", "R5": "R5 guarded HBOS (rules share budget)",
     "R6": "R6 per-entity LOF", "R7": "R7 always fast",
-    "R8": "R8 guarded HBOS (rules outside budget)", "R9": "R9 = R8 + any-key guards",
+    "R10": "R10 per-source global HBOS", "R11": "R11 global IsolationForest",
+    "R12": "R12 global ECOD", "R13": "R13 global LOF",
 }
 # Fixed categorical assignment (identity follows the policy, never its rank).
 COLOR = {
     "R2": "#2a78d6", "R5": "#eb6834", "R4": "#1baf7a", "R1": "#eda100",
-    "R9": "#e87ba4", "R6": "#008300", "R8": "#4a3aa7", "R3": "#e34948", "R0": "#7a756d",
+    "R6": "#008300", "R3": "#e34948", "R0": "#7a756d",
+    "R10": "#4a3aa7", "R11": "#e87ba4", "R12": "#8a5fbf", "R13": "#c98500",
 }
-MAIN_POLICIES = ("R0", "R1", "R2", "R4", "R5", "R8", "R9")
+MAIN_POLICIES = ("R0", "R2", "R4", "R5", "R10", "R11", "R12", "R13")
 SMALL_FILES = (
     "metrics.csv", "label_diagnostics.csv", "validity.csv", "calibration.csv", "robustness.csv",
     "delays.csv", "metric_remediation.csv", "label_situations.csv", "human_sanity_sample.csv",
@@ -111,7 +113,6 @@ def main() -> int:
 
     results = json.loads((run / "results.json").read_text())
     primary = results["primary"]
-    metrics = pd.read_csv(run / "metrics.csv")
     columns = ["event_id", "policy", "budget_pct", "admitted", "rule_negative", "p_urgent",
                "source", "eligible", "mandatory", "month", "rule", "rule_flag", "subject"]
     scores = pq.read_table(run / "scores.parquet", columns=columns).to_pandas()
@@ -129,18 +130,24 @@ def main() -> int:
     )
     pooled["recall"] = pooled["admitted_positives"] / pooled["positives"].clip(lower=1)
     pooled.to_csv(out / "recall_at_budget_rule_negative_pooled.csv", index=False)
-    wide = pooled.pivot(index="policy", columns="budget_pct", values="recall").reindex([f"R{i}" for i in range(10)])
+    wide = pooled.pivot(index="policy", columns="budget_pct", values="recall").reindex(list(POLICY_LABEL))
     fig, axis = plt.subplots(figsize=(6.4, 4.0))
     axis.plot(BUDGETS, [b / 100 for b in BUDGETS], color="#9A958C", linestyle=":", linewidth=1.5, label="recall = budget (chance)")
     for policy in MAIN_POLICIES:
         if policy in wide.index:
             axis.plot(list(wide.columns), wide.loc[policy].values, marker="o", markersize=5, linewidth=2,
                       color=COLOR[policy], label=POLICY_LABEL[policy], linestyle="--" if policy == "R0" else "-")
-    axis.set_xscale("log"); axis.set_xticks(BUDGETS); axis.set_xticklabels([f"{b:g} %" for b in BUDGETS])
-    axis.set_xlabel("admission budget b"); axis.set_ylabel("recall@b, rule-negative revealed-urgent events")
+    axis.set_xscale("log")
+    axis.set_xticks(BUDGETS)
+    axis.set_xticklabels([f"{b:g} %" for b in BUDGETS])
+    axis.set_xlabel("admission budget b")
+    axis.set_ylabel("recall@b, rule-negative revealed-urgent events")
     axis.set_title(f"E1 recall at budget (Kafka, {n_positive_neg} rule-negative positives)", fontsize=10)
-    _style(axis); axis.legend(fontsize=7.5, frameon=False, loc="upper left")
-    fig.tight_layout(); fig.savefig(out / "fig_recall_at_budget.png", dpi=200); plt.close(fig)
+    _style(axis)
+    axis.legend(fontsize=7.5, frameon=False, loc="upper left")
+    fig.tight_layout()
+    fig.savefig(out / "fig_recall_at_budget.png", dpi=200)
+    plt.close(fig)
 
     # 2. Rule-floor share by month against budgets.
     rules_ref = scores[(scores["policy"] == "R1") & (scores["budget_pct"] == 2.0)]
@@ -154,16 +161,21 @@ def main() -> int:
     for budget, color in zip((1.0, 2.0, 5.0), ("#eb6834", "#2a78d6", "#1baf7a"), strict=True):
         axis.axhline(budget, color=color, linewidth=1.5, label=f"budget {budget:g} %")
     step = max(1, len(by_month) // 8)
-    axis.set_xticks(range(0, len(by_month), step)); axis.set_xticklabels(by_month["month"].iloc[::step], rotation=0, fontsize=8)
-    axis.set_ylabel("rule hits, % of month's events"); axis.set_title("Rule floor per month vs. admission budgets", fontsize=10)
-    _style(axis); axis.legend(fontsize=8, frameon=False)
-    fig.tight_layout(); fig.savefig(out / "fig_rule_floor_saturation.png", dpi=200); plt.close(fig)
+    axis.set_xticks(range(0, len(by_month), step))
+    axis.set_xticklabels(by_month["month"].iloc[::step], rotation=0, fontsize=8)
+    axis.set_ylabel("rule hits, % of month's events")
+    axis.set_title("Rule floor per month vs. admission budgets", fontsize=10)
+    _style(axis)
+    axis.legend(fontsize=8, frameon=False)
+    fig.tight_layout()
+    fig.savefig(out / "fig_rule_floor_saturation.png", dpi=200)
+    plt.close(fig)
     rule_breakdown = rules_ref[rules_ref["rule_flag"].astype(bool)].groupby(["rule", "source"], observed=True).size().reset_index(name="events")
     rule_breakdown.to_csv(out / "rule_floor_breakdown.csv", index=False)
 
     # 3. Guard funnel for guarded policies.
     funnel_rows = []
-    for policy in ("R5", "R8", "R9"):
+    for policy in ("R5",):
         for budget in BUDGETS:
             sub = negative[(negative["policy"] == policy) & (negative["budget_pct"] == budget)]
             if sub.empty:
@@ -184,7 +196,7 @@ def main() -> int:
         .rename(columns={"mean": "recall_2pct", "size": "positives"})
     )
     per_source.to_csv(out / "per_source_recall_2pct.csv", index=False)
-    source_wide = per_source.pivot(index="policy", columns="source", values="recall_2pct").reindex([f"R{i}" for i in range(10)])
+    source_wide = per_source.pivot(index="policy", columns="source", values="recall_2pct").reindex(list(POLICY_LABEL))
 
     # 5. Primary contrasts.
     contrast_rows = []
@@ -213,10 +225,16 @@ def main() -> int:
     edges = np.logspace(-10, 0, 41)
     axis.hist(np.clip(posterior, 1e-10, 1), bins=edges, color="#2a78d6")
     axis.axvline(0.5, color="#eb6834", linewidth=1.5, label="registered threshold 0.5")
-    axis.set_xscale("log"); axis.set_yscale("log"); axis.set_xlabel("label-model posterior p(urgent)"); axis.set_ylabel("events")
+    axis.set_xscale("log")
+    axis.set_yscale("log")
+    axis.set_xlabel("label-model posterior p(urgent)")
+    axis.set_ylabel("events")
     axis.set_title(f"Posterior over {len(posterior):,} events; {(posterior >= 0.5).sum():,} above 0.5", fontsize=10)
-    _style(axis); axis.legend(fontsize=8, frameon=False)
-    fig.tight_layout(); fig.savefig(out / "fig_label_posterior.png", dpi=200); plt.close(fig)
+    _style(axis)
+    axis.legend(fontsize=8, frameon=False)
+    fig.tight_layout()
+    fig.savefig(out / "fig_label_posterior.png", dpi=200)
+    plt.close(fig)
 
     # 8. Summary document.
     diagnostics = pd.read_csv(run / "label_diagnostics.csv")

@@ -64,7 +64,7 @@ from harnext_eval.stores.base import StoreHandle
 from harnext_eval.types import EvalEvent, RouterRecord, Task
 
 _BUDGETS = (1.0, 2.0, 5.0, 10.0)
-_POLICIES = tuple(f"R{index}" for index in range(10))
+_POLICIES = (*(f"R{index}" for index in range(8)), "R10", "R11", "R12", "R13")
 _SHARED_BUDGET_POLICIES = tuple(f"R{index}" for index in range(7))
 _ROWINDEX_SECONDARY = (
     "precision_at_b",
@@ -84,7 +84,7 @@ def _fitted_policy(
     name: str, tuning: list[EvalEvent], cfg: EngineConfig, seed: int, budget: float,
 ):
     policy = make_policy(name, cfg.router, seed=seed, budget_pct=budget)
-    policy.feature_cache = _FEATURE_CACHE.get(name == "R2")
+    policy.feature_cache = _FEATURE_CACHE.get(bool(getattr(policy, "global_features", False)))
     return policy.fit(tuning)
 
 
@@ -655,7 +655,7 @@ def _features_dict(value: Any) -> dict[str, Any]:
 
 def _write_attribution(scores: pd.DataFrame, path: Path) -> None:
     lines = ["# E1 feature attribution", ""]
-    for policy in ("R5", "R8"):
+    for policy in ("R5", "R2", "R10"):
         selected = scores[
             (scores["policy"] == policy)
             & (scores["budget_pct"] == 2.0)
@@ -686,9 +686,9 @@ def _write_human_sanity_sample(
 ) -> Path:
     """Write the spec's human sanity sample: top-scored rule-negative events.
 
-    Half comes from the guarded design condition (R8, eligible first), half from
-    the global scorer (R2); labels and scores go to a separate key file so the
-    annotator sheet is blind.
+    Half comes from the per-source design condition (R10), half from the global
+    scorer (R2); labels and scores go to a separate key file so the annotator
+    sheet is blind.
     """
 
     from harnext_eval.e1.labels import _text
@@ -696,7 +696,7 @@ def _write_human_sanity_sample(
     by_id = {event.id: event for event in events}
     picks: list[tuple[str, str, float]] = []
     seen: set[str] = set()
-    for policy, order in (("R8", ["eligible", "score"]), ("R2", ["score"])):
+    for policy, order in (("R10", ["score"]), ("R2", ["score"])):
         subset = scores[
             (scores["policy"] == policy)
             & (scores["budget_pct"] == 2.0)
@@ -749,7 +749,7 @@ def _write_human_sanity_sample(
     return path
 
 
-def _metric_remediation(metrics: pd.DataFrame, *, design: str = "R8", floor: str = "R0") -> pd.DataFrame:
+def _metric_remediation(metrics: pd.DataFrame, *, design: str = "R10", floor: str = "R0") -> pd.DataFrame:
     """Prospective kept/dropped record for every secondary metric (review finding 6).
 
     A metric is kept when the design condition is separated from the random
@@ -770,7 +770,7 @@ def _metric_remediation(metrics: pd.DataFrame, *, design: str = "R8", floor: str
             continue
         pivot = selected.pivot_table(index="month", columns="policy", values=metric, aggfunc="first", observed=True)
         row: dict[str, Any] = {"metric": metric, "design": design, "floor": floor}
-        for policy in (floor, "R5", design, "R7"):
+        for policy in (floor, "R5", "R2", design, "R7"):
             row[f"mean_{policy}"] = float(pivot[policy].mean()) if policy in pivot.columns else float("nan")
         if design in pivot.columns and floor in pivot.columns:
             paired = (pivot[design] - pivot[floor]).dropna()
@@ -1578,13 +1578,7 @@ class E1Experiment:
                     ].shape[0]
                 ),
                 None,
-                "R5/R8/R9 deviation admissions must carry both published guards",
-            ),
-            (
-                "rule_exempt_capacity_respected",
-                _rule_exempt_capacity_respected(scores),
-                int(scores[scores["policy"].isin(sorted(RULE_EXEMPT_POLICIES))]["rules_outside_budget"].max()),
-                "R8/R9 deviation admissions are capped at the shared monthly capacity; rule hits sit outside it",
+                "R5 deviation admissions must carry both published guards",
             ),
             (
                 "r7_always_fast",
@@ -1771,7 +1765,7 @@ class E1Experiment:
                 "path": str(remediation_path),
                 "kept": remediation_frame.loc[remediation_frame["decision"] == "kept", "metric"].tolist(),
                 "dropped": remediation_frame.loc[remediation_frame["decision"] == "dropped", "metric"].tolist(),
-                "criterion": "design (R8) minus random (R0), paired over months at 2%/rule-negative, |mean| > 2 SE",
+                "criterion": "design (R10) minus random (R0), paired over months at 2%/rule-negative, |mean| > 2 SE",
             }
         _add_gate(
             check_metrics,

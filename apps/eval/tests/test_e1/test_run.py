@@ -7,6 +7,7 @@ import numpy as np
 import pandas as pd
 from harnext_eval.config import load_config
 from harnext_eval.corpus.synthetic import generate_synthetic_corpus
+from harnext_eval.e1.prereg import POLICIES
 from harnext_eval.e1.run import E1Experiment, _post_t_action_gold, _run_harm_check
 from harnext_eval.providers.llm import LLMResult
 from harnext_eval.registry import get_experiment
@@ -35,7 +36,7 @@ def test_e1_uses_sidecar_gold_global_monthly_admission_and_required_outputs(
 
     assert result.primary["metric"] == "recall_at_2pct_rule_negative"
     assert {"r5_minus_r1_ci_low", "r5_minus_r1_ci_high", "r5_minus_r2_ci_low", "r5_minus_r2_ci_high"} <= set(result.primary)
-    assert set(result.tables["scores"]["policy"]) == {f"R{index}" for index in range(10)}
+    assert set(result.tables["scores"]["policy"]) == set(POLICIES)
 
     exact_positive_ids = {
         item["event_id"] for item in corpus.meta["injected_situations"]
@@ -115,7 +116,7 @@ def test_e1_uses_sidecar_gold_global_monthly_admission_and_required_outputs(
     situation_rows = result.tables["robustness"].dropna(
         subset=["affiliation_recall"]
     )
-    assert set(situation_rows["policy"]) == {f"R{index}" for index in range(10)}
+    assert set(situation_rows["policy"]) == set(POLICIES)
     assert set(situation_rows["budget_pct"]) == {1.0, 2.0, 5.0, 10.0}
 
     required = {

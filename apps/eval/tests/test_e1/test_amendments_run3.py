@@ -9,7 +9,6 @@ from harnext_eval.corpus.jira import parse_issue
 from harnext_eval.e1.policies import (
     GUARDED_POLICIES,
     RULE_EXEMPT_POLICIES,
-    GuardedHBOSPolicy,
     RuleSettings,
     RulesOnlyPolicy,
     budgeted_decisions,
@@ -71,43 +70,57 @@ def test_rule_exempt_admissions_sit_outside_the_capacity() -> None:
     assert shared["rules_outside_budget"].iloc[0] == 0
 
 
-def test_r8_and_r9_are_guarded_variants_with_registered_names() -> None:
+def test_run4_policy_set_registers_per_source_and_global_variants() -> None:
+    from harnext_eval.e1.policies import GLOBAL_VARIANTS, GlobalPolicy, PerSourceGlobalPolicy
+    from harnext_eval.e1.prereg import POLICIES, PRIMARY_CONTRASTS
+
     cfg = load_config("apps/eval/configs/e1-kafka.yaml").engine
-    assert GUARDED_POLICIES == {"R5", "R8", "R9"}
-    assert RULE_EXEMPT_POLICIES == {"R8", "R9"}
-    r8 = make_policy("R8", cfg.router, seed=1, budget_pct=2.0)
-    r9 = make_policy("R9", cfg.router, seed=1, budget_pct=2.0)
-    assert isinstance(r8, GuardedHBOSPolicy) and r8.name == "R8" and not r8.any_key
-    assert isinstance(r9, GuardedHBOSPolicy) and r9.name == "R9" and r9.any_key
-    assert r8.rule_settings.dedup_per_subject and r8.rule_settings.vote_thread_start_only
+    assert GUARDED_POLICIES == {"R5"}
+    assert RULE_EXEMPT_POLICIES == frozenset()
+    assert POLICIES == ("R0", "R1", "R2", "R3", "R4", "R5", "R6", "R7", "R10", "R11", "R12", "R13")
+    assert GLOBAL_VARIANTS == {"R11": "iforest", "R12": "ecod", "R13": "lof"}
+    assert all(contrast.split("-")[0] in POLICIES and contrast.split("-")[1] in POLICIES for contrast in PRIMARY_CONTRASTS)
+    for name in ("R8", "R9"):
+        import pytest
+
+        with pytest.raises(ValueError, match="unknown E1 policy"):
+            make_policy(name, cfg.router, seed=1)
+    r10 = make_policy("R10", cfg.router, seed=1)
+    assert isinstance(r10, PerSourceGlobalPolicy) and r10.name == "R10" and r10.global_features
+    for name, method in GLOBAL_VARIANTS.items():
+        policy = make_policy(name, cfg.router, seed=1)
+        assert isinstance(policy, GlobalPolicy) and policy.name == name and policy.method == method
 
 
-def test_any_key_eligibility_uses_a_lower_scoring_key_that_passes_the_guards() -> None:
-    policy = GuardedHBOSPolicy(any_key=True, multi_window=False)
-    start = datetime(2026, 2, 1, tzinfo=UTC)
+def _source_event(event_id: str, when: datetime, source: str, value: float) -> EvalEvent:
+    return EvalEvent(
+        id=event_id, source=f"{source}:x", type=f"org.{source}.event", subject=f"{source}:{event_id}",
+        time=when, mgtenant="test", baseline_keys=[], data={"amount": value},
+    )
 
-    def multi(event_id: str, when: datetime) -> EvalEvent:
-        return EvalEvent(
-            id=event_id, source="test:stream", type="org.test.event", subject="entity:1", time=when,
-            mgtenant="test", baseline_keys=["component:busy", "contributor:quiet"], data={},
-        )
 
-    def quiet_only(event_id: str, when: datetime) -> EvalEvent:
-        return EvalEvent(
-            id=event_id, source="test:stream", type="org.test.event", subject="entity:2", time=when,
-            mgtenant="test", baseline_keys=["contributor:quiet"], data={},
-        )
+def test_global_variants_and_per_source_percentiles_score_deterministically() -> None:
+    from harnext_eval.e1.policies import GLOBAL_VARIANTS, GlobalPolicy, PerSourceGlobalPolicy
 
-    history = [multi(f"h-{index}", start + timedelta(minutes=7 * index)) for index in range(40)]
-    history += [quiet_only(f"q-{index}", start + timedelta(minutes=11 * index)) for index in range(40)]
-    policy.fit(sorted(history, key=lambda event: event.time))
-    policy.threshold = -1e9  # everything anomalous; the guards decide eligibility
-    later = start + timedelta(days=2)
-    for index in range(3):
-        policy.score(multi(f"burst-{index}", later + timedelta(seconds=index)))
-    fired = policy.features_fired
-    assert fired["eligible"]
-    assert fired["volume_guard"]
+    start = datetime(2026, 1, 1, tzinfo=UTC)
+    history = [
+        _source_event(f"{source}-{index}", start + timedelta(minutes=index * (3 if source == "jira" else 17)), source, index % 5)
+        for source in ("jira", "github") for index in range(60)
+    ]
+    history.sort(key=lambda event: event.time)
+    probe = history[-1].model_copy(update={"id": "probe", "time": start + timedelta(days=2)})
+    for method in GLOBAL_VARIANTS.values():
+        first = GlobalPolicy(method=method, seed=3).fit(history)
+        second = GlobalPolicy(method=method, seed=3).fit(history)
+        assert first.score(probe) == second.score(probe)
+        assert first.features_fired["scorer"] == f"global_{method}"
+    per_source = PerSourceGlobalPolicy(seed=3).fit(history)
+    assert set(per_source.source_models) == {"jira", "github"}
+    value = per_source.score(probe)
+    assert 0.0 <= value <= 1.0
+    assert per_source.features_fired["source_model"] is True
+    unseen = per_source.score(_source_event("m", start + timedelta(days=2), "mail", 1.0))
+    assert per_source.features_fired["source_model"] is False and unseen >= 0.0
 
 
 def test_swap_labels_preserves_prevalence_where_flip_does_not() -> None:

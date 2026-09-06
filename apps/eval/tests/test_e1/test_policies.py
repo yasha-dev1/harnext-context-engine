@@ -14,6 +14,7 @@ from harnext_eval.e1.policies import (
     make_policy,
     match_rule,
 )
+from harnext_eval.e1.prereg import POLICIES
 from harnext_eval.types import EvalEvent
 
 
@@ -148,7 +149,7 @@ def test_every_policy_runs_deterministically_and_exposes_distinct_semantics() ->
     events = generate_synthetic_events(seed=3, event_count=240, days=8, entity_count=8)
     cfg = load_config("apps/eval/configs/baseline-minimal.yaml").engine
     repeated: dict[str, list[float]] = {}
-    for name in (f"R{index}" for index in range(10)):
+    for name in POLICIES:
         policy = make_policy(name, cfg.router, seed=11).fit(events[:180])
         assert isinstance(policy, RouterPolicy)
         repeated[name] = [policy.score(event) for event in events[180:]]

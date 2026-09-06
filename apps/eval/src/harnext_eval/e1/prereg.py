@@ -21,13 +21,15 @@ EXCLUSIONS = [
     "Rules exceeding monthly capacity invalidate that month; no hidden capacity is added.",
     "Harm is N/A: no real action provider / no S3 store in this profile.",
 ]
-# Registered contrasts. R5-R1 and R5-R2 are the original design contrasts; the
-# 2026-09-06 amendments add the rule-exempt accounting (R8, R9: rule hits are the
-# operator's choice and are admitted outside the budget) and the scorer bake-off
-# on the rule-negative population (each scorer against the random floor).
+# Registered contrasts. R5-R1 and R5-R2 are the original design contrasts; run 3 added
+# the scorer bake-off against the random floor; run 4 (2026-09-06) registers the
+# per-source global HBOS (R10) as the design condition and three global detector
+# variants of R2 (R11 IsolationForest, R12 ECOD, R13 LOF). R8/R9 were removed after
+# run 3 showed them identical to R5.
 PRIMARY_CONTRASTS = (
-    "R5-R1", "R5-R2", "R8-R2", "R9-R2", "R8-R5", "R2-R0", "R4-R0", "R8-R0", "R9-R0",
+    "R5-R1", "R5-R2", "R2-R0", "R4-R0", "R10-R0", "R10-R2", "R11-R2", "R12-R2", "R13-R2",
 )
+POLICIES = (*(f"R{index}" for index in range(8)), "R10", "R11", "R12", "R13")
 # Post-hoc label-definition sensitivity, registered before the run so the fusion
 # rule cannot be chosen on the outcome (review finding 2). The registered label
 # stays the weighted model at p >= 0.5; the others are reported alongside it.
@@ -38,10 +40,10 @@ LABEL_DEFINITIONS = (
     "half_of_votes",
 )
 AMENDED_EXCLUSIONS = [
-    "R8/R9 admit rule hits outside the budget (rules_outside_budget is reported); "
-    "their rule-negative admissions are capped at the same monthly capacity as R0-R6.",
+    "R10 fits one global HBOS per source and ranks by within-source percentile; R11-R13 are "
+    "R2 with IsolationForest, ECOD and LOF; all share the R0-R6 monthly capacity.",
     "An LF whose positive support is below label_positive_support_min fails its gate.",
-    "Secondary metrics are kept only if the design condition (R8) is separated from the "
+    "Secondary metrics are kept only if the design condition (R10) is separated from the "
     "random floor by more than twice the paired monthly standard error; the decision is "
     "recorded in metric_remediation.csv before any interpretation.",
     "Lateness metrics use timestamped, subject-separated situations derived from consecutive "
@@ -66,7 +68,7 @@ def registration(
         "schema": "e1-prereg-v1",
         "replay_sha256": sha256_file(replay),
         "config_sha256": sha256_json(config),
-        "policies": [f"R{index}" for index in range(10)],
+        "policies": list(POLICIES),
         "budgets_pct": [1.0, 2.0, 5.0, 10.0],
         "primary_metric": PRIMARY,
         "primary_contrasts": list(PRIMARY_CONTRASTS),
