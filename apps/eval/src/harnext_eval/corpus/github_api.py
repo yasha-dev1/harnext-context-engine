@@ -98,11 +98,24 @@ class GraphQLClient:
     def _pause(self, headers: Mapping[str, str], *, limited: bool = False) -> None:
         normalized = {key.lower(): value for key, value in headers.items()}
         remaining = int(normalized.get("x-ratelimit-remaining", "5000"))
-        if limited or remaining < 50:
+        if remaining < 50:
+            # Primary quota exhausted: wait for the window to reset.
             reset = float(normalized.get("x-ratelimit-reset", "0"))
             delay = max(0.0, reset - self.clock() + 1)
             delay = max(delay, float(normalized.get("retry-after", "0")))
-            self.sleep(delay if delay > 1 else (60.0 if limited else 1.0))
+            self.sleep(delay if delay > 1 else 1.0)
+        elif limited:
+            # Secondary (burst) limit with quota left: honour retry-after, else
+            # wait for a near reset but never the full hour (that idled parallel
+            # fetchers for ~1 h); fall back to one minute.
+            retry_after = float(normalized.get("retry-after", "0"))
+            reset_delay = float(normalized.get("x-ratelimit-reset", "0")) - self.clock() + 1
+            if retry_after > 0:
+                self.sleep(retry_after)
+            elif reset_delay > 1:
+                self.sleep(min(reset_delay, 300.0))
+            else:
+                self.sleep(60.0)
 
     def __call__(self, query: str, variables: Json) -> Json:
         if not self.token:
@@ -126,14 +139,14 @@ class GraphQLClient:
                 errors = payload.get("errors")
                 if errors:
                     transient = all(
-                        error.get("type") in {"RATE_LIMITED", "INTERNAL", "SERVICE_UNAVAILABLE"}
+                        error.get("type") in {"RATE_LIMITED", "RATE_LIMIT", "INTERNAL", "SERVICE_UNAVAILABLE"}
                         or "something went wrong" in str(error.get("message", "")).lower()
                         for error in errors
                     )
                     if transient and attempt < self.retries:
                         self.sleep(
                             max(
-                                60 if any(e.get("type") == "RATE_LIMITED" for e in errors) else 0,
+                                60 if any(e.get("type") in {"RATE_LIMITED", "RATE_LIMIT"} for e in errors) else 0,
                                 2**attempt,
                             )
                         )
