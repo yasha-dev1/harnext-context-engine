@@ -59,7 +59,10 @@ def main() -> int:
 
     functions = [f for f in DEFAULT_LABELING_FUNCTIONS if f.name not in set(args.exclude)]
     votes = apply_labeling_functions(events, functions, observation_end=end)
-    votes.to_parquet(args.out / "votes.parquet")
+    observability = votes.attrs.get("observability")
+    votes.copy().to_parquet(args.out / "votes.parquet")  # copy drops attrs (non-serialisable)
+    if isinstance(observability, pd.DataFrame):
+        observability.to_parquet(args.out / "observability.parquet")
     source = pd.Series(
         ["jira" if ".jira." in e.type else "mail" if ".mail." in e.type else "github" for e in events],
         index=votes.index,
