@@ -1,0 +1,6 @@
+metric,design,floor,mean_R0,mean_R5,mean_R8,mean_R7,paired_months,design_minus_floor,standard_error,decision,reason
+precision_at_b,R8,R0,0.0019130805264285966,0.0,0.0,0.0022891503685798942,31,-0.001950035179563261,0.0008214022263797179,kept,design separated from random floor by > 2 paired SE
+vus_pr,R8,R0,0.005260742619469662,0.005229409802823549,0.005229409802823549,0.004750120674759117,48,-3.13328166461136e-05,0.00024149121704503796,dropped,"design not separated from the random floor (|mean| <= 2 SE or < 10 months); reported, not interpreted"
+affiliation_precision_rowindex,R8,R0,0.5009425885213595,0.5353185761748287,0.5353185761748287,0.509645806266083,29,0.03276408272706211,0.031219156326269787,dropped,"design not separated from the random floor (|mean| <= 2 SE or < 10 months); reported, not interpreted"
+affiliation_recall_rowindex,R8,R0,0.6584700219653578,0.0722840856661347,0.0722840856661347,1.0,48,-0.5861859362992231,0.026654276048362274,kept,design separated from random floor by > 2 paired SE
+nab_low_fn_rowindex,R8,R0,-4.4933531097252875,-1.9314499412823272,-1.9314499412823272,-145.1403284513289,52,2.56190316844296,0.5113736890610407,kept,design separated from random floor by > 2 paired SE

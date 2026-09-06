@@ -1,8 +1,37 @@
-# Handoff — E1 on the real Kafka corpus (updated 2026-09-06 09:40)
+# Handoff — E1 on the real Kafka corpus (updated 2026-09-06 20:30)
 
 Read this first when resuming on another machine. Branch: `eval-framework`. Everything below is
 committed; `apps/eval/out/` (raw corpus, replay, run outputs) is git-ignored and lives only on the
 laptop that produced it.
+
+## 0. Run 3 (2026-09-06, desktop) — read this first
+
+Run 3 = all review findings fixed and registered (`PREREG.md` amendment "run 3", `PREREG-run3.md`
+@ 12d3d7b), corpus rebuilt on the desktop (replay `d2d43a22…`, same 629,458 events), run
+`20260906T145312Z-e1-kafka` (3 h 18 min, 4 spawned workers). Artifacts in
+`apps/eval/reports/e1-kafka-run3/` (`results_summary.md` has the paper tables in Markdown + LaTeX;
+`e1-kafka-run3-report.html` is the published report).
+
+Result, recall@2 % rule-negative (839 positives, 219 subjects): R0 0.020 · R1 0.000 · **R2 0.089**
+· R3 0.014 · R4 0.005 · R5 0.000 · R6 0.013 · R8 0.000 · R9 0.000. R8 (rule hits outside the
+budget) and R9 (any-key guards) are identical to R5 in every admission: the budget was never the
+cause, the guards are (256 of 384,413 rule-negative events eligible at 2 %, none positive).
+R2−R0 = +0.069 [0.047, 0.093]; R4−R0 = −0.015 [−0.028, −0.006]. Rule floor now 0.77 % (dedup +
+thread-start + Critical transitions), feasible in all 52 months at 2 %. R2's signal is JIRA-only
+(0.107; GitHub/dev@ 0.000); R3 works on dev@ (0.164), R4 on GitHub (0.043). Per-entity score
+decile is anti-correlated with urgency (median Spearman −0.36). Label-definition sensitivity: R2
+leads under 3 of 4 registered definitions; R5/R8/R9 stay at zero under all.
+
+Still non-evidentiary by own gates: human sanity sample (written, not annotated:
+`reports/e1-kafka-run3/human_sanity_sample.csv` + key), random-VUS geometry gate (1.95×
+prevalence vs 50 % tolerance; VUS dropped by the remediation record), 1 %-budget infeasible months
+(12), Flink/Corpus S preflight. Next: annotate the sample (two annotators, kappa) → register run 4
+with per-source, guard-free scorers as the design condition → Flink replication.
+
+Process notes: codex could not launch (refresh-token error); the fixes were implemented directly
+and are covered by 302 tests. Memory: forked policy workers copy the parent heap; workers are now
+spawned per month (`_init_worker`), keep `HARNEXT_E1_WORKERS=4`. GitHub fetch is quota-bound
+(5,000 pages/h); the client now honours RATE_LIMIT and uses per-process temp files.
 
 ## 1. Where the thesis evaluation stands
 

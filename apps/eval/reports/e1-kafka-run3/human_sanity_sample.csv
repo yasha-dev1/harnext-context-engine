@@ -1,0 +1,1158 @@
+item,event_id,source,subject,type,time,excerpt,would_interrupt_annotator_1,would_interrupt_annotator_2
+1,mail:ee6a11bb4e5bff097671ec05,mail:dev@kafka.apache.org,thread:PR_kwDOMRGlbM50t7TH@gitbox.apache.org,org.apache.mail.message,2024-07-08T16:17:46+00:00,"author contributor:90387061ecb1 author_email git@apache.org author_name mumrah (via github) body mumrah opened a new pull request, #27:
+url: https://github.com/apache/kafka-merge-queue-sandbox/pull/27
+
+   (no comment)
+
+
+-- 
+this is an automated message from the apache git service.
+to respond to the message, please log on to github and use the
+url above to go to the specific comment.
+
+to unsubscribe, e-mail: dev-unsubscribe@kafka.apache.org
+
+for queries about this service, please contact infrastructure at:
+users@infra.apache.org in_reply_to is_committer false list dev@kafka.apache.org message_i",,
+2,mail:cdcb182145b4f587b7ca436a,mail:dev@kafka.apache.org,thread:PR_kwDOMRGlbM50t7OJ@gitbox.apache.org,org.apache.mail.message,2024-07-08T16:17:38+00:00,"author contributor:90387061ecb1 author_email git@apache.org author_name mumrah (via github) body mumrah opened a new pull request, #26:
+url: https://github.com/apache/kafka-merge-queue-sandbox/pull/26
+
+   (no comment)
+
+
+-- 
+this is an automated message from the apache git service.
+to respond to the message, please log on to github and use the
+url above to go to the specific comment.
+
+to unsubscribe, e-mail: dev-unsubscribe@kafka.apache.org
+
+for queries about this service, please contact infrastructure at:
+users@infra.apache.org in_reply_to is_committer false list dev@kafka.apache.org message_i",,
+3,mail:b91456796ed3967113da3ce4,mail:dev@kafka.apache.org,thread:JIRA.13582875.1718625422000@Atlassian.JIRA,org.apache.mail.message,2024-06-17T12:05:00+00:00,"author contributor:a0735f8966d9 author_email jira@apache.org author_name krish vora (jira) body [ https://issues.apache.org/jira/browse/kafka-16979?page=com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel ]
+
+krish vora resolved kafka-16979.
+--------------------------------
+    resolution: done
+
+> prepare docker official image source for 3.7.0 release
+> ------------------------------------------------------
+>
+>                 key: kafka-16979
+>                 url: https://issues.apache.org/jira/browse/kafka-16979
+>             project: kafka
+>          issue type: sub-task
+>    affec",,
+4,mail:68cf448983d6f6ceceffb0f4,mail:dev@kafka.apache.org,thread:JIRA.13582878.1718625623000@Atlassian.JIRA,org.apache.mail.message,2024-06-17T12:05:00+00:00,"author contributor:a0735f8966d9 author_email jira@apache.org author_name krish vora (jira) body [ https://issues.apache.org/jira/browse/kafka-16982?page=com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel ]
+
+krish vora resolved kafka-16982.
+--------------------------------
+    resolution: done
+
+> docker official image build and test
+> ------------------------------------
+>
+>                 key: kafka-16982
+>                 url: https://issues.apache.org/jira/browse/kafka-16982
+>             project: kafka
+>          issue type: sub-task
+>    affects versions: 3.7.0
+>            repo",,
+5,mail:04ac613b52a9a72ba848f24f,mail:dev@kafka.apache.org,thread:JIRA.13544907.1690353951000@Atlassian.JIRA,org.apache.mail.message,2023-07-26T06:49:00+00:00,"author contributor:a0735f8966d9 author_email jira@apache.org author_name nikita (jira) body [ https://issues.apache.org/jira/browse/kafka-15254?page=com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel ]
+
+nikita resolved kafka-15254.
+----------------------------
+    resolution: duplicate
+
+> task is not stopped until the poll interval passes in case of task restarting.
+> ------------------------------------------------------------------------------
+>
+>                 key: kafka-15254
+>                 url: https://issues.apache.org/jira/browse/kafka-15254
+>             project: kafka
+>",,
+6,mail:57e1408b0e4292d4bb47e930,mail:dev@kafka.apache.org,thread:JIRA.13582877.1718625506000@Atlassian.JIRA,org.apache.mail.message,2024-06-17T12:05:00+00:00,"author contributor:a0735f8966d9 author_email jira@apache.org author_name krish vora (jira) body [ https://issues.apache.org/jira/browse/kafka-16981?page=com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel ]
+
+krish vora resolved kafka-16981.
+--------------------------------
+    resolution: done
+
+> remove any versions for which docker official images should not be supported if any
+> -----------------------------------------------------------------------------------
+>
+>                 key: kafka-16981
+>                 url: https://issues.apache.org/jira/browse/kafka-16981
+>            ",,
+7,mail:1788bfe1095ed3987241d040,mail:dev@kafka.apache.org,thread:JIRA.13544908.1690353953000@Atlassian.JIRA,org.apache.mail.message,2023-07-26T06:49:00+00:00,"author contributor:a0735f8966d9 author_email jira@apache.org author_name nikita (jira) body [ https://issues.apache.org/jira/browse/kafka-15255?page=com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel ]
+
+nikita resolved kafka-15255.
+----------------------------
+    resolution: duplicate
+
+> task is not stopped until the poll interval passes in case of task restarting.
+> ------------------------------------------------------------------------------
+>
+>                 key: kafka-15255
+>                 url: https://issues.apache.org/jira/browse/kafka-15255
+>             project: kafka
+>",,
+8,mail:bdfe47790305390ea420757c,mail:dev@kafka.apache.org,thread:JIRA.13582037.1717844709000@Atlassian.JIRA,org.apache.mail.message,2024-08-06T19:12:00+00:00,"author contributor:a0735f8966d9 author_email jira@apache.org author_name chris egerton (jira) body [ https://issues.apache.org/jira/browse/kafka-16919?page=com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel ]
+
+chris egerton resolved kafka-16919.
+-----------------------------------
+    fix version/s: 4.0.0
+       resolution: fixed
+
+> flaky test  testnocheckpointsifnorecordsaremirrored() – org.apache.kafka.connect.mirror.integration.mirrorconnectorsintegrationssltest
+> ----------------------------------------------------------------------------------------------------------------------",,
+9,mail:982b3e78bd4b552f31f8b88a,mail:dev@kafka.apache.org,thread:JIRA.13570383.1709251108000@Atlassian.JIRA,org.apache.mail.message,2024-06-14T08:54:00+00:00,"author contributor:a0735f8966d9 author_email jira@apache.org author_name david jacot (jira) body [ https://issues.apache.org/jira/browse/kafka-16317?page=com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel ]
+
+david jacot resolved kafka-16317.
+---------------------------------
+    resolution: won't do
+
+> add event rate in groupcoordinatorruntimemetrics
+> ------------------------------------------------
+>
+>                 key: kafka-16317
+>                 url: https://issues.apache.org/jira/browse/kafka-16317
+>             project: kafka
+>          issue type: sub-task
+>            re",,
+10,mail:c65e84ddd4f0d2f7891b8a4f,mail:dev@kafka.apache.org,thread:JIRA.13650298.1778146968000@Atlassian.JIRA,org.apache.mail.message,2026-05-07T09:48:00+00:00,"author contributor:a0735f8966d9 author_email jira@apache.org author_name mickael maison (jira) body [ https://issues.apache.org/jira/browse/kafka-20556?page=com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel ]
+
+mickael maison resolved kafka-20556.
+------------------------------------
+    resolution: fixed
+
+> jaasbasicauthfilter should use jakarta.annotation
+> -------------------------------------------------
+>
+>                 key: kafka-20556
+>                 url: https://issues.apache.org/jira/browse/kafka-20556
+>             project: kafka
+>          issue type: bug
+>          c",,
+11,mail:77c8134a1a8662d7ffdaf6fd,mail:dev@kafka.apache.org,thread:JIRA.13481591.1663201715000@Atlassian.JIRA,org.apache.mail.message,2024-10-09T08:52:00+00:00,"author contributor:a0735f8966d9 author_email jira@apache.org author_name mickael maison (jira) body [ https://issues.apache.org/jira/browse/kafka-14234?page=com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel ]
+
+mickael maison resolved kafka-14234.
+------------------------------------
+    resolution: cannot reproduce
+
+we are now removing zookeeper support so closing this issue.
+
+> /admin/delete_topics is not in the list of zookeeper watchers
+> -------------------------------------------------------------
+>
+>                 key: kafka-14234
+>                 url: https://issues.apache",,
+12,mail:b7d7b571d9c27debdd8ebe0e,mail:dev@kafka.apache.org,thread:PR_kwDOAnbs785QhpWz@gitbox.apache.org,org.apache.mail.message,2023-05-15T15:17:21+00:00,"author contributor:90387061ecb1 author_email git@apache.org author_name vvcephei (via github) body vvcephei commented on pr #511:
+url: https://github.com/apache/kafka-site/pull/511#issuecomment-1548063495
+
+   see https://github.com/apache/kafka/pull/13722
+
+
+-- 
+this is an automated message from the apache git service.
+to respond to the message, please log on to github and use the
+url above to go to the specific comment.
+
+to unsubscribe, e-mail: dev-unsubscribe@kafka.apache.org
+
+for queries about this service, please contact infrastructure at:
+users@infra.apache.org in_reply_to pr_kwdoanbs785qh",,
+13,mail:4aa27250de42cc20aab8f9a0,mail:dev@kafka.apache.org,thread:JIRA.13559768.1701202546000@Atlassian.JIRA,org.apache.mail.message,2024-08-06T18:58:00+00:00,"author contributor:a0735f8966d9 author_email jira@apache.org author_name chris egerton (jira) body [ https://issues.apache.org/jira/browse/kafka-15914?page=com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel ]
+
+chris egerton resolved kafka-15914.
+-----------------------------------
+    fix version/s: 4.0.0
+       resolution: fixed
+
+> flaky test - testaltersinkconnectoroffsetsoverriddenconsumergroupid - offsetsapiintegrationtest
+> -----------------------------------------------------------------------------------------------
+>
+>                 key: kafka-15914
+>                 url: h",,
+14,mail:4fccb20525573346de4f7530,mail:dev@kafka.apache.org,thread:JIRA.13654754.1781620985000@Atlassian.JIRA,org.apache.mail.message,2026-06-16T14:44:00+00:00,"author contributor:a0735f8966d9 author_email jira@apache.org author_name jess jin (jira) body jess jin created kafka-20706:
+--------------------------------
+
+             summary: implement query type 4 (windowrangequerywithheaders)
+                 key: kafka-20706
+                 url: https://issues.apache.org/jira/browse/kafka-20706
+             project: kafka
+          issue type: sub-task
+            reporter: jess jin
+
+
+
+
+
+
+--
+this message was sent by atlassian jira
+(v8.20.10#820010) in_reply_to jira.13654754.1781620985000@atlassian.jira is_committer false list dev@kafka.apache.org mess",,
+15,mail:d7aa473475f1c3b2e09625a7,mail:dev@kafka.apache.org,thread:JIRA.13602191.1734284854000@Atlassian.JIRA,org.apache.mail.message,2024-12-15T17:48:00+00:00,"author contributor:a0735f8966d9 author_email jira@apache.org author_name swikar patel (jira) body swikar patel created kafka-18257:
+------------------------------------
+
+             summary: update documentation
+                 key: kafka-18257
+                 url: https://issues.apache.org/jira/browse/kafka-18257
+             project: kafka
+          issue type: sub-task
+            reporter: swikar patel
+            assignee: swikar patel
+
+
+update any relevant kafka documentation to reflect the rocksdb upgrade and any api changes that might affect users or developers.
+
+
+
+--
+this message w",,
+16,mail:a9abce54e9765be3a3de7d4c,mail:dev@kafka.apache.org,thread:JIRA.13579135.1715622324000@Atlassian.JIRA,org.apache.mail.message,2024-05-13T17:46:00+00:00,"author contributor:a0735f8966d9 author_email jira@apache.org author_name apoorv mittal (jira) body apoorv mittal created kafka-16756:
+-------------------------------------
+
+             summary: implement max delivery count functionality in sharepartition
+                 key: kafka-16756
+                 url: https://issues.apache.org/jira/browse/kafka-16756
+             project: kafka
+          issue type: sub-task
+            reporter: apoorv mittal
+            assignee: chirag wadhwa
+
+
+
+
+
+
+--
+this message was sent by atlassian jira
+(v8.20.10#820010) in_reply_to jira.13579135.1715622324000@",,
+17,mail:7203f9d07c8a254566e8fff7,mail:dev@kafka.apache.org,thread:JIRA.13579083.1715602972000@Atlassian.JIRA,org.apache.mail.message,2024-05-13T12:23:00+00:00,"author contributor:a0735f8966d9 author_email jira@apache.org author_name andrew schofield (jira) body andrew schofield created kafka-16733:
+----------------------------------------
+
+             summary: add support for formatting new records written to offsets topic
+                 key: kafka-16733
+                 url: https://issues.apache.org/jira/browse/kafka-16733
+             project: kafka
+          issue type: sub-task
+            reporter: andrew schofield
+            assignee: andrew schofield
+
+
+
+
+
+
+--
+this message was sent by atlassian jira
+(v8.20.10#820010) in_reply_to jira.13579",,
+18,mail:fa9b19e567a6839dc6ada468,mail:dev@kafka.apache.org,thread:JIRA.13579081.1715602937000@Atlassian.JIRA,org.apache.mail.message,2024-05-13T12:23:00+00:00,"author contributor:a0735f8966d9 author_email jira@apache.org author_name andrew schofield (jira) body andrew schofield created kafka-16731:
+----------------------------------------
+
+             summary: support for share-group-metrics in the broker
+                 key: kafka-16731
+                 url: https://issues.apache.org/jira/browse/kafka-16731
+             project: kafka
+          issue type: sub-task
+            reporter: andrew schofield
+            assignee: andrew schofield
+
+
+
+
+
+
+--
+this message was sent by atlassian jira
+(v8.20.10#820010) in_reply_to jira.13579081.1715602937000@",,
+19,mail:edd9cd8e42a7beb38a75a5ca,mail:dev@kafka.apache.org,thread:JIRA.13579085.1715603036000@Atlassian.JIRA,org.apache.mail.message,2024-05-13T12:24:00+00:00,"author contributor:a0735f8966d9 author_email jira@apache.org author_name david jacot (jira) body david jacot created kafka-16735:
+-----------------------------------
+
+             summary: deprecate offsets.commit.required.acks in 3.8
+                 key: kafka-16735
+                 url: https://issues.apache.org/jira/browse/kafka-16735
+             project: kafka
+          issue type: sub-task
+            reporter: david jacot
+            assignee: david jacot
+
+
+
+
+
+
+--
+this message was sent by atlassian jira
+(v8.20.10#820010) in_reply_to jira.13579085.1715603036000@atlassian.jira is_committ",,
+20,mail:b815ace095c4974e78743064,mail:dev@kafka.apache.org,thread:JIRA.13344237.1607087994000@Atlassian.JIRA,org.apache.mail.message,2024-05-02T09:26:00+00:00,"author contributor:a0735f8966d9 author_email jira@apache.org author_name chia-ping tsai (jira) body [ https://issues.apache.org/jira/browse/kafka-10809?page=com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel ]
+
+chia-ping tsai resolved kafka-10809.
+------------------------------------
+    resolution: fixed
+
+> make all system tests stably run on either travis ci or local
+> -------------------------------------------------------------
+>
+>                 key: kafka-10809
+>                 url: https://issues.apache.org/jira/browse/kafka-10809
+>             project: kafka
+>          issu",,
+21,mail:85144cf95dbecef6c032a369,mail:dev@kafka.apache.org,thread:JIRA.13579075.1715602820000@Atlassian.JIRA,org.apache.mail.message,2024-05-13T12:21:00+00:00,"author contributor:a0735f8966d9 author_email jira@apache.org author_name andrew schofield (jira) body andrew schofield created kafka-16726:
+----------------------------------------
+
+             summary: add dynamic group configuration for offset reset
+                 key: kafka-16726
+                 url: https://issues.apache.org/jira/browse/kafka-16726
+             project: kafka
+          issue type: sub-task
+            reporter: andrew schofield
+            assignee: andrew schofield
+
+
+
+
+
+
+--
+this message was sent by atlassian jira
+(v8.20.10#820010) in_reply_to jira.13579075.17156028200",,
+22,mail:498a9c82768c66a309ee8f8e,mail:dev@kafka.apache.org,thread:JIRA.13579082.1715602947000@Atlassian.JIRA,org.apache.mail.message,2024-05-13T12:23:00+00:00,"author contributor:a0735f8966d9 author_email jira@apache.org author_name andrew schofield (jira) body andrew schofield created kafka-16732:
+----------------------------------------
+
+             summary: support for share-coordinator-metrics in the broker
+                 key: kafka-16732
+                 url: https://issues.apache.org/jira/browse/kafka-16732
+             project: kafka
+          issue type: sub-task
+            reporter: andrew schofield
+            assignee: andrew schofield
+
+
+
+
+
+
+--
+this message was sent by atlassian jira
+(v8.20.10#820010) in_reply_to jira.13579082.17156029",,
+23,mail:5f22d02c369d75eda80c2e80,mail:dev@kafka.apache.org,thread:JIRA.13579129.1715622213000@Atlassian.JIRA,org.apache.mail.message,2024-05-13T17:44:00+00:00,"author contributor:a0735f8966d9 author_email jira@apache.org author_name apoorv mittal (jira) body apoorv mittal created kafka-16750:
+-------------------------------------
+
+             summary: implement acknowledge api in sharepartitionmanager
+                 key: kafka-16750
+                 url: https://issues.apache.org/jira/browse/kafka-16750
+             project: kafka
+          issue type: sub-task
+            reporter: apoorv mittal
+            assignee: chirag wadhwa
+
+
+
+
+
+
+--
+this message was sent by atlassian jira
+(v8.20.10#820010) in_reply_to jira.13579129.1715622213000@atlassian.",,
+24,mail:e3b6d4796ba2521e8cc54856,mail:dev@kafka.apache.org,thread:JIRA.13579130.1715622234000@Atlassian.JIRA,org.apache.mail.message,2024-05-13T17:44:00+00:00,"author contributor:a0735f8966d9 author_email jira@apache.org author_name apoorv mittal (jira) body apoorv mittal created kafka-16751:
+-------------------------------------
+
+             summary: implement release acquired records in sharepartitionmanager
+                 key: kafka-16751
+                 url: https://issues.apache.org/jira/browse/kafka-16751
+             project: kafka
+          issue type: sub-task
+            reporter: apoorv mittal
+            assignee: abhinav dixit
+
+
+
+
+
+
+--
+this message was sent by atlassian jira
+(v8.20.10#820010) in_reply_to jira.13579130.1715622234000@a",,
+25,mail:ad2f784a85a5d2b25c9c0969,mail:dev@kafka.apache.org,thread:JIRA.13246747.1563954862000@Atlassian.JIRA,org.apache.mail.message,2024-10-09T08:49:00+00:00,"author contributor:a0735f8966d9 author_email jira@apache.org author_name mickael maison (jira) body [ https://issues.apache.org/jira/browse/kafka-8708?page=com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel ]
+
+mickael maison resolved kafka-8708.
+-----------------------------------
+    resolution: won't fix
+
+we are now removing zookeeper support so closing this issue.
+
+> zookeeper session expired either before or while waiting for connection
+> -----------------------------------------------------------------------
+>
+>                 key: kafka-8708
+>                 url: https://issu",,
+26,mail:f455cb63ab394cd86aaca3da,mail:dev@kafka.apache.org,thread:JIRA.13340797.1605521508000@Atlassian.JIRA,org.apache.mail.message,2024-10-09T09:14:00+00:00,"author contributor:a0735f8966d9 author_email jira@apache.org author_name mickael maison (jira) body [ https://issues.apache.org/jira/browse/kafka-10726?page=com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel ]
+
+mickael maison resolved kafka-10726.
+------------------------------------
+    resolution: information provided
+
+we are now removing zookeeper support so closing this issue.
+
+> how to detect heartbeat failure between broker/zookeeper leader
+> ---------------------------------------------------------------
+>
+>                 key: kafka-10726
+>                 url: https://issue",,
+27,mail:d36821637ff5b97931a02d05,mail:dev@kafka.apache.org,thread:JIRA.12734482.1408126974000@Atlassian.JIRA,org.apache.mail.message,2024-10-09T09:19:00+00:00,"author contributor:a0735f8966d9 author_email jira@apache.org author_name mickael maison (jira) body [ https://issues.apache.org/jira/browse/kafka-1599?page=com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel ]
+
+mickael maison resolved kafka-1599.
+-----------------------------------
+    resolution: won't do
+
+we are now removing zookeeper support so closing this issue.
+
+> change preferred replica election admin command to handle large clusters
+> ------------------------------------------------------------------------
+>
+>                 key: kafka-1599
+>                 url: https://iss",,
+28,mail:41121bb4c2215a1e8d5734e9,mail:dev@kafka.apache.org,thread:JIRA.13648610.1776699730000@Atlassian.JIRA,org.apache.mail.message,2026-04-20T15:43:00+00:00,"author contributor:a0735f8966d9 author_email jira@apache.org author_name nicholas telford (jira) body nicholas telford created kafka-20504:
+----------------------------------------
+
+             summary: update state wipe tests
+                 key: kafka-20504
+                 url: https://issues.apache.org/jira/browse/kafka-20504
+             project: kafka
+          issue type: sub-task
+            reporter: nicholas telford
+            assignee: nicholas telford
+
+
+existing tests that verify correct state wipe behaviour need to be updated to only apply when transactional stores are disabled",,
+29,mail:a12cdcd0501514afe0c343b4,mail:dev@kafka.apache.org,thread:JIRA.13579076.1715602833000@Atlassian.JIRA,org.apache.mail.message,2024-05-13T12:21:00+00:00,"author contributor:a0735f8966d9 author_email jira@apache.org author_name andrew schofield (jira) body andrew schofield created kafka-16727:
+----------------------------------------
+
+             summary: add dynamic group configuration for record lock duration
+                 key: kafka-16727
+                 url: https://issues.apache.org/jira/browse/kafka-16727
+             project: kafka
+          issue type: sub-task
+            reporter: andrew schofield
+            assignee: andrew schofield
+
+
+
+
+
+
+--
+this message was sent by atlassian jira
+(v8.20.10#820010) in_reply_to jira.13579076.171",,
+30,mail:7bb6228274241e0ee860a779,mail:dev@kafka.apache.org,thread:JIRA.13648599.1776698338000@Atlassian.JIRA,org.apache.mail.message,2026-04-20T15:19:00+00:00,"author contributor:a0735f8966d9 author_email jira@apache.org author_name nicholas telford (jira) body nicholas telford created kafka-20495:
+----------------------------------------
+
+             summary: transactional support for inmemorysessionstore and inmemorywindowstore
+                 key: kafka-20495
+                 url: https://issues.apache.org/jira/browse/kafka-20495
+             project: kafka
+          issue type: sub-task
+            reporter: nicholas telford
+            assignee: nicholas telford
+
+
+to support {{inmemorysessionstore}} and {{{}inmemorywindowstore{}}}, we will nee",,
+31,mail:7f928ecc6d6b36bb74af3a4f,mail:dev@kafka.apache.org,thread:JIRA.12902098.1443786957000@Atlassian.JIRA,org.apache.mail.message,2025-01-10T14:01:00+00:00,"author contributor:a0735f8966d9 author_email jira@apache.org author_name ismael juma (jira) body [ https://issues.apache.org/jira/browse/kafka-2605?page=com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel ]
+
+ismael juma resolved kafka-2605.
+--------------------------------
+    resolution: won't fix
+
+scala is being replaced with java, so this is unlikely to get done aside from the places where it's already been done.
+
+> replace `catch: throwable` clauses with `nonfatal` or `noncontrol`
+> ------------------------------------------------------------------
+>
+>                 key: kafka-2",,
+32,mail:573abe05f2e0097d3eff16b3,mail:dev@kafka.apache.org,thread:JIRA.13641206.1770385705000@Atlassian.JIRA,org.apache.mail.message,2026-02-06T13:49:00+00:00,"author contributor:a0735f8966d9 author_email jira@apache.org author_name 黃竣陽 (jira) body 黃竣陽 created kafka-20143:
+---------------------------
+
+             summary: add javadoc to org.apache.kafka.tools.api module
+                 key: kafka-20143
+                 url: https://issues.apache.org/jira/browse/kafka-20143
+             project: kafka
+          issue type: sub-task
+            reporter: 黃竣陽
+
+
+|module|sub module|class|
+|org.apache.kafka.tools.api| |decoder|
+| | |defaultdecoder|
+| | |integerdecoder|
+| | |longdecoder|
+
+
+
+--
+this message was sent by atlassian jira
+(v8.20.10#820010) in_r",,
+33,mail:65267f689d965c7d0d876157,mail:dev@kafka.apache.org,thread:JIRA.13641205.1770385653000@Atlassian.JIRA,org.apache.mail.message,2026-02-06T13:48:00+00:00,"author contributor:a0735f8966d9 author_email jira@apache.org author_name 黃竣陽 (jira) body 黃竣陽 created kafka-20142:
+---------------------------
+
+             summary: add javadoc to org.apache.kafka.streams module
+                 key: kafka-20142
+                 url: https://issues.apache.org/jira/browse/kafka-20142
+             project: kafka
+          issue type: sub-task
+            reporter: 黃竣陽
+
+
+|module|sub module|class|
+|org.apache.kafka.streams| |groupprotocol|
+| | |kafkastreams.closeoptions|
+| | |kafkastreams.state|
+| | |keyquerymetadata|
+| | |storequeryparameters<t>|
+| | |streamsconf",,
+34,mail:3f4de60ca57067318b1d06aa,mail:dev@kafka.apache.org,thread:JIRA.13593928.1727801815000@Atlassian.JIRA,org.apache.mail.message,2025-01-17T14:52:00+00:00,"author contributor:a0735f8966d9 author_email jira@apache.org author_name josé armando garcía sancio (jira) body [ https://issues.apache.org/jira/browse/kafka-17675?page=com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel ]
+
+josé armando garcía sancio resolved kafka-17675.
+------------------------------------------------
+    fix version/s: 4.0.0
+       resolution: fixed
+
+> add tests to rafteventsimulationtest
+> ------------------------------------
+>
+>                 key: kafka-17675
+>                 url: https://issues.apache.org/jira/browse/kafka-17675
+>             project: kafka
+>",,
+35,mail:86eeb1fc7e83e82ca558c572,mail:dev@kafka.apache.org,thread:JIRA.13593747.1727708154000@Atlassian.JIRA,org.apache.mail.message,2025-01-19T16:26:00+00:00,"author contributor:a0735f8966d9 author_email jira@apache.org author_name ismael juma (jira) body [ https://issues.apache.org/jira/browse/kafka-17668?page=com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel ]
+
+ismael juma resolved kafka-17668.
+---------------------------------
+    fix version/s: 4.0.0
+       resolution: fixed
+
+> rewrite logcleaner#maxovercleanerthreads and logcleanermanager#maintainuncleanablepartitions
+> --------------------------------------------------------------------------------------------
+>
+>                 key: kafka-17668
+>                 url: https://issue",,
+36,mail:a7acb9c0ce17a9a47fb25c00,mail:dev@kafka.apache.org,thread:JIRA.13652570.1779898869000@Atlassian.JIRA,org.apache.mail.message,2026-05-27T16:22:00+00:00,"author contributor:a0735f8966d9 author_email jira@apache.org author_name alieh saeedi (jira) body alieh saeedi created kafka-20630:
+------------------------------------
+
+             summary: add documentation for topology description plugin feature
+                 key: kafka-20630
+                 url: https://issues.apache.org/jira/browse/kafka-20630
+             project: kafka
+          issue type: sub-task
+            reporter: alieh saeedi
+            assignee: lucas brutschy
+             fix for: 4.4.0
+
+
+streams documentation: new section covering the topology description plugin feature",,
+37,mail:55d8d032597d77bab3037bd9,mail:dev@kafka.apache.org,thread:JIRA.13579127.1715622160000@Atlassian.JIRA,org.apache.mail.message,2024-05-13T17:43:00+00:00,"author contributor:a0735f8966d9 author_email jira@apache.org author_name apoorv mittal (jira) body apoorv mittal created kafka-16748:
+-------------------------------------
+
+             summary: implement share response handling in sharepartitionmanager
+                 key: kafka-16748
+                 url: https://issues.apache.org/jira/browse/kafka-16748
+             project: kafka
+          issue type: sub-task
+            reporter: apoorv mittal
+            assignee: abhinav dixit
+
+
+
+
+
+
+--
+this message was sent by atlassian jira
+(v8.20.10#820010) in_reply_to jira.13579127.1715622160000@at",,
+38,mail:c8b4f1c4cd90f8cf671d18ad,mail:dev@kafka.apache.org,thread:JIRA.13197621.1541913458000@Atlassian.JIRA,org.apache.mail.message,2025-01-10T13:57:00+00:00,"author contributor:a0735f8966d9 author_email jira@apache.org author_name ismael juma (jira) body [ https://issues.apache.org/jira/browse/kafka-7614?page=com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel ]
+
+ismael juma resolved kafka-7614.
+--------------------------------
+    resolution: fixed
+
+this was done a while back.
+
+> fix scalac warnings and enable warnings as errors
+> -------------------------------------------------
+>
+>                 key: kafka-7614
+>                 url: https://issues.apache.org/jira/browse/kafka-7614
+>             project: kafka
+>          issue type: s",,
+39,mail:aae0a0ecff8dea319b937434,mail:dev@kafka.apache.org,thread:JIRA.13205273.1545189787000@Atlassian.JIRA,org.apache.mail.message,2024-10-09T09:08:00+00:00,"author contributor:a0735f8966d9 author_email jira@apache.org author_name mickael maison (jira) body [ https://issues.apache.org/jira/browse/kafka-7754?page=com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel ]
+
+mickael maison resolved kafka-7754.
+-----------------------------------
+    resolution: won't fix
+
+we are now removing zookeeper support so closing this issue.
+
+> zookeeper-security-migration.sh sets the root znode as world-readable
+> ---------------------------------------------------------------------
+>
+>                 key: kafka-7754
+>                 url: https://issues.a",,
+40,mail:9313709c613a44bbea136a2e,mail:dev@kafka.apache.org,thread:JIRA.12682189.1386008529000@Atlassian.JIRA,org.apache.mail.message,2024-10-09T08:56:00+00:00,"author contributor:a0735f8966d9 author_email jira@apache.org author_name mickael maison (jira) body [ https://issues.apache.org/jira/browse/kafka-1155?page=com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel ]
+
+mickael maison resolved kafka-1155.
+-----------------------------------
+    resolution: won't fix
+
+we are now removing zookeeper support so closing this issue.
+
+> kafka server can miss zookeeper watches during long zkclient callbacks
+> ----------------------------------------------------------------------
+>
+>                 key: kafka-1155
+>                 url: https://issues",,
+41,mail:63ee0ade313d441afa788f0b,mail:dev@kafka.apache.org,thread:JIRA.13276363.1577281222000@Atlassian.JIRA,org.apache.mail.message,2025-01-10T13:57:00+00:00,"author contributor:a0735f8966d9 author_email jira@apache.org author_name ismael juma (jira) body [ https://issues.apache.org/jira/browse/kafka-9333?page=com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel ]
+
+ismael juma resolved kafka-9333.
+--------------------------------
+    resolution: won't fix
+
+we'll instead rely on the `kafka-server` module for java code and eventually phase out `kafka_2.13`.
+
+> shim `core` module that targets default scala version (kip-531)
+> ---------------------------------------------------------------
+>
+>                 key: kafka-9333
+>                 ur",,
+42,mail:da38155f2858827bf6d94c81,mail:dev@kafka.apache.org,thread:JIRA.13654752.1781620965000@Atlassian.JIRA,org.apache.mail.message,2026-06-16T14:43:00+00:00,"author contributor:a0735f8966d9 author_email jira@apache.org author_name jess jin (jira) body jess jin created kafka-20704:
+--------------------------------
+
+             summary: implement query type 2 (timestampedrangequerywithheaders)
+                 key: kafka-20704
+                 url: https://issues.apache.org/jira/browse/kafka-20704
+             project: kafka
+          issue type: sub-task
+            reporter: jess jin
+
+
+
+
+
+
+--
+this message was sent by atlassian jira
+(v8.20.10#820010) in_reply_to jira.13654752.1781620965000@atlassian.jira is_committer false list dev@kafka.apache.org",,
+43,mail:fc9e60f1902a49372d19a54d,mail:dev@kafka.apache.org,thread:JIRA.13203735.1544538263000@Atlassian.JIRA,org.apache.mail.message,2024-10-09T08:47:00+00:00,"author contributor:a0735f8966d9 author_email jira@apache.org author_name mickael maison (jira) body [ https://issues.apache.org/jira/browse/kafka-7721?page=com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel ]
+
+mickael maison resolved kafka-7721.
+-----------------------------------
+    resolution: cannot reproduce
+
+we are now removing zookeeper support so closing this issue.
+
+> connection to zookeeper refused
+> -------------------------------
+>
+>                 key: kafka-7721
+>                 url: https://issues.apache.org/jira/browse/kafka-7721
+>             project: kafka
+>      ",,
+44,mail:ef0811b68ea09a83ea145179,mail:dev@kafka.apache.org,thread:PR_kwDOMRGlbM50t7OJ@gitbox.apache.org,org.apache.mail.message,2024-07-08T16:18:47+00:00,"author contributor:90387061ecb1 author_email git@apache.org author_name mumrah (via github) body mumrah merged pr #26:
+url: https://github.com/apache/kafka-merge-queue-sandbox/pull/26
+
+
+-- 
+this is an automated message from the apache git service.
+to respond to the message, please log on to github and use the
+url above to go to the specific comment.
+
+to unsubscribe, e-mail: dev-unsubscribe@kafka.apache.org
+
+for queries about this service, please contact infrastructure at:
+users@infra.apache.org in_reply_to pr_kwdomrglbm50t7oj@gitbox.apache.org is_committer false list dev@kafka.apache.org messa",,
+45,mail:a45595ee6b98edd6f59c79c3,mail:dev@kafka.apache.org,thread:PR_kwDOMRGlbM50t7Jr@gitbox.apache.org,org.apache.mail.message,2024-07-08T16:18:48+00:00,"author contributor:90387061ecb1 author_email git@apache.org author_name mumrah (via github) body mumrah merged pr #25:
+url: https://github.com/apache/kafka-merge-queue-sandbox/pull/25
+
+
+-- 
+this is an automated message from the apache git service.
+to respond to the message, please log on to github and use the
+url above to go to the specific comment.
+
+to unsubscribe, e-mail: dev-unsubscribe@kafka.apache.org
+
+for queries about this service, please contact infrastructure at:
+users@infra.apache.org in_reply_to pr_kwdomrglbm50t7jr@gitbox.apache.org is_committer false list dev@kafka.apache.org messa",,
+46,mail:4ec168003590fb3d677d0110,mail:dev@kafka.apache.org,thread:JIRA.13652569.1779898830000@Atlassian.JIRA,org.apache.mail.message,2026-05-27T16:21:00+00:00,"author contributor:a0735f8966d9 author_email jira@apache.org author_name alieh saeedi (jira) body alieh saeedi created kafka-20629:
+------------------------------------
+
+             summary: add ducktape system tests for topology description plugin
+                 key: kafka-20629
+                 url: https://issues.apache.org/jira/browse/kafka-20629
+             project: kafka
+          issue type: sub-task
+            reporter: alieh saeedi
+            assignee: lucas brutschy
+             fix for: 4.4.0
+
+
+topologydescriptionpluginsystemtest.java (java test driver), streams_topology_descr",,
+47,mail:11ed492dccfbe0576601ecc9,mail:dev@kafka.apache.org,thread:JIRA.13605771.1737485896000@Atlassian.JIRA,org.apache.mail.message,2025-02-06T14:43:00+00:00,"author contributor:a0735f8966d9 author_email jira@apache.org author_name andrew schofield (jira) body [ https://issues.apache.org/jira/browse/kafka-18618?page=com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel ]
+
+andrew schofield resolved kafka-18618.
+--------------------------------------
+    resolution: fixed
+
+> reduce stickiness of share session handlers
+> -------------------------------------------
+>
+>                 key: kafka-18618
+>                 url: https://issues.apache.org/jira/browse/kafka-18618
+>             project: kafka
+>          issue type: sub-task
+>            ",,
+48,mail:b2de1de8162ca48ddd8d48cc,mail:dev@kafka.apache.org,thread:JIRA.13579132.1715622267000@Atlassian.JIRA,org.apache.mail.message,2024-05-13T17:45:00+00:00,"author contributor:a0735f8966d9 author_email jira@apache.org author_name apoorv mittal (jira) body apoorv mittal created kafka-16753:
+-------------------------------------
+
+             summary: implement acknowledge functionality in sharepartition
+                 key: kafka-16753
+                 url: https://issues.apache.org/jira/browse/kafka-16753
+             project: kafka
+          issue type: sub-task
+            reporter: apoorv mittal
+            assignee: apoorv mittal
+
+
+
+
+
+
+--
+this message was sent by atlassian jira
+(v8.20.10#820010) in_reply_to jira.13579132.1715622267000@atlassi",,
+49,mail:89f621aa811a76982494d004,mail:dev@kafka.apache.org,thread:JIRA.13579073.1715602760000@Atlassian.JIRA,org.apache.mail.message,2024-05-13T12:20:00+00:00,"author contributor:a0735f8966d9 author_email jira@apache.org author_name andrew schofield (jira) body andrew schofield created kafka-16724:
+----------------------------------------
+
+             summary: add new options for kafka-producer-perf-test.sh
+                 key: kafka-16724
+                 url: https://issues.apache.org/jira/browse/kafka-16724
+             project: kafka
+          issue type: sub-task
+            reporter: andrew schofield
+            assignee: andrew schofield
+
+
+
+
+
+
+--
+this message was sent by atlassian jira
+(v8.20.10#820010) in_reply_to jira.13579073.171560276000",,
+50,mail:cb6df27c6266e161decae3dc,mail:dev@kafka.apache.org,thread:JIRA.13654750.1781620930000@Atlassian.JIRA,org.apache.mail.message,2026-06-16T14:43:00+00:00,"author contributor:a0735f8966d9 author_email jira@apache.org author_name jess jin (jira) body jess jin created kafka-20702:
+--------------------------------
+
+             summary: poc pr of query type 1 (timestampedkeyquerywithheaders)
+                 key: kafka-20702
+                 url: https://issues.apache.org/jira/browse/kafka-20702
+             project: kafka
+          issue type: sub-task
+            reporter: jess jin
+
+
+
+
+
+
+--
+this message was sent by atlassian jira
+(v8.20.10#820010) in_reply_to jira.13654750.1781620930000@atlassian.jira is_committer false list dev@kafka.apache.org m",,
+51,github:api:apache/kafka:pr-19267-opened,github:apache/kafka,pr:19267,com.github.pull_request.opened,2025-03-23T06:15:30+00:00,"action opened actor contributor:941510ed5fdd actor_login dxzhan author contributor:941510ed5fdd author_association none author_login dxzhan base_ref trunk body chinese
+1.修复prepare_docker_official_image_source拷贝问题
+2.优化dockerfile重复下载和校验
+3.从cdn下载
+
+english
+1. fix the prepare_docker_offician_image_source copy issue
+2. optimize dockerfile duplicate downloads and validation
+3. download from cdn
+
+ changed_files closed_at github_event_id api:apache/kafka:pr-19267-opened head_ref trunk is_committer false issue_keys kip_keys merge_commit_sha merged false merged_at merged_by number 19267 pull_re",,
+52,github:api:apache/kafka:pr-18774-opened,github:apache/kafka,pr:18774,com.github.pull_request.opened,2025-02-01T16:58:02+00:00,"action opened actor contributor:gh:vijaykriishna actor_login vijaykriishna author contributor:gh:vijaykriishna author_association contributor author_login vijaykriishna base_ref trunk body https://issues.apache.org/jira/browse/kafka-7360
+
+### committer checklist (excluded from commit message)
+- [ ] verify design and implementation 
+- [ ] verify test coverage and ci build status
+- [ ] verify documentation (including upgrade notes)
+ changed_files closed_at github_event_id api:apache/kafka:pr-18774-opened head_ref kafka-7360 is_committer false issue_keys kafka-7360 kip_keys merge_commit_sha",,
+53,github:api:apache/kafka:pr-19961-opened,github:apache/kafka,pr:19961,com.github.pull_request.opened,2025-06-13T05:52:57+00:00,"action opened actor contributor:gh:forest0923 actor_login forest0923 author contributor:gh:forest0923 author_association contributor author_login forest0923 base_ref trunk body https://issues.apache.org/jira/browse/kafka-19390
+
+the abstractindex.resize() method does not release the old memory map
+for both index and time index files.  in some cases, mixed gc may not
+run for a long time, which can cause the broker to crash when the
+vm.max_map_count limit is reached.
+
+the root cause is that safeforceunmap() is not being called on linux
+within resize(), so we have changed the code to unmap old mma",,
+54,mail:d010cd2a831e9d37b4fcce50,mail:dev@kafka.apache.org,thread:AS5PR07MB9772B0033A38461A12752A7E9276A@AS5PR07MB9772.eurprd07.prod.outlook.com,org.apache.mail.message,2025-06-14T12:26:00+00:00,"author contributor:58f3d46f5258 author_email prateek.kohli@ericsson.com.invalid author_name prateek kohli body hi all,
+
+i'm building a custom docker image for kafka connect and planning to run it on kubernetes. i'm a bit stuck on whether i should use a deployment or a statefulset.
+
+>from what i understand, the main difference that could affect kafka connect is the hostname/ip behaviour. with a deployment, pod ips and hostnames can change after restarts. with a statefulset, each pod gets a stable hostname (like connect-0, connect-1, etc.)
+
+my question is: does it really matter for kafka connect",,
+55,github:api:apache/kafka:pr-20296-opened,github:apache/kafka,pr:20296,com.github.pull_request.opened,2025-08-02T18:55:11+00:00,"action opened actor contributor:gh:vamsisayimpu actor_login vamsisayimpu author contributor:gh:vamsisayimpu author_association none author_login vamsisayimpu base_ref trunk body implemented several key improvements to enhance the kafka streams api's usability and performance:
+
+1. null safety improvements (safeoperations.java)
+2. query performance optimization (queryoptimizer.java)
+3. batch operations (batchkeyquery.java)
+4. pagination support (paginatedrangequery.java)
+5. enhanced store query utils (updated storequeryutils.java)
+6. stream extensions (kstreamextensions.java)
+7. performa",,
+56,mail:d7d204739b545ed1ca5934d7,mail:dev@kafka.apache.org,thread:CAN_Pfjb4RvGnMmPbKsvrGduPxBCq14amfJjp445_=iX2JPpNaQ@mail.gmail.com,org.apache.mail.message,2025-06-21T07:22:03+00:00,"author contributor:98796f4e2cf4 author_email priceelees@gmail.com author_name 이상진 body hello kafka developers,
+
+i hope this email finds you well.
+
+this might be a silly question, but i had a question about the kafka client
+code (v3.9.0) that is `madereadprogresslastpoll` field in the `selector`
+class and the mechanism described in its comment: ""to prevent tight loops
+when memory is not available to read any more data."".
+
+first, let me walk you through my understanding of the code.
+
+the `selector` class has the following field:
+
+```java
+
+//indicates if the previous call to poll was able to make",,
+57,github:api:apache/kafka:pr-19456-opened,github:apache/kafka,pr:19456,com.github.pull_request.opened,2025-04-13T13:13:56+00:00,"action opened actor contributor:8f970dade1af actor_login siddharthadevineni author contributor:8f970dade1af author_association contributor author_login siddharthadevineni base_ref trunk body kafka-19117 issue description:
+
+we experienced an outage in our application due to a built up kafka lag,
+which we eventually discovered to be the problem with kafka clients
+being throttled.
+
+even when using the confluent cluster, the dashboard does point to
+exceeding the quota of the principal.
+
+it will be nice, if the log message on the client side is a warning.
+this helps those who don't have visibility ",,
+58,github:api:apache/kafka:pr-21232-opened,github:apache/kafka,pr:21232,com.github.pull_request.opened,2025-12-31T16:45:38+00:00,"action opened actor contributor:gh:ankur021188 actor_login ankur021188 author contributor:gh:ankur021188 author_association none author_login ankur021188 base_ref trunk body delete this text and replace it with a detailed description of your change. the 
+pr title and body will become the squashed commit message.
+
+if you would like to tag individuals, add some commentary, upload images, or
+include other supplemental information that should not be part of the eventual
+commit message, please use a separate comment.
+
+if applicable, please include a summary of the testing strategy (including",,
+59,github:api:apache/kafka:pr-21197-opened,github:apache/kafka,pr:21197,com.github.pull_request.opened,2025-12-20T17:53:01+00:00,"action opened actor contributor:gh:jainamshah102 actor_login jainamshah102 author contributor:gh:jainamshah102 author_association none author_login jainamshah102 base_ref trunk body ### description
+fix socketchannel leak during shutdown ([kafka-16768](https://issues.apache.org/jira/browse/kafka-16768)): reject accepted connections if the target processor is shutting down and close the channel to avoid leaking socketchannel instances.
+
+### changes
+
+1. acceptor.accept/assign path now checks `shouldrun` and returns `false` if the processor is shutting down.
+2. on rejection, close the channe",,
+60,mail:655a5b0514262fc5e1ca25f7,mail:dev@kafka.apache.org,thread:CAD1QcvozELQ94jeOE7-nz1ja8kJoVdHy0D19Y--7zeAtkMkKQg@mail.gmail.com,org.apache.mail.message,2025-12-07T18:35:04+00:00,"author contributor:40b749e0578c author_email vkroy241@gmail.com author_name vijay roy body hi team ,
+
+please add me to kafka subscriber list as i am interested in learning and
+contributing to the kafka project.
+
+thanks,
+vijay in_reply_to is_committer false list dev@kafka.apache.org message_id cad1qcvozelq94jeoe7-nz1ja8kjovdhy0d19y--7zeatkmkkqg@mail.gmail.com month 2025-12 references subject subscribe to kafka users list subject_tags thread_root cad1qcvozelq94jeoe7-nz1ja8kjovdhy0d19y--7zeatkmkkqg@mail.gmail.com",,
+61,github:api:apache/kafka:pr-21233-opened,github:apache/kafka,pr:21233,com.github.pull_request.opened,2025-12-31T19:43:25+00:00,"action opened actor contributor:ab57d794325c actor_login shan305 author contributor:ab57d794325c author_association none author_login shan305 base_ref trunk body while reading through `sender.handleproduceresponse`, i wanted to double-check my understanding of how produce responses are matched back to `producerbatch` instances.
+
+from what i can tell, the matching logic prefers `topicid` when present (v13+), and otherwise falls back to topic name + partition, using a topic-name snapshot captured before the request is sent.
+
+this makes sense, but i wanted to confirm the intended guarantees h",,
+62,github:api:apache/kafka:pr-21231-opened,github:apache/kafka,pr:21231,com.github.pull_request.opened,2025-12-31T14:32:59+00:00,"action opened actor contributor:0902f473f4ee actor_login cuiweixie author contributor:0902f473f4ee author_association contributor author_login cuiweixie base_ref trunk body replaced the grammatically incorrect phrase ""if or not"" with ""whether""
+in `clients/src/main/java/org/apache/kafka/common/utils/shell.java`.
+
+reviewers: chia-ping tsai <chia7712@gmail.com>
+ changed_files closed_at github_event_id api:apache/kafka:pr-21231-opened head_ref typo is_committer false issue_keys kip_keys merge_commit_sha merged false merged_at merged_by number 21231 pull_request_id pr_kwdoacg9q867hnk2 pull_request_",,
+63,mail:9ecdefcee358326b487c43e4,mail:dev@kafka.apache.org,thread:CABihrUn6cP7FjBe_+WjEMyf2QTDvyux9pQiE_X+bYPOd-V28nw@mail.gmail.com,org.apache.mail.message,2025-01-03T06:40:00+00:00,"author contributor:bbe7bd7644f1 author_email ericzhifengchen@gmail.com author_name chen zhifeng body hi everyone,
+
+started a thread to discuss kip-1095: kafka canary isolation (link
+<https://cwiki.apache.org/confluence/display/kafka/kip-1095%3a+kafka+canary+isolation>
+)
+
+canary isolation aims to improve kafka service quality by reducing blast
+radius of bad kafka deployment to a small portion of traffic.
+
+the key solution including
+1. define canary broker (a new broker metadata - pod is introduced)
+2. define canary partition - a small portion of partitions placed on canary
+brokers
+3. producer/c",,
+64,mail:d738b742ffef8eebb1d2d0df,mail:dev@kafka.apache.org,thread:C84F1375-CE4F-453A-9B02-4EC8F25496B2@itiger.com,org.apache.mail.message,2025-04-27T09:36:23+00:00,"author contributor:57777540330a author_email yexijun@itiger.com author_name xijun ye body i have a question about data consistency. kafka isr only determines the time of lag, not the number of messages. does ack=all require the replicas in the isr to completely catch up with the number of messages or to meet the time requirement? for example, if there are 3 replicas in the isr, min.insync.replicas=3 and acks=all, can the data of the 3 replicas be guaranteed to be completely consistent when the message is written? instead of meeting the replica.lag.time.max.ms time requirement. in_reply_to is_c",,
+65,github:api:apache/kafka:pr-18724-opened,github:apache/kafka,pr:18724,com.github.pull_request.opened,2025-01-28T04:54:44+00:00,"action opened actor contributor:4d18caf714e1 actor_login nilmadhab author contributor:4d18caf714e1 author_association contributor author_login nilmadhab base_ref trunk body *more detailed description of your change,
+if necessary. the pr title and pr message become
+the squashed commit message, so use a separate
+comment to ping reviewers.*
+
+*summary of testing strategy (including rationale)
+for the feature or bug fix. unit and/or integration
+tests are expected for any behaviour change and
+system tests should be considered for larger changes.*
+
+### committer checklist (excluded from com",,
+66,github:api:apache/kafka:pr-20300-opened,github:apache/kafka,pr:20300,com.github.pull_request.opened,2025-08-04T12:21:22+00:00,"action opened actor contributor:874846b09803 actor_login jack2012aa author contributor:874846b09803 author_association contributor author_login jack2012aa base_ref trunk body ## description
+`processor` and `acceptor` in `socketserver` may produce a race condition when a processor was closed but its acceptor assigns a socket channel to it. the channel will remain open, which is a leak.
+
+## change
+`processor` now checks the `shouldrun` value before it accepts a channel. `acceptor` closes the refused channel.
+
+## test
+added a unit test that shutdowns processors externally to introduce the ",,
+67,github:api:apache/kafka:pr-20330-opened,github:apache/kafka,pr:20330,com.github.pull_request.opened,2025-08-09T04:51:32+00:00,"action opened actor contributor:gh:shubhu15 actor_login shubhu15 author contributor:gh:shubhu15 author_association none author_login shubhu15 base_ref trunk body this pr enhances test coverage for the kafka streams temperaturedemo example by adding comprehensive unit tests using topologytestdriver.
+the tests validate that the temperature monitoring topology correctly:
+1. groups readings into 5-second windows
+2. computes maximum temperature per window
+3. filters output based on 20°c threshold
+4. handles various input scenarios gracefully
+
+
+based on the feedback future prs will cover the",,
+68,mail:1bc7d702dc88fddcd265f916,mail:dev@kafka.apache.org,thread:CAEZWgnfWuNtdN+RgRAUbMR2reVJuydoN2+L_FUwO-KfvOCJ+Ew@mail.gmail.com,org.apache.mail.message,2025-06-16T05:02:32+00:00,"author contributor:37b7fcd7e67e author_email mahesh.sambharam25@gmail.com author_name mahesh sambharam body hi,
+
+this is mahesh, please add me to kafka contributors list.
+
+thanks,
+mahesh in_reply_to is_committer false list dev@kafka.apache.org message_id caezwgnfwuntdn+rgraubmr2revjuydon2+l_fuwo-kfvocj+ew@mail.gmail.com month 2025-06 references subject add user to contributors list subject_tags thread_root caezwgnfwuntdn+rgraubmr2revjuydon2+l_fuwo-kfvocj+ew@mail.gmail.com",,
+69,github:api:apache/kafka:pr-20908-opened,github:apache/kafka,pr:20908,com.github.pull_request.opened,2025-11-18T05:01:17+00:00,"action opened actor contributor:gh:bhargav-naik actor_login bhargav-naik author contributor:gh:bhargav-naik author_association none author_login bhargav-naik base_ref trunk body redundant pr pushed by mistake.
+to be deleted changed_files closed_at github_event_id api:apache/kafka:pr-20908-opened head_ref kip-1228-pt3-send-version-info-to-producer-epoch-check is_committer false issue_keys kip_keys kip-1228 merge_commit_sha merged false merged_at merged_by number 20908 pull_request_id pr_kwdoacg9q860aufg pull_request_number 20908 repo apache/kafka title pushed by mistake",,
+70,github:api:apache/kafka:pr-18293-opened,github:apache/kafka,pr:18293,com.github.pull_request.opened,2024-12-21T11:14:01+00:00,"action opened actor contributor:2fab07e2f06c actor_login ekuvardin author contributor:2fab07e2f06c author_association contributor author_login ekuvardin base_ref trunk body 1. jmh test should return value against return void (compiler can
+eliminate returned value and benchmark would be incorrect).
+2. also move constant variable from method to class, to prevent jit to
+unfold.
+3. increase warm up iterations
+
+reviewers: lucas brutschy <lucasbru@apache.org>
+ changed_files closed_at github_event_id api:apache/kafka:pr-18293-opened head_ref kafka-18336 is_committer false issue_keys kafka-18336 kip_k",,
+71,github:api:apache/kafka:pr-18328-opened,github:apache/kafka,pr:18328,com.github.pull_request.opened,2024-12-27T10:17:48+00:00,"action opened actor contributor:gh:tmw090906 actor_login tmw090906 author contributor:gh:tmw090906 author_association none author_login tmw090906 base_ref trunk body …ering after being closed, which could lead to memory leaks
+
+*more detailed description of your change,
+if necessary. the pr title and pr message become
+the squashed commit message, so use a separate
+comment to ping reviewers.*
+
+*summary of testing strategy (including rationale)
+for the feature or bug fix. unit and/or integration
+tests are expected for any behaviour change and
+system tests should be considered for larger",,
+72,github:api:apache/kafka:pr-21327-opened,github:apache/kafka,pr:21327,com.github.pull_request.opened,2026-01-19T05:19:24+00:00,"action opened actor contributor:gh:jeevanyewale actor_login jeevanyewale author contributor:gh:jeevanyewale author_association contributor author_login jeevanyewale base_ref trunk body converted indented code blocks to fenced code blocks (```bash) to enable
+syntax highlighting and the ""copy"" button feature.
+removed redundant trailing # characters from headers to align with
+standard markdown style.
+
+reviewers: sean quah <squah@confluent.io>, chia-ping tsai
+ <chia7712@gmail.com>
+ changed_files closed_at github_event_id api:apache/kafka:pr-21327-opened head_ref improve-readme-formatting is_commit",,
+73,github:api:apache/kafka:pr-21326-opened,github:apache/kafka,pr:21326,com.github.pull_request.opened,2026-01-18T18:48:04+00:00,"action opened actor contributor:gh:amr-shams actor_login amr-shams author contributor:gh:amr-shams author_association none author_login amr-shams base_ref trunk body expose producer and per-topic metrics for adaptive sticky partitioning, including adaptive partition switches, partition load skew, and partition exclusions due to latency.
+adds unit tests to validate metric behavior. changed_files closed_at github_event_id api:apache/kafka:pr-21326-opened head_ref metrics-adaptive-partitioning-observability is_committer false issue_keys kip_keys merge_commit_sha merged false merged_at merged_by ",,
+74,mail:29ee85509fa57650b7f64616,mail:dev@kafka.apache.org,thread:CAPUior97U2B9edi4Z3GGhzVhFYHDREUSKQ6XXaDaSt-ovrw+KQ@mail.gmail.com,org.apache.mail.message,2025-09-11T13:54:09+00:00,"author contributor:94e204995a67 author_email a.a.yushkevich@gmail.com author_name andrei d body +1 (non-binding)
+
+on 2025/09/04 17:23:47 anton liauchuk wrote:
+> hi
+>
+> i would like to start a vote on *kip-1209: add configuration to control
+> internal topic creation in kafka connect*
+>
+> kip: https://cwiki.apache.org/confluence/x/gaq2fg
+> discussion thread:
+> https://lists.apache.org/thread/l89rzzm0jd4ml7xx66mkxfztst281so7
+>
+
+-- 
+regards, andrei in_reply_to is_committer false list dev@kafka.apache.org message_id capuior97u2b9edi4z3gghzvhfyhdreuskq6xxadast-ovrw+kq@mail.gmail.com month 2025-09 re",,
+75,mail:f77f2c5f45fe8dd141ba8979,mail:dev@kafka.apache.org,thread:445685142.45432.1756447644676.ref@mail.yahoo.com,org.apache.mail.message,2025-08-29T06:07:24+00:00,"author contributor:b12ed3d7a5a4 author_email rshekhar.prasad@gmail.com author_name rshekhar prasad body hello team,
+while exploring kafka queue semantics, we released there is some apis that is useful but missing for example :
+1.  multiple polls and ack later batch wise in explicit mode : 
+
+ consumerrecords<k, v> batch1 = shareconsumer.poll(duration.ofmillis(100));
+ consumerrecords<k, v> batch2 = shareconsumer.poll(duration.ofmillis(100)); // no illegalstateexception!
+ consumerrecords<k, v> batch3 = shareconsumer.poll(duration.ofmillis(100));
+ 
+ // process all batches...
+ shareconsumer.acknowl",,
+76,github:api:apache/kafka:pr-15352-opened,github:apache/kafka,pr:15352,com.github.pull_request.opened,2024-02-12T05:17:33+00:00,action opened actor contributor:gh:ghostspiders actor_login ghostspiders author contributor:gh:ghostspiders author_association contributor author_login ghostspiders base_ref trunk body clean up references to non-existent integrationtesthelper changed_files closed_at github_event_id api:apache/kafka:pr-15352-opened head_ref kafka-16239-clean-up-integrationtesthelper is_committer false issue_keys kafka-16239 kip_keys merge_commit_sha merged false merged_at merged_by number 15352 pull_request_id pr_kwdoacg9q85mmsps pull_request_number 15352 repo apache/kafka title kafka-16239: clean up references,,
+77,github:api:apache/kafka:pr-15239-opened,github:apache/kafka,pr:15239,com.github.pull_request.opened,2024-01-20T17:59:07+00:00,"action opened actor contributor:gh:mberndt123 actor_login mberndt123 author contributor:gh:mberndt123 author_association contributor author_login mberndt123 base_ref trunk body hey there,
+
+the motivation for this pr is that we're trying to migrate our codebase to scala 3. since scala 3 is able to consume scala 2.13 libraries, we can use the scala 2.13 version of kafka-streams-scala, but that pulls in the scala-collections-compat_2.13 library as a dependency. another one of our dependencies pulls in scala-collections-compat_3, and you can't have both on the classpath at the same time. luckily",,
+78,github:api:apache/kafka:pr-15276-opened,github:apache/kafka,pr:15276,com.github.pull_request.opened,2024-01-27T06:24:48+00:00,"action opened actor contributor:gh:armdave actor_login armdave author contributor:gh:armdave author_association none author_login armdave base_ref trunk body [kafka-13130](https://issues.apache.org/jira/browse/kafka-13130)
+
+in progress: need to add suppress warning annotations
+
+### committer checklist (excluded from commit message)
+- [ ] verify design and implementation 
+- [ ] verify test coverage and ci build status
+- [ ] verify documentation (including upgrade notes)
+ changed_files closed_at github_event_id api:apache/kafka:pr-15276-opened head_ref kafka-13130-deprecate-long-based-ra",,
+79,github:api:apache/kafka:pr-21268-opened,github:apache/kafka,pr:21268,com.github.pull_request.opened,2026-01-08T07:17:04+00:00,"action opened actor contributor:gh:santhan3159 actor_login santhan3159 author contributor:gh:santhan3159 author_association contributor author_login santhan3159 base_ref trunk body lz4 1.10.2 release note:
+https://github.com/yawkat/lz4-java/releases/tag/v1.10.2
+
+changes:
+- updated dependencies.gradle to reflect the new version.
+- updated license-binary to match the version upgrade.
+
+reviewers: chia-ping tsai <chia7712@gmail.com>
+ changed_files closed_at github_event_id api:apache/kafka:pr-21268-opened head_ref lz4_version_update is_committer false issue_keys kip_keys merge_commit_sha merged fa",,
+80,github:api:apache/kafka:pr-15551-opened,github:apache/kafka,pr:15551,com.github.pull_request.opened,2024-03-17T19:31:16+00:00,"action opened actor contributor:gh:taijuwu actor_login taijuwu author contributor:gh:taijuwu author_association contributor author_login taijuwu base_ref trunk body the lock should be released before closing queue.
+
+### committer checklist (excluded from commit message)
+- [ ] verify design and implementation 
+- [ ] verify test coverage and ci build status
+- [ ] verify documentation (including upgrade notes)
+ changed_files closed_at github_event_id api:apache/kafka:pr-15551-opened head_ref close is_committer false issue_keys kip_keys merge_commit_sha merged false merged_at merged_by numbe",,
+81,mail:e5e57509da91cd5305a32f04,mail:dev@kafka.apache.org,thread:CAP4YO_K2JjMZ_vksMQ+eF9aOUN0zn647dtpiE4OsuW8jjkkKXg@mail.gmail.com,org.apache.mail.message,2023-11-05T12:54:55+00:00,"author contributor:1b4883f7454c author_email hermankjakobsen@gmail.com author_name herman k. jakobsen body i am requesting permission to contribute to apache kafka.
+
+wiki id: herman kolstad jakobsen (hermankj)
+jira id:  herman kolstad jakobsen (hermankj)
+
+thanks!
+
+---
+herman kolstad jakobsen in_reply_to is_committer false list dev@kafka.apache.org message_id cap4yo_k2jjmz_vksmq+ef9aoun0zn647dtpie4osuw8jjkkkxg@mail.gmail.com month 2023-11 references subject permission to contribute to apache kafka subject_tags thread_root cap4yo_k2jjmz_vksmq+ef9aoun0zn647dtpie4osuw8jjkkkxg@mail.gmail.com",,
+82,github:api:apache/kafka:pr-15905-opened,github:apache/kafka,pr:15905,com.github.pull_request.opened,2024-05-09T09:50:47+00:00,"action opened actor contributor:gh:bootmgr actor_login bootmgr author contributor:gh:bootmgr author_association none author_login bootmgr base_ref trunk body `kafka-consumer-perf-test` is a great tool to quickly check raw consumer performance. currently, it subscribes to all the partitions and gives overall cluster performance, however if we want to test performance of single broker/partition, existing tool does not support.
+
+this pr introduces two optional flags `--partitions` and `--offsets` which gives flexibility to benchmark only specific partitions optionally from specified offsets.
+",,
+83,mail:bc59961f519fb79f7ca459c2,mail:dev@kafka.apache.org,thread:CABofNu8Hjn5zAw6H--qjGnNFf=B9zaFA0WXj2-yMCF=2Z5eHMw@mail.gmail.com,org.apache.mail.message,2025-11-01T12:43:27+00:00,"author contributor:e7af68123859 author_email npgretz@gmail.com author_name nick gretzon body stephen,
+
+thank you for your work on this! this is especially important with bitnami
+no longer offering free and versioned images for their helm charts.
+
+i personally would be interested in contributing and using an official
+kafka helm chart through my organization and in my personal use.
+
+nick
+
+on 2025/03/24 13:50:31 stephen askew wrote:
+> hi all,
+>
+> i've opened a new kip-1149: helm chart for apache kafka<
+https://cwiki.apache.org/confluence/display/kafka/kip-1149%3a+helm+chart+for+apache+kafka>
+with",,
+84,github:api:apache/kafka:pr-15088-opened,github:apache/kafka,pr:15088,com.github.pull_request.opened,2023-12-29T04:06:15+00:00,"action opened actor contributor:gh:sanepal actor_login sanepal author contributor:gh:sanepal author_association contributor author_login sanepal base_ref trunk body [kafka-16025](https://issues.apache.org/jira/browse/kafka-16025) describes the race condition sequence in detail. when this occurs, it can cause the impacted task's initializing to block indefinitely, blocking progress on the impacted task, and any other task assigned to the same stream thread. the fix i have implemented is pretty simple, simply re-check whether a directory is still empty after locking it during the start of rebala",,
+85,github:api:apache/kafka:pr-20129-opened,github:apache/kafka,pr:20129,com.github.pull_request.opened,2025-07-08T19:18:55+00:00,"action opened actor contributor:cefd4ac793f1 actor_login georgew5656 author contributor:cefd4ac793f1 author_association none author_login georgew5656 base_ref trunk body fixes a bug with tiered storage quota metrics introduced in
+[kip-956](https://cwiki.apache.org/confluence/display/kafka/kip-956+tiered+storage+quotas).
+the metrics tracking how much time have been spent in a throttled state
+can stop reporting if a cluster stops stops doing remote copy/fetch and
+the sensors go inactive.
+
+this change delegates the job of refreshing inactive sensors to
+sensoraccess. there's pretty similar logic i",,
+86,github:api:apache/kafka:pr-20240-opened,github:apache/kafka,pr:20240,com.github.pull_request.opened,2025-07-25T14:05:34+00:00,"action opened actor contributor:gh:iddeepak actor_login iddeepak author contributor:gh:iddeepak author_association none author_login iddeepak base_ref trunk body the newly added `streamsgroupcommand.java` tool, does not return a popper error code, what might break scripts which use `bin/kafka-streams-group.sh` as they cannot do proper error handling.
+
+similar to existing [`streamsresetter.java`](https://github.com/apache/kafka/blob/trunk/tools/src/main/java/org/apache/kafka/tools/streamsresetter.java) we should return a proper error code. changed_files closed_at github_event_id api:apache/ka",,
+87,github:api:apache/kafka:pr-19517-opened,github:apache/kafka,pr:19517,com.github.pull_request.opened,2025-04-19T17:02:21+00:00,"action opened actor contributor:8620b6620c1e actor_login uladzislaublok author contributor:8620b6620c1e author_association contributor author_login uladzislaublok base_ref trunk body this pr fixes an issue where the thread name shown in log messages did
+not match the actual execution context. previously, log entries
+displayed the context of the newly created thread, while the logger
+reflected the current executing thread. this mismatch led to confusion
+and made log tracing more difficult.
+
+changes:   - use logger without context to not have context   - updated
+log messages to explicitly descri",,
+88,github:api:apache/kafka:pr-21606-opened,github:apache/kafka,pr:21606,com.github.pull_request.opened,2026-02-28T14:37:29+00:00,"action opened actor contributor:gh:rajarshi-misra actor_login rajarshi-misra author contributor:gh:rajarshi-misra author_association contributor author_login rajarshi-misra base_ref trunk body kafka-19863: add documentation on how to implement a custom
+exception(with ref to dlq)
+
+this pr updates the streams documentation to include guidance on
+implementing a custom exception handler with built-in dead letter queue
+(dlq support introduced by kip-1034.
+
+reviewers nikita shuplestov <nshuplestov@confluent.io>, bill bejeck <bbejeck@apache.org>
+ changed_files closed_at github_event_id api:ap",,
+89,github:api:apache/kafka:pr-21479-opened,github:apache/kafka,pr:21479,com.github.pull_request.opened,2026-02-14T15:43:03+00:00,"action opened actor contributor:gh:devdriven05 actor_login devdriven05 author contributor:gh:devdriven05 author_association contributor author_login devdriven05 base_ref trunk body this change adds a describedas placeholder to the --override option so
+that the expected argument format is clearer in the command-line help
+output.
+
+reviewers: chia-ping tsai <chia7712@gmail.com>
+ changed_files closed_at github_event_id api:apache/kafka:pr-21479-opened head_ref patch-2 is_committer false issue_keys kip_keys merge_commit_sha merged false merged_at merged_by number 21479 pull_request_id pr_kwdoacg9q8",,
+90,github:api:apache/kafka:pr-16590-opened,github:apache/kafka,pr:16590,com.github.pull_request.opened,2024-07-14T12:42:14+00:00,"action opened actor contributor:gh:soravolk actor_login soravolk author contributor:gh:soravolk author_association contributor author_login soravolk base_ref trunk body as per the discussion: https://github.com/apache/kafka/pull/14628#discussion_r1673749083
+since the uuid constrain no longer holds after 3.7, it is better to modify the type from `uuid` to `string` to clarify the intention behind the `clusterid` for the current version.
+
+### committer checklist (excluded from commit message)
+- [ ] verify design and implementation 
+- [ ] verify test coverage and ci build status
+- [ ] verify",,
+91,github:api:apache/kafka:pr-16544-opened,github:apache/kafka,pr:16544,com.github.pull_request.opened,2024-07-07T09:42:25+00:00,"action opened actor contributor:gh:raymcdermott actor_login raymcdermott author contributor:gh:raymcdermott author_association none author_login raymcdermott base_ref trunk body ### goal
+
+add @functionalinterface to streams interfaces to enable clojure 1.12 (and any other jvm language) to have the correct hints for these sam interfaces.
+
+the clojure issue is [here ](https://ask.clojure.org/index.php/13908/expand-fi-adapting-to-sam-types-not-marked-as-fi)
+
+### testing
+unit tests and system tests all pass locally.
+
+### committer checklist (excluded from commit message)
+- [ ] verify des",,
+92,mail:023f7faeff59e76eb2b1e5a7,mail:dev@kafka.apache.org,thread:CABfG-YbHWba1kB1jQ3krCpW0foyt4tNhs6tjF6Ej1xzAov-H0A@mail.gmail.com,org.apache.mail.message,2026-01-01T06:17:23+00:00,"author contributor:cfc9203ab679 author_email shelijun.tong@gmail.com author_name lijun tong body hi folk,
+
+i would like to have the right access permission to create kip.
+my wiki id is lijuntong, and my jira id is lijunt.
+thank you for the help!
+
+thanks and regards
+lijun tong in_reply_to is_committer false list dev@kafka.apache.org message_id cabfg-ybhwba1kb1jq3krcpw0foyt4tnhs6tjf6ej1xzaov-h0a@mail.gmail.com month 2026-01 references subject wiki kafka access subject_tags thread_root cabfg-ybhwba1kb1jq3krcpw0foyt4tnhs6tjf6ej1xzaov-h0a@mail.gmail.com",,
+93,github:api:apache/kafka:pr-14703-opened,github:apache/kafka,pr:14703,com.github.pull_request.opened,2023-11-06T04:34:46+00:00,action opened actor contributor:a103b94fa2f2 actor_login laststem author contributor:a103b94fa2f2 author_association none author_login laststem base_ref trunk body edit the description of enablecleaner to clarify changed_files closed_at github_event_id api:apache/kafka:pr-14703-opened head_ref clearnerconfig_enablecleaner_desc is_committer false issue_keys kip_keys merge_commit_sha merged false merged_at merged_by number 14703 pull_request_id pr_kwdoacg9q85epe3m pull_request_number 14703 repo apache/kafka title minor: edit enablecleaner description,,
+94,github:api:apache/kafka:pr-14701-opened,github:apache/kafka,pr:14701,com.github.pull_request.opened,2023-11-04T16:01:56+00:00,"action opened actor contributor:gh:ayoubom actor_login ayoubom author contributor:gh:ayoubom author_association contributor author_login ayoubom base_ref trunk body *add a note about log compaction behavior. the term ""old data"" used may be misunderstood as old data with respect of time, instead of old data associated with a given key*
+
+
+### committer checklist (excluded from commit message)
+- [ ] verify design and implementation 
+- [ ] verify test coverage and ci build status
+- [ ] verify documentation (including upgrade notes)
+ changed_files closed_at github_event_id api:apache/kafka:p",,
+95,github:api:apache/kafka:pr-20359-opened,github:apache/kafka,pr:20359,com.github.pull_request.opened,2025-08-16T04:30:35+00:00,"action opened actor contributor:bb0a26d9b476 actor_login oertl author contributor:bb0a26d9b476 author_association contributor author_login oertl base_ref trunk body this pr optimizes the murmur2 hash computation. instead of processing
+bytes individually, the proposed change uses a `varhandle` to load 4
+bytes from the given `data` array at once, leading to a significant
+speedup. the first commit extends the unit tests for better coverage.
+the second commit introduces a jmh benchmark for measuring the speedup.
+and the third commit actually changes the murmur2 implementation.
+
+the benchmark resul",,
+96,github:api:apache/kafka:pr-15632-opened,github:apache/kafka,pr:15632,com.github.pull_request.opened,2024-03-31T09:19:05+00:00,"action opened actor contributor:gh:orihoch actor_login orihoch author contributor:gh:orihoch author_association contributor author_login orihoch base_ref trunk body minor doc fix
+ changed_files closed_at github_event_id api:apache/kafka:pr-15632-opened head_ref patch-1 is_committer false issue_keys kip_keys merge_commit_sha merged false merged_at merged_by number 15632 pull_request_id pr_kwdoacg9q85rplxr pull_request_number 15632 repo apache/kafka title minor: fix doc of admin#createdelegationtoken",,
+97,github:api:apache/kafka:pr-15495-opened,github:apache/kafka,pr:15495,com.github.pull_request.opened,2024-03-08T05:23:23+00:00,"action opened actor contributor:1064e6ea0227 actor_login jinyongchoi author contributor:1064e6ea0227 author_association contributor author_login jinyongchoi base_ref trunk body related issue
+[kafka-15302](https://issues.apache.org/jira/browse/kafka-15302)
+
+this pr adds documentation regarding the potential return of stale values when using 'withcachingenabled' and deleting keys during store iteration.
+since there's a current solution involving flush(), modifications may not be made immediately. hence, it's necessary to explicitly state in the documentation. 
+
+### committer checklist (exc",,
+98,mail:fc209cc79b8a6d7202617f00,mail:dev@kafka.apache.org,thread:CABNZehciHR_3c-Q9xB-+3+3LdGy9qT8F9H9BAYuFMTA2X7Jdqg@mail.gmail.com,org.apache.mail.message,2023-12-22T04:49:40+00:00,"author contributor:12fe38cb056a author_email zhangjiao.thu@gmail.com author_name jiao zhang body hi team,
+
+may i request permissions?
+my wiki id is ""zhangjiao.thu""
+my jira id is ""jiao-zhang""
+
+thank you!
+
+-- 
+jiao zhang in_reply_to is_committer false list dev@kafka.apache.org message_id cabnzehcihr_3c-q9xb-+3+3ldgy9qt8f9h9bayufmta2x7jdqg@mail.gmail.com month 2023-12 references subject request permissions to contribute to apache kafka subject_tags thread_root cabnzehcihr_3c-q9xb-+3+3ldgy9qt8f9h9bayufmta2x7jdqg@mail.gmail.com",,
+99,mail:30e53ebe8f910bd0f1734a46,mail:dev@kafka.apache.org,thread:pony-9e00c2f7-a1fe-42eb-bafe-8b57b8b51526-dev@kafka.apache.org,org.apache.mail.message,2024-11-02T11:51:32+00:00,"author contributor:e7a446fac4dc author_email gmcdonald@apache.org author_name gavin mcdonald body hi all.
+
+an infra jira ticket was opened back in january this year. [1]
+
+a cache node was created on 23rd january.
+
+after some back and forth and chasing up infra eventually closed 
+the ticket in april as the last comment from the project was 11th march.
+
+the cache node has not ever been used as far as i can tell and is using
+up resources. this email is notice that infra will delete the cache node
+within 2 weeks assuming no progress is made to start using it in that 
+time.
+
+kind regards
+
+gavin (as",,
+100,mail:60ec85ff0c3a3868d2baebd2,mail:dev@kafka.apache.org,thread:CAEJrJF_+fqTQv0+S5Mj6tNGBuN3cSqWv-n9G=Y=KS04GCmPLUg@mail.gmail.com,org.apache.mail.message,2024-06-22T09:57:03+00:00,"author contributor:81a0c212eefa author_email yashtailor2000@gmail.com author_name yash tailor body hi apache kafka team,
+
+as per the documentation, the kafka producer directly communicates with the
+leader of the topic partition to produce a message. in order to fetch the
+leader information, it makes a meta data fetch call before its first
+produce, further caches it and refreshes depending upon metadata.max.age.ms
+ and metadata.max.idle.ms.
+
+during the meta data fetch call, it makes use of partitionsfor() call which
+has an upper bound of max.block.ms. what if the broker it tried to connect
+to i",,
