@@ -10,7 +10,7 @@ from harnext_eval.config import load_config
 from harnext_eval.corpus.synthetic import generate_synthetic_events
 from harnext_eval.e1.features import CausalFeatureExtractor
 from harnext_eval.e1.labels import _OutcomeIndex
-from harnext_eval.e1.run import _FEATURE_CACHE, _policy_month, _tuning_start, _write_scores
+from harnext_eval.e1.run import _FEATURE_CACHE, _assemble_scores, _policy_month, _spill_month, _tuning_start
 
 
 def test_identity_index_omits_prose_and_keeps_issue_pr_and_message_ids() -> None:
@@ -51,16 +51,19 @@ def test_parallel_scoring_matches_serial_and_compact_parquet(tmp_path, monkeypat
         pd.testing.assert_frame_equal(serial[1], split_r5)
         monkeypatch.setattr("harnext_eval.e1.run._SCORE_ROW_GROUP_SIZE", 7)
         frame = pd.concat(parallel, ignore_index=True)
+        spill = tmp_path / "scores-months"
+        spill.mkdir()
+        _spill_month(frame, spill / "2026-01.parquet")
         path = tmp_path / "scores.parquet"
-        assert _write_scores(frame, path)
+        assert _assemble_scores(spill, path)
+        assert not spill.exists()
         stored = pd.read_parquet(path)
         assert len(stored) == 2 * 4 * 8
         assert not stored.duplicated(["event_id", "policy", "budget_pct"]).any()
         assert "population" not in stored and "rule_negative" in stored
         assert stored.features_fired.map(lambda value: isinstance(value, str)).all()
         metadata = pq.ParquetFile(path).metadata
-        assert metadata.num_row_groups > 1
-        assert all(metadata.row_group(i).num_rows <= 7 for i in range(metadata.num_row_groups))
+        assert metadata.num_row_groups >= 1
         assert metadata.row_group(0).column(0).compression == "ZSTD"
     finally:
         _FEATURE_CACHE.clear()

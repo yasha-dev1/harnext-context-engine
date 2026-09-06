@@ -613,33 +613,71 @@ def _score_chunk(frame: pd.DataFrame) -> pd.DataFrame:
     return serializable
 
 
-def _write_scores(frame: pd.DataFrame, path: Path) -> bool:
-    # Avoid materializing JSON strings and Arrow buffers for millions of rows
-    # at once. The frame itself already stores only the full population.
-    full = frame if frame["population"].eq("full").all() else frame[frame["population"] == "full"]
-    try:
-        import pyarrow as pa
-        import pyarrow.parquet as pq
-    except ImportError:
-        payload = _score_chunk(full).to_json(orient="table", date_format="iso")
-        assert payload is not None
-        path.write_text(payload, encoding="utf-8")
-        path.with_suffix(".parquet.format.json").write_text(
-            json.dumps({"format": "pandas-table-json", "reason": "no parquet engine"}) + "\n",
-            encoding="utf-8",
-        )
+_CATEGORICAL_COLUMNS = (
+    "event_id", "policy", "lane", "source", "subject", "rule", "month", "population", "baseline_key_used",
+)
+
+
+def _spill_month(frame: pd.DataFrame, path: Path) -> None:
+    """Write one month's full score rows (feature payload included) as parquet."""
+
+    import pyarrow as pa
+    import pyarrow.parquet as pq
+
+    chunk = _score_chunk(frame)
+    for column in _CATEGORICAL_COLUMNS:
+        if column in chunk.columns:
+            chunk[column] = chunk[column].astype(str)
+    pq.write_table(pa.Table.from_pandas(chunk, preserve_index=False), path, compression="zstd")
+
+
+def _compact_month(frame: pd.DataFrame) -> pd.DataFrame:
+    """Drop the feature payload and encode string columns as categoricals."""
+
+    compact = frame.drop(columns=["features_fired"]).copy()
+    for column in _CATEGORICAL_COLUMNS:
+        compact[column] = compact[column].astype(str).astype("category")
+    return compact
+
+
+def _concat_compact(pieces: list[pd.DataFrame]) -> pd.DataFrame:
+    """Concatenate month frames while keeping every categorical column categorical."""
+
+    unions: dict[str, pd.Index] = {}
+    for column in _CATEGORICAL_COLUMNS:
+        categories: pd.Index = pd.Index([], dtype=object)
+        for piece in pieces:
+            categories = categories.union(piece[column].cat.categories)
+        unions[column] = categories
+    aligned = []
+    for piece in pieces:
+        for column, categories in unions.items():
+            piece[column] = pd.Categorical(piece[column].astype(str), categories=categories)
+        aligned.append(piece)
+    return pd.concat(aligned, ignore_index=True)
+
+
+def _assemble_scores(spill_dir: Path, path: Path) -> bool:
+    """Stream the per-month parquet spills into one scores.parquet, then remove them."""
+
+    import pyarrow.parquet as pq
+
+    parts = sorted(spill_dir.glob("*.parquet"))
+    if not parts:
         return False
     writer = None
     try:
-        for start in range(0, max(len(full), 1), _SCORE_ROW_GROUP_SIZE):
-            chunk = _score_chunk(full.iloc[start:start + _SCORE_ROW_GROUP_SIZE])
-            table = pa.Table.from_pandas(chunk, preserve_index=False)
+        for part in parts:
+            table = pq.read_table(part)
             if writer is None:
                 writer = pq.ParquetWriter(path, table.schema, compression="zstd")
             writer.write_table(table, row_group_size=_SCORE_ROW_GROUP_SIZE)
     finally:
         if writer is not None:
             writer.close()
+    for part in parts:
+        part.unlink()
+    spill_dir.rmdir()
     return True
 
 
@@ -653,17 +691,25 @@ def _features_dict(value: Any) -> dict[str, Any]:
     return value if isinstance(value, dict) else {}
 
 
-def _write_attribution(scores: pd.DataFrame, path: Path) -> None:
+def _write_attribution(spill_dir: Path, path: Path) -> None:
+    import pyarrow.parquet as pq
+
     lines = ["# E1 feature attribution", ""]
+    parts = sorted(spill_dir.glob("*.parquet"))
     for policy in ("R5", "R2", "R10"):
-        selected = scores[
-            (scores["policy"] == policy)
-            & (scores["budget_pct"] == 2.0)
-            & (scores["population"] == "full")
-            & scores["admitted"]
-            & (~scores["rule_flag"].astype(bool))
-            & (scores["label"] >= 0.5)
-        ].drop_duplicates("event_id")
+        frames = [
+            pq.read_table(
+                part,
+                columns=["event_id", "subject", "features_fired"],
+                filters=[("policy", "=", policy), ("budget_pct", "=", 2.0), ("admitted", "=", True),
+                         ("rule_flag", "=", False), ("label", ">=", 0.5)],
+            ).to_pandas()
+            for part in parts
+        ]
+        selected = (
+            pd.concat(frames, ignore_index=True).drop_duplicates("event_id")
+            if frames else pd.DataFrame(columns=["event_id", "subject", "features_fired"])
+        )
         totals: dict[str, float] = {}
         for features in selected["features_fired"].map(_features_dict):
             for name, value in features.get("hbos_terms", {}).items():
@@ -1292,6 +1338,10 @@ class E1Experiment:
         evaluated_months = months[2:] if len(months) > 2 else months[1:]
         score_pieces: list[pd.DataFrame] = []
         chronology: list[bool] = []
+        spill_dir = out_dir / "scores-months"
+        spill_dir.mkdir(parents=True, exist_ok=True)
+        for stale in spill_dir.glob("*.parquet"):
+            stale.unlink()
         _FEATURE_CACHE.clear()
         extractors = {kind: CausalFeatureExtractor(global_only=kind) for kind in (False, True)}
         for kind in extractors:
@@ -1337,22 +1387,29 @@ class E1Experiment:
                     initargs=(tuning, evaluation, cfg, seed + month_index, month_labels,
                               exact_labels is not None, _FEATURE_CACHE),
                 ) as pool:
-                    score_pieces.extend(pool.map(_policy_month, selections))
+                    month_pieces = list(pool.map(_policy_month, selections))
                 gc.collect()
             else:
-                score_pieces.extend(
+                month_pieces = [
                     _policy_month((name, tuning, evaluation, cfg, seed + month_index, event_labels,
                                    exact_labels is not None, budgets))
                     for name, budgets in selections
-                )
+                ]
+            # Spill the month's full rows (with the feature payload) to parquet now
+            # and keep only compact categorical columns in memory: the single
+            # end-of-run concat of every row held 37 GB resident on 18.6M rows.
+            month_frame = pd.concat(month_pieces, ignore_index=True)
+            del month_pieces
+            _spill_month(month_frame, spill_dir / f"{month}.parquet")
+            score_pieces.append(_compact_month(month_frame))
+            del month_frame
             print(f"E1 scored {month} ({len(evaluation)} events; fit {len(tuning)})", flush=True)
         _FEATURE_CACHE.clear()
         if not score_pieces:
             raise ValueError("E1 produced no evaluable rolling months")
-        scores = pd.concat(score_pieces, ignore_index=True)
+        scores = _concat_compact(score_pieces)
         del score_pieces
-        for column in ("event_id", "policy", "lane", "source", "subject", "rule", "month", "population", "baseline_key_used"):
-            scores[column] = scores[column].astype("category")
+        gc.collect()
         metrics = pd.DataFrame(_metric_rows(scores))
 
         primary_scores = scores[
@@ -1480,7 +1537,7 @@ class E1Experiment:
         robustness_path = out_dir / "robustness.csv"
         delays_path = out_dir / "delays.csv"
         preflight_path = out_dir / "preflight.csv"
-        parquet_complete = _write_scores(scores, scores_path)
+        parquet_complete = _assemble_scores(spill_dir, scores_path)
         metrics.to_csv(metrics_path, index=False)
         calibration.to_csv(out_dir / "calibration.csv", index=False)
         label_result.diagnostics.to_csv(diagnostics_path)
@@ -1491,7 +1548,7 @@ class E1Experiment:
         preflight = _preflight(corpus, situations)
         preflight.to_csv(preflight_path, index=False)
         attribution_path = out_dir / "attribution.md"
-        _write_attribution(scores, attribution_path)
+        _write_attribution(spill_dir, attribution_path)
         remediation_frame = _metric_remediation(metrics)
         remediation_path = out_dir / "metric_remediation.csv"
         remediation_frame.to_csv(remediation_path, index=False)
