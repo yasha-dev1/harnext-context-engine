@@ -10,10 +10,11 @@ Commit this document before the first evidentiary run. Amendments must be append
     5.0,
     10.0
   ],
-  "config_sha256": "3a72eece16c37b03af233834231f942ae8340eb040be4dd7d4101b9a996f9445",
-  "created_at": "2026-09-05T16:30:24.146733+00:00",
+  "config_sha256": "c89e62a81b323120de6aa7dd811c0b3a9d01e7f13b0dd6f650ebcf167e4947f5",
+  "created_at": "2026-09-06T07:24:54.953956+00:00",
   "excluded_label_functions": [
-    "github_trunk_ci_failure_fix_6h"
+    "github_trunk_ci_failure_fix_6h",
+    "jira_fix_version_in_flight_later"
   ],
   "exclusion_rules": [
     "First two observed months are tuning only (one for a two-month pilot).",
@@ -27,7 +28,7 @@ Commit this document before the first evidentiary run. Amendments must be append
   ],
   "feature_history": "single chronological fold within requested window; four-week rolling baselines",
   "fit_window_months": 12,
-  "git_head": "8998791dc6f9bb75db002b28fee8caa92f3e2852",
+  "git_head": "84405faa3c141d8e3b4b089ecb2812abe8c9a94c",
   "label_accuracy_min": 0.6,
   "label_coverage_min": 0.01,
   "policies": [
@@ -54,17 +55,7 @@ Commit this document before the first evidentiary run. Amendments must be append
 }
 ```
 
-## Amendment 2026-09-06 (appended; the registration block above is unchanged)
-
-Run 1 (`20260905T185046Z-e1-kafka`) was executed against the block above and is retained as
-exploratory/invalid (`evidence_status = non-evidentiary`). The independent review
-(`apps/eval/STATUS/REVIEW-E1-KAFKA.md`) found that `jira_fix_version_in_flight_later` cannot be
-computed from the sources (no release-state fields; 145,425 spurious negative votes), that the
-declared-priority rule missed `priority → Critical` changelog transitions, and that `[VOTE]`
-fired on every reply. These are corrected prospectively and registered as **run 2** in
-`apps/eval/PREREG-run2.md` (new config hash): `exclude_label_functions` gains
-`jira_fix_version_in_flight_later`; the LF abstains when release-state fields are absent;
-`rules.vote_thread_start_only = true`; changelog `to ∈ {Blocker, Critical}` counts as declared
-priority. The label-fusion model is **unchanged** in run 2 (registered weighted model, p ≥ 0.5);
-alternative fusion rules are reported as post-hoc sensitivity only
-(`apps/eval/scripts/e1_label_sensitivity.py`) pending the human sanity sample.
+Run 2 registration (2026-09-06). Differs from `PREREG.md` only by the amendments listed in that
+file's appended amendment section: excluded LFs, `[VOTE]` thread-start rule, declared-priority
+transition detection. Same replay, same window, same policies, budgets, primary metric and
+label model.
