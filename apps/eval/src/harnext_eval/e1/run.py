@@ -4,6 +4,7 @@
 
 from __future__ import annotations
 
+import gc
 import json
 import math
 import multiprocessing
@@ -1276,8 +1277,16 @@ class E1Experiment:
             if len(events) >= 5_000 and workers > 1 and "fork" in multiprocessing.get_all_start_methods():
                 # Fork shares this month's immutable feature cache; each policy
                 # fits its own model and guard state. Bound BLAS threads externally.
-                with ProcessPoolExecutor(max_workers=workers, mp_context=multiprocessing.get_context("fork")) as pool:
-                    score_pieces.extend(pool.map(_policy_month, jobs))
+                # Freeze the collector so a worker's cyclic GC never walks the
+                # inherited parent heap (that copy-on-write duplicated the growing
+                # score tables into every worker: ~7 GB x workers at month 15).
+                gc.collect()
+                gc.freeze()
+                try:
+                    with ProcessPoolExecutor(max_workers=workers, mp_context=multiprocessing.get_context("fork")) as pool:
+                        score_pieces.extend(pool.map(_policy_month, jobs))
+                finally:
+                    gc.unfreeze()
             else:
                 score_pieces.extend(_policy_month(job) for job in jobs)
             print(f"E1 scored {month} ({len(evaluation)} events; fit {len(tuning)})", flush=True)
