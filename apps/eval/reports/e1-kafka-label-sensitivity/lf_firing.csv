@@ -1,0 +1,13 @@
+function,positive_votes,non_abstain,positive_rate_when_observable
+jira_committer_comment_1h,32758,145424,0.22525855429640224
+jira_priority_raised_later,6325,145425,0.043493209558191505
+jira_fix_version_in_flight_later,0,0,
+jira_resolved_24h,19400,145389,0.13343512920509804
+jira_linked_pr_24h,12058,145389,0.08293612309046765
+declared_blocker_critical,7937,145425,0.05457796114835826
+dev_committer_reply_1h,2451,35311,0.06941179802327886
+dev_three_responders_2h,545,35310,0.015434721042197678
+dev_vote_cancelled_recast_later,7,35311,0.00019823850924641047
+dev_cve_blocker_later,2620,35311,0.07419784203222791
+github_reverted_48h,11009,213638,0.05153109465544519
+github_hotfix_reference_24h,452,213819,0.002113937489184778
