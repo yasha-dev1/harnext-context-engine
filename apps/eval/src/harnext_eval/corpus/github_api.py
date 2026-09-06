@@ -197,7 +197,7 @@ class PageCache:
             if result.get("errors") or result.get("data") is None:
                 raise ValueError("refusing to cache an incomplete GraphQL response")
             self.root.mkdir(parents=True, exist_ok=True)
-            temporary = path.with_suffix(".json.tmp")
+            temporary = path.with_name(f"{path.name}.{os.getpid()}.tmp")
             temporary.write_text(json.dumps(result, ensure_ascii=False), encoding="utf-8")
             temporary.replace(path)
             self.fetched += 1
