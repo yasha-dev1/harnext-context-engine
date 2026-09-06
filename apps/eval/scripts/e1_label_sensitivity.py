@@ -59,10 +59,8 @@ def main() -> int:
 
     functions = [f for f in DEFAULT_LABELING_FUNCTIONS if f.name not in set(args.exclude)]
     votes = apply_labeling_functions(events, functions, observation_end=end)
-    observability = votes.attrs.get("observability")
-    votes.copy().to_parquet(args.out / "votes.parquet")  # copy drops attrs (non-serialisable)
-    if isinstance(observability, pd.DataFrame):
-        observability.to_parquet(args.out / "observability.parquet")
+    observability = votes.attrs.pop("observability", None)
+    votes.attrs = {}
     source = pd.Series(
         ["jira" if ".jira." in e.type else "mail" if ".mail." in e.type else "github" for e in events],
         index=votes.index,
@@ -109,6 +107,12 @@ def main() -> int:
     pattern.to_csv(args.out / "outcome_vote_count_histogram.csv")
     print("events by number of positive outcome LFs:", pattern.to_dict(), flush=True)
     full.diagnostics.to_csv(args.out / "diagnostics_registered_model.csv")
+    try:  # bulky artefacts last, so a serialisation problem cannot lose the tables above
+        pd.DataFrame(votes.to_numpy(), index=votes.index, columns=votes.columns).to_parquet(args.out / "votes.parquet")
+        if isinstance(observability, pd.DataFrame):
+            pd.DataFrame(observability.to_numpy(), index=observability.index, columns=observability.columns).to_parquet(args.out / "observability.parquet")
+    except Exception as exc:  # noqa: BLE001
+        print(f"parquet write skipped: {exc}", flush=True)
     json.dump({"events": len(events), "window": args.window, "excluded": args.exclude},
               open(args.out / "manifest.json", "w"), indent=1)
     return 0
