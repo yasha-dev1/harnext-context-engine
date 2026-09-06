@@ -19,6 +19,8 @@ class RulesConfig(StrictModel):
     enabled: bool
     vote_thread_start_only: bool = False
     """Amendment 2026-09-06: fire the ``[VOTE]`` rule only on thread-initiating messages, not replies."""
+    dedup_per_subject: bool = False
+    """Amendment 2026-09-06 (review finding 4): each (subject, rule) fires once per evaluation month."""
 
 
 class DeviationConfig(StrictModel):
@@ -129,6 +131,15 @@ class E1Config(StrictModel):
 
     exclude_label_functions: list[str] = Field(default_factory=list)
     """Labeling functions dropped by a registered amendment (e.g. uncomputable from the sources)."""
+    label_positive_support_min: int = Field(default=0, ge=0)
+    """Amendment 2026-09-06 (review finding 3): minimum positive votes an LF must cast to count as
+    informative; below this the LF gate fails (0 disables the gate, run-1 semantics)."""
+    sanity_relative_tolerance: float | None = Field(default=None, gt=0)
+    """Amendment 2026-09-06 (review finding 6): when set, the random-scorer sanity gates use a
+    relative tolerance (|x/prevalence - 1| <= value) instead of the absolute 0.05."""
+    label_situation_gap_hours: float = Field(default=24.0, gt=0)
+    """Amendment 2026-09-06 (review finding 8): consecutive positives on one subject closer than
+    this are one situation for the timestamped lateness metrics."""
 
 
 class ExperimentConfig(StrictModel):

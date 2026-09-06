@@ -21,6 +21,32 @@ EXCLUSIONS = [
     "Rules exceeding monthly capacity invalidate that month; no hidden capacity is added.",
     "Harm is N/A: no real action provider / no S3 store in this profile.",
 ]
+# Registered contrasts. R5-R1 and R5-R2 are the original design contrasts; the
+# 2026-09-06 amendments add the rule-exempt accounting (R8, R9: rule hits are the
+# operator's choice and are admitted outside the budget) and the scorer bake-off
+# on the rule-negative population (each scorer against the random floor).
+PRIMARY_CONTRASTS = (
+    "R5-R1", "R5-R2", "R8-R2", "R9-R2", "R8-R5", "R2-R0", "R4-R0", "R8-R0", "R9-R0",
+)
+# Post-hoc label-definition sensitivity, registered before the run so the fusion
+# rule cannot be chosen on the outcome (review finding 2). The registered label
+# stays the weighted model at p >= 0.5; the others are reported alongside it.
+LABEL_DEFINITIONS = (
+    "weighted_model_p50",
+    "any_outcome_lf",
+    "two_outcome_lfs",
+    "half_of_votes",
+)
+AMENDED_EXCLUSIONS = [
+    "R8/R9 admit rule hits outside the budget (rules_outside_budget is reported); "
+    "their rule-negative admissions are capped at the same monthly capacity as R0-R6.",
+    "An LF whose positive support is below label_positive_support_min fails its gate.",
+    "Secondary metrics are kept only if the design condition (R8) is separated from the "
+    "random floor by more than twice the paired monthly standard error; the decision is "
+    "recorded in metric_remediation.csv before any interpretation.",
+    "Lateness metrics use timestamped, subject-separated situations derived from consecutive "
+    "positives (label_situation_gap_hours); row-index affiliation/NAB are reported as *_rowindex only.",
+]
 
 
 def parse_window(values: tuple[str, str] | None) -> tuple[datetime, datetime] | None:
@@ -40,21 +66,29 @@ def registration(
         "schema": "e1-prereg-v1",
         "replay_sha256": sha256_file(replay),
         "config_sha256": sha256_json(config),
-        "policies": [f"R{index}" for index in range(8)],
+        "policies": [f"R{index}" for index in range(10)],
         "budgets_pct": [1.0, 2.0, 5.0, 10.0],
         "primary_metric": PRIMARY,
-        "primary_contrasts": ["R5-R1", "R5-R2"],
+        "primary_contrasts": list(PRIMARY_CONTRASTS),
         "window": [value.isoformat() for value in window] if window else None,
         "fit_window_months": 12,
         "feature_history": "single chronological fold within requested window; four-week rolling baselines",
         "label_accuracy_min": 0.6,
         "label_coverage_min": 0.01,
+        "label_positive_support_min": int(config.e1.label_positive_support_min),
+        "sanity_relative_tolerance": config.e1.sanity_relative_tolerance,
+        "label_situation_gap_hours": float(config.e1.label_situation_gap_hours),
+        "rules": {
+            "vote_thread_start_only": bool(config.engine.router.rules.vote_thread_start_only),
+            "dedup_per_subject": bool(config.engine.router.rules.dedup_per_subject),
+        },
+        "label_definition_sensitivity": list(LABEL_DEFINITIONS),
         "excluded_label_functions": list(config.e1.exclude_label_functions),
         "exclusion_rules": EXCLUSIONS + (
             ["Labeling functions listed in excluded_label_functions are dropped before fitting; "
              "they are uncomputable from the registered sources and are not gated."]
             if config.e1.exclude_label_functions else []
-        ),
+        ) + list(AMENDED_EXCLUSIONS),
         "git_head": current_git_sha(),
         "created_at": datetime.now(UTC).isoformat(),
     }

@@ -38,6 +38,10 @@ def decile_rates(
                 # E1's exact formula is mean(y(e)); y is probabilistic for
                 # Corpus R and exact 0/1 for constructed Corpus S.
                 "urgency_rate": float(np.mean(outcomes[selected])),
+                # Binary empirical rate at the registered 0.5 threshold with a
+                # Wilson-free count so uncertainty can be shown (review finding 10).
+                "binary_rate": float(np.mean(outcomes[selected] >= 0.5)),
+                "positives": int(np.sum(outcomes[selected] >= 0.5)),
             }
         )
     return pd.DataFrame(rows)

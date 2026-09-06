@@ -50,18 +50,20 @@ def parse_issue(issue: Mapping[str, Any], *, mgtenant: str = "kafka") -> list[Ev
     creation_values = _creation_state(fields, histories)
     inconsistencies = _validate_export_state(issue_key, fields, histories)
 
-    components = _named_values(fields.get("components"))
     creator = _identity(fields.get("creator") or fields.get("reporter"))
-    baseline_components = components
+    # Amendment 2026-09-06 (review finding 7): components are replayed as of each
+    # event from the changelog, never taken from the export-time snapshot, so the
+    # per-entity baseline key reflects what was known at decision time.
+    component_timeline = _components_timeline(creation_values["components"], histories)
     common = {
         "issue_key": issue_key,
         "summary": fields.get("summary"),
         "description": fields.get("description"),
-        "components": components,
     }
+    created_components = _components_at(component_timeline, _parse_time(_required_string(fields, "created")))
     created_data = {
         **common,
-        "components": creation_values["components"],
+        "components": created_components,
         "status": creation_values["status"],
         "priority": creation_values["priority"],
         "assignee": creation_values["assignee"],
@@ -83,7 +85,7 @@ def parse_issue(issue: Mapping[str, Any], *, mgtenant: str = "kafka") -> list[Ev
             mgtenant=mgtenant,
             baseline_keys=derive_baseline_keys(
                 author_emails=[creator.email] if creator.email else [],
-                components=baseline_components,
+                components=created_components,
             ),
             data=created_data,
         )
@@ -103,8 +105,10 @@ def parse_issue(issue: Mapping[str, Any], *, mgtenant: str = "kafka") -> list[Ev
                 continue
             field = str(item.get("field") or item.get("fieldId") or "unknown")
             canonical_field = _canonical_state_field(field)
+            components_now = _components_at(component_timeline, changed_at)
             data = {
                 **common,
+                "components": components_now,
                 "changelog_id": history_id,
                 "field": canonical_field,
                 "from": _changelog_value(canonical_field, item, "from"),
@@ -123,7 +127,7 @@ def parse_issue(issue: Mapping[str, Any], *, mgtenant: str = "kafka") -> list[Ev
                     mgtenant=mgtenant,
                     baseline_keys=derive_baseline_keys(
                         author_emails=[actor.email] if actor.email else [],
-                        components=baseline_components,
+                        components=components_now,
                     ),
                     data=data,
                 )
@@ -132,8 +136,11 @@ def parse_issue(issue: Mapping[str, Any], *, mgtenant: str = "kafka") -> list[Ev
     for comment in _comments(fields.get("comment")):
         comment_id = str(comment.get("id") or _stable_fragment(comment))
         author = _identity(comment.get("author"))
+        commented_at = _parse_time(_required_string(comment, "created"))
+        components_now = _components_at(component_timeline, commented_at)
         data = {
             **common,
+            "components": components_now,
             "comment_id": comment_id,
             "body": comment.get("body"),
             "author": author.value,
@@ -148,11 +155,11 @@ def parse_issue(issue: Mapping[str, Any], *, mgtenant: str = "kafka") -> list[Ev
                 source=f"jira:{issue_key.split('-', 1)[0]}",
                 type="org.apache.jira.issue.comment",
                 subject=issue_subject(issue_key),
-                time=_parse_time(_required_string(comment, "created")),
+                time=commented_at,
                 mgtenant=mgtenant,
                 baseline_keys=derive_baseline_keys(
                     author_emails=[author.email] if author.email else [],
-                    components=baseline_components,
+                    components=components_now,
                 ),
                 data=data,
             )
@@ -375,6 +382,37 @@ def _state_identity_value(value: Any) -> str | None:
         display = value.get("displayName")
         return str(display) if display is not None else None
     return _identity_value(value)
+
+
+def _components_timeline(
+    initial: list[str], histories: list[Any]
+) -> list[tuple[datetime, list[str]]]:
+    """Return the component set after each changelog step, starting from creation.
+
+    The first entry carries the creation-time components with a minimal timestamp
+    so ``_components_at`` always has a state; later entries are the post-change
+    state at that changelog time (an item applied at ``t`` is visible from ``t``).
+    """
+
+    timeline: list[tuple[datetime, list[str]]] = [(datetime.min.replace(tzinfo=UTC), list(initial))]
+    for changed_at, _, _, item in _ordered_changelog_items(histories):
+        raw_field = item.get("field") or item.get("fieldId")
+        if not isinstance(raw_field, str) or _canonical_state_field(raw_field) != "components":
+            continue
+        timeline.append((changed_at, list(_changelog_value("components", item, "to"))))
+    return timeline
+
+
+def _components_at(timeline: list[tuple[datetime, list[str]]], when: datetime) -> list[str]:
+    """Components known at ``when``: the last timeline state at or before it."""
+
+    current = timeline[0][1]
+    for changed_at, state in timeline[1:]:
+        if changed_at <= when:
+            current = state
+        else:
+            break
+    return list(current)
 
 
 def _creation_state(fields: Mapping[str, Any], histories: list[Any]) -> dict[str, Any]:

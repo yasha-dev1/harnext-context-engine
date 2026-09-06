@@ -35,7 +35,7 @@ def test_e1_uses_sidecar_gold_global_monthly_admission_and_required_outputs(
 
     assert result.primary["metric"] == "recall_at_2pct_rule_negative"
     assert {"r5_minus_r1_ci_low", "r5_minus_r1_ci_high", "r5_minus_r2_ci_low", "r5_minus_r2_ci_high"} <= set(result.primary)
-    assert set(result.tables["scores"]["policy"]) == {f"R{index}" for index in range(8)}
+    assert set(result.tables["scores"]["policy"]) == {f"R{index}" for index in range(10)}
 
     exact_positive_ids = {
         item["event_id"] for item in corpus.meta["injected_situations"]
@@ -88,9 +88,10 @@ def test_e1_uses_sidecar_gold_global_monthly_admission_and_required_outputs(
         "decision_latency_ms",
         "unused_capacity",
         "vus_pr",
-        "affiliation_precision",
-        "affiliation_recall",
-        "nab_low_fn",
+        "affiliation_precision_rowindex",
+        "affiliation_recall_rowindex",
+        "nab_low_fn_rowindex",
+        "rules_outside_budget",
     } <= set(metrics)
     assert (metrics["tokens"] == 0).all()
     assert np.allclose(metrics["dollars"], 0.0)
@@ -114,7 +115,7 @@ def test_e1_uses_sidecar_gold_global_monthly_admission_and_required_outputs(
     situation_rows = result.tables["robustness"].dropna(
         subset=["affiliation_recall"]
     )
-    assert set(situation_rows["policy"]) == {f"R{index}" for index in range(8)}
+    assert set(situation_rows["policy"]) == {f"R{index}" for index in range(10)}
     assert set(situation_rows["budget_pct"]) == {1.0, 2.0, 5.0, 10.0}
 
     required = {

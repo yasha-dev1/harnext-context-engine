@@ -30,7 +30,13 @@ from harnext_eval.e1.labels import (
     LabelModelResult,
     build_labels,
 )
-from harnext_eval.e1.policies import budgeted_decisions, make_policy
+from harnext_eval.e1.policies import (
+    GUARDED_POLICIES,
+    RULE_EXEMPT_POLICIES,
+    budgeted_decisions,
+    make_policy,
+)
+from harnext_eval.e1.prereg import PRIMARY_CONTRASTS
 from harnext_eval.e1.score import (
     affiliation_precision_recall,
     always_flag_sanity_scorer,
@@ -38,10 +44,12 @@ from harnext_eval.e1.score import (
     detection_delays,
     flip_labels,
     jitter_onsets,
+    label_situations,
     nab_low_fn_score,
     precision_at_budget,
     random_sanity_scorer,
     recall_at_budget,
+    swap_labels,
     timestamped_affiliation_precision_recall,
     vus_pr,
 )
@@ -55,7 +63,15 @@ from harnext_eval.stores.base import StoreHandle
 from harnext_eval.types import EvalEvent, RouterRecord, Task
 
 _BUDGETS = (1.0, 2.0, 5.0, 10.0)
-_POLICIES = tuple(f"R{index}" for index in range(8))
+_POLICIES = tuple(f"R{index}" for index in range(10))
+_SHARED_BUDGET_POLICIES = tuple(f"R{index}" for index in range(7))
+_ROWINDEX_SECONDARY = (
+    "precision_at_b",
+    "vus_pr",
+    "affiliation_precision_rowindex",
+    "affiliation_recall_rowindex",
+    "nab_low_fn_rowindex",
+)
 _VUS_MAX_BUFFER = 5
 _SCORE_ROW_GROUP_SIZE = 100_000
 # Same causal fold reused by policies/budgets within a rolling month. Fit/model
@@ -304,11 +320,12 @@ def _admit_month(
                 "unused_capacity": 0,
                 "rules_over_budget": 0,
                 "budget_feasible": True,
+                "rules_outside_budget": 0,
             }
         )
     elif name == "R1":
         eligible = scored["rule_flag"].astype(bool).to_numpy()
-    elif name == "R5":
+    elif name in GUARDED_POLICIES:
         eligible = np.asarray(
             [
                 bool(features.get("eligible", False)) or bool(rule)
@@ -318,7 +335,7 @@ def _admit_month(
     if name != "R7":
         mandatory = (
             scored["rule_flag"].astype(bool).to_numpy()
-            if name in {"R1", "R5"}
+            if name == "R1" or name in GUARDED_POLICIES
             else None
         )
         decisions = budgeted_decisions(
@@ -328,6 +345,7 @@ def _admit_month(
             tuning_scores=tuning_scores,
             eligible=eligible,
             mandatory=mandatory,
+            exempt=name in RULE_EXEMPT_POLICIES,
         ).drop(columns="score")
     admitted = scored.merge(decisions, on="event_id", how="left", validate="one_to_one")
     admitted["lane"] = np.where(admitted["admitted"], "fast", "batch")
@@ -355,10 +373,11 @@ def _policy_month(args):
     budgets = selection[0] if selection else _BUDGETS
     parts = []
     budget_scores = {}
-    for budget in (budgets if name == "R5" else (_BUDGETS[0],)):
+    guarded = name in GUARDED_POLICIES
+    for budget in (budgets if guarded else (_BUDGETS[0],)):
         budget_scores[budget] = _score_month(name, tuning, evaluation, cfg, seed, budget)
     for budget in budgets:
-        scored, tuning_scores = budget_scores[budget if name == "R5" else _BUDGETS[0]]
+        scored, tuning_scores = budget_scores[budget if guarded else _BUDGETS[0]]
         scored = scored.copy()
         scored["budget_pct"] = budget
         scored["p_urgent"] = scored["event_id"].map(event_labels).astype(float)
@@ -410,15 +429,22 @@ def _metric_rows(frame: pd.DataFrame) -> list[dict[str, Any]]:
                     )
                     if len(labels)
                     else float("nan"),
-                    "affiliation_precision": affiliation_p,
-                    "affiliation_recall": affiliation_r,
-                    "nab_low_fn": nab_low_fn_score(labels, admitted),
+                    # Row-index geometry (amendment 2026-09-06, review finding 8):
+                    # these credit adjacent rows regardless of entity or elapsed
+                    # time and are reported only under the *_rowindex suffix. The
+                    # timestamped, subject-separated versions live in
+                    # robustness.csv / delays.csv (label-derived situations).
+                    "affiliation_precision_rowindex": affiliation_p,
+                    "affiliation_recall_rowindex": affiliation_r,
+                    "nab_low_fn_rowindex": nab_low_fn_score(labels, admitted),
                     "decision_latency_ms": float(group["decision_latency_ms"].mean()),
                     "tokens": int(group["routing_tokens"].sum()),
                     "dollars": float(group["routing_dollars"].sum()),
                     "unused_capacity": int(group["unused_capacity"].iloc[0]),
                     "rules_over_budget": int(group["rules_over_budget"].iloc[0]),
                     "budget_feasible": bool(group["budget_feasible"].iloc[0]),
+                    "rules_outside_budget": int(group["rules_outside_budget"].iloc[0]),
+                    "rule_hits": int(group["rule_flag"].astype(bool).sum()),
                 }
             )
     return rows
@@ -432,7 +458,7 @@ def _paired_primary(scores: pd.DataFrame, seed: int) -> dict[str, Any]:
         & (scores["label"] >= 0.5)
     ]
     pivot = subset.pivot_table(
-        index=["event_id", "subject"], columns="policy", values="admitted", aggfunc="first", observed=True
+        index=["event_id", "subject", "month"], columns="policy", values="admitted", aggfunc="first", observed=True
     ).reset_index()
     by_policy = {
         str(name): float(pivot[name].mean()) for name in _POLICIES if name in pivot.columns
@@ -440,13 +466,18 @@ def _paired_primary(scores: pd.DataFrame, seed: int) -> dict[str, Any]:
     result: dict[str, Any] = {
         "metric": "recall_at_2pct_rule_negative",
         "by_policy": by_policy,
+        "n_positives": int(len(pivot)),
+        "n_subjects": int(pivot["subject"].nunique()) if not pivot.empty else 0,
+        "n_months": int(pivot["month"].nunique()) if not pivot.empty else 0,
+        "contrasts": list(PRIMARY_CONTRASTS),
     }
-    for baseline in ("R1", "R2"):
-        key = f"r5_minus_{baseline.casefold()}"
-        if {"R5", baseline} <= set(pivot.columns) and pivot["subject"].nunique() >= 2:
+    for contrast_name in PRIMARY_CONTRASTS:
+        left, right = contrast_name.split("-")
+        key = f"{left.casefold()}_minus_{right.casefold()}"
+        if {left, right} <= set(pivot.columns) and pivot["subject"].nunique() >= 2:
             contrast = paired_difference_bca(
-                pivot["R5"].astype(float),
-                pivot[baseline].astype(float),
+                pivot[left].astype(float),
+                pivot[right].astype(float),
                 pivot["subject"],
                 n_resamples=10_000,
                 random_state=seed,
@@ -455,6 +486,19 @@ def _paired_primary(scores: pd.DataFrame, seed: int) -> dict[str, Any]:
             result[f"{key}_ci_low"] = contrast.ci_low
             result[f"{key}_ci_high"] = contrast.ci_high
             result[f"{key}_n_entities"] = contrast.n_clusters
+            # Sensitivity (review finding 9): calendar-month clusters absorb the
+            # linked-incident and notification-burst dependence that subject
+            # clusters cannot see.
+            if pivot["month"].nunique() >= 2:
+                by_month = paired_difference_bca(
+                    pivot[left].astype(float),
+                    pivot[right].astype(float),
+                    pivot["month"].astype(str),
+                    n_resamples=10_000,
+                    random_state=seed,
+                )
+                result[f"{key}_month_ci_low"] = by_month.ci_low
+                result[f"{key}_month_ci_high"] = by_month.ci_high
         else:
             result[key] = float("nan")
             result[f"{key}_ci_low"] = float("nan")
@@ -464,7 +508,7 @@ def _paired_primary(scores: pd.DataFrame, seed: int) -> dict[str, Any]:
 
 
 def _situation_metrics(
-    scores: pd.DataFrame, situations: pd.DataFrame, *, seed: int
+    scores: pd.DataFrame, situations: pd.DataFrame, *, seed: int, population: str = "full"
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
     if situations.empty:
         return pd.DataFrame(), pd.DataFrame()
@@ -479,9 +523,11 @@ def _situation_metrics(
         if condition_situations.empty:
             continue
         admissions = relevant.rename(columns={"subject": "entity", "t": "time"})
+        admissions = admissions[admissions["entity"].isin(condition_situations["entity"])]
         delays = detection_delays(condition_situations, admissions)
         delays["policy"] = policy
         delays["budget_pct"] = budget
+        delays["population"] = population
         delay_parts.append(delays)
         summary = delay_summary(delays["delay_s"])
         affiliation_p, affiliation_r = timestamped_affiliation_precision_recall(
@@ -498,6 +544,8 @@ def _situation_metrics(
             {
                 "policy": policy,
                 "budget_pct": budget,
+                "population": population,
+                "n_situations": int(len(condition_situations)),
                 "affiliation_precision": affiliation_p,
                 "affiliation_recall": affiliation_r,
                 "jitter_affiliation_precision": jittered_p,
@@ -556,27 +604,180 @@ def _write_scores(frame: pd.DataFrame, path: Path) -> bool:
 
 
 def _write_attribution(scores: pd.DataFrame, path: Path) -> None:
-    selected = scores[
-        (scores["policy"] == "R5")
-        & (scores["budget_pct"] == 2.0)
-        & (scores["population"] == "full")
-        & scores["admitted"]
-        & (scores["label"] >= 0.5)
-    ].drop_duplicates("event_id")
-    totals: dict[str, float] = {}
-    for features in selected["features_fired"]:
-        for name, value in features.get("hbos_terms", {}).items():
-            totals[name] = totals.get(name, 0.0) + float(value)
-    lines = ["# E1 feature attribution", "", "## HBOS contributions on true positives", ""]
-    lines.extend(f"- {name}: {value:.6f}" for name, value in sorted(totals.items(), key=lambda item: -item[1]))
-    lines.extend(["", "## Audited cases", ""])
-    for _, row in selected.head(10).iterrows():
-        terms = row["features_fired"].get("hbos_terms", {})
-        leading = sorted(terms.items(), key=lambda item: -float(item[1]))[:3]
-        lines.append(f"- `{row['event_id']}` ({row['subject']}): {leading}")
-    if selected.empty:
-        lines.append("- No true-positive R5 admissions in this smoke replay.")
+    lines = ["# E1 feature attribution", ""]
+    for policy in ("R5", "R8"):
+        selected = scores[
+            (scores["policy"] == policy)
+            & (scores["budget_pct"] == 2.0)
+            & (scores["population"] == "full")
+            & scores["admitted"]
+            & (~scores["rule_flag"].astype(bool))
+            & (scores["label"] >= 0.5)
+        ].drop_duplicates("event_id")
+        totals: dict[str, float] = {}
+        for features in selected["features_fired"]:
+            for name, value in features.get("hbos_terms", {}).items():
+                totals[name] = totals.get(name, 0.0) + float(value)
+        lines.extend([f"## {policy}: HBOS contributions on true-positive deviation admissions", ""])
+        lines.extend(f"- {name}: {value:.6f}" for name, value in sorted(totals.items(), key=lambda item: -item[1]))
+        lines.extend(["", f"### {policy}: audited cases", ""])
+        for _, row in selected.head(10).iterrows():
+            terms = row["features_fired"].get("hbos_terms", {})
+            leading = sorted(terms.items(), key=lambda item: -float(item[1]))[:3]
+            lines.append(f"- `{row['event_id']}` ({row['subject']}): {leading}")
+        if selected.empty:
+            lines.append(f"- No true-positive {policy} deviation admissions at 2%.")
+        lines.append("")
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+def _write_human_sanity_sample(
+    scores: pd.DataFrame, events: Sequence[EvalEvent], out_dir: Path, *, size: int = 100
+) -> Path:
+    """Write the spec's human sanity sample: top-scored rule-negative events.
+
+    Half comes from the guarded design condition (R8, eligible first), half from
+    the global scorer (R2); labels and scores go to a separate key file so the
+    annotator sheet is blind.
+    """
+
+    from harnext_eval.e1.labels import _text
+
+    by_id = {event.id: event for event in events}
+    picks: list[tuple[str, str, float]] = []
+    seen: set[str] = set()
+    for policy, order in (("R8", ["eligible", "score"]), ("R2", ["score"])):
+        subset = scores[
+            (scores["policy"] == policy)
+            & (scores["budget_pct"] == 2.0)
+            & (scores["population"] == "full")
+            & (~scores["rule_flag"].astype(bool))
+            & scores["label"].notna()
+        ].drop_duplicates("event_id")
+        if subset.empty:
+            continue
+        ranked = subset.sort_values(order, ascending=[False] * len(order))
+        for _, row in ranked.iterrows():
+            if len([pick for pick in picks if pick[0] == policy]) >= size // 2:
+                break
+            event_id = str(row["event_id"])
+            if event_id in seen:
+                continue
+            seen.add(event_id)
+            picks.append((policy, event_id, float(row["score"])))
+    rows: list[dict[str, Any]] = []
+    keys: list[dict[str, Any]] = []
+    labels = scores.drop_duplicates("event_id").set_index("event_id")["label"]
+    for item, (policy, event_id, score) in enumerate(picks, start=1):
+        event = by_id.get(event_id)
+        text = _text(event) if event is not None else ""
+        rows.append(
+            {
+                "item": item,
+                "event_id": event_id,
+                "source": event.source if event is not None else "",
+                "subject": event.subject if event is not None else "",
+                "type": event.type if event is not None else "",
+                "time": event.time.isoformat() if event is not None else "",
+                "excerpt": text[:600],
+                "would_interrupt_annotator_1": "",
+                "would_interrupt_annotator_2": "",
+            }
+        )
+        keys.append(
+            {
+                "item": item,
+                "event_id": event_id,
+                "policy": policy,
+                "score": score,
+                "p_urgent": float(labels.get(event_id, float("nan"))),
+            }
+        )
+    path = out_dir / "human_sanity_sample.csv"
+    pd.DataFrame(rows).to_csv(path, index=False)
+    pd.DataFrame(keys).to_csv(out_dir / "human_sanity_key.csv", index=False)
+    return path
+
+
+def _metric_remediation(metrics: pd.DataFrame, *, design: str = "R8", floor: str = "R0") -> pd.DataFrame:
+    """Prospective kept/dropped record for every secondary metric (review finding 6).
+
+    A metric is kept when the design condition is separated from the random
+    floor by more than twice the paired standard error over evaluation months
+    (2% budget, rule-negative population, all sources). The always-flag ceiling
+    is reported next to it. The decision is mechanical and recorded before any
+    interpretation.
+    """
+
+    rows: list[dict[str, Any]] = []
+    selected = metrics[
+        (metrics["budget_pct"] == 2.0)
+        & (metrics["population"] == "rule_negative")
+        & (metrics["source"] == "all")
+    ]
+    for metric in _ROWINDEX_SECONDARY:
+        if metric not in selected.columns:
+            continue
+        pivot = selected.pivot_table(index="month", columns="policy", values=metric, aggfunc="first", observed=True)
+        row: dict[str, Any] = {"metric": metric, "design": design, "floor": floor}
+        for policy in (floor, "R5", design, "R7"):
+            row[f"mean_{policy}"] = float(pivot[policy].mean()) if policy in pivot.columns else float("nan")
+        if design in pivot.columns and floor in pivot.columns:
+            paired = (pivot[design] - pivot[floor]).dropna()
+            n = int(len(paired))
+            mean = float(paired.mean()) if n else float("nan")
+            se = float(paired.std(ddof=1) / math.sqrt(n)) if n > 1 else float("nan")
+            kept = bool(n >= 10 and math.isfinite(se) and abs(mean) > 2.0 * se)
+            row.update(paired_months=n, design_minus_floor=mean, standard_error=se, decision="kept" if kept else "dropped")
+            row["reason"] = (
+                "design separated from random floor by > 2 paired SE"
+                if kept
+                else "design not separated from the random floor (|mean| <= 2 SE or < 10 months); reported, not interpreted"
+            )
+        else:
+            row.update(paired_months=0, design_minus_floor=float("nan"), standard_error=float("nan"), decision="dropped", reason="policy rows missing")
+        rows.append(row)
+    return pd.DataFrame(rows)
+
+
+def _rule_exempt_capacity_respected(scores: pd.DataFrame) -> bool:
+    """R8/R9 deviation (non-mandatory) admissions never exceed the month capacity."""
+
+    subset = scores[scores["policy"].isin(sorted(RULE_EXEMPT_POLICIES)) & (scores["population"] == "full")]
+    if subset.empty:
+        return True
+    deviation = (subset["admitted"].astype(bool) & ~subset["mandatory"].astype(bool)).astype(int)
+    grouped = subset.assign(_deviation=deviation).groupby(["month", "policy", "budget_pct"], observed=True)
+    return bool((grouped["_deviation"].sum() <= grouped["capacity"].first()).all())
+
+
+def _text_provenance(events: Sequence[EvalEvent]) -> dict[str, Any]:
+    """Count events whose payload text was edited after the event time (review finding 7)."""
+
+    edited = 0
+    dated = 0
+    for event in events:
+        data = event.data or {}
+        stamp = data.get("updated") or data.get("updated_at")
+        if not isinstance(stamp, str) or not stamp:
+            continue
+        dated += 1
+        try:
+            parsed = pd.Timestamp(stamp)
+            parsed = parsed.tz_convert("UTC") if parsed.tzinfo else parsed.tz_localize("UTC")
+        except (ValueError, TypeError):
+            continue
+        if parsed > pd.Timestamp(event.time):
+            edited += 1
+    return {
+        "events": len(events),
+        "with_edit_timestamp": dated,
+        "edited_after_event_time": edited,
+        "note": (
+            "summary/description/comment/PR text is export-time snapshot text; edits after t "
+            "cannot be reconstructed from the sources and are declared as a limitation"
+        ),
+    }
 
 
 def _write_charts(calibration: pd.DataFrame, metrics: pd.DataFrame, out_dir: Path) -> list[Path]:
@@ -1069,7 +1270,7 @@ class E1Experiment:
                 (name, tuning, evaluation, cfg, seed + month_index, event_labels,
                  exact_labels is not None, budgets)
                 for name in _POLICIES
-                for budgets in ([(budget,) for budget in _BUDGETS] if name == "R5" else [_BUDGETS])
+                for budgets in ([(budget,) for budget in _BUDGETS] if name in GUARDED_POLICIES else [_BUDGETS])
             ]
             workers = int(corpus.meta.get("e1_workers", os.environ.get("HARNEXT_E1_WORKERS", "4")))
             if len(events) >= 5_000 and workers > 1 and "fork" in multiprocessing.get_all_start_methods():
@@ -1112,6 +1313,7 @@ class E1Experiment:
         for identifiers, group in _population_groups(scores):
             known = group[group["label"].notna()]
             flipped = flip_labels(known["label"], seed=seed)
+            swapped = swap_labels(known["label"], seed=seed)
             robustness_rows.append(
                 {
                     "month": identifiers[0],
@@ -1120,12 +1322,45 @@ class E1Experiment:
                     "population": identifiers[3],
                     "recall_label_flip": recall_at_budget(flipped, known["admitted"]),
                     "precision_label_flip": precision_at_budget(flipped, known["admitted"]),
+                    # Prevalence-preserving perturbation (review finding 10).
+                    "recall_label_swap": recall_at_budget(swapped, known["admitted"]),
+                    "precision_label_swap": precision_at_budget(swapped, known["admitted"]),
                 }
             )
         robustness = pd.DataFrame(robustness_rows)
-        delays, situation_robustness = _situation_metrics(scores, situations, seed=seed)
-        if not situation_robustness.empty:
-            robustness = pd.concat([robustness, situation_robustness], ignore_index=True)
+        situation_sets: list[tuple[str, pd.DataFrame]] = []
+        if not situations.empty:
+            situation_sets.append(("constructed", situations))
+        elif exact_labels is None:
+            # Real corpus: derive timestamped, subject-separated situations from the
+            # labels (review finding 8) for the full and rule-negative populations.
+            reference = scores[
+                (scores["policy"] == "R1")
+                & (scores["budget_pct"] == 2.0)
+                & (scores["population"] == "full")
+                & scores["label"].notna()
+            ].drop_duplicates("event_id")
+            gap_hours = float(corpus.meta.get("e1_label_situation_gap_hours", 24.0))
+            situation_sets.append(("full", label_situations(reference, gap_hours=gap_hours)))
+            situation_sets.append(
+                (
+                    "rule_negative",
+                    label_situations(reference[~reference["rule_flag"].astype(bool)], gap_hours=gap_hours),
+                )
+            )
+        delay_parts: list[pd.DataFrame] = []
+        for population, situation_frame in situation_sets:
+            delays_part, situation_robustness = _situation_metrics(
+                scores, situation_frame, seed=seed, population=population
+            )
+            if not delays_part.empty:
+                delay_parts.append(delays_part)
+            if not situation_robustness.empty:
+                robustness = pd.concat([robustness, situation_robustness], ignore_index=True)
+        delays = pd.concat(delay_parts, ignore_index=True) if delay_parts else pd.DataFrame()
+        label_situation_frame = next(
+            (frame for name, frame in situation_sets if name == "rule_negative"), pd.DataFrame()
+        )
 
         evaluated = scores[
             (scores["policy"] == "R0")
@@ -1133,14 +1368,32 @@ class E1Experiment:
             & (scores["population"] == "full")
             & scores["label"].notna()
         ].drop_duplicates("event_id")
+        evaluated = evaluated.sort_values(["t", "event_id"])
+        relative_tolerance = corpus.meta.get("e1_sanity_relative_tolerance")
         random_check = random_sanity_scorer(
             evaluated["label"],
             budget_pct=2.0,
             seed=seed,
             max_buffer=_VUS_MAX_BUFFER,
+            # Matched geometry with the reported monthly VUS (review finding 6).
+            timestamps=evaluated["t"] if relative_tolerance is not None else None,
+            vus_repeats=20 if len(evaluated) >= 50_000 else None,
         )
         always_check = always_flag_sanity_scorer(
             evaluated["label"], max_buffer=_VUS_MAX_BUFFER
+        )
+
+        def _near(value: float, target: float) -> bool:
+            if relative_tolerance is None:
+                return abs(value - target) <= 0.05
+            if not (math.isfinite(value) and math.isfinite(target)) or target <= 0:
+                return False
+            return abs(value / target - 1.0) <= float(relative_tolerance)
+
+        sanity_reason = (
+            f"uniform random value must be within {float(relative_tolerance):.0%} (relative) of prevalence"
+            if relative_tolerance is not None
+            else "uniform random value must be within 0.05 of prevalence"
         )
         random_vus_applicable = bool(
             len(evaluated) >= 200 and (evaluated["label"] >= 0.5).sum() >= 5
@@ -1168,10 +1421,25 @@ class E1Experiment:
         label_result.diagnostics.to_csv(diagnostics_path)
         robustness.to_csv(robustness_path, index=False)
         delays.to_csv(delays_path, index=False)
+        if not label_situation_frame.empty:
+            label_situation_frame.to_csv(out_dir / "label_situations.csv", index=False)
         preflight = _preflight(corpus, situations)
         preflight.to_csv(preflight_path, index=False)
         attribution_path = out_dir / "attribution.md"
         _write_attribution(scores, attribution_path)
+        remediation_frame = _metric_remediation(metrics)
+        remediation_path = out_dir / "metric_remediation.csv"
+        remediation_frame.to_csv(remediation_path, index=False)
+        human_sample_path = _write_human_sanity_sample(scores, original_events, out_dir)
+        if exact_labels is None:
+            # Votes make the registered post-hoc label-definition sensitivity
+            # computable from the run outputs alone (review finding 2).
+            votes_path = out_dir / "label_votes.parquet"
+            try:
+                label_result.votes.astype("int8").to_parquet(votes_path)
+            except (ImportError, ValueError):
+                label_result.votes.to_csv(out_dir / "label_votes.csv")
+        provenance = _text_provenance(original_events)
         harm, harm_evidence = _run_harm_check(corpus, cfg, events, scores, out_dir)
         harm_path = out_dir / "harm.csv"
         harm.to_csv(harm_path, index=False)
@@ -1187,14 +1455,16 @@ class E1Experiment:
         }
         check_details: dict[str, dict[str, Any]] = {}
         required_results: list[bool] = []
+        check_metrics["random_precision_sd"] = random_check.precision_sd
+        check_metrics["random_recall_sd"] = random_check.recall_sd
         _add_gate(
             check_metrics,
             check_details,
             required_results,
             "random_precision_at_prevalence",
-            passed=abs(random_check.precision - random_check.prevalence) <= 0.05,
+            passed=_near(random_check.precision, random_check.prevalence),
             value=random_check.precision,
-            reason="uniform random precision must be within 0.05 of prevalence",
+            reason=sanity_reason.replace("value", "precision"),
         )
         _add_gate(
             check_metrics,
@@ -1202,13 +1472,13 @@ class E1Experiment:
             required_results,
             "random_vus_at_prevalence",
             passed=(
-                abs(random_check.vus_pr - random_check.prevalence) <= 0.05
+                _near(random_check.vus_pr, random_check.prevalence)
                 if random_vus_applicable
                 else None
             ),
             value=random_check.vus_pr if random_vus_applicable else None,
             reason=(
-                "same-buffer random VUS-PR must be within 0.05 of prevalence"
+                sanity_reason.replace("value", "same-geometry VUS-PR")
                 if random_vus_applicable
                 else "requires at least 200 labelled events and five positives"
             ),
@@ -1236,14 +1506,20 @@ class E1Experiment:
                 "r5_ineligible_never_admitted",
                 not bool(
                     scores[
-                        (scores["policy"] == "R5")
+                        scores["policy"].isin(sorted(GUARDED_POLICIES))
                         & ~scores["eligible"]
                         & ~scores["mandatory"]
                         & scores["admitted"]
                     ].shape[0]
                 ),
                 None,
-                "R5 deviation admissions must carry both published guards",
+                "R5/R8/R9 deviation admissions must carry both published guards",
+            ),
+            (
+                "rule_exempt_capacity_respected",
+                _rule_exempt_capacity_respected(scores),
+                int(scores[scores["policy"].isin(sorted(RULE_EXEMPT_POLICIES))]["rules_outside_budget"].max()),
+                "R8/R9 deviation admissions are capped at the shared monthly capacity; rule hits sit outside it",
             ),
             (
                 "r7_always_fast",
@@ -1265,7 +1541,7 @@ class E1Experiment:
             )
 
         compared = scores[
-            scores["policy"].isin([f"R{index}" for index in range(7)])
+            scores["policy"].isin(list(_SHARED_BUDGET_POLICIES))
             & (scores["population"] == "full")
         ]
         capacity_respected = bool(
@@ -1294,9 +1570,26 @@ class E1Experiment:
         )
 
         label_required = exact_labels is None
+        support_min = int(corpus.meta.get("e1_label_positive_support_min", 0) or 0)
         for function, row in label_result.diagnostics.iterrows():
             accuracy = float(row["accuracy"])
             coverage = float(row["coverage"])
+            if support_min > 0:
+                support = int(row["positive_votes"])
+                _add_gate(
+                    check_metrics,
+                    check_details,
+                    required_results,
+                    f"lf.{function}.positive_support",
+                    passed=(support >= support_min if label_required else None),
+                    value=support,
+                    reason=(
+                        f"LF must cast at least {support_min} positive votes to be informative (review finding 3)"
+                        if label_required
+                        else "constructed exact gold does not use weak-label diagnostics"
+                    ),
+                    required=label_required,
+                )
             _add_gate(
                 check_metrics,
                 check_details,
@@ -1408,6 +1701,13 @@ class E1Experiment:
             reason="100 top rule-negative items require two annotators and reported kappa",
         )
         remediation = corpus.meta.get("metric_remediation")
+        if remediation is None and not remediation_frame.empty:
+            remediation = {
+                "path": str(remediation_path),
+                "kept": remediation_frame.loc[remediation_frame["decision"] == "kept", "metric"].tolist(),
+                "dropped": remediation_frame.loc[remediation_frame["decision"] == "dropped", "metric"].tolist(),
+                "criterion": "design (R8) minus random (R0), paired over months at 2%/rule-negative, |mean| > 2 SE",
+            }
         _add_gate(
             check_metrics,
             check_details,
@@ -1415,7 +1715,30 @@ class E1Experiment:
             "metric_remediation_recorded",
             passed=bool(remediation) if remediation is not None else None,
             value=remediation,
-            reason="floor-near-R5 metrics require an explicit kept/dropped action record",
+            reason="floor-near-design metrics require an explicit kept/dropped action record",
+        )
+        _add_gate(
+            check_metrics,
+            check_details,
+            required_results,
+            "historical_text_provenance",
+            passed=None,
+            value=provenance,
+            reason=(
+                "rule/feature/label text is export-time snapshot text (review finding 7); "
+                "components are replayed as-of-event, text edits cannot be; declared limitation"
+            ),
+            required=False,
+        )
+        _add_gate(
+            check_metrics,
+            check_details,
+            required_results,
+            "human_sanity_sample_written",
+            passed=None,
+            value=str(human_sample_path),
+            reason="blind annotator sheet for the 100-item human sanity check; annotate then rerun with human_sanity meta",
+            required=False,
         )
         corpus_ok = bool((preflight["status"] == "run").all())
         _add_gate(
@@ -1522,6 +1845,14 @@ class E1Experiment:
         chart_paths = _write_charts(calibration, metrics, out_dir)
         primary = _paired_primary(scores, seed)
         primary["prereg_hash"] = corpus.meta.get("prereg_hash")
+        rule_reference = scores[
+            (scores["policy"] == "R1") & (scores["budget_pct"] == 2.0) & (scores["population"] == "full")
+        ]
+        primary["rule_hit_rate"] = (
+            float(rule_reference["rule_flag"].astype(bool).mean()) if not rule_reference.empty else float("nan")
+        )
+        primary["rule_hits"] = int(rule_reference["rule_flag"].astype(bool).sum())
+        primary["metric_remediation"] = remediation
         primary["committer_matches"] = committer_counts
         primary["fit_window_months"] = 12
         primary["window"] = [str(value) for value in window] if window else None
@@ -1536,6 +1867,8 @@ class E1Experiment:
             preflight_path,
             attribution_path,
             harm_path,
+            remediation_path,
+            human_sample_path,
             out_dir / "validity.csv",
             *chart_paths,
         ]
@@ -1567,6 +1900,7 @@ class E1Experiment:
                 "preflight": preflight,
                 "harm": harm,
                 "validity": validity,
+                "metric_remediation": remediation_frame,
             },
             artifacts=artifacts,
             primary=primary,

@@ -37,6 +37,10 @@ class RuleSettings:
     enabled: bool = True
     dispute_amount: float = 1_000.0
     vote_thread_start_only: bool = False
+    dedup_per_subject: bool = False
+    """Amendment 2026-09-06 (review finding 4): a rule fires once per (subject, rule)
+    within a policy instance's stream, so repeated notifications of one incident do
+    not re-consume the fast lane."""
 
 
 _DEFAULT_RULE_SETTINGS = RuleSettings()
@@ -138,13 +142,28 @@ class _PolicyBase:
         self.feature_cache: dict[str, list[FeatureVector]] | None = None
         self.baseline_key_used: str | None = None
         self.features_fired: dict[str, Any] = {}
+        self._rule_seen: set[tuple[str, str]] = set()
+        self._rule_cache: dict[str, str | None] = {}
 
     def fit(self, events: Sequence[EvalEvent]) -> _PolicyBase:
         del events
         return self
 
     def rules(self, event: EvalEvent) -> str | None:
-        return match_rule(event, self.rule_settings)
+        """Rule verdict for one event; idempotent per event id so dedup state is stable."""
+
+        cached = self._rule_cache.get(event.id, "__unset__")
+        if cached != "__unset__":
+            return cached  # type: ignore[return-value]
+        rule = match_rule(event, self.rule_settings)
+        if rule and self.rule_settings.dedup_per_subject:
+            key = (event.subject, rule)
+            if key in self._rule_seen:
+                rule = None
+            else:
+                self._rule_seen.add(key)
+        self._rule_cache[event.id] = rule
+        return rule
 
     def score(self, event: EvalEvent) -> float:
         raise NotImplementedError
@@ -326,11 +345,19 @@ class GuardedHBOSPolicy(EntityHBOSPolicy):
         multi_window: bool = True,
         budget_pct: float = 2.0,
         rules: RuleSettings = _DEFAULT_RULE_SETTINGS,
+        any_key: bool = False,
+        name: str | None = None,
     ) -> None:
         super().__init__(rules=rules)
+        if name is not None:
+            self.name = name
         self.absolute_floor = absolute_floor
         self.multi_window = multi_window
         self.budget_pct = budget_pct
+        # Amendment 2026-09-06 (review finding 5): with ``any_key`` an event is
+        # eligible when any of its baseline keys passes both guards (registered
+        # R5 uses only the maximum-scoring key's guards).
+        self.any_key = any_key
         self.threshold = float("inf")
         self._previous_anomaly_window: dict[str, float] = {}
         self._confirmed_windows: set[tuple[str, float]] = set()
@@ -371,6 +398,10 @@ class GuardedHBOSPolicy(EntityHBOSPolicy):
                 self._previous_anomaly_window.pop(vector.baseline_key, None)
             candidates.append((raw, vector, confirmed, enough_volume))
         value, vector, confirmed, enough_volume = max(candidates, key=lambda item: item[0])
+        if self.any_key:
+            passing = [item for item in candidates if item[2] and item[3]]
+            if passing:
+                value, vector, confirmed, enough_volume = max(passing, key=lambda item: item[0])
         return self._record(
             vector,
             value,
@@ -450,7 +481,14 @@ POLICY_CLASSES = {
     "R5": GuardedHBOSPolicy,
     "R6": EntityLOFPolicy,
     "R7": AlwaysFastPolicy,
+    "R8": GuardedHBOSPolicy,
+    "R9": GuardedHBOSPolicy,
 }
+
+# Guarded per-entity HBOS conditions whose operating threshold depends on the budget.
+GUARDED_POLICIES = frozenset({"R5", "R8", "R9"})
+# Conditions whose rule hits are admitted outside the budget (amendment 2026-09-06).
+RULE_EXEMPT_POLICIES = frozenset({"R8", "R9"})
 
 
 def make_policy(
@@ -463,10 +501,15 @@ def make_policy(
         enabled=cfg.rules.enabled,
         dispute_amount=float(getattr(cfg.rules, "dispute_amount", 1_000.0)),
         vote_thread_start_only=bool(getattr(cfg.rules, "vote_thread_start_only", False)),
+        dedup_per_subject=bool(getattr(cfg.rules, "dedup_per_subject", False)),
     )
     if normalized == "R0":
         return RandomPolicy(seed=seed, rules=settings)
-    if normalized == "R5":
+    if normalized in GUARDED_POLICIES:
+        # R5 is the registered design (rules share the budget). R8 is the same
+        # scorer and guards with rule hits admitted outside the budget (the rule
+        # floor is the operator's choice; the deviation layer gets the whole
+        # budget). R9 additionally lets any baseline key satisfy the guards.
         return GuardedHBOSPolicy(
             absolute_floor=max(cfg.guards.absolute_floor, 3.0),
             # R5 is the guarded condition even when the engine profile under
@@ -474,6 +517,8 @@ def make_policy(
             multi_window=True,
             budget_pct=budget_pct or cfg.budget_pct,
             rules=settings,
+            any_key=normalized == "R9",
+            name=normalized,
         )
     try:
         policy_class = POLICY_CLASSES[normalized]
@@ -490,12 +535,17 @@ def budgeted_decisions(
     tuning_scores: Sequence[float],
     eligible: Sequence[bool] | None = None,
     mandatory: Sequence[bool] | None = None,
+    exempt: bool = False,
 ) -> pd.DataFrame:
     """Select the stable top b% in a month; theta comes only from tuning scores.
 
     The monthly capacity is exact (up to integer rounding).  `theta` is an
     out-of-sample diagnostic operating threshold and never reads evaluation
     labels; ties at the capacity boundary are broken by event id.
+
+    With ``exempt=True`` the mandatory rows are admitted without consuming the
+    capacity (rule hits outside the budget); ``rules_outside_budget`` records
+    how many such admissions were made so the rule cost stays visible.
     """
 
     if len(event_ids) != len(scores):
@@ -534,17 +584,22 @@ def budgeted_decisions(
     # month capacity, the month is explicitly infeasible and deterministic
     # event-id tie breaking selects the capacity-sized audit sample.
     admitted: set[int] = set()
+    outside: set[int] = set()
     for index in order:
+        if exempt and required[index]:
+            outside.add(index)
+            continue
         if len(admitted) >= capacity:
             break
         if allowed[index]:
             admitted.add(index)
     rank = {index: position + 1 for position, index in enumerate(order)}
+    required_in_budget = 0 if exempt else int(required.sum())
     return pd.DataFrame(
         {
             "event_id": list(event_ids),
             "score": np.asarray(scores, dtype=float),
-            "admitted": [index in admitted for index in range(count)],
+            "admitted": [index in admitted or index in outside for index in range(count)],
             "rank": [rank[index] for index in range(count)],
             "theta": theta,
             "above_tuning_theta": [float(value) >= theta for value in scores],
@@ -552,8 +607,9 @@ def budgeted_decisions(
             "mandatory": required,
             "capacity": capacity,
             "unused_capacity": max(capacity - len(admitted), 0),
-            "rules_over_budget": max(int(required.sum()) - capacity, 0),
-            "budget_feasible": int(required.sum()) <= capacity,
+            "rules_over_budget": max(required_in_budget - capacity, 0),
+            "budget_feasible": required_in_budget <= capacity,
+            "rules_outside_budget": len(outside),
         }
     )
 

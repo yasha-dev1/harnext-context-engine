@@ -555,15 +555,21 @@ def fit_label_model(
         overlap = covered & np.any(other != ABSTAIN, axis=1)
         conflict = covered & np.any((other != ABSTAIN) & (other != matrix[:, column, None]), axis=1)
         observed = observability[name].to_numpy(dtype=bool)
+        accuracy = float(model.accuracies_[column])
+        positive_votes = int(np.sum(matrix[:, column] == POSITIVE))
         diagnostics.append(
             {
                 "function": name,
-                "accuracy": float(model.accuracies_[column]),
+                "accuracy": accuracy,
+                # The model clips accuracies to [0.05, 0.95]; a value at the cap is a
+                # bound, not a measured accuracy (review finding 2).
+                "accuracy_at_cap": bool(accuracy >= 0.95 - 1e-9 or accuracy <= 0.05 + 1e-9),
                 "coverage": float(covered.mean()) if len(matrix) else 0.0,
                 "overlap": float(overlap.mean()) if len(matrix) else 0.0,
                 "conflict": float(conflict.sum() / max(overlap.sum(), 1)),
-                "positive_votes": int(np.sum(matrix[:, column] == POSITIVE)),
+                "positive_votes": positive_votes,
                 "negative_votes": int(np.sum(matrix[:, column] == NEGATIVE)),
+                "positive_rate": float(positive_votes / max(int(covered.sum()), 1)),
                 "unknown": int(np.sum(~observed)),
             }
         )

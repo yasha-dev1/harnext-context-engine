@@ -582,6 +582,9 @@ def run_command(
     handle = replace(handle, meta={
         **handle.meta, "smoke": smoke, "e1_only": e1_only, "e1_window": window,
         "e1_exclude_label_functions": list(cfg.e1.exclude_label_functions),
+        "e1_label_positive_support_min": int(cfg.e1.label_positive_support_min),
+        "e1_sanity_relative_tolerance": cfg.e1.sanity_relative_tolerance,
+        "e1_label_situation_gap_hours": float(cfg.e1.label_situation_gap_hours),
         **prereg_meta,
     })
     resolved = cfg.model_dump(mode="json")

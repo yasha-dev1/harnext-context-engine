@@ -126,7 +126,7 @@ def test_excluded_label_function_is_dropped_and_registered(tmp_path) -> None:
     replay = tmp_path / "real.jsonl"
     write_replay(events, replay)
     cfg = load_config("apps/eval/configs/e1-kafka.yaml")
-    assert set(cfg.e1.exclude_label_functions) == {"github_trunk_ci_failure_fix_6h", "jira_fix_version_in_flight_later"}
+    assert set(cfg.e1.exclude_label_functions) == {"github_trunk_ci_failure_fix_6h", "jira_fix_version_in_flight_later", "dev_vote_cancelled_recast_later"}
     corpus = _handle_for_replay(replay, "kafka")
     corpus = replace(corpus, meta={
         **corpus.meta, "e1_only": True,

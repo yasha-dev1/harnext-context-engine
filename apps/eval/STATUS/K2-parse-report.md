@@ -1,6 +1,6 @@
 # K2 full JIRA/mail parse report
 
-Parsed on 2026-09-05.
+Parsed on 2026-09-06.
 
 Counts below are deduplicated by event ID; sorted raw paths use last occurrence.
 Inconsistencies count distinct issues per field across all snapshots.
@@ -41,5 +41,5 @@ Distinct inconsistent issues: 0.
 
 Failed files/months: none
 
-Output: `parsed/mail.jsonl`; SHA-256: `1b0d1ef42f555a63ca83e0c57756540afd10bdce49fb4564538f7da77592b9b8`.
+Output: `parsed/mail.jsonl`; SHA-256: `defb77937a0fd68ca42917dc8ca8eb2f07f74dee822d0910d7ac144c5ad5df24`.
 

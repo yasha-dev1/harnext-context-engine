@@ -68,3 +68,53 @@ fired on every reply. These are corrected prospectively and registered as **run 
 priority. The label-fusion model is **unchanged** in run 2 (registered weighted model, p ≥ 0.5);
 alternative fusion rules are reported as post-hoc sensitivity only
 (`apps/eval/scripts/e1_label_sensitivity.py`) pending the human sanity sample.
+
+## Amendment 2026-09-06, run 3 (appended; the registration block above is unchanged)
+
+Run 2 (registered in `PREREG-run2.md`) executed on the laptop; its outputs are not on the machine
+that runs run 3 and it is superseded. Run 3 addresses the remaining review findings
+(`apps/eval/STATUS/REVIEW-E1-KAFKA.md`) prospectively and is registered in `PREREG-run3.md`
+against a freshly rebuilt replay (the GitHub snapshot is re-fetched, so the replay hash changes).
+
+Changes registered for run 3, each tied to a review finding:
+
+1. **Finding 7 (provenance).** JIRA `components` and the `component:` baseline keys are replayed
+   as of each event from the changelog (`corpus/jira.py::_components_timeline`), never taken from
+   the export-time snapshot. Summary/description/comment/PR text remains snapshot text; the run
+   records an informational `historical_text_provenance` gate with the count of payloads edited
+   after event time and the thesis states it as a limitation.
+2. **Finding 4 (rule semantics).** In addition to run 2's `[VOTE]` thread-start and
+   `→ Critical` transition fixes, `rules.dedup_per_subject = true`: each (subject, rule) fires once
+   per evaluation month, so repeated notifications of one incident do not re-consume the lane.
+3. **Findings 4/5 and the rule-accounting question (rule cost vs. scorer budget).** Two new
+   registered conditions: **R8** = R5's scorer and guards with rule hits admitted *outside* the
+   budget (`rules_outside_budget` reported; deviation admissions capped at the same monthly
+   capacity as R0–R6), and **R9** = R8 with any-key guard eligibility. R5 is retained unchanged as
+   the original design. Registered contrasts: R5−R1, R5−R2, R8−R2, R9−R2, R8−R5, and the
+   scorer bake-off against the random floor (R2−R0, R4−R0, R8−R0, R9−R0). The primary metric
+   and population are unchanged (recall@2 % on rule-negative events).
+4. **Finding 3 (vacuous coverage gate).** New gate `label_positive_support_min = 20` positive
+   votes per LF; `dev_vote_cancelled_recast_later` (7 positives in run 1) is excluded before
+   fitting. Diagnostics add `positive_rate` and `accuracy_at_cap` (0.95 is the model's clip).
+5. **Finding 2 (label fusion).** The registered label stays the weighted model at p ≥ 0.5. Four
+   label definitions are registered for post-hoc sensitivity of the primary metric
+   (`prereg.LABEL_DEFINITIONS`: weighted_model_p50, any_outcome_lf, two_outcome_lfs,
+   half_of_votes; script `scripts/e1_label_definition_sensitivity.py` over `label_votes.parquet`).
+   None replaces the registered label without the human sanity sample.
+6. **Finding 6 (sanity tolerance, remediation).** Random-scorer gates use a relative tolerance
+   (`sanity_relative_tolerance = 0.5`) and the random VUS uses the same timestamp geometry as the
+   reported metric. `metric_remediation.csv` records kept/dropped for every secondary metric by a
+   mechanical criterion (R8 − R0 paired over months at 2 %/rule-negative, |mean| > 2 SE).
+7. **Finding 8 (lateness geometry).** Row-index affiliation/NAB are reported only as
+   `*_rowindex`. Timestamped, subject-separated situations are derived from consecutive positives
+   (`label_situation_gap_hours = 24`) and drive affiliation P/R and detection delay per policy and
+   budget for the full and rule-negative populations.
+8. **Finding 9 (clustering, human sample).** The paired bootstrap is reported with subject
+   clusters and, as sensitivity, calendar-month clusters. The run writes the blind
+   `human_sanity_sample.csv` (50 top R8-eligible + 50 top R2 rule-negative events) and a key file;
+   the gate stays not-run until two annotators fill it in.
+9. **Finding 10.** Calibration adds the binary empirical rate per decile; robustness adds a
+   prevalence-preserving swap perturbation next to the registered uniform flip.
+
+Not changed: budgets, window, fit window, primary metric/population, label model, the R5
+guards (retained as the registered ablation; not tuned on these months).

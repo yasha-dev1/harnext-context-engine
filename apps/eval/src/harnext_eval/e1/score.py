@@ -523,6 +523,8 @@ class SanityScores:
     precision: float
     recall: float
     vus_pr: float
+    precision_sd: float = float("nan")
+    recall_sd: float = float("nan")
 
 
 def random_sanity_scorer(
@@ -532,26 +534,39 @@ def random_sanity_scorer(
     seed: int = 0,
     repeats: int = 200,
     max_buffer: int = 5,
+    timestamps: Sequence[object] | None = None,
+    vus_repeats: int | None = None,
 ) -> SanityScores:
+    """Uniform-random scorer floors.
+
+    ``timestamps`` makes the VUS-PR geometry match the reported monthly metric
+    (amendment 2026-09-06, review finding 6). ``vus_repeats`` bounds the number of
+    VUS evaluations, which are far costlier than precision/recall at 400k events.
+    """
+
     labels = np.asarray(y_true, dtype=float)
     count = max(1, int(round(len(labels) * budget_pct / 100.0))) if len(labels) else 0
     rng = np.random.default_rng(seed)
     precision: list[float] = []
     recall: list[float] = []
     vus: list[float] = []
-    for _ in range(repeats):
+    vus_budget = repeats if vus_repeats is None else vus_repeats
+    for repeat in range(repeats):
         values = rng.random(len(labels))
         admitted = np.zeros(len(labels), dtype=bool)
         if count:
             admitted[np.argsort(-values)[:count]] = True
         precision.append(precision_at_budget(labels, admitted))
         recall.append(recall_at_budget(labels, admitted))
-        vus.append(vus_pr(labels, values, max_buffer=max_buffer))
+        if repeat < vus_budget:
+            vus.append(vus_pr(labels, values, max_buffer=max_buffer, timestamps=timestamps))
     return SanityScores(
         prevalence=float(np.mean(labels >= 0.5)) if len(labels) else float("nan"),
         precision=float(np.nanmean(precision)),
         recall=float(np.nanmean(recall)),
-        vus_pr=float(np.nanmean(vus)),
+        vus_pr=float(np.nanmean(vus)) if vus else float("nan"),
+        precision_sd=float(np.nanstd(precision)),
+        recall_sd=float(np.nanstd(recall)),
     )
 
 
@@ -579,6 +594,75 @@ def flip_labels(y_true: Sequence[float], *, fraction: float = 0.1, seed: int = 0
         indices = rng.choice(len(labels), count, replace=False)
         labels[indices] = 1 - labels[indices]
     return labels
+
+
+def swap_labels(y_true: Sequence[float], *, fraction: float = 0.1, seed: int = 0) -> np.ndarray:
+    """Prevalence-preserving label noise (amendment 2026-09-06, review finding 10).
+
+    Flips a seeded ``fraction`` of the positives to negative and the same number
+    of negatives to positive, so the class balance of the sparse positive set is
+    kept instead of being multiplied ~100x as the registered uniform flip does.
+    """
+
+    labels = (np.asarray(y_true, dtype=float) >= 0.5).astype(int)
+    rng = np.random.default_rng(seed)
+    positives = np.flatnonzero(labels == 1)
+    negatives = np.flatnonzero(labels == 0)
+    count = min(int(round(len(positives) * fraction)), len(negatives))
+    if count:
+        labels[rng.choice(positives, count, replace=False)] = 0
+        labels[rng.choice(negatives, count, replace=False)] = 1
+    return labels
+
+
+def label_situations(
+    frame: pd.DataFrame,
+    *,
+    gap_hours: float = 24.0,
+    label_col: str = "label",
+    entity_col: str = "subject",
+    time_col: str = "t",
+    id_col: str = "event_id",
+) -> pd.DataFrame:
+    """Derive timestamped situations from event labels on a real corpus.
+
+    Consecutive positives on the same subject closer than ``gap_hours`` form one
+    situation (onset = first positive, end = last positive). This gives the
+    entity-separated, elapsed-time lateness metrics a real-corpus input
+    (amendment 2026-09-06, review finding 8).
+    """
+
+    columns = ["situation_id", "event_id", "entity", "onset", "end", "label", "cost_weight", "n_events"]
+    if frame.empty:
+        return pd.DataFrame(columns=columns)
+    positives = frame[frame[label_col].astype(float) >= 0.5].copy()
+    if positives.empty:
+        return pd.DataFrame(columns=columns)
+    positives["_time"] = pd.to_datetime(positives[time_col], utc=True)
+    positives = positives.sort_values(by=[entity_col, "_time", id_col])  # pyright: ignore[reportCallIssue]
+    gap = pd.Timedelta(hours=gap_hours)
+    rows: list[dict[str, object]] = []
+    for entity, group in positives.groupby(entity_col, sort=True, observed=True):
+        onset = end = None
+        first_id = None
+        size = 0
+        for event_id, when in zip(group[id_col], group["_time"], strict=True):
+            if onset is None or when - end > gap:
+                if onset is not None:
+                    rows.append({"entity": entity, "onset": onset, "end": end, "event_id": first_id, "n_events": size})
+                onset, end, first_id, size = when, when, event_id, 1
+            else:
+                end, size = when, size + 1
+        rows.append({"entity": entity, "onset": onset, "end": end, "event_id": first_id, "n_events": size})
+    situations: pd.DataFrame = pd.DataFrame(rows)
+    order = np.lexsort((situations["entity"].to_numpy(), situations["onset"].to_numpy()))
+    situations = situations.iloc[order].reset_index(drop=True)  # pyright: ignore[reportCallIssue]
+    situations["situation_id"] = [f"label-situation-{index:05d}" for index in range(len(situations))]
+    situations["label"] = True
+    situations["cost_weight"] = 1.0
+    situations["entity"] = situations["entity"].astype(str)
+    situations["event_id"] = situations["event_id"].astype(str)
+    return pd.DataFrame(situations.loc[:, columns])
 
 
 def jitter_onsets(
