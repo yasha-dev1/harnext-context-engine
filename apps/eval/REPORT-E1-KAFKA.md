@@ -5,6 +5,22 @@ Run `20260905T185046Z-e1-kafka`, primary window 2022-01-01 → 2026-07-01 (pre-r
 loop; total model cost $0. Artifacts copied to `apps/eval/reports/e1-kafka/`
 (`out/` is git-ignored). Written 2026-09-05.
 
+> **Amendment 2026-09-06 — status after independent review.** The review in
+> `apps/eval/STATUS/REVIEW-E1-KAFKA.md` reproduces every number below (recall, admissions, the
+> R5 − R2 interval to 8 decimals) but finds that **the run cannot stand as thesis evidence
+> as-is**: (1) `jira_fix_version_in_flight_later` requires release-state fields that no event
+> carries, yet it cast 145,425 confident negative votes (blocker); (2) rule/feature/label text
+> comes from export-time snapshots (JIRA summaries/descriptions/comment bodies, PR titles/bodies,
+> final components as baseline keys), so timestamp ordering alone does not prove the text was
+> known at *t* (blocker); (3) the label model's symmetric negative voting makes urgency a
+> conjunction of rare outcomes (0.11 % prevalence) and 0.95 is its accuracy cap, not a measured
+> value; (4) the declared-priority rule misses `priority → Critical` transitions and `[VOTE]`
+> fires on every reply; (5) affiliation/NAB secondaries use row-index distance over pooled
+> streams; (6) the human sanity sample and metric-remediation record are still missing.
+> This run is therefore retained as **exploratory / invalid**, exactly as its own gates say. The
+> corrections are being registered as dated amendments and a second run will follow; the
+> section below is the record of the first run and is left unchanged.
+
 ## 1. Verdict
 
 **Claim C1 is not supported on Corpus R at the pre-registered budget.** The rule floor by itself

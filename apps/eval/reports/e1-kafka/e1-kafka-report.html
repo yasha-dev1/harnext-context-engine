@@ -91,7 +91,7 @@ img.fig{width:100%;max-width:640px;display:block;background:#fff;border-radius:2
 <header>
   <div class="eyebrow">Two-lane context engine · Evaluation E1 · Corpus R (real) · run 20260905T185046Z</div>
   <h1>Routing under a budget, on 387,403 real Kafka events</h1>
-  <p class="lede">Does a budgeted router with a rules floor, per-entity deviation scoring and guards admit the events humans later treated as urgent? On Apache Kafka, 2022–2026, it does not: the rules alone over-fill a 2 % budget and the deviation layer never finds a positive.</p>
+  <p class="lede">Run 1 of E1, now under amendment after independent review. Does a budgeted router with a rules floor, per-entity deviation scoring and guards admit the events humans later treated as urgent? On Apache Kafka, 2022–2026, it does not: the rules alone over-fill a 2 % budget and the deviation layer never finds a positive.</p>
   <div class="meta">
     <span>window <b>2022-01-01 → 2026-07-01</b></span>
     <span>events <b>387,403</b> · JIRA 142,708 · GitHub 210,336 · dev@ 34,359</span>
@@ -102,9 +102,20 @@ img.fig{width:100%;max-width:640px;display:block;background:#fff;border-radius:2
   </div>
 </header>
 
-<div class="verdict">
+<div class="verdict" style="border-left-color:var(--warn);margin-bottom:0">
   <div>
-    <h2>Claim C1 is not supported at the pre-registered budget</h2>
+    <h2>Independent review (2026-09-06): the numbers reproduce, the evidence does not yet stand</h2>
+    <p>A fresh reviewer re-derived every headline figure below to eight decimals and then found two blockers in the evaluation itself. One labelling function needs release-state fields that no event carries, yet it cast <strong>145,425 confident negative votes</strong>. And the text that rules, features and labels scan comes from export-time snapshots (JIRA summaries, comment bodies, PR titles, final components), so timestamps alone cannot prove it was known at decision time. Six further findings: the label model's symmetric negative voting makes urgency a conjunction of rare outcomes and 0.95 is its accuracy cap; the declared-priority rule misses <code>&rarr; Critical</code> transitions; <code>[VOTE]</code> fires on every reply; lateness secondaries use row-index distance; the human sanity sample and remediation record are missing.</p>
+  </div>
+  <div class="contrasts">
+    <div class="contrast"><span class="k">status of this run</span><span class="v" style="font-size:22px;padding-top:6px">exploratory &middot; invalid</span><span class="ci">kept unchanged as the record of run 1; corrections registered as dated amendments; run 2 follows</span></div>
+    <div class="contrast"><span class="k">review</span><span class="v" style="font-size:15px;font-family:var(--mono);font-weight:500;padding-top:8px">apps/eval/STATUS/REVIEW-E1-KAFKA.md</span><span class="ci">10 findings &middot; 2 blockers &middot; 7 major &middot; 1 minor &middot; audit scripts embedded</span></div>
+  </div>
+</div>
+
+<div class="verdict" style="margin-top:16px">
+  <div>
+    <h2>Run 1 verdict: claim C1 is not supported at the pre-registered budget</h2>
     <p>Primary metric: recall@2 % of revealed-urgent events on the <strong>rule-negative</strong> population (378 positives, 103 entity clusters). Our policy R5 admits none of them. It ties the rules-only floor exactly and loses to the un-keyed global HBOS baseline by 7 points with a confidence interval that excludes zero. Random admission at the same budget finds 2.4 %.</p>
   </div>
   <div class="contrasts">

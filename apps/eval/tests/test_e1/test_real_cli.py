@@ -126,7 +126,7 @@ def test_excluded_label_function_is_dropped_and_registered(tmp_path) -> None:
     replay = tmp_path / "real.jsonl"
     write_replay(events, replay)
     cfg = load_config("apps/eval/configs/e1-kafka.yaml")
-    assert cfg.e1.exclude_label_functions == ["github_trunk_ci_failure_fix_6h"]
+    assert set(cfg.e1.exclude_label_functions) == {"github_trunk_ci_failure_fix_6h", "jira_fix_version_in_flight_later"}
     corpus = _handle_for_replay(replay, "kafka")
     corpus = replace(corpus, meta={
         **corpus.meta, "e1_only": True,
@@ -135,12 +135,55 @@ def test_excluded_label_function_is_dropped_and_registered(tmp_path) -> None:
     result = E1Experiment().run(cfg.engine, corpus, tmp_path / "result", 1)
     assert "lf.github_trunk_ci_failure_fix_6h.coverage" not in result.check_details
     assert "github_trunk_ci_failure_fix_6h" not in set(result.tables["label_diagnostics"]["function"])
-    assert result.check_details["excluded_label_functions"]["value"] == ["github_trunk_ci_failure_fix_6h"]
+    assert "github_trunk_ci_failure_fix_6h" in result.check_details["excluded_label_functions"]["value"]
     reg = registration(replay, cfg, None)
-    assert reg["excluded_label_functions"] == ["github_trunk_ci_failure_fix_6h"]
+    assert set(reg["excluded_label_functions"]) == set(cfg.e1.exclude_label_functions)
     assert any("excluded_label_functions" in rule for rule in reg["exclusion_rules"])
 
     bad = replace(corpus, meta={**corpus.meta, "e1_exclude_label_functions": ["nope"]})
     import pytest
     with pytest.raises(ValueError, match="unknown labeling functions"):
         E1Experiment().run(cfg.engine, bad, tmp_path / "bad", 1)
+
+
+def test_amendment_rules_declared_transition_and_vote_thread_start() -> None:
+    from datetime import UTC, datetime
+
+    from harnext_eval.e1.policies import RuleSettings, match_rule
+    from harnext_eval.types import EvalEvent
+
+    def ev(type_: str, data: dict) -> EvalEvent:
+        return EvalEvent(id="x", source="jira:KAFKA", type=type_, subject="issue:KAFKA-1", mgtenant="kafka",
+                         time=datetime(2024, 3, 1, tzinfo=UTC), data=data)
+
+    critical = ev("org.apache.jira.issue.transition", {"field": "priority", "from": "Major", "to": "Critical"})
+    assert match_rule(critical) == "declared_priority"
+    downgraded = ev("org.apache.jira.issue.transition", {"field": "priority", "from": "Blocker", "to": "Major"})
+    assert match_rule(downgraded) is None
+    reply = ev("org.apache.mail.message", {"subject": "Re: [VOTE] KIP-1", "in_reply_to": "<a@b>", "body": "+1"})
+    root = ev("org.apache.mail.message", {"subject": "[VOTE] KIP-1", "body": "please vote"})
+    assert match_rule(reply) == "vote"  # registered run-1 behaviour
+    strict = RuleSettings(vote_thread_start_only=True)
+    assert match_rule(reply, strict) is None
+    assert match_rule(root, strict) == "vote"
+
+
+def test_fix_version_lf_abstains_without_release_state_fields() -> None:
+    from datetime import UTC, datetime, timedelta
+
+    from harnext_eval.e1.labels import ABSTAIN, DEFAULT_LABELING_FUNCTIONS, apply_labeling_functions
+    from harnext_eval.types import EvalEvent
+
+    t0 = datetime(2024, 3, 1, tzinfo=UTC)
+    events = [
+        EvalEvent(id="c", source="jira:KAFKA", type="org.apache.jira.issue.created", subject="issue:KAFKA-9",
+                  mgtenant="kafka", time=t0, data={"priority": "Major", "summary": "s"}),
+        EvalEvent(id="f", source="jira:KAFKA", type="org.apache.jira.issue.transition", subject="issue:KAFKA-9",
+                  mgtenant="kafka", time=t0 + timedelta(hours=2), data={"field": "fixVersion", "from": None, "to": "3.9.0"}),
+    ]
+    fn = [f for f in DEFAULT_LABELING_FUNCTIONS if f.name == "jira_fix_version_in_flight_later"]
+    votes = apply_labeling_functions(events, fn, observation_end=t0 + timedelta(days=30))
+    assert (votes["jira_fix_version_in_flight_later"] == ABSTAIN).all()
+    events[1] = events[1].model_copy(update={"data": {**events[1].data, "in_flight_release": "3.9.0"}})
+    votes = apply_labeling_functions(events, fn, observation_end=t0 + timedelta(days=30))
+    assert (votes["jira_fix_version_in_flight_later"] != ABSTAIN).any()

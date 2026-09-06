@@ -17,6 +17,8 @@ class StrictModel(BaseModel):
 
 class RulesConfig(StrictModel):
     enabled: bool
+    vote_thread_start_only: bool = False
+    """Amendment 2026-09-06: fire the ``[VOTE]`` rule only on thread-initiating messages, not replies."""
 
 
 class DeviationConfig(StrictModel):

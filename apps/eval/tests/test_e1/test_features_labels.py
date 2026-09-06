@@ -162,7 +162,14 @@ def test_every_spec_label_function_has_positive_negative_and_wrong_source(
     )
     assert positive.loc[candidate.id, name] == POSITIVE
 
-    negative = apply_labeling_functions([candidate], observation_end=observation_end)
+    negative_context = [candidate]
+    if name == "jira_fix_version_in_flight_later":
+        # Amendment 2026-09-06: this LF abstains unless release-state fields exist somewhere in the
+        # corpus; a non-matching release keeps it observable and negative.
+        negative_context.append(outcomes[0].model_copy(update={
+            "id": "jira-fix-version-other", "data": {**outcomes[0].data, "to": "9.9.9"},
+        }))
+    negative = apply_labeling_functions(negative_context, observation_end=observation_end)
     assert negative.loc[candidate.id, name] == NEGATIVE
 
     wrong_source = candidate.model_copy(

@@ -36,6 +36,7 @@ class RouterPolicy(Protocol):
 class RuleSettings:
     enabled: bool = True
     dispute_amount: float = 1_000.0
+    vote_thread_start_only: bool = False
 
 
 _DEFAULT_RULE_SETTINGS = RuleSettings()
@@ -83,6 +84,20 @@ def _field_values(value: Any, names: set[str]) -> list[Any]:
     return found
 
 
+def _is_reply(data: dict[str, Any]) -> bool:
+    """A mail message that answers an earlier one: has ``in_reply_to``/``references`` or a ``Re:`` subject."""
+
+    if data.get("in_reply_to"):
+        return True
+    refs = data.get("references")
+    if isinstance(refs, list) and refs:
+        return True
+    if isinstance(refs, str) and refs.strip() not in {"", "[]"}:
+        return True
+    subject = str(data.get("subject") or "")
+    return bool(re.match(r"\s*(re|aw|fwd?)\s*:", subject, re.IGNORECASE))
+
+
 def match_rule(event: EvalEvent, settings: RuleSettings = _DEFAULT_RULE_SETTINGS) -> str | None:
     """Rules floor configured by enablement and the dispute amount threshold."""
 
@@ -91,9 +106,12 @@ def match_rule(event: EvalEvent, settings: RuleSettings = _DEFAULT_RULE_SETTINGS
     data = event.data or {}
     text = " ".join(_walk(data)).casefold()
     declared = _field_values(data, {"priority", "severity"})
-    if any(str(value).strip().casefold() in {"critical", "blocker"} for value in declared):
+    # Amendment 2026-09-06: changelog transitions carry the value under ``to`` with ``field=priority``.
+    if str(data.get("field") or "").casefold() in {"priority", "severity"}:
+        declared = [*declared, data.get("to"), data.get("new")]
+    if any(str(value).strip().casefold() in {"critical", "blocker"} for value in declared if value is not None):
         return "declared_priority"
-    if "[vote]" in text:
+    if "[vote]" in text and not (settings.vote_thread_start_only and _is_reply(data)):
         return "vote"
     if re.search(r"(?<![\w-])cve(?:-\d{4}-\d+)?(?![\w-])", text):
         return "cve"
@@ -444,6 +462,7 @@ def make_policy(
     settings = RuleSettings(
         enabled=cfg.rules.enabled,
         dispute_amount=float(getattr(cfg.rules, "dispute_amount", 1_000.0)),
+        vote_thread_start_only=bool(getattr(cfg.rules, "vote_thread_start_only", False)),
     )
     if normalized == "R0":
         return RandomPolicy(seed=seed, rules=settings)

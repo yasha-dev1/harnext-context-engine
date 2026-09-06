@@ -430,6 +430,12 @@ def _apply_with_observability(
     index = _OutcomeIndex(ordered)
     default_outcomes = {function.outcome for function in DEFAULT_LABELING_FUNCTIONS}
     ci_observed = any(_is_ci_event(event) for event in ordered)
+    # Amendment 2026-09-06: the in-flight-release LF needs release-state fields on fixVersion
+    # transitions; without them it must abstain (it cast 145k negative votes on run 1).
+    release_observed = any(
+        _field(event, "in_flight_release", "current_release", "in_flight", "is_in_flight_release") is not None
+        for event in ordered
+    )
     vote_rows: list[dict[str, int | str]] = []
     observed_rows: list[dict[str, bool | str]] = []
     for candidate_index, candidate in enumerate(ordered):
@@ -440,6 +446,8 @@ def _apply_with_observability(
             complete = function.horizon is None or candidate.time + function.horizon <= observation_end
             observable = applicable and complete
             if function.outcome is _trunk_failure_fixed and not ci_observed:
+                observable = False
+            if function.outcome is _fix_version_in_flight and not release_observed:
                 observable = False
             observed_row[function.name] = observable
             if not observable:
