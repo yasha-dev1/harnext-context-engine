@@ -48,6 +48,7 @@ class HarnessRequest(BaseModel):
     # agent to read and removed after the build (never snapshotted). See event_fs.
     event_files: list[EventFile] = Field(default_factory=list)
     model: str | None = None
+    seed: int | None = None
     max_turns: int = 40
     timeout_s: int = 300
 
@@ -70,6 +71,18 @@ class ConversationTranscript(BaseModel):
     @property
     def ok(self) -> bool:
         return self.stop_reason not in ("error",)
+
+
+def seeded_instruction(req: HarnessRequest) -> str:
+    """Expose an evaluation seed to live agents as an explicit tie-break input."""
+
+    if req.seed is None:
+        return req.instruction
+    return (
+        f"{req.instruction}\n\n"
+        f"Evaluation build seed: {req.seed}. When several valid organization or "
+        "wording choices are equivalent, use this seed as the tie-break input."
+    )
 
 
 @runtime_checkable

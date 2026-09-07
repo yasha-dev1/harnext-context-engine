@@ -1,4 +1,4 @@
-.PHONY: help up down logs ps install topics ingest classifier builder mcp web worker beat fmt lint typecheck test clean
+.PHONY: help up down logs ps install topics ingest classifier builder mcp web worker beat eval-smoke eval-test fmt lint typecheck test clean
 
 help:
 	@echo "Infra:"
@@ -20,6 +20,8 @@ help:
 	@echo "Quality:"
 	@echo "  make install    — uv sync + pnpm install"
 	@echo "  make fmt / lint / typecheck / test"
+	@echo "  make eval-smoke — run the offline synthetic evaluation"
+	@echo "  make eval-test  — run the evaluation test suite"
 
 up:
 	docker compose -f infra/docker-compose.yml up -d
@@ -65,6 +67,12 @@ worker:
 beat:
 	uv run --package harnext-ingest celery -A harnext_ingest.celery_app beat --loglevel=info
 
+eval-smoke:
+	uv run harnext-eval run --config apps/eval/configs/baseline-minimal.yaml --corpus synthetic --all --event-count 140 --entity-count 12 --days 240 --per-family 10 --smoke
+
+eval-test:
+	uv run pytest apps/eval/tests -q
+
 fmt:
 	uv run ruff format .
 	uv run ruff check --fix .
@@ -81,3 +89,7 @@ test:
 clean:
 	rm -rf .venv .ruff_cache .pytest_cache
 	find . -type d -name __pycache__ -exec rm -rf {} + 2>/dev/null || true
+
+.PHONY: eval-e1-kafka
+eval-e1-kafka:
+	OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 uv run harnext-eval run --config apps/eval/configs/e1-kafka.yaml --replay $(or $(REPLAY),apps/eval/out/corpus/kafka/replay/kafka-rlong.jsonl) --experiments e1 --window $(or $(WINDOW),2022-01-01 2026-07-01) --prereg $(or $(PREREG),apps/eval/PREREG.md)

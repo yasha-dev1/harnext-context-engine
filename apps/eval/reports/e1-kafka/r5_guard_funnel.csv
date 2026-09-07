@@ -1,0 +1,5 @@
+budget_pct,rule_neg,eligible,admitted,positives_admitted
+1.0,378421,117,0,
+2.0,378421,255,83,0.0
+5.0,378421,849,822,0.0
+10.0,378421,2787,2787,0.0

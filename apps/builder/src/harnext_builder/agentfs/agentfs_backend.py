@@ -12,13 +12,13 @@ Verified CLI surface (agentfs 0.6.x):
 
 from __future__ import annotations
 
-import os
 import shutil
 import subprocess
 import tempfile
 from pathlib import Path
 
 from harnext_builder.agentfs.backend import RunResult, as_text
+from harnext_builder.agentfs.git_backend import subprocess_environment
 
 _SIDECAR_SUFFIXES = ("-wal", "-shm")
 
@@ -80,9 +80,14 @@ class AgentFsBackend:
         self, org_id: str, command: list[str], env: dict[str, str], timeout_s: int
     ) -> RunResult:
         full = [self.bin, "exec", str(self._db(org_id)), *command]
-        merged = {**os.environ, **env}
         try:
-            p = subprocess.run(full, env=merged, capture_output=True, text=True, timeout=timeout_s)
+            p = subprocess.run(
+                full,
+                env=subprocess_environment(env),
+                capture_output=True,
+                text=True,
+                timeout=timeout_s,
+            )
             return RunResult(p.returncode, p.stdout, p.stderr)
         except subprocess.TimeoutExpired as e:
             return RunResult(124, as_text(e.stdout), as_text(e.stderr), timed_out=True)

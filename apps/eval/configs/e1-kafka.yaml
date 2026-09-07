@@ -1,0 +1,44 @@
+# E1 routing only: no probes, stores, or action provider.
+# Window bounds are half-open; pass --window START END to run/prereg.
+offline: true
+e1:
+  # Amendment 2026-09-05: the GitHub GraphQL extractor carries no CI/check/status events
+  # (GH Archive was dropped for size), so the trunk-CI labeling function has zero coverage
+  # and cannot be computed. It is dropped before fitting and recorded in PREREG.
+  # Amendment 2026-09-06 (review finding 1): the in-flight-release function needs release-state
+  # fields that no JIRA changelog event carries; it abstains now (coverage 0) and is excluded.
+  # Amendment 2026-09-06 (review finding 3): dev_vote_cancelled_recast_later cast 7 positive
+  # votes in run 1 (0.002 % of covered events); it is uninformative and fails the new
+  # positive-support gate, so it is excluded prospectively for run 3.
+  exclude_label_functions:
+    [github_trunk_ci_failure_fix_6h, jira_fix_version_in_flight_later, dev_vote_cancelled_recast_later]
+  label_positive_support_min: 20
+  # Review finding 6: prevalence is 0.1 %, so an absolute 0.05 tolerance is 46x prevalence.
+  sanity_relative_tolerance: 0.5
+  label_situation_gap_hours: 24
+prices: {model: fake, effective_date: offline-fake-v1, input_per_million: 1.0, output_per_million: 4.0}
+erosion_panel_size: 10
+engine:
+  router:
+    # Amendment 2026-09-06 (review finding 4): [VOTE] fires on thread-initiating messages only.
+    # Amendment 2026-09-06 (review finding 4): each (subject, rule) fires once per month.
+    rules: {enabled: true, vote_thread_start_only: true, dedup_per_subject: true}
+    deviation: {enabled: true}
+    budget_pct: 2.0
+    guards: {absolute_floor: 3, multi_window: true, situation_dedup: false}
+  window: {gap_s: 30, max_events: 20, max_age_s: 120}
+  store:
+    layout: S0
+    backend: git
+  builder:
+    harness: fake
+    model: null
+    prompt_version: v1
+  reader:
+    provider: fake
+    budget_tokens: 8000
+  envelope: V3
+  embeddings: {provider: fake, dim: 64}
+  lane_design: two-lane
+budgets: {read_tokens: [2000, 8000, 32000]}
+seeds: [1]

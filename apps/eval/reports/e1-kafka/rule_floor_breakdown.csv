@@ -1,0 +1,13 @@
+source,rule,events
+github,blocker_word,212
+github,cve,453
+github,on_call_page,18
+github,vote,3
+jira,blocker_word,764
+jira,cve,1543
+jira,declared_priority,501
+jira,on_call_page,38
+mail,blocker_word,1118
+mail,cve,364
+mail,on_call_page,6
+mail,vote,3962

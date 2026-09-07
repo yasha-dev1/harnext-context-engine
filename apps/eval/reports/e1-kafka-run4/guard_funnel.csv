@@ -1,0 +1,5 @@
+policy,budget_pct,rule_negative_events,eligible,admitted,positives_among_admitted,positives_among_eligible
+R5,1.0,384413,118,102,0,0
+R5,2.0,384413,256,256,0,0
+R5,5.0,384413,851,851,0,0
+R5,10.0,384413,2792,2792,1,1

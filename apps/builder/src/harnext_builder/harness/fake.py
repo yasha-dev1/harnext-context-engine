@@ -13,6 +13,7 @@ from harnext_builder.harness.base import (
     ConversationTranscript,
     HarnessRequest,
     TranscriptTurn,
+    seeded_instruction,
 )
 
 
@@ -41,7 +42,9 @@ class FakeHarness:
 
         marker = wd / "_meta" / "last_build.md"
         marker.parent.mkdir(parents=True, exist_ok=True)
-        marker.write_text(f"# Last build\n\n{req.instruction[:4000]}\n{seen}")
+        marker.write_text(
+            f"# Last build\n\n{seeded_instruction(req)[:4000]}\n{seen}"
+        )
 
         return ConversationTranscript(
             harness=self.name,

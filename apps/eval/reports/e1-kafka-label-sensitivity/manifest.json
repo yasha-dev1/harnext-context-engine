@@ -1,0 +1,10 @@
+{
+ "events": 394741,
+ "window": [
+  "2022-01-01",
+  "2026-07-01"
+ ],
+ "excluded": [
+  "github_trunk_ci_failure_fix_6h"
+ ]
+}

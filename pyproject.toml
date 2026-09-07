@@ -5,7 +5,14 @@ description = "Open-source streaming Context Engine for AI agents (AgentFS-backe
 requires-python = ">=3.12"
 
 [tool.uv.workspace]
-members = ["apps/ingest", "apps/classifier", "apps/builder", "apps/mcp", "packages/shared"]
+members = [
+    "apps/ingest",
+    "apps/classifier",
+    "apps/builder",
+    "apps/mcp",
+    "apps/eval",
+    "packages/shared",
+]
 
 # The root env is the "everything" env used for tests + tooling: it pulls in
 # every workspace member plus the dev tools, so `uv run pytest/pyright` resolve
@@ -21,6 +28,7 @@ dev = [
     "harnext-classifier",
     "harnext-builder",
     "harnext-mcp",
+    "harnext-eval",
 ]
 
 [tool.uv.sources]
@@ -29,6 +37,7 @@ harnext-ingest = { workspace = true }
 harnext-classifier = { workspace = true }
 harnext-builder = { workspace = true }
 harnext-mcp = { workspace = true }
+harnext-eval = { workspace = true }
 
 [tool.ruff]
 line-length = 100

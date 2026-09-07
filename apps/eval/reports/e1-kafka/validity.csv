@@ -1,0 +1,51 @@
+gate,status,passed,required,value,reason
+random_precision_at_prevalence,pass,True,True,0.0010982696280991736,uniform random precision must be within 0.05 of prevalence
+random_vus_at_prevalence,pass,True,True,0.0022255034387635097,same-buffer random VUS-PR must be within 0.05 of prevalence
+always_flag_recall_one,pass,True,True,1.0,always-fast recall must equal one
+always_flag_precision_prevalence,pass,True,True,0.0010872456529542867,always-fast precision must equal prevalence
+tuning_precedes_evaluation,pass,True,True,"[True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True]",every evaluation month uses only prior-month tuning events
+r5_ineligible_never_admitted,pass,True,True,,R5 deviation admissions must carry both published guards
+r7_always_fast,pass,True,True,1549612,R7 is the unbudgeted always-fast cost ceiling
+equal_total_budget,pass,True,True,278,every R0-R6 arm is capped by the same monthly total budget
+rule_floor_budget_feasible,fail,False,True,278,"months whose rule floor exceeds capacity are invalid, never over-admitted"
+lf.jira_committer_comment_1h.accuracy,pass,True,True,0.7755160808897136,estimated LF accuracy must be at least 0.6
+lf.jira_committer_comment_1h.coverage,pass,True,True,0.36840358614889257,"LF coverage, including zero coverage, must be at least 1%"
+lf.jira_priority_raised_later.accuracy,pass,True,True,0.95,estimated LF accuracy must be at least 0.6
+lf.jira_priority_raised_later.coverage,pass,True,True,0.36840611945554175,"LF coverage, including zero coverage, must be at least 1%"
+lf.jira_fix_version_in_flight_later.accuracy,pass,True,True,0.95,estimated LF accuracy must be at least 0.6
+lf.jira_fix_version_in_flight_later.coverage,pass,True,True,0.36840611945554175,"LF coverage, including zero coverage, must be at least 1%"
+lf.jira_resolved_24h.accuracy,pass,True,True,0.8668846859066173,estimated LF accuracy must be at least 0.6
+lf.jira_resolved_24h.coverage,pass,True,True,0.36831492041617164,"LF coverage, including zero coverage, must be at least 1%"
+lf.jira_linked_pr_24h.accuracy,pass,True,True,0.9181388802987914,estimated LF accuracy must be at least 0.6
+lf.jira_linked_pr_24h.coverage,pass,True,True,0.36831492041617164,"LF coverage, including zero coverage, must be at least 1%"
+lf.declared_blocker_critical.accuracy,pass,True,True,0.9473469304929204,estimated LF accuracy must be at least 0.6
+lf.declared_blocker_critical.coverage,pass,True,True,0.36840611945554175,"LF coverage, including zero coverage, must be at least 1%"
+lf.dev_committer_reply_1h.accuracy,pass,True,True,0.9320077213503797,estimated LF accuracy must be at least 0.6
+lf.dev_committer_reply_1h.coverage,pass,True,True,0.08945359108884053,"LF coverage, including zero coverage, must be at least 1%"
+lf.dev_three_responders_2h.accuracy,pass,True,True,0.95,estimated LF accuracy must be at least 0.6
+lf.dev_three_responders_2h.coverage,pass,True,True,0.08945105778219137,"LF coverage, including zero coverage, must be at least 1%"
+lf.dev_vote_cancelled_recast_later.accuracy,pass,True,True,0.95,estimated LF accuracy must be at least 0.6
+lf.dev_vote_cancelled_recast_later.coverage,pass,True,True,0.08945359108884053,"LF coverage, including zero coverage, must be at least 1%"
+lf.dev_cve_blocker_later.accuracy,pass,True,True,0.9269718677815539,estimated LF accuracy must be at least 0.6
+lf.dev_cve_blocker_later.coverage,pass,True,True,0.08945359108884053,"LF coverage, including zero coverage, must be at least 1%"
+lf.github_reverted_48h.accuracy,pass,True,True,0.9491712027974257,estimated LF accuracy must be at least 0.6
+lf.github_reverted_48h.coverage,pass,True,True,0.5412105659153723,"LF coverage, including zero coverage, must be at least 1%"
+lf.github_hotfix_reference_24h.accuracy,pass,True,True,0.95,estimated LF accuracy must be at least 0.6
+lf.github_hotfix_reference_24h.coverage,pass,True,True,0.5416690944188721,"LF coverage, including zero coverage, must be at least 1%"
+declared_outcome_agreement_reported,pass,True,True,0.6434657039711191,declared-priority/outcome LF agreement must be measurable
+injected_non_trivial,not_applicable,,False,,Corpus-S R1 recall@2% must not exceed 0.9
+vus_three_reference_series,pass,True,True,3,three Paparrizos-reference numeric fixtures execute in-process
+affiliation_three_reference_series,pass,True,True,3,three Huet-reference numeric fixtures execute in-process
+prereg_chronology,pass,True,True,apps/eval/PREREG.md,matching committed registration predates run start
+human_sanity_100_two_annotators,not_applicable,,True,,100 top rule-negative items require two annotators and reported kappa
+metric_remediation_recorded,not_applicable,,True,,floor-near-R5 metrics require an explicit kept/dropped action record
+corpus_preflight,fail,False,True,"[{'requirement': 'rolling_month_ahead', 'status': 'run'}, {'requirement': 'multi_corpus_cli', 'status': 'supported-not-run'}, {'requirement': 'R-long_2022-01_to_2026-06', 'status': 'run'}, {'requirement': 'flink_replication', 'status': 'supported-not-run'}, {'requirement': 'corpus_s_200_situations_3_seeds', 'status': 'supported-not-run'}]",every declared corpus profile requirement must run
+real_parquet,pass,True,True,True,scores.parquet must be a real Parquet artifact
+harm_store_s3,not_applicable,,False,,no real action provider / no S3 store in this profile
+harm_minimum_five_promotions,not_applicable,,False,7257,no real action provider / no S3 store in this profile
+harm_paired_coverage,not_applicable,,False,"{'paired': 0, 'promoted': 7257}",no real action provider / no S3 store in this profile
+harm_leakage,not_applicable,,False,False,no real action provider / no S3 store in this profile
+harm_non_vacuous,not_applicable,,False,False,no real action provider / no S3 store in this profile
+harm_real_provider,not_applicable,,False,False,no real action provider / no S3 store in this profile
+excluded_label_functions,,,False,['github_trunk_ci_failure_fix_6h'],labeling functions dropped by registered amendment (config e1.exclude_label_functions)
+valid,fail,False,True,False,"failed required E1 validity items: ['rule_floor_budget_feasible (fail): months whose rule floor exceeds capacity are invalid, never over-admitted', 'human_sanity_100_two_annotators (not_applicable): 100 top rule-negative items require two annotators and reported kappa', 'metric_remediation_recorded (not_applicable): floor-near-R5 metrics require an explicit kept/dropped action record', 'corpus_preflight (fail): every declared corpus profile requirement must run']"

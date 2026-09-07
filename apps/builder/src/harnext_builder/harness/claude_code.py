@@ -36,6 +36,7 @@ from harnext_builder.harness.base import (
     ConversationTranscript,
     HarnessRequest,
     TranscriptTurn,
+    seeded_instruction,
 )
 
 _CLIP = 4000
@@ -99,7 +100,7 @@ class ClaudeCodeHarness:
 
         try:
             async with asyncio.timeout(req.timeout_s):
-                async for msg in query(prompt=req.instruction, options=options):
+                async for msg in query(prompt=seeded_instruction(req), options=options):
                     if isinstance(msg, SystemMessage):
                         turns.append(TranscriptTurn(role="system", content=str(msg.subtype)))
                     elif isinstance(msg, AssistantMessage):

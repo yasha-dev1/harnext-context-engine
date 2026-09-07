@@ -1,0 +1,1 @@
+{"oid": "abc", "author": {"name": "Alice", "email": "alice@example.org", "user": {"login": "alice"}}, "committedDate": "2020-01-03T00:00:00Z", "messageHeadline": "Revert KAFKA-123 (#7)", "associatedPullRequests": {"nodes": [{"number": 7}]}}

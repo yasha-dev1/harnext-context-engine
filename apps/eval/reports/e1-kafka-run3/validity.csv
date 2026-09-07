@@ -1,0 +1,60 @@
+gate,status,passed,required,value,reason
+random_precision_at_prevalence,pass,True,True,0.0022469008264462812,uniform random precision must be within 50% (relative) of prevalence
+random_vus_at_prevalence,fail,False,True,0.004351176933003147,uniform random same-geometry VUS-PR must be within 50% (relative) of prevalence
+always_flag_recall_one,pass,True,True,1.0,always-fast recall must equal one
+always_flag_precision_prevalence,pass,True,True,0.0022338895244785224,always-fast precision must equal prevalence
+tuning_precedes_evaluation,pass,True,True,"[True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True]",every evaluation month uses only prior-month tuning events
+r5_ineligible_never_admitted,pass,True,True,,R5/R8/R9 deviation admissions must carry both published guards
+rule_exempt_capacity_respected,pass,True,True,169,R8/R9 deviation admissions are capped at the shared monthly capacity; rule hits sit outside it
+r7_always_fast,pass,True,True,1549612,R7 is the unbudgeted always-fast cost ceiling
+equal_total_budget,pass,True,True,36,every R0-R6 arm is capped by the same monthly total budget
+rule_floor_budget_feasible,fail,False,True,36,"months whose rule floor exceeds capacity are invalid, never over-admitted"
+lf.jira_committer_comment_1h.positive_support,pass,True,True,32758,LF must cast at least 20 positive votes to be informative (review finding 3)
+lf.jira_committer_comment_1h.accuracy,pass,True,True,0.775865276145761,estimated LF accuracy must be at least 0.6
+lf.jira_committer_comment_1h.coverage,pass,True,True,0.36840358614889257,"LF coverage, including zero coverage, must be at least 1%"
+lf.jira_priority_raised_later.positive_support,pass,True,True,6325,LF must cast at least 20 positive votes to be informative (review finding 3)
+lf.jira_priority_raised_later.accuracy,pass,True,True,0.95,estimated LF accuracy must be at least 0.6
+lf.jira_priority_raised_later.coverage,pass,True,True,0.36840611945554175,"LF coverage, including zero coverage, must be at least 1%"
+lf.jira_resolved_24h.positive_support,pass,True,True,19400,LF must cast at least 20 positive votes to be informative (review finding 3)
+lf.jira_resolved_24h.accuracy,pass,True,True,0.8649560489069863,estimated LF accuracy must be at least 0.6
+lf.jira_resolved_24h.coverage,pass,True,True,0.36831492041617164,"LF coverage, including zero coverage, must be at least 1%"
+lf.jira_linked_pr_24h.positive_support,pass,True,True,12058,LF must cast at least 20 positive votes to be informative (review finding 3)
+lf.jira_linked_pr_24h.accuracy,pass,True,True,0.917112565343355,estimated LF accuracy must be at least 0.6
+lf.jira_linked_pr_24h.coverage,pass,True,True,0.36831492041617164,"LF coverage, including zero coverage, must be at least 1%"
+lf.declared_blocker_critical.positive_support,pass,True,True,7937,LF must cast at least 20 positive votes to be informative (review finding 3)
+lf.declared_blocker_critical.accuracy,pass,True,True,0.95,estimated LF accuracy must be at least 0.6
+lf.declared_blocker_critical.coverage,pass,True,True,0.36840611945554175,"LF coverage, including zero coverage, must be at least 1%"
+lf.dev_committer_reply_1h.positive_support,pass,True,True,2451,LF must cast at least 20 positive votes to be informative (review finding 3)
+lf.dev_committer_reply_1h.accuracy,pass,True,True,0.935414601866355,estimated LF accuracy must be at least 0.6
+lf.dev_committer_reply_1h.coverage,pass,True,True,0.08945359108884053,"LF coverage, including zero coverage, must be at least 1%"
+lf.dev_three_responders_2h.positive_support,pass,True,True,545,LF must cast at least 20 positive votes to be informative (review finding 3)
+lf.dev_three_responders_2h.accuracy,pass,True,True,0.95,estimated LF accuracy must be at least 0.6
+lf.dev_three_responders_2h.coverage,pass,True,True,0.08945105778219137,"LF coverage, including zero coverage, must be at least 1%"
+lf.dev_cve_blocker_later.positive_support,pass,True,True,2620,LF must cast at least 20 positive votes to be informative (review finding 3)
+lf.dev_cve_blocker_later.accuracy,pass,True,True,0.9263858946472612,estimated LF accuracy must be at least 0.6
+lf.dev_cve_blocker_later.coverage,pass,True,True,0.08945359108884053,"LF coverage, including zero coverage, must be at least 1%"
+lf.github_reverted_48h.positive_support,pass,True,True,11009,LF must cast at least 20 positive votes to be informative (review finding 3)
+lf.github_reverted_48h.accuracy,pass,True,True,0.9491712029191866,estimated LF accuracy must be at least 0.6
+lf.github_reverted_48h.coverage,pass,True,True,0.5412105659153723,"LF coverage, including zero coverage, must be at least 1%"
+lf.github_hotfix_reference_24h.positive_support,pass,True,True,452,LF must cast at least 20 positive votes to be informative (review finding 3)
+lf.github_hotfix_reference_24h.accuracy,pass,True,True,0.95,estimated LF accuracy must be at least 0.6
+lf.github_hotfix_reference_24h.coverage,pass,True,True,0.5416690944188721,"LF coverage, including zero coverage, must be at least 1%"
+declared_outcome_agreement_reported,pass,True,True,0.6434657039711191,declared-priority/outcome LF agreement must be measurable
+injected_non_trivial,not_applicable,,False,,Corpus-S R1 recall@2% must not exceed 0.9
+vus_three_reference_series,pass,True,True,3,three Paparrizos-reference numeric fixtures execute in-process
+affiliation_three_reference_series,pass,True,True,3,three Huet-reference numeric fixtures execute in-process
+prereg_chronology,pass,True,True,apps/eval/PREREG-run3.md,matching committed registration predates run start
+human_sanity_100_two_annotators,not_applicable,,True,,100 top rule-negative items require two annotators and reported kappa
+metric_remediation_recorded,pass,True,True,"{'path': 'apps/eval/out/20260906T145312Z-e1-kafka/e1/seed-1/metric_remediation.csv', 'kept': ['precision_at_b', 'affiliation_recall_rowindex', 'nab_low_fn_rowindex'], 'dropped': ['vus_pr', 'affiliation_precision_rowindex'], 'criterion': 'design (R8) minus random (R0), paired over months at 2%/rule-negative, |mean| > 2 SE'}",floor-near-design metrics require an explicit kept/dropped action record
+historical_text_provenance,not_applicable,,False,"{'events': 394741, 'with_edit_timestamp': 130300, 'edited_after_event_time': 60106, 'note': 'summary/description/comment/PR text is export-time snapshot text; edits after t cannot be reconstructed from the sources and are declared as a limitation'}","rule/feature/label text is export-time snapshot text (review finding 7); components are replayed as-of-event, text edits cannot be; declared limitation"
+human_sanity_sample_written,not_applicable,,False,apps/eval/out/20260906T145312Z-e1-kafka/e1/seed-1/human_sanity_sample.csv,blind annotator sheet for the 100-item human sanity check; annotate then rerun with human_sanity meta
+corpus_preflight,fail,False,True,"[{'requirement': 'rolling_month_ahead', 'status': 'run'}, {'requirement': 'multi_corpus_cli', 'status': 'supported-not-run'}, {'requirement': 'R-long_2022-01_to_2026-06', 'status': 'run'}, {'requirement': 'flink_replication', 'status': 'supported-not-run'}, {'requirement': 'corpus_s_200_situations_3_seeds', 'status': 'supported-not-run'}]",every declared corpus profile requirement must run
+real_parquet,pass,True,True,True,scores.parquet must be a real Parquet artifact
+harm_store_s3,not_applicable,,False,,no real action provider / no S3 store in this profile
+harm_minimum_five_promotions,not_applicable,,False,3246,no real action provider / no S3 store in this profile
+harm_paired_coverage,not_applicable,,False,"{'paired': 0, 'promoted': 3246}",no real action provider / no S3 store in this profile
+harm_leakage,not_applicable,,False,False,no real action provider / no S3 store in this profile
+harm_non_vacuous,not_applicable,,False,False,no real action provider / no S3 store in this profile
+harm_real_provider,not_applicable,,False,False,no real action provider / no S3 store in this profile
+excluded_label_functions,,,False,"['github_trunk_ci_failure_fix_6h', 'jira_fix_version_in_flight_later', 'dev_vote_cancelled_recast_later']",labeling functions dropped by registered amendment (config e1.exclude_label_functions)
+valid,fail,False,True,False,"failed required E1 validity items: ['random_vus_at_prevalence (fail): uniform random same-geometry VUS-PR must be within 50% (relative) of prevalence', 'rule_floor_budget_feasible (fail): months whose rule floor exceeds capacity are invalid, never over-admitted', 'human_sanity_100_two_annotators (not_applicable): 100 top rule-negative items require two annotators and reported kappa', 'corpus_preflight (fail): every declared corpus profile requirement must run']"
