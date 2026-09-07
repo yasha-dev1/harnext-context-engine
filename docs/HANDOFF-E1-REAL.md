@@ -1,8 +1,28 @@
-# Handoff — E1 on the real Kafka corpus (updated 2026-09-06 20:30)
+# Handoff — E1 on the real Kafka corpus (updated 2026-09-07 05:30)
 
 Read this first when resuming on another machine. Branch: `eval-framework`. Everything below is
 committed; `apps/eval/out/` (raw corpus, replay, run outputs) is git-ignored and lives only on the
 laptop that produced it.
+
+## 0a. Run 4 (2026-09-07, desktop) — scorer bake-off
+
+Registered `PREREG-run4.md` @ cad3718 (same replay/config as run 3; R8/R9 removed; R10 per-source
+global HBOS with within-source percentile ranking; R11 IsolationForest, R12 ECOD (own O(log n)
+implementation), R13 global LOF as R2 variants; no supervised models yet). Run
+`20260907T000315Z-e1-kafka` (5 h 00 min; attempt 1 OOM-killed at the final concat → months are
+now spilled to parquet, commit 2d295ed). Artifacts in `apps/eval/reports/e1-kafka-run4/`
+(`results_summary.md` with LaTeX, `e1-kafka-run4-report.html` = published page).
+
+recall@2 % rule-negative (839 positives): R0 0.020 · **R2 0.089** · R11 0.072 · R10 0.058 ·
+R12 0.044 · R13 0.014 · R3 0.014 · R6 0.013 · R4 0.005 · R5 0.000. R11−R2 = −0.018 [−0.036,
+−0.001] subject clusters, [−0.053, +0.007] month clusters (tied). R10 wins only at 10 % (0.181 vs
+0.166). All global detectors' signal is JIRA-only; both LOFs ≈ random. Ordering stable under three
+of four registered label definitions. Still non-evidentiary (human sample unannotated:
+`reports/e1-kafka-run4/human_sanity_sample.csv`; Flink/S; VUS geometry; 1 % feasibility).
+
+Next candidates (Yasha to decide): supervised weak-label ranker on prior months (measures how
+much signal the features hold); JIRA-only budget allocation; text-informed ranker as an upper
+reference; the human sanity annotation before any of them.
 
 ## 0. Run 3 (2026-09-06, desktop) — read this first
 

@@ -1,0 +1,27 @@
+{
+  "run_id": "20260907T000315Z-e1-kafka",
+  "created_at": "2026-09-07T00:03:38.401757Z",
+  "config_hash": "15062b5bc4c678f64f45af461ddf278e5c165e3c48b20d34bccf2eefd89311d1",
+  "replay_hash": "d2d43a2204169cd1a4ee97ca08c64d2ae9dfe8caf759b149a6fc2465717784b6",
+  "probe_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "git_sha": "2d295edecc6f805a4b3eb26f3d5477be9241113d",
+  "model_ids": {
+    "builder": "fake",
+    "reader": "fake",
+    "embeddings": "fake-feature-hash-blake2b-v1@1"
+  },
+  "prices": {
+    "input_per_million": 1.0,
+    "output_per_million": 4.0
+  },
+  "seeds": [
+    1
+  ],
+  "prereg_ref": "36b22928d0b5123f403eabde45bc5636b0a70db9f0d1850fe412194b084e748e",
+  "provider_summary": {
+    "offline_enforced": true,
+    "reader": "FakeLLM",
+    "embeddings": "FakeEmbeddings",
+    "builder": "FakeHarness"
+  }
+}

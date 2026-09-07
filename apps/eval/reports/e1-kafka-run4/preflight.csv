@@ -1,0 +1,6 @@
+requirement,status
+rolling_month_ahead,run
+multi_corpus_cli,supported-not-run
+R-long_2022-01_to_2026-06,run
+flink_replication,supported-not-run
+corpus_s_200_situations_3_seeds,supported-not-run

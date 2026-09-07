@@ -1,0 +1,717 @@
+item,event_id,source,subject,type,time,excerpt,would_interrupt_annotator_1,would_interrupt_annotator_2
+1,github:api:apache/kafka:pr-21479-opened,github:apache/kafka,pr:21479,com.github.pull_request.opened,2026-02-14T15:43:03+00:00,"action opened actor contributor:gh:devdriven05 actor_login devdriven05 author contributor:gh:devdriven05 author_association contributor author_login devdriven05 base_ref trunk body this change adds a describedas placeholder to the --override option so
+that the expected argument format is clearer in the command-line help
+output.
+
+reviewers: chia-ping tsai <chia7712@gmail.com>
+ changed_files closed_at github_event_id api:apache/kafka:pr-21479-opened head_ref patch-2 is_committer false issue_keys kip_keys merge_commit_sha merged false merged_at merged_by number 21479 pull_request_id pr_kwdoacg9q8",,
+2,mail:bd24240f870af9712b44c431,mail:dev@kafka.apache.org,thread:CANLNJzjDKCJZRY+XtdUbKNaF7ss8aYt1K4G=z58mKskJMYWjVA@mail.gmail.com,org.apache.mail.message,2025-09-10T11:27:04+00:00,author contributor:ca6f4def139d author_email carlos.duclos@vend.com.invalid author_name carlos manuel duclos-vergara body unsubscribe in_reply_to is_committer false list dev@kafka.apache.org message_id canlnjzjdkcjzry+xtdubknaf7ss8ayt1k4g=z58mkskjmywjva@mail.gmail.com month 2025-09 references subject dev subject_tags thread_root canlnjzjdkcjzry+xtdubknaf7ss8ayt1k4g=z58mkskjmywjva@mail.gmail.com,,
+3,jira:13447388:created,jira:KAFKA,issue:KAFKA-13946,org.apache.jira.issue.created,2022-05-29T16:30:21+00:00,"assignee components creator jira-user:8e2257b383da creator_account_id jirauser287479 creator_name clara fang description in core/src/test/java/kafka/testkit/controllernode.java, the method setmetadatadirectory for the builder has no parameters and is assigning the variable metadatadirectory to itself.
+{code:java}
+public builder setmetadatadirectory() {
+    this.metadatadirectory = metadatadirectory;
+    return this;
+}
+{code} fix_versions is_committer false issue_key kafka-13946 labels priority minor reporter jira-user:8e2257b383da state_inconsistencies status open summary setmetadatadire",,
+4,github:api:apache/kafka:pr-15905-opened,github:apache/kafka,pr:15905,com.github.pull_request.opened,2024-05-09T09:50:47+00:00,"action opened actor contributor:gh:bootmgr actor_login bootmgr author contributor:gh:bootmgr author_association none author_login bootmgr base_ref trunk body `kafka-consumer-perf-test` is a great tool to quickly check raw consumer performance. currently, it subscribes to all the partitions and gives overall cluster performance, however if we want to test performance of single broker/partition, existing tool does not support.
+
+this pr introduces two optional flags `--partitions` and `--offsets` which gives flexibility to benchmark only specific partitions optionally from specified offsets.
+",,
+5,jira:13447326:created,jira:KAFKA,issue:KAFKA-13945,org.apache.jira.issue.created,2022-05-28T11:38:22+00:00,assignee components streams creator jira-user:7ffc6d97ca31 creator_account_id ableegoldman creator_name a. sophie blee-goldman description kip-846: [https://cwiki.apache.org/confluence/pages/viewpage.action?pageid=211886093]  fix_versions is_committer false issue_key kafka-13945 labels kip priority major reporter jira-user:7ffc6d97ca31 state_inconsistencies status open summary add task-level metrics to streams for bytes/records produced,,
+6,github:api:apache/kafka:pr-14327-opened,github:apache/kafka,pr:14327,com.github.pull_request.opened,2023-09-02T08:50:36+00:00,"action opened actor contributor:gh:jimmywang6 actor_login jimmywang6 author contributor:gh:jimmywang6 author_association contributor author_login jimmywang6 base_ref trunk body this pull request implements the server-side functionality for regex subscriptions in the next generation of the consumer rebalance protocol.
+
+for the consumergroupheartbeat api, the server now accepts a regex pattern, and a constraint is enforced that only one of either the regular subscription pattern or topic name subscription is allowed. the subscribedtopicregex is eventually transformed into subscribedtopicname i",,
+7,mail:d010cd2a831e9d37b4fcce50,mail:dev@kafka.apache.org,thread:AS5PR07MB9772B0033A38461A12752A7E9276A@AS5PR07MB9772.eurprd07.prod.outlook.com,org.apache.mail.message,2025-06-14T12:26:00+00:00,"author contributor:58f3d46f5258 author_email prateek.kohli@ericsson.com.invalid author_name prateek kohli body hi all,
+
+i'm building a custom docker image for kafka connect and planning to run it on kubernetes. i'm a bit stuck on whether i should use a deployment or a statefulset.
+
+>from what i understand, the main difference that could affect kafka connect is the hostname/ip behaviour. with a deployment, pod ips and hostnames can change after restarts. with a statefulset, each pod gets a stable hostname (like connect-0, connect-1, etc.)
+
+my question is: does it really matter for kafka connect",,
+8,jira:13437454:created,jira:KAFKA,issue:KAFKA-13792,org.apache.jira.issue.created,2022-04-02T16:47:52+00:00,"assignee components core creator jira-user:f3ef0cdd0215 creator_account_id jirauser286323 creator_name yeoncheol jang description wrong package name in *uncleanleaderelectiontest* and *quorumimplementation* files.
+
+fix packages name and import classes. fix_versions is_committer false issue_key kafka-13792 labels easyfix scala test priority minor reporter jira-user:f3ef0cdd0215 state_inconsistencies status open summary wrong package name in scala test files",,
+9,github:api:apache/kafka:pr-20296-opened,github:apache/kafka,pr:20296,com.github.pull_request.opened,2025-08-02T18:55:11+00:00,"action opened actor contributor:gh:vamsisayimpu actor_login vamsisayimpu author contributor:gh:vamsisayimpu author_association none author_login vamsisayimpu base_ref trunk body implemented several key improvements to enhance the kafka streams api's usability and performance:
+
+1. null safety improvements (safeoperations.java)
+2. query performance optimization (queryoptimizer.java)
+3. batch operations (batchkeyquery.java)
+4. pagination support (paginatedrangequery.java)
+5. enhanced store query utils (updated storequeryutils.java)
+6. stream extensions (kstreamextensions.java)
+7. performa",,
+10,jira:13640955:created,jira:KAFKA,issue:KAFKA-20123,org.apache.jira.issue.created,2026-02-04T13:21:11+00:00,"assignee jira-user:15f6a7fd670e components connect creator jira-user:15f6a7fd670e creator_account_id mimaison creator_name mickael maison description the connect runtime handles regex provided by external users. re2j is less susceptible to malicious regex causing long computation time. 
+
+re2j is already a kafka dependency as it's used in the coordinator logic. fix_versions is_committer true issue_key kafka-20123 labels priority major reporter jira-user:15f6a7fd670e state_inconsistencies status open summary use re2j for regex matching in connect runtime",,
+11,github:api:apache/kafka:pr-19267-opened,github:apache/kafka,pr:19267,com.github.pull_request.opened,2025-03-23T06:15:30+00:00,"action opened actor contributor:941510ed5fdd actor_login dxzhan author contributor:941510ed5fdd author_association none author_login dxzhan base_ref trunk body chinese
+1.修复prepare_docker_official_image_source拷贝问题
+2.优化dockerfile重复下载和校验
+3.从cdn下载
+
+english
+1. fix the prepare_docker_offician_image_source copy issue
+2. optimize dockerfile duplicate downloads and validation
+3. download from cdn
+
+ changed_files closed_at github_event_id api:apache/kafka:pr-19267-opened head_ref trunk is_committer false issue_keys kip_keys merge_commit_sha merged false merged_at merged_by number 19267 pull_re",,
+12,github:api:apache/kafka:pr-21197-opened,github:apache/kafka,pr:21197,com.github.pull_request.opened,2025-12-20T17:53:01+00:00,"action opened actor contributor:gh:jainamshah102 actor_login jainamshah102 author contributor:gh:jainamshah102 author_association none author_login jainamshah102 base_ref trunk body ### description
+fix socketchannel leak during shutdown ([kafka-16768](https://issues.apache.org/jira/browse/kafka-16768)): reject accepted connections if the target processor is shutting down and close the channel to avoid leaking socketchannel instances.
+
+### changes
+
+1. acceptor.accept/assign path now checks `shouldrun` and returns `false` if the processor is shutting down.
+2. on rejection, close the channe",,
+13,github:api:apache/kafka:pr-21606-opened,github:apache/kafka,pr:21606,com.github.pull_request.opened,2026-02-28T14:37:29+00:00,"action opened actor contributor:gh:rajarshi-misra actor_login rajarshi-misra author contributor:gh:rajarshi-misra author_association contributor author_login rajarshi-misra base_ref trunk body kafka-19863: add documentation on how to implement a custom
+exception(with ref to dlq)
+
+this pr updates the streams documentation to include guidance on
+implementing a custom exception handler with built-in dead letter queue
+(dlq support introduced by kip-1034.
+
+reviewers nikita shuplestov <nshuplestov@confluent.io>, bill bejeck <bbejeck@apache.org>
+ changed_files closed_at github_event_id api:ap",,
+14,github:api:apache/kafka:pr-15551-opened,github:apache/kafka,pr:15551,com.github.pull_request.opened,2024-03-17T19:31:16+00:00,"action opened actor contributor:gh:taijuwu actor_login taijuwu author contributor:gh:taijuwu author_association contributor author_login taijuwu base_ref trunk body the lock should be released before closing queue.
+
+### committer checklist (excluded from commit message)
+- [ ] verify design and implementation 
+- [ ] verify test coverage and ci build status
+- [ ] verify documentation (including upgrade notes)
+ changed_files closed_at github_event_id api:apache/kafka:pr-15551-opened head_ref close is_committer false issue_keys kip_keys merge_commit_sha merged false merged_at merged_by numbe",,
+15,github:api:apache/kafka:pr-15632-opened,github:apache/kafka,pr:15632,com.github.pull_request.opened,2024-03-31T09:19:05+00:00,"action opened actor contributor:gh:orihoch actor_login orihoch author contributor:gh:orihoch author_association contributor author_login orihoch base_ref trunk body minor doc fix
+ changed_files closed_at github_event_id api:apache/kafka:pr-15632-opened head_ref patch-1 is_committer false issue_keys kip_keys merge_commit_sha merged false merged_at merged_by number 15632 pull_request_id pr_kwdoacg9q85rplxr pull_request_number 15632 repo apache/kafka title minor: fix doc of admin#createdelegationtoken",,
+16,jira:13520059:created,jira:KAFKA,issue:KAFKA-14634,org.apache.jira.issue.created,2023-01-18T13:19:37+00:00,"assignee jira-user:b25573e67d0f components creator jira-user:b25573e67d0f creator_account_id divijvaidya creator_name divij vaidya description calculate the size of decompressed buffer dynamically at runtime. it could be based on recommendation provided by zstd. currently fixed at 16kb. using the value that is recommended by zstd saves a copy in native code.
+see: [https://github.com/facebook/zstd/issues/340] fix_versions is_committer true issue_key kafka-14634 labels priority major reporter jira-user:b25573e67d0f state_inconsistencies status open summary compression optimization: calculate th",,
+17,jira:13439997:created,jira:KAFKA,issue:KAFKA-13833,org.apache.jira.issue.created,2022-04-17T06:28:13+00:00,"assignee jira-user:ab98b516b1f3 components creator jira-user:ab98b516b1f3 creator_account_id dengziming creator_name deng ziming description fix_versions is_committer false issue_key kafka-13833 labels priority major reporter jira-user:ab98b516b1f3 state_inconsistencies status open summary remove the ""min_version_level"" version from the finalized version range that is written to zookeeper",,
+18,mail:ef215713dfaa30c1f073d787,mail:dev@kafka.apache.org,thread:GV1PR09MB58987174CA68313607152A6D9D9B2@GV1PR09MB5898.eurprd09.prod.outlook.com,org.apache.mail.message,2024-09-27T07:06:48+00:00,"author contributor:d5e0f3e41a42 author_email damien@gasparina.cloud author_name damien gasparina body thanks bill, bruno, sophie, i’ll conclude the vote with your 3 binding votes.
+
+thank you everyone!
+
+damien
+
+on thu, 26 sept 2024 at 15:21, bill bejeck <bbejeck@gmail.com> wrote:
+>
+> thanks for the kip, this will be a great addition.
+>
+> +1(binding)
+>
+> regards,
+> bill
+>
+> on thu, sep 26, 2024 at 9:19 am bruno cadonna <cadonna@apache.org> wrote:
+>
+> > thanks loïc, sebastien, and damien,
+> >
+> > +1 (binding)
+> >
+> > best,
+> > bruno
+> >
+> > on 9/26/24 3:15 am, sophie blee-goldman wrote:
+> > > +1 ",,
+19,github:api:apache/kafka:pr-18774-opened,github:apache/kafka,pr:18774,com.github.pull_request.opened,2025-02-01T16:58:02+00:00,"action opened actor contributor:gh:vijaykriishna actor_login vijaykriishna author contributor:gh:vijaykriishna author_association contributor author_login vijaykriishna base_ref trunk body https://issues.apache.org/jira/browse/kafka-7360
+
+### committer checklist (excluded from commit message)
+- [ ] verify design and implementation 
+- [ ] verify test coverage and ci build status
+- [ ] verify documentation (including upgrade notes)
+ changed_files closed_at github_event_id api:apache/kafka:pr-18774-opened head_ref kafka-7360 is_committer false issue_keys kafka-7360 kip_keys merge_commit_sha",,
+20,jira:13166371:comment:17883621,jira:KAFKA,issue:KAFKA-7062,org.apache.jira.issue.comment,2024-09-22T18:33:25.539000+00:00,"author jira-user:048a401bf525 author_account_id jirauser307095 author_active true author_name rohit pandey body if mirrormaker 2.0 ([kip-382|https://cwiki.apache.org/confluence/display/kafka/kip-382%3a+mirrormaker+2.0]) is implemented then can we mark this as resolved?  comment_id 17883621 components description once kafka-2983 is merged, we can simplify the mirrormaker loop to be a single loop instead of two nested loops. in the old consumer, even if there is no message offsets would still be committed so receive() could block. the new consumer doesn't have this issue. is_committer false issu",,
+21,github:api:apache/kafka:pr-21231-opened,github:apache/kafka,pr:21231,com.github.pull_request.opened,2025-12-31T14:32:59+00:00,"action opened actor contributor:0902f473f4ee actor_login cuiweixie author contributor:0902f473f4ee author_association contributor author_login cuiweixie base_ref trunk body replaced the grammatically incorrect phrase ""if or not"" with ""whether""
+in `clients/src/main/java/org/apache/kafka/common/utils/shell.java`.
+
+reviewers: chia-ping tsai <chia7712@gmail.com>
+ changed_files closed_at github_event_id api:apache/kafka:pr-21231-opened head_ref typo is_committer false issue_keys kip_keys merge_commit_sha merged false merged_at merged_by number 21231 pull_request_id pr_kwdoacg9q867hnk2 pull_request_",,
+22,github:api:apache/kafka:pr-13232-opened,github:apache/kafka,pr:13232,com.github.pull_request.opened,2023-02-11T11:40:24+00:00,"action opened actor contributor:gh:anshuman35 actor_login anshuman35 author contributor:gh:anshuman35 author_association none author_login anshuman35 base_ref 2.4 body *more detailed description of your change,
+if necessary. the pr title and pr message become
+the squashed commit message, so use a separate
+comment to ping reviewers.*
+
+*summary of testing strategy (including rationale)
+for the feature or bug fix. unit and/or integration
+tests are expected for any behaviour change and
+system tests should be considered for larger changes.*
+
+### committer checklist (excluded from commit m",,
+23,github:api:apache/kafka:pr-21233-opened,github:apache/kafka,pr:21233,com.github.pull_request.opened,2025-12-31T19:43:25+00:00,"action opened actor contributor:ab57d794325c actor_login shan305 author contributor:ab57d794325c author_association none author_login shan305 base_ref trunk body while reading through `sender.handleproduceresponse`, i wanted to double-check my understanding of how produce responses are matched back to `producerbatch` instances.
+
+from what i can tell, the matching logic prefers `topicid` when present (v13+), and otherwise falls back to topic name + partition, using a topic-name snapshot captured before the request is sent.
+
+this makes sense, but i wanted to confirm the intended guarantees h",,
+24,github:api:apache/kafka:pr-21232-opened,github:apache/kafka,pr:21232,com.github.pull_request.opened,2025-12-31T16:45:38+00:00,"action opened actor contributor:gh:ankur021188 actor_login ankur021188 author contributor:gh:ankur021188 author_association none author_login ankur021188 base_ref trunk body delete this text and replace it with a detailed description of your change. the 
+pr title and body will become the squashed commit message.
+
+if you would like to tag individuals, add some commentary, upload images, or
+include other supplemental information that should not be part of the eventual
+commit message, please use a separate comment.
+
+if applicable, please include a summary of the testing strategy (including",,
+25,github:api:apache/kafka:pr-19961-opened,github:apache/kafka,pr:19961,com.github.pull_request.opened,2025-06-13T05:52:57+00:00,"action opened actor contributor:gh:forest0923 actor_login forest0923 author contributor:gh:forest0923 author_association contributor author_login forest0923 base_ref trunk body https://issues.apache.org/jira/browse/kafka-19390
+
+the abstractindex.resize() method does not release the old memory map
+for both index and time index files.  in some cases, mixed gc may not
+run for a long time, which can cause the broker to crash when the
+vm.max_map_count limit is reached.
+
+the root cause is that safeforceunmap() is not being called on linux
+within resize(), so we have changed the code to unmap old mma",,
+26,jira:13433530:created,jira:KAFKA,issue:KAFKA-13731,org.apache.jira.issue.created,2022-03-13T17:04:00+00:00,"assignee jira-user:35ad357e80df components connect creator jira-user:35ad357e80df creator_account_id chrisegerton creator_name chris egerton description in order to start a standalone connect worker, it's currently necessary to provide at least two command-line arguments:
+ # the path to the worker config file
+ # one or more paths to a connector config file
+
+this may be due to the now-inaccurate belief that standalone workers do not support the connect rest api, which can be used to create/reconfigure/delete connectors at runtime. however, standalone mode does in fact expose the connect res",,
+27,jira:13439943:created,jira:KAFKA,issue:KAFKA-13832,org.apache.jira.issue.created,2022-04-16T11:57:04+00:00,assignee components unit tests creator jira-user:ab98b516b1f3 creator_account_id dengziming creator_name deng ziming description fix_versions is_committer false issue_key kafka-13832 labels priority minor reporter jira-user:ab98b516b1f3 state_inconsistencies status open summary flaky test topiccommandintegrationtest.testalterassignment,,
+28,jira:13595186:created,jira:KAFKA,issue:KAFKA-17782,org.apache.jira.issue.created,2024-10-12T15:08:07+00:00,"assignee jira-user:b60bb7655cb2 components clients creator jira-user:b60bb7655cb2 creator_account_id jirauser303691 creator_name lin siyuan description the expected code should be `assertequals(toset(subscription.topics()), toset(parsedsubscription.topics()));`
+
+https://github.com/apache/kafka/blob/ca422268649136b7207c0843fea28d594c761fe9/clients/src/test/java/org/apache/kafka/clients/consumer/internals/consumerprotocoltest.java#l156 fix_versions is_committer false issue_key kafka-17782 labels priority major reporter jira-user:b60bb7655cb2 state_inconsistencies status open summary fix consum",,
+29,jira:13599019:created,jira:KAFKA,issue:KAFKA-18027,org.apache.jira.issue.created,2024-11-16T18:45:41+00:00,"assignee jira-user:2d274fe771f4 components creator jira-user:2d274fe771f4 creator_account_id jirauser303719 creator_name abhinav dixit description in reference to pr comment [https://github.com/apache/kafka/pull/17739#discussion_r1844998612] ,the code seems inaccurate and not aligned with the below comment.
+{code:java}
+it is possible that an operation is completed after it has been added to the watch list for some, but not all the keys. in this case, the operation is considered completed and won't be added to the watch list of the remaining keys.{code}
+ 
+
+  fix_versions is_committer false",,
+30,jira:13600461:created,jira:KAFKA,issue:KAFKA-18128,org.apache.jira.issue.created,2024-11-30T14:33:00+00:00,"assignee jira-user:0f38fd0cf70f components creator jira-user:0f38fd0cf70f creator_account_id chia7712 creator_name chia-ping tsai description there are two issues in metadataschemacheckertooltest
+
+ 
+ # it assumes the root folder name is `kafka`
+ #  it assumes the root folder has ref ""refs/heads/trunk"" but it is not existent in pr. see the fetch command used by ci 
+```
+git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +e2aee931410fe32dd62ac8b832b437f058c1f43e:refs/remotes/pull/17980/merge
+```
+that means the refs in pr repo are only ""head"" and ""re",,
+31,jira:13071976:comment:17902052,jira:KAFKA,issue:KAFKA-5241,org.apache.jira.issue.comment,2024-11-30T16:47:13.814000+00:00,"author jira-user:e29a035e2747 author_account_id sg12 author_active true author_name sergey zyrianov body hello, 
+
+
+it is back on 3.8.1
+
+[https://github.com/apache/kafka/blob/trunk/streams/src/main/java/org/apache/kafka/streams/processor/internals/statemanagerutil.java#l78c35-l78c72]
+
+ 
+
+the check above prevents .checkpoint to be created for potentially large global state which is expensive to restore if source topic is idle 
+
+[https://github.com/apache/kafka/blob/trunk/streams/src/main/java/org/apache/kafka/streams/processor/internals/globalstateupdatetask.java#l167]
+
+  comment_id",,
+32,jira:13590266:created,jira:KAFKA,issue:KAFKA-17435,org.apache.jira.issue.created,2024-08-28T06:04:27+00:00,"assignee jira-user:f0d325f764bb components creator jira-user:f0d325f764bb creator_account_id jirauser305350 creator_name xuanzhang gong description remove mirrorsourceconfig `use.incremental.alter.configs`
+
+the properties `use.incremental.alter.configs` is deprecated.
+
+see [https://kafka.apache.org/documentation/#mirror_source_use.incremental.alter.configs]
+
+see  [https://cwiki.apache.org/confluence/display/kafka/kip-894%3a+use+incrementalalterconfigs+api+for+syncing+topic+configurations]
+
+we can consider to remove them in 4.0. 
+
+after the update, the behavior should match the curren",,
+33,jira:13146538:comment:17770704,jira:KAFKA,issue:KAFKA-6690,org.apache.jira.issue.comment,2023-09-30T12:33:59.010000+00:00,"author jira-user:d1865c03e381 author_account_id domenico74 author_active true author_name domenico di giulio body i see this issue was closed but we also really need it a lot.
+
+in our case two co-partitioned source topics are used in the same topology, one (let's call it topic ""a"") to accept new business requests, the other (let's call it topic ""b"") as a loopback (from downstream components) about business transactions already in progress, which come back to the same topology to update a transaction status (in a store) and proceed.
+
+we found that when the event rate on topic a is too high,",,
+34,jira:13604628:created,jira:KAFKA,issue:KAFKA-18483,org.apache.jira.issue.created,2025-01-12T19:55:20+00:00,assignee components creator jira-user:c91d65c37eac creator_account_id pkarwasz creator_name piotr karwasz description since kafka-18466 removed the dependency of {{kafka_<version>}} and {{connect-runtime}} from log4j core a linkage error will occur each time an application accesses the {{log4jcontroller}} and {{loggers}} classes. fix_versions is_committer false issue_key kafka-18483 labels priority minor reporter jira-user:c91d65c37eac state_inconsistencies status open summary protect `loggers` and `log4jcontroller` against `linkageerror`s,,
+35,jira:13605012:created,jira:KAFKA,issue:KAFKA-18534,org.apache.jira.issue.created,2025-01-15T07:00:28+00:00,"assignee jira-user:0205565c2aca components creator jira-user:0205565c2aca creator_account_id jirauser301374 creator_name taijuwu description cmd:
+python docker_build_test.py kafka/test --image-tag=3.8.0 --image-type=native --kafka-url=https://archive.apache.org/dist/kafka/3.8.0/kafka_2.13-3.8.0.tgz
+the error throw
+```
+
+ => [build-native-image 5/5] run mkdir /app/kafka;     microdnf install wget;     wget -nv -o kafka.tgz ""https://archive.apache.org/dist/kafka/3.8.0/kafka_2.13-3.8.0.tgz"";     wget -nv -o kafka.tgz.asc ""https://archive.apache.org/dist/kafka/3.8.0/kafka_2.13-3.8.0  107.3s
+ ",,
+36,jira:13606285:created,jira:KAFKA,issue:KAFKA-18650,org.apache.jira.issue.created,2025-01-26T12:08:43+00:00,"assignee jira-user:2d274fe771f4 components creator jira-user:20cb4e0e9820 creator_account_id apoorvmittal10 creator_name apoorv mittal description https://ge.apache.org/s/yrs42jui2gchu/tests/task/:core:test/details/kafka.server.share.sharepartitionmanagertest/testreplicamanagerfetchshouldproceed()?top-execution=1
+
+ 
+
+```
+
+[2025-01-16 18:43:20,963] warn [remotelogmanager=0 partition=qb2ob0gutu-tom06zitq7w:leader-0] current task for partition qb2ob0gutu-tom06zitq7w:leader-0 received error but it will be scheduled (kafka.log.remote.remotelogmanager$rlmtask:832)
+java.lang.nullpointerexcepti",,
+37,github:api:apache/kafka:pr-15088-opened,github:apache/kafka,pr:15088,com.github.pull_request.opened,2023-12-29T04:06:15+00:00,"action opened actor contributor:gh:sanepal actor_login sanepal author contributor:gh:sanepal author_association contributor author_login sanepal base_ref trunk body [kafka-16025](https://issues.apache.org/jira/browse/kafka-16025) describes the race condition sequence in detail. when this occurs, it can cause the impacted task's initializing to block indefinitely, blocking progress on the impacted task, and any other task assigned to the same stream thread. the fix i have implemented is pretty simple, simply re-check whether a directory is still empty after locking it during the start of rebala",,
+38,jira:13601792:created,jira:KAFKA,issue:KAFKA-18218,org.apache.jira.issue.created,2024-12-12T07:16:32+00:00,"assignee jira-user:0205565c2aca components creator jira-user:0205565c2aca creator_account_id jirauser301374 creator_name taijuwu description [https://github.com/apache/kafka/pull/18000/files] make output as console instead of log so follow error will be reported.
+
+
+
+traceback (most recent call last):
+        file ""/usr/local/lib/python3.7/dist-packages/ducktape/tests/runner_client.py"", line 350, in _do_run
+        self.setup_test()
+        file ""/usr/local/lib/python3.7/dist-packages/ducktape/tests/runner_client.py"", line 402, in setup_test
+        self.test.setup()
+        file ""/usr",,
+39,github:api:apache/kafka:pr-20330-opened,github:apache/kafka,pr:20330,com.github.pull_request.opened,2025-08-09T04:51:32+00:00,"action opened actor contributor:gh:shubhu15 actor_login shubhu15 author contributor:gh:shubhu15 author_association none author_login shubhu15 base_ref trunk body this pr enhances test coverage for the kafka streams temperaturedemo example by adding comprehensive unit tests using topologytestdriver.
+the tests validate that the temperature monitoring topology correctly:
+1. groups readings into 5-second windows
+2. computes maximum temperature per window
+3. filters output based on 20°c threshold
+4. handles various input scenarios gracefully
+
+
+based on the feedback future prs will cover the",,
+40,github:api:apache/kafka:pr-20300-opened,github:apache/kafka,pr:20300,com.github.pull_request.opened,2025-08-04T12:21:22+00:00,"action opened actor contributor:874846b09803 actor_login jack2012aa author contributor:874846b09803 author_association contributor author_login jack2012aa base_ref trunk body ## description
+`processor` and `acceptor` in `socketserver` may produce a race condition when a processor was closed but its acceptor assigns a socket channel to it. the channel will remain open, which is a leak.
+
+## change
+`processor` now checks the `shouldrun` value before it accepts a channel. `acceptor` closes the refused channel.
+
+## test
+added a unit test that shutdowns processors externally to introduce the ",,
+41,jira:12830881:change:22718823:0,jira:KAFKA,issue:KAFKA-2200,org.apache.jira.issue.transition,2025-09-13T10:42:28.445000+00:00,actor jira-user:9c1bd1896946 actor_account_id jirauser310944 actor_name raghunandan g changelog_id 22718823 components clients description kafkaproducer.send() should not call callback.oncompletion() because this might break the callback firing order. field assignee from is_committer false issue_key kafka-2200 summary kafkaproducer.send() should not call callback.oncompletion() to jira-user:9c1bd1896946,,
+42,github:api:apache/kafka:commit-109b74c590a26c225856919d27d17b6f947e4e7c,github:apache/kafka,contributor:48ddc103fd18,com.github.push,2022-10-18T05:03:52+00:00,actor contributor:48ddc103fd18 actor_login liuzhuang2017 associated_pr_numbers 12272 author contributor:48ddc103fd18 author_association before branch trunk changed_files commits author contributor:48ddc103fd18 author_name liuzhuang2017 changed_files message minor: update the readme file in examples. (#12272) sha 109b74c590a26c225856919d27d17b6f947e4e7c distinct_size 1 github_event_id api:apache/kafka:commit-109b74c590a26c225856919d27d17b6f947e4e7c head 109b74c590a26c225856919d27d17b6f947e4e7c is_committer false issue_keys kip_keys message minor: update the readme file in examples. (#12272) ref,,
+43,github:api:apache/kafka:pr-20908-opened,github:apache/kafka,pr:20908,com.github.pull_request.opened,2025-11-18T05:01:17+00:00,"action opened actor contributor:gh:bhargav-naik actor_login bhargav-naik author contributor:gh:bhargav-naik author_association none author_login bhargav-naik base_ref trunk body redundant pr pushed by mistake.
+to be deleted changed_files closed_at github_event_id api:apache/kafka:pr-20908-opened head_ref kip-1228-pt3-send-version-info-to-producer-epoch-check is_committer false issue_keys kip_keys kip-1228 merge_commit_sha merged false merged_at merged_by number 20908 pull_request_id pr_kwdoacg9q860aufg pull_request_number 20908 repo apache/kafka title pushed by mistake",,
+44,github:api:apache/kafka:pr-19456-opened,github:apache/kafka,pr:19456,com.github.pull_request.opened,2025-04-13T13:13:56+00:00,"action opened actor contributor:8f970dade1af actor_login siddharthadevineni author contributor:8f970dade1af author_association contributor author_login siddharthadevineni base_ref trunk body kafka-19117 issue description:
+
+we experienced an outage in our application due to a built up kafka lag,
+which we eventually discovered to be the problem with kafka clients
+being throttled.
+
+even when using the confluent cluster, the dashboard does point to
+exceeding the quota of the principal.
+
+it will be nice, if the log message on the client side is a warning.
+this helps those who don't have visibility ",,
+45,jira:13569158:created,jira:KAFKA,issue:KAFKA-16281,org.apache.jira.issue.created,2024-02-20T08:32:10+00:00,"assignee components kraft creator jira-user:6799f0378659 creator_account_id jirauser280076 creator_name jack vanlightly description i have a tla+ model of kip-996 (pre-vote) and i have identified an illegalstate exception that would occur with the existing maybehandlecommonresponse behavior.
+
+the issue stems from the fact that a leader, let's call it r1, can resign (either due to a restart or check quorum) and then later initiate a pre-vote where it ends up in the same epoch as before. when r1 receives a response from r2 who believes that r1 is still the leader, the logic in maybehandlecommo",,
+46,github:api:apache/kafka:pr-12651-opened,github:apache/kafka,pr:12651,com.github.pull_request.opened,2022-09-16T09:25:19+00:00,"action opened actor contributor:gh:smjn actor_login smjn author contributor:gh:smjn author_association collaborator author_login smjn base_ref trunk body https://issues.apache.org/jira/browse/kafka-14212
+
+* currently httpaccesstokenretriever client side class does not retrieve error response from the token e/p. as a result, seemingly trivial config issues could take a lot of time to diagnose and fix. for example, client could be sending invalid client secret, id or scope.
+* this pr aims to remedy the situation by retrieving the error response, if present and logging as well as appending to ",,
+47,github:api:apache/kafka:pr-14703-opened,github:apache/kafka,pr:14703,com.github.pull_request.opened,2023-11-06T04:34:46+00:00,action opened actor contributor:a103b94fa2f2 actor_login laststem author contributor:a103b94fa2f2 author_association none author_login laststem base_ref trunk body edit the description of enablecleaner to clarify changed_files closed_at github_event_id api:apache/kafka:pr-14703-opened head_ref clearnerconfig_enablecleaner_desc is_committer false issue_keys kip_keys merge_commit_sha merged false merged_at merged_by number 14703 pull_request_id pr_kwdoacg9q85epe3m pull_request_number 14703 repo apache/kafka title minor: edit enablecleaner description,,
+48,github:api:apache/kafka:pr-14701-opened,github:apache/kafka,pr:14701,com.github.pull_request.opened,2023-11-04T16:01:56+00:00,"action opened actor contributor:gh:ayoubom actor_login ayoubom author contributor:gh:ayoubom author_association contributor author_login ayoubom base_ref trunk body *add a note about log compaction behavior. the term ""old data"" used may be misunderstood as old data with respect of time, instead of old data associated with a given key*
+
+
+### committer checklist (excluded from commit message)
+- [ ] verify design and implementation 
+- [ ] verify test coverage and ci build status
+- [ ] verify documentation (including upgrade notes)
+ changed_files closed_at github_event_id api:apache/kafka:p",,
+49,jira:13631344:created,jira:KAFKA,issue:KAFKA-19786,org.apache.jira.issue.created,2025-10-13T04:58:26+00:00,"assignee jira-user:a5d7c56e729c components build creator jira-user:a5d7c56e729c creator_account_id jirauser308785 creator_name hongyi chen description *problem*
+when running *{{:core:compilescala}}* under {*}{{keepalivemode=session}}{*}, joint compilation adds a non-existent directory ({_}{{.../core/build/classes/java/main}}{_}) to {{{}javac{}}}’s classpath.
+this triggers:
+{code:java}
+unexpected javac output: warning: [path] bad path element "".../core/build/classes/java/main"": no such file or directory
+error: warnings found and -werror specified {code}
+the same task succeeds under {{{}ke",,
+50,jira:13613572:created,jira:KAFKA,issue:KAFKA-19053,org.apache.jira.issue.created,2025-03-30T14:32:14+00:00,"assignee jira-user:0f38fd0cf70f components creator jira-user:0f38fd0cf70f creator_account_id chia7712 creator_name chia-ping tsai description 
+{code:java}
+    // todo: remove as a part of kafka-12410
+    public static fetchresponse of(errors error,
+                                   int throttletimems,
+                                   int sessionid,
+                                   linkedhashmap<topicidpartition, fetchresponsedata.partitiondata> responsedata) {
+        return new fetchresponse(tomessage(error, throttletimems, sessionid, responsedata.entryset().iterator(), collection",,
+51,mail:d7d204739b545ed1ca5934d7,mail:dev@kafka.apache.org,thread:CAN_Pfjb4RvGnMmPbKsvrGduPxBCq14amfJjp445_=iX2JPpNaQ@mail.gmail.com,org.apache.mail.message,2025-06-21T07:22:03+00:00,"author contributor:98796f4e2cf4 author_email priceelees@gmail.com author_name 이상진 body hello kafka developers,
+
+i hope this email finds you well.
+
+this might be a silly question, but i had a question about the kafka client
+code (v3.9.0) that is `madereadprogresslastpoll` field in the `selector`
+class and the mechanism described in its comment: ""to prevent tight loops
+when memory is not available to read any more data."".
+
+first, let me walk you through my understanding of the code.
+
+the `selector` class has the following field:
+
+```java
+
+//indicates if the previous call to poll was able to make",,
+52,mail:655a5b0514262fc5e1ca25f7,mail:dev@kafka.apache.org,thread:CAD1QcvozELQ94jeOE7-nz1ja8kJoVdHy0D19Y--7zeAtkMkKQg@mail.gmail.com,org.apache.mail.message,2025-12-07T18:35:04+00:00,"author contributor:40b749e0578c author_email vkroy241@gmail.com author_name vijay roy body hi team ,
+
+please add me to kafka subscriber list as i am interested in learning and
+contributing to the kafka project.
+
+thanks,
+vijay in_reply_to is_committer false list dev@kafka.apache.org message_id cad1qcvozelq94jeoe7-nz1ja8kjovdhy0d19y--7zeatkmkkqg@mail.gmail.com month 2025-12 references subject subscribe to kafka users list subject_tags thread_root cad1qcvozelq94jeoe7-nz1ja8kjovdhy0d19y--7zeatkmkkqg@mail.gmail.com",,
+53,mail:9ecdefcee358326b487c43e4,mail:dev@kafka.apache.org,thread:CABihrUn6cP7FjBe_+WjEMyf2QTDvyux9pQiE_X+bYPOd-V28nw@mail.gmail.com,org.apache.mail.message,2025-01-03T06:40:00+00:00,"author contributor:bbe7bd7644f1 author_email ericzhifengchen@gmail.com author_name chen zhifeng body hi everyone,
+
+started a thread to discuss kip-1095: kafka canary isolation (link
+<https://cwiki.apache.org/confluence/display/kafka/kip-1095%3a+kafka+canary+isolation>
+)
+
+canary isolation aims to improve kafka service quality by reducing blast
+radius of bad kafka deployment to a small portion of traffic.
+
+the key solution including
+1. define canary broker (a new broker metadata - pod is introduced)
+2. define canary partition - a small portion of partitions placed on canary
+brokers
+3. producer/c",,
+54,mail:d738b742ffef8eebb1d2d0df,mail:dev@kafka.apache.org,thread:C84F1375-CE4F-453A-9B02-4EC8F25496B2@itiger.com,org.apache.mail.message,2025-04-27T09:36:23+00:00,"author contributor:57777540330a author_email yexijun@itiger.com author_name xijun ye body i have a question about data consistency. kafka isr only determines the time of lag, not the number of messages. does ack=all require the replicas in the isr to completely catch up with the number of messages or to meet the time requirement? for example, if there are 3 replicas in the isr, min.insync.replicas=3 and acks=all, can the data of the 3 replicas be guaranteed to be completely consistent when the message is written? instead of meeting the replica.lag.time.max.ms time requirement. in_reply_to is_c",,
+55,github:api:apache/kafka:pr-18724-opened,github:apache/kafka,pr:18724,com.github.pull_request.opened,2025-01-28T04:54:44+00:00,"action opened actor contributor:4d18caf714e1 actor_login nilmadhab author contributor:4d18caf714e1 author_association contributor author_login nilmadhab base_ref trunk body *more detailed description of your change,
+if necessary. the pr title and pr message become
+the squashed commit message, so use a separate
+comment to ping reviewers.*
+
+*summary of testing strategy (including rationale)
+for the feature or bug fix. unit and/or integration
+tests are expected for any behaviour change and
+system tests should be considered for larger changes.*
+
+### committer checklist (excluded from com",,
+56,mail:1bc7d702dc88fddcd265f916,mail:dev@kafka.apache.org,thread:CAEZWgnfWuNtdN+RgRAUbMR2reVJuydoN2+L_FUwO-KfvOCJ+Ew@mail.gmail.com,org.apache.mail.message,2025-06-16T05:02:32+00:00,"author contributor:37b7fcd7e67e author_email mahesh.sambharam25@gmail.com author_name mahesh sambharam body hi,
+
+this is mahesh, please add me to kafka contributors list.
+
+thanks,
+mahesh in_reply_to is_committer false list dev@kafka.apache.org message_id caezwgnfwuntdn+rgraubmr2revjuydon2+l_fuwo-kfvocj+ew@mail.gmail.com month 2025-06 references subject add user to contributors list subject_tags thread_root caezwgnfwuntdn+rgraubmr2revjuydon2+l_fuwo-kfvocj+ew@mail.gmail.com",,
+57,github:api:apache/kafka:pr-18293-opened,github:apache/kafka,pr:18293,com.github.pull_request.opened,2024-12-21T11:14:01+00:00,"action opened actor contributor:2fab07e2f06c actor_login ekuvardin author contributor:2fab07e2f06c author_association contributor author_login ekuvardin base_ref trunk body 1. jmh test should return value against return void (compiler can
+eliminate returned value and benchmark would be incorrect).
+2. also move constant variable from method to class, to prevent jit to
+unfold.
+3. increase warm up iterations
+
+reviewers: lucas brutschy <lucasbru@apache.org>
+ changed_files closed_at github_event_id api:apache/kafka:pr-18293-opened head_ref kafka-18336 is_committer false issue_keys kafka-18336 kip_k",,
+58,github:api:apache/kafka:pr-18328-opened,github:apache/kafka,pr:18328,com.github.pull_request.opened,2024-12-27T10:17:48+00:00,"action opened actor contributor:gh:tmw090906 actor_login tmw090906 author contributor:gh:tmw090906 author_association none author_login tmw090906 base_ref trunk body …ering after being closed, which could lead to memory leaks
+
+*more detailed description of your change,
+if necessary. the pr title and pr message become
+the squashed commit message, so use a separate
+comment to ping reviewers.*
+
+*summary of testing strategy (including rationale)
+for the feature or bug fix. unit and/or integration
+tests are expected for any behaviour change and
+system tests should be considered for larger",,
+59,github:api:apache/kafka:pr-21327-opened,github:apache/kafka,pr:21327,com.github.pull_request.opened,2026-01-19T05:19:24+00:00,"action opened actor contributor:gh:jeevanyewale actor_login jeevanyewale author contributor:gh:jeevanyewale author_association contributor author_login jeevanyewale base_ref trunk body converted indented code blocks to fenced code blocks (```bash) to enable
+syntax highlighting and the ""copy"" button feature.
+removed redundant trailing # characters from headers to align with
+standard markdown style.
+
+reviewers: sean quah <squah@confluent.io>, chia-ping tsai
+ <chia7712@gmail.com>
+ changed_files closed_at github_event_id api:apache/kafka:pr-21327-opened head_ref improve-readme-formatting is_commit",,
+60,github:api:apache/kafka:pr-21326-opened,github:apache/kafka,pr:21326,com.github.pull_request.opened,2026-01-18T18:48:04+00:00,"action opened actor contributor:gh:amr-shams actor_login amr-shams author contributor:gh:amr-shams author_association none author_login amr-shams base_ref trunk body expose producer and per-topic metrics for adaptive sticky partitioning, including adaptive partition switches, partition load skew, and partition exclusions due to latency.
+adds unit tests to validate metric behavior. changed_files closed_at github_event_id api:apache/kafka:pr-21326-opened head_ref metrics-adaptive-partitioning-observability is_committer false issue_keys kip_keys merge_commit_sha merged false merged_at merged_by ",,
+61,mail:29ee85509fa57650b7f64616,mail:dev@kafka.apache.org,thread:CAPUior97U2B9edi4Z3GGhzVhFYHDREUSKQ6XXaDaSt-ovrw+KQ@mail.gmail.com,org.apache.mail.message,2025-09-11T13:54:09+00:00,"author contributor:94e204995a67 author_email a.a.yushkevich@gmail.com author_name andrei d body +1 (non-binding)
+
+on 2025/09/04 17:23:47 anton liauchuk wrote:
+> hi
+>
+> i would like to start a vote on *kip-1209: add configuration to control
+> internal topic creation in kafka connect*
+>
+> kip: https://cwiki.apache.org/confluence/x/gaq2fg
+> discussion thread:
+> https://lists.apache.org/thread/l89rzzm0jd4ml7xx66mkxfztst281so7
+>
+
+-- 
+regards, andrei in_reply_to is_committer false list dev@kafka.apache.org message_id capuior97u2b9edi4z3gghzvhfyhdreuskq6xxadast-ovrw+kq@mail.gmail.com month 2025-09 re",,
+62,mail:f77f2c5f45fe8dd141ba8979,mail:dev@kafka.apache.org,thread:445685142.45432.1756447644676.ref@mail.yahoo.com,org.apache.mail.message,2025-08-29T06:07:24+00:00,"author contributor:b12ed3d7a5a4 author_email rshekhar.prasad@gmail.com author_name rshekhar prasad body hello team,
+while exploring kafka queue semantics, we released there is some apis that is useful but missing for example :
+1.  multiple polls and ack later batch wise in explicit mode : 
+
+ consumerrecords<k, v> batch1 = shareconsumer.poll(duration.ofmillis(100));
+ consumerrecords<k, v> batch2 = shareconsumer.poll(duration.ofmillis(100)); // no illegalstateexception!
+ consumerrecords<k, v> batch3 = shareconsumer.poll(duration.ofmillis(100));
+ 
+ // process all batches...
+ shareconsumer.acknowl",,
+63,github:api:apache/kafka:pr-15352-opened,github:apache/kafka,pr:15352,com.github.pull_request.opened,2024-02-12T05:17:33+00:00,action opened actor contributor:gh:ghostspiders actor_login ghostspiders author contributor:gh:ghostspiders author_association contributor author_login ghostspiders base_ref trunk body clean up references to non-existent integrationtesthelper changed_files closed_at github_event_id api:apache/kafka:pr-15352-opened head_ref kafka-16239-clean-up-integrationtesthelper is_committer false issue_keys kafka-16239 kip_keys merge_commit_sha merged false merged_at merged_by number 15352 pull_request_id pr_kwdoacg9q85mmsps pull_request_number 15352 repo apache/kafka title kafka-16239: clean up references,,
+64,github:api:apache/kafka:pr-15239-opened,github:apache/kafka,pr:15239,com.github.pull_request.opened,2024-01-20T17:59:07+00:00,"action opened actor contributor:gh:mberndt123 actor_login mberndt123 author contributor:gh:mberndt123 author_association contributor author_login mberndt123 base_ref trunk body hey there,
+
+the motivation for this pr is that we're trying to migrate our codebase to scala 3. since scala 3 is able to consume scala 2.13 libraries, we can use the scala 2.13 version of kafka-streams-scala, but that pulls in the scala-collections-compat_2.13 library as a dependency. another one of our dependencies pulls in scala-collections-compat_3, and you can't have both on the classpath at the same time. luckily",,
+65,github:api:apache/kafka:pr-15276-opened,github:apache/kafka,pr:15276,com.github.pull_request.opened,2024-01-27T06:24:48+00:00,"action opened actor contributor:gh:armdave actor_login armdave author contributor:gh:armdave author_association none author_login armdave base_ref trunk body [kafka-13130](https://issues.apache.org/jira/browse/kafka-13130)
+
+in progress: need to add suppress warning annotations
+
+### committer checklist (excluded from commit message)
+- [ ] verify design and implementation 
+- [ ] verify test coverage and ci build status
+- [ ] verify documentation (including upgrade notes)
+ changed_files closed_at github_event_id api:apache/kafka:pr-15276-opened head_ref kafka-13130-deprecate-long-based-ra",,
+66,github:api:apache/kafka:pr-21268-opened,github:apache/kafka,pr:21268,com.github.pull_request.opened,2026-01-08T07:17:04+00:00,"action opened actor contributor:gh:santhan3159 actor_login santhan3159 author contributor:gh:santhan3159 author_association contributor author_login santhan3159 base_ref trunk body lz4 1.10.2 release note:
+https://github.com/yawkat/lz4-java/releases/tag/v1.10.2
+
+changes:
+- updated dependencies.gradle to reflect the new version.
+- updated license-binary to match the version upgrade.
+
+reviewers: chia-ping tsai <chia7712@gmail.com>
+ changed_files closed_at github_event_id api:apache/kafka:pr-21268-opened head_ref lz4_version_update is_committer false issue_keys kip_keys merge_commit_sha merged fa",,
+67,mail:e5e57509da91cd5305a32f04,mail:dev@kafka.apache.org,thread:CAP4YO_K2JjMZ_vksMQ+eF9aOUN0zn647dtpiE4OsuW8jjkkKXg@mail.gmail.com,org.apache.mail.message,2023-11-05T12:54:55+00:00,"author contributor:1b4883f7454c author_email hermankjakobsen@gmail.com author_name herman k. jakobsen body i am requesting permission to contribute to apache kafka.
+
+wiki id: herman kolstad jakobsen (hermankj)
+jira id:  herman kolstad jakobsen (hermankj)
+
+thanks!
+
+---
+herman kolstad jakobsen in_reply_to is_committer false list dev@kafka.apache.org message_id cap4yo_k2jjmz_vksmq+ef9aoun0zn647dtpie4osuw8jjkkkxg@mail.gmail.com month 2023-11 references subject permission to contribute to apache kafka subject_tags thread_root cap4yo_k2jjmz_vksmq+ef9aoun0zn647dtpie4osuw8jjkkkxg@mail.gmail.com",,
+68,mail:bc59961f519fb79f7ca459c2,mail:dev@kafka.apache.org,thread:CABofNu8Hjn5zAw6H--qjGnNFf=B9zaFA0WXj2-yMCF=2Z5eHMw@mail.gmail.com,org.apache.mail.message,2025-11-01T12:43:27+00:00,"author contributor:e7af68123859 author_email npgretz@gmail.com author_name nick gretzon body stephen,
+
+thank you for your work on this! this is especially important with bitnami
+no longer offering free and versioned images for their helm charts.
+
+i personally would be interested in contributing and using an official
+kafka helm chart through my organization and in my personal use.
+
+nick
+
+on 2025/03/24 13:50:31 stephen askew wrote:
+> hi all,
+>
+> i've opened a new kip-1149: helm chart for apache kafka<
+https://cwiki.apache.org/confluence/display/kafka/kip-1149%3a+helm+chart+for+apache+kafka>
+with",,
+69,github:api:apache/kafka:pr-20129-opened,github:apache/kafka,pr:20129,com.github.pull_request.opened,2025-07-08T19:18:55+00:00,"action opened actor contributor:cefd4ac793f1 actor_login georgew5656 author contributor:cefd4ac793f1 author_association none author_login georgew5656 base_ref trunk body fixes a bug with tiered storage quota metrics introduced in
+[kip-956](https://cwiki.apache.org/confluence/display/kafka/kip-956+tiered+storage+quotas).
+the metrics tracking how much time have been spent in a throttled state
+can stop reporting if a cluster stops stops doing remote copy/fetch and
+the sensors go inactive.
+
+this change delegates the job of refreshing inactive sensors to
+sensoraccess. there's pretty similar logic i",,
+70,github:api:apache/kafka:pr-20240-opened,github:apache/kafka,pr:20240,com.github.pull_request.opened,2025-07-25T14:05:34+00:00,"action opened actor contributor:gh:iddeepak actor_login iddeepak author contributor:gh:iddeepak author_association none author_login iddeepak base_ref trunk body the newly added `streamsgroupcommand.java` tool, does not return a popper error code, what might break scripts which use `bin/kafka-streams-group.sh` as they cannot do proper error handling.
+
+similar to existing [`streamsresetter.java`](https://github.com/apache/kafka/blob/trunk/tools/src/main/java/org/apache/kafka/tools/streamsresetter.java) we should return a proper error code. changed_files closed_at github_event_id api:apache/ka",,
+71,github:api:apache/kafka:pr-19517-opened,github:apache/kafka,pr:19517,com.github.pull_request.opened,2025-04-19T17:02:21+00:00,"action opened actor contributor:8620b6620c1e actor_login uladzislaublok author contributor:8620b6620c1e author_association contributor author_login uladzislaublok base_ref trunk body this pr fixes an issue where the thread name shown in log messages did
+not match the actual execution context. previously, log entries
+displayed the context of the newly created thread, while the logger
+reflected the current executing thread. this mismatch led to confusion
+and made log tracing more difficult.
+
+changes:   - use logger without context to not have context   - updated
+log messages to explicitly descri",,
+72,github:api:apache/kafka:pr-16590-opened,github:apache/kafka,pr:16590,com.github.pull_request.opened,2024-07-14T12:42:14+00:00,"action opened actor contributor:gh:soravolk actor_login soravolk author contributor:gh:soravolk author_association contributor author_login soravolk base_ref trunk body as per the discussion: https://github.com/apache/kafka/pull/14628#discussion_r1673749083
+since the uuid constrain no longer holds after 3.7, it is better to modify the type from `uuid` to `string` to clarify the intention behind the `clusterid` for the current version.
+
+### committer checklist (excluded from commit message)
+- [ ] verify design and implementation 
+- [ ] verify test coverage and ci build status
+- [ ] verify",,
+73,github:api:apache/kafka:pr-16544-opened,github:apache/kafka,pr:16544,com.github.pull_request.opened,2024-07-07T09:42:25+00:00,"action opened actor contributor:gh:raymcdermott actor_login raymcdermott author contributor:gh:raymcdermott author_association none author_login raymcdermott base_ref trunk body ### goal
+
+add @functionalinterface to streams interfaces to enable clojure 1.12 (and any other jvm language) to have the correct hints for these sam interfaces.
+
+the clojure issue is [here ](https://ask.clojure.org/index.php/13908/expand-fi-adapting-to-sam-types-not-marked-as-fi)
+
+### testing
+unit tests and system tests all pass locally.
+
+### committer checklist (excluded from commit message)
+- [ ] verify des",,
+74,mail:023f7faeff59e76eb2b1e5a7,mail:dev@kafka.apache.org,thread:CABfG-YbHWba1kB1jQ3krCpW0foyt4tNhs6tjF6Ej1xzAov-H0A@mail.gmail.com,org.apache.mail.message,2026-01-01T06:17:23+00:00,"author contributor:cfc9203ab679 author_email shelijun.tong@gmail.com author_name lijun tong body hi folk,
+
+i would like to have the right access permission to create kip.
+my wiki id is lijuntong, and my jira id is lijunt.
+thank you for the help!
+
+thanks and regards
+lijun tong in_reply_to is_committer false list dev@kafka.apache.org message_id cabfg-ybhwba1kb1jq3krcpw0foyt4tnhs6tjf6ej1xzaov-h0a@mail.gmail.com month 2026-01 references subject wiki kafka access subject_tags thread_root cabfg-ybhwba1kb1jq3krcpw0foyt4tnhs6tjf6ej1xzaov-h0a@mail.gmail.com",,
+75,github:api:apache/kafka:pr-20359-opened,github:apache/kafka,pr:20359,com.github.pull_request.opened,2025-08-16T04:30:35+00:00,"action opened actor contributor:bb0a26d9b476 actor_login oertl author contributor:bb0a26d9b476 author_association contributor author_login oertl base_ref trunk body this pr optimizes the murmur2 hash computation. instead of processing
+bytes individually, the proposed change uses a `varhandle` to load 4
+bytes from the given `data` array at once, leading to a significant
+speedup. the first commit extends the unit tests for better coverage.
+the second commit introduces a jmh benchmark for measuring the speedup.
+and the third commit actually changes the murmur2 implementation.
+
+the benchmark resul",,
+76,github:api:apache/kafka:pr-15495-opened,github:apache/kafka,pr:15495,com.github.pull_request.opened,2024-03-08T05:23:23+00:00,"action opened actor contributor:1064e6ea0227 actor_login jinyongchoi author contributor:1064e6ea0227 author_association contributor author_login jinyongchoi base_ref trunk body related issue
+[kafka-15302](https://issues.apache.org/jira/browse/kafka-15302)
+
+this pr adds documentation regarding the potential return of stale values when using 'withcachingenabled' and deleting keys during store iteration.
+since there's a current solution involving flush(), modifications may not be made immediately. hence, it's necessary to explicitly state in the documentation. 
+
+### committer checklist (exc",,
+77,mail:fc209cc79b8a6d7202617f00,mail:dev@kafka.apache.org,thread:CABNZehciHR_3c-Q9xB-+3+3LdGy9qT8F9H9BAYuFMTA2X7Jdqg@mail.gmail.com,org.apache.mail.message,2023-12-22T04:49:40+00:00,"author contributor:12fe38cb056a author_email zhangjiao.thu@gmail.com author_name jiao zhang body hi team,
+
+may i request permissions?
+my wiki id is ""zhangjiao.thu""
+my jira id is ""jiao-zhang""
+
+thank you!
+
+-- 
+jiao zhang in_reply_to is_committer false list dev@kafka.apache.org message_id cabnzehcihr_3c-q9xb-+3+3ldgy9qt8f9h9bayufmta2x7jdqg@mail.gmail.com month 2023-12 references subject request permissions to contribute to apache kafka subject_tags thread_root cabnzehcihr_3c-q9xb-+3+3ldgy9qt8f9h9bayufmta2x7jdqg@mail.gmail.com",,
+78,mail:30e53ebe8f910bd0f1734a46,mail:dev@kafka.apache.org,thread:pony-9e00c2f7-a1fe-42eb-bafe-8b57b8b51526-dev@kafka.apache.org,org.apache.mail.message,2024-11-02T11:51:32+00:00,"author contributor:e7a446fac4dc author_email gmcdonald@apache.org author_name gavin mcdonald body hi all.
+
+an infra jira ticket was opened back in january this year. [1]
+
+a cache node was created on 23rd january.
+
+after some back and forth and chasing up infra eventually closed 
+the ticket in april as the last comment from the project was 11th march.
+
+the cache node has not ever been used as far as i can tell and is using
+up resources. this email is notice that infra will delete the cache node
+within 2 weeks assuming no progress is made to start using it in that 
+time.
+
+kind regards
+
+gavin (as",,
+79,mail:60ec85ff0c3a3868d2baebd2,mail:dev@kafka.apache.org,thread:CAEJrJF_+fqTQv0+S5Mj6tNGBuN3cSqWv-n9G=Y=KS04GCmPLUg@mail.gmail.com,org.apache.mail.message,2024-06-22T09:57:03+00:00,"author contributor:81a0c212eefa author_email yashtailor2000@gmail.com author_name yash tailor body hi apache kafka team,
+
+as per the documentation, the kafka producer directly communicates with the
+leader of the topic partition to produce a message. in order to fetch the
+leader information, it makes a meta data fetch call before its first
+produce, further caches it and refreshes depending upon metadata.max.age.ms
+ and metadata.max.idle.ms.
+
+during the meta data fetch call, it makes use of partitionsfor() call which
+has an upper bound of max.block.ms. what if the broker it tried to connect
+to i",,
+80,github:api:apache/kafka:pr-18841-opened,github:apache/kafka,pr:18841,com.github.pull_request.opened,2025-02-08T05:25:28+00:00,"action opened actor contributor:e9690c553af8 actor_login shubham-s-del author contributor:e9690c553af8 author_association none author_login shubham-s-del base_ref trunk body *more detailed description of your change,
+if necessary. the pr title and pr message become
+the squashed commit message, so use a separate
+comment to ping reviewers.*
+
+*summary of testing strategy (including rationale)
+for the feature or bug fix. unit and/or integration
+tests are expected for any behaviour change and
+system tests should be considered for larger changes.*
+
+### committer checklist (excluded from co",,
+81,github:api:apache/kafka:pr-19441-opened,github:apache/kafka,pr:19441,com.github.pull_request.opened,2025-04-11T04:48:37+00:00,"action opened actor contributor:gh:yunchipang actor_login yunchipang author contributor:gh:yunchipang author_association contributor author_login yunchipang base_ref trunk body remove `offsetconfig` which was used by old coordinator.
+
+reviewers: poan yang <payang@apache.org>, ken huang <s7133700@gmail.com>, david jacot <djacot@confluent.io>, tengyao chi <kitingiao@gmail.com>, chia-ping tsai <chia7712@gmail.com>
+ changed_files closed_at github_event_id api:apache/kafka:pr-19441-opened head_ref kafka-19103-remove-offsetconfig is_committer false issue_keys kafka-19103 kip_keys merge_commit_sha me",,
+82,mail:9ba98b739afbd1dff8587d3a,mail:dev@kafka.apache.org,thread:CAEpdM3Ve2=ksTWgVBew0PN+=wC1c3YCxvVD-b=oJX9OQJzfDxg@mail.gmail.com,org.apache.mail.message,2024-05-13T05:16:14+00:00,"author contributor:6e2c41213fd0 author_email dujian0068@gmail.com author_name jiang dou body hello
+recently i was studying the kafka producer code， i find  if
+enable  compressed，allocate memory buffer from buffer pool  and check if
+recordbatch is full use the records uncompressed size。not after compressed
+size。
+
+this will cause a batch to be sent when there may still be a lot of free
+space in the memorybuffer.or when sending a large message, the bufferpool
+has insufficient space and is blocked.
+
+therefore, i would like to ask why not use the compressed size to allocate
+space and calculate whet",,
+83,github:api:apache/kafka:comment-IC_kwDOACG9q85yx9e2,github:apache/kafka,pr:4082,com.github.issue_comment,2024-02-04T10:48:49+00:00,action created actor contributor:gh:themaxempire23 actor_login themaxempire23 author contributor:gh:themaxempire23 author_association none author_login themaxempire23 base_ref trunk body hello is this still an issue? comment_id ic_kwdoacg9q85yx9e2 created_at 2024-02-04t10:48:49z github_event_id api:apache/kafka:comment-ic_kwdoacg9q85yx9e2 is_committer false issue_keys kafka-6225 kip_keys merged_by number 4082 pull_request_number 4082 repo apache/kafka title kafka-6225: adds an option to consume continuously updated_at 2024-02-04t10:48:49z,,
+84,github:api:apache/kafka:pr-15416-opened,github:apache/kafka,pr:15416,com.github.pull_request.opened,2024-02-22T06:03:16+00:00,"action opened actor contributor:gh:credpath-seek actor_login credpath-seek author contributor:gh:credpath-seek author_association contributor author_login credpath-seek base_ref trunk body ## context
+
+treats `kafka-16277 - cooperativestickyassignor does not spread topics evenly among consumer group`
+https://issues.apache.org/jira/browse/kafka-16277
+
+@ableegoldman :
+> i suspect the assignor could be making a better effort. presumably what is happening is that during the phase where it attempts to re-assign previously-owned partitions back to their former owner, we make a pass over a sorte",,
+85,mail:e31ad8a1f4c0ec2c6e6a0574,mail:dev@kafka.apache.org,thread:CANwtbi56fr7j4ztBVmGE9J9G5JMegpmT_seD9nExnkJ=uZO_bA@mail.gmail.com,org.apache.mail.message,2024-07-28T05:49:33+00:00,"author contributor:d887f05c6871 author_email meisamjafarimosleh@gmail.com author_name meisam jafari body hello there,
+
+i am very enthusiastic to contributing to the kafka, recently i read the
+kafka definitive guide book and got insights how kafka works, then i got
+kafka source code and built it and ran some unit tests. now i want to work
+on some real issues to start my gurney of becoming a kafka comitter. could
+you please help me how to take issues in jira to get started?.
+
+thanks in_reply_to is_committer false list dev@kafka.apache.org message_id canwtbi56fr7j4ztbvmge9j9g5jmegpmt_sed9nexnkj=u",,
+86,github:api:apache/kafka:pr-14426-opened,github:apache/kafka,pr:14426,com.github.pull_request.opened,2023-09-22T12:10:24+00:00,"action opened actor contributor:gh:victorvandenhoven actor_login victorvandenhoven author contributor:gh:victorvandenhoven author_association contributor author_login victorvandenhoven base_ref trunk body flipped joinspuriouslookbacktimems, because they were not correct.
+moved the ""emit non-joined items""-logic  after the ""joined items""-logic instead of before, because only then you know whether to emit or not.
+introduced the windowsafterintervalms-field that is used to find if emitting records can be skipped.
+
+
+now the  kstreamkstreamleftjointest tests leftjoin with  .after(zero).
+(inval",,
+87,github:api:apache/kafka:pr-19763-opened,github:apache/kafka,pr:19763,com.github.pull_request.opened,2025-05-19T19:10:54+00:00,"action opened actor contributor:gh:jingjia88 actor_login jingjia88 author contributor:gh:jingjia88 author_association contributor author_login jingjia88 base_ref trunk body - remove redundant close of `snapshotwriter`.
+- `snapshotwriter` is already closed by `raftsnapshotwriter#writer`.
+
+reviewers: jhen-yung hsu <jhenyunghsu@gmail.com>, ken huang
+ <s7133700@gmail.com>, chia-ping tsai <chia7712@gmail.com>
+ changed_files closed_at github_event_id api:apache/kafka:pr-19763-opened head_ref kafka-19314 is_committer false issue_keys kafka-19314 kip_keys merge_commit_sha merged false merged_at merged",,
+88,github:api:apache/kafka:pr-20784-opened,github:apache/kafka,pr:20784,com.github.pull_request.opened,2025-10-28T12:05:47+00:00,action opened actor contributor:gh:kavenbreton-eaton actor_login kavenbreton-eaton author contributor:gh:kavenbreton-eaton author_association none author_login kavenbreton-eaton base_ref trunk body  changed_files closed_at github_event_id api:apache/kafka:pr-20784-opened head_ref eaton-4.1.0-windows is_committer false issue_keys kip_keys merge_commit_sha merged false merged_at merged_by number 20784 pull_request_id pr_kwdoacg9q86wis_r pull_request_number 20784 repo apache/kafka title  4.1.0 windows,,
+89,github:api:apache/kafka:pr-16492-opened,github:apache/kafka,pr:16492,com.github.pull_request.opened,2024-06-30T11:44:53+00:00,"action opened actor contributor:gh:jkt628 actor_login jkt628 author contributor:gh:jkt628 author_association none author_login jkt628 base_ref trunk body apply --producer-property settings last to override any, including default, values.
+
+tested manually with value.serializer.  the extant [test for client.id ](https://github.com/apache/kafka/blob/trunk/core/src/test/scala/unit/kafka/tools/consoleproducertest.scala#l69-l76)is unaffected.
+
+### committer checklist (excluded from commit message)
+- [x] verify design and implementation 
+- [x] verify test coverage and ci build status
+- [x] ver",,
+90,github:api:apache/kafka:commit-c4a769bc8be54fe07e0ed5f05f00b48aa02a8404,github:apache/kafka,contributor:50e7a631c952,com.github.push,2025-06-06T19:03:51+00:00,actor contributor:50e7a631c952 actor_login hgh1472 associated_pr_numbers 19875 author contributor:50e7a631c952 author_association before branch trunk changed_files commits author contributor:50e7a631c952 author_name hgh1472 changed_files message minor: rename ambiguous method name (#19875) sha c4a769bc8be54fe07e0ed5f05f00b48aa02a8404 distinct_size 1 github_event_id api:apache/kafka:commit-c4a769bc8be54fe07e0ed5f05f00b48aa02a8404 head c4a769bc8be54fe07e0ed5f05f00b48aa02a8404 is_committer false issue_keys kip_keys message minor: rename ambiguous method name (#19875) ref refs/heads/trunk repo apa,,
+91,mail:fe2c94e03cefe210000a5338,mail:dev@kafka.apache.org,thread:CAGYUN5M-8s8BkLndfdeuwDDbmW7M+HA49QM=PpL_fxUkfn6bAw@mail.gmail.com,org.apache.mail.message,2024-02-23T06:29:21+00:00,"author contributor:468a9a0f5e1e author_email vaibhav20092000@gmail.com author_name vaibhav kushwaha body hi team!
+
+i was going through the list of starter bugs and found one i could pick up
+and contribute to, but it seems that the reporter of the issue is inactive
+for a long time now. can somebody else help me in getting the assignment
+for this ticket, or guide me if there's any other way to do so?
+
+jira username: fourpointfour
+https://issues.apache.org/jira/browse/kafka-4094
+
+thank you
+
+regards
+vaibhav kushwaha in_reply_to is_committer false list dev@kafka.apache.org message_id cagyun5m-8s8bk",,
+92,github:api:apache/kafka:pr-21371-opened,github:apache/kafka,pr:21371,com.github.pull_request.opened,2026-01-29T15:41:34+00:00,"action opened actor contributor:gh:shally-katariya actor_login shally-katariya author contributor:gh:shally-katariya author_association none author_login shally-katariya base_ref trunk body ### motivation
+
+the deserializer interface currently does not clearly specify how a `bytebuffer`'s
+`position` and `limit` should be treated during and after deserialization.
+this ambiguity can lead to inconsistent implementations and incorrect assumptions
+by callers.
+
+### changes
+
+- clarified the contract for `deserializer#deserialize(string, headers, bytebuffer)`
+  to state that implementations s",,
+93,mail:260d741fe58c8f79e12693b3,mail:dev@kafka.apache.org,thread:CA+vZ3f-MPgTgdqRCOTiGkxZEom-g+JtmzoyMc09CrvbgNp6xhw@mail.gmail.com,org.apache.mail.message,2025-10-03T15:14:52+00:00,"author contributor:e8ee24271e5b author_email mfvitale@commonhaus.dev.invalid author_name mario fiore vitale body hi all,
+
+i have the debeziumopenlineageemitter[1] class in the
+debezium-openlineage-api that internally has a static map to maintain the
+registered emitter, the key of this map is ""connectologicalname-taskid""
+then there is the openlineage[2] smt, which is part of the debezium core.
+in this smt, i simply pass the same context to instantiate the same emitter
+via the connector.
+
+now i'm running the following image
+
+from quay.io/debezium/connect:3.3.0.final
+>
+> env maven_repo=""https://r",,
+94,github:api:apache/kafka:pr-15509-opened,github:apache/kafka,pr:15509,com.github.pull_request.opened,2024-03-11T06:31:37+00:00,"action opened actor contributor:gh:krishvora01 actor_login krishvora01 author contributor:gh:krishvora01 author_association contributor author_login krishvora01 base_ref trunk body *more detailed description of your change,
+if necessary. the pr title and pr message become
+the squashed commit message, so use a separate
+comment to ping reviewers.*
+
+*summary of testing strategy (including rationale)
+for the feature or bug fix. unit and/or integration
+tests are expected for any behaviour change and
+system tests should be considered for larger changes.*
+
+### committer checklist (excluded ",,
+95,github:api:apache/kafka:pr-20454-opened,github:apache/kafka,pr:20454,com.github.pull_request.opened,2025-09-01T19:15:17+00:00,"action opened actor contributor:gh:skrcode actor_login skrcode author contributor:gh:skrcode author_association none author_login skrcode base_ref trunk body jira : https://issues.apache.org/jira/browse/kafka-19308
+
+this pr adds unit tests for oauthbearerrefreshinglogin.
+
+- increased coverage from 0% → 95% (line), 91% (branch), and 100%
+(method).
+- covers edge cases for token refresh, expiry handling, and exception
+scenarios.
+- verified locally with `./gradlew test`.
+
+this is a test-only change (no production code modifications).
+ changed_files closed_at github_event_id api:apache/kafka:pr-204",,
+96,github:api:apache/kafka:pr-21219-opened,github:apache/kafka,pr:21219,com.github.pull_request.opened,2025-12-29T10:02:32+00:00,"action opened actor contributor:4e877811ee6d actor_login dhruvildave235 author contributor:4e877811ee6d author_association none author_login dhruvildave235 base_ref trunk body ### what changed
+improved the consumer rebalance warning log by logging the full exception object instead of only the message.
+
+### why
+this improves observability and makes it easier to diagnose rebalance-related issues in production environments.
+
+### testing
+./gradlew :clients:compilejava
+ changed_files closed_at github_event_id api:apache/kafka:pr-21219-opened head_ref improve-consumer-rebalance-logging is_co",,
+97,github:api:apache/kafka:pr-21134-opened,github:apache/kafka,pr:21134,com.github.pull_request.opened,2025-12-12T08:32:44+00:00,"action opened actor contributor:gh:mmatloka actor_login mmatloka author contributor:gh:mmatloka author_association none author_login mmatloka base_ref 3.9 body this is attempt of backport https://github.com/apache/kafka/pull/19590 specific for kafka 3.9. copying description from that pr:
+
+""""""
+the current electionwasclean checks if the new leader is in the previous
+isr. however, there is a corner case in the partition reassignment. the
+partition reassignment can change the partition replicas. if the new
+preferred leader (the first one in the new replicas) is the last one to
+join isr, thi",,
+98,mail:b99d8964212a49a1a35d2706,mail:dev@kafka.apache.org,thread:1609278732.8285908.1726809852272.ref@mail.yahoo.com,org.apache.mail.message,2024-09-20T05:24:12+00:00,"author contributor:087e6f6f1ab6 author_email galyuna@yahoo.com.invalid author_name galya bocheva body hi team,
+we are experiencing some odd behaviour of cooperativestickyassignor - during rebalancing of partitions a consumer receives new partition and keeps old ones. still there is commitfailedexception received for one of the old partitions and the offsets are not retried, we receive directly the next batch and thus skipping some of the offsets.partition in question is receivedpartition: [27] and as you can see offset 21551049 is received, then the exception and next received offset is  21551",,
+99,github:api:apache/kafka:comment-IC_kwDOACG9q85cX1As,github:apache/kafka,pr:11220,com.github.issue_comment,2023-05-16T14:07:04+00:00,"action created actor contributor:gh:ahibot actor_login ahibot author contributor:gh:ahibot author_association none author_login ahibot base_ref trunk body hello, 
+i know this pr is merged but i have an issue related to it while implementing a custom replicationpolicy to override the `heartbeat` topic name. 
+according to the resources below, in order to achieve it, it's necessary to create a jar file and to reference it in the `plugin.path` properties file. unfortunately it didn't work. what worked was setting the jar file path in the `classpath` environment variable. 
+so either such config ",,
+100,github:api:apache/kafka:pr-16588-opened,github:apache/kafka,pr:16588,com.github.pull_request.opened,2024-07-13T11:33:52+00:00,"action opened actor contributor:bae633bf94c9 actor_login chungyichi author contributor:bae633bf94c9 author_association contributor author_login chungyichi base_ref trunk body ### more detailed description of your change,
+1. use add method and it is expected to throw exception.
+2. confirm count is the same after add operation.
+
+### summary of testing strategy (including rationale)
+1. considering the existence and emptiness of records
+
+### committer checklist (excluded from commit message)
+- [ ] verify design and implementation 
+- [ ] verify test coverage and ci build status
+- [ ] veri",,
