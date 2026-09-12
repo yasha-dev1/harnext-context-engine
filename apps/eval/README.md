@@ -4,6 +4,51 @@ This package implements [`docs/evaluation-spec.md`](../../docs/evaluation-spec.m
 The synthetic corpus, fake reader, fake embeddings, and fake builder harness run
 fully offline: no model key, Kafka broker, or application stack is required.
 
+## Merged E2 context experiment: start here
+
+**New: [1,000-instance Kafka benchmark review SPA](benchmarks/kafka-1000-v1/review.html)**
+and [dataset methodology / admission status](benchmarks/kafka-1000-v1/README.md).
+Contains 800 deterministic historical questions with MCP-only tool contracts and
+200 real future-PR implementation candidates with MCP + shell contracts. All gold,
+proof and test/reference patches are available for human review. Coding test
+execution admission and user approval remain pending; no agent experiment has run.
+
+Current configurable route: [YAML strategies and external MCP evaluation](E2-STRATEGIES.md),
+with [verification evidence](STATUS/E2-STRATEGIES-20260912.md). This adds real
+BM25/dense/hybrid retrieval, reranking, file/graph strategies and outside-agent
+MCP trials. Earlier smoke and synthetic development runners remain available below.
+
+The new context-quality/store experiment is called **E2 (merged E2/E3)**.
+Its initial executable gate is documented in
+[E2-CONTEXT.md](E2-CONTEXT.md). The older `--experiments e2,e3` commands below
+retain the original experiment cards; they do not execute the merged blueprint.
+
+Latest repeat: [fresh smoke report with 20 graphs](../../.harnext/artifacts/e2-smoke-20260912T100821Z.html)
+and [results / verification record](STATUS/E2-FRESH-SMOKE-20260912T100821Z.md).
+
+Next development track: [implementation questions and held-out coding tasks](E2-DEVELOPMENT-TASKS.md).
+Includes 32 constructed QA probes, five executable coding fixtures, isolated
+base/reference validation, and deterministic retrieval span scoring. Real
+historical PR selection and Harnext representation mappings remain pending.
+
+```bash
+# No network: protocol fixture, with deliberately non-scientific fixture answers.
+.venv/bin/python -m harnext_eval.e2.context \
+  --config apps/eval/configs/e2-context-offline-smoke.yaml \
+  --out apps/eval/out/e2-context/offline-smoke
+
+# Live smoke: requires an authenticated Codex CLI. New output directory per run.
+.venv/bin/python -m harnext_eval.e2.context \
+  --config apps/eval/configs/e2-context-codex-smoke.yaml \
+  --out apps/eval/out/e2-context/codex-smoke --live
+```
+
+The live profile pins `gpt-5.6-luna` / `medium` for the builder and reader.
+It compares S3 (Codex-curated indexed files), S1 (deterministic templates), and
+S0 (raw event files) using Git snapshots, real reader tool decisions, and typed
+deterministic grades. It is a synthetic infrastructure gate, **not readiness to
+run the complete configuration-selection matrix or claim a winning engine**.
+
 ## End-to-end commands
 
 Run these from the repository root:

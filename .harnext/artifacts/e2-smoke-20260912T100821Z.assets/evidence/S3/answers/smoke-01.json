@@ -1,0 +1,143 @@
+{
+  "answer": {
+    "action": "answer",
+    "evidence_ids": [
+      "ev-001"
+    ],
+    "offset": 0,
+    "path": "",
+    "query": "",
+    "unknown": false,
+    "value": "Mira"
+  },
+  "bytes_read": 1091,
+  "family": "extraction",
+  "grade": {
+    "evidence_correct": true,
+    "schema_valid": true,
+    "value_correct": true
+  },
+  "history": [
+    {
+      "assistant": {
+        "action": "search",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "",
+        "query": "CTX-41",
+        "unknown": false,
+        "value": null
+      }
+    },
+    {
+      "result": "INDEX.md:7: | [CTX-41](entities/issue/CTX-41/OVERVIEW.md) | issue | 2026-01-01 | Open P2 issue assigned to Mira; linked to PR-71. |\nINDEX.md:8: | [PR-71](entities/pr/PR-71/OVERVIEW.md) | pr | 2026-01-01 | Open PR linked to CTX-41; updates `src/cache.py`. |\nentities/issue/CTX-41/OVERVIEW.md:1: # CTX-41\nentities/issue/CTX-41/timeline.md:2: - 2026-01-01 [smoke/github#ev-002] PR-71 reported as linked to CTX-41.\nentities/pr/PR-71/OVERVIEW.md:3: Open pull request linked to issue CTX-41. The reported change updates `src/cache.py` so `cache_key(key)` returns `str(key)`.\nentities/pr/PR-71/facts.md:1: - 2026-01-01 — PR-71 is open and linked to CTX-41. [smoke/github#ev-002]\nentities/pr/PR-71/timeline.md:1: - 2026-01-01 [smoke/github#ev-002] Pull request updated: state open, linked to CTX-41; changed `src/cache.py`, where `cache_key(key)` returns `str(key)`.",
+      "tool": "search",
+      "truncated": false
+    },
+    {
+      "assistant": {
+        "action": "read",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "entities/issue/CTX-41/OVERVIEW.md",
+        "query": "",
+        "unknown": false,
+        "value": null
+      }
+    },
+    {
+      "result": "# CTX-41\n\nOpen P2 issue assigned to Mira. PR-71 is linked to this issue.",
+      "tool": "read",
+      "truncated": false
+    },
+    {
+      "assistant": {
+        "action": "read",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "entities/issue/CTX-41/timeline.md",
+        "query": "",
+        "unknown": false,
+        "value": null
+      }
+    },
+    {
+      "result": "- 2026-01-01 [smoke/jira#ev-001] Issue updated: status Open, assignee Mira, priority P2.\n- 2026-01-01 [smoke/github#ev-002] PR-71 reported as linked to CTX-41.",
+      "tool": "read",
+      "truncated": false
+    },
+    {
+      "assistant": {
+        "action": "answer",
+        "evidence_ids": [
+          "ev-001"
+        ],
+        "offset": 0,
+        "path": "",
+        "query": "",
+        "unknown": false,
+        "value": "Mira"
+      }
+    }
+  ],
+  "latency_s": 22.091389814013382,
+  "layout": "S3",
+  "probe_id": "smoke-01",
+  "provider_calls": 4,
+  "repeat": 1,
+  "retrieval": [
+    {
+      "action": {
+        "action": "search",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "",
+        "query": "CTX-41",
+        "unknown": false,
+        "value": null
+      },
+      "bytes": 860,
+      "result": "INDEX.md:7: | [CTX-41](entities/issue/CTX-41/OVERVIEW.md) | issue | 2026-01-01 | Open P2 issue assigned to Mira; linked to PR-71. |\nINDEX.md:8: | [PR-71](entities/pr/PR-71/OVERVIEW.md) | pr | 2026-01-01 | Open PR linked to CTX-41; updates `src/cache.py`. |\nentities/issue/CTX-41/OVERVIEW.md:1: # CTX-41\nentities/issue/CTX-41/timeline.md:2: - 2026-01-01 [smoke/github#ev-002] PR-71 reported as linked to CTX-41.\nentities/pr/PR-71/OVERVIEW.md:3: Open pull request linked to issue CTX-41. The reported change updates `src/cache.py` so `cache_key(key)` returns `str(key)`.\nentities/pr/PR-71/facts.md:1: - 2026-01-01 — PR-71 is open and linked to CTX-41. [smoke/github#ev-002]\nentities/pr/PR-71/timeline.md:1: - 2026-01-01 [smoke/github#ev-002] Pull request updated: state open, linked to CTX-41; changed `src/cache.py`, where `cache_key(key)` returns `str(key)`.",
+      "truncated": false
+    },
+    {
+      "action": {
+        "action": "read",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "entities/issue/CTX-41/OVERVIEW.md",
+        "query": "",
+        "unknown": false,
+        "value": null
+      },
+      "bytes": 72,
+      "result": "# CTX-41\n\nOpen P2 issue assigned to Mira. PR-71 is linked to this issue.",
+      "truncated": false
+    },
+    {
+      "action": {
+        "action": "read",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "entities/issue/CTX-41/timeline.md",
+        "query": "",
+        "unknown": false,
+        "value": null
+      },
+      "bytes": 159,
+      "result": "- 2026-01-01 [smoke/jira#ev-001] Issue updated: status Open, assignee Mira, priority P2.\n- 2026-01-01 [smoke/github#ev-002] PR-71 reported as linked to CTX-41.",
+      "truncated": false
+    }
+  ],
+  "snapshot_content_sha256": "c6a12f19427f24314feb90dc88b211ac112576d7ec12f59cf2068eef4484504e",
+  "snapshot_sha": "cb2342b11ac21131d4ffa79bf34bd33cc1a5617d",
+  "status": "completed",
+  "tool_calls": 3,
+  "usage": {
+    "cache_write_input_tokens": 0,
+    "cached_input_tokens": 14592,
+    "input_tokens": 29865,
+    "output_tokens": 320,
+    "reasoning_output_tokens": 135
+  }
+}

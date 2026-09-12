@@ -1,0 +1,8 @@
+{
+  "source_records": 45511,
+  "structured_facts": 113271,
+  "schema_validation": "passed",
+  "unique_source_ids": true,
+  "context_sources_sha256": "f15d6400876b73714072335ef42c6feade346f198d91c2e3a819f2dd2b2ddf60",
+  "bytes": 80376504
+}

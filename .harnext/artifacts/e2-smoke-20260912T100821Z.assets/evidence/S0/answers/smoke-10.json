@@ -1,0 +1,199 @@
+{
+  "answer": {
+    "action": "answer",
+    "evidence_ids": [],
+    "offset": 0,
+    "path": "",
+    "query": "",
+    "unknown": true,
+    "value": null
+  },
+  "bytes_read": 1581,
+  "family": "abstention",
+  "grade": {
+    "evidence_correct": true,
+    "schema_valid": true,
+    "value_correct": true
+  },
+  "history": [
+    {
+      "assistant": {
+        "action": "list",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "",
+        "query": "",
+        "unknown": false,
+        "value": null
+      }
+    },
+    {
+      "result": "INDEX.md\nevents/2026/01/01/ev-001.md\nevents/2026/01/01/ev-002.md\nevents/2026/01/01/ev-003.md",
+      "tool": "list",
+      "truncated": false
+    },
+    {
+      "assistant": {
+        "action": "search",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "",
+        "query": "production release timestamp",
+        "unknown": false,
+        "value": null
+      }
+    },
+    {
+      "result": "",
+      "tool": "search",
+      "truncated": false
+    },
+    {
+      "assistant": {
+        "action": "read",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "INDEX.md",
+        "query": "",
+        "unknown": false,
+        "value": null
+      }
+    },
+    {
+      "result": "# Event files\n\n- [events/2026/01/01/ev-001.md](events/2026/01/01/ev-001.md)\n- [events/2026/01/01/ev-002.md](events/2026/01/01/ev-002.md)\n- [events/2026/01/01/ev-003.md](events/2026/01/01/ev-003.md)\n",
+      "tool": "read",
+      "truncated": false
+    },
+    {
+      "assistant": {
+        "action": "read",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "events/2026/01/01/ev-001.md",
+        "query": "",
+        "unknown": false,
+        "value": null
+      }
+    },
+    {
+      "result": "# Event ev-001\n\n- Time: 2026-01-01T00:01:00+00:00\n- Source: smoke/jira\n- Type: jira.updated\n- Subject: issue:CTX-41\n- Lane: batch\n\n```json\n{\n  \"baseline_keys\": [],\n  \"data\": {\n    \"assignee\": \"Mira\",\n    \"priority\": \"P2\",\n    \"status\": \"Open\"\n  },\n  \"datacontenttype\": \"application/json\",\n  \"id\": \"ev-001\",\n  \"intended_send_ts\": null,\n  \"mgblobref\": null,\n  \"mgingesttime\": null,\n  \"mgtenant\": \"context-smoke\",\n  \"source\": \"smoke/jira\",\n  \"specversion\": \"1.0\",\n  \"subject\": \"issue:CTX-41\",\n  \"time\": \"2026-01-01T00:01:00Z\",\n  \"type\": \"jira.updated\"\n}\n```\n",
+      "tool": "read",
+      "truncated": false
+    },
+    {
+      "assistant": {
+        "action": "read",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "events/2026/01/01/ev-002.md",
+        "query": "",
+        "unknown": false,
+        "value": null
+      }
+    },
+    {
+      "result": "# Event ev-002\n\n- Time: 2026-01-01T00:02:00+00:00\n- Source: smoke/github\n- Type: github.updated\n- Subject: pr:PR-71\n- Lane: batch\n\n```json\n{\n  \"baseline_keys\": [],\n  \"data\": {\n    \"changed_files\": [\n      \"src/cache.py\"\n    ],\n    \"files\": [\n      {\n        \"content\": \"def cache_key(key):\\n    return str(key)\\n\",\n        \"path\": \"src/cache.py\"\n      }\n    ],\n    \"linked_keys\": [\n      \"CTX-41\"\n    ],\n    \"state\": \"open\"\n  },\n  \"datacontenttype\": \"application/json\",\n  \"id\": \"ev-002\",\n  \"intended_send_ts\": null,\n  \"mgblobref\": null,\n  \"mgingesttime\": null,\n  \"mgtenant\": \"context-smoke\",\n  \"source\": \"smoke/github\",\n  \"specversion\": \"1.0\",\n  \"subject\": \"pr:PR-71\",\n  \"time\": \"2026-01-01T00:02:00Z\",\n  \"type\": \"github.updated\"\n}\n```\n",
+      "tool": "read",
+      "truncated": false
+    },
+    {
+      "assistant": {
+        "action": "answer",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "",
+        "query": "",
+        "unknown": true,
+        "value": null
+      }
+    }
+  ],
+  "latency_s": 34.69974171399372,
+  "layout": "S0",
+  "probe_id": "smoke-10",
+  "provider_calls": 6,
+  "repeat": 1,
+  "retrieval": [
+    {
+      "action": {
+        "action": "list",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "",
+        "query": "",
+        "unknown": false,
+        "value": null
+      },
+      "bytes": 92,
+      "result": "INDEX.md\nevents/2026/01/01/ev-001.md\nevents/2026/01/01/ev-002.md\nevents/2026/01/01/ev-003.md",
+      "truncated": false
+    },
+    {
+      "action": {
+        "action": "search",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "",
+        "query": "production release timestamp",
+        "unknown": false,
+        "value": null
+      },
+      "bytes": 0,
+      "result": "",
+      "truncated": false
+    },
+    {
+      "action": {
+        "action": "read",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "INDEX.md",
+        "query": "",
+        "unknown": false,
+        "value": null
+      },
+      "bytes": 198,
+      "result": "# Event files\n\n- [events/2026/01/01/ev-001.md](events/2026/01/01/ev-001.md)\n- [events/2026/01/01/ev-002.md](events/2026/01/01/ev-002.md)\n- [events/2026/01/01/ev-003.md](events/2026/01/01/ev-003.md)\n",
+      "truncated": false
+    },
+    {
+      "action": {
+        "action": "read",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "events/2026/01/01/ev-001.md",
+        "query": "",
+        "unknown": false,
+        "value": null
+      },
+      "bytes": 555,
+      "result": "# Event ev-001\n\n- Time: 2026-01-01T00:01:00+00:00\n- Source: smoke/jira\n- Type: jira.updated\n- Subject: issue:CTX-41\n- Lane: batch\n\n```json\n{\n  \"baseline_keys\": [],\n  \"data\": {\n    \"assignee\": \"Mira\",\n    \"priority\": \"P2\",\n    \"status\": \"Open\"\n  },\n  \"datacontenttype\": \"application/json\",\n  \"id\": \"ev-001\",\n  \"intended_send_ts\": null,\n  \"mgblobref\": null,\n  \"mgingesttime\": null,\n  \"mgtenant\": \"context-smoke\",\n  \"source\": \"smoke/jira\",\n  \"specversion\": \"1.0\",\n  \"subject\": \"issue:CTX-41\",\n  \"time\": \"2026-01-01T00:01:00Z\",\n  \"type\": \"jira.updated\"\n}\n```\n",
+      "truncated": false
+    },
+    {
+      "action": {
+        "action": "read",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "events/2026/01/01/ev-002.md",
+        "query": "",
+        "unknown": false,
+        "value": null
+      },
+      "bytes": 736,
+      "result": "# Event ev-002\n\n- Time: 2026-01-01T00:02:00+00:00\n- Source: smoke/github\n- Type: github.updated\n- Subject: pr:PR-71\n- Lane: batch\n\n```json\n{\n  \"baseline_keys\": [],\n  \"data\": {\n    \"changed_files\": [\n      \"src/cache.py\"\n    ],\n    \"files\": [\n      {\n        \"content\": \"def cache_key(key):\\n    return str(key)\\n\",\n        \"path\": \"src/cache.py\"\n      }\n    ],\n    \"linked_keys\": [\n      \"CTX-41\"\n    ],\n    \"state\": \"open\"\n  },\n  \"datacontenttype\": \"application/json\",\n  \"id\": \"ev-002\",\n  \"intended_send_ts\": null,\n  \"mgblobref\": null,\n  \"mgingesttime\": null,\n  \"mgtenant\": \"context-smoke\",\n  \"source\": \"smoke/github\",\n  \"specversion\": \"1.0\",\n  \"subject\": \"pr:PR-71\",\n  \"time\": \"2026-01-01T00:02:00Z\",\n  \"type\": \"github.updated\"\n}\n```\n",
+      "truncated": false
+    }
+  ],
+  "snapshot_content_sha256": "86e3751b1a2718c009eb5b1eb8b82e918e641600d8ef0d18870d39c13ca0d933",
+  "snapshot_sha": "dfd2e4ad1fac09b180d8dadd651152b4f975882f",
+  "status": "completed",
+  "tool_calls": 5,
+  "usage": {
+    "cache_write_input_tokens": 0,
+    "cached_input_tokens": 29184,
+    "input_tokens": 44834,
+    "output_tokens": 484,
+    "reasoning_output_tokens": 221
+  }
+}

@@ -1,0 +1,1466 @@
+[
+  {
+    "id": "condition-001",
+    "factors": {
+      "representation": "files",
+      "files.layout": "verbatim_dump",
+      "retrieval.chunking": "fixed",
+      "retrieval.method": "bm25",
+      "retrieval.reranker": "none",
+      "trial.tools": [
+        "context_search",
+        "context_read"
+      ],
+      "expose_sources": false
+    },
+    "config": {
+      "protocol": "harnext-strategies-v1",
+      "representation": "files",
+      "source_jsonl": "/home/yasha/Desktop/uni/masters/harnext-context-engine/apps/eval/configs/strategies/sources.jsonl",
+      "artifact_dir": "/home/yasha/Desktop/uni/masters/harnext-context-engine/apps/eval/out/strategies/retrieval-grid/artifacts/condition-001",
+      "observed_at": "2026-01-02T12:00:00Z",
+      "valid_at": "2026-01-02T12:00:00Z",
+      "builder": {
+        "harness": "none",
+        "model": null,
+        "effort": "medium",
+        "timeout_s": 180,
+        "max_calls": 40,
+        "context_bytes": 131072
+      },
+      "files": {
+        "layout": "verbatim_dump",
+        "prompt": "preserve_supported",
+        "extraction": "structured",
+        "retention": "all",
+        "retention_days": 90,
+        "summarization": "none",
+        "update": "supersede",
+        "summary_sentences": 3,
+        "page_bytes": 8192,
+        "functional_predicates": [
+          "assigned_to",
+          "has_status",
+          "targets_version"
+        ],
+        "predicates": [
+          "assigned_to",
+          "has_status",
+          "references_issue",
+          "changes_file",
+          "discussed_in"
+        ]
+      },
+      "retrieval": {
+        "method": "bm25",
+        "chunking": "fixed",
+        "chunk_bytes": 2048,
+        "overlap_bytes": 256,
+        "candidates": 40,
+        "top_k": 10,
+        "rrf_k": 60,
+        "bm25_k1": 1.5,
+        "bm25_b": 0.75,
+        "embeddings": {
+          "provider": "fastembed",
+          "model": "BAAI/bge-small-en-v1.5",
+          "revision": "content-hash-at-build",
+          "cache_dir": "/home/yasha/Desktop/uni/masters/harnext-context-engine/.harnext/models",
+          "base_url": null,
+          "api_key_env": null,
+          "timeout_s": 60,
+          "threads": 2
+        },
+        "reranker": "none",
+        "reranker_model": "Xenova/ms-marco-MiniLM-L-6-v2"
+      },
+      "graph": {
+        "schema_name": "typed_assertions",
+        "extraction": "domain_predicates",
+        "resolution": "evidence_aliases",
+        "traversal": "neighbors",
+        "hops": 2,
+        "max_edges": 20,
+        "damping": 0.85,
+        "iterations": 30,
+        "functional_predicates": [
+          "assigned_to",
+          "has_status"
+        ]
+      },
+      "expose_sources": false,
+      "trial": {
+        "run_id": "condition-001-read-001",
+        "task_id": "issue-owner-at-cutoff",
+        "harness": "external",
+        "model": "externally-recorded",
+        "effort": "externally-recorded",
+        "max_calls": 100,
+        "budget_bytes": 65536,
+        "response_bytes": 12000,
+        "timeout_s": 3600,
+        "tools": [
+          "context_search",
+          "context_read"
+        ],
+        "transport": "stdio",
+        "host": "127.0.0.1",
+        "port": 8876,
+        "token_env": "HARNEXT_EVAL_TOKEN"
+      },
+      "evaluation": {
+        "grading": "retrieval_only",
+        "task_file": null,
+        "gold_file": null,
+        "answer_file": null,
+        "candidate_files": null,
+        "workspace_dir": null,
+        "agent_trace": null,
+        "test_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea"
+      }
+    },
+    "sha256": "5dc9bc3081399d2eed4b7085396810e2ca25d3831e64b04f393d579c769ba6f8"
+  },
+  {
+    "id": "condition-002",
+    "factors": {
+      "representation": "files",
+      "files.layout": "verbatim_dump",
+      "retrieval.chunking": "fixed",
+      "retrieval.method": "bm25",
+      "retrieval.reranker": "cross_encoder",
+      "trial.tools": [
+        "context_search",
+        "context_read"
+      ],
+      "expose_sources": false
+    },
+    "config": {
+      "protocol": "harnext-strategies-v1",
+      "representation": "files",
+      "source_jsonl": "/home/yasha/Desktop/uni/masters/harnext-context-engine/apps/eval/configs/strategies/sources.jsonl",
+      "artifact_dir": "/home/yasha/Desktop/uni/masters/harnext-context-engine/apps/eval/out/strategies/retrieval-grid/artifacts/condition-002",
+      "observed_at": "2026-01-02T12:00:00Z",
+      "valid_at": "2026-01-02T12:00:00Z",
+      "builder": {
+        "harness": "none",
+        "model": null,
+        "effort": "medium",
+        "timeout_s": 180,
+        "max_calls": 40,
+        "context_bytes": 131072
+      },
+      "files": {
+        "layout": "verbatim_dump",
+        "prompt": "preserve_supported",
+        "extraction": "structured",
+        "retention": "all",
+        "retention_days": 90,
+        "summarization": "none",
+        "update": "supersede",
+        "summary_sentences": 3,
+        "page_bytes": 8192,
+        "functional_predicates": [
+          "assigned_to",
+          "has_status",
+          "targets_version"
+        ],
+        "predicates": [
+          "assigned_to",
+          "has_status",
+          "references_issue",
+          "changes_file",
+          "discussed_in"
+        ]
+      },
+      "retrieval": {
+        "method": "bm25",
+        "chunking": "fixed",
+        "chunk_bytes": 2048,
+        "overlap_bytes": 256,
+        "candidates": 40,
+        "top_k": 10,
+        "rrf_k": 60,
+        "bm25_k1": 1.5,
+        "bm25_b": 0.75,
+        "embeddings": {
+          "provider": "fastembed",
+          "model": "BAAI/bge-small-en-v1.5",
+          "revision": "content-hash-at-build",
+          "cache_dir": "/home/yasha/Desktop/uni/masters/harnext-context-engine/.harnext/models",
+          "base_url": null,
+          "api_key_env": null,
+          "timeout_s": 60,
+          "threads": 2
+        },
+        "reranker": "cross_encoder",
+        "reranker_model": "Xenova/ms-marco-MiniLM-L-6-v2"
+      },
+      "graph": {
+        "schema_name": "typed_assertions",
+        "extraction": "domain_predicates",
+        "resolution": "evidence_aliases",
+        "traversal": "neighbors",
+        "hops": 2,
+        "max_edges": 20,
+        "damping": 0.85,
+        "iterations": 30,
+        "functional_predicates": [
+          "assigned_to",
+          "has_status"
+        ]
+      },
+      "expose_sources": false,
+      "trial": {
+        "run_id": "condition-002-read-001",
+        "task_id": "issue-owner-at-cutoff",
+        "harness": "external",
+        "model": "externally-recorded",
+        "effort": "externally-recorded",
+        "max_calls": 100,
+        "budget_bytes": 65536,
+        "response_bytes": 12000,
+        "timeout_s": 3600,
+        "tools": [
+          "context_search",
+          "context_read"
+        ],
+        "transport": "stdio",
+        "host": "127.0.0.1",
+        "port": 8876,
+        "token_env": "HARNEXT_EVAL_TOKEN"
+      },
+      "evaluation": {
+        "grading": "retrieval_only",
+        "task_file": null,
+        "gold_file": null,
+        "answer_file": null,
+        "candidate_files": null,
+        "workspace_dir": null,
+        "agent_trace": null,
+        "test_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea"
+      }
+    },
+    "sha256": "3338514a89371c24af0928b7fb86b4de5d01cbc4376abbedb02e5839435757bb"
+  },
+  {
+    "id": "condition-003",
+    "factors": {
+      "representation": "files",
+      "files.layout": "verbatim_dump",
+      "retrieval.chunking": "fixed",
+      "retrieval.method": "dense",
+      "retrieval.reranker": "none",
+      "trial.tools": [
+        "context_search",
+        "context_read"
+      ],
+      "expose_sources": false
+    },
+    "config": {
+      "protocol": "harnext-strategies-v1",
+      "representation": "files",
+      "source_jsonl": "/home/yasha/Desktop/uni/masters/harnext-context-engine/apps/eval/configs/strategies/sources.jsonl",
+      "artifact_dir": "/home/yasha/Desktop/uni/masters/harnext-context-engine/apps/eval/out/strategies/retrieval-grid/artifacts/condition-003",
+      "observed_at": "2026-01-02T12:00:00Z",
+      "valid_at": "2026-01-02T12:00:00Z",
+      "builder": {
+        "harness": "none",
+        "model": null,
+        "effort": "medium",
+        "timeout_s": 180,
+        "max_calls": 40,
+        "context_bytes": 131072
+      },
+      "files": {
+        "layout": "verbatim_dump",
+        "prompt": "preserve_supported",
+        "extraction": "structured",
+        "retention": "all",
+        "retention_days": 90,
+        "summarization": "none",
+        "update": "supersede",
+        "summary_sentences": 3,
+        "page_bytes": 8192,
+        "functional_predicates": [
+          "assigned_to",
+          "has_status",
+          "targets_version"
+        ],
+        "predicates": [
+          "assigned_to",
+          "has_status",
+          "references_issue",
+          "changes_file",
+          "discussed_in"
+        ]
+      },
+      "retrieval": {
+        "method": "dense",
+        "chunking": "fixed",
+        "chunk_bytes": 2048,
+        "overlap_bytes": 256,
+        "candidates": 40,
+        "top_k": 10,
+        "rrf_k": 60,
+        "bm25_k1": 1.5,
+        "bm25_b": 0.75,
+        "embeddings": {
+          "provider": "fastembed",
+          "model": "BAAI/bge-small-en-v1.5",
+          "revision": "content-hash-at-build",
+          "cache_dir": "/home/yasha/Desktop/uni/masters/harnext-context-engine/.harnext/models",
+          "base_url": null,
+          "api_key_env": null,
+          "timeout_s": 60,
+          "threads": 2
+        },
+        "reranker": "none",
+        "reranker_model": "Xenova/ms-marco-MiniLM-L-6-v2"
+      },
+      "graph": {
+        "schema_name": "typed_assertions",
+        "extraction": "domain_predicates",
+        "resolution": "evidence_aliases",
+        "traversal": "neighbors",
+        "hops": 2,
+        "max_edges": 20,
+        "damping": 0.85,
+        "iterations": 30,
+        "functional_predicates": [
+          "assigned_to",
+          "has_status"
+        ]
+      },
+      "expose_sources": false,
+      "trial": {
+        "run_id": "condition-003-read-001",
+        "task_id": "issue-owner-at-cutoff",
+        "harness": "external",
+        "model": "externally-recorded",
+        "effort": "externally-recorded",
+        "max_calls": 100,
+        "budget_bytes": 65536,
+        "response_bytes": 12000,
+        "timeout_s": 3600,
+        "tools": [
+          "context_search",
+          "context_read"
+        ],
+        "transport": "stdio",
+        "host": "127.0.0.1",
+        "port": 8876,
+        "token_env": "HARNEXT_EVAL_TOKEN"
+      },
+      "evaluation": {
+        "grading": "retrieval_only",
+        "task_file": null,
+        "gold_file": null,
+        "answer_file": null,
+        "candidate_files": null,
+        "workspace_dir": null,
+        "agent_trace": null,
+        "test_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea"
+      }
+    },
+    "sha256": "4d6dd7b7abdde3743cb8ce75c0afb13ee5d1edcab4bafcc71eccc424c5d0bb9f"
+  },
+  {
+    "id": "condition-004",
+    "factors": {
+      "representation": "files",
+      "files.layout": "verbatim_dump",
+      "retrieval.chunking": "fixed",
+      "retrieval.method": "dense",
+      "retrieval.reranker": "cross_encoder",
+      "trial.tools": [
+        "context_search",
+        "context_read"
+      ],
+      "expose_sources": false
+    },
+    "config": {
+      "protocol": "harnext-strategies-v1",
+      "representation": "files",
+      "source_jsonl": "/home/yasha/Desktop/uni/masters/harnext-context-engine/apps/eval/configs/strategies/sources.jsonl",
+      "artifact_dir": "/home/yasha/Desktop/uni/masters/harnext-context-engine/apps/eval/out/strategies/retrieval-grid/artifacts/condition-004",
+      "observed_at": "2026-01-02T12:00:00Z",
+      "valid_at": "2026-01-02T12:00:00Z",
+      "builder": {
+        "harness": "none",
+        "model": null,
+        "effort": "medium",
+        "timeout_s": 180,
+        "max_calls": 40,
+        "context_bytes": 131072
+      },
+      "files": {
+        "layout": "verbatim_dump",
+        "prompt": "preserve_supported",
+        "extraction": "structured",
+        "retention": "all",
+        "retention_days": 90,
+        "summarization": "none",
+        "update": "supersede",
+        "summary_sentences": 3,
+        "page_bytes": 8192,
+        "functional_predicates": [
+          "assigned_to",
+          "has_status",
+          "targets_version"
+        ],
+        "predicates": [
+          "assigned_to",
+          "has_status",
+          "references_issue",
+          "changes_file",
+          "discussed_in"
+        ]
+      },
+      "retrieval": {
+        "method": "dense",
+        "chunking": "fixed",
+        "chunk_bytes": 2048,
+        "overlap_bytes": 256,
+        "candidates": 40,
+        "top_k": 10,
+        "rrf_k": 60,
+        "bm25_k1": 1.5,
+        "bm25_b": 0.75,
+        "embeddings": {
+          "provider": "fastembed",
+          "model": "BAAI/bge-small-en-v1.5",
+          "revision": "content-hash-at-build",
+          "cache_dir": "/home/yasha/Desktop/uni/masters/harnext-context-engine/.harnext/models",
+          "base_url": null,
+          "api_key_env": null,
+          "timeout_s": 60,
+          "threads": 2
+        },
+        "reranker": "cross_encoder",
+        "reranker_model": "Xenova/ms-marco-MiniLM-L-6-v2"
+      },
+      "graph": {
+        "schema_name": "typed_assertions",
+        "extraction": "domain_predicates",
+        "resolution": "evidence_aliases",
+        "traversal": "neighbors",
+        "hops": 2,
+        "max_edges": 20,
+        "damping": 0.85,
+        "iterations": 30,
+        "functional_predicates": [
+          "assigned_to",
+          "has_status"
+        ]
+      },
+      "expose_sources": false,
+      "trial": {
+        "run_id": "condition-004-read-001",
+        "task_id": "issue-owner-at-cutoff",
+        "harness": "external",
+        "model": "externally-recorded",
+        "effort": "externally-recorded",
+        "max_calls": 100,
+        "budget_bytes": 65536,
+        "response_bytes": 12000,
+        "timeout_s": 3600,
+        "tools": [
+          "context_search",
+          "context_read"
+        ],
+        "transport": "stdio",
+        "host": "127.0.0.1",
+        "port": 8876,
+        "token_env": "HARNEXT_EVAL_TOKEN"
+      },
+      "evaluation": {
+        "grading": "retrieval_only",
+        "task_file": null,
+        "gold_file": null,
+        "answer_file": null,
+        "candidate_files": null,
+        "workspace_dir": null,
+        "agent_trace": null,
+        "test_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea"
+      }
+    },
+    "sha256": "b3987e9a6f0690cb211d07ef940e4ad31425b9db07ca7edf88d89d77de5d59a9"
+  },
+  {
+    "id": "condition-005",
+    "factors": {
+      "representation": "files",
+      "files.layout": "verbatim_dump",
+      "retrieval.chunking": "fixed",
+      "retrieval.method": "hybrid",
+      "retrieval.reranker": "none",
+      "trial.tools": [
+        "context_search",
+        "context_read"
+      ],
+      "expose_sources": false
+    },
+    "config": {
+      "protocol": "harnext-strategies-v1",
+      "representation": "files",
+      "source_jsonl": "/home/yasha/Desktop/uni/masters/harnext-context-engine/apps/eval/configs/strategies/sources.jsonl",
+      "artifact_dir": "/home/yasha/Desktop/uni/masters/harnext-context-engine/apps/eval/out/strategies/retrieval-grid/artifacts/condition-005",
+      "observed_at": "2026-01-02T12:00:00Z",
+      "valid_at": "2026-01-02T12:00:00Z",
+      "builder": {
+        "harness": "none",
+        "model": null,
+        "effort": "medium",
+        "timeout_s": 180,
+        "max_calls": 40,
+        "context_bytes": 131072
+      },
+      "files": {
+        "layout": "verbatim_dump",
+        "prompt": "preserve_supported",
+        "extraction": "structured",
+        "retention": "all",
+        "retention_days": 90,
+        "summarization": "none",
+        "update": "supersede",
+        "summary_sentences": 3,
+        "page_bytes": 8192,
+        "functional_predicates": [
+          "assigned_to",
+          "has_status",
+          "targets_version"
+        ],
+        "predicates": [
+          "assigned_to",
+          "has_status",
+          "references_issue",
+          "changes_file",
+          "discussed_in"
+        ]
+      },
+      "retrieval": {
+        "method": "hybrid",
+        "chunking": "fixed",
+        "chunk_bytes": 2048,
+        "overlap_bytes": 256,
+        "candidates": 40,
+        "top_k": 10,
+        "rrf_k": 60,
+        "bm25_k1": 1.5,
+        "bm25_b": 0.75,
+        "embeddings": {
+          "provider": "fastembed",
+          "model": "BAAI/bge-small-en-v1.5",
+          "revision": "content-hash-at-build",
+          "cache_dir": "/home/yasha/Desktop/uni/masters/harnext-context-engine/.harnext/models",
+          "base_url": null,
+          "api_key_env": null,
+          "timeout_s": 60,
+          "threads": 2
+        },
+        "reranker": "none",
+        "reranker_model": "Xenova/ms-marco-MiniLM-L-6-v2"
+      },
+      "graph": {
+        "schema_name": "typed_assertions",
+        "extraction": "domain_predicates",
+        "resolution": "evidence_aliases",
+        "traversal": "neighbors",
+        "hops": 2,
+        "max_edges": 20,
+        "damping": 0.85,
+        "iterations": 30,
+        "functional_predicates": [
+          "assigned_to",
+          "has_status"
+        ]
+      },
+      "expose_sources": false,
+      "trial": {
+        "run_id": "condition-005-read-001",
+        "task_id": "issue-owner-at-cutoff",
+        "harness": "external",
+        "model": "externally-recorded",
+        "effort": "externally-recorded",
+        "max_calls": 100,
+        "budget_bytes": 65536,
+        "response_bytes": 12000,
+        "timeout_s": 3600,
+        "tools": [
+          "context_search",
+          "context_read"
+        ],
+        "transport": "stdio",
+        "host": "127.0.0.1",
+        "port": 8876,
+        "token_env": "HARNEXT_EVAL_TOKEN"
+      },
+      "evaluation": {
+        "grading": "retrieval_only",
+        "task_file": null,
+        "gold_file": null,
+        "answer_file": null,
+        "candidate_files": null,
+        "workspace_dir": null,
+        "agent_trace": null,
+        "test_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea"
+      }
+    },
+    "sha256": "58fb4c29cbfa3f90f2d83c93717d4517dc671c78b5cd442a10574fab5b959c1c"
+  },
+  {
+    "id": "condition-006",
+    "factors": {
+      "representation": "files",
+      "files.layout": "verbatim_dump",
+      "retrieval.chunking": "fixed",
+      "retrieval.method": "hybrid",
+      "retrieval.reranker": "cross_encoder",
+      "trial.tools": [
+        "context_search",
+        "context_read"
+      ],
+      "expose_sources": false
+    },
+    "config": {
+      "protocol": "harnext-strategies-v1",
+      "representation": "files",
+      "source_jsonl": "/home/yasha/Desktop/uni/masters/harnext-context-engine/apps/eval/configs/strategies/sources.jsonl",
+      "artifact_dir": "/home/yasha/Desktop/uni/masters/harnext-context-engine/apps/eval/out/strategies/retrieval-grid/artifacts/condition-006",
+      "observed_at": "2026-01-02T12:00:00Z",
+      "valid_at": "2026-01-02T12:00:00Z",
+      "builder": {
+        "harness": "none",
+        "model": null,
+        "effort": "medium",
+        "timeout_s": 180,
+        "max_calls": 40,
+        "context_bytes": 131072
+      },
+      "files": {
+        "layout": "verbatim_dump",
+        "prompt": "preserve_supported",
+        "extraction": "structured",
+        "retention": "all",
+        "retention_days": 90,
+        "summarization": "none",
+        "update": "supersede",
+        "summary_sentences": 3,
+        "page_bytes": 8192,
+        "functional_predicates": [
+          "assigned_to",
+          "has_status",
+          "targets_version"
+        ],
+        "predicates": [
+          "assigned_to",
+          "has_status",
+          "references_issue",
+          "changes_file",
+          "discussed_in"
+        ]
+      },
+      "retrieval": {
+        "method": "hybrid",
+        "chunking": "fixed",
+        "chunk_bytes": 2048,
+        "overlap_bytes": 256,
+        "candidates": 40,
+        "top_k": 10,
+        "rrf_k": 60,
+        "bm25_k1": 1.5,
+        "bm25_b": 0.75,
+        "embeddings": {
+          "provider": "fastembed",
+          "model": "BAAI/bge-small-en-v1.5",
+          "revision": "content-hash-at-build",
+          "cache_dir": "/home/yasha/Desktop/uni/masters/harnext-context-engine/.harnext/models",
+          "base_url": null,
+          "api_key_env": null,
+          "timeout_s": 60,
+          "threads": 2
+        },
+        "reranker": "cross_encoder",
+        "reranker_model": "Xenova/ms-marco-MiniLM-L-6-v2"
+      },
+      "graph": {
+        "schema_name": "typed_assertions",
+        "extraction": "domain_predicates",
+        "resolution": "evidence_aliases",
+        "traversal": "neighbors",
+        "hops": 2,
+        "max_edges": 20,
+        "damping": 0.85,
+        "iterations": 30,
+        "functional_predicates": [
+          "assigned_to",
+          "has_status"
+        ]
+      },
+      "expose_sources": false,
+      "trial": {
+        "run_id": "condition-006-read-001",
+        "task_id": "issue-owner-at-cutoff",
+        "harness": "external",
+        "model": "externally-recorded",
+        "effort": "externally-recorded",
+        "max_calls": 100,
+        "budget_bytes": 65536,
+        "response_bytes": 12000,
+        "timeout_s": 3600,
+        "tools": [
+          "context_search",
+          "context_read"
+        ],
+        "transport": "stdio",
+        "host": "127.0.0.1",
+        "port": 8876,
+        "token_env": "HARNEXT_EVAL_TOKEN"
+      },
+      "evaluation": {
+        "grading": "retrieval_only",
+        "task_file": null,
+        "gold_file": null,
+        "answer_file": null,
+        "candidate_files": null,
+        "workspace_dir": null,
+        "agent_trace": null,
+        "test_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea"
+      }
+    },
+    "sha256": "83c0d8f41db2df1ab384414c7d81874f65a87628fce9228f61a51dc7818c645c"
+  },
+  {
+    "id": "condition-007",
+    "factors": {
+      "representation": "files",
+      "files.layout": "verbatim_dump",
+      "retrieval.chunking": "entity_bundle",
+      "retrieval.method": "bm25",
+      "retrieval.reranker": "none",
+      "trial.tools": [
+        "context_search",
+        "context_read"
+      ],
+      "expose_sources": false
+    },
+    "config": {
+      "protocol": "harnext-strategies-v1",
+      "representation": "files",
+      "source_jsonl": "/home/yasha/Desktop/uni/masters/harnext-context-engine/apps/eval/configs/strategies/sources.jsonl",
+      "artifact_dir": "/home/yasha/Desktop/uni/masters/harnext-context-engine/apps/eval/out/strategies/retrieval-grid/artifacts/condition-007",
+      "observed_at": "2026-01-02T12:00:00Z",
+      "valid_at": "2026-01-02T12:00:00Z",
+      "builder": {
+        "harness": "none",
+        "model": null,
+        "effort": "medium",
+        "timeout_s": 180,
+        "max_calls": 40,
+        "context_bytes": 131072
+      },
+      "files": {
+        "layout": "verbatim_dump",
+        "prompt": "preserve_supported",
+        "extraction": "structured",
+        "retention": "all",
+        "retention_days": 90,
+        "summarization": "none",
+        "update": "supersede",
+        "summary_sentences": 3,
+        "page_bytes": 8192,
+        "functional_predicates": [
+          "assigned_to",
+          "has_status",
+          "targets_version"
+        ],
+        "predicates": [
+          "assigned_to",
+          "has_status",
+          "references_issue",
+          "changes_file",
+          "discussed_in"
+        ]
+      },
+      "retrieval": {
+        "method": "bm25",
+        "chunking": "entity_bundle",
+        "chunk_bytes": 2048,
+        "overlap_bytes": 256,
+        "candidates": 40,
+        "top_k": 10,
+        "rrf_k": 60,
+        "bm25_k1": 1.5,
+        "bm25_b": 0.75,
+        "embeddings": {
+          "provider": "fastembed",
+          "model": "BAAI/bge-small-en-v1.5",
+          "revision": "content-hash-at-build",
+          "cache_dir": "/home/yasha/Desktop/uni/masters/harnext-context-engine/.harnext/models",
+          "base_url": null,
+          "api_key_env": null,
+          "timeout_s": 60,
+          "threads": 2
+        },
+        "reranker": "none",
+        "reranker_model": "Xenova/ms-marco-MiniLM-L-6-v2"
+      },
+      "graph": {
+        "schema_name": "typed_assertions",
+        "extraction": "domain_predicates",
+        "resolution": "evidence_aliases",
+        "traversal": "neighbors",
+        "hops": 2,
+        "max_edges": 20,
+        "damping": 0.85,
+        "iterations": 30,
+        "functional_predicates": [
+          "assigned_to",
+          "has_status"
+        ]
+      },
+      "expose_sources": false,
+      "trial": {
+        "run_id": "condition-007-read-001",
+        "task_id": "issue-owner-at-cutoff",
+        "harness": "external",
+        "model": "externally-recorded",
+        "effort": "externally-recorded",
+        "max_calls": 100,
+        "budget_bytes": 65536,
+        "response_bytes": 12000,
+        "timeout_s": 3600,
+        "tools": [
+          "context_search",
+          "context_read"
+        ],
+        "transport": "stdio",
+        "host": "127.0.0.1",
+        "port": 8876,
+        "token_env": "HARNEXT_EVAL_TOKEN"
+      },
+      "evaluation": {
+        "grading": "retrieval_only",
+        "task_file": null,
+        "gold_file": null,
+        "answer_file": null,
+        "candidate_files": null,
+        "workspace_dir": null,
+        "agent_trace": null,
+        "test_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea"
+      }
+    },
+    "sha256": "c1327930d38b746fc91ef53db53577e5ee2f7f5656740d0d62db5339cf825be2"
+  },
+  {
+    "id": "condition-008",
+    "factors": {
+      "representation": "files",
+      "files.layout": "verbatim_dump",
+      "retrieval.chunking": "entity_bundle",
+      "retrieval.method": "bm25",
+      "retrieval.reranker": "cross_encoder",
+      "trial.tools": [
+        "context_search",
+        "context_read"
+      ],
+      "expose_sources": false
+    },
+    "config": {
+      "protocol": "harnext-strategies-v1",
+      "representation": "files",
+      "source_jsonl": "/home/yasha/Desktop/uni/masters/harnext-context-engine/apps/eval/configs/strategies/sources.jsonl",
+      "artifact_dir": "/home/yasha/Desktop/uni/masters/harnext-context-engine/apps/eval/out/strategies/retrieval-grid/artifacts/condition-008",
+      "observed_at": "2026-01-02T12:00:00Z",
+      "valid_at": "2026-01-02T12:00:00Z",
+      "builder": {
+        "harness": "none",
+        "model": null,
+        "effort": "medium",
+        "timeout_s": 180,
+        "max_calls": 40,
+        "context_bytes": 131072
+      },
+      "files": {
+        "layout": "verbatim_dump",
+        "prompt": "preserve_supported",
+        "extraction": "structured",
+        "retention": "all",
+        "retention_days": 90,
+        "summarization": "none",
+        "update": "supersede",
+        "summary_sentences": 3,
+        "page_bytes": 8192,
+        "functional_predicates": [
+          "assigned_to",
+          "has_status",
+          "targets_version"
+        ],
+        "predicates": [
+          "assigned_to",
+          "has_status",
+          "references_issue",
+          "changes_file",
+          "discussed_in"
+        ]
+      },
+      "retrieval": {
+        "method": "bm25",
+        "chunking": "entity_bundle",
+        "chunk_bytes": 2048,
+        "overlap_bytes": 256,
+        "candidates": 40,
+        "top_k": 10,
+        "rrf_k": 60,
+        "bm25_k1": 1.5,
+        "bm25_b": 0.75,
+        "embeddings": {
+          "provider": "fastembed",
+          "model": "BAAI/bge-small-en-v1.5",
+          "revision": "content-hash-at-build",
+          "cache_dir": "/home/yasha/Desktop/uni/masters/harnext-context-engine/.harnext/models",
+          "base_url": null,
+          "api_key_env": null,
+          "timeout_s": 60,
+          "threads": 2
+        },
+        "reranker": "cross_encoder",
+        "reranker_model": "Xenova/ms-marco-MiniLM-L-6-v2"
+      },
+      "graph": {
+        "schema_name": "typed_assertions",
+        "extraction": "domain_predicates",
+        "resolution": "evidence_aliases",
+        "traversal": "neighbors",
+        "hops": 2,
+        "max_edges": 20,
+        "damping": 0.85,
+        "iterations": 30,
+        "functional_predicates": [
+          "assigned_to",
+          "has_status"
+        ]
+      },
+      "expose_sources": false,
+      "trial": {
+        "run_id": "condition-008-read-001",
+        "task_id": "issue-owner-at-cutoff",
+        "harness": "external",
+        "model": "externally-recorded",
+        "effort": "externally-recorded",
+        "max_calls": 100,
+        "budget_bytes": 65536,
+        "response_bytes": 12000,
+        "timeout_s": 3600,
+        "tools": [
+          "context_search",
+          "context_read"
+        ],
+        "transport": "stdio",
+        "host": "127.0.0.1",
+        "port": 8876,
+        "token_env": "HARNEXT_EVAL_TOKEN"
+      },
+      "evaluation": {
+        "grading": "retrieval_only",
+        "task_file": null,
+        "gold_file": null,
+        "answer_file": null,
+        "candidate_files": null,
+        "workspace_dir": null,
+        "agent_trace": null,
+        "test_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea"
+      }
+    },
+    "sha256": "c06f2d080daf82926eef41959f4fd203b3486204378ae6b612e554303350f2b8"
+  },
+  {
+    "id": "condition-009",
+    "factors": {
+      "representation": "files",
+      "files.layout": "verbatim_dump",
+      "retrieval.chunking": "entity_bundle",
+      "retrieval.method": "dense",
+      "retrieval.reranker": "none",
+      "trial.tools": [
+        "context_search",
+        "context_read"
+      ],
+      "expose_sources": false
+    },
+    "config": {
+      "protocol": "harnext-strategies-v1",
+      "representation": "files",
+      "source_jsonl": "/home/yasha/Desktop/uni/masters/harnext-context-engine/apps/eval/configs/strategies/sources.jsonl",
+      "artifact_dir": "/home/yasha/Desktop/uni/masters/harnext-context-engine/apps/eval/out/strategies/retrieval-grid/artifacts/condition-009",
+      "observed_at": "2026-01-02T12:00:00Z",
+      "valid_at": "2026-01-02T12:00:00Z",
+      "builder": {
+        "harness": "none",
+        "model": null,
+        "effort": "medium",
+        "timeout_s": 180,
+        "max_calls": 40,
+        "context_bytes": 131072
+      },
+      "files": {
+        "layout": "verbatim_dump",
+        "prompt": "preserve_supported",
+        "extraction": "structured",
+        "retention": "all",
+        "retention_days": 90,
+        "summarization": "none",
+        "update": "supersede",
+        "summary_sentences": 3,
+        "page_bytes": 8192,
+        "functional_predicates": [
+          "assigned_to",
+          "has_status",
+          "targets_version"
+        ],
+        "predicates": [
+          "assigned_to",
+          "has_status",
+          "references_issue",
+          "changes_file",
+          "discussed_in"
+        ]
+      },
+      "retrieval": {
+        "method": "dense",
+        "chunking": "entity_bundle",
+        "chunk_bytes": 2048,
+        "overlap_bytes": 256,
+        "candidates": 40,
+        "top_k": 10,
+        "rrf_k": 60,
+        "bm25_k1": 1.5,
+        "bm25_b": 0.75,
+        "embeddings": {
+          "provider": "fastembed",
+          "model": "BAAI/bge-small-en-v1.5",
+          "revision": "content-hash-at-build",
+          "cache_dir": "/home/yasha/Desktop/uni/masters/harnext-context-engine/.harnext/models",
+          "base_url": null,
+          "api_key_env": null,
+          "timeout_s": 60,
+          "threads": 2
+        },
+        "reranker": "none",
+        "reranker_model": "Xenova/ms-marco-MiniLM-L-6-v2"
+      },
+      "graph": {
+        "schema_name": "typed_assertions",
+        "extraction": "domain_predicates",
+        "resolution": "evidence_aliases",
+        "traversal": "neighbors",
+        "hops": 2,
+        "max_edges": 20,
+        "damping": 0.85,
+        "iterations": 30,
+        "functional_predicates": [
+          "assigned_to",
+          "has_status"
+        ]
+      },
+      "expose_sources": false,
+      "trial": {
+        "run_id": "condition-009-read-001",
+        "task_id": "issue-owner-at-cutoff",
+        "harness": "external",
+        "model": "externally-recorded",
+        "effort": "externally-recorded",
+        "max_calls": 100,
+        "budget_bytes": 65536,
+        "response_bytes": 12000,
+        "timeout_s": 3600,
+        "tools": [
+          "context_search",
+          "context_read"
+        ],
+        "transport": "stdio",
+        "host": "127.0.0.1",
+        "port": 8876,
+        "token_env": "HARNEXT_EVAL_TOKEN"
+      },
+      "evaluation": {
+        "grading": "retrieval_only",
+        "task_file": null,
+        "gold_file": null,
+        "answer_file": null,
+        "candidate_files": null,
+        "workspace_dir": null,
+        "agent_trace": null,
+        "test_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea"
+      }
+    },
+    "sha256": "5cdef75e88beb19f690ea5efda336ceaf04bdb37ea6ac870bc88ace10b1f0dee"
+  },
+  {
+    "id": "condition-010",
+    "factors": {
+      "representation": "files",
+      "files.layout": "verbatim_dump",
+      "retrieval.chunking": "entity_bundle",
+      "retrieval.method": "dense",
+      "retrieval.reranker": "cross_encoder",
+      "trial.tools": [
+        "context_search",
+        "context_read"
+      ],
+      "expose_sources": false
+    },
+    "config": {
+      "protocol": "harnext-strategies-v1",
+      "representation": "files",
+      "source_jsonl": "/home/yasha/Desktop/uni/masters/harnext-context-engine/apps/eval/configs/strategies/sources.jsonl",
+      "artifact_dir": "/home/yasha/Desktop/uni/masters/harnext-context-engine/apps/eval/out/strategies/retrieval-grid/artifacts/condition-010",
+      "observed_at": "2026-01-02T12:00:00Z",
+      "valid_at": "2026-01-02T12:00:00Z",
+      "builder": {
+        "harness": "none",
+        "model": null,
+        "effort": "medium",
+        "timeout_s": 180,
+        "max_calls": 40,
+        "context_bytes": 131072
+      },
+      "files": {
+        "layout": "verbatim_dump",
+        "prompt": "preserve_supported",
+        "extraction": "structured",
+        "retention": "all",
+        "retention_days": 90,
+        "summarization": "none",
+        "update": "supersede",
+        "summary_sentences": 3,
+        "page_bytes": 8192,
+        "functional_predicates": [
+          "assigned_to",
+          "has_status",
+          "targets_version"
+        ],
+        "predicates": [
+          "assigned_to",
+          "has_status",
+          "references_issue",
+          "changes_file",
+          "discussed_in"
+        ]
+      },
+      "retrieval": {
+        "method": "dense",
+        "chunking": "entity_bundle",
+        "chunk_bytes": 2048,
+        "overlap_bytes": 256,
+        "candidates": 40,
+        "top_k": 10,
+        "rrf_k": 60,
+        "bm25_k1": 1.5,
+        "bm25_b": 0.75,
+        "embeddings": {
+          "provider": "fastembed",
+          "model": "BAAI/bge-small-en-v1.5",
+          "revision": "content-hash-at-build",
+          "cache_dir": "/home/yasha/Desktop/uni/masters/harnext-context-engine/.harnext/models",
+          "base_url": null,
+          "api_key_env": null,
+          "timeout_s": 60,
+          "threads": 2
+        },
+        "reranker": "cross_encoder",
+        "reranker_model": "Xenova/ms-marco-MiniLM-L-6-v2"
+      },
+      "graph": {
+        "schema_name": "typed_assertions",
+        "extraction": "domain_predicates",
+        "resolution": "evidence_aliases",
+        "traversal": "neighbors",
+        "hops": 2,
+        "max_edges": 20,
+        "damping": 0.85,
+        "iterations": 30,
+        "functional_predicates": [
+          "assigned_to",
+          "has_status"
+        ]
+      },
+      "expose_sources": false,
+      "trial": {
+        "run_id": "condition-010-read-001",
+        "task_id": "issue-owner-at-cutoff",
+        "harness": "external",
+        "model": "externally-recorded",
+        "effort": "externally-recorded",
+        "max_calls": 100,
+        "budget_bytes": 65536,
+        "response_bytes": 12000,
+        "timeout_s": 3600,
+        "tools": [
+          "context_search",
+          "context_read"
+        ],
+        "transport": "stdio",
+        "host": "127.0.0.1",
+        "port": 8876,
+        "token_env": "HARNEXT_EVAL_TOKEN"
+      },
+      "evaluation": {
+        "grading": "retrieval_only",
+        "task_file": null,
+        "gold_file": null,
+        "answer_file": null,
+        "candidate_files": null,
+        "workspace_dir": null,
+        "agent_trace": null,
+        "test_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea"
+      }
+    },
+    "sha256": "37dbe91354cf0b10e7ae64ebe989d1ba1173dbe6a8e20d924c1a65738f23bbb0"
+  },
+  {
+    "id": "condition-011",
+    "factors": {
+      "representation": "files",
+      "files.layout": "verbatim_dump",
+      "retrieval.chunking": "entity_bundle",
+      "retrieval.method": "hybrid",
+      "retrieval.reranker": "none",
+      "trial.tools": [
+        "context_search",
+        "context_read"
+      ],
+      "expose_sources": false
+    },
+    "config": {
+      "protocol": "harnext-strategies-v1",
+      "representation": "files",
+      "source_jsonl": "/home/yasha/Desktop/uni/masters/harnext-context-engine/apps/eval/configs/strategies/sources.jsonl",
+      "artifact_dir": "/home/yasha/Desktop/uni/masters/harnext-context-engine/apps/eval/out/strategies/retrieval-grid/artifacts/condition-011",
+      "observed_at": "2026-01-02T12:00:00Z",
+      "valid_at": "2026-01-02T12:00:00Z",
+      "builder": {
+        "harness": "none",
+        "model": null,
+        "effort": "medium",
+        "timeout_s": 180,
+        "max_calls": 40,
+        "context_bytes": 131072
+      },
+      "files": {
+        "layout": "verbatim_dump",
+        "prompt": "preserve_supported",
+        "extraction": "structured",
+        "retention": "all",
+        "retention_days": 90,
+        "summarization": "none",
+        "update": "supersede",
+        "summary_sentences": 3,
+        "page_bytes": 8192,
+        "functional_predicates": [
+          "assigned_to",
+          "has_status",
+          "targets_version"
+        ],
+        "predicates": [
+          "assigned_to",
+          "has_status",
+          "references_issue",
+          "changes_file",
+          "discussed_in"
+        ]
+      },
+      "retrieval": {
+        "method": "hybrid",
+        "chunking": "entity_bundle",
+        "chunk_bytes": 2048,
+        "overlap_bytes": 256,
+        "candidates": 40,
+        "top_k": 10,
+        "rrf_k": 60,
+        "bm25_k1": 1.5,
+        "bm25_b": 0.75,
+        "embeddings": {
+          "provider": "fastembed",
+          "model": "BAAI/bge-small-en-v1.5",
+          "revision": "content-hash-at-build",
+          "cache_dir": "/home/yasha/Desktop/uni/masters/harnext-context-engine/.harnext/models",
+          "base_url": null,
+          "api_key_env": null,
+          "timeout_s": 60,
+          "threads": 2
+        },
+        "reranker": "none",
+        "reranker_model": "Xenova/ms-marco-MiniLM-L-6-v2"
+      },
+      "graph": {
+        "schema_name": "typed_assertions",
+        "extraction": "domain_predicates",
+        "resolution": "evidence_aliases",
+        "traversal": "neighbors",
+        "hops": 2,
+        "max_edges": 20,
+        "damping": 0.85,
+        "iterations": 30,
+        "functional_predicates": [
+          "assigned_to",
+          "has_status"
+        ]
+      },
+      "expose_sources": false,
+      "trial": {
+        "run_id": "condition-011-read-001",
+        "task_id": "issue-owner-at-cutoff",
+        "harness": "external",
+        "model": "externally-recorded",
+        "effort": "externally-recorded",
+        "max_calls": 100,
+        "budget_bytes": 65536,
+        "response_bytes": 12000,
+        "timeout_s": 3600,
+        "tools": [
+          "context_search",
+          "context_read"
+        ],
+        "transport": "stdio",
+        "host": "127.0.0.1",
+        "port": 8876,
+        "token_env": "HARNEXT_EVAL_TOKEN"
+      },
+      "evaluation": {
+        "grading": "retrieval_only",
+        "task_file": null,
+        "gold_file": null,
+        "answer_file": null,
+        "candidate_files": null,
+        "workspace_dir": null,
+        "agent_trace": null,
+        "test_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea"
+      }
+    },
+    "sha256": "bf64cfe40362447795921201d9a6b8c65bc012bf5de568ceee1d4108572062ec"
+  },
+  {
+    "id": "condition-012",
+    "factors": {
+      "representation": "files",
+      "files.layout": "verbatim_dump",
+      "retrieval.chunking": "entity_bundle",
+      "retrieval.method": "hybrid",
+      "retrieval.reranker": "cross_encoder",
+      "trial.tools": [
+        "context_search",
+        "context_read"
+      ],
+      "expose_sources": false
+    },
+    "config": {
+      "protocol": "harnext-strategies-v1",
+      "representation": "files",
+      "source_jsonl": "/home/yasha/Desktop/uni/masters/harnext-context-engine/apps/eval/configs/strategies/sources.jsonl",
+      "artifact_dir": "/home/yasha/Desktop/uni/masters/harnext-context-engine/apps/eval/out/strategies/retrieval-grid/artifacts/condition-012",
+      "observed_at": "2026-01-02T12:00:00Z",
+      "valid_at": "2026-01-02T12:00:00Z",
+      "builder": {
+        "harness": "none",
+        "model": null,
+        "effort": "medium",
+        "timeout_s": 180,
+        "max_calls": 40,
+        "context_bytes": 131072
+      },
+      "files": {
+        "layout": "verbatim_dump",
+        "prompt": "preserve_supported",
+        "extraction": "structured",
+        "retention": "all",
+        "retention_days": 90,
+        "summarization": "none",
+        "update": "supersede",
+        "summary_sentences": 3,
+        "page_bytes": 8192,
+        "functional_predicates": [
+          "assigned_to",
+          "has_status",
+          "targets_version"
+        ],
+        "predicates": [
+          "assigned_to",
+          "has_status",
+          "references_issue",
+          "changes_file",
+          "discussed_in"
+        ]
+      },
+      "retrieval": {
+        "method": "hybrid",
+        "chunking": "entity_bundle",
+        "chunk_bytes": 2048,
+        "overlap_bytes": 256,
+        "candidates": 40,
+        "top_k": 10,
+        "rrf_k": 60,
+        "bm25_k1": 1.5,
+        "bm25_b": 0.75,
+        "embeddings": {
+          "provider": "fastembed",
+          "model": "BAAI/bge-small-en-v1.5",
+          "revision": "content-hash-at-build",
+          "cache_dir": "/home/yasha/Desktop/uni/masters/harnext-context-engine/.harnext/models",
+          "base_url": null,
+          "api_key_env": null,
+          "timeout_s": 60,
+          "threads": 2
+        },
+        "reranker": "cross_encoder",
+        "reranker_model": "Xenova/ms-marco-MiniLM-L-6-v2"
+      },
+      "graph": {
+        "schema_name": "typed_assertions",
+        "extraction": "domain_predicates",
+        "resolution": "evidence_aliases",
+        "traversal": "neighbors",
+        "hops": 2,
+        "max_edges": 20,
+        "damping": 0.85,
+        "iterations": 30,
+        "functional_predicates": [
+          "assigned_to",
+          "has_status"
+        ]
+      },
+      "expose_sources": false,
+      "trial": {
+        "run_id": "condition-012-read-001",
+        "task_id": "issue-owner-at-cutoff",
+        "harness": "external",
+        "model": "externally-recorded",
+        "effort": "externally-recorded",
+        "max_calls": 100,
+        "budget_bytes": 65536,
+        "response_bytes": 12000,
+        "timeout_s": 3600,
+        "tools": [
+          "context_search",
+          "context_read"
+        ],
+        "transport": "stdio",
+        "host": "127.0.0.1",
+        "port": 8876,
+        "token_env": "HARNEXT_EVAL_TOKEN"
+      },
+      "evaluation": {
+        "grading": "retrieval_only",
+        "task_file": null,
+        "gold_file": null,
+        "answer_file": null,
+        "candidate_files": null,
+        "workspace_dir": null,
+        "agent_trace": null,
+        "test_image": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea"
+      }
+    },
+    "sha256": "22d1299465195764b10904221df2f2a6ede147be9bf964e039367c4e8d0492ea"
+  }
+]

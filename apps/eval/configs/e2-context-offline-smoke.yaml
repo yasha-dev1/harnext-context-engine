@@ -1,0 +1,5 @@
+protocol: e2-context-smoke-v1
+purpose: smoke
+builder_harness: fake
+reader_provider: fixture
+layouts: [S0, S1, S3]

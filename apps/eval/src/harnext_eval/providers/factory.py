@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from typing import Any
+from weakref import ref
 
 from harnext_eval.providers.embeddings import (
     EmbeddingsProvider,
@@ -12,9 +13,32 @@ from harnext_eval.providers.embeddings import (
 )
 from harnext_eval.providers.llm import AnthropicLLM, FakeLLM, LLMProvider
 
-_HARNESS_CLASSES = {"fake": "FakeHarness", "claude_code": "ClaudeCodeHarness"}
+_HARNESS_CLASSES = {"fake": "FakeHarness", "claude_code": "ClaudeCodeHarness", "codex": "CodexHarness"}
 _SUMMARIES: dict[int, dict[str, str | bool]] = {}
 _OFFLINE_BY_ENGINE: dict[int, bool] = {}
+_OWNERS: dict[int, Any] = {}
+
+
+def _known(value: Any) -> bool:
+    owner = _OWNERS.get(id(value))
+    return owner is not None and owner() is value
+
+
+def _remember(value: Any) -> None:
+    """Protect identity-keyed caches from Python reusing a collected object's ID."""
+    key = id(value)
+
+    def forget(owner: Any) -> None:
+        if _OWNERS.get(key) is owner:
+            _OWNERS.pop(key, None)
+            _SUMMARIES.pop(key, None)
+            _OFFLINE_BY_ENGINE.pop(key, None)
+
+    try:
+        _OWNERS[key] = ref(value, forget)
+    except TypeError:
+        # Dict/SimpleNamespace compatibility configurations cannot be weak-referenced.
+        _OWNERS[key] = lambda: value
 
 
 class OfflineViolation(RuntimeError):  # noqa: N818 - audit contract names this exception
@@ -35,13 +59,19 @@ def _offline(cfg: Any) -> bool:
     configured = _value(cfg, "offline")
     if configured is not None:
         offline = bool(configured)
-        _OFFLINE_BY_ENGINE[id(_engine(cfg))] = offline
+        engine = _engine(cfg)
+        _remember(engine)
+        _OFFLINE_BY_ENGINE[id(engine)] = offline
         return offline
-    return _OFFLINE_BY_ENGINE.get(id(cfg), True)
+    return _OFFLINE_BY_ENGINE.get(id(cfg), True) if _known(cfg) else True
 
 
 def _record(cfg: Any, key: str, value: str) -> None:
+    if not _known(cfg):
+        _SUMMARIES.pop(id(cfg), None)
+    _remember(cfg)
     summary = _SUMMARIES.setdefault(id(cfg), {"offline_enforced": _offline(cfg)})
+    summary["offline_enforced"] = _offline(cfg)
     summary[key] = value
 
 
@@ -86,6 +116,13 @@ def make_llm(cfg: Any) -> LLMProvider:
     provider = _value(reader, "provider", "fake")
     if provider == "fake":
         resolved: LLMProvider = FakeLLM()
+    elif provider == "codex":
+        from harnext_eval.providers.codex import CodexLLM
+
+        model = _value(reader, "model") or _value(_value(engine, "builder", {}), "model")
+        if not model:
+            raise ValueError("codex reader requires an explicit model")
+        resolved = CodexLLM(model=model, reasoning_effort=_value(reader, "reasoning_effort"))
     elif provider == "anthropic":
         model = _value(reader, "model") or _value(_value(engine, "builder", {}), "model")
         resolved = AnthropicLLM(model=model or "claude-sonnet-5")
@@ -133,6 +170,8 @@ def make_harness_name(cfg: Any) -> str:
 def provider_summary(cfg: Any) -> dict[str, str | bool]:
     """Return a copy of the resolved provider names suitable for a manifest."""
 
+    if not _known(cfg):
+        return {"offline_enforced": _offline(cfg)}
     return dict(_SUMMARIES.get(id(cfg), {"offline_enforced": _offline(cfg)}))
 
 

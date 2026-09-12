@@ -1,0 +1,49 @@
+# Base profile only. Set both clocks and task/run IDs from the selected public task.
+# This is not permission to run the benchmark before review and admission.
+protocol: harnext-strategies-v1
+representation: hybrid
+source_jsonl: data/context-sources.jsonl
+artifact_dir: data/engine-snapshots/REPLACE_WITH_TASK_AND_CONDITION
+observed_at: '2019-01-01T00:00:00Z'
+valid_at: '2019-01-01T00:00:00Z'
+builder:
+  harness: none
+  model: null
+files:
+  layout: indexed_temporal
+  prompt: preserve_supported
+  extraction: structured
+  retention: all
+  summarization: none
+  update: supersede
+  page_bytes: 65536
+  predicates: [assigned_to, has_status, has_resolution, has_priority, references_issue, changes_file]
+  functional_predicates: [assigned_to, has_status, has_resolution, has_priority]
+retrieval:
+  method: bm25
+  chunking: fixed
+  chunk_bytes: 2048
+  overlap_bytes: 256
+  candidates: 40
+  top_k: 10
+  reranker: none
+graph:
+  schema_name: typed_assertions
+  extraction: domain_predicates
+  resolution: canonical_only
+  traversal: neighbors
+  functional_predicates: [assigned_to, has_status, has_resolution, has_priority]
+expose_sources: true
+trial:
+  run_id: REVIEW_PENDING
+  task_id: REVIEW_PENDING
+  harness: external
+  model: externally-recorded
+  effort: externally-recorded
+  max_calls: 100
+  budget_bytes: 65536
+  response_bytes: 12000
+  tools: [context_list, context_read, context_search, find_entities, get_assertions, neighbors, fetch_source]
+  transport: stdio
+evaluation:
+  grading: retrieval_only

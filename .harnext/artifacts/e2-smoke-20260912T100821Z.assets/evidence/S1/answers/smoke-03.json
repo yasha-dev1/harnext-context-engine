@@ -1,0 +1,113 @@
+{
+  "answer": {
+    "action": "answer",
+    "evidence_ids": [
+      "ev-001"
+    ],
+    "offset": 0,
+    "path": "",
+    "query": "",
+    "unknown": false,
+    "value": "Open"
+  },
+  "bytes_read": 475,
+  "family": "temporal",
+  "grade": {
+    "evidence_correct": true,
+    "schema_valid": true,
+    "value_correct": true
+  },
+  "history": [
+    {
+      "assistant": {
+        "action": "list",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "",
+        "query": "",
+        "unknown": false,
+        "value": null
+      }
+    },
+    {
+      "result": "INDEX.md\n_meta/superseded.md\nentities/issue/CTX-41/OVERVIEW.md\nentities/issue/CTX-41/facts.md\nentities/issue/CTX-41/timeline.md\nentities/pr/PR-71/OVERVIEW.md\nentities/pr/PR-71/facts.md\nentities/pr/PR-71/timeline.md\nentities/thread/release/OVERVIEW.md\nentities/thread/release/facts.md\nentities/thread/release/timeline.md",
+      "tool": "list",
+      "truncated": false
+    },
+    {
+      "assistant": {
+        "action": "read",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "entities/issue/CTX-41/OVERVIEW.md",
+        "query": "",
+        "unknown": false,
+        "value": null
+      }
+    },
+    {
+      "result": "# issue:CTX-41\n\n_Last updated: 2026-01-01T00:01:00+00:00 [smoke/jira#ev-001]_\n\n## Current structured fields\n\n- status: Open\n- assignee: Mira\n- priority: P2\n",
+      "tool": "read",
+      "truncated": false
+    },
+    {
+      "assistant": {
+        "action": "answer",
+        "evidence_ids": [
+          "ev-001"
+        ],
+        "offset": 0,
+        "path": "",
+        "query": "",
+        "unknown": false,
+        "value": "Open"
+      }
+    }
+  ],
+  "latency_s": 15.181071329978295,
+  "layout": "S1",
+  "probe_id": "smoke-03",
+  "provider_calls": 3,
+  "repeat": 1,
+  "retrieval": [
+    {
+      "action": {
+        "action": "list",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "",
+        "query": "",
+        "unknown": false,
+        "value": null
+      },
+      "bytes": 319,
+      "result": "INDEX.md\n_meta/superseded.md\nentities/issue/CTX-41/OVERVIEW.md\nentities/issue/CTX-41/facts.md\nentities/issue/CTX-41/timeline.md\nentities/pr/PR-71/OVERVIEW.md\nentities/pr/PR-71/facts.md\nentities/pr/PR-71/timeline.md\nentities/thread/release/OVERVIEW.md\nentities/thread/release/facts.md\nentities/thread/release/timeline.md",
+      "truncated": false
+    },
+    {
+      "action": {
+        "action": "read",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "entities/issue/CTX-41/OVERVIEW.md",
+        "query": "",
+        "unknown": false,
+        "value": null
+      },
+      "bytes": 156,
+      "result": "# issue:CTX-41\n\n_Last updated: 2026-01-01T00:01:00+00:00 [smoke/jira#ev-001]_\n\n## Current structured fields\n\n- status: Open\n- assignee: Mira\n- priority: P2\n",
+      "truncated": false
+    }
+  ],
+  "snapshot_content_sha256": "9083735f02e09792548dc8d42cbf51103f3621e929f5f82ab51e8c08d6d23284",
+  "snapshot_sha": "c2bf11566d962e8e8f45483212f8e3474442e4e9",
+  "status": "completed",
+  "tool_calls": 2,
+  "usage": {
+    "cache_write_input_tokens": 0,
+    "cached_input_tokens": 14592,
+    "input_tokens": 21777,
+    "output_tokens": 230,
+    "reasoning_output_tokens": 99
+  }
+}

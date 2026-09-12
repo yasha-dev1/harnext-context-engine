@@ -1,0 +1,60 @@
+[
+  {
+    "snapshot": {
+      "sha": "cb2342b11ac21131d4ffa79bf34bd33cc1a5617d",
+      "T_last_event": "2026-01-01T00:03:00Z",
+      "last_event_id": "ev-003",
+      "lane": "batch"
+    },
+    "files": {
+      "INDEX.md": "# Org Context Index\n\n_Maintained by the builder agent. One line per entity with its last-updated date._\n\n| Entity | Type | Last updated | Overview |\n|--------|------|--------------|----------|\n| [CTX-41](entities/issue/CTX-41/OVERVIEW.md) | issue | 2026-01-01 | Open P2 issue assigned to Mira; linked to PR-71. |\n| [PR-71](entities/pr/PR-71/OVERVIEW.md) | pr | 2026-01-01 | Open PR linked to CTX-41; updates `src/cache.py`. |\n| [release](entities/thread/release/OVERVIEW.md) | thread | 2026-01-01 | Release freeze scheduled for 2026-10-01. |\n",
+      "_meta/superseded.md": "# Superseded Facts\n\n_When a fact is updated or contradicted, the old version is moved here with a\npointer to its replacement and the event that triggered the change._\n",
+      "entities/issue/CTX-41/OVERVIEW.md": "# CTX-41\n\nOpen P2 issue assigned to Mira. PR-71 is linked to this issue.",
+      "entities/issue/CTX-41/facts.md": "- 2026-01-01 \u2014 Status is Open; assignee is Mira; priority is P2. [smoke/jira#ev-001]\n- 2026-01-01 \u2014 PR-71 is linked to this issue. [smoke/github#ev-002]",
+      "entities/issue/CTX-41/timeline.md": "- 2026-01-01 [smoke/jira#ev-001] Issue updated: status Open, assignee Mira, priority P2.\n- 2026-01-01 [smoke/github#ev-002] PR-71 reported as linked to CTX-41.",
+      "entities/pr/PR-71/OVERVIEW.md": "# PR-71\n\nOpen pull request linked to issue CTX-41. The reported change updates `src/cache.py` so `cache_key(key)` returns `str(key)`.",
+      "entities/pr/PR-71/facts.md": "- 2026-01-01 \u2014 PR-71 is open and linked to CTX-41. [smoke/github#ev-002]\n- 2026-01-01 \u2014 `src/cache.py` defines `cache_key(key)` to return `str(key)`. [smoke/github#ev-002]",
+      "entities/pr/PR-71/timeline.md": "- 2026-01-01 [smoke/github#ev-002] Pull request updated: state open, linked to CTX-41; changed `src/cache.py`, where `cache_key(key)` returns `str(key)`.",
+      "entities/thread/release/OVERVIEW.md": "# Release thread\n\nRelease freeze is scheduled for 2026-10-01.",
+      "entities/thread/release/facts.md": "- 2026-01-01 \u2014 Release freeze is scheduled for 2026-10-01. [smoke/mail#ev-003]",
+      "entities/thread/release/timeline.md": "- 2026-01-01 [smoke/mail#ev-003] Release freeze scheduled for 2026-10-01."
+    },
+    "delivered_event_ids": [
+      "ev-001",
+      "ev-002",
+      "ev-003"
+    ]
+  },
+  {
+    "snapshot": {
+      "sha": "256dcacdaeacf8b4e479ad91e37ea63fe1be427c",
+      "T_last_event": "2026-01-01T01:03:00Z",
+      "last_event_id": "ev-006",
+      "lane": "batch"
+    },
+    "files": {
+      "INDEX.md": "# Index\n\n## Issues\n\n- [CTX-41](entities/issue/CTX-41/)\n\n## Pull requests\n\n- [PR-71](entities/pr/PR-71/)\n- [PR-72](entities/pr/PR-72/)\n\n## Threads\n\n- [release](entities/thread/release/)",
+      "_meta/superseded.md": "# Superseded facts\n\n- Earlier status for issue CTX-41 \u2192 superseded by `entities/issue/CTX-41/facts.md` status Closed; reason: ev-004 explicitly states that the update supersedes the earlier status. [ev-004; smoke/jira; 2026-01-01]\n- Earlier assignee for issue CTX-41 \u2192 superseded by `entities/issue/CTX-41/facts.md` assignee Noah; reason: ev-004 explicitly states that the update supersedes the earlier assignee. [ev-004; smoke/jira; 2026-01-01]\n- Earlier priority for issue CTX-41 \u2192 superseded by `entities/issue/CTX-41/facts.md` priority P1; reason: ev-004 explicitly states that the update supersedes the earlier priority. [ev-004; smoke/jira; 2026-01-01]\n- Earlier release freeze date 2026-10-01 \u2192 superseded by `entities/thread/release/facts.md` freeze date 2026-10-08; reason: ev-006 states that the freeze moved. [ev-006; smoke/mail; 2026-01-01]",
+      "entities/issue/CTX-41/OVERVIEW.md": "# CTX-41\n\nClosed P1 issue assigned to Noah. PR-72 is linked to this issue.\n\nUpdated by ev-004 (smoke/jira) and ev-005 (smoke/github).",
+      "entities/issue/CTX-41/facts.md": "# Facts\n\n- Status: Closed. [ev-004; smoke/jira; 2026-01-01]\n- Assignee: Noah. [ev-004; smoke/jira; 2026-01-01]\n- Priority: P1. [ev-004; smoke/jira; 2026-01-01]\n- Linked pull request: PR-72, merged. [ev-005; smoke/github; 2026-01-01]",
+      "entities/issue/CTX-41/timeline.md": "# Timeline\n\n- 2026-01-01T01:01:00Z \u2014 Issue updated: status Closed, assignee Noah, priority P1; this update supersedes earlier values. [ev-004; smoke/jira]\n- 2026-01-01T01:02:00Z \u2014 Linked PR-72 was merged; changed file: `tests/test_cache.py`. [ev-005; smoke/github]",
+      "entities/pr/PR-71/OVERVIEW.md": "# PR-71\n\nOpen pull request linked to issue CTX-41. The reported change updates `src/cache.py` so `cache_key(key)` returns `str(key)`.",
+      "entities/pr/PR-71/facts.md": "- 2026-01-01 \u2014 PR-71 is open and linked to CTX-41. [smoke/github#ev-002]\n- 2026-01-01 \u2014 `src/cache.py` defines `cache_key(key)` to return `str(key)`. [smoke/github#ev-002]",
+      "entities/pr/PR-71/timeline.md": "- 2026-01-01 [smoke/github#ev-002] Pull request updated: state open, linked to CTX-41; changed `src/cache.py`, where `cache_key(key)` returns `str(key)`.",
+      "entities/pr/PR-72/OVERVIEW.md": "# PR-72\n\nMerged pull request linked to issue CTX-41. The event identifies `tests/test_cache.py` as changed.\n\nUpdated by ev-005 (smoke/github).",
+      "entities/pr/PR-72/facts.md": "# Facts\n\n- State: Merged. [ev-005; smoke/github; 2026-01-01]\n- Linked issue: CTX-41. [ev-005; smoke/github; 2026-01-01]\n- Changed source file: `tests/test_cache.py`. [ev-005; smoke/github; 2026-01-01]",
+      "entities/pr/PR-72/timeline.md": "# Timeline\n\n- 2026-01-01T01:02:00Z \u2014 PR-72 was merged, linked to CTX-41, with `tests/test_cache.py` among the changed files. [ev-005; smoke/github]",
+      "entities/thread/release/OVERVIEW.md": "# release\n\nThe release freeze is scheduled for 2026-10-08.\n\nUpdated by ev-006 (smoke/mail).",
+      "entities/thread/release/facts.md": "# Facts\n\n- Release freeze date: 2026-10-08. [ev-006; smoke/mail; 2026-01-01]",
+      "entities/thread/release/timeline.md": "# Timeline\n\n- 2026-01-01T01:03:00Z \u2014 Release freeze moved to 2026-10-08. [ev-006; smoke/mail]"
+    },
+    "delivered_event_ids": [
+      "ev-001",
+      "ev-002",
+      "ev-003",
+      "ev-004",
+      "ev-005",
+      "ev-006"
+    ]
+  }
+]

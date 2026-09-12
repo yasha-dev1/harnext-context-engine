@@ -1,0 +1,226 @@
+{
+  "audit_passed": true,
+  "audit_version": "tool-replay-v1/exact-citation-wrapper-v1",
+  "builder_harness": "codex",
+  "builder_tool_policy": "files",
+  "builder_usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 0,
+    "output_tokens": 0
+  },
+  "families": [
+    "extraction",
+    "temporal",
+    "update",
+    "multisource",
+    "abstention"
+  ],
+  "interpretation": "Original scores preserved. Wrapper normalization is a separate engineering diagnostic, not a replacement confirmation score.",
+  "metadata_correction": null,
+  "model": "gpt-5.6-luna",
+  "probe_count": 10,
+  "reader_provider": "codex",
+  "reader_usage": {
+    "cache_write_input_tokens": 0,
+    "cached_input_tokens": 240384,
+    "input_tokens": 392883,
+    "output_tokens": 4535,
+    "reasoning_output_tokens": 2077
+  },
+  "reasoning_effort": "medium",
+  "rows": [
+    {
+      "exact_citation_aliases": {},
+      "family": "extraction",
+      "grade": {
+        "evidence_correct": true,
+        "schema_valid": true,
+        "value_correct": true
+      },
+      "layout": "S0",
+      "original_grade": {
+        "evidence_correct": true,
+        "schema_valid": true,
+        "value_correct": true
+      },
+      "probe_id": "smoke-01",
+      "repeat": 1,
+      "tool_replay_passed": true
+    },
+    {
+      "exact_citation_aliases": {},
+      "family": "extraction",
+      "grade": {
+        "evidence_correct": true,
+        "schema_valid": true,
+        "value_correct": true
+      },
+      "layout": "S0",
+      "original_grade": {
+        "evidence_correct": true,
+        "schema_valid": true,
+        "value_correct": true
+      },
+      "probe_id": "smoke-02",
+      "repeat": 1,
+      "tool_replay_passed": true
+    },
+    {
+      "exact_citation_aliases": {},
+      "family": "temporal",
+      "grade": {
+        "evidence_correct": true,
+        "schema_valid": true,
+        "value_correct": true
+      },
+      "layout": "S0",
+      "original_grade": {
+        "evidence_correct": true,
+        "schema_valid": true,
+        "value_correct": true
+      },
+      "probe_id": "smoke-03",
+      "repeat": 1,
+      "tool_replay_passed": true
+    },
+    {
+      "exact_citation_aliases": {},
+      "family": "temporal",
+      "grade": {
+        "evidence_correct": true,
+        "schema_valid": true,
+        "value_correct": true
+      },
+      "layout": "S0",
+      "original_grade": {
+        "evidence_correct": true,
+        "schema_valid": true,
+        "value_correct": true
+      },
+      "probe_id": "smoke-04",
+      "repeat": 1,
+      "tool_replay_passed": true
+    },
+    {
+      "exact_citation_aliases": {},
+      "family": "update",
+      "grade": {
+        "evidence_correct": true,
+        "schema_valid": true,
+        "value_correct": true
+      },
+      "layout": "S0",
+      "original_grade": {
+        "evidence_correct": true,
+        "schema_valid": true,
+        "value_correct": true
+      },
+      "probe_id": "smoke-05",
+      "repeat": 1,
+      "tool_replay_passed": true
+    },
+    {
+      "exact_citation_aliases": {},
+      "family": "update",
+      "grade": {
+        "evidence_correct": true,
+        "schema_valid": true,
+        "value_correct": true
+      },
+      "layout": "S0",
+      "original_grade": {
+        "evidence_correct": true,
+        "schema_valid": true,
+        "value_correct": true
+      },
+      "probe_id": "smoke-06",
+      "repeat": 1,
+      "tool_replay_passed": true
+    },
+    {
+      "exact_citation_aliases": {},
+      "family": "multisource",
+      "grade": {
+        "evidence_correct": true,
+        "schema_valid": true,
+        "value_correct": true
+      },
+      "layout": "S0",
+      "original_grade": {
+        "evidence_correct": true,
+        "schema_valid": true,
+        "value_correct": true
+      },
+      "probe_id": "smoke-07",
+      "repeat": 1,
+      "tool_replay_passed": true
+    },
+    {
+      "exact_citation_aliases": {},
+      "family": "multisource",
+      "grade": {
+        "evidence_correct": false,
+        "schema_valid": true,
+        "value_correct": false
+      },
+      "layout": "S0",
+      "original_grade": {
+        "evidence_correct": false,
+        "schema_valid": true,
+        "value_correct": false
+      },
+      "probe_id": "smoke-08",
+      "repeat": 1,
+      "tool_replay_passed": true
+    },
+    {
+      "exact_citation_aliases": {},
+      "family": "abstention",
+      "grade": {
+        "evidence_correct": false,
+        "schema_valid": true,
+        "value_correct": true
+      },
+      "layout": "S0",
+      "original_grade": {
+        "evidence_correct": false,
+        "schema_valid": true,
+        "value_correct": true
+      },
+      "probe_id": "smoke-09",
+      "repeat": 1,
+      "tool_replay_passed": true
+    },
+    {
+      "exact_citation_aliases": {},
+      "family": "abstention",
+      "grade": {
+        "evidence_correct": true,
+        "schema_valid": true,
+        "value_correct": true
+      },
+      "layout": "S0",
+      "original_grade": {
+        "evidence_correct": true,
+        "schema_valid": true,
+        "value_correct": true
+      },
+      "probe_id": "smoke-10",
+      "repeat": 1,
+      "tool_replay_passed": true
+    }
+  ],
+  "source_manifest_sha256": "26bb68028449dcf9a4135401091c5482a55f03de46843b6aa99146e13e676422",
+  "source_run": "/home/yasha/Desktop/uni/masters/harnext-context-engine/apps/eval/out/e2-context/fresh-smoke-20260912T100821Z/runs/S0",
+  "table": [
+    {
+      "exact_wrapper_citations_correct": 8,
+      "layout": "S0",
+      "n": 10,
+      "strict_citations_correct": 8,
+      "values_correct": 9
+    }
+  ],
+  "thesis_evidence": false,
+  "total_cost_usd": null
+}

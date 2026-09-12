@@ -1,0 +1,113 @@
+{
+  "answer": {
+    "action": "answer",
+    "evidence_ids": [
+      "ev-003"
+    ],
+    "offset": 0,
+    "path": "",
+    "query": "",
+    "unknown": false,
+    "value": "2026-10-01"
+  },
+  "bytes_read": 759,
+  "family": "temporal",
+  "grade": {
+    "evidence_correct": true,
+    "schema_valid": true,
+    "value_correct": true
+  },
+  "history": [
+    {
+      "assistant": {
+        "action": "list",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "",
+        "query": "",
+        "unknown": false,
+        "value": null
+      }
+    },
+    {
+      "result": "INDEX.md\n_meta/superseded.md\nentities/issue/CTX-41/OVERVIEW.md\nentities/issue/CTX-41/facts.md\nentities/issue/CTX-41/timeline.md\nentities/pr/PR-71/OVERVIEW.md\nentities/pr/PR-71/facts.md\nentities/pr/PR-71/timeline.md\nentities/thread/release/OVERVIEW.md\nentities/thread/release/facts.md\nentities/thread/release/timeline.md",
+      "tool": "list",
+      "truncated": false
+    },
+    {
+      "assistant": {
+        "action": "search",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "",
+        "query": "release freeze",
+        "unknown": false,
+        "value": null
+      }
+    },
+    {
+      "result": "INDEX.md:9: | [release](entities/thread/release/OVERVIEW.md) | thread | 2026-01-01 | Release freeze scheduled for 2026-10-01. |\nentities/thread/release/OVERVIEW.md:3: Release freeze is scheduled for 2026-10-01.\nentities/thread/release/facts.md:1: - 2026-01-01 — Release freeze is scheduled for 2026-10-01. [smoke/mail#ev-003]\nentities/thread/release/timeline.md:1: - 2026-01-01 [smoke/mail#ev-003] Release freeze scheduled for 2026-10-01.",
+      "tool": "search",
+      "truncated": false
+    },
+    {
+      "assistant": {
+        "action": "answer",
+        "evidence_ids": [
+          "ev-003"
+        ],
+        "offset": 0,
+        "path": "",
+        "query": "",
+        "unknown": false,
+        "value": "2026-10-01"
+      }
+    }
+  ],
+  "latency_s": 20.325843056023587,
+  "layout": "S3",
+  "probe_id": "smoke-04",
+  "provider_calls": 3,
+  "repeat": 1,
+  "retrieval": [
+    {
+      "action": {
+        "action": "list",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "",
+        "query": "",
+        "unknown": false,
+        "value": null
+      },
+      "bytes": 319,
+      "result": "INDEX.md\n_meta/superseded.md\nentities/issue/CTX-41/OVERVIEW.md\nentities/issue/CTX-41/facts.md\nentities/issue/CTX-41/timeline.md\nentities/pr/PR-71/OVERVIEW.md\nentities/pr/PR-71/facts.md\nentities/pr/PR-71/timeline.md\nentities/thread/release/OVERVIEW.md\nentities/thread/release/facts.md\nentities/thread/release/timeline.md",
+      "truncated": false
+    },
+    {
+      "action": {
+        "action": "search",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "",
+        "query": "release freeze",
+        "unknown": false,
+        "value": null
+      },
+      "bytes": 440,
+      "result": "INDEX.md:9: | [release](entities/thread/release/OVERVIEW.md) | thread | 2026-01-01 | Release freeze scheduled for 2026-10-01. |\nentities/thread/release/OVERVIEW.md:3: Release freeze is scheduled for 2026-10-01.\nentities/thread/release/facts.md:1: - 2026-01-01 — Release freeze is scheduled for 2026-10-01. [smoke/mail#ev-003]\nentities/thread/release/timeline.md:1: - 2026-01-01 [smoke/mail#ev-003] Release freeze scheduled for 2026-10-01.",
+      "truncated": false
+    }
+  ],
+  "snapshot_content_sha256": "c6a12f19427f24314feb90dc88b211ac112576d7ec12f59cf2068eef4484504e",
+  "snapshot_sha": "cb2342b11ac21131d4ffa79bf34bd33cc1a5617d",
+  "status": "completed",
+  "tool_calls": 2,
+  "usage": {
+    "cache_write_input_tokens": 0,
+    "cached_input_tokens": 14592,
+    "input_tokens": 29236,
+    "output_tokens": 257,
+    "reasoning_output_tokens": 61
+  }
+}

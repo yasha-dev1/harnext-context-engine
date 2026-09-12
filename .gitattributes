@@ -1,0 +1,4 @@
+# Preserve frozen evidence bytes and generated plotting output verbatim.
+/.harnext/artifacts/** -text -whitespace
+/apps/eval/benchmarks/kafka-1000-v1/data/** -text -whitespace
+/apps/eval/out/strategies/** -text -whitespace

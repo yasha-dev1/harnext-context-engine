@@ -1,0 +1,113 @@
+{
+  "answer": {
+    "action": "answer",
+    "evidence_ids": [
+      "ev-004"
+    ],
+    "offset": 0,
+    "path": "",
+    "query": "",
+    "unknown": false,
+    "value": "Noah"
+  },
+  "bytes_read": 1280,
+  "family": "update",
+  "grade": {
+    "evidence_correct": true,
+    "schema_valid": true,
+    "value_correct": true
+  },
+  "history": [
+    {
+      "assistant": {
+        "action": "search",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "",
+        "query": "CTX-41",
+        "unknown": false,
+        "value": null
+      }
+    },
+    {
+      "result": "INDEX.md:5: | issue:CTX-41 | issue | 2026-01-01T01:01:00+00:00 | [entities/issue/CTX-41/OVERVIEW.md](entities/issue/CTX-41/OVERVIEW.md) |\n_meta/superseded.md:5: - issue:CTX-41: status=Open [smoke/jira#ev-001] was superseded by status=Closed on 2026-01-01 [smoke/jira#ev-004]\n_meta/superseded.md:6: - issue:CTX-41: assignee=Mira [smoke/jira#ev-001] was superseded by assignee=Noah on 2026-01-01 [smoke/jira#ev-004]\n_meta/superseded.md:7: - issue:CTX-41: priority=P2 [smoke/jira#ev-001] was superseded by priority=P1 on 2026-01-01 [smoke/jira#ev-004]\nentities/issue/CTX-41/OVERVIEW.md:1: # issue:CTX-41\nentities/pr/PR-71/OVERVIEW.md:7: - linked_keys: [\"CTX-41\"]\nentities/pr/PR-71/facts.md:5: - 2026-01-01 [smoke/github#ev-002] linked_keys=[\"CTX-41\"]\nentities/pr/PR-71/timeline.md:2: - 2026-01-01T00:02:00+00:00 [smoke/github#ev-002] (batch) linked_keys=[\"CTX-41\"]\nentities/pr/PR-72/OVERVIEW.md:7: - linked_keys: [\"CTX-41\"]\nentities/pr/PR-72/facts.md:5: - 2026-01-01 [smoke/github#ev-005] linked_keys=[\"CTX-41\"]\nentities/pr/PR-72/timeline.md:2: - 2026-01-01T01:02:00+00:00 [smoke/github#ev-005] (batch) linked_keys=[\"CTX-41\"]",
+      "tool": "search",
+      "truncated": false
+    },
+    {
+      "assistant": {
+        "action": "read",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "entities/issue/CTX-41/OVERVIEW.md",
+        "query": "",
+        "unknown": false,
+        "value": null
+      }
+    },
+    {
+      "result": "# issue:CTX-41\n\n_Last updated: 2026-01-01T01:01:00+00:00 [smoke/jira#ev-004]_\n\n## Current structured fields\n\n- status: Closed\n- assignee: Noah\n- priority: P1\n",
+      "tool": "read",
+      "truncated": false
+    },
+    {
+      "assistant": {
+        "action": "answer",
+        "evidence_ids": [
+          "ev-004"
+        ],
+        "offset": 0,
+        "path": "",
+        "query": "",
+        "unknown": false,
+        "value": "Noah"
+      }
+    }
+  ],
+  "latency_s": 14.773190572013846,
+  "layout": "S1",
+  "probe_id": "smoke-05",
+  "provider_calls": 3,
+  "repeat": 1,
+  "retrieval": [
+    {
+      "action": {
+        "action": "search",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "",
+        "query": "CTX-41",
+        "unknown": false,
+        "value": null
+      },
+      "bytes": 1122,
+      "result": "INDEX.md:5: | issue:CTX-41 | issue | 2026-01-01T01:01:00+00:00 | [entities/issue/CTX-41/OVERVIEW.md](entities/issue/CTX-41/OVERVIEW.md) |\n_meta/superseded.md:5: - issue:CTX-41: status=Open [smoke/jira#ev-001] was superseded by status=Closed on 2026-01-01 [smoke/jira#ev-004]\n_meta/superseded.md:6: - issue:CTX-41: assignee=Mira [smoke/jira#ev-001] was superseded by assignee=Noah on 2026-01-01 [smoke/jira#ev-004]\n_meta/superseded.md:7: - issue:CTX-41: priority=P2 [smoke/jira#ev-001] was superseded by priority=P1 on 2026-01-01 [smoke/jira#ev-004]\nentities/issue/CTX-41/OVERVIEW.md:1: # issue:CTX-41\nentities/pr/PR-71/OVERVIEW.md:7: - linked_keys: [\"CTX-41\"]\nentities/pr/PR-71/facts.md:5: - 2026-01-01 [smoke/github#ev-002] linked_keys=[\"CTX-41\"]\nentities/pr/PR-71/timeline.md:2: - 2026-01-01T00:02:00+00:00 [smoke/github#ev-002] (batch) linked_keys=[\"CTX-41\"]\nentities/pr/PR-72/OVERVIEW.md:7: - linked_keys: [\"CTX-41\"]\nentities/pr/PR-72/facts.md:5: - 2026-01-01 [smoke/github#ev-005] linked_keys=[\"CTX-41\"]\nentities/pr/PR-72/timeline.md:2: - 2026-01-01T01:02:00+00:00 [smoke/github#ev-005] (batch) linked_keys=[\"CTX-41\"]",
+      "truncated": false
+    },
+    {
+      "action": {
+        "action": "read",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "entities/issue/CTX-41/OVERVIEW.md",
+        "query": "",
+        "unknown": false,
+        "value": null
+      },
+      "bytes": 158,
+      "result": "# issue:CTX-41\n\n_Last updated: 2026-01-01T01:01:00+00:00 [smoke/jira#ev-004]_\n\n## Current structured fields\n\n- status: Closed\n- assignee: Noah\n- priority: P1\n",
+      "truncated": false
+    }
+  ],
+  "snapshot_content_sha256": "5e0e40d50078c2318e009da9e5d7f126f2590a357f2730ef1b7a5aca0c6dea10",
+  "snapshot_sha": "84db2cbd0225880b8b53e1409ccdf0f77df131f6",
+  "status": "completed",
+  "tool_calls": 2,
+  "usage": {
+    "cache_write_input_tokens": 0,
+    "cached_input_tokens": 14592,
+    "input_tokens": 22540,
+    "output_tokens": 193,
+    "reasoning_output_tokens": 57
+  }
+}
