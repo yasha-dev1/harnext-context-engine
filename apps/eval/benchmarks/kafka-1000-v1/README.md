@@ -35,7 +35,10 @@ deletions, and base files and patches have content hashes.
 **The 200 coding tasks are candidates awaiting execution admission.** We have not
 run their Gradle environments, demonstrated failing base tests, or shown that the
 reference passes at the earlier base. Proposed commands are displayed for review;
-they may need module/task/environment corrections. No agent experiments were run.
+they may need module/task/environment corrections. Eight historical development
+tasks have since run through native Codex with and without MCP; see the
+[paired pilot results](../../STATUS/E2-NO-MCP-PILOT-20260912.md). The frozen review
+bundle remains unchanged and does not serve as a live execution ledger.
 The old synthetic Python coding grader does not execute these Kafka Java/Scala
 tasks. Do not treat patch applicability as compilation or behavioral validation.
 

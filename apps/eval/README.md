@@ -6,12 +6,17 @@ fully offline: no model key, Kafka broker, or application stack is required.
 
 ## Merged E2 context experiment: start here
 
+**[Full experiment map: questions, no-MCP controls, factor tables, and stages](E2-EXPERIMENT-MAP.md).**
+
 **New: [1,000-instance Kafka benchmark review SPA](benchmarks/kafka-1000-v1/review.html)**
 and [dataset methodology / admission status](benchmarks/kafka-1000-v1/README.md).
 Contains 800 deterministic historical questions with MCP-only tool contracts and
 200 real future-PR implementation candidates with MCP + shell contracts. All gold,
 proof and test/reference patches are available for human review. Coding test
-execution admission and user approval remain pending; no agent experiment has run.
+execution admission and full-benchmark approval remain pending. An eight-task
+development pilot has now run through native Codex:
+[interactive results with six graphs](../../.harnext/artifacts/e2-native-benchmark-pilot-001.html)
+and [scope, validation, and next steps](STATUS/E2-REAL-HARNESS-PILOT-20260912.md).
 
 Current configurable route: [YAML strategies and external MCP evaluation](E2-STRATEGIES.md),
 with [verification evidence](STATUS/E2-STRATEGIES-20260912.md). This adds real
