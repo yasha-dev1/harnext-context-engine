@@ -1,0 +1,143 @@
+{
+  "answer": {
+    "action": "answer",
+    "evidence_ids": [
+      "ev-003"
+    ],
+    "offset": 0,
+    "path": "",
+    "query": "",
+    "unknown": false,
+    "value": "2026-10-01"
+  },
+  "bytes_read": 765,
+  "family": "temporal",
+  "grade": {
+    "evidence_correct": true,
+    "schema_valid": true,
+    "value_correct": true
+  },
+  "history": [
+    {
+      "assistant": {
+        "action": "list",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "",
+        "query": "",
+        "unknown": false,
+        "value": null
+      }
+    },
+    {
+      "result": "INDEX.md\nevents/2026/01/01/ev-001.md\nevents/2026/01/01/ev-002.md\nevents/2026/01/01/ev-003.md",
+      "tool": "list",
+      "truncated": false
+    },
+    {
+      "assistant": {
+        "action": "search",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "",
+        "query": "release freeze",
+        "unknown": false,
+        "value": null
+      }
+    },
+    {
+      "result": "events/2026/01/01/ev-003.md:13:     \"body\": \"Release freeze is scheduled for 2026-10-01.\",",
+      "tool": "search",
+      "truncated": false
+    },
+    {
+      "assistant": {
+        "action": "read",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "events/2026/01/01/ev-003.md",
+        "query": "",
+        "unknown": false,
+        "value": null
+      }
+    },
+    {
+      "result": "# Event ev-003\n\n- Time: 2026-01-01T00:03:00+00:00\n- Source: smoke/mail\n- Type: mail.updated\n- Subject: thread:release\n- Lane: batch\n\n```json\n{\n  \"baseline_keys\": [],\n  \"data\": {\n    \"body\": \"Release freeze is scheduled for 2026-10-01.\",\n    \"freeze_date\": \"2026-10-01\"\n  },\n  \"datacontenttype\": \"application/json\",\n  \"id\": \"ev-003\",\n  \"intended_send_ts\": null,\n  \"mgblobref\": null,\n  \"mgingesttime\": null,\n  \"mgtenant\": \"context-smoke\",\n  \"source\": \"smoke/mail\",\n  \"specversion\": \"1.0\",\n  \"subject\": \"thread:release\",\n  \"time\": \"2026-01-01T00:03:00Z\",\n  \"type\": \"mail.updated\"\n}\n```\n",
+      "tool": "read",
+      "truncated": false
+    },
+    {
+      "assistant": {
+        "action": "answer",
+        "evidence_ids": [
+          "ev-003"
+        ],
+        "offset": 0,
+        "path": "",
+        "query": "",
+        "unknown": false,
+        "value": "2026-10-01"
+      }
+    }
+  ],
+  "latency_s": 20.750081211997895,
+  "layout": "S0",
+  "probe_id": "smoke-04",
+  "provider_calls": 4,
+  "repeat": 1,
+  "retrieval": [
+    {
+      "action": {
+        "action": "list",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "",
+        "query": "",
+        "unknown": false,
+        "value": null
+      },
+      "bytes": 92,
+      "result": "INDEX.md\nevents/2026/01/01/ev-001.md\nevents/2026/01/01/ev-002.md\nevents/2026/01/01/ev-003.md",
+      "truncated": false
+    },
+    {
+      "action": {
+        "action": "search",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "",
+        "query": "release freeze",
+        "unknown": false,
+        "value": null
+      },
+      "bytes": 90,
+      "result": "events/2026/01/01/ev-003.md:13:     \"body\": \"Release freeze is scheduled for 2026-10-01.\",",
+      "truncated": false
+    },
+    {
+      "action": {
+        "action": "read",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "events/2026/01/01/ev-003.md",
+        "query": "",
+        "unknown": false,
+        "value": null
+      },
+      "bytes": 583,
+      "result": "# Event ev-003\n\n- Time: 2026-01-01T00:03:00+00:00\n- Source: smoke/mail\n- Type: mail.updated\n- Subject: thread:release\n- Lane: batch\n\n```json\n{\n  \"baseline_keys\": [],\n  \"data\": {\n    \"body\": \"Release freeze is scheduled for 2026-10-01.\",\n    \"freeze_date\": \"2026-10-01\"\n  },\n  \"datacontenttype\": \"application/json\",\n  \"id\": \"ev-003\",\n  \"intended_send_ts\": null,\n  \"mgblobref\": null,\n  \"mgingesttime\": null,\n  \"mgtenant\": \"context-smoke\",\n  \"source\": \"smoke/mail\",\n  \"specversion\": \"1.0\",\n  \"subject\": \"thread:release\",\n  \"time\": \"2026-01-01T00:03:00Z\",\n  \"type\": \"mail.updated\"\n}\n```\n",
+      "truncated": false
+    }
+  ],
+  "snapshot_content_sha256": "86e3751b1a2718c009eb5b1eb8b82e918e641600d8ef0d18870d39c13ca0d933",
+  "snapshot_sha": "dfd2e4ad1fac09b180d8dadd651152b4f975882f",
+  "status": "completed",
+  "tool_calls": 3,
+  "usage": {
+    "cache_write_input_tokens": 0,
+    "cached_input_tokens": 19456,
+    "input_tokens": 29222,
+    "output_tokens": 268,
+    "reasoning_output_tokens": 90
+  }
+}

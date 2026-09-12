@@ -1,0 +1,203 @@
+{
+  "answer": {
+    "action": "answer",
+    "evidence_ids": [
+      "ev-003"
+    ],
+    "offset": 0,
+    "path": "",
+    "query": "",
+    "unknown": true,
+    "value": null
+  },
+  "bytes_read": 732,
+  "family": "abstention",
+  "grade": {
+    "evidence_correct": false,
+    "schema_valid": true,
+    "value_correct": true
+  },
+  "history": [
+    {
+      "assistant": {
+        "action": "list",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "",
+        "query": "",
+        "unknown": false,
+        "value": null
+      }
+    },
+    {
+      "result": "INDEX.md\n_meta/superseded.md\nentities/issue/CTX-41/OVERVIEW.md\nentities/issue/CTX-41/facts.md\nentities/issue/CTX-41/timeline.md\nentities/pr/PR-71/OVERVIEW.md\nentities/pr/PR-71/facts.md\nentities/pr/PR-71/timeline.md\nentities/thread/release/OVERVIEW.md\nentities/thread/release/facts.md\nentities/thread/release/timeline.md",
+      "tool": "list",
+      "truncated": false
+    },
+    {
+      "assistant": {
+        "action": "search",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "",
+        "query": "production release",
+        "unknown": false,
+        "value": null
+      }
+    },
+    {
+      "result": "",
+      "tool": "search",
+      "truncated": false
+    },
+    {
+      "assistant": {
+        "action": "read",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "entities/thread/release/timeline.md",
+        "query": "",
+        "unknown": false,
+        "value": null
+      }
+    },
+    {
+      "result": "# Timeline\n- 2026-01-01T00:03:00+00:00 [smoke/mail#ev-003] (batch) answered_by=UNANSWERED\n",
+      "tool": "read",
+      "truncated": false
+    },
+    {
+      "assistant": {
+        "action": "search",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "",
+        "query": "release",
+        "unknown": false,
+        "value": null
+      }
+    },
+    {
+      "result": "INDEX.md:7: | thread:release | thread | 2026-01-01T00:03:00+00:00 | [entities/thread/release/OVERVIEW.md](entities/thread/release/OVERVIEW.md) |\nentities/thread/release/OVERVIEW.md:1: # thread:release",
+      "tool": "search",
+      "truncated": false
+    },
+    {
+      "assistant": {
+        "action": "read",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "entities/thread/release/facts.md",
+        "query": "",
+        "unknown": false,
+        "value": null
+      }
+    },
+    {
+      "result": "# Current Facts\n\n_One current, dated value per structured field._\n\n- 2026-01-01 [smoke/mail#ev-003] answered_by=UNANSWERED\n",
+      "tool": "read",
+      "truncated": false
+    },
+    {
+      "assistant": {
+        "action": "answer",
+        "evidence_ids": [
+          "ev-003"
+        ],
+        "offset": 0,
+        "path": "",
+        "query": "",
+        "unknown": true,
+        "value": null
+      }
+    }
+  ],
+  "latency_s": 32.1692675689992,
+  "layout": "S1",
+  "probe_id": "smoke-10",
+  "provider_calls": 6,
+  "repeat": 1,
+  "retrieval": [
+    {
+      "action": {
+        "action": "list",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "",
+        "query": "",
+        "unknown": false,
+        "value": null
+      },
+      "bytes": 319,
+      "result": "INDEX.md\n_meta/superseded.md\nentities/issue/CTX-41/OVERVIEW.md\nentities/issue/CTX-41/facts.md\nentities/issue/CTX-41/timeline.md\nentities/pr/PR-71/OVERVIEW.md\nentities/pr/PR-71/facts.md\nentities/pr/PR-71/timeline.md\nentities/thread/release/OVERVIEW.md\nentities/thread/release/facts.md\nentities/thread/release/timeline.md",
+      "truncated": false
+    },
+    {
+      "action": {
+        "action": "search",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "",
+        "query": "production release",
+        "unknown": false,
+        "value": null
+      },
+      "bytes": 0,
+      "result": "",
+      "truncated": false
+    },
+    {
+      "action": {
+        "action": "read",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "entities/thread/release/timeline.md",
+        "query": "",
+        "unknown": false,
+        "value": null
+      },
+      "bytes": 90,
+      "result": "# Timeline\n- 2026-01-01T00:03:00+00:00 [smoke/mail#ev-003] (batch) answered_by=UNANSWERED\n",
+      "truncated": false
+    },
+    {
+      "action": {
+        "action": "search",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "",
+        "query": "release",
+        "unknown": false,
+        "value": null
+      },
+      "bytes": 200,
+      "result": "INDEX.md:7: | thread:release | thread | 2026-01-01T00:03:00+00:00 | [entities/thread/release/OVERVIEW.md](entities/thread/release/OVERVIEW.md) |\nentities/thread/release/OVERVIEW.md:1: # thread:release",
+      "truncated": false
+    },
+    {
+      "action": {
+        "action": "read",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "entities/thread/release/facts.md",
+        "query": "",
+        "unknown": false,
+        "value": null
+      },
+      "bytes": 123,
+      "result": "# Current Facts\n\n_One current, dated value per structured field._\n\n- 2026-01-01 [smoke/mail#ev-003] answered_by=UNANSWERED\n",
+      "truncated": false
+    }
+  ],
+  "snapshot_content_sha256": "9083735f02e09792548dc8d42cbf51103f3621e929f5f82ab51e8c08d6d23284",
+  "snapshot_sha": "c2bf11566d962e8e8f45483212f8e3474442e4e9",
+  "status": "completed",
+  "tool_calls": 5,
+  "usage": {
+    "cache_write_input_tokens": 0,
+    "cached_input_tokens": 24320,
+    "input_tokens": 44322,
+    "output_tokens": 500,
+    "reasoning_output_tokens": 247
+  }
+}

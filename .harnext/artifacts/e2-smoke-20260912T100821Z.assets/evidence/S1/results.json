@@ -1,0 +1,166 @@
+{
+  "answer_count": 10,
+  "builds": [
+    {
+      "event_ids": [
+        "ev-001",
+        "ev-002",
+        "ev-003"
+      ],
+      "fold": 0,
+      "latency_s": 0.024956056993687525,
+      "layout": "S1",
+      "repeat": 1,
+      "reused": false,
+      "snapshot": {
+        "T_last_event": "2026-01-01T00:03:00Z",
+        "lane": "batch",
+        "last_event_id": "ev-003",
+        "sha": "c2bf11566d962e8e8f45483212f8e3474442e4e9"
+      }
+    },
+    {
+      "event_ids": [
+        "ev-004",
+        "ev-005",
+        "ev-006"
+      ],
+      "fold": 1,
+      "latency_s": 0.04866275200038217,
+      "layout": "S1",
+      "repeat": 1,
+      "reused": false,
+      "snapshot": {
+        "T_last_event": "2026-01-01T01:03:00Z",
+        "lane": "batch",
+        "last_event_id": "ev-006",
+        "sha": "84db2cbd0225880b8b53e1409ccdf0f77df131f6"
+      }
+    }
+  ],
+  "checks": [
+    {
+      "layout": "S1",
+      "name": "snapshot_prefix",
+      "passed": true,
+      "probe_id": "smoke-01",
+      "repeat": 1
+    },
+    {
+      "layout": "S1",
+      "name": "snapshot_prefix",
+      "passed": true,
+      "probe_id": "smoke-02",
+      "repeat": 1
+    },
+    {
+      "layout": "S1",
+      "name": "snapshot_prefix",
+      "passed": true,
+      "probe_id": "smoke-03",
+      "repeat": 1
+    },
+    {
+      "layout": "S1",
+      "name": "snapshot_prefix",
+      "passed": true,
+      "probe_id": "smoke-04",
+      "repeat": 1
+    },
+    {
+      "layout": "S1",
+      "name": "snapshot_prefix",
+      "passed": true,
+      "probe_id": "smoke-05",
+      "repeat": 1
+    },
+    {
+      "layout": "S1",
+      "name": "snapshot_prefix",
+      "passed": true,
+      "probe_id": "smoke-06",
+      "repeat": 1
+    },
+    {
+      "layout": "S1",
+      "name": "snapshot_prefix",
+      "passed": true,
+      "probe_id": "smoke-07",
+      "repeat": 1
+    },
+    {
+      "layout": "S1",
+      "name": "snapshot_prefix",
+      "passed": true,
+      "probe_id": "smoke-08",
+      "repeat": 1
+    },
+    {
+      "layout": "S1",
+      "name": "snapshot_prefix",
+      "passed": true,
+      "probe_id": "smoke-09",
+      "repeat": 1
+    },
+    {
+      "layout": "S1",
+      "name": "snapshot_prefix",
+      "passed": true,
+      "probe_id": "smoke-10",
+      "repeat": 1
+    }
+  ],
+  "family_scores": [
+    {
+      "accuracy": 1.0,
+      "evidence_accuracy": 1.0,
+      "family": "extraction",
+      "layout": "S1",
+      "n": 2
+    },
+    {
+      "accuracy": 0.5,
+      "evidence_accuracy": 0.5,
+      "family": "temporal",
+      "layout": "S1",
+      "n": 2
+    },
+    {
+      "accuracy": 0.5,
+      "evidence_accuracy": 1.0,
+      "family": "update",
+      "layout": "S1",
+      "n": 2
+    },
+    {
+      "accuracy": 0.5,
+      "evidence_accuracy": 0.5,
+      "family": "multisource",
+      "layout": "S1",
+      "n": 2
+    },
+    {
+      "accuracy": 1.0,
+      "evidence_accuracy": 0.5,
+      "family": "abstention",
+      "layout": "S1",
+      "n": 2
+    }
+  ],
+  "infrastructure_passed": true,
+  "macro_accuracy": {
+    "S1": 0.7
+  },
+  "new_builder_calls": 0,
+  "protocol": "e2-context-smoke-v1",
+  "quality_gate": "descriptive only; synthetic smoke does not select a configuration",
+  "thesis_evidence": false,
+  "total_cost_usd": null,
+  "total_reader_usage": {
+    "cache_write_input_tokens": 0,
+    "cached_input_tokens": 213248,
+    "input_tokens": 376417,
+    "output_tokens": 4217,
+    "reasoning_output_tokens": 1953
+  }
+}

@@ -1,0 +1,43 @@
+protocol: harnext-benchmark-v1
+seed: harnext-kafka-1000-v1
+repository: apache/kafka
+historical_per_family: 100
+coding_count: 200
+historical_families:
+  - assignee_at_snapshot
+  - status_at_snapshot
+  - resolution_at_snapshot
+  - closed_at_snapshot
+  - priority_at_snapshot
+  - status_transition_history
+  - assignment_history
+  - resolution_transition_history
+historical_year_min: 2019
+historical_year_max: 2026
+coding_max_changed_files: 8
+coding_max_changed_lines: 600
+coding_min_issue_characters: 100
+coding_candidate_limit: 650
+context_time_semantics: source-recorded-time-proxy
+split_unit: issue_pr_connected_component
+confirmation_fraction: 0.3
+execution: blocked_pending_review_and_admission
+tool_profiles:
+  historical_mcp_only:
+    allowed: [context_list, context_read, context_search, find_entities, get_assertions, neighbors, fetch_source]
+    shell: false
+    native_file_access: false
+    browser: false
+    network: false
+    other_mcp_servers: false
+    subagents: false
+  coding_mcp_shell:
+    allowed: [context_list, context_read, context_search, find_entities, get_assertions, neighbors, fetch_source, shell]
+    shell: true
+    native_file_access: workspace_only
+    browser: false
+    network: false
+    other_mcp_servers: false
+    subagents: false
+    workspace_contains: [base_source_export_without_git, visible_test_patch]
+    workspace_excludes: [reference_patch, future_git_history, review_app, private_gold, evaluator]

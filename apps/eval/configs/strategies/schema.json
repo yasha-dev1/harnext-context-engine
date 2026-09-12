@@ -1,0 +1,740 @@
+{
+  "$defs": {
+    "AgentConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "harness": {
+          "default": "none",
+          "enum": [
+            "none",
+            "codex",
+            "claude_code",
+            "harnext"
+          ],
+          "title": "Harness",
+          "type": "string"
+        },
+        "model": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Model"
+        },
+        "effort": {
+          "anyOf": [
+            {
+              "enum": [
+                "low",
+                "medium",
+                "high",
+                "xhigh"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": "medium",
+          "title": "Effort"
+        },
+        "provider": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Provider"
+        },
+        "api_key_env": {
+          "default": "HARNEXT_PROVIDER_API_KEY",
+          "title": "Api Key Env",
+          "type": "string"
+        },
+        "timeout_s": {
+          "default": 180,
+          "minimum": 1,
+          "title": "Timeout S",
+          "type": "integer"
+        },
+        "max_calls": {
+          "default": 40,
+          "minimum": 1,
+          "title": "Max Calls",
+          "type": "integer"
+        },
+        "context_bytes": {
+          "default": 131072,
+          "minimum": 1024,
+          "title": "Context Bytes",
+          "type": "integer"
+        }
+      },
+      "title": "AgentConfig",
+      "type": "object"
+    },
+    "EncoderConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "provider": {
+          "default": "fastembed",
+          "enum": [
+            "fastembed",
+            "openai_compatible"
+          ],
+          "title": "Provider",
+          "type": "string"
+        },
+        "model": {
+          "default": "BAAI/bge-small-en-v1.5",
+          "title": "Model",
+          "type": "string"
+        },
+        "revision": {
+          "default": "content-hash-at-build",
+          "title": "Revision",
+          "type": "string"
+        },
+        "cache_dir": {
+          "default": ".harnext/models",
+          "title": "Cache Dir",
+          "type": "string"
+        },
+        "base_url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Base Url"
+        },
+        "api_key_env": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Api Key Env"
+        },
+        "timeout_s": {
+          "default": 60,
+          "minimum": 1,
+          "title": "Timeout S",
+          "type": "integer"
+        },
+        "threads": {
+          "default": 2,
+          "minimum": 1,
+          "title": "Threads",
+          "type": "integer"
+        }
+      },
+      "title": "EncoderConfig",
+      "type": "object"
+    },
+    "EvaluationConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "grading": {
+          "default": "retrieval_only",
+          "enum": [
+            "retrieval_only",
+            "qa_exact",
+            "coding_tests"
+          ],
+          "title": "Grading",
+          "type": "string"
+        },
+        "task_file": {
+          "anyOf": [
+            {
+              "format": "path",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Task File"
+        },
+        "gold_file": {
+          "anyOf": [
+            {
+              "format": "path",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Gold File"
+        },
+        "answer_file": {
+          "anyOf": [
+            {
+              "format": "path",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Answer File"
+        },
+        "candidate_files": {
+          "anyOf": [
+            {
+              "format": "path",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Candidate Files"
+        },
+        "workspace_dir": {
+          "anyOf": [
+            {
+              "format": "path",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Workspace Dir"
+        },
+        "agent_trace": {
+          "anyOf": [
+            {
+              "format": "path",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Agent Trace"
+        },
+        "test_image": {
+          "default": "python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea",
+          "title": "Test Image",
+          "type": "string"
+        }
+      },
+      "title": "EvaluationConfig",
+      "type": "object"
+    },
+    "Extraction": {
+      "enum": [
+        "structured",
+        "atomic_llm"
+      ],
+      "title": "Extraction",
+      "type": "string"
+    },
+    "FileConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "layout": {
+          "$ref": "#/$defs/FileLayout",
+          "default": "indexed_entities"
+        },
+        "prompt": {
+          "$ref": "#/$defs/WritingPrompt",
+          "default": "preserve_supported"
+        },
+        "extraction": {
+          "$ref": "#/$defs/Extraction",
+          "default": "structured"
+        },
+        "retention": {
+          "$ref": "#/$defs/Retention",
+          "default": "all"
+        },
+        "retention_days": {
+          "default": 90,
+          "minimum": 1,
+          "title": "Retention Days",
+          "type": "integer"
+        },
+        "summarization": {
+          "$ref": "#/$defs/Summary",
+          "default": "none"
+        },
+        "update": {
+          "$ref": "#/$defs/Update",
+          "default": "supersede"
+        },
+        "summary_sentences": {
+          "default": 3,
+          "minimum": 1,
+          "title": "Summary Sentences",
+          "type": "integer"
+        },
+        "page_bytes": {
+          "default": 8192,
+          "minimum": 256,
+          "title": "Page Bytes",
+          "type": "integer"
+        },
+        "functional_predicates": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Functional Predicates",
+          "type": "array"
+        },
+        "predicates": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Predicates",
+          "type": "array"
+        }
+      },
+      "title": "FileConfig",
+      "type": "object"
+    },
+    "FileLayout": {
+      "enum": [
+        "verbatim_dump",
+        "foldered_sessions",
+        "flat_facts",
+        "indexed_entities",
+        "indexed_temporal",
+        "topic_hierarchy",
+        "agent_curated"
+      ],
+      "title": "FileLayout",
+      "type": "string"
+    },
+    "GraphConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_name": {
+          "$ref": "#/$defs/GraphSchema",
+          "default": "typed_assertions"
+        },
+        "extraction": {
+          "$ref": "#/$defs/GraphExtraction",
+          "default": "domain_predicates"
+        },
+        "resolution": {
+          "$ref": "#/$defs/Resolution",
+          "default": "canonical_only"
+        },
+        "traversal": {
+          "$ref": "#/$defs/Traversal",
+          "default": "neighbors"
+        },
+        "hops": {
+          "default": 1,
+          "maximum": 4,
+          "minimum": 1,
+          "title": "Hops",
+          "type": "integer"
+        },
+        "max_edges": {
+          "default": 20,
+          "maximum": 500,
+          "minimum": 1,
+          "title": "Max Edges",
+          "type": "integer"
+        },
+        "max_expansions": {
+          "default": 10000,
+          "maximum": 1000000,
+          "minimum": 1,
+          "title": "Max Expansions",
+          "type": "integer"
+        },
+        "damping": {
+          "default": 0.85,
+          "exclusiveMaximum": 1,
+          "exclusiveMinimum": 0,
+          "title": "Damping",
+          "type": "number"
+        },
+        "iterations": {
+          "default": 30,
+          "maximum": 1000,
+          "minimum": 1,
+          "title": "Iterations",
+          "type": "integer"
+        },
+        "functional_predicates": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Functional Predicates",
+          "type": "array"
+        }
+      },
+      "title": "GraphConfig",
+      "type": "object"
+    },
+    "GraphExtraction": {
+      "enum": [
+        "broad",
+        "domain_predicates"
+      ],
+      "title": "GraphExtraction",
+      "type": "string"
+    },
+    "GraphSchema": {
+      "enum": [
+        "generic_attributed",
+        "typed_assertions"
+      ],
+      "title": "GraphSchema",
+      "type": "string"
+    },
+    "Resolution": {
+      "enum": [
+        "canonical_only",
+        "evidence_aliases"
+      ],
+      "title": "Resolution",
+      "type": "string"
+    },
+    "Retention": {
+      "enum": [
+        "all",
+        "current",
+        "window"
+      ],
+      "title": "Retention",
+      "type": "string"
+    },
+    "RetrievalConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "method": {
+          "$ref": "#/$defs/RetrievalMethod",
+          "default": "bm25"
+        },
+        "chunking": {
+          "default": "fixed",
+          "enum": [
+            "document",
+            "fixed",
+            "entity_bundle"
+          ],
+          "title": "Chunking",
+          "type": "string"
+        },
+        "chunk_bytes": {
+          "default": 2048,
+          "minimum": 64,
+          "title": "Chunk Bytes",
+          "type": "integer"
+        },
+        "overlap_bytes": {
+          "default": 256,
+          "minimum": 0,
+          "title": "Overlap Bytes",
+          "type": "integer"
+        },
+        "candidates": {
+          "default": 40,
+          "maximum": 1000,
+          "minimum": 1,
+          "title": "Candidates",
+          "type": "integer"
+        },
+        "top_k": {
+          "default": 10,
+          "maximum": 1000,
+          "minimum": 1,
+          "title": "Top K",
+          "type": "integer"
+        },
+        "rrf_k": {
+          "default": 60,
+          "minimum": 1,
+          "title": "Rrf K",
+          "type": "integer"
+        },
+        "bm25_k1": {
+          "default": 1.5,
+          "exclusiveMinimum": 0,
+          "title": "Bm25 K1",
+          "type": "number"
+        },
+        "bm25_b": {
+          "default": 0.75,
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Bm25 B",
+          "type": "number"
+        },
+        "embeddings": {
+          "$ref": "#/$defs/EncoderConfig"
+        },
+        "reranker": {
+          "default": "none",
+          "enum": [
+            "none",
+            "cross_encoder"
+          ],
+          "title": "Reranker",
+          "type": "string"
+        },
+        "reranker_model": {
+          "default": "Xenova/ms-marco-MiniLM-L-6-v2",
+          "title": "Reranker Model",
+          "type": "string"
+        }
+      },
+      "title": "RetrievalConfig",
+      "type": "object"
+    },
+    "RetrievalMethod": {
+      "enum": [
+        "literal",
+        "bm25",
+        "dense",
+        "hybrid"
+      ],
+      "title": "RetrievalMethod",
+      "type": "string"
+    },
+    "Summary": {
+      "enum": [
+        "none",
+        "extractive",
+        "abstractive"
+      ],
+      "title": "Summary",
+      "type": "string"
+    },
+    "Traversal": {
+      "enum": [
+        "neighbors",
+        "paths",
+        "personalized_pagerank",
+        "dual_level"
+      ],
+      "title": "Traversal",
+      "type": "string"
+    },
+    "TrialConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "run_id": {
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.-]+$",
+          "title": "Run Id",
+          "type": "string"
+        },
+        "task_id": {
+          "minLength": 1,
+          "title": "Task Id",
+          "type": "string"
+        },
+        "harness": {
+          "default": "external",
+          "title": "Harness",
+          "type": "string"
+        },
+        "model": {
+          "default": "externally-recorded",
+          "title": "Model",
+          "type": "string"
+        },
+        "effort": {
+          "default": "externally-recorded",
+          "title": "Effort",
+          "type": "string"
+        },
+        "max_calls": {
+          "default": 100,
+          "minimum": 1,
+          "title": "Max Calls",
+          "type": "integer"
+        },
+        "budget_bytes": {
+          "default": 65536,
+          "minimum": 256,
+          "title": "Budget Bytes",
+          "type": "integer"
+        },
+        "response_bytes": {
+          "default": 12000,
+          "minimum": 128,
+          "title": "Response Bytes",
+          "type": "integer"
+        },
+        "timeout_s": {
+          "default": 3600,
+          "minimum": 1,
+          "title": "Timeout S",
+          "type": "integer"
+        },
+        "tools": {
+          "items": {
+            "enum": [
+              "context_list",
+              "context_read",
+              "context_search",
+              "find_entities",
+              "get_assertions",
+              "neighbors",
+              "fetch_source"
+            ],
+            "type": "string"
+          },
+          "title": "Tools",
+          "type": "array"
+        },
+        "transport": {
+          "default": "stdio",
+          "enum": [
+            "stdio",
+            "http"
+          ],
+          "title": "Transport",
+          "type": "string"
+        },
+        "host": {
+          "default": "127.0.0.1",
+          "title": "Host",
+          "type": "string"
+        },
+        "port": {
+          "default": 8876,
+          "maximum": 65535,
+          "minimum": 1024,
+          "title": "Port",
+          "type": "integer"
+        },
+        "token_env": {
+          "default": "HARNEXT_EVAL_TOKEN",
+          "title": "Token Env",
+          "type": "string"
+        }
+      },
+      "required": [
+        "run_id",
+        "task_id"
+      ],
+      "title": "TrialConfig",
+      "type": "object"
+    },
+    "Update": {
+      "enum": [
+        "append",
+        "replace",
+        "supersede"
+      ],
+      "title": "Update",
+      "type": "string"
+    },
+    "WritingPrompt": {
+      "enum": [
+        "preserve_supported",
+        "concise_supported",
+        "domain_focused"
+      ],
+      "title": "WritingPrompt",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "protocol": {
+      "const": "harnext-strategies-v1",
+      "default": "harnext-strategies-v1",
+      "title": "Protocol",
+      "type": "string"
+    },
+    "representation": {
+      "default": "files",
+      "enum": [
+        "files",
+        "graph",
+        "hybrid"
+      ],
+      "title": "Representation",
+      "type": "string"
+    },
+    "source_jsonl": {
+      "format": "path",
+      "title": "Source Jsonl",
+      "type": "string"
+    },
+    "artifact_dir": {
+      "format": "path",
+      "title": "Artifact Dir",
+      "type": "string"
+    },
+    "observed_at": {
+      "format": "date-time",
+      "title": "Observed At",
+      "type": "string"
+    },
+    "valid_at": {
+      "format": "date-time",
+      "title": "Valid At",
+      "type": "string"
+    },
+    "builder": {
+      "$ref": "#/$defs/AgentConfig"
+    },
+    "files": {
+      "$ref": "#/$defs/FileConfig"
+    },
+    "retrieval": {
+      "$ref": "#/$defs/RetrievalConfig"
+    },
+    "graph": {
+      "$ref": "#/$defs/GraphConfig"
+    },
+    "expose_sources": {
+      "default": false,
+      "title": "Expose Sources",
+      "type": "boolean"
+    },
+    "trial": {
+      "$ref": "#/$defs/TrialConfig"
+    },
+    "evaluation": {
+      "$ref": "#/$defs/EvaluationConfig"
+    }
+  },
+  "required": [
+    "source_jsonl",
+    "artifact_dir",
+    "observed_at",
+    "valid_at",
+    "trial"
+  ],
+  "title": "StrategyConfig",
+  "type": "object"
+}

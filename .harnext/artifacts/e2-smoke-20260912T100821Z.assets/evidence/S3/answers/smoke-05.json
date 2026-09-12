@@ -1,0 +1,113 @@
+{
+  "answer": {
+    "action": "answer",
+    "evidence_ids": [
+      "ev-004"
+    ],
+    "offset": 0,
+    "path": "",
+    "query": "",
+    "unknown": false,
+    "value": "Noah"
+  },
+  "bytes_read": 674,
+  "family": "update",
+  "grade": {
+    "evidence_correct": true,
+    "schema_valid": true,
+    "value_correct": true
+  },
+  "history": [
+    {
+      "assistant": {
+        "action": "list",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "",
+        "query": "",
+        "unknown": false,
+        "value": null
+      }
+    },
+    {
+      "result": "INDEX.md\n_meta/superseded.md\nentities/issue/CTX-41/OVERVIEW.md\nentities/issue/CTX-41/facts.md\nentities/issue/CTX-41/timeline.md\nentities/pr/PR-71/OVERVIEW.md\nentities/pr/PR-71/facts.md\nentities/pr/PR-71/timeline.md\nentities/pr/PR-72/OVERVIEW.md\nentities/pr/PR-72/facts.md\nentities/pr/PR-72/timeline.md\nentities/thread/release/OVERVIEW.md\nentities/thread/release/facts.md\nentities/thread/release/timeline.md",
+      "tool": "list",
+      "truncated": false
+    },
+    {
+      "assistant": {
+        "action": "read",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "entities/issue/CTX-41/timeline.md",
+        "query": "",
+        "unknown": false,
+        "value": null
+      }
+    },
+    {
+      "result": "# Timeline\n\n- 2026-01-01T01:01:00Z — Issue updated: status Closed, assignee Noah, priority P1; this update supersedes earlier values. [ev-004; smoke/jira]\n- 2026-01-01T01:02:00Z — Linked PR-72 was merged; changed file: `tests/test_cache.py`. [ev-005; smoke/github]",
+      "tool": "read",
+      "truncated": false
+    },
+    {
+      "assistant": {
+        "action": "answer",
+        "evidence_ids": [
+          "ev-004"
+        ],
+        "offset": 0,
+        "path": "",
+        "query": "",
+        "unknown": false,
+        "value": "Noah"
+      }
+    }
+  ],
+  "latency_s": 15.202252908988157,
+  "layout": "S3",
+  "probe_id": "smoke-05",
+  "provider_calls": 3,
+  "repeat": 1,
+  "retrieval": [
+    {
+      "action": {
+        "action": "list",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "",
+        "query": "",
+        "unknown": false,
+        "value": null
+      },
+      "bytes": 406,
+      "result": "INDEX.md\n_meta/superseded.md\nentities/issue/CTX-41/OVERVIEW.md\nentities/issue/CTX-41/facts.md\nentities/issue/CTX-41/timeline.md\nentities/pr/PR-71/OVERVIEW.md\nentities/pr/PR-71/facts.md\nentities/pr/PR-71/timeline.md\nentities/pr/PR-72/OVERVIEW.md\nentities/pr/PR-72/facts.md\nentities/pr/PR-72/timeline.md\nentities/thread/release/OVERVIEW.md\nentities/thread/release/facts.md\nentities/thread/release/timeline.md",
+      "truncated": false
+    },
+    {
+      "action": {
+        "action": "read",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "entities/issue/CTX-41/timeline.md",
+        "query": "",
+        "unknown": false,
+        "value": null
+      },
+      "bytes": 268,
+      "result": "# Timeline\n\n- 2026-01-01T01:01:00Z — Issue updated: status Closed, assignee Noah, priority P1; this update supersedes earlier values. [ev-004; smoke/jira]\n- 2026-01-01T01:02:00Z — Linked PR-72 was merged; changed file: `tests/test_cache.py`. [ev-005; smoke/github]",
+      "truncated": false
+    }
+  ],
+  "snapshot_content_sha256": "91492b5a926127e56e67750fdb7c01bfa2d32110d742f424a040bdc933a304d4",
+  "snapshot_sha": "256dcacdaeacf8b4e479ad91e37ea63fe1be427c",
+  "status": "completed",
+  "tool_calls": 2,
+  "usage": {
+    "cache_write_input_tokens": 0,
+    "cached_input_tokens": 14592,
+    "input_tokens": 21852,
+    "output_tokens": 182,
+    "reasoning_output_tokens": 52
+  }
+}

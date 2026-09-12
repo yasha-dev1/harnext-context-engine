@@ -19,5 +19,7 @@ def get_harness(name: str) -> Harness:
 
         return HarnextHarness()
     if name == "codex":
-        raise NotImplementedError("codex harness lands after claude_code")
+        from harnext_builder.harness.codex import CodexHarness
+
+        return CodexHarness()
     raise ValueError(f"unknown harness: {name!r}")

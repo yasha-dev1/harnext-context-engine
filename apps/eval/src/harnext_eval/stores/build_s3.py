@@ -58,6 +58,8 @@ def run_builder_harness(
         system_prompt=system_prompt,
         event_files=event_files(cast(list[CloudEvent], events)),
         model=runtime.model,
+        reasoning_effort=runtime.reasoning_effort,
+        tool_policy=runtime.tool_policy,
         seed=runtime.seed,
         max_turns=runtime.max_turns,
         timeout_s=runtime.timeout_s,
@@ -82,6 +84,10 @@ def run_builder_harness(
                     )
                 except ValueError:
                     transcript = None
+            if (transcript is not None and transcript.ok and runtime.harness == "codex"
+                    and not transcript.files_changed):
+                transcript.stop_reason = "error"
+                transcript.error = "Codex completed without incorporating events into context files"
             if transcript is None:
                 detail = result.stderr.strip() or result.stdout.strip() or "no transcript"
                 transcript = ConversationTranscript(

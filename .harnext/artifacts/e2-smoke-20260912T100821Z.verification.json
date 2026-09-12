@@ -1,0 +1,23 @@
+{
+  "artifact": "/home/yasha/Desktop/uni/masters/harnext-context-engine/.harnext/artifacts/e2-smoke-20260912T100821Z.html",
+  "charts": 20,
+  "probes": 30,
+  "static_links": "pass",
+  "zip": "pass",
+  "browser": {
+    "desktop": {
+      "width": 1440,
+      "filters": "pass",
+      "probe_search": "pass",
+      "expand": "pass",
+      "overflow": false
+    },
+    "mobile": {
+      "width": 390,
+      "overflow": false,
+      "charts": 20
+    },
+    "errors": [],
+    "external_requests": 0
+  }
+}

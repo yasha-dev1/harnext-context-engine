@@ -1,0 +1,377 @@
+[
+  {
+    "snapshot_sha256": "f4dc9746db2b46560311728640ce1b398ba89d1f4ae547df6719c39ed711c92b",
+    "receipt_hash": "745a7a016a09ddf72af7dad1e2097966ec7b9d62a9757bb65619269d13b01482",
+    "task_id": "issue-owner-at-cutoff",
+    "declared_harness": "external-python-mcp-client",
+    "declared_model": "none",
+    "declared_effort": "none",
+    "audit_passed": true,
+    "context_calls": 2,
+    "tool_mix": {
+      "context_search": 1,
+      "get_assertions": 1
+    },
+    "error_calls": 0,
+    "bytes_returned": 7453,
+    "required_group_recall": 1.0,
+    "unit_precision": null,
+    "relevant_byte_precision": null,
+    "repeated_byte_fraction": 0.04776600026834832,
+    "first_relevant_call": 1,
+    "exposed_units": [
+      "current-owner"
+    ],
+    "recall_curve": [
+      {
+        "call": 1,
+        "bytes": 6930,
+        "recall": 1.0
+      },
+      {
+        "call": 2,
+        "bytes": 7453,
+        "recall": 1.0
+      }
+    ],
+    "annotation_coverage": "partial_or_absent",
+    "condition": "bm25-none",
+    "tools": [
+      "context_list",
+      "context_read",
+      "context_search",
+      "find_entities",
+      "get_assertions",
+      "neighbors",
+      "fetch_source"
+    ],
+    "elapsed_s": 1.391075625026133,
+    "pins": {},
+    "purpose": "protocol verification; not model performance"
+  },
+  {
+    "snapshot_sha256": "8e0c48ee90119e9ab22cb962ff84f144f07ab280afe664b037b527b7c92eb620",
+    "receipt_hash": "60633be1fbba088f6af60845eb6c49095ef31c972c4137cffc85d259aeac4854",
+    "task_id": "issue-owner-at-cutoff",
+    "declared_harness": "external-python-mcp-client",
+    "declared_model": "none",
+    "declared_effort": "none",
+    "audit_passed": true,
+    "context_calls": 2,
+    "tool_mix": {
+      "context_search": 1,
+      "get_assertions": 1
+    },
+    "error_calls": 0,
+    "bytes_returned": 7445,
+    "required_group_recall": 1.0,
+    "unit_precision": null,
+    "relevant_byte_precision": null,
+    "repeated_byte_fraction": 0.04781732706514439,
+    "first_relevant_call": 1,
+    "exposed_units": [
+      "current-owner"
+    ],
+    "recall_curve": [
+      {
+        "call": 1,
+        "bytes": 6922,
+        "recall": 1.0
+      },
+      {
+        "call": 2,
+        "bytes": 7445,
+        "recall": 1.0
+      }
+    ],
+    "annotation_coverage": "partial_or_absent",
+    "condition": "bm25-cross_encoder",
+    "tools": [
+      "context_list",
+      "context_read",
+      "context_search",
+      "find_entities",
+      "get_assertions",
+      "neighbors",
+      "fetch_source"
+    ],
+    "elapsed_s": 3.5016279730189126,
+    "pins": {
+      "reranker": {
+        "content_sha256": "253fe4bae5a04bd859f462ffca4c1818e42725f6b14a55392b3ed9040728fb49",
+        "files": {
+          "config.json": "d827779a72d27ae68cf878a6fc2e954542663fe21ca515d9f4783fc96be2d37e",
+          "onnx/model.onnx": "c623d0bcb99f4622beb413eaef00cfbe5db20df9f1dd982da4b4f26022881870",
+          "special_tokens_map.json": "b6d346be366a7d1d48332dbc9fdf3bf8960b5d879522b7799ddba59e76237ee3",
+          "tokenizer.json": "d241a60d5e8f04cc1b2b3e9ef7a4921b27bf526d9f6050ab90f9267a1f9e5c66",
+          "tokenizer_config.json": "0b29c7bfc889e53b36d9dd3e686dd4300f6525110eaa98c76a5dafceb2029f53"
+        }
+      }
+    },
+    "purpose": "protocol verification; not model performance"
+  },
+  {
+    "snapshot_sha256": "789a95a43032e2fc1aedf61892cf9867e10747c66792005dd78519aaa2069467",
+    "receipt_hash": "9197f66d5a563a36202471fa6ef0bf5276fd0557155e85f042f9f9567dbfad91",
+    "task_id": "issue-owner-at-cutoff",
+    "declared_harness": "external-python-mcp-client",
+    "declared_model": "none",
+    "declared_effort": "none",
+    "audit_passed": true,
+    "context_calls": 2,
+    "tool_mix": {
+      "context_search": 1,
+      "get_assertions": 1
+    },
+    "error_calls": 0,
+    "bytes_returned": 6950,
+    "required_group_recall": 1.0,
+    "unit_precision": null,
+    "relevant_byte_precision": null,
+    "repeated_byte_fraction": 0.05122302158273381,
+    "first_relevant_call": 1,
+    "exposed_units": [
+      "current-owner"
+    ],
+    "recall_curve": [
+      {
+        "call": 1,
+        "bytes": 6427,
+        "recall": 1.0
+      },
+      {
+        "call": 2,
+        "bytes": 6950,
+        "recall": 1.0
+      }
+    ],
+    "annotation_coverage": "partial_or_absent",
+    "condition": "dense-none",
+    "tools": [
+      "context_list",
+      "context_read",
+      "context_search",
+      "find_entities",
+      "get_assertions",
+      "neighbors",
+      "fetch_source"
+    ],
+    "elapsed_s": 4.458863346022554,
+    "pins": {
+      "embedding": {
+        "content_sha256": "d9e46143a9cabd7abdbe181fd67443a66089fd55d721db87b7b2964085ed0bff",
+        "files": {
+          "config.json": "13582bcf2effc85b7bf3d3f5532e686bc1c9ce86bb009d10f0ec33cbe92299dd",
+          "model_optimized.onnx": "51f1bd0addd6e859e42c2c8021a5e5461385bb676a649f4b269aa445449f2431",
+          "special_tokens_map.json": "5d5b662e421ea9fac075174bb0688ee0d9431699900b90662acd44b2a350503a",
+          "tokenizer.json": "d241a60d5e8f04cc1b2b3e9ef7a4921b27bf526d9f6050ab90f9267a1f9e5c66",
+          "tokenizer_config.json": "0b29c7bfc889e53b36d9dd3e686dd4300f6525110eaa98c76a5dafceb2029f53"
+        }
+      }
+    },
+    "purpose": "protocol verification; not model performance"
+  },
+  {
+    "snapshot_sha256": "5594b838c9033713dc99fdf8031c791a4b4205e2b9dd23b1d5e78dc611c7de4f",
+    "receipt_hash": "41858dcf6068a5d1c6c44ac4d311d73b079235f857292ddf07750477811752de",
+    "task_id": "issue-owner-at-cutoff",
+    "declared_harness": "external-python-mcp-client",
+    "declared_model": "none",
+    "declared_effort": "none",
+    "audit_passed": true,
+    "context_calls": 2,
+    "tool_mix": {
+      "context_search": 1,
+      "get_assertions": 1
+    },
+    "error_calls": 0,
+    "bytes_returned": 7445,
+    "required_group_recall": 1.0,
+    "unit_precision": null,
+    "relevant_byte_precision": null,
+    "repeated_byte_fraction": 0.04781732706514439,
+    "first_relevant_call": 1,
+    "exposed_units": [
+      "current-owner"
+    ],
+    "recall_curve": [
+      {
+        "call": 1,
+        "bytes": 6922,
+        "recall": 1.0
+      },
+      {
+        "call": 2,
+        "bytes": 7445,
+        "recall": 1.0
+      }
+    ],
+    "annotation_coverage": "partial_or_absent",
+    "condition": "dense-cross_encoder",
+    "tools": [
+      "context_list",
+      "context_read",
+      "context_search",
+      "find_entities",
+      "get_assertions",
+      "neighbors",
+      "fetch_source"
+    ],
+    "elapsed_s": 6.367502196022542,
+    "pins": {
+      "embedding": {
+        "content_sha256": "d9e46143a9cabd7abdbe181fd67443a66089fd55d721db87b7b2964085ed0bff",
+        "files": {
+          "config.json": "13582bcf2effc85b7bf3d3f5532e686bc1c9ce86bb009d10f0ec33cbe92299dd",
+          "model_optimized.onnx": "51f1bd0addd6e859e42c2c8021a5e5461385bb676a649f4b269aa445449f2431",
+          "special_tokens_map.json": "5d5b662e421ea9fac075174bb0688ee0d9431699900b90662acd44b2a350503a",
+          "tokenizer.json": "d241a60d5e8f04cc1b2b3e9ef7a4921b27bf526d9f6050ab90f9267a1f9e5c66",
+          "tokenizer_config.json": "0b29c7bfc889e53b36d9dd3e686dd4300f6525110eaa98c76a5dafceb2029f53"
+        }
+      },
+      "reranker": {
+        "content_sha256": "253fe4bae5a04bd859f462ffca4c1818e42725f6b14a55392b3ed9040728fb49",
+        "files": {
+          "config.json": "d827779a72d27ae68cf878a6fc2e954542663fe21ca515d9f4783fc96be2d37e",
+          "onnx/model.onnx": "c623d0bcb99f4622beb413eaef00cfbe5db20df9f1dd982da4b4f26022881870",
+          "special_tokens_map.json": "b6d346be366a7d1d48332dbc9fdf3bf8960b5d879522b7799ddba59e76237ee3",
+          "tokenizer.json": "d241a60d5e8f04cc1b2b3e9ef7a4921b27bf526d9f6050ab90f9267a1f9e5c66",
+          "tokenizer_config.json": "0b29c7bfc889e53b36d9dd3e686dd4300f6525110eaa98c76a5dafceb2029f53"
+        }
+      }
+    },
+    "purpose": "protocol verification; not model performance"
+  },
+  {
+    "snapshot_sha256": "d213a79660a51184219ee2a18f824f2301401fab2a2bb2cf52aa1898eaaecf12",
+    "receipt_hash": "c7bc6aa4e0b988d5b5c9ad3d2f6e4d75f69703658b4107fd35fcfb6087020545",
+    "task_id": "issue-owner-at-cutoff",
+    "declared_harness": "external-python-mcp-client",
+    "declared_model": "none",
+    "declared_effort": "none",
+    "audit_passed": true,
+    "context_calls": 2,
+    "tool_mix": {
+      "context_search": 1,
+      "get_assertions": 1
+    },
+    "error_calls": 0,
+    "bytes_returned": 6617,
+    "required_group_recall": 1.0,
+    "unit_precision": null,
+    "relevant_byte_precision": null,
+    "repeated_byte_fraction": 0.05380081607979447,
+    "first_relevant_call": 1,
+    "exposed_units": [
+      "current-owner"
+    ],
+    "recall_curve": [
+      {
+        "call": 1,
+        "bytes": 6094,
+        "recall": 1.0
+      },
+      {
+        "call": 2,
+        "bytes": 6617,
+        "recall": 1.0
+      }
+    ],
+    "annotation_coverage": "partial_or_absent",
+    "condition": "hybrid-none",
+    "tools": [
+      "context_list",
+      "context_read",
+      "context_search",
+      "find_entities",
+      "get_assertions",
+      "neighbors",
+      "fetch_source"
+    ],
+    "elapsed_s": 4.612318689003587,
+    "pins": {
+      "embedding": {
+        "content_sha256": "d9e46143a9cabd7abdbe181fd67443a66089fd55d721db87b7b2964085ed0bff",
+        "files": {
+          "config.json": "13582bcf2effc85b7bf3d3f5532e686bc1c9ce86bb009d10f0ec33cbe92299dd",
+          "model_optimized.onnx": "51f1bd0addd6e859e42c2c8021a5e5461385bb676a649f4b269aa445449f2431",
+          "special_tokens_map.json": "5d5b662e421ea9fac075174bb0688ee0d9431699900b90662acd44b2a350503a",
+          "tokenizer.json": "d241a60d5e8f04cc1b2b3e9ef7a4921b27bf526d9f6050ab90f9267a1f9e5c66",
+          "tokenizer_config.json": "0b29c7bfc889e53b36d9dd3e686dd4300f6525110eaa98c76a5dafceb2029f53"
+        }
+      }
+    },
+    "purpose": "protocol verification; not model performance"
+  },
+  {
+    "snapshot_sha256": "e70a93de8d9101f8d24dfeef69a850cf35f5a31be5e8b141b6277c0d28c833c9",
+    "receipt_hash": "a3aaaadb5ebdf6283690900d1dda2762c071213ece63f4569b2a7408ad1fe8a2",
+    "task_id": "issue-owner-at-cutoff",
+    "declared_harness": "external-python-mcp-client",
+    "declared_model": "none",
+    "declared_effort": "none",
+    "audit_passed": true,
+    "context_calls": 2,
+    "tool_mix": {
+      "context_search": 1,
+      "get_assertions": 1
+    },
+    "error_calls": 0,
+    "bytes_returned": 7445,
+    "required_group_recall": 1.0,
+    "unit_precision": null,
+    "relevant_byte_precision": null,
+    "repeated_byte_fraction": 0.04781732706514439,
+    "first_relevant_call": 1,
+    "exposed_units": [
+      "current-owner"
+    ],
+    "recall_curve": [
+      {
+        "call": 1,
+        "bytes": 6922,
+        "recall": 1.0
+      },
+      {
+        "call": 2,
+        "bytes": 7445,
+        "recall": 1.0
+      }
+    ],
+    "annotation_coverage": "partial_or_absent",
+    "condition": "hybrid-cross_encoder",
+    "tools": [
+      "context_list",
+      "context_read",
+      "context_search",
+      "find_entities",
+      "get_assertions",
+      "neighbors",
+      "fetch_source"
+    ],
+    "elapsed_s": 6.451357114012353,
+    "pins": {
+      "embedding": {
+        "content_sha256": "d9e46143a9cabd7abdbe181fd67443a66089fd55d721db87b7b2964085ed0bff",
+        "files": {
+          "config.json": "13582bcf2effc85b7bf3d3f5532e686bc1c9ce86bb009d10f0ec33cbe92299dd",
+          "model_optimized.onnx": "51f1bd0addd6e859e42c2c8021a5e5461385bb676a649f4b269aa445449f2431",
+          "special_tokens_map.json": "5d5b662e421ea9fac075174bb0688ee0d9431699900b90662acd44b2a350503a",
+          "tokenizer.json": "d241a60d5e8f04cc1b2b3e9ef7a4921b27bf526d9f6050ab90f9267a1f9e5c66",
+          "tokenizer_config.json": "0b29c7bfc889e53b36d9dd3e686dd4300f6525110eaa98c76a5dafceb2029f53"
+        }
+      },
+      "reranker": {
+        "content_sha256": "253fe4bae5a04bd859f462ffca4c1818e42725f6b14a55392b3ed9040728fb49",
+        "files": {
+          "config.json": "d827779a72d27ae68cf878a6fc2e954542663fe21ca515d9f4783fc96be2d37e",
+          "onnx/model.onnx": "c623d0bcb99f4622beb413eaef00cfbe5db20df9f1dd982da4b4f26022881870",
+          "special_tokens_map.json": "b6d346be366a7d1d48332dbc9fdf3bf8960b5d879522b7799ddba59e76237ee3",
+          "tokenizer.json": "d241a60d5e8f04cc1b2b3e9ef7a4921b27bf526d9f6050ab90f9267a1f9e5c66",
+          "tokenizer_config.json": "0b29c7bfc889e53b36d9dd3e686dd4300f6525110eaa98c76a5dafceb2029f53"
+        }
+      }
+    },
+    "purpose": "protocol verification; not model performance"
+  }
+]

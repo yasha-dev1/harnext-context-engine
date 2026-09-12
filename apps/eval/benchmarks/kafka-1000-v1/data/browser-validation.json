@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "rendered_instances": 1000,
+  "console_errors": [],
+  "external_requests": [],
+  "checks": [
+    "counts",
+    "filters",
+    "search-empty-state",
+    "detail-tabs",
+    "prompt-download-exact",
+    "review-persistence",
+    "review-export",
+    "review-import",
+    "all-1000-prompts",
+    "mobile-no-overflow"
+  ],
+  "browser": "151.0.7922.34",
+  "tasks_sha256": "058e194a0873df9cca246e1661bd60dce779c2cf1c3f147870e3b3b43acc813a"
+}

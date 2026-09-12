@@ -86,6 +86,8 @@ class BuildRunner:
             system_prompt=SYSTEM_PROMPT,
             event_files=event_files(wi.events),  # changed files → _event/ for the agent
             model=self.s.builder_model,
+            reasoning_effort=self.s.builder_reasoning_effort,
+            tool_policy=self.s.builder_tool_policy,
             max_turns=self.s.builder_max_turns,
             timeout_s=self.s.builder_timeout_s,
         )

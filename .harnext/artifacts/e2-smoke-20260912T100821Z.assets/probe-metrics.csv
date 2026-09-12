@@ -1,0 +1,31 @@
+arm,probe,family,value_correct,evidence_correct,bytes_read,tool_calls,provider_calls,latency_s,input_tokens,output_tokens,unknown,gold,answer
+S3,smoke-01,extraction,True,True,1091,3,4,22.091389814013382,29865,320,False,"""Mira""","""Mira"""
+S3,smoke-02,extraction,True,True,1880,2,3,13.980671910016099,22700,180,False,"""P1""","""P1"""
+S3,smoke-03,temporal,True,True,475,2,3,15.652029855991714,21759,207,False,"""Open""","""Open"""
+S3,smoke-04,temporal,True,True,759,2,3,20.325843056023587,29236,257,False,"""2026-10-01""","""2026-10-01"""
+S3,smoke-05,update,True,True,674,2,3,15.202252908988157,21852,182,False,"""Noah""","""Noah"""
+S3,smoke-06,update,True,True,322,1,2,10.730541664001066,14376,172,False,"""2026-10-08""","""2026-10-08"""
+S3,smoke-07,multisource,True,True,2023,3,4,21.720202894008253,30660,350,False,"[""PR-71"", ""PR-72""]","[""PR-71"", ""PR-72""]"
+S3,smoke-08,multisource,True,True,2407,4,5,29.093389623012627,38511,540,False,"[""src/cache.py"", ""tests/test_cache.py""]","[""src/cache.py"", ""tests/test_cache.py""]"
+S3,smoke-09,abstention,True,True,2322,5,6,34.33181799200247,54558,521,True,null,null
+S3,smoke-10,abstention,True,False,888,5,6,39.984256185009144,61217,910,True,null,null
+S1,smoke-01,extraction,True,True,606,2,3,13.947248921002029,21963,185,False,"""Mira""","""Mira"""
+S1,smoke-02,extraction,True,True,1280,2,3,15.266821208002511,22537,194,False,"""P1""","""P1"""
+S1,smoke-03,temporal,True,True,475,2,3,15.181071329978295,21777,230,False,"""Open""","""Open"""
+S1,smoke-04,temporal,False,False,532,5,6,40.291739603999304,53019,518,True,"""2026-10-01""",null
+S1,smoke-05,update,True,True,1280,2,3,14.773190572013846,22540,193,False,"""Noah""","""Noah"""
+S1,smoke-06,update,False,True,698,5,6,34.95814078600961,52090,580,True,"""2026-10-08""",null
+S1,smoke-07,multisource,True,True,2000,5,6,36.386664894002024,46214,574,False,"[""PR-71"", ""PR-72""]","[""PR-71"", ""PR-72""]"
+S1,smoke-08,multisource,False,False,1819,5,6,37.64307374600321,53680,836,True,"[""src/cache.py"", ""tests/test_cache.py""]",null
+S1,smoke-09,abstention,True,True,1280,4,5,27.68990458798362,38275,407,True,null,null
+S1,smoke-10,abstention,True,False,732,5,6,32.1692675689992,44322,500,True,null,null
+S0,smoke-01,extraction,True,True,809,3,4,20.110176037007477,29310,242,False,"""Mira""","""Mira"""
+S0,smoke-02,extraction,True,True,1519,3,4,23.93885815399699,29999,381,False,"""P1""","""P1"""
+S0,smoke-03,temporal,True,True,1453,3,4,23.599622723006178,37230,427,False,"""Open""","""Open"""
+S0,smoke-04,temporal,True,True,765,3,4,20.750081211997895,29222,268,False,"""2026-10-01""","""2026-10-01"""
+S0,smoke-05,update,True,True,1695,4,5,25.46656507800799,37711,480,False,"""Noah""","""Noah"""
+S0,smoke-06,update,True,True,1092,4,5,26.40797073399881,36911,364,False,"""2026-10-08""","""2026-10-08"""
+S0,smoke-07,multisource,True,True,3049,5,6,35.875765336997574,47082,566,False,"[""PR-71"", ""PR-72""]","[""PR-71"", ""PR-72""]"
+S0,smoke-08,multisource,False,False,2692,5,6,36.36910334700951,55209,769,True,"[""src/cache.py"", ""tests/test_cache.py""]",null
+S0,smoke-09,abstention,True,False,1056,5,6,33.79280378099065,45375,554,True,null,null
+S0,smoke-10,abstention,True,True,1581,5,6,34.69974171399372,44834,484,True,null,null

@@ -1,0 +1,60 @@
+[
+  {
+    "snapshot": {
+      "sha": "c2bf11566d962e8e8f45483212f8e3474442e4e9",
+      "T_last_event": "2026-01-01T00:03:00Z",
+      "last_event_id": "ev-003",
+      "lane": "batch"
+    },
+    "files": {
+      "INDEX.md": "# Org Context Index\n\n| Entity | Type | Last updated | Overview |\n|--------|------|--------------|----------|\n| issue:CTX-41 | issue | 2026-01-01T00:01:00+00:00 | [entities/issue/CTX-41/OVERVIEW.md](entities/issue/CTX-41/OVERVIEW.md) |\n| pr:PR-71 | pr | 2026-01-01T00:02:00+00:00 | [entities/pr/PR-71/OVERVIEW.md](entities/pr/PR-71/OVERVIEW.md) |\n| thread:release | thread | 2026-01-01T00:03:00+00:00 | [entities/thread/release/OVERVIEW.md](entities/thread/release/OVERVIEW.md) |\n",
+      "_meta/superseded.md": "# Superseded Facts\n\n_When a fact is updated or contradicted, the old version is moved here with a\npointer to its replacement and the event that triggered the change._\n",
+      "entities/issue/CTX-41/OVERVIEW.md": "# issue:CTX-41\n\n_Last updated: 2026-01-01T00:01:00+00:00 [smoke/jira#ev-001]_\n\n## Current structured fields\n\n- status: Open\n- assignee: Mira\n- priority: P2\n",
+      "entities/issue/CTX-41/facts.md": "# Current Facts\n\n_One current, dated value per structured field._\n\n- 2026-01-01 [smoke/jira#ev-001] status=Open\n- 2026-01-01 [smoke/jira#ev-001] assignee=Mira\n- 2026-01-01 [smoke/jira#ev-001] priority=P2\n",
+      "entities/issue/CTX-41/timeline.md": "# Timeline\n- 2026-01-01T00:01:00+00:00 [smoke/jira#ev-001] (batch) status=Open, assignee=Mira, priority=P2\n",
+      "entities/pr/PR-71/OVERVIEW.md": "# pr:PR-71\n\n_Last updated: 2026-01-01T00:02:00+00:00 [smoke/github#ev-002]_\n\n## Current structured fields\n\n- linked_keys: [\"CTX-41\"]\n",
+      "entities/pr/PR-71/facts.md": "# Current Facts\n\n_One current, dated value per structured field._\n\n- 2026-01-01 [smoke/github#ev-002] linked_keys=[\"CTX-41\"]\n",
+      "entities/pr/PR-71/timeline.md": "# Timeline\n- 2026-01-01T00:02:00+00:00 [smoke/github#ev-002] (batch) linked_keys=[\"CTX-41\"]\n",
+      "entities/thread/release/OVERVIEW.md": "# thread:release\n\n_Last updated: 2026-01-01T00:03:00+00:00 [smoke/mail#ev-003]_\n\n## Current structured fields\n\n- answered_by: UNANSWERED\n",
+      "entities/thread/release/facts.md": "# Current Facts\n\n_One current, dated value per structured field._\n\n- 2026-01-01 [smoke/mail#ev-003] answered_by=UNANSWERED\n",
+      "entities/thread/release/timeline.md": "# Timeline\n- 2026-01-01T00:03:00+00:00 [smoke/mail#ev-003] (batch) answered_by=UNANSWERED\n"
+    },
+    "delivered_event_ids": [
+      "ev-001",
+      "ev-002",
+      "ev-003"
+    ]
+  },
+  {
+    "snapshot": {
+      "sha": "84db2cbd0225880b8b53e1409ccdf0f77df131f6",
+      "T_last_event": "2026-01-01T01:03:00Z",
+      "last_event_id": "ev-006",
+      "lane": "batch"
+    },
+    "files": {
+      "INDEX.md": "# Org Context Index\n\n| Entity | Type | Last updated | Overview |\n|--------|------|--------------|----------|\n| issue:CTX-41 | issue | 2026-01-01T01:01:00+00:00 | [entities/issue/CTX-41/OVERVIEW.md](entities/issue/CTX-41/OVERVIEW.md) |\n| pr:PR-71 | pr | 2026-01-01T00:02:00+00:00 | [entities/pr/PR-71/OVERVIEW.md](entities/pr/PR-71/OVERVIEW.md) |\n| pr:PR-72 | pr | 2026-01-01T01:02:00+00:00 | [entities/pr/PR-72/OVERVIEW.md](entities/pr/PR-72/OVERVIEW.md) |\n| thread:release | thread | 2026-01-01T01:03:00+00:00 | [entities/thread/release/OVERVIEW.md](entities/thread/release/OVERVIEW.md) |\n",
+      "_meta/superseded.md": "# Superseded Facts\n\n_When a fact is updated or contradicted, the old version is moved here with a\npointer to its replacement and the event that triggered the change._\n- issue:CTX-41: status=Open [smoke/jira#ev-001] was superseded by status=Closed on 2026-01-01 [smoke/jira#ev-004]\n- issue:CTX-41: assignee=Mira [smoke/jira#ev-001] was superseded by assignee=Noah on 2026-01-01 [smoke/jira#ev-004]\n- issue:CTX-41: priority=P2 [smoke/jira#ev-001] was superseded by priority=P1 on 2026-01-01 [smoke/jira#ev-004]\n",
+      "entities/issue/CTX-41/OVERVIEW.md": "# issue:CTX-41\n\n_Last updated: 2026-01-01T01:01:00+00:00 [smoke/jira#ev-004]_\n\n## Current structured fields\n\n- status: Closed\n- assignee: Noah\n- priority: P1\n",
+      "entities/issue/CTX-41/facts.md": "# Current Facts\n\n_One current, dated value per structured field._\n\n- 2026-01-01 [smoke/jira#ev-004] status=Closed\n- 2026-01-01 [smoke/jira#ev-004] assignee=Noah\n- 2026-01-01 [smoke/jira#ev-004] priority=P1\n",
+      "entities/issue/CTX-41/timeline.md": "# Timeline\n- 2026-01-01T00:01:00+00:00 [smoke/jira#ev-001] (batch) status=Open, assignee=Mira, priority=P2\n- 2026-01-01T01:01:00+00:00 [smoke/jira#ev-004] (batch) status=Closed, assignee=Noah, priority=P1\n",
+      "entities/pr/PR-71/OVERVIEW.md": "# pr:PR-71\n\n_Last updated: 2026-01-01T00:02:00+00:00 [smoke/github#ev-002]_\n\n## Current structured fields\n\n- linked_keys: [\"CTX-41\"]\n",
+      "entities/pr/PR-71/facts.md": "# Current Facts\n\n_One current, dated value per structured field._\n\n- 2026-01-01 [smoke/github#ev-002] linked_keys=[\"CTX-41\"]\n",
+      "entities/pr/PR-71/timeline.md": "# Timeline\n- 2026-01-01T00:02:00+00:00 [smoke/github#ev-002] (batch) linked_keys=[\"CTX-41\"]\n",
+      "entities/pr/PR-72/OVERVIEW.md": "# pr:PR-72\n\n_Last updated: 2026-01-01T01:02:00+00:00 [smoke/github#ev-005]_\n\n## Current structured fields\n\n- linked_keys: [\"CTX-41\"]\n",
+      "entities/pr/PR-72/facts.md": "# Current Facts\n\n_One current, dated value per structured field._\n\n- 2026-01-01 [smoke/github#ev-005] linked_keys=[\"CTX-41\"]\n",
+      "entities/pr/PR-72/timeline.md": "# Timeline\n- 2026-01-01T01:02:00+00:00 [smoke/github#ev-005] (batch) linked_keys=[\"CTX-41\"]\n",
+      "entities/thread/release/OVERVIEW.md": "# thread:release\n\n_Last updated: 2026-01-01T01:03:00+00:00 [smoke/mail#ev-006]_\n\n## Current structured fields\n\n- answered_by: UNANSWERED\n",
+      "entities/thread/release/facts.md": "# Current Facts\n\n_One current, dated value per structured field._\n\n- 2026-01-01 [smoke/mail#ev-003] answered_by=UNANSWERED\n",
+      "entities/thread/release/timeline.md": "# Timeline\n- 2026-01-01T00:03:00+00:00 [smoke/mail#ev-003] (batch) answered_by=UNANSWERED\n- 2026-01-01T01:03:00+00:00 [smoke/mail#ev-006] (batch) answered_by=UNANSWERED\n"
+    },
+    "delivered_event_ids": [
+      "ev-001",
+      "ev-002",
+      "ev-003",
+      "ev-004",
+      "ev-005",
+      "ev-006"
+    ]
+  }
+]
