@@ -1,0 +1,47 @@
+{
+  "snapshot_sha256": "d0a013f63b889f9d9f0b4e37cc710d1fddddf1c3b93b2a0dd75e28b57ff3a438",
+  "receipt_hash": "4a82511fa5431565205e83bc0890a4e264b94807c14e8996c2113a9c9fe23ccc",
+  "task_id": "issue-owner-at-cutoff",
+  "declared_harness": "codex-cli-native-mcp",
+  "declared_model": "gpt-5.6-luna",
+  "declared_effort": "medium",
+  "audit_passed": true,
+  "context_calls": 3,
+  "tool_mix": {
+    "find_entities": 1,
+    "context_search": 1,
+    "get_assertions": 1
+  },
+  "error_calls": 0,
+  "bytes_returned": 6710,
+  "required_group_recall": 1.0,
+  "unit_precision": null,
+  "relevant_byte_precision": null,
+  "repeated_byte_fraction": 0.05305514157973174,
+  "first_relevant_call": 2,
+  "exposed_units": [
+    "current-owner"
+  ],
+  "recall_curve": [
+    {
+      "call": 1,
+      "bytes": 43,
+      "recall": 0.0
+    },
+    {
+      "call": 2,
+      "bytes": 6187,
+      "recall": 1.0
+    },
+    {
+      "call": 3,
+      "bytes": 6710,
+      "recall": 1.0
+    }
+  ],
+  "annotation_coverage": "partial_or_absent",
+  "value_correct": true,
+  "answer_sha256": "37e992b6196270085e6c528868f5c4e05d7218e645d2ecc6830079654898bdeb",
+  "config_sha256": "7ec60e4b3eb93143d1794df1bcb8ddd22a26557c7ed5efd763b59571cba0c784",
+  "agent_trace_sha256": "bb60772e4b61149545a15cc4d1ac3c97a916ab856295952f63cbf95560e9812a"
+}

@@ -1,0 +1,24 @@
+{
+  "files_sha256": {
+    "evidence-documents.json.gz": "9e7c4354f67b51a6a733cb0b90b089acd0e32ef4168a1ae0cdb69f261a57ffce",
+    "selection.json": "3a88b2e9d2e1fe6f26a4dfac49fc3687e2b6df7e39b01b8409a60e6bf7ea7da0",
+    "report.json": "19ce3b939ddf23b968ba3aff51e048cfca27ed73910c867be4a77957a5e17316",
+    "store-identities.json": "44ef1aeda3d369589fd4dbf2dd5b6b8a0e3d5ff22e834c4ddfd3ba12c4a35230",
+    "01-assignment_history/build.stdout.gz": "e9acd33e3ce3fb42a18dd6a083d68e147a955fffad395f70c67dbaec36ec614a",
+    "01-assignment_history/task.public.json": "5acbd8a06d713ef0b31df57cf566c00afb99dd9aeb8a00caa45fdb765b5df787",
+    "01-assignment_history/build.stderr.gz": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+    "01-assignment_history/gold.private.json": "a32d5918935b07b5e965f31c766021ea217d784741d87987febf49aec918d71b",
+    "01-assignment_history/report.json": "e52778529c2906f2bb21935e808f16832b129f0970d6056654dbd1d83f6c1699",
+    "01-assignment_history/condition.yaml": "6c6b9cf02224bbf88001258db3f948d01b0a42b2e83e39db352582129f18f327",
+    "01-assignment_history/store/resolved.yaml": "0d8b32602eddef24da6c42d7b4e5256855f36fc475535426fa05e17e663def0f",
+    "01-assignment_history/store/builder-prompt.txt": "9204a480b5e114824f25133e41cdb49e486f7b0d707a2f917d4264008550b580",
+    "01-assignment_history/reader/answer-schema.json": "2152e7cbe7dd28a1a190573eb3e38be8931ee208b49e97d336e1633fadec4754",
+    "01-assignment_history/reader/prompt.txt": "59a0b226a7821e6628a3762978474c44ab9c46cb8342d42cbabf848c426f27e0",
+    "01-assignment_history/reader/codex.stderr.gz": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+    "01-assignment_history/reader/answer.json": "7e9ac2d7fcf5bc429d5f382e79764ad295ab73d17f7858de411956d10397378e",
+    "01-assignment_history/reader/codex.jsonl.gz": "40bb2fae51c9bc863e2e1700c7ce74ecad64df22ad58af278a1991b10d974aeb",
+    "01-assignment_history/reader/launch.json": "4b848ecaee920670092f83ad641da08b53138312b618e6363eaa8b429c582f90",
+    "01-assignment_history/store/trials/mcp-01.jsonl.gz": "045f1ab0188282dc5b79a31941c9c32e76d693edaa8a3fa750b9f2de50e52aa9"
+  },
+  "snapshot_policy": "source/config/implementation pins and evidence documents retained; full transient store not versioned"
+}

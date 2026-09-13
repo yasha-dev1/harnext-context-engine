@@ -8,6 +8,7 @@ import re
 from collections.abc import Iterable
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Literal
 from weakref import WeakKeyDictionary
 
 from harnext_builder.harness.base import ConversationTranscript
@@ -27,6 +28,8 @@ class LayoutRuntime:
 
     harness: str = "fake"
     model: str | None = None
+    reasoning_effort: Literal["low", "medium", "high", "xhigh"] | None = None
+    tool_policy: Literal["native", "files"] = "native"
     seed: int | None = None
     embeddings: EmbeddingsProvider | None = None
     max_turns: int = 40
@@ -41,6 +44,8 @@ def configure_store(
     *,
     harness: str = "fake",
     model: str | None = None,
+    reasoning_effort: Literal["low", "medium", "high", "xhigh"] | None = None,
+    tool_policy: Literal["native", "files"] = "native",
     seed: int | None = None,
     embeddings: EmbeddingsProvider | None = None,
     max_turns: int = 40,
@@ -53,6 +58,8 @@ def configure_store(
     _RUNTIMES[store] = LayoutRuntime(
         harness=harness,
         model=model,
+        reasoning_effort=reasoning_effort,
+        tool_policy=tool_policy,
         seed=seed,
         embeddings=embeddings,
         max_turns=max_turns,
@@ -180,7 +187,8 @@ def append_usage(
     )
     output_tokens = token_count(nested.get("output_tokens", 0))
     cost_value = raw_usage.get("total_cost_usd")
-    cost_usd = float(cost_value) if isinstance(cost_value, (int, float)) else 0.0
+    cost_usd = (float(cost_value) if isinstance(cost_value, (int, float))
+                else None if transcript.harness == "codex" else 0.0)
     row = {
         "event_ids": [event.id for event in ordered_events(events)],
         "event_count": len(events),

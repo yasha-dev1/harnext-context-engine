@@ -1,0 +1,1 @@
+{"additionalProperties":false,"properties":{"evidence_ids":{"items":{"type":"string"},"type":"array"},"value":{"items":{"additionalProperties":false,"properties":{"at":{"type":"string"},"from":{"type":["string","null"]},"to":{"type":["string","null"]}},"required":["at","from","to"],"type":"object"},"type":"array"}},"required":["value","evidence_ids"],"type":"object"}

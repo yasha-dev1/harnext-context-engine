@@ -1,0 +1,173 @@
+{
+  "answer": {
+    "action": "answer",
+    "evidence_ids": [
+      "ev-006"
+    ],
+    "offset": 0,
+    "path": "",
+    "query": "",
+    "unknown": false,
+    "value": "2026-10-08"
+  },
+  "bytes_read": 1092,
+  "family": "update",
+  "grade": {
+    "evidence_correct": true,
+    "schema_valid": true,
+    "value_correct": true
+  },
+  "history": [
+    {
+      "assistant": {
+        "action": "search",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "",
+        "query": "release freeze date",
+        "unknown": false,
+        "value": null
+      }
+    },
+    {
+      "result": "",
+      "tool": "search",
+      "truncated": false
+    },
+    {
+      "assistant": {
+        "action": "list",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "",
+        "query": "",
+        "unknown": false,
+        "value": null
+      }
+    },
+    {
+      "result": "INDEX.md\nevents/2026/01/01/ev-001.md\nevents/2026/01/01/ev-002.md\nevents/2026/01/01/ev-003.md\nevents/2026/01/01/ev-004.md\nevents/2026/01/01/ev-005.md\nevents/2026/01/01/ev-006.md",
+      "tool": "list",
+      "truncated": false
+    },
+    {
+      "assistant": {
+        "action": "search",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "",
+        "query": "freeze",
+        "unknown": false,
+        "value": null
+      }
+    },
+    {
+      "result": "events/2026/01/01/ev-003.md:13:     \"body\": \"Release freeze is scheduled for 2026-10-01.\",\nevents/2026/01/01/ev-003.md:14:     \"freeze_date\": \"2026-10-01\"\nevents/2026/01/01/ev-006.md:13:     \"body\": \"The release freeze moves from 2026-10-01 to 2026-10-08.\",\nevents/2026/01/01/ev-006.md:14:     \"freeze_date\": \"2026-10-08\"",
+      "tool": "search",
+      "truncated": false
+    },
+    {
+      "assistant": {
+        "action": "read",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "events/2026/01/01/ev-006.md",
+        "query": "",
+        "unknown": false,
+        "value": null
+      }
+    },
+    {
+      "result": "# Event ev-006\n\n- Time: 2026-01-01T01:03:00+00:00\n- Source: smoke/mail\n- Type: mail.updated\n- Subject: thread:release\n- Lane: batch\n\n```json\n{\n  \"baseline_keys\": [],\n  \"data\": {\n    \"body\": \"The release freeze moves from 2026-10-01 to 2026-10-08.\",\n    \"freeze_date\": \"2026-10-08\"\n  },\n  \"datacontenttype\": \"application/json\",\n  \"id\": \"ev-006\",\n  \"intended_send_ts\": null,\n  \"mgblobref\": null,\n  \"mgingesttime\": null,\n  \"mgtenant\": \"context-smoke\",\n  \"source\": \"smoke/mail\",\n  \"specversion\": \"1.0\",\n  \"subject\": \"thread:release\",\n  \"time\": \"2026-01-01T01:03:00Z\",\n  \"type\": \"mail.updated\"\n}\n```\n",
+      "tool": "read",
+      "truncated": false
+    },
+    {
+      "assistant": {
+        "action": "answer",
+        "evidence_ids": [
+          "ev-006"
+        ],
+        "offset": 0,
+        "path": "",
+        "query": "",
+        "unknown": false,
+        "value": "2026-10-08"
+      }
+    }
+  ],
+  "latency_s": 26.40797073399881,
+  "layout": "S0",
+  "probe_id": "smoke-06",
+  "provider_calls": 5,
+  "repeat": 1,
+  "retrieval": [
+    {
+      "action": {
+        "action": "search",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "",
+        "query": "release freeze date",
+        "unknown": false,
+        "value": null
+      },
+      "bytes": 0,
+      "result": "",
+      "truncated": false
+    },
+    {
+      "action": {
+        "action": "list",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "",
+        "query": "",
+        "unknown": false,
+        "value": null
+      },
+      "bytes": 176,
+      "result": "INDEX.md\nevents/2026/01/01/ev-001.md\nevents/2026/01/01/ev-002.md\nevents/2026/01/01/ev-003.md\nevents/2026/01/01/ev-004.md\nevents/2026/01/01/ev-005.md\nevents/2026/01/01/ev-006.md",
+      "truncated": false
+    },
+    {
+      "action": {
+        "action": "search",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "",
+        "query": "freeze",
+        "unknown": false,
+        "value": null
+      },
+      "bytes": 321,
+      "result": "events/2026/01/01/ev-003.md:13:     \"body\": \"Release freeze is scheduled for 2026-10-01.\",\nevents/2026/01/01/ev-003.md:14:     \"freeze_date\": \"2026-10-01\"\nevents/2026/01/01/ev-006.md:13:     \"body\": \"The release freeze moves from 2026-10-01 to 2026-10-08.\",\nevents/2026/01/01/ev-006.md:14:     \"freeze_date\": \"2026-10-08\"",
+      "truncated": false
+    },
+    {
+      "action": {
+        "action": "read",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "events/2026/01/01/ev-006.md",
+        "query": "",
+        "unknown": false,
+        "value": null
+      },
+      "bytes": 595,
+      "result": "# Event ev-006\n\n- Time: 2026-01-01T01:03:00+00:00\n- Source: smoke/mail\n- Type: mail.updated\n- Subject: thread:release\n- Lane: batch\n\n```json\n{\n  \"baseline_keys\": [],\n  \"data\": {\n    \"body\": \"The release freeze moves from 2026-10-01 to 2026-10-08.\",\n    \"freeze_date\": \"2026-10-08\"\n  },\n  \"datacontenttype\": \"application/json\",\n  \"id\": \"ev-006\",\n  \"intended_send_ts\": null,\n  \"mgblobref\": null,\n  \"mgingesttime\": null,\n  \"mgtenant\": \"context-smoke\",\n  \"source\": \"smoke/mail\",\n  \"specversion\": \"1.0\",\n  \"subject\": \"thread:release\",\n  \"time\": \"2026-01-01T01:03:00Z\",\n  \"type\": \"mail.updated\"\n}\n```\n",
+      "truncated": false
+    }
+  ],
+  "snapshot_content_sha256": "178d5b203797937b37e15beb3bffa5c5dfb81cb0b68e99e9d2a1a8408fe93e95",
+  "snapshot_sha": "1e926611ca2ad9ee556d8cd104169e10bf08bd50",
+  "status": "completed",
+  "tool_calls": 4,
+  "usage": {
+    "cache_write_input_tokens": 0,
+    "cached_input_tokens": 24320,
+    "input_tokens": 36911,
+    "output_tokens": 364,
+    "reasoning_output_tokens": 145
+  }
+}

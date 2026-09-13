@@ -1,0 +1,55 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "file": ".harnext/artifacts/e2-context-comparison-20260913.html",
+      "taskCount": 8,
+      "conditions": 2,
+      "correct": [
+        8,
+        1
+      ],
+      "calls": [
+        25,
+        0
+      ],
+      "charts": 7,
+      "rows": 16,
+      "mobile_no_overflow": true,
+      "console_errors": [],
+      "external_requests": []
+    },
+    {
+      "file": "apps/eval/out/benchmark-pilot/codex-luna-medium-001/report.html",
+      "taskCount": 8,
+      "conditions": 1,
+      "correct": [
+        8
+      ],
+      "calls": [
+        25
+      ],
+      "charts": 7,
+      "rows": 8,
+      "mobile_no_overflow": true,
+      "console_errors": [],
+      "external_requests": []
+    },
+    {
+      "file": "apps/eval/out/benchmark-pilot/codex-luna-medium-no-mcp-001/report.html",
+      "taskCount": 8,
+      "conditions": 1,
+      "correct": [
+        1
+      ],
+      "calls": [
+        0
+      ],
+      "charts": 7,
+      "rows": 8,
+      "mobile_no_overflow": true,
+      "console_errors": [],
+      "external_requests": []
+    }
+  ]
+}

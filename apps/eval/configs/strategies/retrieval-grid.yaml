@@ -1,0 +1,11 @@
+protocol: harnext-matrix-v1
+base: indexed.yaml
+output_dir: ../../out/strategies/retrieval-grid
+factors:
+  representation: [files]
+  files.layout: [verbatim_dump]
+  retrieval.chunking: [fixed, entity_bundle]
+  retrieval.method: [bm25, dense, hybrid]
+  retrieval.reranker: [none, cross_encoder]
+  trial.tools: [[context_search, context_read]]
+  expose_sources: [false]

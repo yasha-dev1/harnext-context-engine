@@ -1,0 +1,24 @@
+{
+  "files_sha256": {
+    "evidence-documents.json.gz": "bf84c48ba918479597aea2089a9b76ebeb2c2c5cb34c5fc8fa29b77a6a10ad89",
+    "selection.json": "8708078ffec2f82e9b84fd78f209b69e55a67abf9363e97b86861086c1a8f7e0",
+    "report.json": "b8fbc2bdfbf371adae9460f786d8c9c50655e09e31e41f1e4c716d99d52f96a8",
+    "store-identities.json": "b48b7acf342e45458c098237dc79ea0a7201c5635eff573a6b346e6a96244c4a",
+    "01-priority_at_snapshot/build.stdout.gz": "2c40bd4df215590e042d73b08905b404b06155d6daa94c2b70acfc89496e50bf",
+    "01-priority_at_snapshot/task.public.json": "c8ab3258882fc3fba0ab0cd3bf6f0a3376215b7ae9340478c89d9ffed2549138",
+    "01-priority_at_snapshot/build.stderr.gz": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+    "01-priority_at_snapshot/gold.private.json": "893ffa36591db65b24023a4dbb1bdb00bb26484e795290b0d7c793f95017468a",
+    "01-priority_at_snapshot/report.json": "2d7e66187b8e4a4bffd46fb493540303e3ca379ba7315193291135181121b36f",
+    "01-priority_at_snapshot/condition.yaml": "0831944140745c7f175ef0148109dc8cb8523fcf6b41cf026b3a7700d91227bd",
+    "01-priority_at_snapshot/store/resolved.yaml": "a39b5e0f4150fd0dcb6d47af67242c7a5d5d7c328f112c09dd91330accefa543",
+    "01-priority_at_snapshot/store/builder-prompt.txt": "9204a480b5e114824f25133e41cdb49e486f7b0d707a2f917d4264008550b580",
+    "01-priority_at_snapshot/reader/answer-schema.json": "6e7ce084181cc19a18016e26893946ddf4f8a5fce19bc1f8c9542849c7e810ea",
+    "01-priority_at_snapshot/reader/prompt.txt": "2cb99386611553b469b6f76d0ec718f60c417940df161846e1ddb58111338dc7",
+    "01-priority_at_snapshot/reader/codex.stderr.gz": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+    "01-priority_at_snapshot/reader/answer.json": "1075ed5de02f70f33a8973ef7fe667a5b33ce13267d7c5c2a2b478f2fcac78e6",
+    "01-priority_at_snapshot/reader/codex.jsonl.gz": "c56e279b148feaa0d6959be2d5c5cf8463ae37913bdcafb3fe12a22454bedeca",
+    "01-priority_at_snapshot/reader/launch.json": "8c19c578a67b395f0d9fc3dfa6779ecf5877df8b0e5b7303d243a55926b13c2c",
+    "01-priority_at_snapshot/store/trials/mcp-01.jsonl.gz": "db041706d64cb3504b51163e15692a13d420c5ee1e18b097519d90e5dc6a4afd"
+  },
+  "snapshot_policy": "source/config/implementation pins and evidence documents retained; full transient store not versioned"
+}

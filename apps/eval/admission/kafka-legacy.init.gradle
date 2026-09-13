@@ -1,0 +1,15 @@
+// Build-environment repair for legacy Kafka admission; identical in base/reference.
+// Grgit maintainer's archive: https://github.com/ajoberstar/grgit#old-versions-from-bintrayjcenter
+// Grgit 4.1.0 declares JGit RELEASE; pin a release available before the 2021-02 base.
+gradle.beforeProject { project ->
+    project.buildscript.repositories {
+        maven {
+            name = 'grgitMaintainerArchive'
+            url = uri('https://ajoberstar.org/bintray-backup/')
+            content { includeGroup 'org.ajoberstar.grgit' }
+        }
+    }
+    project.buildscript.configurations.all {
+        resolutionStrategy.force 'org.eclipse.jgit:org.eclipse.jgit:5.10.0.202012080955-r'
+    }
+}

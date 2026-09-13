@@ -1,0 +1,98 @@
+protocol: harnext-strategies-v1
+representation: hybrid
+source_jsonl: /home/yasha/Desktop/uni/masters/harnext-context-engine/apps/eval/configs/strategies/sources.jsonl
+artifact_dir: /home/yasha/Desktop/uni/masters/harnext-context-engine/apps/eval/out/strategies/mcp-neural-verification-001/dense-cross_encoder
+observed_at: '2026-01-02T12:00:00Z'
+valid_at: '2026-01-02T12:00:00Z'
+builder:
+  harness: none
+  model: null
+  effort: medium
+  timeout_s: 180
+  max_calls: 40
+  context_bytes: 131072
+files:
+  layout: indexed_temporal
+  prompt: preserve_supported
+  extraction: structured
+  retention: all
+  retention_days: 90
+  summarization: none
+  update: supersede
+  summary_sentences: 3
+  page_bytes: 8192
+  functional_predicates:
+  - assigned_to
+  - has_status
+  - targets_version
+  predicates:
+  - assigned_to
+  - has_status
+  - references_issue
+  - changes_file
+  - discussed_in
+retrieval:
+  method: dense
+  chunking: fixed
+  chunk_bytes: 2048
+  overlap_bytes: 256
+  candidates: 40
+  top_k: 10
+  rrf_k: 60
+  bm25_k1: 1.5
+  bm25_b: 0.75
+  embeddings:
+    provider: fastembed
+    model: BAAI/bge-small-en-v1.5
+    revision: content-hash-at-build
+    cache_dir: /home/yasha/Desktop/uni/masters/harnext-context-engine/.harnext/models
+    base_url: null
+    api_key_env: null
+    timeout_s: 60
+    threads: 2
+  reranker: cross_encoder
+  reranker_model: Xenova/ms-marco-MiniLM-L-6-v2
+graph:
+  schema_name: typed_assertions
+  extraction: domain_predicates
+  resolution: evidence_aliases
+  traversal: neighbors
+  hops: 2
+  max_edges: 20
+  damping: 0.85
+  iterations: 30
+  functional_predicates:
+  - assigned_to
+  - has_status
+expose_sources: true
+trial:
+  run_id: dense-cross_encoder
+  task_id: issue-owner-at-cutoff
+  harness: external-python-mcp-client
+  model: none
+  effort: none
+  max_calls: 100
+  budget_bytes: 65536
+  response_bytes: 12000
+  timeout_s: 3600
+  tools:
+  - context_list
+  - context_read
+  - context_search
+  - find_entities
+  - get_assertions
+  - neighbors
+  - fetch_source
+  transport: stdio
+  host: 127.0.0.1
+  port: 8876
+  token_env: HARNEXT_EVAL_TOKEN
+evaluation:
+  grading: retrieval_only
+  task_file: null
+  gold_file: null
+  answer_file: null
+  candidate_files: null
+  workspace_dir: null
+  agent_trace: null
+  test_image: python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea

@@ -1,0 +1,25 @@
+{
+  "files_sha256": {
+    "selection.json": "9c56579b0a263b17bbc21165bb832d65e52c69c5e1a8232076371354636f5a0b",
+    "report.json": "cf39c5710e20d8f838080e02f68ad96fb74127be904a97ae39384a476f443d25",
+    "store-identities.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+    "01-assignee_at_snapshot/task.public.json": "b5ef44e4ed6c148cc8b4813f1ea1338e5787abbf8fe2e3b2872fb0ae605e7719",
+    "01-assignee_at_snapshot/report.json": "afc696c5fd49152c74c5346cfb394578d0b06b50608a7a0acd6fa62bde1090a0",
+    "01-assignee_at_snapshot/condition.yaml": "446f6b8fab361e84cfa527deedb1e25498ad0116ba27955708a780a4c2b8d78c",
+    "capability-probe/answer-schema.json": "6e7ce084181cc19a18016e26893946ddf4f8a5fce19bc1f8c9542849c7e810ea",
+    "capability-probe/prompt.txt": "3c0a374e590b3e729bfb81b576aa94dd395e447fcf30c145d6244ebbd6c39021",
+    "capability-probe/codex.stderr.gz": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+    "capability-probe/answer.json": "33e9f61f5722ba5e99c1fdc8c4f87536b333cc428d2c47135d8a35b036c9c2ea",
+    "capability-probe/codex.jsonl.gz": "09117d1c070e537ec6b57880dd9e1507bbf5539cad3ff7f463118c9320683d5d",
+    "capability-probe/report.json": "df4b8f5ffdd428965744dc672754bf8a3a80bbe402eec291e23e0dd9c82b06b7",
+    "capability-probe/condition.yaml": "66c1c88d10d9fbce8f68edc5195e332305cf3084d84f022c0a3064ca638df47c",
+    "capability-probe/launch.json": "cc8205bc26cdb0b4422f7212f4a75d0cbc05db02ab75c5a9ce7c562ab1edda2c",
+    "01-assignee_at_snapshot/reader/answer-schema.json": "6e7ce084181cc19a18016e26893946ddf4f8a5fce19bc1f8c9542849c7e810ea",
+    "01-assignee_at_snapshot/reader/prompt.txt": "017f7d206af949ccd09956a695ed7552f85b8f22d4bb1c952211e65b8c49f241",
+    "01-assignee_at_snapshot/reader/codex.stderr.gz": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+    "01-assignee_at_snapshot/reader/answer.json": "e311321d4a2d59e16c7bbb8851ae4a7d2219e4911671f99991ca1b7369b112ba",
+    "01-assignee_at_snapshot/reader/codex.jsonl.gz": "3a46bb77cf4539e0f651650bcd183370c95ff0fb8b47a09ac72e9cf5b9ab4bc9",
+    "01-assignee_at_snapshot/reader/launch.json": "9fa7c755ef92d3ade271867553ef35439c90f52088e745ad7ff6abe8b7642cee"
+  },
+  "snapshot_policy": "source/config/implementation pins and evidence documents retained; full transient store not versioned"
+}

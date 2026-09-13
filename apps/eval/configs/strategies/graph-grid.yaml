@@ -1,0 +1,9 @@
+protocol: harnext-matrix-v1
+base: indexed.yaml
+output_dir: ../../out/strategies/graph-grid
+factors:
+  representation: [graph]
+  graph.schema_name: [generic_attributed, typed_assertions]
+  graph.extraction: [broad, domain_predicates]
+  graph.resolution: [canonical_only, evidence_aliases]
+  trial.tools: [[find_entities, get_assertions, neighbors, fetch_source]]

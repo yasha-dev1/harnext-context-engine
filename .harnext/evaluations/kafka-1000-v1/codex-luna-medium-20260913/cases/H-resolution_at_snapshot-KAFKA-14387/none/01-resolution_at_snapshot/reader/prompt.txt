@@ -1,0 +1,5 @@
+Context snapshot cutoff (inclusive): 2023-02-27T15:12:25.676001Z.
+
+What was the recorded resolution of KAFKA-14387 at the snapshot? Return the exact resolution label, or null if unresolved.
+
+No context-engine MCP tools or stored context are provided in this trial. Answer from the question and your existing knowledge only. Return evidence_ids=[] because no sources are available. You have no shell, native filesystem, browser or other data source. Return JSON {"value": <answer>, "evidence_ids": [<source IDs>]}. Do not substitute today's issue state.

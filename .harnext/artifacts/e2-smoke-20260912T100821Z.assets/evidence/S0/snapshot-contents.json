@@ -1,0 +1,46 @@
+[
+  {
+    "snapshot": {
+      "sha": "dfd2e4ad1fac09b180d8dadd651152b4f975882f",
+      "T_last_event": "2026-01-01T00:03:00Z",
+      "last_event_id": "ev-003",
+      "lane": "batch"
+    },
+    "files": {
+      "INDEX.md": "# Event files\n\n- [events/2026/01/01/ev-001.md](events/2026/01/01/ev-001.md)\n- [events/2026/01/01/ev-002.md](events/2026/01/01/ev-002.md)\n- [events/2026/01/01/ev-003.md](events/2026/01/01/ev-003.md)\n",
+      "events/2026/01/01/ev-001.md": "# Event ev-001\n\n- Time: 2026-01-01T00:01:00+00:00\n- Source: smoke/jira\n- Type: jira.updated\n- Subject: issue:CTX-41\n- Lane: batch\n\n```json\n{\n  \"baseline_keys\": [],\n  \"data\": {\n    \"assignee\": \"Mira\",\n    \"priority\": \"P2\",\n    \"status\": \"Open\"\n  },\n  \"datacontenttype\": \"application/json\",\n  \"id\": \"ev-001\",\n  \"intended_send_ts\": null,\n  \"mgblobref\": null,\n  \"mgingesttime\": null,\n  \"mgtenant\": \"context-smoke\",\n  \"source\": \"smoke/jira\",\n  \"specversion\": \"1.0\",\n  \"subject\": \"issue:CTX-41\",\n  \"time\": \"2026-01-01T00:01:00Z\",\n  \"type\": \"jira.updated\"\n}\n```\n",
+      "events/2026/01/01/ev-002.md": "# Event ev-002\n\n- Time: 2026-01-01T00:02:00+00:00\n- Source: smoke/github\n- Type: github.updated\n- Subject: pr:PR-71\n- Lane: batch\n\n```json\n{\n  \"baseline_keys\": [],\n  \"data\": {\n    \"changed_files\": [\n      \"src/cache.py\"\n    ],\n    \"files\": [\n      {\n        \"content\": \"def cache_key(key):\\n    return str(key)\\n\",\n        \"path\": \"src/cache.py\"\n      }\n    ],\n    \"linked_keys\": [\n      \"CTX-41\"\n    ],\n    \"state\": \"open\"\n  },\n  \"datacontenttype\": \"application/json\",\n  \"id\": \"ev-002\",\n  \"intended_send_ts\": null,\n  \"mgblobref\": null,\n  \"mgingesttime\": null,\n  \"mgtenant\": \"context-smoke\",\n  \"source\": \"smoke/github\",\n  \"specversion\": \"1.0\",\n  \"subject\": \"pr:PR-71\",\n  \"time\": \"2026-01-01T00:02:00Z\",\n  \"type\": \"github.updated\"\n}\n```\n",
+      "events/2026/01/01/ev-003.md": "# Event ev-003\n\n- Time: 2026-01-01T00:03:00+00:00\n- Source: smoke/mail\n- Type: mail.updated\n- Subject: thread:release\n- Lane: batch\n\n```json\n{\n  \"baseline_keys\": [],\n  \"data\": {\n    \"body\": \"Release freeze is scheduled for 2026-10-01.\",\n    \"freeze_date\": \"2026-10-01\"\n  },\n  \"datacontenttype\": \"application/json\",\n  \"id\": \"ev-003\",\n  \"intended_send_ts\": null,\n  \"mgblobref\": null,\n  \"mgingesttime\": null,\n  \"mgtenant\": \"context-smoke\",\n  \"source\": \"smoke/mail\",\n  \"specversion\": \"1.0\",\n  \"subject\": \"thread:release\",\n  \"time\": \"2026-01-01T00:03:00Z\",\n  \"type\": \"mail.updated\"\n}\n```\n"
+    },
+    "delivered_event_ids": [
+      "ev-001",
+      "ev-002",
+      "ev-003"
+    ]
+  },
+  {
+    "snapshot": {
+      "sha": "1e926611ca2ad9ee556d8cd104169e10bf08bd50",
+      "T_last_event": "2026-01-01T01:03:00Z",
+      "last_event_id": "ev-006",
+      "lane": "batch"
+    },
+    "files": {
+      "INDEX.md": "# Event files\n\n- [events/2026/01/01/ev-001.md](events/2026/01/01/ev-001.md)\n- [events/2026/01/01/ev-002.md](events/2026/01/01/ev-002.md)\n- [events/2026/01/01/ev-003.md](events/2026/01/01/ev-003.md)\n- [events/2026/01/01/ev-004.md](events/2026/01/01/ev-004.md)\n- [events/2026/01/01/ev-005.md](events/2026/01/01/ev-005.md)\n- [events/2026/01/01/ev-006.md](events/2026/01/01/ev-006.md)\n",
+      "events/2026/01/01/ev-001.md": "# Event ev-001\n\n- Time: 2026-01-01T00:01:00+00:00\n- Source: smoke/jira\n- Type: jira.updated\n- Subject: issue:CTX-41\n- Lane: batch\n\n```json\n{\n  \"baseline_keys\": [],\n  \"data\": {\n    \"assignee\": \"Mira\",\n    \"priority\": \"P2\",\n    \"status\": \"Open\"\n  },\n  \"datacontenttype\": \"application/json\",\n  \"id\": \"ev-001\",\n  \"intended_send_ts\": null,\n  \"mgblobref\": null,\n  \"mgingesttime\": null,\n  \"mgtenant\": \"context-smoke\",\n  \"source\": \"smoke/jira\",\n  \"specversion\": \"1.0\",\n  \"subject\": \"issue:CTX-41\",\n  \"time\": \"2026-01-01T00:01:00Z\",\n  \"type\": \"jira.updated\"\n}\n```\n",
+      "events/2026/01/01/ev-002.md": "# Event ev-002\n\n- Time: 2026-01-01T00:02:00+00:00\n- Source: smoke/github\n- Type: github.updated\n- Subject: pr:PR-71\n- Lane: batch\n\n```json\n{\n  \"baseline_keys\": [],\n  \"data\": {\n    \"changed_files\": [\n      \"src/cache.py\"\n    ],\n    \"files\": [\n      {\n        \"content\": \"def cache_key(key):\\n    return str(key)\\n\",\n        \"path\": \"src/cache.py\"\n      }\n    ],\n    \"linked_keys\": [\n      \"CTX-41\"\n    ],\n    \"state\": \"open\"\n  },\n  \"datacontenttype\": \"application/json\",\n  \"id\": \"ev-002\",\n  \"intended_send_ts\": null,\n  \"mgblobref\": null,\n  \"mgingesttime\": null,\n  \"mgtenant\": \"context-smoke\",\n  \"source\": \"smoke/github\",\n  \"specversion\": \"1.0\",\n  \"subject\": \"pr:PR-71\",\n  \"time\": \"2026-01-01T00:02:00Z\",\n  \"type\": \"github.updated\"\n}\n```\n",
+      "events/2026/01/01/ev-003.md": "# Event ev-003\n\n- Time: 2026-01-01T00:03:00+00:00\n- Source: smoke/mail\n- Type: mail.updated\n- Subject: thread:release\n- Lane: batch\n\n```json\n{\n  \"baseline_keys\": [],\n  \"data\": {\n    \"body\": \"Release freeze is scheduled for 2026-10-01.\",\n    \"freeze_date\": \"2026-10-01\"\n  },\n  \"datacontenttype\": \"application/json\",\n  \"id\": \"ev-003\",\n  \"intended_send_ts\": null,\n  \"mgblobref\": null,\n  \"mgingesttime\": null,\n  \"mgtenant\": \"context-smoke\",\n  \"source\": \"smoke/mail\",\n  \"specversion\": \"1.0\",\n  \"subject\": \"thread:release\",\n  \"time\": \"2026-01-01T00:03:00Z\",\n  \"type\": \"mail.updated\"\n}\n```\n",
+      "events/2026/01/01/ev-004.md": "# Event ev-004\n\n- Time: 2026-01-01T01:01:00+00:00\n- Source: smoke/jira\n- Type: jira.updated\n- Subject: issue:CTX-41\n- Lane: batch\n\n```json\n{\n  \"baseline_keys\": [],\n  \"data\": {\n    \"assignee\": \"Noah\",\n    \"body\": \"This update supersedes the earlier status, assignee, and priority.\",\n    \"priority\": \"P1\",\n    \"status\": \"Closed\"\n  },\n  \"datacontenttype\": \"application/json\",\n  \"id\": \"ev-004\",\n  \"intended_send_ts\": null,\n  \"mgblobref\": null,\n  \"mgingesttime\": null,\n  \"mgtenant\": \"context-smoke\",\n  \"source\": \"smoke/jira\",\n  \"specversion\": \"1.0\",\n  \"subject\": \"issue:CTX-41\",\n  \"time\": \"2026-01-01T01:01:00Z\",\n  \"type\": \"jira.updated\"\n}\n```\n",
+      "events/2026/01/01/ev-005.md": "# Event ev-005\n\n- Time: 2026-01-01T01:02:00+00:00\n- Source: smoke/github\n- Type: github.updated\n- Subject: pr:PR-72\n- Lane: batch\n\n```json\n{\n  \"baseline_keys\": [],\n  \"data\": {\n    \"changed_files\": [\n      \"tests/test_cache.py\"\n    ],\n    \"files\": [\n      {\n        \"content\": \"from src.cache import cache_key\\n\\ndef test_key():\\n    assert cache_key(1) == '1'\\n\",\n        \"path\": \"tests/test_cache.py\"\n      }\n    ],\n    \"linked_keys\": [\n      \"CTX-41\"\n    ],\n    \"state\": \"merged\"\n  },\n  \"datacontenttype\": \"application/json\",\n  \"id\": \"ev-005\",\n  \"intended_send_ts\": null,\n  \"mgblobref\": null,\n  \"mgingesttime\": null,\n  \"mgtenant\": \"context-smoke\",\n  \"source\": \"smoke/github\",\n  \"specversion\": \"1.0\",\n  \"subject\": \"pr:PR-72\",\n  \"time\": \"2026-01-01T01:02:00Z\",\n  \"type\": \"github.updated\"\n}\n```\n",
+      "events/2026/01/01/ev-006.md": "# Event ev-006\n\n- Time: 2026-01-01T01:03:00+00:00\n- Source: smoke/mail\n- Type: mail.updated\n- Subject: thread:release\n- Lane: batch\n\n```json\n{\n  \"baseline_keys\": [],\n  \"data\": {\n    \"body\": \"The release freeze moves from 2026-10-01 to 2026-10-08.\",\n    \"freeze_date\": \"2026-10-08\"\n  },\n  \"datacontenttype\": \"application/json\",\n  \"id\": \"ev-006\",\n  \"intended_send_ts\": null,\n  \"mgblobref\": null,\n  \"mgingesttime\": null,\n  \"mgtenant\": \"context-smoke\",\n  \"source\": \"smoke/mail\",\n  \"specversion\": \"1.0\",\n  \"subject\": \"thread:release\",\n  \"time\": \"2026-01-01T01:03:00Z\",\n  \"type\": \"mail.updated\"\n}\n```\n"
+    },
+    "delivered_event_ids": [
+      "ev-001",
+      "ev-002",
+      "ev-003",
+      "ev-004",
+      "ev-005",
+      "ev-006"
+    ]
+  }
+]

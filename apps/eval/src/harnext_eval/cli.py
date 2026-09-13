@@ -220,7 +220,9 @@ def _build_store(
         store,
         harness=make_harness_name(cfg),
         model=model if model is not None else cfg.engine.builder.model,
-        seed=seed,
+        reasoning_effort=cfg.engine.builder.reasoning_effort,
+        tool_policy=cfg.engine.builder.tool_policy,
+        seed=None if cfg.engine.builder.harness == "codex" else seed,
         embeddings=make_embeddings(cfg),
     )
     return store, run_pipeline(events, cfg.engine, store, cutoff=None, on_decision=None)

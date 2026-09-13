@@ -1,0 +1,103 @@
+{
+  "status": "stopped_by_user",
+  "updated_at_unix": 1789312677.259885,
+  "historical": {
+    "mcp": {
+      "recorded": 79,
+      "target": 800,
+      "completed": 79,
+      "correct": 79,
+      "by_family": {
+        "assignee_at_snapshot": {
+          "recorded": 14,
+          "correct": 14
+        },
+        "assignment_history": {
+          "recorded": 8,
+          "correct": 8
+        },
+        "closed_at_snapshot": {
+          "recorded": 14,
+          "correct": 14
+        },
+        "priority_at_snapshot": {
+          "recorded": 9,
+          "correct": 9
+        },
+        "resolution_at_snapshot": {
+          "recorded": 9,
+          "correct": 9
+        },
+        "resolution_transition_history": {
+          "recorded": 12,
+          "correct": 12
+        },
+        "status_at_snapshot": {
+          "recorded": 7,
+          "correct": 7
+        },
+        "status_transition_history": {
+          "recorded": 6,
+          "correct": 6
+        }
+      }
+    },
+    "none": {
+      "recorded": 80,
+      "target": 800,
+      "completed": 80,
+      "correct": 8,
+      "by_family": {
+        "assignee_at_snapshot": {
+          "recorded": 15,
+          "correct": 0
+        },
+        "assignment_history": {
+          "recorded": 8,
+          "correct": 0
+        },
+        "closed_at_snapshot": {
+          "recorded": 14,
+          "correct": 6
+        },
+        "priority_at_snapshot": {
+          "recorded": 9,
+          "correct": 0
+        },
+        "resolution_at_snapshot": {
+          "recorded": 9,
+          "correct": 1
+        },
+        "resolution_transition_history": {
+          "recorded": 12,
+          "correct": 0
+        },
+        "status_at_snapshot": {
+          "recorded": 7,
+          "correct": 1
+        },
+        "status_transition_history": {
+          "recorded": 6,
+          "correct": 0
+        }
+      }
+    }
+  },
+  "coding": {
+    "pending_admission": 200,
+    "executed": 0
+  },
+  "full_benchmark_complete": false,
+  "errors": [],
+  "interrupted_trials": [
+    {
+      "task_id": "H-assignee_at_snapshot-KAFKA-10520",
+      "condition": "mcp",
+      "archive": "interruptions/H-assignee_at_snapshot-KAFKA-10520/mcp",
+      "status": "user_interrupted",
+      "scored": false,
+      "resume_policy": "fresh session for this unfinished trial; retain original attempt audit"
+    }
+  ],
+  "remaining_historical_trials": 1441
+}

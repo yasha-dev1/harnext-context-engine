@@ -1,0 +1,83 @@
+{
+  "answer": {
+    "action": "answer",
+    "evidence_ids": [
+      "ev-006"
+    ],
+    "offset": 0,
+    "path": "",
+    "query": "",
+    "unknown": false,
+    "value": "2026-10-08"
+  },
+  "bytes_read": 322,
+  "family": "update",
+  "grade": {
+    "evidence_correct": true,
+    "schema_valid": true,
+    "value_correct": true
+  },
+  "history": [
+    {
+      "assistant": {
+        "action": "search",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "",
+        "query": "release freeze date",
+        "unknown": false,
+        "value": null
+      }
+    },
+    {
+      "result": "_meta/superseded.md:6: - Earlier release freeze date 2026-10-01 → superseded by `entities/thread/release/facts.md` freeze date 2026-10-08; reason: ev-006 states that the freeze moved. [ev-006; smoke/mail; 2026-01-01]\nentities/thread/release/facts.md:3: - Release freeze date: 2026-10-08. [ev-006; smoke/mail; 2026-01-01]",
+      "tool": "search",
+      "truncated": false
+    },
+    {
+      "assistant": {
+        "action": "answer",
+        "evidence_ids": [
+          "ev-006"
+        ],
+        "offset": 0,
+        "path": "",
+        "query": "",
+        "unknown": false,
+        "value": "2026-10-08"
+      }
+    }
+  ],
+  "latency_s": 10.730541664001066,
+  "layout": "S3",
+  "probe_id": "smoke-06",
+  "provider_calls": 2,
+  "repeat": 1,
+  "retrieval": [
+    {
+      "action": {
+        "action": "search",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "",
+        "query": "release freeze date",
+        "unknown": false,
+        "value": null
+      },
+      "bytes": 322,
+      "result": "_meta/superseded.md:6: - Earlier release freeze date 2026-10-01 → superseded by `entities/thread/release/facts.md` freeze date 2026-10-08; reason: ev-006 states that the freeze moved. [ev-006; smoke/mail; 2026-01-01]\nentities/thread/release/facts.md:3: - Release freeze date: 2026-10-08. [ev-006; smoke/mail; 2026-01-01]",
+      "truncated": false
+    }
+  ],
+  "snapshot_content_sha256": "91492b5a926127e56e67750fdb7c01bfa2d32110d742f424a040bdc933a304d4",
+  "snapshot_sha": "256dcacdaeacf8b4e479ad91e37ea63fe1be427c",
+  "status": "completed",
+  "tool_calls": 1,
+  "usage": {
+    "cache_write_input_tokens": 0,
+    "cached_input_tokens": 9728,
+    "input_tokens": 14376,
+    "output_tokens": 172,
+    "reasoning_output_tokens": 83
+  }
+}

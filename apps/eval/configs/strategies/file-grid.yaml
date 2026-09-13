@@ -1,0 +1,11 @@
+protocol: harnext-matrix-v1
+base: indexed.yaml
+output_dir: ../../out/strategies/file-grid
+factors:
+  files.layout: [flat_facts, indexed_entities, indexed_temporal]
+  files.prompt: [preserve_supported, concise_supported]
+  trial.tools:
+    - [context_list, context_read]
+    - [context_list, context_read, context_search]
+  representation: [files]
+  expose_sources: [false]

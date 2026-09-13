@@ -1,0 +1,5 @@
+Context snapshot cutoff (inclusive): 2019-01-24T23:01:35.424001Z.
+
+List every recorded resolution change for KAFKA-7741 through the snapshot in chronological order. Return an array of objects with at, from, and to. Preserve null values and repeated states; break equal-time ties by numeric changelog history ID and item index.
+
+No context-engine MCP tools or stored context are provided in this trial. Answer from the question and your existing knowledge only. Return evidence_ids=[] because no sources are available. You have no shell, native filesystem, browser or other data source. Return JSON {"value": <answer>, "evidence_ids": [<source IDs>]}. Do not substitute today's issue state.

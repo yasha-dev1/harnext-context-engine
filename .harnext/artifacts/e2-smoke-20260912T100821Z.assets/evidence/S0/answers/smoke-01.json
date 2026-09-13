@@ -1,0 +1,143 @@
+{
+  "answer": {
+    "action": "answer",
+    "evidence_ids": [
+      "ev-001"
+    ],
+    "offset": 0,
+    "path": "",
+    "query": "",
+    "unknown": false,
+    "value": "Mira"
+  },
+  "bytes_read": 809,
+  "family": "extraction",
+  "grade": {
+    "evidence_correct": true,
+    "schema_valid": true,
+    "value_correct": true
+  },
+  "history": [
+    {
+      "assistant": {
+        "action": "list",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "",
+        "query": "",
+        "unknown": false,
+        "value": null
+      }
+    },
+    {
+      "result": "INDEX.md\nevents/2026/01/01/ev-001.md\nevents/2026/01/01/ev-002.md\nevents/2026/01/01/ev-003.md",
+      "tool": "list",
+      "truncated": false
+    },
+    {
+      "assistant": {
+        "action": "search",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "",
+        "query": "CTX-41",
+        "unknown": false,
+        "value": null
+      }
+    },
+    {
+      "result": "events/2026/01/01/ev-001.md:6: - Subject: issue:CTX-41\nevents/2026/01/01/ev-001.md:25:   \"subject\": \"issue:CTX-41\",\nevents/2026/01/01/ev-002.md:23:       \"CTX-41\"",
+      "tool": "search",
+      "truncated": false
+    },
+    {
+      "assistant": {
+        "action": "read",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "events/2026/01/01/ev-001.md",
+        "query": "",
+        "unknown": false,
+        "value": null
+      }
+    },
+    {
+      "result": "# Event ev-001\n\n- Time: 2026-01-01T00:01:00+00:00\n- Source: smoke/jira\n- Type: jira.updated\n- Subject: issue:CTX-41\n- Lane: batch\n\n```json\n{\n  \"baseline_keys\": [],\n  \"data\": {\n    \"assignee\": \"Mira\",\n    \"priority\": \"P2\",\n    \"status\": \"Open\"\n  },\n  \"datacontenttype\": \"application/json\",\n  \"id\": \"ev-001\",\n  \"intended_send_ts\": null,\n  \"mgblobref\": null,\n  \"mgingesttime\": null,\n  \"mgtenant\": \"context-smoke\",\n  \"source\": \"smoke/jira\",\n  \"specversion\": \"1.0\",\n  \"subject\": \"issue:CTX-41\",\n  \"time\": \"2026-01-01T00:01:00Z\",\n  \"type\": \"jira.updated\"\n}\n```\n",
+      "tool": "read",
+      "truncated": false
+    },
+    {
+      "assistant": {
+        "action": "answer",
+        "evidence_ids": [
+          "ev-001"
+        ],
+        "offset": 0,
+        "path": "",
+        "query": "",
+        "unknown": false,
+        "value": "Mira"
+      }
+    }
+  ],
+  "latency_s": 20.110176037007477,
+  "layout": "S0",
+  "probe_id": "smoke-01",
+  "provider_calls": 4,
+  "repeat": 1,
+  "retrieval": [
+    {
+      "action": {
+        "action": "list",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "",
+        "query": "",
+        "unknown": false,
+        "value": null
+      },
+      "bytes": 92,
+      "result": "INDEX.md\nevents/2026/01/01/ev-001.md\nevents/2026/01/01/ev-002.md\nevents/2026/01/01/ev-003.md",
+      "truncated": false
+    },
+    {
+      "action": {
+        "action": "search",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "",
+        "query": "CTX-41",
+        "unknown": false,
+        "value": null
+      },
+      "bytes": 162,
+      "result": "events/2026/01/01/ev-001.md:6: - Subject: issue:CTX-41\nevents/2026/01/01/ev-001.md:25:   \"subject\": \"issue:CTX-41\",\nevents/2026/01/01/ev-002.md:23:       \"CTX-41\"",
+      "truncated": false
+    },
+    {
+      "action": {
+        "action": "read",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "events/2026/01/01/ev-001.md",
+        "query": "",
+        "unknown": false,
+        "value": null
+      },
+      "bytes": 555,
+      "result": "# Event ev-001\n\n- Time: 2026-01-01T00:01:00+00:00\n- Source: smoke/jira\n- Type: jira.updated\n- Subject: issue:CTX-41\n- Lane: batch\n\n```json\n{\n  \"baseline_keys\": [],\n  \"data\": {\n    \"assignee\": \"Mira\",\n    \"priority\": \"P2\",\n    \"status\": \"Open\"\n  },\n  \"datacontenttype\": \"application/json\",\n  \"id\": \"ev-001\",\n  \"intended_send_ts\": null,\n  \"mgblobref\": null,\n  \"mgingesttime\": null,\n  \"mgtenant\": \"context-smoke\",\n  \"source\": \"smoke/jira\",\n  \"specversion\": \"1.0\",\n  \"subject\": \"issue:CTX-41\",\n  \"time\": \"2026-01-01T00:01:00Z\",\n  \"type\": \"jira.updated\"\n}\n```\n",
+      "truncated": false
+    }
+  ],
+  "snapshot_content_sha256": "86e3751b1a2718c009eb5b1eb8b82e918e641600d8ef0d18870d39c13ca0d933",
+  "snapshot_sha": "dfd2e4ad1fac09b180d8dadd651152b4f975882f",
+  "status": "completed",
+  "tool_calls": 3,
+  "usage": {
+    "cache_write_input_tokens": 0,
+    "cached_input_tokens": 19456,
+    "input_tokens": 29310,
+    "output_tokens": 242,
+    "reasoning_output_tokens": 67
+  }
+}

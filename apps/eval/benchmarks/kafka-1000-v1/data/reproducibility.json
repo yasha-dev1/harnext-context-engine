@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "method": "regenerate from frozen cached inputs with no network or model calls",
+  "sha256": {
+    "manifest.json": "e12572f20955bc6bd2e62c75fb6438f0957df7eb70f732f06e215895da9c63ee",
+    "review-bundle.json": "5e04803e9b459f0d2f255c5f3bd9e00fa6f082fc032b9e659c5eb80cad3a73bf",
+    "tasks.public.jsonl": "78c3d069bff34d9a401c2d7cbbd44e3a3f1ab3af9bd8370519a77d503839aceb",
+    "tasks.private.jsonl": "d2e7ab8e5ed3dd84b01fe5303e2e9bc3728c8acbdc506c5302fc146b13c72083",
+    "context-sources.jsonl": "f15d6400876b73714072335ef42c6feade346f198d91c2e3a819f2dd2b2ddf60"
+  }
+}

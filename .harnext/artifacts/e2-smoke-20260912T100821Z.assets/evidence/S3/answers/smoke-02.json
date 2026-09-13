@@ -1,0 +1,113 @@
+{
+  "answer": {
+    "action": "answer",
+    "evidence_ids": [
+      "ev-004"
+    ],
+    "offset": 0,
+    "path": "",
+    "query": "",
+    "unknown": false,
+    "value": "P1"
+  },
+  "bytes_read": 1880,
+  "family": "extraction",
+  "grade": {
+    "evidence_correct": true,
+    "schema_valid": true,
+    "value_correct": true
+  },
+  "history": [
+    {
+      "assistant": {
+        "action": "search",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "",
+        "query": "CTX-41",
+        "unknown": false,
+        "value": null
+      }
+    },
+    {
+      "result": "INDEX.md:5: - [CTX-41](entities/issue/CTX-41/)\n_meta/superseded.md:3: - Earlier status for issue CTX-41 → superseded by `entities/issue/CTX-41/facts.md` status Closed; reason: ev-004 explicitly states that the update supersedes the earlier status. [ev-004; smoke/jira; 2026-01-01]\n_meta/superseded.md:4: - Earlier assignee for issue CTX-41 → superseded by `entities/issue/CTX-41/facts.md` assignee Noah; reason: ev-004 explicitly states that the update supersedes the earlier assignee. [ev-004; smoke/jira; 2026-01-01]\n_meta/superseded.md:5: - Earlier priority for issue CTX-41 → superseded by `entities/issue/CTX-41/facts.md` priority P1; reason: ev-004 explicitly states that the update supersedes the earlier priority. [ev-004; smoke/jira; 2026-01-01]\nentities/issue/CTX-41/OVERVIEW.md:1: # CTX-41\nentities/pr/PR-71/OVERVIEW.md:3: Open pull request linked to issue CTX-41. The reported change updates `src/cache.py` so `cache_key(key)` returns `str(key)`.\nentities/pr/PR-71/facts.md:1: - 2026-01-01 — PR-71 is open and linked to CTX-41. [smoke/github#ev-002]\nentities/pr/PR-71/timeline.md:1: - 2026-01-01 [smoke/github#ev-002] Pull request updated: state open, linked to CTX-41; changed `src/cache.py`, where `cache_key(key)` returns `str(key)`.\nentities/pr/PR-72/OVERVIEW.md:3: Merged pull request linked to issue CTX-41. The event identifies `tests/test_cache.py` as changed.\nentities/pr/PR-72/facts.md:4: - Linked issue: CTX-41. [ev-005; smoke/github; 2026-01-01]\nentities/pr/PR-72/timeline.md:3: - 2026-01-01T01:02:00Z — PR-72 was merged, linked to CTX-41, with `tests/test_cache.py` among the changed files. [ev-005; smoke/github]",
+      "tool": "search",
+      "truncated": false
+    },
+    {
+      "assistant": {
+        "action": "read",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "entities/issue/CTX-41/facts.md",
+        "query": "",
+        "unknown": false,
+        "value": null
+      }
+    },
+    {
+      "result": "# Facts\n\n- Status: Closed. [ev-004; smoke/jira; 2026-01-01]\n- Assignee: Noah. [ev-004; smoke/jira; 2026-01-01]\n- Priority: P1. [ev-004; smoke/jira; 2026-01-01]\n- Linked pull request: PR-72, merged. [ev-005; smoke/github; 2026-01-01]",
+      "tool": "read",
+      "truncated": false
+    },
+    {
+      "assistant": {
+        "action": "answer",
+        "evidence_ids": [
+          "ev-004"
+        ],
+        "offset": 0,
+        "path": "",
+        "query": "",
+        "unknown": false,
+        "value": "P1"
+      }
+    }
+  ],
+  "latency_s": 13.980671910016099,
+  "layout": "S3",
+  "probe_id": "smoke-02",
+  "provider_calls": 3,
+  "repeat": 1,
+  "retrieval": [
+    {
+      "action": {
+        "action": "search",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "",
+        "query": "CTX-41",
+        "unknown": false,
+        "value": null
+      },
+      "bytes": 1648,
+      "result": "INDEX.md:5: - [CTX-41](entities/issue/CTX-41/)\n_meta/superseded.md:3: - Earlier status for issue CTX-41 → superseded by `entities/issue/CTX-41/facts.md` status Closed; reason: ev-004 explicitly states that the update supersedes the earlier status. [ev-004; smoke/jira; 2026-01-01]\n_meta/superseded.md:4: - Earlier assignee for issue CTX-41 → superseded by `entities/issue/CTX-41/facts.md` assignee Noah; reason: ev-004 explicitly states that the update supersedes the earlier assignee. [ev-004; smoke/jira; 2026-01-01]\n_meta/superseded.md:5: - Earlier priority for issue CTX-41 → superseded by `entities/issue/CTX-41/facts.md` priority P1; reason: ev-004 explicitly states that the update supersedes the earlier priority. [ev-004; smoke/jira; 2026-01-01]\nentities/issue/CTX-41/OVERVIEW.md:1: # CTX-41\nentities/pr/PR-71/OVERVIEW.md:3: Open pull request linked to issue CTX-41. The reported change updates `src/cache.py` so `cache_key(key)` returns `str(key)`.\nentities/pr/PR-71/facts.md:1: - 2026-01-01 — PR-71 is open and linked to CTX-41. [smoke/github#ev-002]\nentities/pr/PR-71/timeline.md:1: - 2026-01-01 [smoke/github#ev-002] Pull request updated: state open, linked to CTX-41; changed `src/cache.py`, where `cache_key(key)` returns `str(key)`.\nentities/pr/PR-72/OVERVIEW.md:3: Merged pull request linked to issue CTX-41. The event identifies `tests/test_cache.py` as changed.\nentities/pr/PR-72/facts.md:4: - Linked issue: CTX-41. [ev-005; smoke/github; 2026-01-01]\nentities/pr/PR-72/timeline.md:3: - 2026-01-01T01:02:00Z — PR-72 was merged, linked to CTX-41, with `tests/test_cache.py` among the changed files. [ev-005; smoke/github]",
+      "truncated": false
+    },
+    {
+      "action": {
+        "action": "read",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "entities/issue/CTX-41/facts.md",
+        "query": "",
+        "unknown": false,
+        "value": null
+      },
+      "bytes": 232,
+      "result": "# Facts\n\n- Status: Closed. [ev-004; smoke/jira; 2026-01-01]\n- Assignee: Noah. [ev-004; smoke/jira; 2026-01-01]\n- Priority: P1. [ev-004; smoke/jira; 2026-01-01]\n- Linked pull request: PR-72, merged. [ev-005; smoke/github; 2026-01-01]",
+      "truncated": false
+    }
+  ],
+  "snapshot_content_sha256": "91492b5a926127e56e67750fdb7c01bfa2d32110d742f424a040bdc933a304d4",
+  "snapshot_sha": "256dcacdaeacf8b4e479ad91e37ea63fe1be427c",
+  "status": "completed",
+  "tool_calls": 2,
+  "usage": {
+    "cache_write_input_tokens": 0,
+    "cached_input_tokens": 9728,
+    "input_tokens": 22700,
+    "output_tokens": 180,
+    "reasoning_output_tokens": 48
+  }
+}

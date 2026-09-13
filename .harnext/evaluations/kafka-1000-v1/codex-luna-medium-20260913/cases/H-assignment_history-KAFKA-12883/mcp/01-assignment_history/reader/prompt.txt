@@ -1,0 +1,5 @@
+Context snapshot cutoff (inclusive): 2021-06-17T01:06:21.418001Z.
+
+List every recorded assignee change for KAFKA-12883 through the snapshot in chronological order. Return an array of objects with at, from, and to. Preserve null values and repeated states; break equal-time ties by numeric changelog history ID and item index.
+
+Use only the Harnext context-engine MCP tools. You have no shell, native filesystem, browser or other data source. Return JSON {"value": <answer>, "evidence_ids": [<source IDs>]}. Do not substitute today's issue state.

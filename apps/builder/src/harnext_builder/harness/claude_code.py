@@ -74,9 +74,14 @@ class ClaudeCodeHarness:
     name = "claude_code"
 
     async def run(self, req: HarnessRequest) -> ConversationTranscript:
+        effort = req.reasoning_effort
+        if effort == "xhigh":
+            return ConversationTranscript(harness=self.name, model=req.model, stop_reason="error",
+                                          error="Claude SDK effort does not support xhigh")
         options = ClaudeAgentOptions(
             cwd=req.working_dir,
             system_prompt=req.system_prompt,
+            effort=effort,
             allowed_tools=req.allowed_tools,
             disallowed_tools=req.disallowed_tools,
             permission_mode="dontAsk",  # default-deny: only allowed_tools run, no prompts

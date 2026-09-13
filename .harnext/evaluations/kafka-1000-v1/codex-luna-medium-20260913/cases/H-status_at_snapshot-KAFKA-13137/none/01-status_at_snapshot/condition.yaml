@@ -1,0 +1,105 @@
+artifact_dir: /home/yasha/Desktop/uni/masters/harnext-context-engine/apps/eval/out/full-benchmark/codex-luna-medium-20260913/H-status_at_snapshot-KAFKA-13137/none/01-status_at_snapshot/store
+builder:
+  api_key_env: HARNEXT_PROVIDER_API_KEY
+  context_bytes: 131072
+  effort: medium
+  harness: none
+  max_calls: 40
+  model: null
+  provider: null
+  timeout_s: 180
+evaluation:
+  agent_trace: null
+  answer_file: null
+  candidate_files: null
+  gold_file: null
+  grading: retrieval_only
+  task_file: null
+  test_image: python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea
+  workspace_dir: null
+expose_sources: true
+files:
+  extraction: structured
+  functional_predicates:
+  - assigned_to
+  - has_status
+  - has_resolution
+  - has_priority
+  layout: indexed_temporal
+  page_bytes: 65536
+  predicates:
+  - assigned_to
+  - has_status
+  - has_resolution
+  - has_priority
+  - references_issue
+  - changes_file
+  prompt: preserve_supported
+  retention: all
+  retention_days: 90
+  summarization: none
+  summary_sentences: 3
+  update: supersede
+graph:
+  damping: 0.85
+  extraction: domain_predicates
+  functional_predicates:
+  - assigned_to
+  - has_status
+  - has_resolution
+  - has_priority
+  hops: 1
+  iterations: 30
+  max_edges: 20
+  max_expansions: 10000
+  resolution: canonical_only
+  schema_name: typed_assertions
+  traversal: neighbors
+observed_at: '2021-07-26T19:22:26.584001Z'
+protocol: harnext-strategies-v1
+representation: hybrid
+retrieval:
+  bm25_b: 0.75
+  bm25_k1: 1.5
+  candidates: 40
+  chunk_bytes: 2048
+  chunking: fixed
+  embeddings:
+    api_key_env: null
+    base_url: null
+    cache_dir: /home/yasha/Desktop/uni/masters/harnext-context-engine/apps/eval/benchmarks/kafka-1000-v1/.harnext/models
+    model: BAAI/bge-small-en-v1.5
+    provider: fastembed
+    revision: content-hash-at-build
+    threads: 2
+    timeout_s: 60
+  method: bm25
+  overlap_bytes: 256
+  reranker: none
+  reranker_model: Xenova/ms-marco-MiniLM-L-6-v2
+  rrf_k: 60
+  top_k: 10
+source_jsonl: /home/yasha/Desktop/uni/masters/harnext-context-engine/apps/eval/benchmarks/kafka-1000-v1/data/context-sources.jsonl
+trial:
+  budget_bytes: 65536
+  effort: medium
+  harness: codex-cli-native-mcp
+  host: 127.0.0.1
+  max_calls: 100
+  model: gpt-5.6-luna
+  port: 8876
+  response_bytes: 12000
+  run_id: none-01
+  task_id: H-status_at_snapshot-KAFKA-13137
+  timeout_s: 360
+  token_env: HARNEXT_EVAL_TOKEN
+  tools:
+  - context_list
+  - context_read
+  - context_search
+  - find_entities
+  - get_assertions
+  - neighbors
+  - fetch_source
+  transport: stdio
+valid_at: '2021-07-26T19:22:26.584001Z'

@@ -12,7 +12,14 @@ dependencies = [
     "sqlalchemy>=2.0",
     "aiosqlite>=0.20",
     "harnext>=1.5.0",
+    "pyyaml>=6.0",
+    "numpy>=1.26",
+    "rank-bm25>=0.2",
+    "httpx>=0.27",
 ]
+
+[project.optional-dependencies]
+retrieval = ["fastembed==0.7.4"]
 
 [project.scripts]
 harnext-builder = "harnext_builder.main:run"

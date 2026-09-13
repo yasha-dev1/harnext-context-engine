@@ -1,0 +1,17 @@
+{
+  "files_sha256": {
+    "selection.json": "d82eb496744ec4762322f0b2c5b1307968ee9ecf16f4aed10dc21226cd3c8e9f",
+    "report.json": "be77e77fd2125011dee0be4599f3a6d395eaf3d7f65d4528455f9028037d5a09",
+    "store-identities.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+    "01-assignment_history/task.public.json": "cf90adea9e5bde031884d04eaefb669734c5936c949a52e5f20a0c4022f2d972",
+    "01-assignment_history/report.json": "e4394d581667f1e8e5e4e411541036dfb0d88251a5633c13b8df5b23156cc23e",
+    "01-assignment_history/condition.yaml": "d888c4f44c3da0f9c4797407bcc3805b88a4c3cb98c4081253947fa6f036c7a5",
+    "01-assignment_history/reader/answer-schema.json": "2152e7cbe7dd28a1a190573eb3e38be8931ee208b49e97d336e1633fadec4754",
+    "01-assignment_history/reader/prompt.txt": "305282bc8f2d0919be4942f482f5acd0fae995e5e5750a1efdbf13ab91656a7a",
+    "01-assignment_history/reader/codex.stderr.gz": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+    "01-assignment_history/reader/answer.json": "5293144ad25174d73da854d0f86800134b27441ca796f0695d3c23fc89b40e86",
+    "01-assignment_history/reader/codex.jsonl.gz": "4fbe0eddf9b6d83a2e7e4a7cd93146635a5ea73bdf9916f92c9b08c24ee8b0de",
+    "01-assignment_history/reader/launch.json": "7a6c0863638115e4322eb7793c5bc154130147664e03a2fb251729da3cd61acd"
+  },
+  "snapshot_policy": "source/config/implementation pins and evidence documents retained; full transient store not versioned"
+}

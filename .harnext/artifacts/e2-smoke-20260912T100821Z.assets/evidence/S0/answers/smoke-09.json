@@ -1,0 +1,203 @@
+{
+  "answer": {
+    "action": "answer",
+    "evidence_ids": [
+      "ev-001"
+    ],
+    "offset": 0,
+    "path": "",
+    "query": "",
+    "unknown": true,
+    "value": null
+  },
+  "bytes_read": 1056,
+  "family": "abstention",
+  "grade": {
+    "evidence_correct": false,
+    "schema_valid": true,
+    "value_correct": true
+  },
+  "history": [
+    {
+      "assistant": {
+        "action": "search",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "",
+        "query": "CTX-41",
+        "unknown": false,
+        "value": null
+      }
+    },
+    {
+      "result": "events/2026/01/01/ev-001.md:6: - Subject: issue:CTX-41\nevents/2026/01/01/ev-001.md:25:   \"subject\": \"issue:CTX-41\",\nevents/2026/01/01/ev-002.md:23:       \"CTX-41\"\nevents/2026/01/01/ev-004.md:6: - Subject: issue:CTX-41\nevents/2026/01/01/ev-004.md:26:   \"subject\": \"issue:CTX-41\",\nevents/2026/01/01/ev-005.md:23:       \"CTX-41\"",
+      "tool": "search",
+      "truncated": false
+    },
+    {
+      "assistant": {
+        "action": "read",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "events/2026/01/01/ev-001.md",
+        "query": "",
+        "unknown": false,
+        "value": null
+      }
+    },
+    {
+      "result": "# Event ev-001\n\n- Time: 2026-01-01T00:01:00+00:00\n- Source: smoke/jira\n- Type: jira.updated\n- Subject: issue:CTX-41\n- Lane: batch\n\n```json\n{\n  \"baseline_keys\": [],\n  \"data\": {\n    \"assignee\": \"Mira\",\n    \"priority\": \"P2\",\n    \"status\": \"Open\"\n  },\n  \"datacontenttype\": \"application/json\",\n  \"id\": \"ev-001\",\n  \"intended_send_ts\": null,\n  \"mgblobref\": null,\n  \"mgingesttime\": null,\n  \"mgtenant\": \"context-smoke\",\n  \"source\": \"smoke/jira\",\n  \"specversion\": \"1.0\",\n  \"subject\": \"issue:CTX-41\",\n  \"time\": \"2026-01-01T00:01:00Z\",\n  \"type\": \"jira.updated\"\n}\n```\n",
+      "tool": "read",
+      "truncated": false
+    },
+    {
+      "assistant": {
+        "action": "search",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "",
+        "query": "security review",
+        "unknown": false,
+        "value": null
+      }
+    },
+    {
+      "result": "",
+      "tool": "search",
+      "truncated": false
+    },
+    {
+      "assistant": {
+        "action": "search",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "",
+        "query": "approved",
+        "unknown": false,
+        "value": null
+      }
+    },
+    {
+      "result": "",
+      "tool": "search",
+      "truncated": false
+    },
+    {
+      "assistant": {
+        "action": "list",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "events/2026/01/01",
+        "query": "",
+        "unknown": false,
+        "value": null
+      }
+    },
+    {
+      "result": "INDEX.md\nevents/2026/01/01/ev-001.md\nevents/2026/01/01/ev-002.md\nevents/2026/01/01/ev-003.md\nevents/2026/01/01/ev-004.md\nevents/2026/01/01/ev-005.md\nevents/2026/01/01/ev-006.md",
+      "tool": "list",
+      "truncated": false
+    },
+    {
+      "assistant": {
+        "action": "answer",
+        "evidence_ids": [
+          "ev-001"
+        ],
+        "offset": 0,
+        "path": "",
+        "query": "",
+        "unknown": true,
+        "value": null
+      }
+    }
+  ],
+  "latency_s": 33.79280378099065,
+  "layout": "S0",
+  "probe_id": "smoke-09",
+  "provider_calls": 6,
+  "repeat": 1,
+  "retrieval": [
+    {
+      "action": {
+        "action": "search",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "",
+        "query": "CTX-41",
+        "unknown": false,
+        "value": null
+      },
+      "bytes": 325,
+      "result": "events/2026/01/01/ev-001.md:6: - Subject: issue:CTX-41\nevents/2026/01/01/ev-001.md:25:   \"subject\": \"issue:CTX-41\",\nevents/2026/01/01/ev-002.md:23:       \"CTX-41\"\nevents/2026/01/01/ev-004.md:6: - Subject: issue:CTX-41\nevents/2026/01/01/ev-004.md:26:   \"subject\": \"issue:CTX-41\",\nevents/2026/01/01/ev-005.md:23:       \"CTX-41\"",
+      "truncated": false
+    },
+    {
+      "action": {
+        "action": "read",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "events/2026/01/01/ev-001.md",
+        "query": "",
+        "unknown": false,
+        "value": null
+      },
+      "bytes": 555,
+      "result": "# Event ev-001\n\n- Time: 2026-01-01T00:01:00+00:00\n- Source: smoke/jira\n- Type: jira.updated\n- Subject: issue:CTX-41\n- Lane: batch\n\n```json\n{\n  \"baseline_keys\": [],\n  \"data\": {\n    \"assignee\": \"Mira\",\n    \"priority\": \"P2\",\n    \"status\": \"Open\"\n  },\n  \"datacontenttype\": \"application/json\",\n  \"id\": \"ev-001\",\n  \"intended_send_ts\": null,\n  \"mgblobref\": null,\n  \"mgingesttime\": null,\n  \"mgtenant\": \"context-smoke\",\n  \"source\": \"smoke/jira\",\n  \"specversion\": \"1.0\",\n  \"subject\": \"issue:CTX-41\",\n  \"time\": \"2026-01-01T00:01:00Z\",\n  \"type\": \"jira.updated\"\n}\n```\n",
+      "truncated": false
+    },
+    {
+      "action": {
+        "action": "search",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "",
+        "query": "security review",
+        "unknown": false,
+        "value": null
+      },
+      "bytes": 0,
+      "result": "",
+      "truncated": false
+    },
+    {
+      "action": {
+        "action": "search",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "",
+        "query": "approved",
+        "unknown": false,
+        "value": null
+      },
+      "bytes": 0,
+      "result": "",
+      "truncated": false
+    },
+    {
+      "action": {
+        "action": "list",
+        "evidence_ids": [],
+        "offset": 0,
+        "path": "events/2026/01/01",
+        "query": "",
+        "unknown": false,
+        "value": null
+      },
+      "bytes": 176,
+      "result": "INDEX.md\nevents/2026/01/01/ev-001.md\nevents/2026/01/01/ev-002.md\nevents/2026/01/01/ev-003.md\nevents/2026/01/01/ev-004.md\nevents/2026/01/01/ev-005.md\nevents/2026/01/01/ev-006.md",
+      "truncated": false
+    }
+  ],
+  "snapshot_content_sha256": "178d5b203797937b37e15beb3bffa5c5dfb81cb0b68e99e9d2a1a8408fe93e95",
+  "snapshot_sha": "1e926611ca2ad9ee556d8cd104169e10bf08bd50",
+  "status": "completed",
+  "tool_calls": 5,
+  "usage": {
+    "cache_write_input_tokens": 0,
+    "cached_input_tokens": 24320,
+    "input_tokens": 45375,
+    "output_tokens": 554,
+    "reasoning_output_tokens": 290
+  }
+}

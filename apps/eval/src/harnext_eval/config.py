@@ -52,8 +52,10 @@ class StoreConfig(StrictModel):
 
 
 class BuilderConfig(StrictModel):
-    harness: Literal["fake", "claude_code"]
+    harness: Literal["fake", "claude_code", "codex"]
     model: str | None
+    reasoning_effort: Literal["low", "medium", "high", "xhigh"] | None = None
+    tool_policy: Literal["native", "files"] = "native"
     prompt_version: str
 
     @model_validator(mode="after")
@@ -64,7 +66,9 @@ class BuilderConfig(StrictModel):
 
 
 class ReaderConfig(StrictModel):
-    provider: Literal["fake", "anthropic"]
+    provider: Literal["fake", "anthropic", "codex"]
+    model: str | None = None
+    reasoning_effort: Literal["low", "medium", "high", "xhigh"] | None = None
     budget_tokens: int = Field(gt=0)
 
 

@@ -1,0 +1,3005 @@
+{
+  "status": "pending",
+  "tasks": [
+    {
+      "task_id": "C-KAFKA-PR-10040",
+      "base_sha": "14377afdacc73dc8b10b7521536328412d07e39f",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-10059",
+      "base_sha": "c4ea6fb0a7cce5cf54e8ddd32bb14e99e639b8df",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-10091",
+      "base_sha": "982ea2f6a471c217c7400a725c9504d9d8348d02",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-10102",
+      "base_sha": "ad541b9759168844065bb1ef95ded4cbb2c1b7ed",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-10141",
+      "base_sha": "0bdb469b56c63aa4dfae1ab24bb1868471cfa7bf",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-10281",
+      "base_sha": "6b432e48ba50add0efd9382e68a395967d85376b",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-10332",
+      "base_sha": "eee0045b06758509e61580d64fad06a09f9fc636",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-10375",
+      "base_sha": "f5f66b982d98a98558809edc51685c3b0a12a958",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-10503",
+      "base_sha": "3ca5a3bb78ec2324391c026d3dd1b6773cf9c772",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-10724",
+      "base_sha": "e11f2493277360680f9b97332a0957f395be2db1",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-10923",
+      "base_sha": "5652ef1af04a919f6483294315572c7153ac6301",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-11004",
+      "base_sha": "53f9b04176ab415536fbba642ac47867f14d6653",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-11086",
+      "base_sha": "b6159042c0f9bd84bc248dc1e291b9cc70157811",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-11098",
+      "base_sha": "56ef910358e2bde42aba4aaafd7f5c899055ad92",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-11118",
+      "base_sha": "d998cbcc886c82d5fc4081cda0908aa386e856c5",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-11171",
+      "base_sha": "79788ca042330faea7dc736f1f6ceb75b3f4d1d9",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-11191",
+      "base_sha": "83f0ae3821033d6c564c6df0d55c06e8642bf231",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-11294",
+      "base_sha": "3c0b89d9df7a46cceeaa08a6efd25bd2e49dcaaf",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-11297",
+      "base_sha": "37584ce4f57a9e087e9c9280803e556a856d95e8",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-11308",
+      "base_sha": "49f7c824fa156aa275eeb7e28ae93df4742204cb",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-11401",
+      "base_sha": "cd1ce49bdbbd08eff255fdb5795e1fbd647a13c2",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-11475",
+      "base_sha": "c1bdfa125d224d07290a2d33cdac9d7387796fef",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-11493",
+      "base_sha": "6f6248509c0c38dcd867b28e6481de5370c6e082",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-11508",
+      "base_sha": "d37aaf68de6b1bd62b87a36967375a4463cd751e",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-11671",
+      "base_sha": "bd9e484087059ea8ddfc86ada10844358623afa0",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-11695",
+      "base_sha": "7d9b9847f184ec72c4c80c046edc408789dcc066",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-11800",
+      "base_sha": "8d88b20b2779faa413ffc4c6d2546800e225213f",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-11813",
+      "base_sha": "abb74d406a13bd989e718f737b18073af5a626d5",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-11898",
+      "base_sha": "cad4985a0a15c6372e9b42260c2468d18d93e3d6",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-11928",
+      "base_sha": "eddb98df67e792b87719636b33c19b0bc5934ffa",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-12004",
+      "base_sha": "9b8f6289bed11b070ec0366bf91d8aa0ec8e7c79",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-12131",
+      "base_sha": "f7db6031b84a136ad0e257df722b20faa7c37b8a",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-12390",
+      "base_sha": "63a6130af30536d67fca5802005695a84c875b5e",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-12429",
+      "base_sha": "5a52601691478857472333d8a13a07b09a7d13c5",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-12498",
+      "base_sha": "ac64693434a66ad76bfc401a1a89ab2dbeaaeaa8",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-12533",
+      "base_sha": "bc90c29fafc69747daeecada8bb0c347e138edc8",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-12543",
+      "base_sha": "28435d74f0cb80f7c6f015e8202099c9615afd5d",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-12599",
+      "base_sha": "cdfe4f98c4816cdc21f6a0c0d789dc530830427f",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-12602",
+      "base_sha": "9578cdabfdb60266349767db8b2c4b7944141c47",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-12789",
+      "base_sha": "06dc67a480e65a98c1d85aeeb9919fd6dcda49b3",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-12813",
+      "base_sha": "dc18dd921c1e6f94f19212f45a4f851b1894dbdb",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-12893",
+      "base_sha": "19286449ee20f85cc81860e13df14467d4ce287c",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-12915",
+      "base_sha": "be032735b39360df1a6de1a7feea8b4336e5bcc0",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-12920",
+      "base_sha": "d3ee9341cc894ab14a3ec013c8a590b268438f71",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-12956",
+      "base_sha": "2d6357f6fcb286f3db24e2b3149a6f4bbc1f832f",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-13186",
+      "base_sha": "65bb819313bbfe21f021f925b49a26e7ce0c954d",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-13379",
+      "base_sha": "20e05695f950ea7d07d4fd69be356d81c3d21519",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-13396",
+      "base_sha": "404a833df7de9a7d5efe35beb5bafb7c6972601e",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-13404",
+      "base_sha": "279c237632878347f0a7bbb5f09a5f9924829419",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-13453",
+      "base_sha": "e4af074b4c6a5ff45fecb6957e484bcbf1c2c767",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-13529",
+      "base_sha": "17435484e4c49eef440ee412a711a88fed08bf50",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-13723",
+      "base_sha": "f6c5ccc3183b14b72f8e247fd750a0de589b008c",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-13729",
+      "base_sha": "d944ef1efbdb577e4c7c847b790df884ba2b58d2",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-13751",
+      "base_sha": "12130cfceca7c286cd6ab5f6faafd2000d8a9c84",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-14094",
+      "base_sha": "8b027b6fefd46aade40abd125becc58dea02d6a3",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-14156",
+      "base_sha": "b3db905b27ff4133f4018ac922c9ce2beb2d6087",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-14244",
+      "base_sha": "4f88fb28f38f3e461377bf688520b28a3f209b5d",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-14324",
+      "base_sha": "1bb8c11f5aa07709ce1b1b6ef684a6750242d4b0",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-14354",
+      "base_sha": "0029bc4897e603614a49e0b0f1e623abbe650c61",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-14363",
+      "base_sha": "672ea644f002e9d5a858a8c19b95de1199bcca5c",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-14388",
+      "base_sha": "ac39342d47062c1a9aec9b744b40ad7fd2de27b2",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-14398",
+      "base_sha": "1c402297d60152722cf5544a14ca5271d576d55e",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-14442",
+      "base_sha": "7ba6d7a0b439cd7be7918b77c6b08425d6b37526",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-14514",
+      "base_sha": "c223a9c3761f796468ccfdae9e177e764ab6a965",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-14657",
+      "base_sha": "68a5072f54aa73460743b36c06f52b6263549a17",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-14711",
+      "base_sha": "edc7e10a745c350ad1efa9e4866370dc8ea0e034",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-14789",
+      "base_sha": "b1796ce6d2c04444a62393fbfd7c61811e001d67",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-14869",
+      "base_sha": "68f4c7e22efb93cf0c16e6374211b137d893abcb",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-14967",
+      "base_sha": "02915a2c5ead7fc7f9e6acb9d40c917bf33c4688",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-15168",
+      "base_sha": "177c941982bdaac9ed60b43dbcd15e51e7fae6a9",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-15266",
+      "base_sha": "5f410ceb04878ca44d2d007655155b5303a47907",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-15359",
+      "base_sha": "794c52802c0bcc2676d750613fefe14006d03a44",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-15457",
+      "base_sha": "52a3fa07446f9c108399d47dbfb1685989a5d6eb",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-15581",
+      "base_sha": "159d25a7df25975694e2e0eb18a8feb125f7c39e",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-15951",
+      "base_sha": "0587a9af3d3dec4859475dcf48463083647c1eb9",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-15957",
+      "base_sha": "57d30d3450998465177f92516a41218dbe8d4340",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-15962",
+      "base_sha": "d2e6c8663266c7afde30e7ef69d78443cb07634d",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-16072",
+      "base_sha": "0143c72e501afd76f89c2da9e4537be5ea11d4a0",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-16118",
+      "base_sha": "eefd114c4ac386a5cf5b425d74cd47456d8ce9c1",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-16581",
+      "base_sha": "0ada8fac6869cad8ac33a79032cf5d57bfa2a3ea",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-16646",
+      "base_sha": "7a8f89e0a074d11ab82c4a5bcde63db10d1e5407",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-16675",
+      "base_sha": "7efb58f3211cdc3bd0524a79f9b5ce4ef74a77b4",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-16873",
+      "base_sha": "5b9cbcf886d0666849e81d0fbb8c19d3531c1143",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-17038",
+      "base_sha": "291523e3e40567f961b4d94068e6946d751d18e4",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-17109",
+      "base_sha": "50ca2c8c73b1d9a77c46c1f88e83254ec4bcb821",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-17535",
+      "base_sha": "d9cbbcf69cdd187775f71c7266d9919b4db0956b",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-17653",
+      "base_sha": "0ba6f3212d8ed16fa2aa5db0befab0459cb2d778",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-17919",
+      "base_sha": "d36b24f45f700de318062eeeda90cfb657892151",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-17931",
+      "base_sha": "5ad532f4ad040e94346d1c76e0729c717423b9ad",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-17964",
+      "base_sha": "aae42ef656a1097acf54375a542b7ff78f0364a0",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-18143",
+      "base_sha": "156d5516039ce796c47dfd04093e1d495f233421",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-18165",
+      "base_sha": "d5ad9228cf4bdec50bd40afc4e9c8be16a25d220",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-18172",
+      "base_sha": "b37b89c6686f5270b37d39cf3144bccb4f5bceb2",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-18205",
+      "base_sha": "ca7b1dcb0048d07bfeca3d5e357bafc42f5bf51e",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-18287",
+      "base_sha": "6e61bfee91c522625612d0499fe1e3561a9c8aac",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-18686",
+      "base_sha": "ad79b4afa779a2a577358787096b4fe016e2d67e",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-18906",
+      "base_sha": "ea5d0864d57d7eb6e8f216e1949c8fdfbfb25ce2",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-19169",
+      "base_sha": "3ebe21c8f1517429117a0b3dc886dce3bae5b2d7",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-19227",
+      "base_sha": "806aa55b3b11dffe1537c1def59a953c64d11296",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-19303",
+      "base_sha": "28de78bcbad605a3e906d085d2e59b441ae35212",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-19357",
+      "base_sha": "37f7434eac632165cf29dea287d7855bbac3fcdc",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-19440",
+      "base_sha": "c65a161cd8b4ef0bbc370be735a6d1dd9b413381",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-19532",
+      "base_sha": "66147d5de7cf625fc8799a6252cb99aad706c698",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-19647",
+      "base_sha": "9823d6781cb9d6a13b234723df85379a991a31b8",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-19658",
+      "base_sha": "3094ce2c202c96c57084e82892df44b1f124c481",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-19698",
+      "base_sha": "c28f46459ac26693b3639fca26c0961283c2ee65",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-19702",
+      "base_sha": "6eafe407bd859f147d7a5ecfe261f6e20698fb4a",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-19742",
+      "base_sha": "199772adc5a758ef74ae3adc6a5da471e50bfb27",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-19910",
+      "base_sha": "f86659423d0e28981102e0e71d740490160df815",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-20039",
+      "base_sha": "23ddb1d8ac5bd23eae6fac4c5cbdcdce20606c52",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-20185",
+      "base_sha": "70824be92a29e020161f773486ecedc9dff4839e",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-20403",
+      "base_sha": "f97b95c60a22cc34c6349bfe0c8596db28b0a17d",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-20626",
+      "base_sha": "7f65b1fa9608d49355e41701b7d6453d158932c5",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-20653",
+      "base_sha": "2938c4242e64dfc484647fa8a9deee5a308962f4",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-20668",
+      "base_sha": "be3e40c45ac9a70833ce0d5735ad141a5bd24627",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-20717",
+      "base_sha": "abee76583d01f443d9445fbe1afea44ff9bebea7",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-20781",
+      "base_sha": "0a003d0933502fcd89cb50f2babb4c30f64e3e36",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-20907",
+      "base_sha": "33c5e84c9fd29ad1702093b033b9b9dd873df174",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-21011",
+      "base_sha": "d27d90ccb3b2b98e02de42afd50910fbbbc162d0",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-21013",
+      "base_sha": "d27d90ccb3b2b98e02de42afd50910fbbbc162d0",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-21017",
+      "base_sha": "58d62d152275e29cb74a84e925624e1e9a681c8d",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-21089",
+      "base_sha": "7c4ae0975625f78c0af871dbf0512d332b8bf0cc",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-21120",
+      "base_sha": "d793e3779b2fb28474c1b9a643b688a435630ec2",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-21135",
+      "base_sha": "06a744ac3c166fc9444a4fd03336f043dd6a272f",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-21246",
+      "base_sha": "4d81de035e07499eac48fe0bbc12af73efc885a6",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-21265",
+      "base_sha": "e7d727e66ecb040bba3d19999b9a7daa52eeb99a",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-21312",
+      "base_sha": "148be4878594ff145c0fe753815012fb6a43dff0",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-21457",
+      "base_sha": "53032d2e4fe038cb8a6ac5c93a701e8a445ce024",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-21612",
+      "base_sha": "c77a96d13238c3127dc8cf016d437efb5e64bfa9",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-21682",
+      "base_sha": "ee2204f2130d6f7c5710f57c90c85ae835be14d6",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-21756",
+      "base_sha": "e7c17a0fb5b3bc7dddbef75921650395254a194d",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-21802",
+      "base_sha": "b43d70885dbf293f0ce79db20372ce470c9f69cb",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-21825",
+      "base_sha": "9a28bd23ad10454ba911b600d5d21e8cc023006f",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-21828",
+      "base_sha": "9a28bd23ad10454ba911b600d5d21e8cc023006f",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-21861",
+      "base_sha": "94b0f3e45f3e86e9cede9e20c912091edda11ac6",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-21885",
+      "base_sha": "6fe8415a163b50efe84607a938b7eaaac92dcc6b",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-21968",
+      "base_sha": "c37b14547d877232e324bd804c605e1d33c05dec",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-21973",
+      "base_sha": "f766ce54e693ea94ce16b00bf820d0bcd11685fe",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-21997",
+      "base_sha": "f4afec0cb2e6348d527d032f20ff7f1d9400185d",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-22123",
+      "base_sha": "3e32d9aa3cbfa6e2418b9bae50db771ba423ba14",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-22199",
+      "base_sha": "162b3a1bcf9c11a90fdf9f85df760c77de478753",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-22265",
+      "base_sha": "4228890ecfe113789f73b0405dfdace09b2d7f4a",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-22444",
+      "base_sha": "115d6d31858b13704128505ea46ccedb85d818e0",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-22454",
+      "base_sha": "83976543fef1fe942bf021c8eec787c75dd58bdd",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-22456",
+      "base_sha": "d766d554aee1674ca7ea528e3f6f8b8b0f1335c9",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-22457",
+      "base_sha": "04c3c00f251946f8b790e198fc3524dce8558ce6",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-22490",
+      "base_sha": "1e0c119b35fc17c09aa14d46bdaf3fe7f668d285",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-6097",
+      "base_sha": "6a20e3cd4ca242036649e8e32982451a72cde777",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-6426",
+      "base_sha": "a42f16f980cba86a8889be8b7499437ecbc2cd42",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-6570",
+      "base_sha": "02221bd907a23041c95ce6446986bff631652b3a",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-6661",
+      "base_sha": "6ca899e56d451eef04e81b0f4d88bdb10f3cf4b3",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-6666",
+      "base_sha": "c34330c5481803c91705cbfcc499021360ff7fdc",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-6757",
+      "base_sha": "a1286edb040a5d368a76d6c9c809c5cf0c080ec8",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-6818",
+      "base_sha": "6afb0ca735cd5c1a559d496247559d21bcadcb6c",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-6847",
+      "base_sha": "579567559915e750d305d51a10d9c6797b6eb2aa",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-6959",
+      "base_sha": "c7db82b59a145735fce227436c6191d1825fe384",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-6977",
+      "base_sha": "03d61ebfb93aab53b0b0ecdfc77175d18a58e861",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-7031",
+      "base_sha": "5287036b384570d5f7824f188d52200ea23216d5",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-7070",
+      "base_sha": "d67495d6a7f4c5f7e8736a25d6a11a1c1bef8d87",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-7085",
+      "base_sha": "d2328a1a0e2fa5f3592cd67b320fb8f223978659",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-7094",
+      "base_sha": "8cefe977eb61759baaad644cf1a15020dd3c13ae",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-7235",
+      "base_sha": "4d1ee26a136997d31dbd6ddca07e09b34c41c77d",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-7347",
+      "base_sha": "c5dfb90b46d52112963066295dcd38e10cb61a9d",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-7377",
+      "base_sha": "e98e239a0c7fd9a500de606b7a05582f1a384da4",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-7495",
+      "base_sha": "b80a572d12d53f463bb381b3412788af2ae64f93",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-7518",
+      "base_sha": "13c2e150e59f21292183906ae8d3c96bac768155",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-7520",
+      "base_sha": "2fce203a54483d9f229304a7ed3e963cc15f983b",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-7531",
+      "base_sha": "8966d066bd2f80c6d8f270423e7e9982097f97b9",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-7662",
+      "base_sha": "e3f5d308aa76cf6296cdc4d96f116bcac1a6734b",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-7762",
+      "base_sha": "a50b7c497db5a2ef2326072c95d45b982346fc56",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-7786",
+      "base_sha": "eaccb9292984455a2978a635a224fb51f3b051b9",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-7866",
+      "base_sha": "7e71b1ac48613961d3099b295614f02d89f36829",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-8089",
+      "base_sha": "520a76155c66486cbcd0c519ef2980359964fd7c",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-8118",
+      "base_sha": "37d0b12cfc9d2c52f9b8f73a176d3c3123e8c570",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-8389",
+      "base_sha": "4fa5bdcfe3cd49c96c1902cff82ce286c4eb96df",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-8400",
+      "base_sha": "c18143298e9d99992c3c435a0c9b70492c5fb58e",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-8420",
+      "base_sha": "6e0d553350cef876f4fd2de0e3b8e6e40ce6be44",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-8469",
+      "base_sha": "430e00ea95da959d6d8308dd49c4ed1cdffa7914",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-8609",
+      "base_sha": "34824b7bff64ba387a04466d74ac6bbbd10bf37c",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-8647",
+      "base_sha": "6d0e722f4d14b48030b34418fb538c75fbad69e8",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-8767",
+      "base_sha": "40b0033eedf823d3bd3c6781cfd871a949c5827e",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-8776",
+      "base_sha": "07f66765396bffa7e45edeb141726a9a55ead7e0",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-8799",
+      "base_sha": "87bef1d1b0fe1502be2335524990aad94bfd4bae",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-8804",
+      "base_sha": "7867c24a40ab0a8d1e7b0d9bcb7776d1335ad3ea",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-8962",
+      "base_sha": "f3a9ce4a69d17db7b8ba21134eb8118070176e48",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-9010",
+      "base_sha": "f209b3c5c1efbd80d709244a41f55c19c5c1c4de",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-9044",
+      "base_sha": "cd6850b4108892d565b94f7cb9150d07f6116511",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-9122",
+      "base_sha": "28b7d8e21656649fb09b09f9bacfe865b0ca133c",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-9247",
+      "base_sha": "4662ed4aac79ed539f3a62140b8b154517837dbd",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-9309",
+      "base_sha": "2a27e0ddce9f4d2157522f7a9eaef234b3f24596",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-9332",
+      "base_sha": "7abed3dbb092fdbd0c7a3afd1bd4081f2ba63bc4",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-9348",
+      "base_sha": "dbe3e4a4cccce06836b59c2f3853669e008eb58f",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-9354",
+      "base_sha": "821c1ac6641845aeca96a43bc2b946ecec5cba4f",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-9393",
+      "base_sha": "2804257fe221f37e5098bd3f633a5d76ca890634",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-9521",
+      "base_sha": "b4100d4b2898df070450b7326f32303f834f8e09",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-9695",
+      "base_sha": "88c818095752f39488fd5aff232d4773e8b385b3",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-9765",
+      "base_sha": "67150b815ef33a03994bce6210643fd1dcc2855f",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-9940",
+      "base_sha": "462c89e0b436abd56864bea8bbcaf1ab70b7f66e",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-9950",
+      "base_sha": "7a1d1d9a69a241efd68e572badee999229b3942f",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    },
+    {
+      "task_id": "C-KAFKA-PR-9987",
+      "base_sha": "f4983f41727305a0e26eb979b7ddc32782683f92",
+      "status": "not_run_pending_executed_test_admission",
+      "admission_at_freeze": {
+        "base_fails": null,
+        "environment_pinned": false,
+        "execution_ready": false,
+        "patch_applicability": "passed",
+        "pre_pr_snapshot": true,
+        "reference_passes": null,
+        "review": "pending",
+        "test_execution": "not_run"
+      }
+    }
+  ]
+}

@@ -1,5 +1,7 @@
 """Builder configuration (env-driven)."""
 
+from typing import Literal
+
 from pydantic import AliasChoices, Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -22,6 +24,8 @@ class BuilderSettings(BaseSettings):
     harness: str = Field(default="claude_code", validation_alias="HARNEXT_HARNESS")
     anthropic_api_key: str | None = None
     builder_model: str = "claude-sonnet-4-6"
+    builder_reasoning_effort: Literal["low", "medium", "high", "xhigh"] | None = None
+    builder_tool_policy: Literal["native", "files"] = "native"
     builder_max_turns: int = 40
     builder_timeout_s: int = 300
 

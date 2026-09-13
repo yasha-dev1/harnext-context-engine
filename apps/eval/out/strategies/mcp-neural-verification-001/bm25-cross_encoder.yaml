@@ -1,0 +1,98 @@
+artifact_dir: /home/yasha/Desktop/uni/masters/harnext-context-engine/apps/eval/out/strategies/mcp-neural-verification-001/bm25-cross_encoder
+builder:
+  context_bytes: 131072
+  effort: medium
+  harness: none
+  max_calls: 40
+  model: null
+  timeout_s: 180
+evaluation:
+  agent_trace: null
+  answer_file: null
+  candidate_files: null
+  gold_file: null
+  grading: retrieval_only
+  task_file: null
+  test_image: python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea
+  workspace_dir: null
+expose_sources: true
+files:
+  extraction: structured
+  functional_predicates:
+  - assigned_to
+  - has_status
+  - targets_version
+  layout: indexed_temporal
+  page_bytes: 8192
+  predicates:
+  - assigned_to
+  - has_status
+  - references_issue
+  - changes_file
+  - discussed_in
+  prompt: preserve_supported
+  retention: all
+  retention_days: 90
+  summarization: none
+  summary_sentences: 3
+  update: supersede
+graph:
+  damping: 0.85
+  extraction: domain_predicates
+  functional_predicates:
+  - assigned_to
+  - has_status
+  hops: 2
+  iterations: 30
+  max_edges: 20
+  resolution: evidence_aliases
+  schema_name: typed_assertions
+  traversal: neighbors
+observed_at: '2026-01-02T12:00:00Z'
+protocol: harnext-strategies-v1
+representation: hybrid
+retrieval:
+  bm25_b: 0.75
+  bm25_k1: 1.5
+  candidates: 40
+  chunk_bytes: 2048
+  chunking: fixed
+  embeddings:
+    api_key_env: null
+    base_url: null
+    cache_dir: /home/yasha/Desktop/uni/masters/harnext-context-engine/.harnext/models
+    model: BAAI/bge-small-en-v1.5
+    provider: fastembed
+    revision: content-hash-at-build
+    threads: 2
+    timeout_s: 60
+  method: bm25
+  overlap_bytes: 256
+  reranker: cross_encoder
+  reranker_model: Xenova/ms-marco-MiniLM-L-6-v2
+  rrf_k: 60
+  top_k: 10
+source_jsonl: /home/yasha/Desktop/uni/masters/harnext-context-engine/apps/eval/configs/strategies/sources.jsonl
+trial:
+  budget_bytes: 65536
+  effort: none
+  harness: external-python-mcp-client
+  host: 127.0.0.1
+  max_calls: 100
+  model: none
+  port: 8876
+  response_bytes: 12000
+  run_id: bm25-cross_encoder
+  task_id: issue-owner-at-cutoff
+  timeout_s: 3600
+  token_env: HARNEXT_EVAL_TOKEN
+  tools:
+  - context_list
+  - context_read
+  - context_search
+  - find_entities
+  - get_assertions
+  - neighbors
+  - fetch_source
+  transport: stdio
+valid_at: '2026-01-02T12:00:00Z'

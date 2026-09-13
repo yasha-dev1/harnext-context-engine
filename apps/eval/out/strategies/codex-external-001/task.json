@@ -1,0 +1,1 @@
+{"task_id": "issue-owner-at-cutoff", "prompt": "At the provided Harnext snapshot, who is assigned to CTX-41? Use its MCP context tools to obtain evidence. Return the canonical person key as value and unknown=false."}

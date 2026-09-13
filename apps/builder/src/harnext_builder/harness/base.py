@@ -11,7 +11,7 @@ trusted from the model, so persistence is decoupled from which agent ran.
 
 from __future__ import annotations
 
-from typing import Any, Protocol, runtime_checkable
+from typing import Any, Literal, Protocol, runtime_checkable
 
 from pydantic import BaseModel, Field
 
@@ -48,6 +48,8 @@ class HarnessRequest(BaseModel):
     # agent to read and removed after the build (never snapshotted). See event_fs.
     event_files: list[EventFile] = Field(default_factory=list)
     model: str | None = None
+    reasoning_effort: Literal["low", "medium", "high", "xhigh"] | None = None
+    tool_policy: Literal["native", "files"] = "native"
     seed: int | None = None
     max_turns: int = 40
     timeout_s: int = 300
@@ -70,7 +72,7 @@ class ConversationTranscript(BaseModel):
 
     @property
     def ok(self) -> bool:
-        return self.stop_reason not in ("error",)
+        return self.stop_reason == "completed" and self.error is None
 
 
 def seeded_instruction(req: HarnessRequest) -> str:
