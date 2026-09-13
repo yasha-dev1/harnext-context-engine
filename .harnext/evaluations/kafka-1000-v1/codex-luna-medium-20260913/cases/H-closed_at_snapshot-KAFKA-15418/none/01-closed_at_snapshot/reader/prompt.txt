@@ -1,0 +1,5 @@
+Context snapshot cutoff (inclusive): 2023-09-08T14:09:17.580001Z.
+
+Was KAFKA-15418 in the exact workflow status Closed at the snapshot? Return true only for Closed; Resolved is a distinct status and must return false.
+
+No context-engine MCP tools or stored context are provided in this trial. Answer from the question and your existing knowledge only. Return evidence_ids=[] because no sources are available. You have no shell, native filesystem, browser or other data source. Return JSON {"value": <answer>, "evidence_ids": [<source IDs>]}. Do not substitute today's issue state.

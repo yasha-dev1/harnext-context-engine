@@ -1,75 +1,75 @@
 {
   "status": "running",
-  "updated_at_unix": 1789309526.0390317,
+  "updated_at_unix": 1789310302.6282828,
   "historical": {
     "mcp": {
-      "recorded": 1,
+      "recorded": 20,
       "target": 800,
-      "completed": 1,
-      "correct": 1,
+      "completed": 20,
+      "correct": 20,
       "by_family": {
         "assignee_at_snapshot": {
+          "recorded": 6,
+          "correct": 6
+        },
+        "assignment_history": {
           "recorded": 1,
           "correct": 1
         },
-        "assignment_history": {
-          "recorded": 0,
-          "correct": 0
-        },
         "closed_at_snapshot": {
-          "recorded": 0,
-          "correct": 0
+          "recorded": 3,
+          "correct": 3
         },
         "priority_at_snapshot": {
-          "recorded": 0,
-          "correct": 0
+          "recorded": 1,
+          "correct": 1
         },
         "resolution_at_snapshot": {
-          "recorded": 0,
-          "correct": 0
+          "recorded": 4,
+          "correct": 4
         },
         "resolution_transition_history": {
-          "recorded": 0,
-          "correct": 0
+          "recorded": 2,
+          "correct": 2
         },
         "status_at_snapshot": {
           "recorded": 0,
           "correct": 0
         },
         "status_transition_history": {
-          "recorded": 0,
-          "correct": 0
+          "recorded": 3,
+          "correct": 3
         }
       }
     },
     "none": {
-      "recorded": 1,
+      "recorded": 20,
       "target": 800,
-      "completed": 1,
-      "correct": 0,
+      "completed": 20,
+      "correct": 1,
       "by_family": {
         "assignee_at_snapshot": {
-          "recorded": 1,
+          "recorded": 6,
           "correct": 0
         },
         "assignment_history": {
-          "recorded": 0,
+          "recorded": 1,
           "correct": 0
         },
         "closed_at_snapshot": {
-          "recorded": 0,
+          "recorded": 3,
           "correct": 0
         },
         "priority_at_snapshot": {
-          "recorded": 0,
+          "recorded": 1,
           "correct": 0
         },
         "resolution_at_snapshot": {
-          "recorded": 0,
-          "correct": 0
+          "recorded": 4,
+          "correct": 1
         },
         "resolution_transition_history": {
-          "recorded": 0,
+          "recorded": 2,
           "correct": 0
         },
         "status_at_snapshot": {
@@ -77,7 +77,7 @@
           "correct": 0
         },
         "status_transition_history": {
-          "recorded": 0,
+          "recorded": 3,
           "correct": 0
         }
       }

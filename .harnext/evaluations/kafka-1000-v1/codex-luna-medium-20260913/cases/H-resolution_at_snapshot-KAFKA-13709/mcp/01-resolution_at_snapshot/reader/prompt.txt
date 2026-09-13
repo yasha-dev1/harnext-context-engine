@@ -1,0 +1,5 @@
+Context snapshot cutoff (inclusive): 2022-12-15T16:21:51.125001Z.
+
+What was the recorded resolution of KAFKA-13709 at the snapshot? Return the exact resolution label, or null if unresolved.
+
+Use only the Harnext context-engine MCP tools. You have no shell, native filesystem, browser or other data source. Return JSON {"value": <answer>, "evidence_ids": [<source IDs>]}. Do not substitute today's issue state.
