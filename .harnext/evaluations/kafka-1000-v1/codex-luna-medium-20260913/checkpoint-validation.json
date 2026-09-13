@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "relocated_checkout": true,
+  "fresh_corpus_restored_from_tracked_gzip": true,
+  "model_calls": 0,
+  "result": "{\"completed\":159,\"model_calls\":0,\"remaining\":1441,\"status\":\"resume_validated\"}",
+  "tests": "63 E2 tests passed; Ruff and targeted Pyright passed",
+  "limitation": "Relocated checkout validation on the same host, using existing Python dependencies; remote host authentication and model access must be supplied there."
+}

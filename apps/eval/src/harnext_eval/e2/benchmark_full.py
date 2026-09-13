@@ -8,6 +8,7 @@ import fcntl
 import gzip
 import json
 import os
+import platform
 import shutil
 import signal
 import subprocess
@@ -22,6 +23,7 @@ from harnext_builder.strategies.config import Strict, canonical, load_config
 from pydantic import Field
 
 from harnext_eval.e2.benchmark import read, sha
+from harnext_eval.e2.benchmark_checkpoint import portable_manifest, validate_checkpoint
 from harnext_eval.e2.benchmark_pilot import PilotConfig
 from harnext_eval.e2.benchmark_report import build_report
 
@@ -125,12 +127,19 @@ def commit_checkpoint(output, message):
     subprocess.run(["git", "commit", "-m", message], check=True)
 
 
-async def run(config):
-    config.output.mkdir(parents=True, exist_ok=True)
-    (config.output / ".gitignore").write_text("*.staging/\n*.tmp\n")
-    config.scratch.mkdir(parents=True, exist_ok=True)
-    lock = (config.scratch / "coordinator.lock").open("w")
-    fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+async def run(config, check_resume=False):
+    repo = config.pilot.parents[3]
+    checkpoint_data = None
+    version = None
+    if (config.output / "checkpoint.json").exists():
+        checkpoint_data = validate_checkpoint(config.output, repo)
+        version = (
+            await asyncio.to_thread(subprocess.check_output, ["codex", "--version"], text=True)
+        ).strip()
+        if version != checkpoint_data["codex_version"]:
+            raise ValueError("Codex CLI version differs from the stopped checkpoint")
+    elif check_resume:
+        raise ValueError("no portable checkpoint.json found")
     pilot = PilotConfig.model_validate(yaml.safe_load(config.pilot.read_text()))
     for name in ("benchmark", "engine_profile"):
         value = getattr(pilot, name)
@@ -160,9 +169,50 @@ async def run(config):
         "confirmation_note": "User authorized all tasks; confirmation candidates used here are no longer untouched for later configuration selection.",
     }
     manifest_path = config.output / "manifest.json"
-    if manifest_path.exists() and read(manifest_path) != manifest:
+    if manifest_path.exists() and portable_manifest(read(manifest_path)) != portable_manifest(
+        manifest
+    ):
         raise ValueError("cannot resume with a different protocol, input, or model")
-    atomic_json(manifest_path, manifest)
+    provenance_path = config.output / "implementation.json"
+    pins = {
+        p.name: sha(p.read_bytes())
+        for p in [Path(__file__), Path(__file__).with_name("benchmark_pilot.py")]
+    }
+    if provenance_path.exists() and read(provenance_path)["files"] != pins and not checkpoint_data:
+        raise ValueError("runner changed without a validated compatibility checkpoint")
+    if check_resume:
+        recorded = len(list(config.output.glob("cases/*/*/report.json")))
+        print(
+            canonical(
+                {
+                    "status": "resume_validated",
+                    "completed": recorded,
+                    "remaining": 1600 - recorded,
+                    "model_calls": 0,
+                }
+            ),
+            flush=True,
+        )
+        return
+    config.output.mkdir(parents=True, exist_ok=True)
+    (config.output / ".gitignore").write_text("*.staging/\n*.tmp\n")
+    config.scratch.mkdir(parents=True, exist_ok=True)
+    lock = (config.scratch / "coordinator.lock").open("w")
+    fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+    if checkpoint_data:
+        atomic_json(
+            config.output / "resume-sessions" / f"{time.time_ns()}.json",
+            {
+                "manifest": manifest,
+                "platform": platform.platform(),
+                "python": platform.python_version(),
+                "codex_version": version,
+                "implementation": pins,
+                "note": "Machine change may affect latency; preserve segments in timing analysis.",
+            },
+        )
+    if not manifest_path.exists():
+        atomic_json(manifest_path, manifest)
     atomic_json(
         config.output / "coding-admission.json",
         {
@@ -178,16 +228,8 @@ async def run(config):
             ],
         },
     )
-    provenance_path = config.output / "implementation.json"
-    pins = {
-        p.name: sha(p.read_bytes())
-        for p in [Path(__file__), Path(__file__).with_name("benchmark_pilot.py")]
-    }
-    if provenance_path.exists() and read(provenance_path)["files"] != pins:
-        raise ValueError(
-            "runner changed since this run started; start a new run or adjudicate explicitly"
-        )
-    atomic_json(provenance_path, {"files": pins})
+    if not provenance_path.exists():
+        atomic_json(provenance_path, {"files": pins})
     results = {}
     for task in historical:
         for access in config.conditions:
@@ -398,15 +440,20 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config", type=Path, required=True)
     parser.add_argument("--live", action="store_true")
+    parser.add_argument(
+        "--check-resume",
+        action="store_true",
+        help="Verify portable checkpoint without model calls or result writes",
+    )
     args = parser.parse_args()
-    if not args.live:
-        parser.error("--live is required")
+    if args.live == args.check_resume:
+        parser.error("choose exactly one of --live or --check-resume")
     config = FullConfig.model_validate(yaml.safe_load(args.config.read_text()))
     for field in ("pilot", "output", "scratch"):
         value = getattr(config, field)
         if not value.is_absolute():
             setattr(config, field, (args.config.resolve().parent / value).resolve())
-    asyncio.run(run(config))
+    asyncio.run(run(config, check_resume=args.check_resume))
 
 
 if __name__ == "__main__":

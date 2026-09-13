@@ -1,0 +1,17 @@
+{
+  "files_sha256": {
+    "selection.json": "4c971624ecb39ef3bd39c98e697912778880d8903d6bfaaef3d356d983035e55",
+    "report.json": "aa29cb58151bf64ed621bcfe417d24e925a4e995fb5ca706e24bdfbbbbc90b53",
+    "store-identities.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+    "01-resolution_at_snapshot/task.public.json": "1b3492def68a295a8cb96ca2f2ed43d6786a01600a8bd6087444a3a3c54edd96",
+    "01-resolution_at_snapshot/report.json": "a552e18a5fb53b2e7d4da70ce1acaa223536a53a743af404f11a79ab9b5fb662",
+    "01-resolution_at_snapshot/condition.yaml": "39ae98a68a355895e93ce3d0c8dce64baf2b1a90eb99553df5e79b9b7911b842",
+    "01-resolution_at_snapshot/reader/answer-schema.json": "6e7ce084181cc19a18016e26893946ddf4f8a5fce19bc1f8c9542849c7e810ea",
+    "01-resolution_at_snapshot/reader/prompt.txt": "c0fe5a44875a03e4d120672ebeafe229c35f791dd0f870d1c97b180d46a5d6d7",
+    "01-resolution_at_snapshot/reader/codex.stderr.gz": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+    "01-resolution_at_snapshot/reader/answer.json": "b99394d6dcb03b2890d4860d684bf1d999638370eeff041cd07ddd5bdf2d156b",
+    "01-resolution_at_snapshot/reader/codex.jsonl.gz": "affd72be2a334ce125ede7e27f50bfdb7d02c77f9b119e782d5d83f727bdba7f",
+    "01-resolution_at_snapshot/reader/launch.json": "1825b2372d370935c9cfc821a9c44c8c9214fa8e9e2d6769388ee995d9501f94"
+  },
+  "snapshot_policy": "source/config/implementation pins and evidence documents retained; full transient store not versioned"
+}

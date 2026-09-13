@@ -1,0 +1,5 @@
+Context snapshot cutoff (inclusive): 2019-08-13T01:17:11.252001Z.
+
+What was the recorded workflow status of KAFKA-8791 at the snapshot? Return the exact status label.
+
+No context-engine MCP tools or stored context are provided in this trial. Answer from the question and your existing knowledge only. Return evidence_ids=[] because no sources are available. You have no shell, native filesystem, browser or other data source. Return JSON {"value": <answer>, "evidence_ids": [<source IDs>]}. Do not substitute today's issue state.

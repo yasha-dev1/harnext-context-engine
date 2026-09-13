@@ -1,0 +1,21 @@
+{
+  "files_sha256": {
+    "evidence-documents.json.gz": "33358ee24db527a9d21fdfa6256b8a606e2c8ce0805f30dcffc78e926d066593",
+    "selection.json": "035b701e811b425e97d0f37361ebd3a8f88950e1518a9680b282b2c69231bcde",
+    "store-identities.json": "a18d88d37dd9e3aa8102b6ddd698b11b251948eba1ede049c89bbacf89499559",
+    "01-assignee_at_snapshot/build.stdout.gz": "32de7ee9147c00f7aa6c935076c46667e954ef08777f53505204e253f1a5854f",
+    "01-assignee_at_snapshot/task.public.json": "d565496b94231eb3d7a1331b9cc6207ff4ba8d795d072ea1d5ee879ce309cb06",
+    "01-assignee_at_snapshot/build.stderr.gz": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+    "01-assignee_at_snapshot/gold.private.json": "cd4f72be370ca48559d48d1474bb45d023e7e5c80449b61ad8c4f0add4b3a6fd",
+    "01-assignee_at_snapshot/condition.yaml": "65c65809a80b440a5d026d464dd0fc860ad2e06865c51f362c6b1259aa1dc506",
+    "01-assignee_at_snapshot/store/resolved.yaml": "18e703bf51691e1f730820ccb6bd1a24a98e7e4a9a64e255c33ff30b5f754cf8",
+    "01-assignee_at_snapshot/store/builder-prompt.txt": "9204a480b5e114824f25133e41cdb49e486f7b0d707a2f917d4264008550b580",
+    "01-assignee_at_snapshot/reader/answer-schema.json": "6e7ce084181cc19a18016e26893946ddf4f8a5fce19bc1f8c9542849c7e810ea",
+    "01-assignee_at_snapshot/reader/prompt.txt": "4d8d77f92086d873d22d2b87fb13128a90e01df7efa87de8fcaf2de61b78a096",
+    "01-assignee_at_snapshot/reader/codex.stderr.gz": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+    "01-assignee_at_snapshot/reader/codex.jsonl.gz": "103d38c84c688d6411e73ff6110dd41e80ce3b1019a04423c4eadfdc0a4bf5f9",
+    "01-assignee_at_snapshot/reader/launch.json": "543fbb235f6f168ed6c0a6901e2b6681ab925b74886206709363ab3706feb574",
+    "01-assignee_at_snapshot/store/trials/mcp-01.jsonl.gz": "8783d12a382c2c01a423676780a73c82fd7230455b9d0e6ef60037d9af3d732f"
+  },
+  "snapshot_policy": "source/config/implementation pins and evidence documents retained; full transient store not versioned"
+}

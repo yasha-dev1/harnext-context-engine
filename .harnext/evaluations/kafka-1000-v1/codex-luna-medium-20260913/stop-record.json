@@ -1,0 +1,16 @@
+{
+  "reason": "User requested stop and portable checkpoint for another PC",
+  "stopped_at_unix": 1789312677.2604747,
+  "completed_trials": 159,
+  "interrupted_trials": [
+    {
+      "task_id": "H-assignee_at_snapshot-KAFKA-10520",
+      "condition": "mcp",
+      "archive": "interruptions/H-assignee_at_snapshot-KAFKA-10520/mcp",
+      "status": "user_interrupted",
+      "scored": false,
+      "resume_policy": "fresh session for this unfinished trial; retain original attempt audit"
+    }
+  ],
+  "other_harness": "Claude Code Haiku native settings; held until user reviews Luna completion"
+}

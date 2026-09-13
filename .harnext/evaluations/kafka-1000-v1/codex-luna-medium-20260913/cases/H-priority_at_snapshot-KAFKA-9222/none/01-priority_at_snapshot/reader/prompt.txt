@@ -1,0 +1,5 @@
+Context snapshot cutoff (inclusive): 2019-11-21T17:13:52.150001Z.
+
+What was the recorded priority of KAFKA-9222 at the snapshot? Return the exact priority label.
+
+No context-engine MCP tools or stored context are provided in this trial. Answer from the question and your existing knowledge only. Return evidence_ids=[] because no sources are available. You have no shell, native filesystem, browser or other data source. Return JSON {"value": <answer>, "evidence_ids": [<source IDs>]}. Do not substitute today's issue state.
