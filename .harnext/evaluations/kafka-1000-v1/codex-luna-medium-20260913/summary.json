@@ -1,16 +1,16 @@
 {
-  "status": "starting",
-  "updated_at_unix": 1789309456.647395,
+  "status": "running",
+  "updated_at_unix": 1789309526.0390317,
   "historical": {
     "mcp": {
-      "recorded": 0,
+      "recorded": 1,
       "target": 800,
-      "completed": 0,
-      "correct": 0,
+      "completed": 1,
+      "correct": 1,
       "by_family": {
         "assignee_at_snapshot": {
-          "recorded": 0,
-          "correct": 0
+          "recorded": 1,
+          "correct": 1
         },
         "assignment_history": {
           "recorded": 0,
@@ -43,13 +43,13 @@
       }
     },
     "none": {
-      "recorded": 0,
+      "recorded": 1,
       "target": 800,
-      "completed": 0,
+      "completed": 1,
       "correct": 0,
       "by_family": {
         "assignee_at_snapshot": {
-          "recorded": 0,
+          "recorded": 1,
           "correct": 0
         },
         "assignment_history": {
