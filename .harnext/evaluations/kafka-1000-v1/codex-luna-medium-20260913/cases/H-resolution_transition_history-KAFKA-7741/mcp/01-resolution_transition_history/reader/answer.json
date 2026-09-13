@@ -1,0 +1,1 @@
+{"evidence_ids":["jira:KAFKA-7741:17368434:3","jira:KAFKA-7741:17368473:0","jira:KAFKA-7741:17403558:0"],"value":[{"at":"2019-01-10T23:52:46.449000Z","from":null,"to":"Fixed"},{"at":"2019-01-11T00:25:04.066000Z","from":"Fixed","to":null},{"at":"2019-01-24T23:01:35.424000Z","from":null,"to":"Fixed"}]}

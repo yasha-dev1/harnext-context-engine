@@ -1,0 +1,1 @@
+{"evidence_ids":["jira:KAFKA-20628:23083584:0","jira:KAFKA-20628:23083585:0","jira:KAFKA-20628:23097318:1"],"value":[{"at":"2026-05-31T00:02:07.178000Z","from":"Open","to":"In Progress"},{"at":"2026-05-31T00:02:15.546000Z","from":"In Progress","to":"Patch Available"},{"at":"2026-06-09T15:24:07.045000Z","from":"Patch Available","to":"Resolved"}]}

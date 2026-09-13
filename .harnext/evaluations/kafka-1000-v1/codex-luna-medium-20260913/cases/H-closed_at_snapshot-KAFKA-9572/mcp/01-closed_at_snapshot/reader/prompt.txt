@@ -1,0 +1,5 @@
+Context snapshot cutoff (inclusive): 2020-02-26T00:11:10.395001Z.
+
+Was KAFKA-9572 in the exact workflow status Closed at the snapshot? Return true only for Closed; Resolved is a distinct status and must return false.
+
+Use only the Harnext context-engine MCP tools. You have no shell, native filesystem, browser or other data source. Return JSON {"value": <answer>, "evidence_ids": [<source IDs>]}. Do not substitute today's issue state.

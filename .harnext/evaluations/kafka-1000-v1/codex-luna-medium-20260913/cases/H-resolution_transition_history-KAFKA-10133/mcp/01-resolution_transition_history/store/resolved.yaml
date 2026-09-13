@@ -1,0 +1,105 @@
+protocol: harnext-strategies-v1
+representation: hybrid
+source_jsonl: /home/yasha/Desktop/uni/masters/harnext-context-engine/apps/eval/benchmarks/kafka-1000-v1/data/context-sources.jsonl
+artifact_dir: /home/yasha/Desktop/uni/masters/harnext-context-engine/apps/eval/out/full-benchmark/codex-luna-medium-20260913/H-resolution_transition_history-KAFKA-10133/mcp/01-resolution_transition_history/store
+observed_at: '2020-09-04T17:26:34.896001Z'
+valid_at: '2020-09-04T17:26:34.896001Z'
+builder:
+  harness: none
+  model: null
+  effort: medium
+  provider: null
+  api_key_env: HARNEXT_PROVIDER_API_KEY
+  timeout_s: 180
+  max_calls: 40
+  context_bytes: 131072
+files:
+  layout: indexed_temporal
+  prompt: preserve_supported
+  extraction: structured
+  retention: all
+  retention_days: 90
+  summarization: none
+  update: supersede
+  summary_sentences: 3
+  page_bytes: 65536
+  functional_predicates:
+  - assigned_to
+  - has_status
+  - has_resolution
+  - has_priority
+  predicates:
+  - assigned_to
+  - has_status
+  - has_resolution
+  - has_priority
+  - references_issue
+  - changes_file
+retrieval:
+  method: bm25
+  chunking: fixed
+  chunk_bytes: 2048
+  overlap_bytes: 256
+  candidates: 40
+  top_k: 10
+  rrf_k: 60
+  bm25_k1: 1.5
+  bm25_b: 0.75
+  embeddings:
+    provider: fastembed
+    model: BAAI/bge-small-en-v1.5
+    revision: content-hash-at-build
+    cache_dir: /home/yasha/Desktop/uni/masters/harnext-context-engine/apps/eval/benchmarks/kafka-1000-v1/.harnext/models
+    base_url: null
+    api_key_env: null
+    timeout_s: 60
+    threads: 2
+  reranker: none
+  reranker_model: Xenova/ms-marco-MiniLM-L-6-v2
+graph:
+  schema_name: typed_assertions
+  extraction: domain_predicates
+  resolution: canonical_only
+  traversal: neighbors
+  hops: 1
+  max_edges: 20
+  max_expansions: 10000
+  damping: 0.85
+  iterations: 30
+  functional_predicates:
+  - assigned_to
+  - has_status
+  - has_resolution
+  - has_priority
+expose_sources: true
+trial:
+  run_id: mcp-01
+  task_id: H-resolution_transition_history-KAFKA-10133
+  harness: codex-cli-native-mcp
+  model: gpt-5.6-luna
+  effort: medium
+  max_calls: 100
+  budget_bytes: 65536
+  response_bytes: 12000
+  timeout_s: 360
+  tools:
+  - context_list
+  - context_read
+  - context_search
+  - find_entities
+  - get_assertions
+  - neighbors
+  - fetch_source
+  transport: stdio
+  host: 127.0.0.1
+  port: 8876
+  token_env: HARNEXT_EVAL_TOKEN
+evaluation:
+  grading: retrieval_only
+  task_file: null
+  gold_file: null
+  answer_file: null
+  candidate_files: null
+  workspace_dir: null
+  agent_trace: null
+  test_image: python@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea

@@ -1,0 +1,5 @@
+Context snapshot cutoff (inclusive): 2021-09-06T12:22:44.579001Z.
+
+What was the recorded priority of KAFKA-13265 at the snapshot? Return the exact priority label.
+
+Use only the Harnext context-engine MCP tools. You have no shell, native filesystem, browser or other data source. Return JSON {"value": <answer>, "evidence_ids": [<source IDs>]}. Do not substitute today's issue state.

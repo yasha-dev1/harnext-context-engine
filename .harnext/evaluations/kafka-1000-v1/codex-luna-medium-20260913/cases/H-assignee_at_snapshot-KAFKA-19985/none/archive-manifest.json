@@ -1,0 +1,17 @@
+{
+  "files_sha256": {
+    "selection.json": "fb8c2fdbfe707d8eb909cd5a5fcca44492a8705c15eb7a530d9e7ddc04d6a87d",
+    "report.json": "a775be65efdf9f3b91199e6306fc407f6cc1521be210e9e516613e3336808887",
+    "store-identities.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+    "01-assignee_at_snapshot/task.public.json": "5207da8383e1d7ac7eb43c489a0480b48d5a918ee4b340f80a03f1e9ffd39216",
+    "01-assignee_at_snapshot/report.json": "bfbd261037d27afb681be877a9e8bb8a6f4de367a5bd01f8c76c745340755ee2",
+    "01-assignee_at_snapshot/condition.yaml": "72e0c3fb2a7ae6b0915f7a3059ded51f488826b1372fe49e5f89b2df1573e393",
+    "01-assignee_at_snapshot/reader/answer-schema.json": "6e7ce084181cc19a18016e26893946ddf4f8a5fce19bc1f8c9542849c7e810ea",
+    "01-assignee_at_snapshot/reader/prompt.txt": "e0aefba413b94916d5fd72921e7116af742a3b4bdba7ebf85f61de760b070aa8",
+    "01-assignee_at_snapshot/reader/codex.stderr.gz": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+    "01-assignee_at_snapshot/reader/answer.json": "e13371f3fd2bbb9d1aba0cc31e2e456e39a3de06efce8af88892e56ec5c7a895",
+    "01-assignee_at_snapshot/reader/codex.jsonl.gz": "3658ff1f4f6772c85598463ee1912e89d021f5433ab97778211da931fac61d2c",
+    "01-assignee_at_snapshot/reader/launch.json": "97a703d305e7bd43c585dc57de1528e041631462169d17b78302d9b424c959ae"
+  },
+  "snapshot_policy": "source/config/implementation pins and evidence documents retained; full transient store not versioned"
+}

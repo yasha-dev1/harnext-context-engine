@@ -1,0 +1,5 @@
+Context snapshot cutoff (inclusive): 2021-07-12T19:31:24.835001Z.
+
+Who was assigned to KAFKA-13067 at the snapshot? Return the exact assignee display name in the latest recorded assignment, or null for unassigned.
+
+Use only the Harnext context-engine MCP tools. You have no shell, native filesystem, browser or other data source. Return JSON {"value": <answer>, "evidence_ids": [<source IDs>]}. Do not substitute today's issue state.

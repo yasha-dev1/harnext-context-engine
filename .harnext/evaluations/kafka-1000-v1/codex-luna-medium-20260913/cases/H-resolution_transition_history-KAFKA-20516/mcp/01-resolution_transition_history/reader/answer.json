@@ -1,0 +1,1 @@
+{"evidence_ids":["jira:KAFKA-20516:23031887:0","jira:KAFKA-20516:23031930:0","jira:KAFKA-20516:23031931:0"],"value":[{"at":"2026-04-22T02:28:04.855000Z","from":null,"to":"Invalid"},{"at":"2026-04-22T03:19:00.245000Z","from":"Invalid","to":null},{"at":"2026-04-22T03:19:04.405000Z","from":null,"to":"Won't Fix"}]}
