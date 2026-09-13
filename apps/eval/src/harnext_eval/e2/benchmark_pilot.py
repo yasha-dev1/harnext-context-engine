@@ -28,6 +28,7 @@ from pydantic import Field
 
 from harnext_eval.e2.benchmark import read, save, sha, timestamp
 from harnext_eval.e2.benchmark_audit import score_answer
+from harnext_eval.e2.benchmark_report import build_report
 from harnext_eval.e2.mcp_experiment import audit_receipts
 
 
@@ -36,7 +37,9 @@ class PilotConfig(Strict):
     benchmark: Path
     engine_profile: Path
     selection_seed: str
-    split: Literal["development"] = "development"
+    split: Literal["development", "all_historical"] = "development"
+    task_ids: list[str] | None = None
+    generate_html: bool = True
     families: list[str] = Field(min_length=1, max_length=8)
     harness: Literal["codex"] = "codex"
     model: str
@@ -68,6 +71,23 @@ def select_tasks(bundle, config):
         raise ValueError("benchmark hash mismatch")
     if len(config.families) != len(set(config.families)):
         raise ValueError("duplicate pilot families")
+    if config.task_ids is not None:
+        if not config.task_ids or len(config.task_ids) != len(set(config.task_ids)):
+            raise ValueError("task IDs must be nonempty and unique")
+        by_id = {t["id"]: t for t in bundle["tasks"]}
+        selected = [by_id[tid] for tid in config.task_ids]
+        for task in selected:
+            if task["kind"] != "historical" or task["family"] not in config.families:
+                raise ValueError(
+                    "explicit selection must contain historical tasks in the configured families"
+                )
+            if config.split != "all_historical" and task["split"] != config.split:
+                raise ValueError("explicit task is outside the configured split")
+            if task["tools"]["shell"] or task["tools"]["native_file_access"]:
+                raise ValueError("historical capability contract violated")
+        return selected
+    if config.split == "all_historical":
+        raise ValueError("all_historical requires an explicit frozen task selection")
     tasks = []
     for family in config.families:
         candidates = [
@@ -357,7 +377,9 @@ async def run(pilot, root):
         "benchmark_sha256": bundle["manifest"]["tasks_sha256"],
         "pilot": pilot.model_dump(mode="json"),
         "task_ids": [t["id"] for t in tasks],
-        "scope": "development pilot only; no confirmation/coding tasks",
+        "scope": "authorized historical benchmark execution; includes confirmation candidates"
+        if pilot.split == "all_historical"
+        else "development pilot only; no confirmation/coding tasks",
         "source_commit": (
             await asyncio.to_thread(
                 subprocess.check_output, ["git", "rev-parse", "HEAD"], text=True
@@ -562,6 +584,10 @@ async def run(pilot, root):
         gc.collect()
         if execution["failure"] and "forbidden" in execution["failure"]:
             raise ValueError("native capability violation; stopping remaining pilot tasks")
+
+    if pilot.generate_html:
+        html_path = await asyncio.to_thread(build_report, [root], root / "report.html")
+        print(canonical({"report_html": str(html_path)}), flush=True)
 
 
 def main():

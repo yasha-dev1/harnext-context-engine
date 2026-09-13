@@ -8,6 +8,25 @@ fully offline: no model key, Kafka broker, or application stack is required.
 
 **[Full experiment map: questions, no-MCP controls, factor tables, and stages](E2-EXPERIMENT-MAP.md).**
 
+Completed native benchmark pilots automatically write `report.json` and a
+self-contained `report.html` inside their run directory. The HTML includes
+graphs, exact task prompts, expected/actual answers, and MCP call details;
+no-MCP runs are supported without a context snapshot. Failed/aborted runs retain
+their available JSON/transcripts and are not presented as completed HTML reports.
+
+To compare existing matched runs without invoking models:
+
+```bash
+.venv/bin/python apps/eval/scripts/build_benchmark_pilot_report.py \
+  --run apps/eval/out/benchmark-pilot/codex-luna-medium-001 \
+  --run apps/eval/out/benchmark-pilot/codex-luna-medium-no-mcp-001 \
+  --out .harnext/artifacts/e2-context-comparison-20260913.html
+```
+
+Use a fresh output path when regenerating. The report validates matched benchmark
+hashes, task selections, cutoffs and gold; it labels sequential pilot comparisons
+and does not claim randomized confirmation. Outputs contain reviewer-only gold.
+
 **New: [1,000-instance Kafka benchmark review SPA](benchmarks/kafka-1000-v1/review.html)**
 and [dataset methodology / admission status](benchmarks/kafka-1000-v1/README.md).
 Contains 800 deterministic historical questions with MCP-only tool contracts and
