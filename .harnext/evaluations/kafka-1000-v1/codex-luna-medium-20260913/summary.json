@@ -1,0 +1,92 @@
+{
+  "status": "starting",
+  "updated_at_unix": 1789309456.647395,
+  "historical": {
+    "mcp": {
+      "recorded": 0,
+      "target": 800,
+      "completed": 0,
+      "correct": 0,
+      "by_family": {
+        "assignee_at_snapshot": {
+          "recorded": 0,
+          "correct": 0
+        },
+        "assignment_history": {
+          "recorded": 0,
+          "correct": 0
+        },
+        "closed_at_snapshot": {
+          "recorded": 0,
+          "correct": 0
+        },
+        "priority_at_snapshot": {
+          "recorded": 0,
+          "correct": 0
+        },
+        "resolution_at_snapshot": {
+          "recorded": 0,
+          "correct": 0
+        },
+        "resolution_transition_history": {
+          "recorded": 0,
+          "correct": 0
+        },
+        "status_at_snapshot": {
+          "recorded": 0,
+          "correct": 0
+        },
+        "status_transition_history": {
+          "recorded": 0,
+          "correct": 0
+        }
+      }
+    },
+    "none": {
+      "recorded": 0,
+      "target": 800,
+      "completed": 0,
+      "correct": 0,
+      "by_family": {
+        "assignee_at_snapshot": {
+          "recorded": 0,
+          "correct": 0
+        },
+        "assignment_history": {
+          "recorded": 0,
+          "correct": 0
+        },
+        "closed_at_snapshot": {
+          "recorded": 0,
+          "correct": 0
+        },
+        "priority_at_snapshot": {
+          "recorded": 0,
+          "correct": 0
+        },
+        "resolution_at_snapshot": {
+          "recorded": 0,
+          "correct": 0
+        },
+        "resolution_transition_history": {
+          "recorded": 0,
+          "correct": 0
+        },
+        "status_at_snapshot": {
+          "recorded": 0,
+          "correct": 0
+        },
+        "status_transition_history": {
+          "recorded": 0,
+          "correct": 0
+        }
+      }
+    }
+  },
+  "coding": {
+    "pending_admission": 200,
+    "executed": 0
+  },
+  "full_benchmark_complete": false,
+  "errors": []
+}
