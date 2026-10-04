@@ -1,0 +1,42 @@
+{
+  "agent": "claude-code",
+  "answer": null,
+  "arm": "F1-search",
+  "checkpoint": "2026-01",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": "no parseable final answer",
+  "effort": "medium",
+  "elapsed_s": 138.91415828300524,
+  "family": "design_decision",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": null,
+    "expected": "no"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 25,
+  "prompt_sha256": "6bef78af49f8a099144226642e9ef9300b2a0d5737790c8f9655f61ee849562d",
+  "run_index": 53,
+  "status": "model_failure",
+  "success": false,
+  "task_id": "H-design_decision-32101f33f4",
+  "tool_calls": {
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 21
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 1256135,
+    "cost_usd": 0.2902415,
+    "input_tokens": 1326794,
+    "output_tokens": 4703
+  },
+  "violations": []
+}

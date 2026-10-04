@@ -1,0 +1,3 @@
+{
+  "summary": "Successfully implemented KAFKA-20368 by using LinkedHashMap for deterministic metric tags order in RLMExpirationTask. \n\nChanges made:\n1. Added import: org.apache.kafka.common.metrics.internals.MetricsUtils\n2. Modified RLMExpirationTask.metricTags from HashMap to LinkedHashMap initialization via MetricsUtils.getTags()\n3. Updated constructor to use MetricsUtils.getTags(\"topic\", topicIdPartition.topic(), \"partition\", Integer.toString(topicIdPartition.partition()))\n\nResult: All 89 tests pass. Metric tags now have deterministic order (topic before partition) instead of non-deterministic HashMap ordering."
+}

@@ -1,0 +1,9 @@
+{
+  "evidence": [
+    "fddcc74d4df53f96c1a36885 (Alieh Saeedi, 2026-01-12: 'we can remove the configuration')",
+    "ff47cb0b3f9a6f3692cca972 (Initial KIP announcement, 2026-01-09: mentioned 'small config to cap the size')",
+    "KAFKA-20056 (JIRA issue tracking KIP-1271)",
+    "Subsequent discussion and vote messages (2026-01-15 through 2026-01-29) contain no reference to the config"
+  ],
+  "value": "no"
+}

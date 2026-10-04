@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "mail thread a192cc3ce6018a685014966e (Diskless Core discussion) - Jun Rao's message 620fcc0982fad00dc9a0bd54 from 2026-05-12 explicitly states: 'I was thinking we leave the existing RLMM as is and continue to use it for classic topics. We design a new, more efficient metadata management component independent of RLMM. This new component will be the only metadata component that diskless topics depend on.'",
+    "Satish Duggana's endorsement message 51a25dcd9861c2e258ab8f04 from 2026-05-13 supports this decision with '+1 to Jun on leaving the existing RLMM for classic topics with tiered storage and having an efficient metadata management system required for diskless topics.'"
+  ],
+  "value": "build a new metadata component independent of RLMM"
+}

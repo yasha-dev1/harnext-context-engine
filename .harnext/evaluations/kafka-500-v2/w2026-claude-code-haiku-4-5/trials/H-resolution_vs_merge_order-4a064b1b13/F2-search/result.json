@@ -1,0 +1,60 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "prs/21758/2026-03-17-merged-59b93d42.md",
+      "issues/KAFKA-20288/2026-03-17-change-e9bb85c6.md"
+    ],
+    "value": {
+      "days": 0,
+      "first": "merge"
+    }
+  },
+  "arm": "F2-search",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 32.22210027198889,
+  "family": "resolution_vs_merge_order",
+  "grade": {
+    "actual": {
+      "days": 0,
+      "first": "merge"
+    },
+    "correct": true,
+    "evidence": [
+      "prs/21758/2026-03-17-merged-59b93d42.md",
+      "issues/KAFKA-20288/2026-03-17-change-e9bb85c6.md"
+    ],
+    "expected": {
+      "days": 0,
+      "first": "merge"
+    }
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "f5ce82186ff968496e4b0645ee7c2c1879da5a8f5e3abb3939e4e02db7b3a7e7",
+  "run_index": 45,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-resolution_vs_merge_order-4a064b1b13",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 64133,
+    "cost_usd": 0.0132323,
+    "input_tokens": 65451,
+    "output_tokens": 842
+  },
+  "violations": []
+}

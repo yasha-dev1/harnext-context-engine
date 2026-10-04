@@ -1,0 +1,78 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail:3a486f07414ee44d7163c381 - Aditya Kousik's mailing list discussion from 2026-04-01",
+      "jira:13646867:change:23002903:0 - KAFKA-20386 issue edited by Aditya Kousik on 2026-03-31 with reference to KIP-1307"
+    ],
+    "value": "KAFKA-20386"
+  },
+  "arm": "H-engine",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 229.45700808900074,
+  "engine": {
+    "calls": 2,
+    "chat": {
+      "calls": 31,
+      "cancelled": 2,
+      "cost_usd": 0.00289703,
+      "input_tokens": 119167,
+      "output_tokens": 3170,
+      "retries": 0
+    },
+    "cost_usd": 0.00659257,
+    "discarded_attempts": 0,
+    "jev": {
+      "calls": 44,
+      "cancelled": 0,
+      "cost_usd": 0.00369554,
+      "input_tokens": 87989,
+      "output_tokens": 14862,
+      "retries": 0
+    },
+    "partial": 2,
+    "provider_retry_usd": 0,
+    "seconds": 212.902,
+    "unmetered_upper_usd": 0.00066094,
+    "waited_s": 0
+  },
+  "family": "implicit_link",
+  "grade": {
+    "actual": "KAFKA-20386",
+    "correct": true,
+    "evidence": [
+      "mail:3a486f07414ee44d7163c381 - Aditya Kousik's mailing list discussion from 2026-04-01",
+      "jira:13646867:change:23002903:0 - KAFKA-20386 issue edited by Aditya Kousik on 2026-03-31 with reference to KIP-1307"
+    ],
+    "expected": "KAFKA-20386"
+  },
+  "image_id": "sha256:4615b2564319d58319029548af66970c954e128401ee89c8705684861de4bc07",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 4,
+  "prompt_sha256": "0df654e5459e67e8fd3221066cf8aa1b6151d250b53a84672c4c387f6188c68c",
+  "run_index": 86,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-implicit_link-3d50142383",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 2
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 81965,
+    "cost_usd": 0.023277500000000003,
+    "input_tokens": 87063,
+    "output_tokens": 984
+  },
+  "violations": []
+}

@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "store/issues.md — KAFKA-20158 workflow status was 'Progressing' at cutoff date 2026-02-28, not 'Closed'"
+  ],
+  "value": false
+}

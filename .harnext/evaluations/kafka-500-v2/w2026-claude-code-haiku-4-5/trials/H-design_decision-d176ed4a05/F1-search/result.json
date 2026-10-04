@@ -1,0 +1,56 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "entities/kip/KIP-1331 — discussion history from 2026-05-04 through 2026-05-29",
+      "entities/issue/KAFKA-20618 — Streams Group Topology Description Plugin",
+      "entities/issue/KAFKA-20620 — Add StreamsGroupTopologyDescriptionUpdate RPC schema",
+      "entities/pr/22397 — StreamsGroupTopologyDescriptionUpdate RPC schema PR with Lucas Brutschy review on StreamsGroupDescribeRequest.json"
+    ],
+    "value": null
+  },
+  "arm": "F1-search",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 197.2716577079991,
+  "family": "design_decision",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "entities/kip/KIP-1331 — discussion history from 2026-05-04 through 2026-05-29",
+      "entities/issue/KAFKA-20618 — Streams Group Topology Description Plugin",
+      "entities/issue/KAFKA-20620 — Add StreamsGroupTopologyDescriptionUpdate RPC schema",
+      "entities/pr/22397 — StreamsGroupTopologyDescriptionUpdate RPC schema PR with Lucas Brutschy review on StreamsGroupDescribeRequest.json"
+    ],
+    "expected": "removed entirely, identified by topologyEpoch and group creation timestamp instead"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 17,
+  "prompt_sha256": "018ac1c4ab53b76ad23ee530b458b852a78cf1d4522c8fee03f7905e1d076ddc",
+  "run_index": 75,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-d176ed4a05",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 2,
+    "mcp__history__search_context": 13
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 714864,
+    "cost_usd": 0.18789240000000004,
+    "input_tokens": 765414,
+    "output_tokens": 3089
+  },
+  "violations": []
+}

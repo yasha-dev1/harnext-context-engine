@@ -1,0 +1,60 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "store/entities/thread/CACvVgwGtqLAOzTb2ffjWecS-NvJGZH4Fuupg9xXAyUj9_ocUHg-mail.gmail.com-8e958fd6/timeline.md",
+      "store/entities/thread/CACvVgwGtqLAOzTb2ffjWecS-NvJGZH4Fuupg9xXAyUj9_ocUHg-mail.gmail.com-8e958fd6/OVERVIEW.md"
+    ],
+    "value": {
+      "participants": 3,
+      "starter": "Kevin Wu"
+    }
+  },
+  "arm": "F1",
+  "checkpoint": "2026-02",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 37.74356169299426,
+  "family": "kip_thread",
+  "grade": {
+    "actual": {
+      "participants": 3,
+      "starter": "Kevin Wu"
+    },
+    "correct": true,
+    "evidence": [
+      "store/entities/thread/CACvVgwGtqLAOzTb2ffjWecS-NvJGZH4Fuupg9xXAyUj9_ocUHg-mail.gmail.com-8e958fd6/timeline.md",
+      "store/entities/thread/CACvVgwGtqLAOzTb2ffjWecS-NvJGZH4Fuupg9xXAyUj9_ocUHg-mail.gmail.com-8e958fd6/OVERVIEW.md"
+    ],
+    "expected": {
+      "participants": 3,
+      "starter": "Kevin Wu"
+    }
+  },
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "710d0ff6228f550f7a1934f8b4539a1371cc57ecbe403f72f087e5a23b4b1fe9",
+  "run_index": 47,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-kip_thread-0bd81d2b36",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 63648,
+    "cost_usd": 0.0138818,
+    "input_tokens": 65010,
+    "output_tokens": 964
+  },
+  "violations": []
+}

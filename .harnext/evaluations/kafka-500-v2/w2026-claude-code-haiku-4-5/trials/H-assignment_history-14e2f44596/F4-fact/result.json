@@ -1,0 +1,108 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "store/issues/kafka-20592-fix-typos-streams-documentation.md",
+      "evt:jira-13651234-change-23062139",
+      "evt:jira-13651234-change-23062296",
+      "evt:0192-jira-13651234-change-23063464-0-1424ff34"
+    ],
+    "value": [
+      {
+        "at": "2026-05-15T10:37:01.000000Z",
+        "from": null,
+        "to": "Sanskar Jhajharia"
+      },
+      {
+        "at": "2026-05-15T12:25:20.000000Z",
+        "from": "Sanskar Jhajharia",
+        "to": null
+      },
+      {
+        "at": "2026-05-16T06:04:22.000000Z",
+        "from": null,
+        "to": "Akhil Sabu"
+      }
+    ]
+  },
+  "arm": "F4-fact",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 29.49072226700082,
+  "family": "assignment_history",
+  "grade": {
+    "actual": [
+      {
+        "at": "2026-05-15T10:37:01.000000Z",
+        "from": null,
+        "to": "Sanskar Jhajharia"
+      },
+      {
+        "at": "2026-05-15T12:25:20.000000Z",
+        "from": "Sanskar Jhajharia",
+        "to": null
+      },
+      {
+        "at": "2026-05-16T06:04:22.000000Z",
+        "from": null,
+        "to": "Akhil Sabu"
+      }
+    ],
+    "correct": false,
+    "evidence": [
+      "store/issues/kafka-20592-fix-typos-streams-documentation.md",
+      "evt:jira-13651234-change-23062139",
+      "evt:jira-13651234-change-23062296",
+      "evt:0192-jira-13651234-change-23063464-0-1424ff34"
+    ],
+    "expected": [
+      {
+        "at": "2026-05-15T10:37:01.689000Z",
+        "from": null,
+        "to": "Sanskar Jhajharia"
+      },
+      {
+        "at": "2026-05-15T12:25:20.315000Z",
+        "from": "Sanskar Jhajharia",
+        "to": null
+      },
+      {
+        "at": "2026-05-16T06:04:22.320000Z",
+        "from": null,
+        "to": "Akhil Sabu"
+      },
+      {
+        "at": "2026-05-19T09:52:14.030000Z",
+        "from": "Akhil Sabu",
+        "to": "Akhil Sabu"
+      }
+    ]
+  },
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "95497bcc4b4460fe371e3f4150353d26b26c3b07eb8eca4e9afdb0a500aaaa75",
+  "run_index": 3,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-assignment_history-14e2f44596",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 63894,
+    "cost_usd": 0.014734399999999998,
+    "input_tokens": 64970,
+    "output_tokens": 1244
+  },
+  "violations": []
+}

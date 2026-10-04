@@ -1,0 +1,54 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "KAFKA-20056 issue in history context (no detailed encoding design)",
+      "PR #21345 in history context (WIP-PoC, no detailed review comments indexed)",
+      "KIP-1271 discussion threads referenced but not fully indexed in history context"
+    ],
+    "value": null
+  },
+  "arm": "F5-search",
+  "checkpoint": "2026-01",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 169.29919604300812,
+  "family": "design_decision",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "KAFKA-20056 issue in history context (no detailed encoding design)",
+      "PR #21345 in history context (WIP-PoC, no detailed review comments indexed)",
+      "KIP-1271 discussion threads referenced but not fully indexed in history context"
+    ],
+    "expected": "varint"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 19,
+  "prompt_sha256": "b004692f5a2fcf44d1af075fa4b89d34cbd671ec05ba8791b44e011a6247c854",
+  "run_index": 56,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-9afbb2a368",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 2,
+    "mcp__history__search_context": 15
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 668191,
+    "cost_usd": 0.1503961,
+    "input_tokens": 701617,
+    "output_tokens": 3376
+  },
+  "violations": []
+}

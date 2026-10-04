@@ -1,0 +1,10 @@
+{
+  "evidence": [
+    "entities/thread/CACvVgwGtqLAOzTb2ffjWecS-NvJGZH4Fuupg9xXAyUj9_ocUHg-mail.gmail.com-8e958fd6/timeline.md",
+    "entities/kip/KIP-1262/timeline.md"
+  ],
+  "value": {
+    "participants": 3,
+    "starter": "Kevin Wu"
+  }
+}

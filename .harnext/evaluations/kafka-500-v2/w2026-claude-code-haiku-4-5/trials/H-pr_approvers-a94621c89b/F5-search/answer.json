@@ -1,0 +1,12 @@
+{
+  "evidence": [
+    "entities/pr/apache__kafka__21978/OVERVIEW.md",
+    "entities/pr/apache__kafka__21978/timeline.md",
+    "entities/pr/apache__kafka__21978/facts.md"
+  ],
+  "value": [
+    "dajac",
+    "nileshkumar3",
+    "squah-confluent"
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "entities/issue/KAFKA-19964/OVERVIEW.md",
+      "entities/issue/KAFKA-19964/timeline.md"
+    ],
+    "value": [
+      "4.3.0"
+    ]
+  },
+  "arm": "F1-search",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 56.62665991499671,
+  "family": "fix_version_at_snapshot",
+  "grade": {
+    "actual": [
+      "4.3.0"
+    ],
+    "correct": true,
+    "evidence": [
+      "entities/issue/KAFKA-19964/OVERVIEW.md",
+      "entities/issue/KAFKA-19964/timeline.md"
+    ],
+    "expected": [
+      "4.3.0"
+    ]
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 4,
+  "prompt_sha256": "b422f502c4f7be58504cd72ff2d2850d92007803791539ffaf3607255dca713b",
+  "run_index": 40,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-fix_version_at_snapshot-ffdb6586ec",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 86098,
+    "cost_usd": 0.0451748,
+    "input_tokens": 97053,
+    "output_tokens": 2938
+  },
+  "violations": []
+}

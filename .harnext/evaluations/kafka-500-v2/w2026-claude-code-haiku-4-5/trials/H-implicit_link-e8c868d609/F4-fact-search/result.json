@@ -1,0 +1,51 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "discussions/kip-1348-logandcontinue-production-exception-handler.md",
+      "issues/kafka-20604-kip-1348-log-and-continue-production-exception-handler.md"
+    ],
+    "value": "KAFKA-20604"
+  },
+  "arm": "F4-fact-search",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 16.06840079301037,
+  "family": "implicit_link",
+  "grade": {
+    "actual": "KAFKA-20604",
+    "correct": true,
+    "evidence": [
+      "discussions/kip-1348-logandcontinue-production-exception-handler.md",
+      "issues/kafka-20604-kip-1348-log-and-continue-production-exception-handler.md"
+    ],
+    "expected": "KAFKA-20604"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "b0138a7bc2d2528b410b01904c3c94e361fc59c31b9a24f533283fa8768986f6",
+  "run_index": 76,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-implicit_link-e8c868d609",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__search_context": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 64137,
+    "cost_usd": 0.0155327,
+    "input_tokens": 66450,
+    "output_tokens": 904
+  },
+  "violations": []
+}

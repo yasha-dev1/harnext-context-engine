@@ -1,0 +1,12 @@
+{
+  "evidence": [
+    "mail:7f9935b74d780f9d89947fe1",
+    "github:api:apache/kafka:pr-21572-opened",
+    "github:api:apache/kafka:pr-21572-merged",
+    "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86qoagc",
+    "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86qoXgU",
+    "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86qobYY",
+    "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86qqkQ0"
+  ],
+  "value": "dsl.store.format"
+}

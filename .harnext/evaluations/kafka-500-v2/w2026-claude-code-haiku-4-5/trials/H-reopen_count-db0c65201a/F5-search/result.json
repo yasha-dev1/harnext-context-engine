@@ -1,0 +1,54 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "The context_research query confirmed KAFKA-18866 is not tracked in the context store",
+      "Search queries for 'KAFKA-18866' and '18866' returned no results",
+      "The context store contains 518 KAFKA issues but KAFKA-18866 is not among them"
+    ],
+    "value": 0
+  },
+  "arm": "F5-search",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 62.577281111996854,
+  "family": "reopen_count",
+  "grade": {
+    "actual": 0,
+    "correct": true,
+    "evidence": [
+      "The context_research query confirmed KAFKA-18866 is not tracked in the context store",
+      "Search queries for 'KAFKA-18866' and '18866' returned no results",
+      "The context store contains 518 KAFKA issues but KAFKA-18866 is not among them"
+    ],
+    "expected": 0
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 7,
+  "prompt_sha256": "d36406fed07fbe91c563a5566b90ee68913cf0ac780e59b4cb86af32cac8697d",
+  "run_index": 37,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-reopen_count-db0c65201a",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 2,
+    "mcp__history__search_context": 3
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 163919,
+    "cost_usd": 0.0371069,
+    "input_tokens": 170751,
+    "output_tokens": 1422
+  },
+  "violations": []
+}

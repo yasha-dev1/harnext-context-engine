@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "mail:14b5a72b00ab418669b42f66",
+    "github:api:apache/kafka:comment-IC_kwDOACG9q87rZWuu"
+  ],
+  "value": "processing.exception.handler.global.enabled"
+}

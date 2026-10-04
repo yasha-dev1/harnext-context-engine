@@ -1,0 +1,3 @@
+{
+  "summary": "Fixed KAFKA-12525 by modifying KafkaStatusBackingStore.readTaskStatus() to ignore stale UNASSIGNED status records from earlier generations when a newer RUNNING status is already cached. This prevents the race condition during fast rebalances where delayed UNASSIGNED records would incorrectly overwrite correct task status. The fix compares generation numbers to filter out stale records. All 15 tests in KafkaStatusBackingStoreTest pass, including the critical test readTaskStateShouldIgnoreStaleStatusesFromOtherWorkers that validates this race condition scenario."
+}

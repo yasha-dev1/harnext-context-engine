@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "events/2026/05/14/mail-1cc0144db1cdec902c728e70-70ae981e.md (Kirk True's May 5, 2026 reply: \"I've added the definition for the ConfigTooLargeException which is now the only exception added.\")"
+  ],
+  "value": "ConfigTooLargeException"
+}

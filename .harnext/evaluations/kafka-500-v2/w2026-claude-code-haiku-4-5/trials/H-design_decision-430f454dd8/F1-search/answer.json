@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "Unable to determine - context store contains only metadata for KIP-1312 (OVERVIEW.md, timeline.md) but not the actual discussion content or specification details needed to find the specific error code name. The KIP, issue KAFKA-20395, thread entities, and PR #22191 are referenced but their content details are not available in the searchable context."
+  ],
+  "value": null
+}

@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "WINDOW-32-2026-02-14-to-2026-02-16-summary.md (lines 126-135)",
+    "issues/KAFKA-20186.md (lines 10-21)"
+  ],
+  "value": "KAFKA-20186"
+}

@@ -1,0 +1,3 @@
+{
+  "summary": "Implemented ReadOnlyView for MeteredKeyValueStore by adding readOnly(IsolationLevel) method that returns a wrapper implementing ReadOnlyKeyValueStore<K, V>. The wrapper applies serdes transformations and metrics recording to all read operations (get, range, reverseRange, all, reverseAll, prefixScan, approximateNumEntries) while delegating to the underlying store's read-only view. All 43 tests pass, including 9 new readOnly-specific tests."
+}

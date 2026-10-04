@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "_intake/2026/03/16/mail-d091bc1d38e0a58299c42152-4aa62e88.md (lines 261-307, 109-128): Kevin Wu's explanation of why the cluster ID field should be String type to maintain backward compatibility with existing non-UUID cluster ID strings, followed by Jun Rao's approval: 'Thanks for the reply. The KIP looks good to me now.'"
+  ],
+  "value": "String"
+}

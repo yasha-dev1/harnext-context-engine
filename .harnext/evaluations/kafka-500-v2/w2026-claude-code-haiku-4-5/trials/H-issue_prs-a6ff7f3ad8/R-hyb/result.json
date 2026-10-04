@@ -1,0 +1,86 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "github:api:apache/kafka:pr-22041-opened (2026-04-13T21:10:29Z)",
+      "github:api:apache/kafka:pr-22182-opened (2026-04-29T07:48:48Z)",
+      "jira:13647972:change:23020074:0 (KAFKA-20440 linked to PR #22041)",
+      "jira:13647972:change:23040726:0 (KAFKA-20440 linked to PR #22182)",
+      "Absence of gh.pr_merged or gh.pr_closed events for PR #22041 or PR #22182 up to cutoff"
+    ],
+    "value": [
+      {
+        "pr": 22041,
+        "state": "open"
+      },
+      {
+        "pr": 22182,
+        "state": "open"
+      }
+    ]
+  },
+  "arm": "R-hyb",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 105.91015535599581,
+  "family": "issue_prs",
+  "grade": {
+    "actual": [
+      {
+        "pr": 22041,
+        "state": "open"
+      },
+      {
+        "pr": 22182,
+        "state": "open"
+      }
+    ],
+    "correct": true,
+    "evidence": [
+      "github:api:apache/kafka:pr-22041-opened (2026-04-13T21:10:29Z)",
+      "github:api:apache/kafka:pr-22182-opened (2026-04-29T07:48:48Z)",
+      "jira:13647972:change:23020074:0 (KAFKA-20440 linked to PR #22041)",
+      "jira:13647972:change:23040726:0 (KAFKA-20440 linked to PR #22182)",
+      "Absence of gh.pr_merged or gh.pr_closed events for PR #22041 or PR #22182 up to cutoff"
+    ],
+    "expected": [
+      {
+        "pr": 22041,
+        "state": "open"
+      },
+      {
+        "pr": 22182,
+        "state": "open"
+      }
+    ]
+  },
+  "instructions_sha256": "dfaa5b284d06c378ef7e4c08b53dc77835c91d7591fca0335bbfa33d3e53eb37",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 16,
+  "prompt_sha256": "524c72087c27f5a4a4b278e5c25e2c8227b35c22b688e21bcc2d17234d0bf4da",
+  "run_index": 61,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-issue_prs-a6ff7f3ad8",
+  "tool_calls": {
+    "Bash": 1,
+    "StructuredOutput": 1,
+    "ToolSearch": 2,
+    "mcp__history__read_event": 1,
+    "mcp__history__search": 11
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 622843,
+    "cost_usd": 0.1827753,
+    "input_tokens": 674910,
+    "output_tokens": 3298
+  },
+  "violations": []
+}

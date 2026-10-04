@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "events/2026/05/11/mail-bfae351428945364a45fb155-856deba8.md (Lucas Brutschy's response on May 11, 2026 clarifying the config property name)",
+    "events/2026/05/27/mail-a7acb9c0ce17a9a47fb25c00-c062428c.md (KAFKA-20630 documentation task on May 27, 2026 confirming the configuration property)"
+  ],
+  "value": "group.streams.topology.description.plugin.class"
+}

@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "entities/pr/apache__kafka__22413/OVERVIEW.md",
+    "entities/issue/KAFKA-20621/OVERVIEW.md",
+    "INDEX.md"
+  ],
+  "value": "removed entirely, identified by topologyEpoch and group creation timestamp instead"
+}

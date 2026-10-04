@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "KAFKA-20056 issue in history context (no detailed encoding design)",
+    "PR #21345 in history context (WIP-PoC, no detailed review comments indexed)",
+    "KIP-1271 discussion threads referenced but not fully indexed in history context"
+  ],
+  "value": null
+}

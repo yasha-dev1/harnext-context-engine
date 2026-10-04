@@ -1,0 +1,54 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "entities/issue/KAFKA-20158/OVERVIEW.md",
+      "entities/issue/KAFKA-20158/timeline.md",
+      "entities/issue/KAFKA-20158/facts.md"
+    ],
+    "value": false
+  },
+  "arm": "F5-search",
+  "checkpoint": "2026-02",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 32.23265408098814,
+  "family": "closed_at_snapshot",
+  "grade": {
+    "actual": false,
+    "correct": true,
+    "evidence": [
+      "entities/issue/KAFKA-20158/OVERVIEW.md",
+      "entities/issue/KAFKA-20158/timeline.md",
+      "entities/issue/KAFKA-20158/facts.md"
+    ],
+    "expected": false
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 4,
+  "prompt_sha256": "0c150bce55e80d50c7f4bb5c8bd0655e895515386b6e3be5755a1eba48b941c7",
+  "run_index": 7,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-closed_at_snapshot-2c189971a1",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 86855,
+    "cost_usd": 0.0195045,
+    "input_tokens": 89607,
+    "output_tokens": 1070
+  },
+  "violations": []
+}

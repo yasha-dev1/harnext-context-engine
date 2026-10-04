@@ -1,0 +1,52 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "PR 21842 search result: gh search prs \"KAFKA-19937\"",
+      "PR review comments: gh api repos/apache/kafka/pulls/21842/comments showing 4 comments all on SystemTimerReaper.java file"
+    ],
+    "value": "server-common/src/main/java/org/apache/kafka/server/util/timer/SystemTimerReaper.java"
+  },
+  "arm": "S-tools",
+  "checkpoint": "2026-03",
+  "cli_calls": {
+    "gh": 4
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 24.018556278002507,
+  "family": "review_hotspot",
+  "grade": {
+    "actual": "server-common/src/main/java/org/apache/kafka/server/util/timer/SystemTimerReaper.java",
+    "correct": true,
+    "evidence": [
+      "PR 21842 search result: gh search prs \"KAFKA-19937\"",
+      "PR review comments: gh api repos/apache/kafka/pulls/21842/comments showing 4 comments all on SystemTimerReaper.java file"
+    ],
+    "expected": "server-common/src/main/java/org/apache/kafka/server/util/timer/SystemTimerReaper.java"
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 5,
+  "prompt_sha256": "b2866a3bab5f88732227cfa1f23acac158ca6c5621e1365ff5c16ccc3a466304",
+  "run_index": 55,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-review_hotspot-a93e7da04e",
+  "tool_calls": {
+    "Bash": 4,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 104067,
+    "cost_usd": 0.028297700000000002,
+    "input_tokens": 109813,
+    "output_tokens": 1288
+  },
+  "violations": []
+}

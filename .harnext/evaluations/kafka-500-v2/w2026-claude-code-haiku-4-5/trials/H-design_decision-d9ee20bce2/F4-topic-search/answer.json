@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "discussions.md lines 1307-1326: Lijun Tong's response states 'Full compaction with tombstones provides consistent experience' - indicating the settled design for the original audit topic uses both compaction and deletion (compact,delete policy)",
+    "discussions.md lines 1272-1306: The proposal states 'Preserve existing topic for audit history' with 'Cleanup of expired segment metadata through tombstones' - tombstones combined with compaction enable both retention of audit history and cleanup of expired data, which is the compact,delete policy",
+    "discussions.md lines 1512-1526: The dual-topic approach preserves the existing topic while enabling 'cleanup of expired segment metadata through tombstones' - the mechanism for this is compact,delete policy which allows both compaction-based deduplication and time-based deletion"
+  ],
+  "value": "compact,delete"
+}

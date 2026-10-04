@@ -1,0 +1,49 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "Cannot determine — no network access, no local project history, knowledge cutoff (Feb 2025) precedes snapshot date (Apr 30, 2026)"
+    ],
+    "value": []
+  },
+  "arm": "N",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 9.537542390000453,
+  "family": "fix_version_at_snapshot",
+  "grade": {
+    "actual": [],
+    "correct": false,
+    "evidence": [
+      "Cannot determine — no network access, no local project history, knowledge cutoff (Feb 2025) precedes snapshot date (Apr 30, 2026)"
+    ],
+    "expected": [
+      "4.3.0"
+    ]
+  },
+  "instructions_sha256": null,
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 2,
+  "prompt_sha256": "2f934fdfb5f613f15eb14ebf767bc55bab311610f75892e00977f2b6cc4aeafd",
+  "run_index": 9,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-fix_version_at_snapshot-af2f4eda70",
+  "tool_calls": {
+    "StructuredOutput": 2
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 38221,
+    "cost_usd": 0.0153061,
+    "input_tokens": 42089,
+    "output_tokens": 753
+  },
+  "violations": []
+}

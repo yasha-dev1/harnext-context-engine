@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "Unable to locate the specific consensus decision through available context search tools. KIP-1163 discussions were confirmed in WINDOW-78 (2026-03-26), WINDOW-100 (2026-04-21-22), and WINDOW-102 (2026-04-23-24), but the detailed discussion content containing the final consensus on which of put/get/list operations was agreed to remain eventually consistent could not be retrieved from the Harnext context engine."
+  ],
+  "value": null
+}

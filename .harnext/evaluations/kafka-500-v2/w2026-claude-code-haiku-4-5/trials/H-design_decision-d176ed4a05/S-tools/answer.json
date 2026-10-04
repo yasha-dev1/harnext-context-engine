@@ -1,0 +1,9 @@
+{
+  "evidence": [
+    "PR #17721 (Topology epochs and topic validation): Explicitly states 'We replace topology ID with topology epoch'",
+    "PR #22413 (KIP-1331 Streams Group Topology Description Plugin POC): Uses StoredTopologyEpoch and LastFailedTopologyEpoch as the identification mechanism, with no separate broker-generated UUID",
+    "JIRA-20621, JIRA-20623, JIRA-20624, JIRA-20620: All describe the topology identification scheme using topologyEpoch fields for heartbeat solicitation and describe gating",
+    "PR #22397 schema definitions: StreamsGroupTopologyDescriptionUpdateRequest/Response contain GroupId, MemberId, TopologyEpoch, TopologyDescription - no separate identifier field"
+  ],
+  "value": "removed entirely, identified by topologyEpoch and group creation timestamp instead"
+}

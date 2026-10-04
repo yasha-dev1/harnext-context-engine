@@ -1,0 +1,31 @@
+{
+  "evidence": [
+    "KAFKA-20317 (created 2026-03-16)",
+    "PR #21780 (merged 2026-03-18 at 23:37:18Z by mjsax)",
+    "github-api-apache-kafka-pr-21780-merged-346bebfe.md (source document with file change details)"
+  ],
+  "value": [
+    "streams/src/main/java/org/apache/kafka/streams/state/HeadersBytesStore.java",
+    "streams/src/main/java/org/apache/kafka/streams/state/internals/AbstractRocksDBTimeOrderedSegmentedBytesStore.java",
+    "streams/src/main/java/org/apache/kafka/streams/state/internals/RocksDBMigratingWindowStoreWithHeaders.java",
+    "streams/src/main/java/org/apache/kafka/streams/state/internals/RocksDBTimeOrderedKeyValueBytesStore.java",
+    "streams/src/main/java/org/apache/kafka/streams/state/internals/RocksDBTimeOrderedSessionSegmentedBytesStore.java",
+    "streams/src/main/java/org/apache/kafka/streams/state/internals/RocksDBTimeOrderedWindowSegmentedBytesStore.java",
+    "streams/src/main/java/org/apache/kafka/streams/state/internals/RocksDBTimeOrderedWindowStore.java",
+    "streams/src/main/java/org/apache/kafka/streams/state/internals/RocksDBTimeOrderedWindowStoreWithHeaders.java",
+    "streams/src/main/java/org/apache/kafka/streams/state/internals/RocksDbIndexedTimeOrderedWindowBytesStoreSupplier.java",
+    "streams/src/main/java/org/apache/kafka/streams/state/internals/TimestampedWindowStoreWithHeadersBuilder.java",
+    "streams/src/main/java/org/apache/kafka/streams/state/internals/WindowSegmentWithHeaders.java",
+    "streams/src/main/java/org/apache/kafka/streams/state/internals/WindowSegmentsWithHeaders.java",
+    "streams/src/test/java/org/apache/kafka/streams/processor/internals/WindowStoreMaterializerTest.java",
+    "streams/src/test/java/org/apache/kafka/streams/state/internals/AbstractDualSchemaRocksDBSegmentedBytesStoreTest.java",
+    "streams/src/test/java/org/apache/kafka/streams/state/internals/AbstractRocksDBWindowStoreTest.java",
+    "streams/src/test/java/org/apache/kafka/streams/state/internals/RocksDBTimeOrderedWindowStoreWithHeadersTest.java",
+    "streams/src/test/java/org/apache/kafka/streams/state/internals/RocksDBTimeOrderedWindowStoreWithHeadersWithIndexTest.java",
+    "streams/src/test/java/org/apache/kafka/streams/state/internals/RocksDBTimeOrderedWindowStoreWithHeadersWithoutIndexTest.java",
+    "streams/src/test/java/org/apache/kafka/streams/state/internals/RocksDbIndexedTimeOrderedWindowBytesStoreSupplierTest.java",
+    "streams/src/test/java/org/apache/kafka/streams/state/internals/TimeOrderedCachingPersistentWindowStoreTest.java",
+    "streams/src/test/java/org/apache/kafka/streams/state/internals/TimeOrderedWindowStoreTest.java",
+    "streams/src/test/java/org/apache/kafka/streams/state/internals/TimeOrderedWindowStoreUpgradeTest.java"
+  ]
+}

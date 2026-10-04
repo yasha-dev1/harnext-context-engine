@@ -1,0 +1,59 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "_intake_backup/2026/02/20/github-api-apache-kafka-review-PRR_kwDOACG9q87kc561-9d244bf4.md",
+      "_intake_backup/2026/02/20/github-api-apache-kafka-review-PRR_kwDOACG9q87kc9Ln-26f8e899.md",
+      "_intake_backup/2026/02/24/github-api-apache-kafka-review-PRR_kwDOACG9q87lW8J1-b56387e8.md",
+      "_intake_backup/2026/02/24/github-api-apache-kafka-review-PRR_kwDOACG9q87lXVzk-d86853a9.md",
+      "_intake_backup/2026/02/25/github-api-apache-kafka-review-PRR_kwDOACG9q87ltuB1-626e6034.md",
+      "_intake_backup/2026/02/27/github-api-apache-kafka-review-PRR_kwDOACG9q87mb73W-656596b8.md"
+    ],
+    "value": "frankvicky"
+  },
+  "arm": "F3",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 170.2399554959993,
+  "family": "top_reviewer_for_author",
+  "grade": {
+    "actual": "frankvicky",
+    "correct": false,
+    "evidence": [
+      "_intake_backup/2026/02/20/github-api-apache-kafka-review-PRR_kwDOACG9q87kc561-9d244bf4.md",
+      "_intake_backup/2026/02/20/github-api-apache-kafka-review-PRR_kwDOACG9q87kc9Ln-26f8e899.md",
+      "_intake_backup/2026/02/24/github-api-apache-kafka-review-PRR_kwDOACG9q87lW8J1-b56387e8.md",
+      "_intake_backup/2026/02/24/github-api-apache-kafka-review-PRR_kwDOACG9q87lXVzk-d86853a9.md",
+      "_intake_backup/2026/02/25/github-api-apache-kafka-review-PRR_kwDOACG9q87ltuB1-626e6034.md",
+      "_intake_backup/2026/02/27/github-api-apache-kafka-review-PRR_kwDOACG9q87mb73W-656596b8.md"
+    ],
+    "expected": "mjsax"
+  },
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 5,
+  "prompt_sha256": "164fab2ecb8959097853e91fa78f5e788da553eac5121301f7b1c49c6a96a49c",
+  "run_index": 37,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-top_reviewer_for_author-39fcac1803",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 2
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 112633,
+    "cost_usd": 0.032524300000000006,
+    "input_tokens": 118611,
+    "output_tokens": 1870
+  },
+  "violations": []
+}

@@ -1,0 +1,53 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "kips-and-discussions.md (lines 525-532)",
+      "jira-issues.md (lines 350-358)",
+      "window-41-summary.md (lines 162-167, 253-258)"
+    ],
+    "value": "KAFKA-20223"
+  },
+  "arm": "F6-search",
+  "checkpoint": "2026-02",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 43.87723108599312,
+  "family": "implicit_link",
+  "grade": {
+    "actual": "KAFKA-20223",
+    "correct": true,
+    "evidence": [
+      "kips-and-discussions.md (lines 525-532)",
+      "jira-issues.md (lines 350-358)",
+      "window-41-summary.md (lines 162-167, 253-258)"
+    ],
+    "expected": "KAFKA-20223"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "ede087ba6dd2a03a6fbc8756defdfdd35c5fd6f7dd87d4ad57f3d42bf2d8711a",
+  "run_index": 85,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-implicit_link-dc560200e7",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 64102,
+    "cost_usd": 0.012151200000000001,
+    "input_tokens": 65301,
+    "output_tokens": 674
+  },
+  "violations": []
+}

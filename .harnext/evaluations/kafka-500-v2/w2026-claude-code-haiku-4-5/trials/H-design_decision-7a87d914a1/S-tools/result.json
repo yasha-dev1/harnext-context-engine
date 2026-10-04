@@ -1,0 +1,56 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "dev@kafka.apache.org mailing list thread on KIP-1270, message from Lucas Brutschy dated 2026-02-20T09:41:00Z suggesting the config name",
+      "dev@kafka.apache.org mailing list thread on KIP-1270, message from Arpit Goyal dated 2026-02-20T10:21:56Z confirming he updated the KIP with the feedback",
+      "dev@kafka.apache.org mailing list thread on KIP-1270, message from Matthias J. Sax dated 2026-02-24T00:11:47Z confirming LGTM"
+    ],
+    "value": "processing.exception.handler.global.enabled"
+  },
+  "arm": "S-tools",
+  "checkpoint": "2026-02",
+  "cli_calls": {
+    "gh": 8,
+    "jira": 12,
+    "mail": 7
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 104.49247878600727,
+  "family": "design_decision",
+  "grade": {
+    "actual": "processing.exception.handler.global.enabled",
+    "correct": true,
+    "evidence": [
+      "dev@kafka.apache.org mailing list thread on KIP-1270, message from Lucas Brutschy dated 2026-02-20T09:41:00Z suggesting the config name",
+      "dev@kafka.apache.org mailing list thread on KIP-1270, message from Arpit Goyal dated 2026-02-20T10:21:56Z confirming he updated the KIP with the feedback",
+      "dev@kafka.apache.org mailing list thread on KIP-1270, message from Matthias J. Sax dated 2026-02-24T00:11:47Z confirming LGTM"
+    ],
+    "expected": "processing.exception.handler.global.enabled"
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 22,
+  "prompt_sha256": "fea47f633a08b38e49962a56a4c12d11b82fed6626fd0c1585dbdc0428307d97",
+  "run_index": 52,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-7a87d914a1",
+  "tool_calls": {
+    "Bash": 27,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 697198,
+    "cost_usd": 0.1882238,
+    "input_tokens": 747036,
+    "output_tokens": 3801
+  },
+  "violations": []
+}

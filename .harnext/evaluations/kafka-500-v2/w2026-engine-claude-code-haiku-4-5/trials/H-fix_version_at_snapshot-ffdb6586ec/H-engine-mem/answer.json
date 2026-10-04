@@ -1,0 +1,9 @@
+{
+  "evidence": [
+    "JIRA issue KAFKA-19964 - no fix-version data found in exported JIRA records",
+    "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86i7Da0",
+    "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86kgBmV",
+    "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86k162w"
+  ],
+  "value": []
+}

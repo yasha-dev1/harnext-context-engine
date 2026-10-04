@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "events/2026/01/14/mail-1c0b316b9c6624add1f97d07-4afb9253.md — Alieh Saeedi's decision to remove the dedicated configuration property for capping header size, citing that varint encoding for header count and individual key/value sizes makes a global size cap redundant",
+    "events/2026/01/12/mail-74c7bc2a8a27285aa6784839-8e225897.md — Matthias J. Sax's question about the necessity of the configuration",
+    "events/2026/01/09-10 — Initial proposal mentioning the configuration to cap header size"
+  ],
+  "value": "no"
+}

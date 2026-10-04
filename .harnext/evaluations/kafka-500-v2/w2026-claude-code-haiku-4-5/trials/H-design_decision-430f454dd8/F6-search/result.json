@@ -1,0 +1,56 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "window-114-summary.md: References David Arthur's detailed feedback on error codes (DA1-DA4) addressed by Kevin Wu",
+      "window-108-summary.md: PR #22191 implements UnregisterController RPC schemas",
+      "kips/KIP-1312.md: KIP documentation exists but specific error code details not retrieved from search",
+      "The context cutoff is 2026-05-31, and the KIP-1312 was in voting phase by mid-May 2026"
+    ],
+    "value": null
+  },
+  "arm": "F6-search",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 253.87609771599818,
+  "family": "design_decision",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "window-114-summary.md: References David Arthur's detailed feedback on error codes (DA1-DA4) addressed by Kevin Wu",
+      "window-108-summary.md: PR #22191 implements UnregisterController RPC schemas",
+      "kips/KIP-1312.md: KIP documentation exists but specific error code details not retrieved from search",
+      "The context cutoff is 2026-05-31, and the KIP-1312 was in voting phase by mid-May 2026"
+    ],
+    "expected": "CONTROLER_ID_NOT_REGISTERED"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 26,
+  "prompt_sha256": "0f5c9c4e40ba7212dce9ab88320c6d559672b20fc32e26fd75c03f155074eea9",
+  "run_index": 69,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-430f454dd8",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 2,
+    "mcp__history__search_context": 22
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 1264013,
+    "cost_usd": 0.28483230000000004,
+    "input_tokens": 1333164,
+    "output_tokens": 4068
+  },
+  "violations": []
+}

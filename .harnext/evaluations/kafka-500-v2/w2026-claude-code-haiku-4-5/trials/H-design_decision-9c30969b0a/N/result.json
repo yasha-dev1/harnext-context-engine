@@ -1,0 +1,50 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "Workspace is empty; no project files available to search for the DSL enum type definition",
+      "No network access provided to research external documentation"
+    ],
+    "value": null
+  },
+  "arm": "N",
+  "checkpoint": "2026-02",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 13.37110105699685,
+  "family": "design_decision",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "Workspace is empty; no project files available to search for the DSL enum type definition",
+      "No network access provided to research external documentation"
+    ],
+    "expected": "DslStoreFormat"
+  },
+  "instructions_sha256": null,
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "8eca2a1370d8d0c56b7c2221674183155618bdc499dda7b891e26ce54fc39e46",
+  "run_index": 62,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-9c30969b0a",
+  "tool_calls": {
+    "Bash": 2,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 59205,
+    "cost_usd": 0.0187395,
+    "input_tokens": 63002,
+    "output_tokens": 1050
+  },
+  "violations": []
+}

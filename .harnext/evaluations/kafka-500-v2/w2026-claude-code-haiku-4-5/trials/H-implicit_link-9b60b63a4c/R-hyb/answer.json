@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "jira:13648987:created - KAFKA-20524 created: Initialization of share group offsets from a specific offset or a file",
+    "mail:41e52c2250e38bfcd2b525f1 - [DISCUSS] KIP-1323 thread started by Andrew Schofield on 2026-04-23"
+  ],
+  "value": "KAFKA-20524"
+}

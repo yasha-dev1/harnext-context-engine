@@ -1,0 +1,60 @@
+diff --git a/clients/src/main/java/org/apache/kafka/clients/producer/KafkaProducer.java b/clients/src/main/java/org/apache/kafka/clients/producer/KafkaProducer.java
+index cd495956269ec3fb1110828b699717bd3b057c83..3b6996ae9e9299465c0f1094e943c4cc53206b86 100644
+--- a/clients/src/main/java/org/apache/kafka/clients/producer/KafkaProducer.java
++++ b/clients/src/main/java/org/apache/kafka/clients/producer/KafkaProducer.java
+@@ -89,11 +89,13 @@ import java.net.InetSocketAddress;
+ import java.time.Duration;
+ import java.util.Arrays;
+ import java.util.Collections;
++import java.util.HashSet;
+ import java.util.List;
+ import java.util.Map;
+ import java.util.Objects;
+ import java.util.Optional;
+ import java.util.Properties;
++import java.util.Set;
+ import java.util.concurrent.ExecutionException;
+ import java.util.concurrent.Future;
+ import java.util.concurrent.TimeUnit;
+@@ -774,6 +776,11 @@ public class KafkaProducer<K, V> implements Producer<K, V> {
+ 
+         if (!offsets.isEmpty()) {
+             long start = time.nanoseconds();
++            try {
++                awaitTopicMetadata(offsets.keySet());
++            } catch (InterruptedException e) {
++                throw new InterruptException(e);
++            }
+             TransactionalRequestResult result = transactionManager.sendOffsetsToTransaction(offsets, groupMetadata);
+             sender.wakeup();
+             result.await(maxBlockTimeMs, TimeUnit.MILLISECONDS, SEND_OFFSETS_TIMEOUT_MSG);
+@@ -1630,6 +1637,29 @@ public class KafkaProducer<K, V> implements Producer<K, V> {
+                     "by setting the " + ProducerConfig.TRANSACTIONAL_ID_CONFIG + " configuration property");
+     }
+ 
++    private void awaitTopicMetadata(java.util.Collection<TopicPartition> topicPartitions) throws InterruptedException, TimeoutException {
++        long nowMs = time.milliseconds();
++        long remainingWaitMs = maxBlockTimeMs;
++        Set<String> topics = new HashSet<>();
++
++        for (TopicPartition tp : topicPartitions) {
++            topics.add(tp.topic());
++        }
++
++        for (String topic : topics) {
++            metadata.add(topic, nowMs);
++        }
++
++        int version = metadata.requestUpdate(false);
++        sender.wakeup();
++
++        try {
++            metadata.awaitUpdate(version, remainingWaitMs);
++        } catch (TimeoutException ex) {
++            throw new TimeoutException("Timeout waiting for metadata update for sendOffsetsToTransaction", ex);
++        }
++    }
++
+     // Visible for testing
+     String getClientId() {
+         return clientId;

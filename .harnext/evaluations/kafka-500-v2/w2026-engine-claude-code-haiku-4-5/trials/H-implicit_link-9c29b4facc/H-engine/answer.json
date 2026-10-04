@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "jira:13643298:created - JIRA issue KAFKA-20231 created by Karl Sorensen on 2026-02-26 with summary 'KIP-1290: Rack-Aware Minimum In-Sync Replicas'"
+  ],
+  "value": "KAFKA-20231"
+}

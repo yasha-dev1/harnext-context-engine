@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "jira-issues.md — line 1704-1715: KAFKA-20158 status recorded as Open",
+    "window-41-summary.md — KAFKA-20158 work in progress with merged PRs",
+    "No closure recorded in windows 42-44 covering through 2026-02-28T23:59:59Z"
+  ],
+  "value": false
+}

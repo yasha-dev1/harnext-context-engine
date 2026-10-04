@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "PR #21842 found in pull-requests.md (lines 1817-1826) and mentioned in index.md showing it was opened 2026-03-20T20:26:35Z",
+    "Context history does not contain file-by-file inline review comment counts for this PR",
+    "Harnext context store has basic PR metadata but lacks detailed review comment distribution across files"
+  ],
+  "value": "null"
+}

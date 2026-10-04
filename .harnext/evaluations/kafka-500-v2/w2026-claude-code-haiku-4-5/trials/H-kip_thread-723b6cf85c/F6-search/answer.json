@@ -1,0 +1,13 @@
+{
+  "evidence": [
+    "kips-and-discussions.md",
+    "window-1-summary.md",
+    "window-11-summary.md",
+    "window-77-summary.md",
+    "contributors.md"
+  ],
+  "value": {
+    "participants": 4,
+    "starter": "Lijun Tong"
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "gh pr view 21866 --json reviews - PR #21866 is the KAFKA-20354 PR, approved reviews extracted from response"
+    ],
+    "value": [
+      "AndrewJSchofield",
+      "showuon"
+    ]
+  },
+  "arm": "S-tools",
+  "checkpoint": "2026-03",
+  "cli_calls": {
+    "gh": 4
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 26.76585199499823,
+  "family": "pr_approvers",
+  "grade": {
+    "actual": [
+      "AndrewJSchofield",
+      "showuon"
+    ],
+    "correct": true,
+    "evidence": [
+      "gh pr view 21866 --json reviews - PR #21866 is the KAFKA-20354 PR, approved reviews extracted from response"
+    ],
+    "expected": [
+      "AndrewJSchofield",
+      "showuon"
+    ]
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 5,
+  "prompt_sha256": "62d38d23fc67274259cf65f945baea3651853a420046ecc304d9a5c4ec36274f",
+  "run_index": 49,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-pr_approvers-728956e54a",
+  "tool_calls": {
+    "Bash": 4,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 103176,
+    "cost_usd": 0.025674600000000002,
+    "input_tokens": 108010,
+    "output_tokens": 1146
+  },
+  "violations": []
+}

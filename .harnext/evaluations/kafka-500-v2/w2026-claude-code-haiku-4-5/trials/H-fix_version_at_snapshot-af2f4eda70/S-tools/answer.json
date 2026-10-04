@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "jira issue view KAFKA-20336 --history (offline replica, data as of 2026-05-01T00:00:00Z)"
+  ],
+  "value": [
+    "4.3.0"
+  ]
+}

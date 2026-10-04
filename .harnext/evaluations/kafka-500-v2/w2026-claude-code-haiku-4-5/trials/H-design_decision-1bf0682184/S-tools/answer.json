@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "mail thread CAGBzCV03-eQaUKsY-vJt93xD0X9+Kir+Dz8xAUa+PRK=vsfzmw@mail.gmail.com (DISCUSS KIP-1331), message from Lucas Brutschy on 2026-05-13T13:26:38Z",
+    "PR #22413 KAFKA-20618: KIP-1331 Streams Group Topology Description Plugin (POC)"
+  ],
+  "value": "group.streams.topology.description.plugin.class"
+}

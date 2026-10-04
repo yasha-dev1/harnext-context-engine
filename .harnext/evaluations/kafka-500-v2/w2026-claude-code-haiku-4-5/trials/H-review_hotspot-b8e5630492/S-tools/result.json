@@ -1,0 +1,50 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "gh pr view 22139 --json reviewComments"
+    ],
+    "value": "storage/src/test/java/org/apache/kafka/storage/internals/log/LogManagerTest.java"
+  },
+  "arm": "S-tools",
+  "checkpoint": "2026-04",
+  "cli_calls": {
+    "gh": 3
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 11.639908146004018,
+  "family": "review_hotspot",
+  "grade": {
+    "actual": "storage/src/test/java/org/apache/kafka/storage/internals/log/LogManagerTest.java",
+    "correct": true,
+    "evidence": [
+      "gh pr view 22139 --json reviewComments"
+    ],
+    "expected": "storage/src/test/java/org/apache/kafka/storage/internals/log/LogManagerTest.java"
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 4,
+  "prompt_sha256": "71046ffebfba9f5654ae976e07530a5ddbff25b519869f75b1c17a6ec84f5472",
+  "run_index": 31,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-review_hotspot-b8e5630492",
+  "tool_calls": {
+    "Bash": 3,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 64224,
+    "cost_usd": 0.058345400000000006,
+    "input_tokens": 87502,
+    "output_tokens": 1080
+  },
+  "violations": []
+}

@@ -1,0 +1,48 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "No relevant sources found in workspace or available context"
+    ],
+    "value": null
+  },
+  "arm": "N",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 10.518882352000219,
+  "family": "design_decision",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "No relevant sources found in workspace or available context"
+    ],
+    "expected": "build a new metadata component independent of RLMM"
+  },
+  "instructions_sha256": null,
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "049d833470f6ac71752a87b9f0e359a2a28450820f891c7ac6fd6fb86ff5a9b1",
+  "run_index": 63,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-5011e473fd",
+  "tool_calls": {
+    "Bash": 2,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 59281,
+    "cost_usd": 0.0179241,
+    "input_tokens": 63104,
+    "output_tokens": 875
+  },
+  "violations": []
+}

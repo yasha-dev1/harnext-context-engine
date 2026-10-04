@@ -1,0 +1,3 @@
+{
+  "summary": "Successfully implemented readOnly(IsolationLevel) for MeteredKeyValueStore (KAFKA-20497). The implementation provides a metered read-only view that applies serdes and records metrics for all read operations (get, range, reverseRange, all, reverseAll, prefixScan) while propagating the isolation level to the underlying store. All 46 tests in MeteredKeyValueStoreTest pass."
+}

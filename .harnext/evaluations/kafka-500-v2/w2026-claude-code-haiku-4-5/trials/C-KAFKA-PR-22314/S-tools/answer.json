@@ -1,0 +1,3 @@
+{
+  "summary": "Successfully implemented readOnly(IsolationLevel) method for CachingWindowStore with ReadOnlyView inner class that merges cache and store data for READ_UNCOMMITTED isolation level and delegates to wrapped store for READ_COMMITTED. All 61 tests pass, including 14 new tests for the read-only view functionality covering both isolation levels and various fetch patterns (point-in-time, time-range, key-range, fetchAll, all, backward variants, null checks, and non-persistent stores)."
+}

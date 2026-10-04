@@ -1,0 +1,71 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "kips/KIP-1274.md",
+      "WINDOW-15-2026-01-23-to-2026-01-26-summary.md",
+      "WINDOW-17-2026-01-28-to-2026-01-29-summary.md",
+      "WINDOW-33-2026-02-17-to-2026-02-18-summary.md",
+      "WINDOW-34-2026-02-18-summary.md",
+      "WINDOW-37-2026-02-20-to-2026-02-22.md",
+      "INDEX-WINDOW-33.md"
+    ],
+    "value": {
+      "participants": 6,
+      "starter": "Lianet Magrans"
+    }
+  },
+  "arm": "F4-entity-search",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 92.88439589100017,
+  "family": "kip_thread",
+  "grade": {
+    "actual": {
+      "participants": 6,
+      "starter": "Lianet Magrans"
+    },
+    "correct": false,
+    "evidence": [
+      "kips/KIP-1274.md",
+      "WINDOW-15-2026-01-23-to-2026-01-26-summary.md",
+      "WINDOW-17-2026-01-28-to-2026-01-29-summary.md",
+      "WINDOW-33-2026-02-17-to-2026-02-18-summary.md",
+      "WINDOW-34-2026-02-18-summary.md",
+      "WINDOW-37-2026-02-20-to-2026-02-22.md",
+      "INDEX-WINDOW-33.md"
+    ],
+    "expected": {
+      "participants": 8,
+      "starter": "Lianet Magrans"
+    }
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 4,
+  "prompt_sha256": "a34ab3b9d2317c8dfb9eea0b5cf268403fb991a683527417b6de71a7c3fc1338",
+  "run_index": 17,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-kip_thread-4f3f46e46c",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 88354,
+    "cost_usd": 0.0227264,
+    "input_tokens": 92377,
+    "output_tokens": 1176
+  },
+  "violations": []
+}

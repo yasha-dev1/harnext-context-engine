@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "issues/KAFKA-20549.md",
+    "window-128-overview.md",
+    "window-109-summary.md"
+  ],
+  "value": "Open"
+}

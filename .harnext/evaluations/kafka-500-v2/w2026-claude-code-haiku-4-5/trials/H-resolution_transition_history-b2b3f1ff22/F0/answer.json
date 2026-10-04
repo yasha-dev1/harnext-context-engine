@@ -1,0 +1,18 @@
+{
+  "evidence": [
+    "events/2026/03/05/jira-13643952-change-22961787-0-b517fe44.md",
+    "events/2026/03/13/jira-13643952-change-22973231-0-a68b4335.md"
+  ],
+  "value": [
+    {
+      "at": "2026-03-05T09:40:54.681000Z",
+      "from": null,
+      "to": "Fixed"
+    },
+    {
+      "at": "2026-03-13T07:44:14.073000Z",
+      "from": "Fixed",
+      "to": "Duplicate"
+    }
+  ]
+}

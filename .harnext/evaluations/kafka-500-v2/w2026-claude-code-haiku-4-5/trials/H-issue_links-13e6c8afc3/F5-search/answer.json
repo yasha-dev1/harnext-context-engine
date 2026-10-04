@@ -1,0 +1,9 @@
+{
+  "evidence": [
+    "entities/issue/KAFKA-20421/facts.md — lists KAFKA-20056 under Related field",
+    "INDEX.md line 1384 — documents KAFKA-20193 parent-child relationship"
+  ],
+  "value": [
+    "KAFKA-20056"
+  ]
+}

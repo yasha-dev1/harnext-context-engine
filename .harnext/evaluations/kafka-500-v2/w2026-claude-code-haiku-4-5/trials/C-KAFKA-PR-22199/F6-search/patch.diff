@@ -1,0 +1,32 @@
+diff --git a/clients/src/main/java/org/apache/kafka/clients/consumer/internals/AsyncKafkaConsumer.java b/clients/src/main/java/org/apache/kafka/clients/consumer/internals/AsyncKafkaConsumer.java
+index 08e5ce30ed601054fca0139d7c08a036add0e665..e280cb63ab654458435bace35f886491fab18836 100644
+--- a/clients/src/main/java/org/apache/kafka/clients/consumer/internals/AsyncKafkaConsumer.java
++++ b/clients/src/main/java/org/apache/kafka/clients/consumer/internals/AsyncKafkaConsumer.java
+@@ -407,6 +407,7 @@ public class AsyncKafkaConsumer<K, V> implements ConsumerDelegate<K, V> {
+ 
+     private final PositionsValidator positionsValidator;
+     private AsyncPollEvent inflightPoll;
++    private volatile boolean hasPendingReconciliation = true;
+     private final WakeupTrigger wakeupTrigger = new WakeupTrigger();
+     private final OffsetCommitCallbackInvoker offsetCommitCallbackInvoker;
+     private final ConsumerRebalanceListenerInvoker rebalanceListenerInvoker;
+@@ -873,6 +874,10 @@ public class AsyncKafkaConsumer<K, V> implements ConsumerDelegate<K, V> {
+         groupAssignmentSnapshot.set(Collections.unmodifiableSet(partitions));
+     }
+ 
++    void setHasPendingReconciliation(boolean hasPendingReconciliation) {
++        this.hasPendingReconciliation = hasPendingReconciliation;
++    }
++
+     @Override
+     public void registerMetricForSubscription(KafkaMetric metric) {
+         if (!metrics().containsKey(metric.metricName())) {
+@@ -2028,7 +2033,7 @@ public class AsyncKafkaConsumer<K, V> implements ConsumerDelegate<K, V> {
+         // This is key because partitions may need revocation, so we need to wait for the reconciliation check
+         // that triggers commits and marks partitions as pending revocation, before we can
+         // safely collect records from the buffer.
+-        if (inflightPoll != null && !inflightPoll.isReconciliationCheckComplete()) {
++        if (inflightPoll != null && hasPendingReconciliation && !inflightPoll.isReconciliationCheckComplete()) {
+             // If the background hasn't had the time to check for pending reconciliation,
+             // we need to wait for that check before moving on (instead of returning empty right away,
+             // which will lead to blocking on buffer data)

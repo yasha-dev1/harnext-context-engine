@@ -1,0 +1,3 @@
+{
+  "summary": "Successfully implemented KAFKA-20444: Aligned TxnOffsetCommit API with OffsetCommit API by adding topicId support to the response builder pattern and preserving topicIds in error responses. All 53 tests pass."
+}

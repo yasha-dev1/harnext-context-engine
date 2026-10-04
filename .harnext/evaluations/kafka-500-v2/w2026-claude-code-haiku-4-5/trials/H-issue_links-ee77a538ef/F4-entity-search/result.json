@@ -1,0 +1,56 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "issues/KAFKA-20066.md — No 'Blocks' or outbound 'blocks' links section found",
+      "issues/KAFKA-20282.md — Shows 'Related Issues' linking to KAFKA-20066, not blocks relationship",
+      "INDEX-WINDOW-31.md, INDEX-WINDOW-55.md — Document related and dependency relationships but no explicit blocks links"
+    ],
+    "value": []
+  },
+  "arm": "F4-entity-search",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 171.76135512199835,
+  "family": "issue_links",
+  "grade": {
+    "actual": [],
+    "correct": false,
+    "evidence": [
+      "issues/KAFKA-20066.md — No 'Blocks' or outbound 'blocks' links section found",
+      "issues/KAFKA-20282.md — Shows 'Related Issues' linking to KAFKA-20066, not blocks relationship",
+      "INDEX-WINDOW-31.md, INDEX-WINDOW-55.md — Document related and dependency relationships but no explicit blocks links"
+    ],
+    "expected": [
+      "KAFKA-20282"
+    ]
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 35,
+  "prompt_sha256": "5283ee97835b8ed4c068fb16acf62dd00e417f140808ca0c9efbb352355ab5a3",
+  "run_index": 13,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-issue_links-ee77a538ef",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 32
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 1600805,
+    "cost_usd": 0.32166950000000005,
+    "input_tokens": 1665446,
+    "output_tokens": 6518
+  },
+  "violations": []
+}

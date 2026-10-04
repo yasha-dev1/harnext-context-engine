@@ -1,0 +1,12 @@
+{
+  "evidence": [
+    "kips-and-discussions.md (lines 5714-5721: discussion start by Lianet Magrans on 2026-01-22T22:04:53Z)",
+    "kips-and-discussions.md (lines 5455-5476: discussion participants including Andrew Schofield, Matthias J. Sax, David Jacot, Ismael Juma)",
+    "kips-and-discussions.md (lines 4098-4105: Kirk True voting)",
+    "kips-and-discussions.md (lines 4209-4214: Lucas Brutschy and Lianet Magrans votes)"
+  ],
+  "value": {
+    "participants": 7,
+    "starter": "Lianet Magrans"
+  }
+}

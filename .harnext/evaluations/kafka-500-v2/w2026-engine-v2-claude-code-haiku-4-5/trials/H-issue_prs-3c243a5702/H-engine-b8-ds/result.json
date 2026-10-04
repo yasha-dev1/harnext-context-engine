@@ -1,0 +1,199 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "github:api:apache/kafka:pr-21465-opened",
+      "github:api:apache/kafka:pr-21465-merged",
+      "github:api:apache/kafka:pr-21474-opened",
+      "github:api:apache/kafka:pr-21474-closed",
+      "github:api:apache/kafka:pr-21478-opened",
+      "github:api:apache/kafka:pr-21478-merged",
+      "github:api:apache/kafka:pr-21486-opened",
+      "github:api:apache/kafka:pr-21486-merged",
+      "github:api:apache/kafka:pr-21493-opened",
+      "github:api:apache/kafka:pr-21493-merged",
+      "github:api:apache/kafka:pr-21497-opened",
+      "github:api:apache/kafka:pr-21581-opened",
+      "jira:13641166:change:22917282:0",
+      "jira:13641166:change:22919703:0",
+      "jira:13641166:change:22920156:0",
+      "jira:13641166:change:22939835:0",
+      "jira:13641166:change:22941058:0",
+      "jira:13641166:change:22941286:0",
+      "jira:13641166:change:22953163:0"
+    ],
+    "value": [
+      {
+        "pr": 21465,
+        "state": "merged"
+      },
+      {
+        "pr": 21474,
+        "state": "closed"
+      },
+      {
+        "pr": 21478,
+        "state": "merged"
+      },
+      {
+        "pr": 21486,
+        "state": "merged"
+      },
+      {
+        "pr": 21493,
+        "state": "merged"
+      },
+      {
+        "pr": 21497,
+        "state": "open"
+      },
+      {
+        "pr": 21581,
+        "state": "open"
+      }
+    ]
+  },
+  "arm": "H-engine-b8-ds",
+  "checkpoint": "2026-02",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 205.5536315460049,
+  "engine": {
+    "calls": 1,
+    "chat": {
+      "calls": 11,
+      "cancelled": 0,
+      "cost_usd": 0.00545837,
+      "input_tokens": 71946,
+      "output_tokens": 9857,
+      "retries": 0
+    },
+    "cost_usd": 0.00693837,
+    "discarded_attempts": 0,
+    "jev": {
+      "calls": 11,
+      "cancelled": 0,
+      "cost_usd": 0.00148,
+      "input_tokens": 35238,
+      "output_tokens": 3259,
+      "retries": 0
+    },
+    "partial": 1,
+    "provider_retry_usd": 0,
+    "seconds": 186.611,
+    "unmetered_upper_usd": 0,
+    "waited_s": 0
+  },
+  "family": "issue_prs",
+  "grade": {
+    "actual": [
+      {
+        "pr": 21465,
+        "state": "merged"
+      },
+      {
+        "pr": 21474,
+        "state": "closed"
+      },
+      {
+        "pr": 21478,
+        "state": "merged"
+      },
+      {
+        "pr": 21486,
+        "state": "merged"
+      },
+      {
+        "pr": 21493,
+        "state": "merged"
+      },
+      {
+        "pr": 21497,
+        "state": "open"
+      },
+      {
+        "pr": 21581,
+        "state": "open"
+      }
+    ],
+    "correct": true,
+    "evidence": [
+      "github:api:apache/kafka:pr-21465-opened",
+      "github:api:apache/kafka:pr-21465-merged",
+      "github:api:apache/kafka:pr-21474-opened",
+      "github:api:apache/kafka:pr-21474-closed",
+      "github:api:apache/kafka:pr-21478-opened",
+      "github:api:apache/kafka:pr-21478-merged",
+      "github:api:apache/kafka:pr-21486-opened",
+      "github:api:apache/kafka:pr-21486-merged",
+      "github:api:apache/kafka:pr-21493-opened",
+      "github:api:apache/kafka:pr-21493-merged",
+      "github:api:apache/kafka:pr-21497-opened",
+      "github:api:apache/kafka:pr-21581-opened",
+      "jira:13641166:change:22917282:0",
+      "jira:13641166:change:22919703:0",
+      "jira:13641166:change:22920156:0",
+      "jira:13641166:change:22939835:0",
+      "jira:13641166:change:22941058:0",
+      "jira:13641166:change:22941286:0",
+      "jira:13641166:change:22953163:0"
+    ],
+    "expected": [
+      {
+        "pr": 21465,
+        "state": "merged"
+      },
+      {
+        "pr": 21474,
+        "state": "closed"
+      },
+      {
+        "pr": 21478,
+        "state": "merged"
+      },
+      {
+        "pr": 21486,
+        "state": "merged"
+      },
+      {
+        "pr": 21493,
+        "state": "merged"
+      },
+      {
+        "pr": 21497,
+        "state": "open"
+      },
+      {
+        "pr": 21581,
+        "state": "open"
+      }
+    ]
+  },
+  "image_id": "sha256:1de715f951a3fc013cabad66407b87028bc2a5af6e58efdea5338b4cf9fb1485",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "f9fbde00c4b613f30ba6c735e30768c65c60f10480d17cfd8f81fcb76de07157",
+  "run_index": 22,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-issue_prs-3c243a5702",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 63725,
+    "cost_usd": 0.0178605,
+    "input_tokens": 65900,
+    "output_tokens": 1433
+  },
+  "violations": []
+}

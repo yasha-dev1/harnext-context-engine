@@ -1,0 +1,11 @@
+{
+  "evidence": [
+    "entities/kip/KIP-1266/OVERVIEW.md",
+    "entities/kip/KIP-1266/timeline.md",
+    "entities/thread/CABfG-YZZ-yHdbvjytYKxhMkvZNC-NXbzXGdKPgv4nsL96o-Fow-mail.gmail.com-fae59ef2/OVERVIEW.md"
+  ],
+  "value": {
+    "participants": 4,
+    "starter": "Lijun Tong"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "store/jira-issues.md (lines 1234-1244)",
+    "store/kips-and-discussions.md (lines 601-646, 1504-1513, 1354-1365)"
+  ],
+  "value": "KAFKA-20186"
+}

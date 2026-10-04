@@ -1,0 +1,50 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "jira issue view KAFKA-20185 (offline replica as of 2026-06-01T00:00:00Z)"
+    ],
+    "value": "Blocker"
+  },
+  "arm": "S-tools",
+  "checkpoint": "2026-05",
+  "cli_calls": {
+    "jira": 2
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 8.383146717002091,
+  "family": "priority_at_snapshot",
+  "grade": {
+    "actual": "Blocker",
+    "correct": true,
+    "evidence": [
+      "jira issue view KAFKA-20185 (offline replica as of 2026-06-01T00:00:00Z)"
+    ],
+    "expected": "Blocker"
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "a47daf23381f81cf22a8655efef2edfd1b0a94cf2bf4971ca263841450a8aa64",
+  "run_index": 21,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-priority_at_snapshot-fdda08ba87",
+  "tool_calls": {
+    "Bash": 2,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 59607,
+    "cost_usd": 0.0170817,
+    "input_tokens": 63800,
+    "output_tokens": 552
+  },
+  "violations": []
+}

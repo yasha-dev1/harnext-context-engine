@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "mail:cdc51b19d028bc0f5c373cf1 - Federico Valeri confirms signature change but names retained",
+    "KIP-1279 Cluster Mirroring design discussion (12 mailing list threads examined)"
+  ],
+  "value": "AddTopicsToMirror/RemoveTopicsFromMirror"
+}

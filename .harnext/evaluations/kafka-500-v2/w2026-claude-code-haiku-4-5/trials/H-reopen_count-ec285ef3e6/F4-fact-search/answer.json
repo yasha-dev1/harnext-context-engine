@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "issues/kafka-20516-async-consumer-remain-in-group.md"
+  ],
+  "value": 1
+}

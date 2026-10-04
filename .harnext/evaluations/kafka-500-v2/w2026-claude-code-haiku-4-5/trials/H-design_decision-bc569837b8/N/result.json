@@ -1,0 +1,48 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "Empty workspace; knowledge cutoff (February 2025) predates snapshot date (March 31, 2026); no network access to resolve external references"
+    ],
+    "value": null
+  },
+  "arm": "N",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 13.572678508993704,
+  "family": "design_decision",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "Empty workspace; knowledge cutoff (February 2025) predates snapshot date (March 31, 2026); no network access to resolve external references"
+    ],
+    "expected": "V2"
+  },
+  "instructions_sha256": null,
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 2,
+  "prompt_sha256": "0796d75a37870ba9d9f30ef65846c93dc7f34c537053fba064fa064644cef090",
+  "run_index": 50,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-bc569837b8",
+  "tool_calls": {
+    "Bash": 2,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 38120,
+    "cost_usd": 0.017795000000000002,
+    "input_tokens": 42050,
+    "output_tokens": 1228
+  },
+  "violations": []
+}

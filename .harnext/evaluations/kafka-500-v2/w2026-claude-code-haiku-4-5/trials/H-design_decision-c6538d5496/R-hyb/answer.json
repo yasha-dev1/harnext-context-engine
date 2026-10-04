@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "mail:34fc284fbaae3665c418057e — Lijun Tong's response on 2026-01-20T01:59:54Z to [DISCUSS] KIP-1266 Bounding The Number Of RemoteLogMetadata Messages via Compacted RemoteLogMetadata Topic, where he states: 'The solution I have in mind is this feature is *gated by the metadata version*.'"
+  ],
+  "value": "metadata version"
+}

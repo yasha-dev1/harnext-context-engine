@@ -1,0 +1,12 @@
+{
+  "evidence": [
+    "entities/kip/KIP-1274/OVERVIEW.md",
+    "entities/kip/KIP-1274/timeline.md",
+    "entities/thread/5d7c9b6a-6729-4811-9ec7-629ced5b9e1c-apache.org-2034d686/OVERVIEW.md",
+    "entities/thread/5d7c9b6a-6729-4811-9ec7-629ced5b9e1c-apache.org-2034d686/timeline.md"
+  ],
+  "value": {
+    "participants": 9,
+    "starter": "Lianet Magrans"
+  }
+}

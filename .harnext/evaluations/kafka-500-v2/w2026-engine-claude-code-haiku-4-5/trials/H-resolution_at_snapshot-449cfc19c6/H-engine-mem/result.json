@@ -1,0 +1,76 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "jira:12664433:change:23063296:0"
+    ],
+    "value": "Abandoned"
+  },
+  "arm": "H-engine-mem",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 63.0789612740009,
+  "engine": {
+    "calls": 1,
+    "chat": {
+      "calls": 15,
+      "cancelled": 0,
+      "cost_usd": 0.00070107,
+      "input_tokens": 32814,
+      "output_tokens": 1036,
+      "retries": 0
+    },
+    "cost_usd": 0.0013472,
+    "discarded_attempts": 0,
+    "jev": {
+      "calls": 9,
+      "cancelled": 0,
+      "cost_usd": 0.00064613,
+      "input_tokens": 15384,
+      "output_tokens": 2417,
+      "retries": 0
+    },
+    "partial": 0,
+    "provider_retry_usd": 0,
+    "seconds": 48.254,
+    "unmetered_upper_usd": 0,
+    "waited_s": 0
+  },
+  "family": "resolution_at_snapshot",
+  "grade": {
+    "actual": "Abandoned",
+    "correct": true,
+    "evidence": [
+      "jira:12664433:change:23063296:0"
+    ],
+    "expected": "Abandoned"
+  },
+  "image_id": "sha256:4615b2564319d58319029548af66970c954e128401ee89c8705684861de4bc07",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "0a72105a3e0bef5edbb0ad94bc6d44cf35e2a6ed8133aa98b54a4a79020ca38f",
+  "run_index": 24,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-resolution_at_snapshot-449cfc19c6",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 63593,
+    "cost_usd": 0.012491299999999997,
+    "input_tokens": 64660,
+    "output_tokens": 805
+  },
+  "violations": []
+}

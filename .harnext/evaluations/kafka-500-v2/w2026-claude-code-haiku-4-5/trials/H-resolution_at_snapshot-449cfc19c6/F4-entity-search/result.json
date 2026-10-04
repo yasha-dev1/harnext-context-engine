@@ -1,0 +1,51 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "WINDOW-120-2026-05-15-to-2026-05-17-summary.md (lines 138-162)",
+      "INDEX-WINDOW-120.md (lines 65-74)"
+    ],
+    "value": "Abandoned"
+  },
+  "arm": "F4-entity-search",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 22.271167715007323,
+  "family": "resolution_at_snapshot",
+  "grade": {
+    "actual": "Abandoned",
+    "correct": true,
+    "evidence": [
+      "WINDOW-120-2026-05-15-to-2026-05-17-summary.md (lines 138-162)",
+      "INDEX-WINDOW-120.md (lines 65-74)"
+    ],
+    "expected": "Abandoned"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 4,
+  "prompt_sha256": "368dd6513c6d8020ad083e5810154be3e11829e8e2c879ab02b4928ea267687b",
+  "run_index": 24,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-resolution_at_snapshot-449cfc19c6",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__search_context": 2
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 87807,
+    "cost_usd": 0.0248787,
+    "input_tokens": 92966,
+    "output_tokens": 1163
+  },
+  "violations": []
+}

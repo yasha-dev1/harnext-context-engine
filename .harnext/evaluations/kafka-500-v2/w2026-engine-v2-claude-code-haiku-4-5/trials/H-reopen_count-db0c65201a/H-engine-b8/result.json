@@ -1,0 +1,76 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "jira_changes query for issue KAFKA-18866 with status field transition to 'Reopened' returned 0 results"
+    ],
+    "value": 0
+  },
+  "arm": "H-engine-b8",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 51.02604134801368,
+  "engine": {
+    "calls": 1,
+    "chat": {
+      "calls": 9,
+      "cancelled": 0,
+      "cost_usd": 0.00099685,
+      "input_tokens": 37605,
+      "output_tokens": 1042,
+      "retries": 0
+    },
+    "cost_usd": 0.00192131,
+    "discarded_attempts": 0,
+    "jev": {
+      "calls": 9,
+      "cancelled": 0,
+      "cost_usd": 0.00092446,
+      "input_tokens": 22011,
+      "output_tokens": 3835,
+      "retries": 0
+    },
+    "partial": 1,
+    "provider_retry_usd": 0,
+    "seconds": 37.297,
+    "unmetered_upper_usd": 0,
+    "waited_s": 0
+  },
+  "family": "reopen_count",
+  "grade": {
+    "actual": 0,
+    "correct": true,
+    "evidence": [
+      "jira_changes query for issue KAFKA-18866 with status field transition to 'Reopened' returned 0 results"
+    ],
+    "expected": 0
+  },
+  "image_id": "sha256:1de715f951a3fc013cabad66407b87028bc2a5af6e58efdea5338b4cf9fb1485",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "2d7fb6e940e674ed02fba4daf4215f4243c640bfbbd39464fb73cfd68ba1882e",
+  "run_index": 25,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-reopen_count-db0c65201a",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 63413,
+    "cost_usd": 0.011246299999999999,
+    "input_tokens": 64314,
+    "output_tokens": 626
+  },
+  "violations": []
+}

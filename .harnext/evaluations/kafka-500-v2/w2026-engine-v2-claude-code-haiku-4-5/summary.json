@@ -1,0 +1,691 @@
+{
+  "arms": {
+    "H-engine-b8": {
+      "agent_seconds": 13871.0,
+      "by_kind": {
+        "coding": {
+          "agent_seconds": 8178.4,
+          "by_family": {
+            "pr_implementation": {
+              "agent_seconds": 8178.4,
+              "cached_input_tokens": 31759238,
+              "context_bytes": 0,
+              "input_tokens": 32531413,
+              "n": 12,
+              "output_tokens": 160572,
+              "status": {
+                "completed": 12
+              },
+              "success": 9,
+              "tool_calls": 557
+            }
+          },
+          "cached_input_tokens": 31759238,
+          "context_bytes": 0,
+          "input_tokens": 32531413,
+          "n": 12,
+          "output_tokens": 160572,
+          "status": {
+            "completed": 12
+          },
+          "success": 9,
+          "tool_calls": 557
+        },
+        "historical": {
+          "agent_seconds": 5692.6,
+          "by_family": {
+            "assignee_at_snapshot": {
+              "agent_seconds": 43.4,
+              "cached_input_tokens": 59885,
+              "context_bytes": 0,
+              "input_tokens": 64236,
+              "n": 1,
+              "output_tokens": 592,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 3
+            },
+            "assignment_history": {
+              "agent_seconds": 103.0,
+              "cached_input_tokens": 86012,
+              "context_bytes": 0,
+              "input_tokens": 87559,
+              "n": 1,
+              "output_tokens": 1430,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 4
+            },
+            "author_activity": {
+              "agent_seconds": 46.0,
+              "cached_input_tokens": 42408,
+              "context_bytes": 0,
+              "input_tokens": 64501,
+              "n": 1,
+              "output_tokens": 761,
+              "status": {
+                "completed": 1
+              },
+              "success": 0,
+              "tool_calls": 3
+            },
+            "closed_at_snapshot": {
+              "agent_seconds": 35.6,
+              "cached_input_tokens": 63364,
+              "context_bytes": 0,
+              "input_tokens": 64204,
+              "n": 1,
+              "output_tokens": 712,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 3
+            },
+            "design_decision": {
+              "agent_seconds": 2488.3,
+              "cached_input_tokens": 2177640,
+              "context_bytes": 0,
+              "input_tokens": 2270104,
+              "n": 29,
+              "output_tokens": 27643,
+              "status": {
+                "completed": 29
+              },
+              "success": 20,
+              "tool_calls": 106
+            },
+            "fix_version_at_snapshot": {
+              "agent_seconds": 139.0,
+              "cached_input_tokens": 165832,
+              "context_bytes": 0,
+              "input_tokens": 193925,
+              "n": 3,
+              "output_tokens": 2584,
+              "status": {
+                "completed": 3
+              },
+              "success": 1,
+              "tool_calls": 9
+            },
+            "implicit_link": {
+              "agent_seconds": 961.4,
+              "cached_input_tokens": 913046,
+              "context_bytes": 0,
+              "input_tokens": 950190,
+              "n": 14,
+              "output_tokens": 10149,
+              "status": {
+                "completed": 14
+              },
+              "success": 14,
+              "tool_calls": 44
+            },
+            "issue_changed_files": {
+              "agent_seconds": 490.3,
+              "cached_input_tokens": 324420,
+              "context_bytes": 0,
+              "input_tokens": 336262,
+              "n": 3,
+              "output_tokens": 15668,
+              "status": {
+                "completed": 3
+              },
+              "success": 3,
+              "tool_calls": 16
+            },
+            "issue_links": {
+              "agent_seconds": 138.8,
+              "cached_input_tokens": 145387,
+              "context_bytes": 0,
+              "input_tokens": 151161,
+              "n": 2,
+              "output_tokens": 1737,
+              "status": {
+                "completed": 2
+              },
+              "success": 0,
+              "tool_calls": 7
+            },
+            "issue_prs": {
+              "agent_seconds": 234.1,
+              "cached_input_tokens": 207323,
+              "context_bytes": 0,
+              "input_tokens": 220525,
+              "n": 3,
+              "output_tokens": 3136,
+              "status": {
+                "completed": 3
+              },
+              "success": 3,
+              "tool_calls": 10
+            },
+            "kip_thread": {
+              "agent_seconds": 214.7,
+              "cached_input_tokens": 169806,
+              "context_bytes": 0,
+              "input_tokens": 194655,
+              "n": 3,
+              "output_tokens": 3154,
+              "status": {
+                "completed": 3
+              },
+              "success": 2,
+              "tool_calls": 9
+            },
+            "pr_approvers": {
+              "agent_seconds": 78.3,
+              "cached_input_tokens": 183220,
+              "context_bytes": 0,
+              "input_tokens": 193194,
+              "n": 3,
+              "output_tokens": 2140,
+              "status": {
+                "completed": 3
+              },
+              "success": 3,
+              "tool_calls": 9
+            },
+            "priority_at_snapshot": {
+              "agent_seconds": 22.5,
+              "cached_input_tokens": 59791,
+              "context_bytes": 0,
+              "input_tokens": 64046,
+              "n": 1,
+              "output_tokens": 544,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 3
+            },
+            "reopen_count": {
+              "agent_seconds": 82.9,
+              "cached_input_tokens": 126902,
+              "context_bytes": 0,
+              "input_tokens": 128961,
+              "n": 2,
+              "output_tokens": 1643,
+              "status": {
+                "completed": 2
+              },
+              "success": 2,
+              "tool_calls": 6
+            },
+            "resolution_at_snapshot": {
+              "agent_seconds": 23.3,
+              "cached_input_tokens": 59914,
+              "context_bytes": 0,
+              "input_tokens": 64286,
+              "n": 1,
+              "output_tokens": 643,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 3
+            },
+            "resolution_transition_history": {
+              "agent_seconds": 76.2,
+              "cached_input_tokens": 85678,
+              "context_bytes": 0,
+              "input_tokens": 86984,
+              "n": 1,
+              "output_tokens": 968,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 3
+            },
+            "resolution_vs_merge_order": {
+              "agent_seconds": 233.5,
+              "cached_input_tokens": 166244,
+              "context_bytes": 0,
+              "input_tokens": 194238,
+              "n": 3,
+              "output_tokens": 2607,
+              "status": {
+                "completed": 3
+              },
+              "success": 3,
+              "tool_calls": 10
+            },
+            "review_hotspot": {
+              "agent_seconds": 129.2,
+              "cached_input_tokens": 186621,
+              "context_bytes": 0,
+              "input_tokens": 195377,
+              "n": 3,
+              "output_tokens": 2715,
+              "status": {
+                "completed": 3
+              },
+              "success": 3,
+              "tool_calls": 9
+            },
+            "status_at_snapshot": {
+              "agent_seconds": 38.3,
+              "cached_input_tokens": 59945,
+              "context_bytes": 0,
+              "input_tokens": 64329,
+              "n": 1,
+              "output_tokens": 684,
+              "status": {
+                "completed": 1
+              },
+              "success": 0,
+              "tool_calls": 3
+            },
+            "status_transition_history": {
+              "agent_seconds": 36.7,
+              "cached_input_tokens": 63697,
+              "context_bytes": 0,
+              "input_tokens": 64750,
+              "n": 1,
+              "output_tokens": 1142,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 3
+            },
+            "top_reviewer_for_author": {
+              "agent_seconds": 77.1,
+              "cached_input_tokens": 60044,
+              "context_bytes": 0,
+              "input_tokens": 65018,
+              "n": 1,
+              "output_tokens": 1029,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 3
+            }
+          },
+          "cached_input_tokens": 5407179,
+          "context_bytes": 0,
+          "input_tokens": 5718505,
+          "n": 78,
+          "output_tokens": 81681,
+          "status": {
+            "completed": 78
+          },
+          "success": 62,
+          "tool_calls": 266
+        }
+      },
+      "cached_input_tokens": 37166417,
+      "context_bytes": 0,
+      "input_tokens": 38249918,
+      "n": 90,
+      "output_tokens": 242253,
+      "status": {
+        "completed": 90
+      },
+      "success": 71,
+      "tool_calls": 823
+    },
+    "H-engine-b8-ds": {
+      "agent_seconds": 22427.0,
+      "by_kind": {
+        "coding": {
+          "agent_seconds": 10136.2,
+          "by_family": {
+            "pr_implementation": {
+              "agent_seconds": 10136.2,
+              "cached_input_tokens": 30528975,
+              "context_bytes": 0,
+              "input_tokens": 31273619,
+              "n": 12,
+              "output_tokens": 168303,
+              "status": {
+                "completed": 12
+              },
+              "success": 9,
+              "tool_calls": 489
+            }
+          },
+          "cached_input_tokens": 30528975,
+          "context_bytes": 0,
+          "input_tokens": 31273619,
+          "n": 12,
+          "output_tokens": 168303,
+          "status": {
+            "completed": 12
+          },
+          "success": 9,
+          "tool_calls": 489
+        },
+        "historical": {
+          "agent_seconds": 12290.8,
+          "by_family": {
+            "assignee_at_snapshot": {
+              "agent_seconds": 165.2,
+              "cached_input_tokens": 85418,
+              "context_bytes": 0,
+              "input_tokens": 86795,
+              "n": 1,
+              "output_tokens": 854,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 3
+            },
+            "assignment_history": {
+              "agent_seconds": 89.4,
+              "cached_input_tokens": 82548,
+              "context_bytes": 0,
+              "input_tokens": 87942,
+              "n": 1,
+              "output_tokens": 1439,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 4
+            },
+            "author_activity": {
+              "agent_seconds": 42.0,
+              "cached_input_tokens": 63541,
+              "context_bytes": 0,
+              "input_tokens": 64831,
+              "n": 1,
+              "output_tokens": 762,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 3
+            },
+            "closed_at_snapshot": {
+              "agent_seconds": 64.9,
+              "cached_input_tokens": 42414,
+              "context_bytes": 0,
+              "input_tokens": 64312,
+              "n": 1,
+              "output_tokens": 631,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 3
+            },
+            "design_decision": {
+              "agent_seconds": 6436.9,
+              "cached_input_tokens": 2049306,
+              "context_bytes": 0,
+              "input_tokens": 2152923,
+              "n": 29,
+              "output_tokens": 25422,
+              "status": {
+                "completed": 28,
+                "timeout": 1
+              },
+              "success": 20,
+              "tool_calls": 105
+            },
+            "fix_version_at_snapshot": {
+              "agent_seconds": 278.0,
+              "cached_input_tokens": 186753,
+              "context_bytes": 0,
+              "input_tokens": 193642,
+              "n": 3,
+              "output_tokens": 2311,
+              "status": {
+                "completed": 3
+              },
+              "success": 3,
+              "tool_calls": 9
+            },
+            "implicit_link": {
+              "agent_seconds": 1439.4,
+              "cached_input_tokens": 869221,
+              "context_bytes": 0,
+              "input_tokens": 908938,
+              "n": 14,
+              "output_tokens": 11402,
+              "status": {
+                "completed": 14
+              },
+              "success": 14,
+              "tool_calls": 42
+            },
+            "issue_changed_files": {
+              "agent_seconds": 1021.5,
+              "cached_input_tokens": 346058,
+              "context_bytes": 0,
+              "input_tokens": 364310,
+              "n": 3,
+              "output_tokens": 17461,
+              "status": {
+                "completed": 3
+              },
+              "success": 3,
+              "tool_calls": 16
+            },
+            "issue_links": {
+              "agent_seconds": 258.2,
+              "cached_input_tokens": 168661,
+              "context_bytes": 0,
+              "input_tokens": 176310,
+              "n": 2,
+              "output_tokens": 1874,
+              "status": {
+                "completed": 2
+              },
+              "success": 1,
+              "tool_calls": 8
+            },
+            "issue_prs": {
+              "agent_seconds": 446.9,
+              "cached_input_tokens": 170079,
+              "context_bytes": 0,
+              "input_tokens": 197511,
+              "n": 3,
+              "output_tokens": 3294,
+              "status": {
+                "completed": 3
+              },
+              "success": 3,
+              "tool_calls": 9
+            },
+            "kip_thread": {
+              "agent_seconds": 516.6,
+              "cached_input_tokens": 205985,
+              "context_bytes": 0,
+              "input_tokens": 218572,
+              "n": 3,
+              "output_tokens": 2978,
+              "status": {
+                "completed": 3
+              },
+              "success": 3,
+              "tool_calls": 10
+            },
+            "pr_approvers": {
+              "agent_seconds": 122.5,
+              "cached_input_tokens": 186684,
+              "context_bytes": 0,
+              "input_tokens": 193477,
+              "n": 3,
+              "output_tokens": 2208,
+              "status": {
+                "completed": 3
+              },
+              "success": 3,
+              "tool_calls": 9
+            },
+            "priority_at_snapshot": {
+              "agent_seconds": 53.6,
+              "cached_input_tokens": 63322,
+              "context_bytes": 0,
+              "input_tokens": 64213,
+              "n": 1,
+              "output_tokens": 601,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 3
+            },
+            "reopen_count": {
+              "agent_seconds": 97.2,
+              "cached_input_tokens": 119892,
+              "context_bytes": 0,
+              "input_tokens": 129041,
+              "n": 2,
+              "output_tokens": 1471,
+              "status": {
+                "completed": 2
+              },
+              "success": 2,
+              "tool_calls": 6
+            },
+            "resolution_at_snapshot": {
+              "agent_seconds": 37.8,
+              "cached_input_tokens": 63438,
+              "context_bytes": 0,
+              "input_tokens": 64377,
+              "n": 1,
+              "output_tokens": 596,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 3
+            },
+            "resolution_transition_history": {
+              "agent_seconds": 49.9,
+              "cached_input_tokens": 60161,
+              "context_bytes": 0,
+              "input_tokens": 64569,
+              "n": 1,
+              "output_tokens": 767,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 3
+            },
+            "resolution_vs_merge_order": {
+              "agent_seconds": 469.2,
+              "cached_input_tokens": 187361,
+              "context_bytes": 0,
+              "input_tokens": 196489,
+              "n": 3,
+              "output_tokens": 2883,
+              "status": {
+                "completed": 3
+              },
+              "success": 3,
+              "tool_calls": 12
+            },
+            "review_hotspot": {
+              "agent_seconds": 337.0,
+              "cached_input_tokens": 165730,
+              "context_bytes": 0,
+              "input_tokens": 195898,
+              "n": 3,
+              "output_tokens": 2334,
+              "status": {
+                "completed": 3
+              },
+              "success": 3,
+              "tool_calls": 9
+            },
+            "status_at_snapshot": {
+              "agent_seconds": 59.3,
+              "cached_input_tokens": 63476,
+              "context_bytes": 0,
+              "input_tokens": 64574,
+              "n": 1,
+              "output_tokens": 700,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 3
+            },
+            "status_transition_history": {
+              "agent_seconds": 46.1,
+              "cached_input_tokens": 60169,
+              "context_bytes": 0,
+              "input_tokens": 64744,
+              "n": 1,
+              "output_tokens": 896,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 3
+            },
+            "top_reviewer_for_author": {
+              "agent_seconds": 259.1,
+              "cached_input_tokens": 110591,
+              "context_bytes": 0,
+              "input_tokens": 114384,
+              "n": 1,
+              "output_tokens": 1328,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 5
+            }
+          },
+          "cached_input_tokens": 5350808,
+          "context_bytes": 0,
+          "input_tokens": 5667852,
+          "n": 78,
+          "output_tokens": 82212,
+          "status": {
+            "completed": 77,
+            "timeout": 1
+          },
+          "success": 68,
+          "tool_calls": 268
+        }
+      },
+      "cached_input_tokens": 35879783,
+      "context_bytes": 0,
+      "input_tokens": 36941471,
+      "n": 90,
+      "output_tokens": 250515,
+      "status": {
+        "completed": 89,
+        "timeout": 1
+      },
+      "success": 77,
+      "tool_calls": 757
+    }
+  },
+  "not_recorded": [],
+  "paired_vs_N": {
+    "H-engine-b8": {
+      "both": 0,
+      "harmed": 0,
+      "helped": 0,
+      "neither": 0,
+      "pairs": 0
+    },
+    "H-engine-b8-ds": {
+      "both": 0,
+      "harmed": 0,
+      "helped": 0,
+      "neither": 0,
+      "pairs": 0
+    }
+  },
+  "reason": null,
+  "recorded": 180,
+  "status": "complete",
+  "target": 180,
+  "updated_at_unix": 1790723404.0517387
+}

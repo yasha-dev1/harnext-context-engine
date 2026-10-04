@@ -1,0 +1,52 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "discussions.md - Window 109 (2026-05-03 to 2026-05-08): Muralidhar Basani question mb-6 asked 2026-05-03T15:23:33Z",
+      "Context_research result: 'The specific answer to the mb-6 retry behavior question is not detailed in the available context files'"
+    ],
+    "value": null
+  },
+  "arm": "F4-topic-search",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 222.11300974700134,
+  "family": "design_decision",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "discussions.md - Window 109 (2026-05-03 to 2026-05-08): Muralidhar Basani question mb-6 asked 2026-05-03T15:23:33Z",
+      "Context_research result: 'The specific answer to the mb-6 retry behavior question is not detailed in the available context files'"
+    ],
+    "expected": "yes, retries target a different broker"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 14,
+  "prompt_sha256": "56baad5901031a20c722428fa9c03eca5ca407917bfa479252a6c66207033705",
+  "run_index": 73,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-9ea8cbeccb",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 2,
+    "mcp__history__search_context": 10
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 522056,
+    "cost_usd": 0.14987760000000003,
+    "input_tokens": 562167,
+    "output_tokens": 3513
+  },
+  "violations": []
+}

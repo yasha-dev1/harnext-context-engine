@@ -1,0 +1,48 @@
+{
+  "evidence": [
+    "/store/issues/KAFKA-20168.md",
+    "/store/pull-requests/21452.md",
+    "/store/pull-requests/21461.md",
+    "/store/pull-requests/21462.md",
+    "/store/pull-requests/21505.md",
+    "/store/pull-requests/21559.md",
+    "/store/pull-requests/21560.md",
+    "/store/pull-requests/21561.md",
+    "/store/pull-requests/21562.md",
+    "/store/WINDOW-40-2026-02-24-to-2026-02-25-summary.md"
+  ],
+  "value": [
+    {
+      "pr": 21452,
+      "state": "merged"
+    },
+    {
+      "pr": 21461,
+      "state": "merged"
+    },
+    {
+      "pr": 21462,
+      "state": "merged"
+    },
+    {
+      "pr": 21505,
+      "state": "merged"
+    },
+    {
+      "pr": 21559,
+      "state": "merged"
+    },
+    {
+      "pr": 21560,
+      "state": "closed"
+    },
+    {
+      "pr": 21561,
+      "state": "merged"
+    },
+    {
+      "pr": 21562,
+      "state": "merged"
+    }
+  ]
+}

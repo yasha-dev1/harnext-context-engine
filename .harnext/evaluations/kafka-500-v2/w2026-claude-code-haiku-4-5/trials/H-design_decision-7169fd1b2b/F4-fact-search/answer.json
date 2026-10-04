@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "discussions/kip-1322-kraft-metrics-timeouts.md (lines 30-46)",
+    "discussions/kip-1322-kraft-timeout-metrics.md (lines 26-45)"
+  ],
+  "value": "always report regardless of state"
+}

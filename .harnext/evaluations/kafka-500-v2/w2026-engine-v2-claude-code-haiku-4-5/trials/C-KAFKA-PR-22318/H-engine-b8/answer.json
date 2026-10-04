@@ -1,0 +1,3 @@
+{
+  "summary": "Successfully implemented KAFKA-20497: ReadOnlyView implementations for MeteredWindowStore. Added a custom ReadOnlyView inner class that wraps the underlying read-only store from wrapped().readOnly(isolationLevel), applies serdes for key/value transformation, records fetch metrics using fetchSensor, and tracks open iterators. All 27 tests pass, including 15 new readOnly-specific tests verifying proper deserialization, metric recording, and iterator management for point-in-time fetch, range fetch, backward fetch, and fetchAll operations.</parameter>\n</invoke>"
+}

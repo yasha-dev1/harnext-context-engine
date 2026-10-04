@@ -1,0 +1,3 @@
+{
+  "summary": "KAFKA-20368: Changed metricTags from HashMap to LinkedHashMap in RLMExpirationTask to ensure deterministic ordering of metric tags. All 90 tests in RemoteLogManagerTest passed successfully, confirming the fix resolves the issue with non-deterministic metric tag ordering."
+}

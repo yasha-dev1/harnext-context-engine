@@ -1,0 +1,9 @@
+Context snapshot cutoff (inclusive): 2026-05-31T23:59:59Z.
+
+In this same KIP discussion about unregistering a controller's registration from the metadata log, was the final design decision to reuse an existing metadata record type for unregistration, or to introduce a brand-new dedicated record type? Answer with one of: "reuse existing record", "new record type". Answer with exactly one of: "reuse existing record", "new record type". Give the decision as it stood at the snapshot, not an earlier proposal.
+
+Return JSON {"value": <answer>, "evidence": [<ids or file paths of the sources you relied on>]}. Answer as of the cutoff; do not substitute a later or today's issue state.
+
+No project-history context is provided for this task. Work from the task statement and your own knowledge; there is no network access.
+
+Reply with one JSON object {"value": ..., "evidence": [...]}: `value` is the answer in the requested type (null if it cannot be determined), `evidence` lists the sources you relied on.

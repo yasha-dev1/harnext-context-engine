@@ -1,0 +1,9 @@
+Context snapshot cutoff (inclusive): 2026-05-31T23:59:59Z.
+
+On the Apache Kafka mailing list, Haifeng Chen started a thread with the subject "[DISCUSS] KIP-1333: Support log segments larger than 2 GB" on 2026-05-05. Which Apache Kafka JIRA issue tracks the problem, proposal or work raised in that thread? Return the issue key (for example KAFKA-12345); null if no JIRA issue tracks it.
+
+Return JSON {"value": <answer>, "evidence": [<ids or file paths of the sources you relied on>]}. Answer as of the cutoff; do not substitute a later or today's issue state.
+
+No project-history context is provided for this task. Work from the task statement and your own knowledge; there is no network access.
+
+Reply with one JSON object {"value": ..., "evidence": [...]}: `value` is the answer in the requested type (null if it cannot be determined), `evidence` lists the sources you relied on.

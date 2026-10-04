@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "dev@kafka.apache.org mailing list: email 1b0d288656e30ec27f44de4f from Kevin Wu (2026-03-03 12:53:49Z) - RE JR1 response explaining why ClusterIdRecord cluster ID field should be String type, not UUID",
+    "dev@kafka.apache.org mailing list: email 83ad205748b8bcc48f38fbfa from Jun Rao (2026-03-03 17:38:25Z) - approval of Kevin Wu's String type decision with 'The KIP looks good to me now'",
+    "KAFKA-20207 issue and GitHub PR #21632 (KAFKA-20207: handle the ClusterIdRecord as part of the metadata image)"
+  ],
+  "value": "String"
+}

@@ -1,0 +1,16 @@
+{
+  "evidence": [
+    "store/events/2026/01/06/mail-8e958fd66bd3b2546376c7fe-4486b08d.md",
+    "store/events/2026/02/11/mail-93f1f11638c35c67e2a5bd2d-8380483e.md",
+    "store/events/2026/02/18/mail-2d2cdd9e66fc4758f70d714c-35b213a8.md",
+    "store/events/2026/02/18/mail-979d019b1a7020acae3fdd3c-b3a0dafa.md",
+    "store/events/2026/02/25/mail-7e3fc0f2797ee6e2a63766ef-c4ef26a8.md",
+    "store/events/2026/02/25/mail-fc43d61fdfdfa544476d4f34-d455c3c1.md",
+    "store/events/2026/02/26/mail-114ea15d5f65819265676872-7c4998ca.md",
+    "store/events/2026/02/26/mail-fe37964c09e5487c8e2530ed-629158cd.md"
+  ],
+  "value": {
+    "participants": 3,
+    "starter": "Kevin Wu"
+  }
+}

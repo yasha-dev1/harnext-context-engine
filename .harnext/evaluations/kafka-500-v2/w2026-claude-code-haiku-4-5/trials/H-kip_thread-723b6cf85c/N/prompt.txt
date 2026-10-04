@@ -1,0 +1,9 @@
+Context snapshot cutoff (inclusive): 2026-03-31T23:59:59Z.
+
+Consider the mailing-list discussion of KIP-1266: the thread holding the earliest message whose subject contains "[DISCUSS] KIP-1266". Who sent that thread's first message, and how many distinct senders had posted in it by the snapshot? Return {"starter": <sender name exactly as recorded>, "participants": <integer>}.
+
+Return JSON {"value": <answer>, "evidence": [<ids or file paths of the sources you relied on>]}. Answer as of the cutoff; do not substitute a later or today's issue state.
+
+No project-history context is provided for this task. Work from the task statement and your own knowledge; there is no network access.
+
+Reply with one JSON object {"value": ..., "evidence": [...]}: `value` is the answer in the requested type (null if it cannot be determined), `evidence` lists the sources you relied on.

@@ -1,0 +1,56 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail ID 4f7fd3d7ae5bfb5b7fd2a661 (Sean Quah, 2026-03-01, mailing list announcement of rename during PR 21555 review)",
+      "PR 21555 KAFKA-20210 (merged 2026-03-03)",
+      "commit 065315431d81dc285e1fa1070216c11715c4865a (commit message: 'KAFKA-20210: Add group.coordinator.background.threads config')"
+    ],
+    "value": "group.coordinator.background.threads"
+  },
+  "arm": "S-tools",
+  "checkpoint": "2026-03",
+  "cli_calls": {
+    "gh": 38,
+    "jira": 16,
+    "mail": 5
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 344.07206214599137,
+  "family": "design_decision",
+  "grade": {
+    "actual": "group.coordinator.background.threads",
+    "correct": true,
+    "evidence": [
+      "mail ID 4f7fd3d7ae5bfb5b7fd2a661 (Sean Quah, 2026-03-01, mailing list announcement of rename during PR 21555 review)",
+      "PR 21555 KAFKA-20210 (merged 2026-03-03)",
+      "commit 065315431d81dc285e1fa1070216c11715c4865a (commit message: 'KAFKA-20210: Add group.coordinator.background.threads config')"
+    ],
+    "expected": "group.coordinator.background.threads"
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 39,
+  "prompt_sha256": "41c465255960879cb86d7884386ce0e2d72591bbbf7c4bed4b24f02750b421c6",
+  "run_index": 51,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-44f6b97acb",
+  "tool_calls": {
+    "Bash": 60,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 1283787,
+    "cost_usd": 0.22903869999999998,
+    "input_tokens": 1309992,
+    "output_tokens": 9713
+  },
+  "violations": []
+}

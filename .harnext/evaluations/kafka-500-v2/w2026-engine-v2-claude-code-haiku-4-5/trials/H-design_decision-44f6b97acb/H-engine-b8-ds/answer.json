@@ -1,0 +1,12 @@
+{
+  "evidence": [
+    "github:api:apache/kafka:pr-21555-opened",
+    "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86pwzZp",
+    "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86qMNKx",
+    "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86qMNV-",
+    "mail:4f7fd3d7ae5bfb5b7fd2a661",
+    "github:api:apache/kafka:pr-21555-merged",
+    "mail:23f99b924d7f9230d0545faf"
+  ],
+  "value": "group.coordinator.background.threads"
+}

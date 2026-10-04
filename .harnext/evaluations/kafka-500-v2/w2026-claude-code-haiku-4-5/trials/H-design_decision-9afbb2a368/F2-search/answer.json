@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "kips/KIP-1271/2026-01-16-mail-cc6691acddb4132e5b46a141-5e01b29e.md - Alieh Saeedi's KIP update stating: 'A varint header_size field is introduced to enable lazy deserialization when scanning large ranges.'",
+    "kips/KIP-1271/2026-01-27-mail-discuss-state-store-headers-5f8c2a1e.md - Chia-Ping Tsai confirming: 'Regarding the header size, using a Varint is consistent with Kafka's serialization standards. It avoids the overhead of a large fixed-size field while still achieving the efficient skipping capability we want.'",
+    "kips/KIP-1271/2026-01-29-discuss-state-store-headers-510b70e5.md - Multiple confirmations of the varint approach in the discussion thread"
+  ],
+  "value": "varint"
+}

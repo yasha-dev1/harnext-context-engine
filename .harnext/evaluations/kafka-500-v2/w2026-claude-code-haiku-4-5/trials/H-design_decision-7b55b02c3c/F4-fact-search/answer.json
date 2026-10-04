@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "kips/KIP-1279-cluster-mirroring-discussion.md",
+    "discussions/kip-1279-cluster-mirroring.md",
+    "WINDOW-85-SUMMARY.md"
+  ],
+  "value": null
+}

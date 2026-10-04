@@ -1,0 +1,57 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail:c4bfde361f38ca346dffd233 (Alieh Saeedi, 2026-02-22T14:16:29Z) - confirms property renamed to dsl.store.format",
+      "mail:6ea3402c8bc00ae4fb37dcf5 (Matthias J. Sax, 2026-02-22T19:51:59Z) - confirms approval of format naming",
+      "KIP-1285: DSL Opt-in Support for Header-Aware State Stores discussion thread"
+    ],
+    "value": "dsl.store.format"
+  },
+  "arm": "S-tools",
+  "checkpoint": "2026-02",
+  "cli_calls": {
+    "gh": 24,
+    "jira": 6,
+    "mail": 5
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 233.11677353500272,
+  "family": "design_decision",
+  "grade": {
+    "actual": "dsl.store.format",
+    "correct": true,
+    "evidence": [
+      "mail:c4bfde361f38ca346dffd233 (Alieh Saeedi, 2026-02-22T14:16:29Z) - confirms property renamed to dsl.store.format",
+      "mail:6ea3402c8bc00ae4fb37dcf5 (Matthias J. Sax, 2026-02-22T19:51:59Z) - confirms approval of format naming",
+      "KIP-1285: DSL Opt-in Support for Header-Aware State Stores discussion thread"
+    ],
+    "expected": "dsl.store.format"
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 40,
+  "prompt_sha256": "0d9537728e741f725459eda5f763a567830a7f4e1a943d7198e8ca7e30153710",
+  "run_index": 61,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-38b42b5169",
+  "tool_calls": {
+    "Bash": 38,
+    "StructuredOutput": 1,
+    "ToolSearch": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 1244810,
+    "cost_usd": 0.22048199999999998,
+    "input_tokens": 1275136,
+    "output_tokens": 7134
+  },
+  "violations": []
+}

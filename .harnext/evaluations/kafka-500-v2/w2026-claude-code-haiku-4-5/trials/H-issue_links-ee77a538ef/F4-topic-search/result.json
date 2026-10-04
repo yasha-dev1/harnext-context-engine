@@ -1,0 +1,52 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "issues.md:11620-11634"
+    ],
+    "value": []
+  },
+  "arm": "F4-topic-search",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 104.25691465799173,
+  "family": "issue_links",
+  "grade": {
+    "actual": [],
+    "correct": false,
+    "evidence": [
+      "issues.md:11620-11634"
+    ],
+    "expected": [
+      "KAFKA-20282"
+    ]
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 10,
+  "prompt_sha256": "5283ee97835b8ed4c068fb16acf62dd00e417f140808ca0c9efbb352355ab5a3",
+  "run_index": 13,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-issue_links-ee77a538ef",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 7
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 301450,
+    "cost_usd": 0.09742800000000001,
+    "input_tokens": 328513,
+    "output_tokens": 2648
+  },
+  "violations": []
+}

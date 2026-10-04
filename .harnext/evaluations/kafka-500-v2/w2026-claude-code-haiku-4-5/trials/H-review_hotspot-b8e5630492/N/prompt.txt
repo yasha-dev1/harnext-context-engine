@@ -1,0 +1,9 @@
+Context snapshot cutoff (inclusive): 2026-04-30T23:59:59Z.
+
+Which file received the most inline review comments on pull request #22139 by the snapshot? Return its repository-relative path as a string.
+
+Return JSON {"value": <answer>, "evidence": [<ids or file paths of the sources you relied on>]}. Answer as of the cutoff; do not substitute a later or today's issue state.
+
+No project-history context is provided for this task. Work from the task statement and your own knowledge; there is no network access.
+
+Reply with one JSON object {"value": ..., "evidence": [...]}: `value` is the answer in the requested type (null if it cannot be determined), `evidence` lists the sources you relied on.

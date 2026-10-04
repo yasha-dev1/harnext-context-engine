@@ -1,0 +1,15 @@
+Context snapshot cutoff (inclusive): 2026-05-18T16:56:32Z.
+
+The workspace is the apache/kafka repository at commit 98ed67e73e6a13ca465f49d1c83144503ba4dd18.
+
+Issue KAFKA-20497: ReadOnlyView implementations for wrapping stores
+
+Each of the {{Caching*Store and}} {{Metered*Store}}  implementations need to provide a custom {{ReadOnlyView}} store implementation that implements their domain logic (caching/metering) on a read-only version of their {{wrapped()}} store (via: {{wrapped().readOnly(isolationLevel).}}
+
+{{{}ChangeLogging*Store{}}}s can simply delegate to {{{}wrapped().readOnly(isolationLevel){}}}, because read-only stores do not log any changes.
+
+Implement the change this issue asks for by editing the workspace. The tests written for this change have already been added to the workspace (uncommitted; see `git status`): `streams/src/test/java/org/apache/kafka/streams/state/internals/MeteredKeyValueStoreTest.java`. They fail or do not compile until the change is implemented. Make them pass with `./gradlew :streams:test --tests org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest --offline`. Do not edit those test files: grading restores them to their original content and runs them against your other changes. Keep the change focused and do not substitute knowledge of how the project evolved after the cutoff.
+
+The MCP server `history` holds the project's recorded history up to the cutoff. Use its tools (search, read_event) to consult it as you see fit; nothing later than the cutoff is in it and there is no network access.
+
+The repository is checked out at /workspace. The workspace is a git repository whose history ends at the base commit; `git log`, `git blame` and `git show` work offline. Make the change by editing source files there; the tests named above, restored to their original content, decide whether the issue is resolved. Gradle works offline only (`./gradlew :module:test --tests X --offline`). Finish with one JSON object {"summary": "..."}.

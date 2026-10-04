@@ -1,0 +1,17 @@
+{
+  "evidence": [
+    "PR #21744 (merged 2026-03-16T13:22:47Z)",
+    "KAFKA-20307 OVERVIEW.md",
+    "KAFKA-20307 timeline.md",
+    "PR #21744 OVERVIEW.md",
+    "PR #21744 timeline.md"
+  ],
+  "value": [
+    "streams/src/main/java/org/apache/kafka/streams/processor/internals/StateManagerUtil.java",
+    "streams/src/main/java/org/apache/kafka/streams/state/internals/GlobalStateStoreProvider.java",
+    "streams/src/test/java/org/apache/kafka/streams/processor/internals/StateManagerUtilConverterTest.java",
+    "streams/src/test/java/org/apache/kafka/streams/state/internals/GlobalStateStoreProviderTest.java",
+    "streams/src/test/java/org/apache/kafka/streams/state/internals/StreamThreadStateStoreProviderTest.java",
+    "streams/src/test/java/org/apache/kafka/streams/state/QueryableStoreTypesWithHeadersTest.java"
+  ]
+}

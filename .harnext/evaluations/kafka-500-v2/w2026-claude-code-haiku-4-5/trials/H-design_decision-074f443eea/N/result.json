@@ -1,0 +1,51 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "Knowledge cutoff (February 2025) precedes the requested information date (2026-04-10)",
+      "No project history context provided",
+      "No network access available to research KIP thread"
+    ],
+    "value": null
+  },
+  "arm": "N",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 7.618992711999454,
+  "family": "design_decision",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "Knowledge cutoff (February 2025) precedes the requested information date (2026-04-10)",
+      "No project history context provided",
+      "No network access available to research KIP thread"
+    ],
+    "expected": "--by-start-time"
+  },
+  "instructions_sha256": null,
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 1,
+  "prompt_sha256": "9ff825e7dc00522806eb4904b8b82f241ecba65284dc79a9dcc1f17084bb402b",
+  "run_index": 66,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-074f443eea",
+  "tool_calls": {
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 17497,
+    "cost_usd": 0.011468700000000002,
+    "input_tokens": 20641,
+    "output_tokens": 688
+  },
+  "violations": []
+}

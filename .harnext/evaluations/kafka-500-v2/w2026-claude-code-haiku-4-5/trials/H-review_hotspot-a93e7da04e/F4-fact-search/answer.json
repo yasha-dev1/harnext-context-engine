@@ -1,0 +1,9 @@
+{
+  "evidence": [
+    "prs/21842-shared-reaper-thread.md",
+    "issues/kafka-19937-reaper-thread-persister.md",
+    "issues/kafka-19937-timer-reaper-fix.md",
+    "WINDOW-81-SUMMARY.md"
+  ],
+  "value": "null"
+}

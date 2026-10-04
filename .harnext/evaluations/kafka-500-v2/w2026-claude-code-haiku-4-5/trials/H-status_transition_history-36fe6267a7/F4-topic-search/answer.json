@@ -1,0 +1,30 @@
+{
+  "evidence": [
+    "issues.md:9728-9736 (issue creation timestamp)",
+    "issues.md:8398-8410 (status changes from Open → Resolved → Reopened with event IDs jira-13643968-change-22973219-0 and jira-13643968-change-22973221-1)",
+    "issues.md:7476-7483 (Reopened → Patch Available change with event ID jira-13643968-change-22977261-0)",
+    "pull-requests.md:12149-12158 (PR #21784 merge and status change correlation)"
+  ],
+  "value": [
+    {
+      "at": "2026-03-05T09:38:39.000000Z",
+      "from": null,
+      "to": "Open"
+    },
+    {
+      "at": "2026-03-13T07:42:33.000000Z",
+      "from": "Open",
+      "to": "Resolved"
+    },
+    {
+      "at": "2026-03-13T07:43:10.000000Z",
+      "from": "Resolved",
+      "to": "Reopened"
+    },
+    {
+      "at": "2026-03-17T03:21:37.000000Z",
+      "from": "Reopened",
+      "to": "Patch Available"
+    }
+  ]
+}

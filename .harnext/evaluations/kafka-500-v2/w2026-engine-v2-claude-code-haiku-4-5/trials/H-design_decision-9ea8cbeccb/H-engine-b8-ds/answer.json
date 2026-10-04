@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "mail:ca5590cea750ef8d93ddf7b9",
+    "mail:a1a76025a895e9029a8c8b94",
+    "jira:13648992:created"
+  ],
+  "value": "yes, retries target a different broker"
+}

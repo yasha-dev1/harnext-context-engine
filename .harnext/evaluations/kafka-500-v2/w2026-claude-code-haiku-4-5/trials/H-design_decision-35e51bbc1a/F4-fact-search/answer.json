@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "kips/kip-1279-cluster-mirroring.md",
+    "discussions/kip-1279-cluster-mirroring.md",
+    "issues/kafka-19655-align-num-partitions-replication-factor.md"
+  ],
+  "value": null
+}

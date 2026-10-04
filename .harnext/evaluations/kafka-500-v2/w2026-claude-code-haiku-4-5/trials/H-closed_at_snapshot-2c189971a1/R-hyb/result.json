@@ -1,0 +1,52 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "jira:13641465:change:22943422:0 — KAFKA-20158 status change from Open to In Progress on 2026-02-18T22:20:34Z",
+      "No subsequent status change events found for KAFKA-20158 before cutoff 2026-02-28T23:59:59Z"
+    ],
+    "value": false
+  },
+  "arm": "R-hyb",
+  "checkpoint": "2026-02",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 51.89616000599926,
+  "family": "closed_at_snapshot",
+  "grade": {
+    "actual": false,
+    "correct": true,
+    "evidence": [
+      "jira:13641465:change:22943422:0 — KAFKA-20158 status change from Open to In Progress on 2026-02-18T22:20:34Z",
+      "No subsequent status change events found for KAFKA-20158 before cutoff 2026-02-28T23:59:59Z"
+    ],
+    "expected": false
+  },
+  "instructions_sha256": "dfaa5b284d06c378ef7e4c08b53dc77835c91d7591fca0335bbfa33d3e53eb37",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 9,
+  "prompt_sha256": "ed862cc5fd87a23871f8fbd8d62332fc9b19caa9872e22fceb03ceea5c54fa15",
+  "run_index": 7,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-closed_at_snapshot-2c189971a1",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__read_event": 1,
+    "mcp__history__search": 6
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 238816,
+    "cost_usd": 0.12304160000000001,
+    "input_tokens": 283221,
+    "output_tokens": 2085
+  },
+  "violations": []
+}

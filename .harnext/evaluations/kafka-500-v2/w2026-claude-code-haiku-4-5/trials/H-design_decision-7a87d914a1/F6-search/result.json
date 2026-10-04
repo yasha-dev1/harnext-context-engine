@@ -1,0 +1,53 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "store/window-38-summary.md (lines 174-175)",
+      "store/window-37-summary.md (lines 136-138)",
+      "pull-requests.md (PR #21535)"
+    ],
+    "value": "processing.exception.handler.global.enabled"
+  },
+  "arm": "F6-search",
+  "checkpoint": "2026-02",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 91.28486405899457,
+  "family": "design_decision",
+  "grade": {
+    "actual": "processing.exception.handler.global.enabled",
+    "correct": true,
+    "evidence": [
+      "store/window-38-summary.md (lines 174-175)",
+      "store/window-37-summary.md (lines 136-138)",
+      "pull-requests.md (PR #21535)"
+    ],
+    "expected": "processing.exception.handler.global.enabled"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "38654c37e63bcd86d7d3991bf450c9a65629501d995a4c7ea9932cdc5c2580dd",
+  "run_index": 52,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-7a87d914a1",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 64149,
+    "cost_usd": 0.012659899999999998,
+    "input_tokens": 65600,
+    "output_tokens": 674
+  },
+  "violations": []
+}

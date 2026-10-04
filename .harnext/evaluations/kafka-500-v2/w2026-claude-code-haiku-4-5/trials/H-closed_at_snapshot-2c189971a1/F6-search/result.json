@@ -1,0 +1,54 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "jira-issues.md — line 1704-1715: KAFKA-20158 status recorded as Open",
+      "window-41-summary.md — KAFKA-20158 work in progress with merged PRs",
+      "No closure recorded in windows 42-44 covering through 2026-02-28T23:59:59Z"
+    ],
+    "value": false
+  },
+  "arm": "F6-search",
+  "checkpoint": "2026-02",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 91.62734739099687,
+  "family": "closed_at_snapshot",
+  "grade": {
+    "actual": false,
+    "correct": true,
+    "evidence": [
+      "jira-issues.md — line 1704-1715: KAFKA-20158 status recorded as Open",
+      "window-41-summary.md — KAFKA-20158 work in progress with merged PRs",
+      "No closure recorded in windows 42-44 covering through 2026-02-28T23:59:59Z"
+    ],
+    "expected": false
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 4,
+  "prompt_sha256": "0c150bce55e80d50c7f4bb5c8bd0655e895515386b6e3be5755a1eba48b941c7",
+  "run_index": 7,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-closed_at_snapshot-2c189971a1",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 88184,
+    "cost_usd": 0.0210224,
+    "input_tokens": 92126,
+    "output_tokens": 871
+  },
+  "violations": []
+}

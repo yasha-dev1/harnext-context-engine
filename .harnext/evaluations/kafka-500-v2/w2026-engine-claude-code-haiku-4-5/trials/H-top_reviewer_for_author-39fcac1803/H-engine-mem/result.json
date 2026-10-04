@@ -1,0 +1,106 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "github:api:apache/kafka:review-PRR_kwDOACG9q87kc561",
+      "github:api:apache/kafka:review-PRR_kwDOACG9q87lSjc1",
+      "github:api:apache/kafka:review-PRR_kwDOACG9q87lXVzk",
+      "github:api:apache/kafka:review-PRR_kwDOACG9q87lsNLY",
+      "github:api:apache/kafka:review-PRR_kwDOACG9q87ltuB1",
+      "github:api:apache/kafka:review-PRR_kwDOACG9q87mD63E",
+      "github:api:apache/kafka:review-PRR_kwDOACG9q87mb73W",
+      "github:api:apache/kafka:review-PRR_kwDOACG9q87nmvbh",
+      "github:api:apache/kafka:review-PRR_kwDOACG9q87nmvw1",
+      "github:api:apache/kafka:review-PRR_kwDOACG9q87kp65Y",
+      "github:api:apache/kafka:review-PRR_kwDOACG9q87lW8J1",
+      "github:api:apache/kafka:review-PRR_kwDOACG9q87kyOZ9",
+      "github:api:apache/kafka:review-PRR_kwDOACG9q87oe0qg",
+      "github:api:apache/kafka:review-PRR_kwDOACG9q87pq9MU",
+      "github:api:apache/kafka:review-PRR_kwDOACG9q87t4DIJ",
+      "github:api:apache/kafka:review-PRR_kwDOACG9q87qY0hs"
+    ],
+    "value": "mjsax"
+  },
+  "arm": "H-engine-mem",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 266.8115516789985,
+  "engine": {
+    "calls": 3,
+    "chat": {
+      "calls": 20,
+      "cancelled": 0,
+      "cost_usd": 0.00317502,
+      "input_tokens": 89142,
+      "output_tokens": 11410,
+      "retries": 0
+    },
+    "cost_usd": 0.00632119,
+    "discarded_attempts": 0,
+    "jev": {
+      "calls": 22,
+      "cancelled": 0,
+      "cost_usd": 0.00314617,
+      "input_tokens": 74909,
+      "output_tokens": 14297,
+      "retries": 0
+    },
+    "partial": 2,
+    "provider_retry_usd": 0,
+    "seconds": 242.178,
+    "unmetered_upper_usd": 0,
+    "waited_s": 0
+  },
+  "family": "top_reviewer_for_author",
+  "grade": {
+    "actual": "mjsax",
+    "correct": true,
+    "evidence": [
+      "github:api:apache/kafka:review-PRR_kwDOACG9q87kc561",
+      "github:api:apache/kafka:review-PRR_kwDOACG9q87lSjc1",
+      "github:api:apache/kafka:review-PRR_kwDOACG9q87lXVzk",
+      "github:api:apache/kafka:review-PRR_kwDOACG9q87lsNLY",
+      "github:api:apache/kafka:review-PRR_kwDOACG9q87ltuB1",
+      "github:api:apache/kafka:review-PRR_kwDOACG9q87mD63E",
+      "github:api:apache/kafka:review-PRR_kwDOACG9q87mb73W",
+      "github:api:apache/kafka:review-PRR_kwDOACG9q87nmvbh",
+      "github:api:apache/kafka:review-PRR_kwDOACG9q87nmvw1",
+      "github:api:apache/kafka:review-PRR_kwDOACG9q87kp65Y",
+      "github:api:apache/kafka:review-PRR_kwDOACG9q87lW8J1",
+      "github:api:apache/kafka:review-PRR_kwDOACG9q87kyOZ9",
+      "github:api:apache/kafka:review-PRR_kwDOACG9q87oe0qg",
+      "github:api:apache/kafka:review-PRR_kwDOACG9q87pq9MU",
+      "github:api:apache/kafka:review-PRR_kwDOACG9q87t4DIJ",
+      "github:api:apache/kafka:review-PRR_kwDOACG9q87qY0hs"
+    ],
+    "expected": "mjsax"
+  },
+  "image_id": "sha256:4615b2564319d58319029548af66970c954e128401ee89c8705684861de4bc07",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 5,
+  "prompt_sha256": "164fab2ecb8959097853e91fa78f5e788da553eac5121301f7b1c49c6a96a49c",
+  "run_index": 30,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-top_reviewer_for_author-39fcac1803",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 3
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 111575,
+    "cost_usd": 0.033174499999999996,
+    "input_tokens": 117045,
+    "output_tokens": 2224
+  },
+  "violations": []
+}

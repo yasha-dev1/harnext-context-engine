@@ -1,0 +1,61 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "prs/21866-control-batch-documentation.md",
+      "issues/kafka-20354-control-batch-types-docs.md"
+    ],
+    "value": [
+      "AndrewJSchofield",
+      "showuon"
+    ]
+  },
+  "arm": "F4-fact-search",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 54.27869365600054,
+  "family": "pr_approvers",
+  "grade": {
+    "actual": [
+      "AndrewJSchofield",
+      "showuon"
+    ],
+    "correct": true,
+    "evidence": [
+      "prs/21866-control-batch-documentation.md",
+      "issues/kafka-20354-control-batch-types-docs.md"
+    ],
+    "expected": [
+      "AndrewJSchofield",
+      "showuon"
+    ]
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 10,
+  "prompt_sha256": "dd4fcad644806102769080973ad1c8aab12afd6ac376dc85907dff8bd4435ea5",
+  "run_index": 36,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-pr_approvers-728956e54a",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 7
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 268078,
+    "cost_usd": 0.0741108,
+    "input_tokens": 283506,
+    "output_tokens": 3306
+  },
+  "violations": []
+}

@@ -1,0 +1,18 @@
+{
+  "evidence": [
+    "pull-requests.md:681-687",
+    "window-105-summary.md:190-214",
+    "window-106-summary.md:10-20",
+    "jira-issues.md:475-484"
+  ],
+  "value": [
+    {
+      "pr": 22041,
+      "state": "open"
+    },
+    {
+      "pr": 22182,
+      "state": "open"
+    }
+  ]
+}

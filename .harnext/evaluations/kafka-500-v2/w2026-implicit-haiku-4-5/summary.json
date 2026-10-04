@@ -1,0 +1,108 @@
+{
+  "arms": {
+    "N": {
+      "agent_seconds": 107.6,
+      "by_kind": {
+        "historical": {
+          "agent_seconds": 107.6,
+          "by_family": {
+            "implicit_link": {
+              "agent_seconds": 107.6,
+              "cached_input_tokens": 227461,
+              "context_bytes": 0,
+              "input_tokens": 289058,
+              "n": 14,
+              "output_tokens": 8510,
+              "status": {
+                "completed": 14
+              },
+              "success": 0,
+              "tool_calls": 14
+            }
+          },
+          "cached_input_tokens": 227461,
+          "context_bytes": 0,
+          "input_tokens": 289058,
+          "n": 14,
+          "output_tokens": 8510,
+          "status": {
+            "completed": 14
+          },
+          "success": 0,
+          "tool_calls": 14
+        }
+      },
+      "cached_input_tokens": 227461,
+      "context_bytes": 0,
+      "input_tokens": 289058,
+      "n": 14,
+      "output_tokens": 8510,
+      "status": {
+        "completed": 14
+      },
+      "success": 0,
+      "tool_calls": 14
+    },
+    "S-tools": {
+      "agent_seconds": 1293.3,
+      "by_kind": {
+        "historical": {
+          "agent_seconds": 1293.3,
+          "by_family": {
+            "implicit_link": {
+              "agent_seconds": 1293.3,
+              "cached_input_tokens": 1874036,
+              "context_bytes": 0,
+              "input_tokens": 1952569,
+              "n": 14,
+              "output_tokens": 18301,
+              "status": {
+                "completed": 13,
+                "model_failure": 1
+              },
+              "success": 13,
+              "tool_calls": 97
+            }
+          },
+          "cached_input_tokens": 1874036,
+          "context_bytes": 0,
+          "input_tokens": 1952569,
+          "n": 14,
+          "output_tokens": 18301,
+          "status": {
+            "completed": 13,
+            "model_failure": 1
+          },
+          "success": 13,
+          "tool_calls": 97
+        }
+      },
+      "cached_input_tokens": 1874036,
+      "context_bytes": 0,
+      "input_tokens": 1952569,
+      "n": 14,
+      "output_tokens": 18301,
+      "status": {
+        "completed": 13,
+        "model_failure": 1
+      },
+      "success": 13,
+      "tool_calls": 97
+    }
+  },
+  "not_recorded": [],
+  "paired_vs_N": {
+    "S-tools": {
+      "both": 0,
+      "harmed": 0,
+      "helped": 13,
+      "neither": 1,
+      "pairs": 14
+    }
+  },
+  "reason": null,
+  "recorded": 28,
+  "status": "complete",
+  "target": 28,
+  "updated_at_unix": 1790527051.9558976
+}

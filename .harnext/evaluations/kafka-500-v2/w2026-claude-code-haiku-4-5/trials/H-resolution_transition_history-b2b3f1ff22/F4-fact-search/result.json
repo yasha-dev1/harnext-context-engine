@@ -1,0 +1,73 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "issues/kafka-20255-refactor-dsl-store-config-and-propagate-dslstoreformat.md"
+    ],
+    "value": [
+      {
+        "at": "2026-03-05T09:40:54.000000Z",
+        "from": null,
+        "to": "Fixed"
+      }
+    ]
+  },
+  "arm": "F4-fact-search",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 53.92977005399007,
+  "family": "resolution_transition_history",
+  "grade": {
+    "actual": [
+      {
+        "at": "2026-03-05T09:40:54.000000Z",
+        "from": null,
+        "to": "Fixed"
+      }
+    ],
+    "correct": false,
+    "evidence": [
+      "issues/kafka-20255-refactor-dsl-store-config-and-propagate-dslstoreformat.md"
+    ],
+    "expected": [
+      {
+        "at": "2026-03-05T09:40:54.681000Z",
+        "from": null,
+        "to": "Fixed"
+      },
+      {
+        "at": "2026-03-13T07:44:14.073000Z",
+        "from": "Fixed",
+        "to": "Duplicate"
+      }
+    ]
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 10,
+  "prompt_sha256": "5e4911bf4f083e5faec021fecf430cac5cdd86d3cb686e8f0bfe36054e56c5d6",
+  "run_index": 25,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-resolution_transition_history-b2b3f1ff22",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 6
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 271883,
+    "cost_usd": 0.0688213,
+    "input_tokens": 286747,
+    "output_tokens": 2398
+  },
+  "violations": []
+}

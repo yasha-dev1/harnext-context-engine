@@ -1,0 +1,50 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "Unable to determine from available search results. Searched for: KIP discussions about pushed client configuration exceptions, oversized config rejection, broker-side exceptions, and combinations with Kirk True's May 5, 2026 replies. Found reference to KIP-1324 with Kirk True reply on 2026-05-05T15:09:46Z but could not access the full content containing the specific exception class name."
+    ],
+    "value": null
+  },
+  "arm": "F1-search",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 157.76145579700824,
+  "family": "design_decision",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "Unable to determine from available search results. Searched for: KIP discussions about pushed client configuration exceptions, oversized config rejection, broker-side exceptions, and combinations with Kirk True's May 5, 2026 replies. Found reference to KIP-1324 with Kirk True reply on 2026-05-05T15:09:46Z but could not access the full content containing the specific exception class name."
+    ],
+    "expected": "ConfigTooLargeException"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 22,
+  "prompt_sha256": "6c7d6c42de5e2cdef303dcfc7221678c25f3e7b16714e3ce972bc979b9efc015",
+  "run_index": 72,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-9747f2e7bf",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 19
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 1290703,
+    "cost_usd": 0.33613729999999997,
+    "input_tokens": 1381811,
+    "output_tokens": 5006
+  },
+  "violations": []
+}

@@ -1,0 +1,80 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail:80583385757ab899e85f29fa",
+      "mail:3adf386bd8d875a01cbecda1",
+      "mail:8b446a3a8d11f8c94594ab3e"
+    ],
+    "value": "KAFKA-20239"
+  },
+  "arm": "H-engine-b8",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 67.98033112600388,
+  "engine": {
+    "calls": 1,
+    "chat": {
+      "calls": 22,
+      "cancelled": 0,
+      "cost_usd": 0.00321414,
+      "input_tokens": 127191,
+      "output_tokens": 2591,
+      "retries": 0
+    },
+    "cost_usd": 0.00575959,
+    "discarded_attempts": 0,
+    "jev": {
+      "calls": 30,
+      "cancelled": 0,
+      "cost_usd": 0.00254545,
+      "input_tokens": 60606,
+      "output_tokens": 11222,
+      "retries": 0
+    },
+    "partial": 0,
+    "provider_retry_usd": 0,
+    "seconds": 54.36,
+    "unmetered_upper_usd": 0,
+    "waited_s": 0
+  },
+  "family": "implicit_link",
+  "grade": {
+    "actual": "KAFKA-20239",
+    "correct": true,
+    "evidence": [
+      "mail:80583385757ab899e85f29fa",
+      "mail:3adf386bd8d875a01cbecda1",
+      "mail:8b446a3a8d11f8c94594ab3e"
+    ],
+    "expected": "KAFKA-20239"
+  },
+  "image_id": "sha256:1de715f951a3fc013cabad66407b87028bc2a5af6e58efdea5338b4cf9fb1485",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "82e3080c0a3b699cb40e4b834ef49db0b96241bac48864e5f42d3f6140dc1b07",
+  "run_index": 67,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-implicit_link-343147259e",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 63520,
+    "cost_usd": 0.011887,
+    "input_tokens": 64541,
+    "output_tokens": 704
+  },
+  "violations": []
+}

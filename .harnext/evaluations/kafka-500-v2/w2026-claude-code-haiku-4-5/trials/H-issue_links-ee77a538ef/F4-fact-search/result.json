@@ -1,0 +1,56 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "issues/kafka-20066-assignment-epochs-consumer-groups.md — Timeline shows KAFKA-20066 was linked to KAFKA-19235 and KAFKA-19233 on 2026-01-13T12:36:14Z, but these appear under 'Related Issues' section, not 'Blocks:' section",
+      "issues/KAFKA-20066/overview.md — Overview file contains limited issue link information",
+      "Search results consistently showed 'Related Issues' designation rather than explicit 'Blocks:' relationships for KAFKA-20066"
+    ],
+    "value": []
+  },
+  "arm": "F4-fact-search",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 163.55786044801062,
+  "family": "issue_links",
+  "grade": {
+    "actual": [],
+    "correct": false,
+    "evidence": [
+      "issues/kafka-20066-assignment-epochs-consumer-groups.md — Timeline shows KAFKA-20066 was linked to KAFKA-19235 and KAFKA-19233 on 2026-01-13T12:36:14Z, but these appear under 'Related Issues' section, not 'Blocks:' section",
+      "issues/KAFKA-20066/overview.md — Overview file contains limited issue link information",
+      "Search results consistently showed 'Related Issues' designation rather than explicit 'Blocks:' relationships for KAFKA-20066"
+    ],
+    "expected": [
+      "KAFKA-20282"
+    ]
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 20,
+  "prompt_sha256": "5283ee97835b8ed4c068fb16acf62dd00e417f140808ca0c9efbb352355ab5a3",
+  "run_index": 13,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-issue_links-ee77a538ef",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 17
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 819479,
+    "cost_usd": 0.2203249,
+    "input_tokens": 874629,
+    "output_tokens": 5648
+  },
+  "violations": []
+}

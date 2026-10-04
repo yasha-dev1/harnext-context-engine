@@ -1,0 +1,9 @@
+Context snapshot cutoff (inclusive): 2026-05-31T23:59:59Z.
+
+List every recorded assignee change for the Apache Kafka JIRA issue titled "Fix several typos in Streams and upgrade documentation" (created in 2026-05) through the snapshot in chronological order. Return an array of objects with at, from, and to. Give `at` as the recorded UTC timestamp with microseconds (e.g. 2023-03-14T20:05:37.287000Z). Preserve null values and repeated states; break equal-time ties by numeric changelog history ID and item index.
+
+Return JSON {"value": <answer>, "evidence": [<ids or file paths of the sources you relied on>]}. Answer as of the cutoff; do not substitute a later or today's issue state.
+
+No pre-built project memory is provided. You can query time-frozen offline replicas of the project's systems of record as of the cutoff with the usual command-line tools: `gh` (pull requests, reviews, commits), `jira` (issues, comments, change history), `mail` (mailing lists). Run `<tool> --help` for the supported commands. The live internet is not reachable.
+
+Reply with one JSON object {"value": ..., "evidence": [...]}: `value` is the answer in the requested type (null if it cannot be determined), `evidence` lists the sources you relied on.

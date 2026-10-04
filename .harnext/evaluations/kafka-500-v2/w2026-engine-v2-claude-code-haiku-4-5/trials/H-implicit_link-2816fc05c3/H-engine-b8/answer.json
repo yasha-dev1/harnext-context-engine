@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "jira:13642045:change:22920592:0 - JIRA change record showing KAFKA-20186 description edited on 2026-02-14T07:13:36Z to reference KIP-1279"
+  ],
+  "value": "KAFKA-20186"
+}

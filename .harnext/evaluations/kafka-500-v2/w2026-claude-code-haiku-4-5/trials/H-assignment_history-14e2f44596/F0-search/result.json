@@ -1,0 +1,118 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "events/2026/05/15/jira-13651234-change-23062139-0-47a526e9.md",
+      "events/2026/05/15/jira-13651234-change-23062296-0-4cd75762.md",
+      "events/2026/05/16/jira-13651234-change-23063464-0-1424ff34.md",
+      "events/2026/05/19/jira-13651234-change-23066757-0-f1b52b6f.md"
+    ],
+    "value": [
+      {
+        "at": "2026-05-15T10:37:01.689000Z",
+        "from": null,
+        "to": "Sanskar Jhajharia"
+      },
+      {
+        "at": "2026-05-15T12:25:20.315000Z",
+        "from": "Sanskar Jhajharia",
+        "to": null
+      },
+      {
+        "at": "2026-05-16T06:04:22.320000Z",
+        "from": null,
+        "to": "Akhil Sabu"
+      },
+      {
+        "at": "2026-05-19T09:52:14.030000Z",
+        "from": "Akhil Sabu",
+        "to": "Akhil Sabu"
+      }
+    ]
+  },
+  "arm": "F0-search",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 38.775585447001504,
+  "family": "assignment_history",
+  "grade": {
+    "actual": [
+      {
+        "at": "2026-05-15T10:37:01.689000Z",
+        "from": null,
+        "to": "Sanskar Jhajharia"
+      },
+      {
+        "at": "2026-05-15T12:25:20.315000Z",
+        "from": "Sanskar Jhajharia",
+        "to": null
+      },
+      {
+        "at": "2026-05-16T06:04:22.320000Z",
+        "from": null,
+        "to": "Akhil Sabu"
+      },
+      {
+        "at": "2026-05-19T09:52:14.030000Z",
+        "from": "Akhil Sabu",
+        "to": "Akhil Sabu"
+      }
+    ],
+    "correct": true,
+    "evidence": [
+      "events/2026/05/15/jira-13651234-change-23062139-0-47a526e9.md",
+      "events/2026/05/15/jira-13651234-change-23062296-0-4cd75762.md",
+      "events/2026/05/16/jira-13651234-change-23063464-0-1424ff34.md",
+      "events/2026/05/19/jira-13651234-change-23066757-0-f1b52b6f.md"
+    ],
+    "expected": [
+      {
+        "at": "2026-05-15T10:37:01.689000Z",
+        "from": null,
+        "to": "Sanskar Jhajharia"
+      },
+      {
+        "at": "2026-05-15T12:25:20.315000Z",
+        "from": "Sanskar Jhajharia",
+        "to": null
+      },
+      {
+        "at": "2026-05-16T06:04:22.320000Z",
+        "from": null,
+        "to": "Akhil Sabu"
+      },
+      {
+        "at": "2026-05-19T09:52:14.030000Z",
+        "from": "Akhil Sabu",
+        "to": "Akhil Sabu"
+      }
+    ]
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 5,
+  "prompt_sha256": "21426f9cdff186e08c8ae63a30a22e97b0d3a10087795d32290827ec47217fd8",
+  "run_index": 3,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-assignment_history-14e2f44596",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__search_context": 3
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 98568,
+    "cost_usd": 0.08919379999999999,
+    "input_tokens": 133248,
+    "output_tokens": 2004
+  },
+  "violations": []
+}

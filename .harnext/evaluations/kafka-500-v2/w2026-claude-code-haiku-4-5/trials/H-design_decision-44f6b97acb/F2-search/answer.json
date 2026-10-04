@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "kips/KIP-1263/2026-02-23-vote-KIP-1263-group-coordinator-assignment-batching-07299f93.md",
+    "issues/KAFKA-20210/2026-02-23-created-group-coordinator-executor-threads-config-6936da0c.md",
+    "prs/21555/2026-02-23-opened-KAFKA-20210-group-coordinator-background-threads-92a8cbec.md"
+  ],
+  "value": "group.coordinator.background.threads"
+}

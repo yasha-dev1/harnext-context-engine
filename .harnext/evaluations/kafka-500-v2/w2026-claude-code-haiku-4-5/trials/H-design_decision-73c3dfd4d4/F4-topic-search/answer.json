@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "discussions.md:1014-1042 (design resolution showing hard limit with configuration removed)",
+    "discussions.md:1051-1061 (design notes confirming 2-byte fixed maximum encoding)",
+    "issues.md:1741-1756 (KAFKA-20056 issue)"
+  ],
+  "value": "no"
+}

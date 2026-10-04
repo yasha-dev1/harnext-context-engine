@@ -1,0 +1,58 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail message 2c9914fcd59c78f2ca473e49 (Matthias J. Sax, Jan 27, 2026)",
+      "mail message in nested thread showing Chia-Ping Tsai's confirmation on Jan 15, 2026",
+      "mail message showing Alieh Saeedi's KIP update on Jan 16, 2026",
+      "KAFKA-20056 issue (KIP-1271: Allow to Store Record Headers in State Stores)"
+    ],
+    "value": "varint"
+  },
+  "arm": "S-tools",
+  "checkpoint": "2026-01",
+  "cli_calls": {
+    "gh": 12,
+    "jira": 7,
+    "mail": 6
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 153.4026020589954,
+  "family": "design_decision",
+  "grade": {
+    "actual": "varint",
+    "correct": true,
+    "evidence": [
+      "mail message 2c9914fcd59c78f2ca473e49 (Matthias J. Sax, Jan 27, 2026)",
+      "mail message in nested thread showing Chia-Ping Tsai's confirmation on Jan 15, 2026",
+      "mail message showing Alieh Saeedi's KIP update on Jan 16, 2026",
+      "KAFKA-20056 issue (KIP-1271: Allow to Store Record Headers in State Stores)"
+    ],
+    "expected": "varint"
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 14,
+  "prompt_sha256": "aa778a20040f71ecf5f0f06b7c11db865cd3c04e8cf91f4c0acbb4c650e59124",
+  "run_index": 56,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-9afbb2a368",
+  "tool_calls": {
+    "Bash": 26,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 353087,
+    "cost_usd": 0.0873197,
+    "input_tokens": 371474,
+    "output_tokens": 3070
+  },
+  "violations": []
+}

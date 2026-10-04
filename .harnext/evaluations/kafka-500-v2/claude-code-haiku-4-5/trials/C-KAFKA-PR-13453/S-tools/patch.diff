@@ -1,0 +1,55 @@
+diff --git a/connect/runtime/src/main/java/org/apache/kafka/connect/storage/KafkaStatusBackingStore.java b/connect/runtime/src/main/java/org/apache/kafka/connect/storage/KafkaStatusBackingStore.java
+index 20f47db2262a42ebc3caa8c515d7aaf95c89ad05..3ade1b4c7c71725c44ccbc2d8effdbaeddb54d51 100644
+--- a/connect/runtime/src/main/java/org/apache/kafka/connect/storage/KafkaStatusBackingStore.java
++++ b/connect/runtime/src/main/java/org/apache/kafka/connect/storage/KafkaStatusBackingStore.java
+@@ -562,6 +562,20 @@ public class KafkaStatusBackingStore extends KafkaTopicBasedBackingStore impleme
+         synchronized (this) {
+             log.trace("Received connector {} status update {}", connector, status);
+             CacheEntry<ConnectorStatus> entry = getOrAdd(connector);
++
++            // Ignore stale UNASSIGNED status from a different worker if current status is RUNNING with a higher generation
++            if (status.state() == ConnectorStatus.State.UNASSIGNED) {
++                ConnectorStatus current = entry.get();
++                if (current != null && current.state() == ConnectorStatus.State.RUNNING
++                        && !status.workerId().equals(current.workerId())
++                        && status.generation() < current.generation()
++                        && status.generation() != generation) {
++                    log.trace("Ignoring stale UNASSIGNED status for connector {} from worker {} and generation {} as current RUNNING status is from generation {}",
++                            connector, status.workerId(), status.generation(), current.generation());
++                    return;
++                }
++            }
++
+             entry.put(status);
+         }
+     }
+@@ -588,6 +602,20 @@ public class KafkaStatusBackingStore extends KafkaTopicBasedBackingStore impleme
+         synchronized (this) {
+             log.trace("Received task {} status update {}", id, status);
+             CacheEntry<TaskStatus> entry = getOrAdd(id);
++
++            // Ignore stale UNASSIGNED status from a different worker if current status is RUNNING with a higher generation
++            if (status.state() == TaskStatus.State.UNASSIGNED) {
++                TaskStatus current = entry.get();
++                if (current != null && current.state() == TaskStatus.State.RUNNING
++                        && !status.workerId().equals(current.workerId())
++                        && status.generation() < current.generation()
++                        && status.generation() != generation) {
++                    log.trace("Ignoring stale UNASSIGNED status for task {} from worker {} and generation {} as current RUNNING status is from generation {}",
++                            id, status.workerId(), status.generation(), current.generation());
++                    return;
++                }
++            }
++
+             entry.put(status);
+         }
+     }
+diff --git a/gradle.properties b/gradle.properties
+index 7cefc403c8c7b21a3d1c80c8abba0bbf319cc4e7..fc5bc45033caa21c9acb5f54d9b62ef513abcef8 100644
+--- a/gradle.properties
++++ b/gradle.properties
+@@ -28,3 +28,4 @@ scalaVersion=2.13.11
+ task=build
+ org.gradle.jvmargs=-Xmx2g -Xss4m -XX:+UseParallelGC
+ org.gradle.parallel=true
++commitId=b8f3776f2458d0270276bd3d59db66f4c7f3748c

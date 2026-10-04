@@ -1,0 +1,3 @@
+{
+  "summary": "KAFKA-20368: Successfully implemented deterministic metric tags ordering in RLMExpirationTask by modifying RemoteLogManager.java to use MetricsUtils.getTags() instead of HashMap. This ensures metric tags are always ordered as \"topic\", \"partition\" in JMX metric names. All 90 RemoteLogManagerTest tests passed."
+}

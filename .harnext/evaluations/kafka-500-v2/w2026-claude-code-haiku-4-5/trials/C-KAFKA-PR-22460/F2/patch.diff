@@ -1,0 +1,115 @@
+diff --git a/clients/src/main/java/org/apache/kafka/clients/producer/KafkaProducer.java b/clients/src/main/java/org/apache/kafka/clients/producer/KafkaProducer.java
+index cd495956269ec3fb1110828b699717bd3b057c83..a8c58f72b72d10a6eaa73967f3e3f0137b518376 100644
+--- a/clients/src/main/java/org/apache/kafka/clients/producer/KafkaProducer.java
++++ b/clients/src/main/java/org/apache/kafka/clients/producer/KafkaProducer.java
+@@ -94,10 +94,12 @@ import java.util.Map;
+ import java.util.Objects;
+ import java.util.Optional;
+ import java.util.Properties;
++import java.util.Set;
+ import java.util.concurrent.ExecutionException;
+ import java.util.concurrent.Future;
+ import java.util.concurrent.TimeUnit;
+ import java.util.concurrent.atomic.AtomicReference;
++import java.util.stream.Collectors;
+ 
+ 
+ /**
+@@ -774,6 +776,18 @@ public class KafkaProducer<K, V> implements Producer<K, V> {
+ 
+         if (!offsets.isEmpty()) {
+             long start = time.nanoseconds();
++
++            // Ensure metadata is fresh for the topics in the offset map (KIP-1319).
++            // This allows the TransactionManager to potentially negotiate v6+
++            // of TxnOffsetCommit when topic IDs are available.
++            try {
++                awaitTopicsMetadata(offsets.keySet().stream()
++                    .map(TopicPartition::topic)
++                    .collect(Collectors.toSet()));
++            } catch (InterruptedException e) {
++                throw new InterruptException(e);
++            }
++
+             TransactionalRequestResult result = transactionManager.sendOffsetsToTransaction(offsets, groupMetadata);
+             sender.wakeup();
+             result.await(maxBlockTimeMs, TimeUnit.MILLISECONDS, SEND_OFFSETS_TIMEOUT_MSG);
+@@ -1278,6 +1292,78 @@ public class KafkaProducer<K, V> implements Producer<K, V> {
+             String.format("Partition %d of topic %s with partition count %d is not present in metadata after %d ms.",
+                 partition, topic, partitionsCount, maxWaitMs);
+     }
++
++    private void awaitTopicsMetadata(Set<String> topics) throws InterruptedException {
++        long nowMs = time.milliseconds();
++        long maxWaitMs = maxBlockTimeMs;
++
++        Cluster cluster = metadata.fetch();
++        for (String topic : topics) {
++            if (cluster.invalidTopics().contains(topic)) {
++                throw new InvalidTopicException(topic);
++            }
++        }
++
++        long remainingWaitMs = maxWaitMs;
++        long elapsed = 0;
++        long nowNanos = time.nanoseconds();
++
++        // Add all topics to metadata and request updates
++        while (true) {
++            for (String topic : topics) {
++                log.trace("Requesting metadata update for topic {}.", topic);
++                metadata.add(topic, nowMs + elapsed);
++                int version = metadata.requestUpdateForTopic(topic);
++                sender.wakeup();
++                try {
++                    metadata.awaitUpdate(version, remainingWaitMs);
++                } catch (TimeoutException ex) {
++                    final String errorMessage = String.format("Topics %s not present in metadata after %d ms.",
++                        topics, maxWaitMs);
++                    if (!topics.isEmpty()) {
++                        String firstTopic = topics.iterator().next();
++                        if (metadata.getError(firstTopic) != null) {
++                            throw new TimeoutException(errorMessage, metadata.getError(firstTopic).exception());
++                        }
++                    }
++                    throw new TimeoutException(errorMessage);
++                }
++            }
++
++            cluster = metadata.fetch();
++            elapsed = time.milliseconds() - nowMs;
++            if (elapsed >= maxWaitMs) {
++                final String errorMessage = String.format("Topics %s not present in metadata after %d ms.",
++                    topics, maxWaitMs);
++                if (!topics.isEmpty()) {
++                    String firstTopic = topics.iterator().next();
++                    if (metadata.getError(firstTopic) != null && metadata.getError(firstTopic).exception() instanceof RetriableException) {
++                        throw new TimeoutException(errorMessage, metadata.getError(firstTopic).exception());
++                    }
++                }
++                throw new TimeoutException(errorMessage);
++            }
++            for (String topic : topics) {
++                metadata.maybeThrowExceptionForTopic(topic);
++            }
++            remainingWaitMs = maxWaitMs - elapsed;
++
++            // Check if all topics have metadata
++            boolean allTopicsReady = true;
++            for (String topic : topics) {
++                if (cluster.partitionCountForTopic(topic) == null) {
++                    allTopicsReady = false;
++                    break;
++                }
++            }
++            if (allTopicsReady) {
++                break;
++            }
++        }
++
++        producerMetrics.recordMetadataWait(time.nanoseconds() - nowNanos);
++    }
++
+     /**
+      * Validate that the record size isn't too large
+      */

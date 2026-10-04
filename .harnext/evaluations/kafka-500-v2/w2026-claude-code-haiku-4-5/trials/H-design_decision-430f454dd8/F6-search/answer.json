@@ -1,0 +1,9 @@
+{
+  "evidence": [
+    "window-114-summary.md: References David Arthur's detailed feedback on error codes (DA1-DA4) addressed by Kevin Wu",
+    "window-108-summary.md: PR #22191 implements UnregisterController RPC schemas",
+    "kips/KIP-1312.md: KIP documentation exists but specific error code details not retrieved from search",
+    "The context cutoff is 2026-05-31, and the KIP-1312 was in voting phase by mid-May 2026"
+  ],
+  "value": null
+}

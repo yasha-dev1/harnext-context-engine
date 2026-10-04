@@ -1,0 +1,55 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "05dea6cdc4e709f639e41414 (Andrew Schofield, 2026-04-21, mailing list confirmation)",
+      "Federico Valeri message in same thread (2026-04-15, mailing list original proposal): 'We changed AddTopicsToMirror/RemoveTopicsFromMirror to StartMirrorTopics/StopMirrorTopics'"
+    ],
+    "value": "StartMirrorTopics/StopMirrorTopics"
+  },
+  "arm": "S-tools",
+  "checkpoint": "2026-04",
+  "cli_calls": {
+    "gh": 11,
+    "jira": 7,
+    "mail": 8
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 131.84633819999,
+  "family": "design_decision",
+  "grade": {
+    "actual": "StartMirrorTopics/StopMirrorTopics",
+    "correct": true,
+    "evidence": [
+      "05dea6cdc4e709f639e41414 (Andrew Schofield, 2026-04-21, mailing list confirmation)",
+      "Federico Valeri message in same thread (2026-04-15, mailing list original proposal): 'We changed AddTopicsToMirror/RemoveTopicsFromMirror to StartMirrorTopics/StopMirrorTopics'"
+    ],
+    "expected": "StartMirrorTopics/StopMirrorTopics"
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 17,
+  "prompt_sha256": "7af511a3df7bb96e3327481f970c9ca18a7792436d2b2288d36d4c5a3203d320",
+  "run_index": 20,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-7b55b02c3c",
+  "tool_calls": {
+    "Bash": 26,
+    "Read": 1,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 437078,
+    "cost_usd": 0.10071380000000002,
+    "input_tokens": 454822,
+    "output_tokens": 4331
+  },
+  "violations": []
+}

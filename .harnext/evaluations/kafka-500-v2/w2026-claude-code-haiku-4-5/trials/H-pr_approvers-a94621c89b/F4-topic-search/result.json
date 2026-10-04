@@ -1,0 +1,56 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "pull-requests.md (lines 3751-3759)",
+      "context_research confirms no approval information present in the data as of cutoff 2026-04-30"
+    ],
+    "value": []
+  },
+  "arm": "F4-topic-search",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 84.93656574199849,
+  "family": "pr_approvers",
+  "grade": {
+    "actual": [],
+    "correct": false,
+    "evidence": [
+      "pull-requests.md (lines 3751-3759)",
+      "context_research confirms no approval information present in the data as of cutoff 2026-04-30"
+    ],
+    "expected": [
+      "dajac",
+      "nileshkumar3",
+      "squah-confluent"
+    ]
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 7,
+  "prompt_sha256": "0fbc67afc72edd2b08bf546623d2c7dba2a40aafbea052ea410973f2029431a7",
+  "run_index": 44,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-pr_approvers-a94621c89b",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 3
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 174772,
+    "cost_usd": 0.05160220000000001,
+    "input_tokens": 187445,
+    "output_tokens": 1768
+  },
+  "violations": []
+}

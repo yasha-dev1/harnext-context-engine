@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "/store/INDEX-WINDOW-82.md",
+    "issues/KAFKA-20387.md",
+    "kips/KIP-1308.md"
+  ],
+  "value": "KAFKA-20387"
+}

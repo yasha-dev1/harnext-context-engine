@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "prs/21641-streams-group-creation-classic-group.md - Merged 2026-03-06T09:36:21Z, Author: lucasbru",
+    "prs/21638-kafka-20254-add-upgrade-guide-warning.md - Merged 2026-03-06T22:34:00Z, Author: lucasbru",
+    "prs/22067-document-transaction-timeout-eos-streams.md - Merged 2026-04-28T17:06:31Z, Author: lucasbru"
+  ],
+  "value": 3
+}

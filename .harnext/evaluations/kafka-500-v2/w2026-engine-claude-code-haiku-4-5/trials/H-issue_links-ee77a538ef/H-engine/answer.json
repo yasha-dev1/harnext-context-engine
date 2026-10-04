@@ -1,0 +1,10 @@
+{
+  "evidence": [
+    "jira:13638867:change:22965795:0",
+    "jira:13638867:change:22965819:0"
+  ],
+  "value": [
+    "KAFKA-7140",
+    "KAFKA-20282"
+  ]
+}

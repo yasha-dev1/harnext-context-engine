@@ -1,0 +1,51 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "Unable to determine: event date (2026-04-01) is after knowledge cutoff (February 2025)",
+      "No network access available",
+      "No local project context provided"
+    ],
+    "value": null
+  },
+  "arm": "N",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 8.3167658559978,
+  "family": "implicit_link",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "Unable to determine: event date (2026-04-01) is after knowledge cutoff (February 2025)",
+      "No network access available",
+      "No local project context provided"
+    ],
+    "expected": "KAFKA-20387"
+  },
+  "instructions_sha256": null,
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 1,
+  "prompt_sha256": "d8d1e14477ed2b5843563259c4c854b80bcd1b863ec70bb64b7222fda8cd3b34",
+  "run_index": 82,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-implicit_link-394aab4475",
+  "tool_calls": {
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 17497,
+    "cost_usd": 0.0118967,
+    "input_tokens": 20650,
+    "output_tokens": 770
+  },
+  "violations": []
+}

@@ -1,0 +1,3 @@
+{
+  "summary": "Fixed KAFKA-20434: Consumer group now recomputes assignment when static members rejoin with a different server-side assignor. The fix adds logic to GroupMetadataManager.consumerGroupHeartbeat to detect when the preferred (majority) server-side assignor changes as a result of member updates, and bumps the group epoch accordingly. This ensures updateTargetAssignment is called to recompute the target assignment using the new assignor. Changes made to one file with two test cases now passing."
+}

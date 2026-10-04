@@ -1,0 +1,9 @@
+Context snapshot cutoff (inclusive): 2026-04-30T23:59:59Z.
+
+In this Kafka KIP thread proposing a new consumer offset-reset policy that anchors to a group's creation time to avoid data loss when partitions are dynamically added, what is the exact name of the new exception introduced (as of 2026-04-01) to signal that the group creation time is unknown? Answer with the exact value as the project wrote it. Give the decision as it stood at the snapshot, not an earlier proposal.
+
+Return JSON {"value": <answer>, "evidence": [<ids or file paths of the sources you relied on>]}. Answer as of the cutoff; do not substitute a later or today's issue state.
+
+No pre-built project memory is provided. You can query time-frozen offline replicas of the project's systems of record as of the cutoff with the usual command-line tools: `gh` (pull requests, reviews, commits), `jira` (issues, comments, change history), `mail` (mailing lists). Run `<tool> --help` for the supported commands. The live internet is not reachable.
+
+Reply with one JSON object {"value": ..., "evidence": [...]}: `value` is the answer in the requested type (null if it cannot be determined), `evidence` lists the sources you relied on.

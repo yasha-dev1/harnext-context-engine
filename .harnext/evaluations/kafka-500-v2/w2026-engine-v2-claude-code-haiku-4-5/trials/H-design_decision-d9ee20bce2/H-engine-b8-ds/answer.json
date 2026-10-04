@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "mail:8798ead7dd94fed1e7820b5c - Design discussion where Lijun Tong and Jian Fu rejected keeping 'delete' in the final cleanup policy for __remote_log_metadata topic, settling on 'compact' to avoid operational burden"
+  ],
+  "value": "compact"
+}

@@ -1,0 +1,694 @@
+{
+  "arms": {
+    "H-engine": {
+      "agent_seconds": 21577.7,
+      "by_kind": {
+        "coding": {
+          "agent_seconds": 8813.1,
+          "by_family": {
+            "pr_implementation": {
+              "agent_seconds": 8813.1,
+              "cached_input_tokens": 31571398,
+              "context_bytes": 0,
+              "input_tokens": 32338978,
+              "n": 12,
+              "output_tokens": 143567,
+              "status": {
+                "completed": 12
+              },
+              "success": 10,
+              "tool_calls": 505
+            }
+          },
+          "cached_input_tokens": 31571398,
+          "context_bytes": 0,
+          "input_tokens": 32338978,
+          "n": 12,
+          "output_tokens": 143567,
+          "status": {
+            "completed": 12
+          },
+          "success": 10,
+          "tool_calls": 505
+        },
+        "historical": {
+          "agent_seconds": 12764.6,
+          "by_family": {
+            "assignee_at_snapshot": {
+              "agent_seconds": 35.2,
+              "cached_input_tokens": 63394,
+              "context_bytes": 0,
+              "input_tokens": 64338,
+              "n": 1,
+              "output_tokens": 652,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 3
+            },
+            "assignment_history": {
+              "agent_seconds": 108.7,
+              "cached_input_tokens": 63876,
+              "context_bytes": 0,
+              "input_tokens": 65196,
+              "n": 1,
+              "output_tokens": 1299,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 3
+            },
+            "author_activity": {
+              "agent_seconds": 67.5,
+              "cached_input_tokens": 63503,
+              "context_bytes": 0,
+              "input_tokens": 64840,
+              "n": 1,
+              "output_tokens": 769,
+              "status": {
+                "completed": 1
+              },
+              "success": 0,
+              "tool_calls": 3
+            },
+            "closed_at_snapshot": {
+              "agent_seconds": 52.8,
+              "cached_input_tokens": 63338,
+              "context_bytes": 0,
+              "input_tokens": 64146,
+              "n": 1,
+              "output_tokens": 550,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 3
+            },
+            "design_decision": {
+              "agent_seconds": 7411.1,
+              "cached_input_tokens": 2670255,
+              "context_bytes": 0,
+              "input_tokens": 2781070,
+              "n": 29,
+              "output_tokens": 28437,
+              "status": {
+                "completed": 28,
+                "timeout": 1
+              },
+              "success": 19,
+              "tool_calls": 136
+            },
+            "fix_version_at_snapshot": {
+              "agent_seconds": 233.3,
+              "cached_input_tokens": 186779,
+              "context_bytes": 0,
+              "input_tokens": 193236,
+              "n": 3,
+              "output_tokens": 2340,
+              "status": {
+                "completed": 3
+              },
+              "success": 1,
+              "tool_calls": 9
+            },
+            "implicit_link": {
+              "agent_seconds": 1871.6,
+              "cached_input_tokens": 954653,
+              "context_bytes": 0,
+              "input_tokens": 996846,
+              "n": 14,
+              "output_tokens": 10936,
+              "status": {
+                "completed": 14
+              },
+              "success": 12,
+              "tool_calls": 46
+            },
+            "issue_changed_files": {
+              "agent_seconds": 495.4,
+              "cached_input_tokens": 252997,
+              "context_bytes": 0,
+              "input_tokens": 261974,
+              "n": 3,
+              "output_tokens": 12428,
+              "status": {
+                "completed": 3
+              },
+              "success": 3,
+              "tool_calls": 12
+            },
+            "issue_links": {
+              "agent_seconds": 177.5,
+              "cached_input_tokens": 149167,
+              "context_bytes": 0,
+              "input_tokens": 151671,
+              "n": 2,
+              "output_tokens": 1459,
+              "status": {
+                "completed": 2
+              },
+              "success": 0,
+              "tool_calls": 7
+            },
+            "issue_prs": {
+              "agent_seconds": 434.5,
+              "cached_input_tokens": 211948,
+              "context_bytes": 0,
+              "input_tokens": 241839,
+              "n": 3,
+              "output_tokens": 3349,
+              "status": {
+                "completed": 3
+              },
+              "success": 1,
+              "tool_calls": 11
+            },
+            "kip_thread": {
+              "agent_seconds": 322.4,
+              "cached_input_tokens": 212939,
+              "context_bytes": 0,
+              "input_tokens": 218845,
+              "n": 3,
+              "output_tokens": 3087,
+              "status": {
+                "completed": 3
+              },
+              "success": 2,
+              "tool_calls": 10
+            },
+            "pr_approvers": {
+              "agent_seconds": 235.4,
+              "cached_input_tokens": 183268,
+              "context_bytes": 0,
+              "input_tokens": 193405,
+              "n": 3,
+              "output_tokens": 2254,
+              "status": {
+                "completed": 3
+              },
+              "success": 3,
+              "tool_calls": 9
+            },
+            "priority_at_snapshot": {
+              "agent_seconds": 35.3,
+              "cached_input_tokens": 63337,
+              "context_bytes": 0,
+              "input_tokens": 64097,
+              "n": 1,
+              "output_tokens": 515,
+              "status": {
+                "completed": 1
+              },
+              "success": 0,
+              "tool_calls": 3
+            },
+            "reopen_count": {
+              "agent_seconds": 121.5,
+              "cached_input_tokens": 126785,
+              "context_bytes": 0,
+              "input_tokens": 128489,
+              "n": 2,
+              "output_tokens": 1260,
+              "status": {
+                "completed": 2
+              },
+              "success": 2,
+              "tool_calls": 6
+            },
+            "resolution_at_snapshot": {
+              "agent_seconds": 40.9,
+              "cached_input_tokens": 63417,
+              "context_bytes": 0,
+              "input_tokens": 64238,
+              "n": 1,
+              "output_tokens": 595,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 3
+            },
+            "resolution_transition_history": {
+              "agent_seconds": 33.4,
+              "cached_input_tokens": 63814,
+              "context_bytes": 0,
+              "input_tokens": 64791,
+              "n": 1,
+              "output_tokens": 874,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 3
+            },
+            "resolution_vs_merge_order": {
+              "agent_seconds": 435.8,
+              "cached_input_tokens": 210461,
+              "context_bytes": 0,
+              "input_tokens": 239272,
+              "n": 3,
+              "output_tokens": 2825,
+              "status": {
+                "completed": 3
+              },
+              "success": 3,
+              "tool_calls": 12
+            },
+            "review_hotspot": {
+              "agent_seconds": 330.5,
+              "cached_input_tokens": 254364,
+              "context_bytes": 0,
+              "input_tokens": 263036,
+              "n": 3,
+              "output_tokens": 2631,
+              "status": {
+                "completed": 3
+              },
+              "success": 3,
+              "tool_calls": 12
+            },
+            "status_at_snapshot": {
+              "agent_seconds": 49.2,
+              "cached_input_tokens": 59904,
+              "context_bytes": 0,
+              "input_tokens": 64276,
+              "n": 1,
+              "output_tokens": 587,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 3
+            },
+            "status_transition_history": {
+              "agent_seconds": 56.4,
+              "cached_input_tokens": 63809,
+              "context_bytes": 0,
+              "input_tokens": 65027,
+              "n": 1,
+              "output_tokens": 1084,
+              "status": {
+                "completed": 1
+              },
+              "success": 0,
+              "tool_calls": 3
+            },
+            "top_reviewer_for_author": {
+              "agent_seconds": 216.4,
+              "cached_input_tokens": 84585,
+              "context_bytes": 0,
+              "input_tokens": 93399,
+              "n": 1,
+              "output_tokens": 2293,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 4
+            }
+          },
+          "cached_input_tokens": 6066593,
+          "context_bytes": 0,
+          "input_tokens": 6344031,
+          "n": 78,
+          "output_tokens": 80224,
+          "status": {
+            "completed": 77,
+            "timeout": 1
+          },
+          "success": 56,
+          "tool_calls": 301
+        }
+      },
+      "cached_input_tokens": 37637991,
+      "context_bytes": 0,
+      "input_tokens": 38683009,
+      "n": 90,
+      "output_tokens": 223791,
+      "status": {
+        "completed": 89,
+        "timeout": 1
+      },
+      "success": 66,
+      "tool_calls": 806
+    },
+    "H-engine-mem": {
+      "agent_seconds": 24557.1,
+      "by_kind": {
+        "coding": {
+          "agent_seconds": 9811.4,
+          "by_family": {
+            "pr_implementation": {
+              "agent_seconds": 9811.4,
+              "cached_input_tokens": 26372525,
+              "context_bytes": 0,
+              "input_tokens": 27088304,
+              "n": 12,
+              "output_tokens": 142153,
+              "status": {
+                "completed": 12
+              },
+              "success": 11,
+              "tool_calls": 443
+            }
+          },
+          "cached_input_tokens": 26372525,
+          "context_bytes": 0,
+          "input_tokens": 27088304,
+          "n": 12,
+          "output_tokens": 142153,
+          "status": {
+            "completed": 12
+          },
+          "success": 11,
+          "tool_calls": 443
+        },
+        "historical": {
+          "agent_seconds": 14745.7,
+          "by_family": {
+            "assignee_at_snapshot": {
+              "agent_seconds": 62.8,
+              "cached_input_tokens": 42394,
+              "context_bytes": 0,
+              "input_tokens": 64298,
+              "n": 1,
+              "output_tokens": 615,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 3
+            },
+            "assignment_history": {
+              "agent_seconds": 77.3,
+              "cached_input_tokens": 42760,
+              "context_bytes": 0,
+              "input_tokens": 65132,
+              "n": 1,
+              "output_tokens": 1510,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 3
+            },
+            "author_activity": {
+              "agent_seconds": 56.1,
+              "cached_input_tokens": 42444,
+              "context_bytes": 0,
+              "input_tokens": 64651,
+              "n": 1,
+              "output_tokens": 824,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 3
+            },
+            "closed_at_snapshot": {
+              "agent_seconds": 85.8,
+              "cached_input_tokens": 42386,
+              "context_bytes": 0,
+              "input_tokens": 64438,
+              "n": 1,
+              "output_tokens": 680,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 3
+            },
+            "design_decision": {
+              "agent_seconds": 8286.2,
+              "cached_input_tokens": 2102565,
+              "context_bytes": 0,
+              "input_tokens": 2196148,
+              "n": 29,
+              "output_tokens": 23795,
+              "status": {
+                "completed": 25,
+                "timeout": 4
+              },
+              "success": 18,
+              "tool_calls": 143
+            },
+            "fix_version_at_snapshot": {
+              "agent_seconds": 208.3,
+              "cached_input_tokens": 165936,
+              "context_bytes": 0,
+              "input_tokens": 194134,
+              "n": 3,
+              "output_tokens": 2134,
+              "status": {
+                "completed": 3
+              },
+              "success": 0,
+              "tool_calls": 9
+            },
+            "implicit_link": {
+              "agent_seconds": 1509.3,
+              "cached_input_tokens": 865572,
+              "context_bytes": 0,
+              "input_tokens": 905297,
+              "n": 14,
+              "output_tokens": 10438,
+              "status": {
+                "completed": 14
+              },
+              "success": 14,
+              "tool_calls": 42
+            },
+            "issue_changed_files": {
+              "agent_seconds": 659.2,
+              "cached_input_tokens": 231459,
+              "context_bytes": 0,
+              "input_tokens": 244669,
+              "n": 3,
+              "output_tokens": 11136,
+              "status": {
+                "completed": 3
+              },
+              "success": 1,
+              "tool_calls": 12
+            },
+            "issue_links": {
+              "agent_seconds": 121.2,
+              "cached_input_tokens": 119977,
+              "context_bytes": 0,
+              "input_tokens": 128831,
+              "n": 2,
+              "output_tokens": 1212,
+              "status": {
+                "completed": 2
+              },
+              "success": 0,
+              "tool_calls": 6
+            },
+            "issue_prs": {
+              "agent_seconds": 816.9,
+              "cached_input_tokens": 306613,
+              "context_bytes": 0,
+              "input_tokens": 317697,
+              "n": 3,
+              "output_tokens": 3943,
+              "status": {
+                "completed": 3
+              },
+              "success": 3,
+              "tool_calls": 14
+            },
+            "kip_thread": {
+              "agent_seconds": 1137.0,
+              "cached_input_tokens": 440324,
+              "context_bytes": 0,
+              "input_tokens": 460874,
+              "n": 3,
+              "output_tokens": 5495,
+              "status": {
+                "completed": 3
+              },
+              "success": 1,
+              "tool_calls": 20
+            },
+            "pr_approvers": {
+              "agent_seconds": 229.1,
+              "cached_input_tokens": 190293,
+              "context_bytes": 0,
+              "input_tokens": 193477,
+              "n": 3,
+              "output_tokens": 2305,
+              "status": {
+                "completed": 3
+              },
+              "success": 3,
+              "tool_calls": 9
+            },
+            "priority_at_snapshot": {
+              "agent_seconds": 85.8,
+              "cached_input_tokens": 42387,
+              "context_bytes": 0,
+              "input_tokens": 64256,
+              "n": 1,
+              "output_tokens": 626,
+              "status": {
+                "completed": 1
+              },
+              "success": 0,
+              "tool_calls": 3
+            },
+            "reopen_count": {
+              "agent_seconds": 98.4,
+              "cached_input_tokens": 102360,
+              "context_bytes": 0,
+              "input_tokens": 128743,
+              "n": 2,
+              "output_tokens": 1343,
+              "status": {
+                "completed": 2
+              },
+              "success": 2,
+              "tool_calls": 6
+            },
+            "resolution_at_snapshot": {
+              "agent_seconds": 63.1,
+              "cached_input_tokens": 63593,
+              "context_bytes": 0,
+              "input_tokens": 64660,
+              "n": 1,
+              "output_tokens": 805,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 3
+            },
+            "resolution_transition_history": {
+              "agent_seconds": 57.6,
+              "cached_input_tokens": 42678,
+              "context_bytes": 0,
+              "input_tokens": 64746,
+              "n": 1,
+              "output_tokens": 850,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 3
+            },
+            "resolution_vs_merge_order": {
+              "agent_seconds": 423.2,
+              "cached_input_tokens": 209600,
+              "context_bytes": 0,
+              "input_tokens": 217403,
+              "n": 3,
+              "output_tokens": 3094,
+              "status": {
+                "completed": 3
+              },
+              "success": 3,
+              "tool_calls": 10
+            },
+            "review_hotspot": {
+              "agent_seconds": 197.5,
+              "cached_input_tokens": 165674,
+              "context_bytes": 0,
+              "input_tokens": 193598,
+              "n": 3,
+              "output_tokens": 2280,
+              "status": {
+                "completed": 3
+              },
+              "success": 3,
+              "tool_calls": 9
+            },
+            "status_at_snapshot": {
+              "agent_seconds": 127.4,
+              "cached_input_tokens": 107971,
+              "context_bytes": 0,
+              "input_tokens": 110021,
+              "n": 1,
+              "output_tokens": 1141,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 4
+            },
+            "status_transition_history": {
+              "agent_seconds": 176.6,
+              "cached_input_tokens": 82265,
+              "context_bytes": 0,
+              "input_tokens": 87419,
+              "n": 1,
+              "output_tokens": 1335,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 4
+            },
+            "top_reviewer_for_author": {
+              "agent_seconds": 266.8,
+              "cached_input_tokens": 111575,
+              "context_bytes": 0,
+              "input_tokens": 117045,
+              "n": 1,
+              "output_tokens": 2224,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 5
+            }
+          },
+          "cached_input_tokens": 5520826,
+          "context_bytes": 0,
+          "input_tokens": 5947537,
+          "n": 78,
+          "output_tokens": 77785,
+          "status": {
+            "completed": 74,
+            "timeout": 4
+          },
+          "success": 57,
+          "tool_calls": 314
+        }
+      },
+      "cached_input_tokens": 31893351,
+      "context_bytes": 0,
+      "input_tokens": 33035841,
+      "n": 90,
+      "output_tokens": 219938,
+      "status": {
+        "completed": 86,
+        "timeout": 4
+      },
+      "success": 68,
+      "tool_calls": 757
+    }
+  },
+  "not_recorded": [],
+  "paired_vs_N": {
+    "H-engine": {
+      "both": 0,
+      "harmed": 0,
+      "helped": 0,
+      "neither": 0,
+      "pairs": 0
+    },
+    "H-engine-mem": {
+      "both": 0,
+      "harmed": 0,
+      "helped": 0,
+      "neither": 0,
+      "pairs": 0
+    }
+  },
+  "reason": null,
+  "recorded": 180,
+  "status": "complete",
+  "target": 180,
+  "updated_at_unix": 1790637501.5835915
+}

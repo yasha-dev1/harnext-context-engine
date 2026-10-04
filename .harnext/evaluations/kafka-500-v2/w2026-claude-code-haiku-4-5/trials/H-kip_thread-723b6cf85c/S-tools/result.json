@@ -1,0 +1,66 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "fae59ef23c15af1ca719cef5 (thread starter, 2026-01-05T21:22:10Z)",
+      "3782ab07571adaf410138509 (Henry Haiying Cai via dev)",
+      "8ce4b9ae74948f5379a153d9 (Kamal Chandraprakash)",
+      "36edead0219503cbb1eb9f1e (jian fu)"
+    ],
+    "value": {
+      "participants": 4,
+      "starter": "Lijun Tong"
+    }
+  },
+  "arm": "S-tools",
+  "checkpoint": "2026-03",
+  "cli_calls": {
+    "mail": 3
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 122.94682507100515,
+  "family": "kip_thread",
+  "grade": {
+    "actual": {
+      "participants": 4,
+      "starter": "Lijun Tong"
+    },
+    "correct": true,
+    "evidence": [
+      "fae59ef23c15af1ca719cef5 (thread starter, 2026-01-05T21:22:10Z)",
+      "3782ab07571adaf410138509 (Henry Haiying Cai via dev)",
+      "8ce4b9ae74948f5379a153d9 (Kamal Chandraprakash)",
+      "36edead0219503cbb1eb9f1e (jian fu)"
+    ],
+    "expected": {
+      "participants": 4,
+      "starter": "Lijun Tong"
+    }
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 5,
+  "prompt_sha256": "e7adf11f8aefcedf13ca6774e06d1d79d6b87a05f32e43504a17d188a7032db0",
+  "run_index": 63,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-kip_thread-723b6cf85c",
+  "tool_calls": {
+    "Bash": 3,
+    "StructuredOutput": 1,
+    "ToolSearch": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 104727,
+    "cost_usd": 0.0355297,
+    "input_tokens": 112011,
+    "output_tokens": 2106
+  },
+  "violations": []
+}

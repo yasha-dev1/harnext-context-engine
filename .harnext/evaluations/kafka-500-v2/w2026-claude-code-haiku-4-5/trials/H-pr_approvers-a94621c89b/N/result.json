@@ -1,0 +1,56 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "No local files available in /workspace",
+      "No network access to GitHub API",
+      "No project-history context provided"
+    ],
+    "value": []
+  },
+  "arm": "N",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 10.44656862699776,
+  "family": "pr_approvers",
+  "grade": {
+    "actual": [],
+    "correct": false,
+    "evidence": [
+      "No local files available in /workspace",
+      "No network access to GitHub API",
+      "No project-history context provided"
+    ],
+    "expected": [
+      "dajac",
+      "nileshkumar3",
+      "squah-confluent"
+    ]
+  },
+  "instructions_sha256": null,
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "004123f398de5d04f7778a0c93ea99f81fb1622759094f51af8e299b598c99bb",
+  "run_index": 65,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-pr_approvers-a94621c89b",
+  "tool_calls": {
+    "Bash": 1,
+    "StructuredOutput": 2
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 59049,
+    "cost_usd": 0.0169419,
+    "input_tokens": 62870,
+    "output_tokens": 684
+  },
+  "violations": []
+}

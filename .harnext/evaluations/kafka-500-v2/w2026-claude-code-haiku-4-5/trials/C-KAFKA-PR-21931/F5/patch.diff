@@ -1,0 +1,82 @@
+diff --git a/storage/src/main/java/org/apache/kafka/server/log/remote/storage/RemoteLogManager.java b/storage/src/main/java/org/apache/kafka/server/log/remote/storage/RemoteLogManager.java
+index cb2764f142bb5df1ab3460744b1a82c9abb72ec2..931beeada9617b1487039cedc840688df40ffd9b 100644
+--- a/storage/src/main/java/org/apache/kafka/server/log/remote/storage/RemoteLogManager.java
++++ b/storage/src/main/java/org/apache/kafka/server/log/remote/storage/RemoteLogManager.java
+@@ -30,6 +30,7 @@ import org.apache.kafka.common.message.FetchResponseData;
+ import org.apache.kafka.common.metrics.Metrics;
+ import org.apache.kafka.common.metrics.Quota;
+ import org.apache.kafka.common.metrics.Sensor;
++import org.apache.kafka.common.metrics.internals.MetricsUtils;
+ import org.apache.kafka.common.record.internal.FileRecords;
+ import org.apache.kafka.common.record.internal.MemoryRecords;
+ import org.apache.kafka.common.record.internal.Record;
+@@ -1142,7 +1143,7 @@ public class RemoteLogManager implements Closeable, AsyncOffsetReader {
+         private final Logger logger;
+         private volatile boolean isAllSegmentsValid = false;
+         private volatile boolean metricsRegistered = false;
+-        private final Map<String, String> metricTags = new HashMap<>();
++        private final Map<String, String> metricTags;
+         private final AtomicInteger retentionSizeInPercentValue = new AtomicInteger(0);
+         private final AtomicInteger localRetentionSizeInPercentValue = new AtomicInteger(0);
+ 
+@@ -1157,8 +1158,10 @@ public class RemoteLogManager implements Closeable, AsyncOffsetReader {
+         public RLMExpirationTask(TopicIdPartition topicIdPartition) {
+             super(topicIdPartition);
+             this.logger = getLogContext().logger(RLMExpirationTask.class);
+-            metricTags.put("topic", topicIdPartition.topic());
+-            metricTags.put("partition", Integer.toString(topicIdPartition.partition()));
++            this.metricTags = MetricsUtils.getTags(
++                "topic", topicIdPartition.topic(),
++                "partition", Integer.toString(topicIdPartition.partition())
++            );
+         }
+ 
+         // Visible for testing
+diff --git a/storage/src/test/java/org/apache/kafka/server/log/remote/storage/RemoteLogManagerTest.java b/storage/src/test/java/org/apache/kafka/server/log/remote/storage/RemoteLogManagerTest.java
+index 234bb0f06f4efa586c0610e8bc2d87e71ee8db0e..b1c5090625e9ced29fb43de1ca78ef8a4acd939f 100644
+--- a/storage/src/test/java/org/apache/kafka/server/log/remote/storage/RemoteLogManagerTest.java
++++ b/storage/src/test/java/org/apache/kafka/server/log/remote/storage/RemoteLogManagerTest.java
+@@ -2274,8 +2274,8 @@ public class RemoteLogManagerTest {
+         // Register metrics to expose them via JMX
+         expirationTask.registerMetrics();
+ 
+-        String retentionMetricName = "name=RetentionSizeInPercent,partition=" + leaderTopicIdPartition.partition() + ",topic=" + leaderTopicIdPartition.topic();
+-        String localRetentionMetricName = "name=LocalRetentionSizeInPercent,partition=" + leaderTopicIdPartition.partition() + ",topic=" + leaderTopicIdPartition.topic();
++        String retentionMetricName = "name=RetentionSizeInPercent,topic=" + leaderTopicIdPartition.topic() + ",partition=" + leaderTopicIdPartition.partition();
++        String localRetentionMetricName = "name=LocalRetentionSizeInPercent,topic=" + leaderTopicIdPartition.topic() + ",partition=" + leaderTopicIdPartition.partition();
+ 
+         // Test case 1: Testing RetentionSizeInPercent metric (standard retention scenario)
+         // retentionSize = 12288, onlyLocalLogSegmentsSize = 100, localLogSegmentsSize = 100
+@@ -2339,8 +2339,8 @@ public class RemoteLogManagerTest {
+         // Register metrics to expose them via JMX
+         expirationTask.registerMetrics();
+ 
+-        String retentionMetricName = "name=RetentionSizeInPercent,partition=" + leaderTopicIdPartition.partition() + ",topic=" + leaderTopicIdPartition.topic();
+-        String localRetentionMetricName = "name=LocalRetentionSizeInPercent,partition=" + leaderTopicIdPartition.partition() + ",topic=" + leaderTopicIdPartition.topic();
++        String retentionMetricName = "name=RetentionSizeInPercent,topic=" + leaderTopicIdPartition.topic() + ",partition=" + leaderTopicIdPartition.partition();
++        String localRetentionMetricName = "name=LocalRetentionSizeInPercent,topic=" + leaderTopicIdPartition.topic() + ",partition=" + leaderTopicIdPartition.partition();
+ 
+         // RetentionSizeInPercent = ((100 + 10240) * 100) / 12288 = 84%
+         // LocalRetentionSizeInPercent = (100 * 100) / 6144 = 1%
+@@ -2356,6 +2356,10 @@ public class RemoteLogManagerTest {
+         // Verify metrics are reset to 0 on cancellation (check via accessor since JMX metrics are deregistered)
+         assertEquals(0, expirationTask.retentionSizeInPercent());
+         assertEquals(0, expirationTask.localRetentionSizeInPercent());
++
++        // Verify JMX metrics are actually deregistered from the Yammer registry after cancellation
++        assertThrows(NoSuchElementException.class, () -> yammerMetricValue(retentionMetricName));
++        assertThrows(NoSuchElementException.class, () -> yammerMetricValue(localRetentionMetricName));
+     }
+ 
+     @Test
+@@ -2379,8 +2383,8 @@ public class RemoteLogManagerTest {
+         // Register metrics to expose them via JMX
+         expirationTask.registerMetrics();
+ 
+-        String retentionMetricName = "name=RetentionSizeInPercent,partition=" + leaderTopicIdPartition.partition() + ",topic=" + leaderTopicIdPartition.topic();
+-        String localRetentionMetricName = "name=LocalRetentionSizeInPercent,partition=" + leaderTopicIdPartition.partition() + ",topic=" + leaderTopicIdPartition.topic();
++        String retentionMetricName = "name=RetentionSizeInPercent,topic=" + leaderTopicIdPartition.topic() + ",partition=" + leaderTopicIdPartition.partition();
++        String localRetentionMetricName = "name=LocalRetentionSizeInPercent,topic=" + leaderTopicIdPartition.topic() + ",partition=" + leaderTopicIdPartition.partition();
+ 
+         expirationTask.buildRetentionSizeData(0, 100, 100, 1000, epochEntries, 0, Long.MAX_VALUE);
+ 

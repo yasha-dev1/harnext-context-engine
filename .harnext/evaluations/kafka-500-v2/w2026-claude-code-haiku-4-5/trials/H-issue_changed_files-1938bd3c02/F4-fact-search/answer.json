@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "prs/21744-kafka-20307-iqv1-headers-stores.md - PR merged 2026-03-16 but detailed file list not documented",
+    "issues/kafka-20307-iqv1-headers-aware-stores.md - Lists components modified but not file paths",
+    "Context research confirms file paths are not available in stored history"
+  ],
+  "value": []
+}

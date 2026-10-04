@@ -1,0 +1,15 @@
+{
+  "evidence": [
+    "jira:13588764:change:22949889:0",
+    "jira:13588764:change:22949887:0",
+    "jira:13588764:change:22949421:0",
+    "jira:13641734:created",
+    "mail:e437a5f929aa48c75a64ae98",
+    "mail:2b8888b66b964eada5234616",
+    "mail:263b0239b98e36fe0c99fba8",
+    "mail:c64a83d2563f7ab1569d318f",
+    "mail:627e735177597c7ef8fa2243",
+    "mail:fd9d85a63c9e86b008ed8da0"
+  ],
+  "value": "remove the config entirely"
+}

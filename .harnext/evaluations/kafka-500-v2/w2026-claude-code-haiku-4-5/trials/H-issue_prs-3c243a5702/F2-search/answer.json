@@ -1,0 +1,30 @@
+{
+  "evidence": [
+    "issues/KAFKA-20134/2026-02-24-jira-change-linked-pr21486-5e3b612c.md",
+    "prs/21486/2026-02-24-merged-KAFKA-20134-KIP-1271-TimestampedWindowStoreWithHeaders-3N-507fe403.md",
+    "issues/KAFKA-20134/2026-02-23-change-linked-to-PR-21493-d99fa592.md",
+    "prs/21493/2026-02-25-gh-pr-merged-8f226eef.md",
+    "issues/KAFKA-20134/2026-02-23-change-linked-to-PR-21497-c15d9aa7.md",
+    "prs/21497/2026-02-27-review-comment-mjsax-3b5decc7.md",
+    "prs/21581/github-api-apache-kafka-pr-21581-opened-36101df5.md",
+    "prs/21581/2026-02-26-github-api-apache-kafka-review-PRR_kwDOACG9q87mSe6O-f3ded8a5.md"
+  ],
+  "value": [
+    {
+      "pr": 21486,
+      "state": "merged"
+    },
+    {
+      "pr": 21493,
+      "state": "merged"
+    },
+    {
+      "pr": 21497,
+      "state": "open"
+    },
+    {
+      "pr": 21581,
+      "state": "open"
+    }
+  ]
+}

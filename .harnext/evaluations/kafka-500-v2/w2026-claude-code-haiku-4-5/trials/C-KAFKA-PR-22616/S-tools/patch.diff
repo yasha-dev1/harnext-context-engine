@@ -1,0 +1,69 @@
+diff --git a/group-coordinator/src/main/java/org/apache/kafka/coordinator/group/streams/StreamsGroupTopologyDescriptionManager.java b/group-coordinator/src/main/java/org/apache/kafka/coordinator/group/streams/StreamsGroupTopologyDescriptionManager.java
+index 9b52a1506d3137398fccdf223440828d3d6314d4..0776adbd66ef47afbdd1b6f5930726e5e9d3ad72 100644
+--- a/group-coordinator/src/main/java/org/apache/kafka/coordinator/group/streams/StreamsGroupTopologyDescriptionManager.java
++++ b/group-coordinator/src/main/java/org/apache/kafka/coordinator/group/streams/StreamsGroupTopologyDescriptionManager.java
+@@ -254,9 +254,8 @@ public class StreamsGroupTopologyDescriptionManager implements AutoCloseable {
+         if (throwable == null) {
+             return null;
+         }
+-        Throwable cause = Errors.maybeUnwrapException(throwable);
+-        String message = cause != null ? cause.getMessage() : "Plugin failure (no cause).";
+-        return Map.entry(groupId, new ApiError(Errors.GROUP_DELETION_FAILED, message));
++        return Map.entry(groupId, new ApiError(Errors.GROUP_DELETION_FAILED,
++            "Topology description plugin failed to delete the topology."));
+     }
+ 
+     // Visible for testing.
+diff --git a/group-coordinator/src/test/java/org/apache/kafka/coordinator/group/GroupCoordinatorServiceTopologyDescriptionTest.java b/group-coordinator/src/test/java/org/apache/kafka/coordinator/group/GroupCoordinatorServiceTopologyDescriptionTest.java
+index 20ac95683b687d74e89408dfd17d3238d5174981..8fe7b89a60b11a8febe88d1ce4ae67c0c81f382f 100644
+--- a/group-coordinator/src/test/java/org/apache/kafka/coordinator/group/GroupCoordinatorServiceTopologyDescriptionTest.java
++++ b/group-coordinator/src/test/java/org/apache/kafka/coordinator/group/GroupCoordinatorServiceTopologyDescriptionTest.java
+@@ -495,6 +495,29 @@ public class GroupCoordinatorServiceTopologyDescriptionTest {
+         assertTrue(result.data().topologyDescriptionRequired());
+     }
+ 
++    @Test
++    public void testHeartbeatSkipsFlagForDepartingMember() throws Exception {
++        // A leave heartbeat carries a negative member epoch. Even though the result shows the
++        // stored epoch lagging (which would otherwise solicit a push), the gate must not arm
++        // the back-off or set the flag for a member on its way out.
++        CoordinatorRuntime<GroupCoordinatorShard, CoordinatorRecord> runtime = mockRuntime();
++        StreamsGroupTopologyDescriptionPlugin plugin = mock(StreamsGroupTopologyDescriptionPlugin.class);
++        when(runtime.scheduleWriteOperation(
++            eq("streams-group-heartbeat"),
++            eq(GROUP_TP),
++            any()
++        )).thenReturn(CompletableFuture.completedFuture(
++            new StreamsGroupHeartbeatResult(new StreamsGroupHeartbeatResponseData(), Map.of(), 5, -1, -1)));
++
++        GroupCoordinatorService service = buildService(runtime, Optional.of(plugin), true);
++        StreamsGroupHeartbeatResult result = service.streamsGroupHeartbeat(
++            requestContext(ApiKeys.STREAMS_GROUP_HEARTBEAT),
++            validHeartbeatRequest().setMemberEpoch(-1)
++        ).get(5, TimeUnit.SECONDS);
++
++        assertFalse(result.data().topologyDescriptionRequired());
++    }
++
+     @Test
+     public void testHeartbeatArmSuppressReSolicitCycle() throws Exception {
+         // End-to-end exercise of the arm → suppress → re-solicit cycle through the
+@@ -710,7 +733,8 @@ public class GroupCoordinatorServiceTopologyDescriptionTest {
+         DeleteGroupsResponseData.DeletableGroupResult result = results.find("foo");
+         assertNotNull(result);
+         assertEquals(Errors.GROUP_DELETION_FAILED.code(), result.errorCode());
+-        assertEquals("plugin offline", result.errorMessage());
++        // The raw plugin message ("plugin offline") must not be forwarded to the client.
++        assertEquals("Topology description plugin failed to delete the topology.", result.errorMessage());
+         verify(runtime, never()).scheduleWriteOperation(
+             eq("delete-groups"), any(), any());
+     }
+@@ -886,7 +910,7 @@ public class GroupCoordinatorServiceTopologyDescriptionTest {
+         DeleteGroupsResponseData.DeletableGroupResult badResult = results.find("bad");
+         assertNotNull(badResult);
+         assertEquals(Errors.GROUP_DELETION_FAILED.code(), badResult.errorCode());
+-        assertEquals("rejected", badResult.errorMessage());
++        assertEquals("Topology description plugin failed to delete the topology.", badResult.errorMessage());
+     }
+ 
+     private static StreamsGroupTopologyDescriptionUpdateRequestData validUpdateRequest() {

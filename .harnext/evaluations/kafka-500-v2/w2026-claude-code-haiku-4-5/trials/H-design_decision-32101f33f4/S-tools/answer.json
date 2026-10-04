@@ -1,0 +1,10 @@
+{
+  "evidence": [
+    "mail thread CACg5BjtpWBWAztaotY8RBv5bDdH2cAwHmnO1tU5bnAZtRAztwQ@mail.gmail.com (KIP-1270 discussion, 2026-01-27)",
+    "Email from Matthias J. Sax (2026-01-27T06:12:42Z): decision to NOT introduce ThreadType parameter",
+    "Email from Arpit Goyal (2026-01-27T08:40:34Z): confirmation that no ThreadType parameter needed",
+    "Email from Lucas Brutschy (2026-01-27T09:29:23Z): acceptance of the decision",
+    "JIRA issue KAFKA-19930"
+  ],
+  "value": "no"
+}

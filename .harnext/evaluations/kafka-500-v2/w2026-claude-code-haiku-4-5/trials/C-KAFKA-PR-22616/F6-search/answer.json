@@ -1,0 +1,3 @@
+{
+  "summary": "Successfully implemented KAFKA-20623: Wire topology description plugin into GroupCoordinatorService. Created plugin interfaces (StreamsGroupTopologyDescriptionPlugin) and exception classes (StreamsTopologyDescriptionPermanentFailureException), added topology description update/validation methods to GroupCoordinatorShard and GroupMetadataManager, and integrated with existing topology description manager for plugin orchestration and backoff management. The implementation handles plugin lifecycle, per-group exponential backoff, heartbeat post-processing with TopologyDescriptionRequired flag, and delete operation integration with the plugin."
+}

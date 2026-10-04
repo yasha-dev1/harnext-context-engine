@@ -1,0 +1,52 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "issues/KAFKA-20549.md - Status changed to In Progress on 2026-05-12T08:59:03Z (last recorded status change before snapshot cutoff 2026-05-31T23:59:59Z)"
+    ],
+    "value": "In Progress"
+  },
+  "arm": "F4-entity-search",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 38.27134380899952,
+  "family": "status_at_snapshot",
+  "grade": {
+    "actual": "In Progress",
+    "correct": true,
+    "evidence": [
+      "issues/KAFKA-20549.md - Status changed to In Progress on 2026-05-12T08:59:03Z (last recorded status change before snapshot cutoff 2026-05-31T23:59:59Z)"
+    ],
+    "expected": "In Progress"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 9,
+  "prompt_sha256": "6373f4f8d78905684be53214a14718ddddff31a85543bf605eb0f1e2f171be53",
+  "run_index": 28,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-status_at_snapshot-a1d0868d65",
+  "tool_calls": {
+    "ListMcpResourcesTool": 1,
+    "ReadMcpResourceTool": 1,
+    "StructuredOutput": 1,
+    "ToolSearch": 4,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 205304,
+    "cost_usd": 0.0346034,
+    "input_tokens": 208956,
+    "output_tokens": 1370
+  },
+  "violations": []
+}

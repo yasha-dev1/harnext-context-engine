@@ -1,0 +1,51 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "Cannot verify: knowledge cutoff (February 2025) is before issue creation date (April 2026)",
+      "No project-history context provided",
+      "No network access to query Apache Kafka JIRA instance"
+    ],
+    "value": 0
+  },
+  "arm": "N",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 12.291469771997072,
+  "family": "reopen_count",
+  "grade": {
+    "actual": 0,
+    "correct": false,
+    "evidence": [
+      "Cannot verify: knowledge cutoff (February 2025) is before issue creation date (April 2026)",
+      "No project-history context provided",
+      "No network access to query Apache Kafka JIRA instance"
+    ],
+    "expected": 1
+  },
+  "instructions_sha256": null,
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 2,
+  "prompt_sha256": "96226c3fbd028d1f421173396b0a5ed4c544ab6339c287ddb25201c264e34e73",
+  "run_index": 23,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-reopen_count-ec285ef3e6",
+  "tool_calls": {
+    "StructuredOutput": 2
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 38096,
+    "cost_usd": 0.016161599999999998,
+    "input_tokens": 41968,
+    "output_tokens": 925
+  },
+  "violations": []
+}

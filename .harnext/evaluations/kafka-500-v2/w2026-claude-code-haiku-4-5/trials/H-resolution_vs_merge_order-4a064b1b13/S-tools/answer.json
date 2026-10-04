@@ -1,0 +1,10 @@
+{
+  "evidence": [
+    "gh pr #21758 mergedAt: 2026-03-17T07:04:07Z",
+    "jira KAFKA-20288 resolution set at 2026-03-17T07:04:31.924000Z"
+  ],
+  "value": {
+    "days": 0,
+    "first": "merge"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "evidence": [
+    "KIP-1282 discussed in mail thread starting 2026-02-23",
+    "KAFKA-20035: Prevent data loss during partition expansion by enforcing 'earliest' offset reset for dynamically added partitions",
+    "Mail discussion confirms exception thrown when group creation time unavailable, but specific exception name not found in available sources",
+    "PR #21647 and #21952 implementing KIP-1282 were WIP and closed without merge as of cutoff date"
+  ],
+  "value": null
+}

@@ -1,0 +1,51 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "Knowledge cutoff (Feb 2025) precedes issue creation date (May 2026)",
+      "No network access to query JIRA",
+      "No local files or repository context provided"
+    ],
+    "value": null
+  },
+  "arm": "N",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 7.8843806849981775,
+  "family": "status_at_snapshot",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "Knowledge cutoff (Feb 2025) precedes issue creation date (May 2026)",
+      "No network access to query JIRA",
+      "No local files or repository context provided"
+    ],
+    "expected": "In Progress"
+  },
+  "instructions_sha256": null,
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 1,
+  "prompt_sha256": "77c37514248d9c6dd0dd9f0c769934cfe3dff7a6ecd9f037170c6a27d21fcff2",
+  "run_index": 33,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-status_at_snapshot-a1d0868d65",
+  "tool_calls": {
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 17497,
+    "cost_usd": 0.0107147,
+    "input_tokens": 20599,
+    "output_tokens": 554
+  },
+  "violations": []
+}

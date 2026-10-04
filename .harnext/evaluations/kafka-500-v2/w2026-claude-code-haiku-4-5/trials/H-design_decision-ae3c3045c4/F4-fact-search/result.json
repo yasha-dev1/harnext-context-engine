@@ -1,0 +1,49 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "store/discussions/kip-1274-classic-rebalance-deprecation.md"
+    ],
+    "value": "INFO"
+  },
+  "arm": "F4-fact-search",
+  "checkpoint": "2026-02",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 73.68178404599894,
+  "family": "design_decision",
+  "grade": {
+    "actual": "INFO",
+    "correct": true,
+    "evidence": [
+      "store/discussions/kip-1274-classic-rebalance-deprecation.md"
+    ],
+    "expected": "INFO"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "8fa2d6f29f204642097f2a16c25a414e1c30421fb111a7b06e19cc5e4d72caa4",
+  "run_index": 59,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-ae3c3045c4",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 64182,
+    "cost_usd": 0.0122742,
+    "input_tokens": 65476,
+    "output_tokens": 659
+  },
+  "violations": []
+}

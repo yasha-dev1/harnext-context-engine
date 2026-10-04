@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "INDEX.md — references KIP-1270 discussion threads (2026-01-12 to 2026-01-23) but discussion content not available",
+    "_meta/batch-incorporation-2026-01-26-28.md — acknowledges KIP-1270 ProcessExceptionalHandler discussion was processed but entities not incorporated",
+    "context_research result — confirms detailed KIP-1270 discussion thread content is unavailable in the context filesystem"
+  ],
+  "value": null
+}

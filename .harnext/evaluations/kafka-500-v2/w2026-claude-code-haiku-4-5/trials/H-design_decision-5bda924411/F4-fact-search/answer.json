@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "Extensive search through context failed to locate the specific design workaround. Searched: metadata requests, rack awareness, client routing, topology maps, broker connections, socket addresses, KIP discussions. The specific workaround phrase for recovering client rack information from older-version metadata requests is not found in the indexed context as of cutoff 2026-01-31."
+  ],
+  "value": null
+}

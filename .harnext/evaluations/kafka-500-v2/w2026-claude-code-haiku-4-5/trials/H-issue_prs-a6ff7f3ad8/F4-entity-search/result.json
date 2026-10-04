@@ -1,0 +1,82 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "issues/KAFKA-20440.md",
+      "pull-requests/22041.md",
+      "pull-requests/22182.md"
+    ],
+    "value": [
+      {
+        "pr": 22041,
+        "state": "open"
+      },
+      {
+        "pr": 22182,
+        "state": "open"
+      }
+    ]
+  },
+  "arm": "F4-entity-search",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 51.175715451987344,
+  "family": "issue_prs",
+  "grade": {
+    "actual": [
+      {
+        "pr": 22041,
+        "state": "open"
+      },
+      {
+        "pr": 22182,
+        "state": "open"
+      }
+    ],
+    "correct": true,
+    "evidence": [
+      "issues/KAFKA-20440.md",
+      "pull-requests/22041.md",
+      "pull-requests/22182.md"
+    ],
+    "expected": [
+      {
+        "pr": 22041,
+        "state": "open"
+      },
+      {
+        "pr": 22182,
+        "state": "open"
+      }
+    ]
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 5,
+  "prompt_sha256": "5aecefffcf78e565b4e40137306969486b8e2db41b048aafb5f24cee6ab3830d",
+  "run_index": 42,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-issue_prs-a6ff7f3ad8",
+  "tool_calls": {
+    "Read": 2,
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 110270,
+    "cost_usd": 0.023164,
+    "input_tokens": 113150,
+    "output_tokens": 1284
+  },
+  "violations": []
+}

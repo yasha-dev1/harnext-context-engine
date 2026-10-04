@@ -1,0 +1,65 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "events/2026/04/29/github-api-apache-kafka-review-PRR_kwDOACG9q876AT11-6e16c461.md",
+      "events/2026/04/29/github-api-apache-kafka-review-PRR_kwDOACG9q876UImH-df376347.md",
+      "events/2026/04/30/github-api-apache-kafka-review-PRR_kwDOACG9q876kK7T-b3857174.md"
+    ],
+    "value": [
+      "m1a2st",
+      "muralibasani",
+      "pratyakshsharma"
+    ]
+  },
+  "arm": "F0-search",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 26.828473317000316,
+  "family": "pr_approvers",
+  "grade": {
+    "actual": [
+      "m1a2st",
+      "muralibasani",
+      "pratyakshsharma"
+    ],
+    "correct": true,
+    "evidence": [
+      "events/2026/04/29/github-api-apache-kafka-review-PRR_kwDOACG9q876AT11-6e16c461.md",
+      "events/2026/04/29/github-api-apache-kafka-review-PRR_kwDOACG9q876UImH-df376347.md",
+      "events/2026/04/30/github-api-apache-kafka-review-PRR_kwDOACG9q876kK7T-b3857174.md"
+    ],
+    "expected": [
+      "m1a2st",
+      "muralibasani",
+      "pratyakshsharma"
+    ]
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "f1d2b3c6e891ad691e878b570d2a39b788b8c1117bc323f2f3d88c07c6388106",
+  "run_index": 19,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-pr_approvers-78f6a3cea2",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__search_context": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 60536,
+    "cost_usd": 0.0227466,
+    "input_tokens": 66706,
+    "output_tokens": 876
+  },
+  "violations": []
+}

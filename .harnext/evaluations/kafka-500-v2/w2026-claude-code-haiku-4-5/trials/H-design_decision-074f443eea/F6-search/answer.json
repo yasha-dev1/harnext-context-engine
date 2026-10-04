@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "pull-requests.md - PR #22087 (KAFKA-20454) reference",
+    "context_research results indicating unavailable documentation",
+    "KIP-1282 discussion about group creation timestamp but for consumer auto.offset.reset policy, not tool option"
+  ],
+  "value": null
+}

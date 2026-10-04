@@ -1,0 +1,94 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail:550c648f6ddf3a323092287d",
+      "mail:ce4c9730ee6c37bc81d0cd1e",
+      "mail:8379690aa2bf96c5b418ae3e",
+      "mail:30137767042bf7e848f7a807",
+      "mail:8cafe5c1265af9d7eb31faa7",
+      "mail:263b0239b98e36fe0c99fba8",
+      "mail:d6912ccc512d32df7a246110"
+    ],
+    "value": {
+      "participants": 7,
+      "starter": "Lianet Magrans"
+    }
+  },
+  "arm": "H-engine-mem",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 486.04983674600044,
+  "engine": {
+    "calls": 5,
+    "chat": {
+      "calls": 51,
+      "cancelled": 3,
+      "cost_usd": 0.00604307,
+      "input_tokens": 270685,
+      "output_tokens": 7726,
+      "retries": 0
+    },
+    "cost_usd": 0.01081586,
+    "jev": {
+      "calls": 54,
+      "cancelled": 0,
+      "cost_usd": 0.00477279,
+      "input_tokens": 113638,
+      "output_tokens": 17851,
+      "retries": 0
+    },
+    "partial": 4,
+    "seconds": 455.882,
+    "unmetered_upper_usd": 0.00112955
+  },
+  "family": "kip_thread",
+  "grade": {
+    "actual": {
+      "participants": 7,
+      "starter": "Lianet Magrans"
+    },
+    "correct": false,
+    "evidence": [
+      "mail:550c648f6ddf3a323092287d",
+      "mail:ce4c9730ee6c37bc81d0cd1e",
+      "mail:8379690aa2bf96c5b418ae3e",
+      "mail:30137767042bf7e848f7a807",
+      "mail:8cafe5c1265af9d7eb31faa7",
+      "mail:263b0239b98e36fe0c99fba8",
+      "mail:d6912ccc512d32df7a246110"
+    ],
+    "expected": {
+      "participants": 8,
+      "starter": "Lianet Magrans"
+    }
+  },
+  "image_id": "sha256:a75ed05ffc6eace9ec0ed4705d31b20aa2579267b3e737b4f61017882112ea66",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 7,
+  "prompt_sha256": "137fad190e8509d38fb409f84a41f1baa815856a08c9037fcdceb56f08cc9b46",
+  "run_index": 17,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-kip_thread-4f3f46e46c",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 5
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 158359,
+    "cost_usd": 0.0377269,
+    "input_tokens": 164109,
+    "output_tokens": 2090
+  },
+  "violations": []
+}

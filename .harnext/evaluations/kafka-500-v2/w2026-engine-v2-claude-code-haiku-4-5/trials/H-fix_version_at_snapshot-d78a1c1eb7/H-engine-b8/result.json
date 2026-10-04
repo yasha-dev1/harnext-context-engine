@@ -1,0 +1,100 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "jira:13639570:created",
+      "jira:13639570:change:22887681:0",
+      "jira:13639570:change:22887681:1",
+      "jira:13639570:change:22887681:2",
+      "jira:13639570:change:22887681:3",
+      "jira:13639570:change:22894622:0"
+    ],
+    "value": [
+      "3.9.2",
+      "4.0.2",
+      "4.1.2",
+      "4.2.0",
+      "4.2.1"
+    ]
+  },
+  "arm": "H-engine-b8",
+  "checkpoint": "2026-02",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 37.575247961998684,
+  "engine": {
+    "calls": 1,
+    "chat": {
+      "calls": 6,
+      "cancelled": 0,
+      "cost_usd": 0.00079016,
+      "input_tokens": 23760,
+      "output_tokens": 835,
+      "retries": 0
+    },
+    "cost_usd": 0.00143633,
+    "discarded_attempts": 0,
+    "jev": {
+      "calls": 8,
+      "cancelled": 0,
+      "cost_usd": 0.00064617,
+      "input_tokens": 15385,
+      "output_tokens": 2551,
+      "retries": 0
+    },
+    "partial": 0,
+    "provider_retry_usd": 0,
+    "seconds": 22.648,
+    "unmetered_upper_usd": 0,
+    "waited_s": 0
+  },
+  "family": "fix_version_at_snapshot",
+  "grade": {
+    "actual": [
+      "3.9.2",
+      "4.0.2",
+      "4.1.2",
+      "4.2.0",
+      "4.2.1"
+    ],
+    "correct": false,
+    "evidence": [
+      "jira:13639570:created",
+      "jira:13639570:change:22887681:0",
+      "jira:13639570:change:22887681:1",
+      "jira:13639570:change:22887681:2",
+      "jira:13639570:change:22887681:3",
+      "jira:13639570:change:22894622:0"
+    ],
+    "expected": [
+      "4.3.0"
+    ]
+  },
+  "image_id": "sha256:1de715f951a3fc013cabad66407b87028bc2a5af6e58efdea5338b4cf9fb1485",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "d576780bae45be3bef2ea3261325889599e3c1359d9407a4dc86d1ff40e19a7f",
+  "run_index": 19,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-fix_version_at_snapshot-d78a1c1eb7",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 63518,
+    "cost_usd": 0.0135048,
+    "input_tokens": 64788,
+    "output_tokens": 928
+  },
+  "violations": []
+}

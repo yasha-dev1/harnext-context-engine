@@ -1,0 +1,11 @@
+{
+  "evidence": [
+    "entities/pr/21785/OVERVIEW.md",
+    "entities/pr/21785/timeline.md",
+    "entities/issue/KAFKA-20245/OVERVIEW.md",
+    "entities/issue/KAFKA-20245/timeline.md"
+  ],
+  "value": [
+    "server-common/src/main/java/org/apache/kafka/server/share/dlq/ShareGroupDLQ.java"
+  ]
+}

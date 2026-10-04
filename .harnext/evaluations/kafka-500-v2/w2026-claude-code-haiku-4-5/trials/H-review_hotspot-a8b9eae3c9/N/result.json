@@ -1,0 +1,53 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "No git repository in /workspace",
+      "No network access available",
+      "No project history context provided",
+      "PR #21273 state as of 2026-03-31 cannot be determined without GitHub API access or local repository data"
+    ],
+    "value": "null"
+  },
+  "arm": "N",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 9.485209361999296,
+  "family": "review_hotspot",
+  "grade": {
+    "actual": "null",
+    "correct": false,
+    "evidence": [
+      "No git repository in /workspace",
+      "No network access available",
+      "No project history context provided",
+      "PR #21273 state as of 2026-03-31 cannot be determined without GitHub API access or local repository data"
+    ],
+    "expected": "core/src/main/scala/kafka/server/DynamicBrokerConfig.scala"
+  },
+  "instructions_sha256": null,
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 1,
+  "prompt_sha256": "9849b47472c7567b2690af6ae630b0997a2bcf8faeafa06f4f45a74324d38571",
+  "run_index": 69,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-review_hotspot-a8b9eae3c9",
+  "tool_calls": {
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 17493,
+    "cost_usd": 0.011532299999999999,
+    "input_tokens": 20579,
+    "output_tokens": 724
+  },
+  "violations": []
+}

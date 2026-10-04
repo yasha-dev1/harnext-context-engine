@@ -1,0 +1,50 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail:c4bfde361f38ca346dffd233 — 2026-02-22T14:16:29Z message from Alieh Saeedi confirming the property name was changed from 'dsl.store.type' to 'dsl.store.format' based on Lucas Brutschy's feedback about ambiguity with dsl.store.suppliers.class"
+    ],
+    "value": "dsl.store.format"
+  },
+  "arm": "R-hyb",
+  "checkpoint": "2026-02",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 54.281572260995745,
+  "family": "design_decision",
+  "grade": {
+    "actual": "dsl.store.format",
+    "correct": true,
+    "evidence": [
+      "mail:c4bfde361f38ca346dffd233 — 2026-02-22T14:16:29Z message from Alieh Saeedi confirming the property name was changed from 'dsl.store.type' to 'dsl.store.format' based on Lucas Brutschy's feedback about ambiguity with dsl.store.suppliers.class"
+    ],
+    "expected": "dsl.store.format"
+  },
+  "instructions_sha256": "dfaa5b284d06c378ef7e4c08b53dc77835c91d7591fca0335bbfa33d3e53eb37",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 7,
+  "prompt_sha256": "b49a641fb87f9958aeba99e10dcc18fcf4ce7071e84dbdce0bbb9f690f94b036",
+  "run_index": 61,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-38b42b5169",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__read_event": 1,
+    "mcp__history__search": 4
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 197124,
+    "cost_usd": 0.0897534,
+    "input_tokens": 225779,
+    "output_tokens": 2558
+  },
+  "violations": []
+}

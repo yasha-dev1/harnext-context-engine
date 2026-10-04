@@ -1,0 +1,17 @@
+{
+  "evidence": [
+    "issues/KAFKA-20440.md",
+    "pull-requests/22041.md",
+    "pull-requests/22182.md"
+  ],
+  "value": [
+    {
+      "pr": 22041,
+      "state": "open"
+    },
+    {
+      "pr": 22182,
+      "state": "open"
+    }
+  ]
+}

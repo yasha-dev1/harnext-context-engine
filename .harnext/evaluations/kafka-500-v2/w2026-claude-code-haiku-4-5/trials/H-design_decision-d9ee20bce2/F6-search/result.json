@@ -1,0 +1,52 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "kips-and-discussions.md (lines 747-750)",
+      "kips-and-discussions.md (line 697)"
+    ],
+    "value": "compact,delete"
+  },
+  "arm": "F6-search",
+  "checkpoint": "2026-01",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 64.5288348269969,
+  "family": "design_decision",
+  "grade": {
+    "actual": "compact,delete",
+    "correct": false,
+    "evidence": [
+      "kips-and-discussions.md (lines 747-750)",
+      "kips-and-discussions.md (line 697)"
+    ],
+    "expected": "compact"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 4,
+  "prompt_sha256": "4325834b4aaf5a2ab39be6c958dc395e5c46933a917b52e04329b84ad403fb66",
+  "run_index": 48,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-d9ee20bce2",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 88977,
+    "cost_usd": 0.021623700000000003,
+    "input_tokens": 93340,
+    "output_tokens": 807
+  },
+  "violations": []
+}

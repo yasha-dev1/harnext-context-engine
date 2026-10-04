@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "store/issues.md (lines 11620-11633) - KAFKA-20066 issue record shows no 'blocks' relationships",
+    "store/index.md - Cross-reference index shows KAFKA-20066 related links are KAFKA-19233, KAFKA-19235 (marked as 'related', not 'blocks')"
+  ],
+  "value": []
+}

@@ -1,0 +1,19 @@
+{
+  "evidence": [
+    "entities/issue/KAFKA-20440/OVERVIEW.md",
+    "entities/issue/KAFKA-20440/timeline.md",
+    "entities/issue/KAFKA-20440/facts.md",
+    "INDEX.md (2026-04-13/14 build section showing PR #22041 opened on 2026-04-13T21:10:29Z)",
+    "INDEX.md (2026-04-29/30 build section - PR #22041 not listed as merged, indicating it remained open)"
+  ],
+  "value": [
+    {
+      "pr": 22041,
+      "state": "open"
+    },
+    {
+      "pr": 22182,
+      "state": "open"
+    }
+  ]
+}

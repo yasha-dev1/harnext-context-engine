@@ -1,0 +1,75 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "KAFKA-20336 issue history - context_research confirmed no fix versions were set (no jira_changes records show changes to Fix Versions field)"
+    ],
+    "value": []
+  },
+  "arm": "H-engine-mem",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 55.726700301000164,
+  "engine": {
+    "calls": 1,
+    "chat": {
+      "calls": 6,
+      "cancelled": 0,
+      "cost_usd": 0.00051824,
+      "input_tokens": 26336,
+      "output_tokens": 491,
+      "retries": 0
+    },
+    "cost_usd": 0.00125971,
+    "jev": {
+      "calls": 7,
+      "cancelled": 0,
+      "cost_usd": 0.00074147,
+      "input_tokens": 17654,
+      "output_tokens": 2427,
+      "retries": 0
+    },
+    "partial": 0,
+    "seconds": 42.968,
+    "unmetered_upper_usd": 0
+  },
+  "family": "fix_version_at_snapshot",
+  "grade": {
+    "actual": [],
+    "correct": false,
+    "evidence": [
+      "KAFKA-20336 issue history - context_research confirmed no fix versions were set (no jira_changes records show changes to Fix Versions field)"
+    ],
+    "expected": [
+      "4.3.0"
+    ]
+  },
+  "image_id": "sha256:a75ed05ffc6eace9ec0ed4705d31b20aa2579267b3e737b4f61017882112ea66",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "64f5711949b784c5e0e3390009fb7abd6165aacab7a0efcf054f90fa06472003",
+  "run_index": 9,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-fix_version_at_snapshot-af2f4eda70",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 42372,
+    "cost_usd": 0.050266200000000004,
+    "input_tokens": 64060,
+    "output_tokens": 536
+  },
+  "violations": []
+}

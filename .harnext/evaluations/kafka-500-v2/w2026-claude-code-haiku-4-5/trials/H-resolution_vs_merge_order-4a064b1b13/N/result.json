@@ -1,0 +1,56 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "Cannot determine - no access to KAFKA-20288 issue tracker, git history, or reliable training data for this specific issue. The question requires timestamps for PR merge and resolution setting that are not available without project access. This answer cannot be verified and should not be relied upon."
+    ],
+    "value": {
+      "days": 0,
+      "first": "merge"
+    }
+  },
+  "arm": "N",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 26.693950007997046,
+  "family": "resolution_vs_merge_order",
+  "grade": {
+    "actual": {
+      "days": 0,
+      "first": "merge"
+    },
+    "correct": true,
+    "evidence": [
+      "Cannot determine - no access to KAFKA-20288 issue tracker, git history, or reliable training data for this specific issue. The question requires timestamps for PR merge and resolution setting that are not available without project access. This answer cannot be verified and should not be relied upon."
+    ],
+    "expected": {
+      "days": 0,
+      "first": "merge"
+    }
+  },
+  "instructions_sha256": null,
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "c020a5c0723657a3856f2b57ceaee9404de4e4e99e076ecd1deeaee6a7afe916",
+  "run_index": 67,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-resolution_vs_merge_order-4a064b1b13",
+  "tool_calls": {
+    "StructuredOutput": 2
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 59861,
+    "cost_usd": 0.026476100000000002,
+    "input_tokens": 64452,
+    "output_tokens": 2267
+  },
+  "violations": []
+}

@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "The specific encoding format decision is not documented in the available project history (context cutoff 2026-01-31). KIP-1271 discussion materials confirm Chia-Ping Tsai raised concerns about a 2-byte length field design (referenced as 'chia_1' comment), but the resolution/final encoding format choice is not present in the indexed materials."
+  ],
+  "value": null
+}

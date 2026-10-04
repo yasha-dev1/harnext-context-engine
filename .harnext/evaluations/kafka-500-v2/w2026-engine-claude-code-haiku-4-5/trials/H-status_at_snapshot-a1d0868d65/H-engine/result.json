@@ -1,0 +1,76 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "jira:13649909:change:23057202:0"
+    ],
+    "value": "In Progress"
+  },
+  "arm": "H-engine",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 49.176612418999866,
+  "engine": {
+    "calls": 1,
+    "chat": {
+      "calls": 6,
+      "cancelled": 0,
+      "cost_usd": 0.00053744,
+      "input_tokens": 26923,
+      "output_tokens": 587,
+      "retries": 0
+    },
+    "cost_usd": 0.00114753,
+    "discarded_attempts": 0,
+    "jev": {
+      "calls": 8,
+      "cancelled": 0,
+      "cost_usd": 0.00061009,
+      "input_tokens": 14526,
+      "output_tokens": 2807,
+      "retries": 0
+    },
+    "partial": 0,
+    "provider_retry_usd": 0,
+    "seconds": 36.952,
+    "unmetered_upper_usd": 0,
+    "waited_s": 0
+  },
+  "family": "status_at_snapshot",
+  "grade": {
+    "actual": "In Progress",
+    "correct": true,
+    "evidence": [
+      "jira:13649909:change:23057202:0"
+    ],
+    "expected": "In Progress"
+  },
+  "image_id": "sha256:4615b2564319d58319029548af66970c954e128401ee89c8705684861de4bc07",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "e0406b141b65bdbeb54c42d1b98148dfa7efd3e232f9581644fabb888c529da7",
+  "run_index": 28,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-status_at_snapshot-a1d0868d65",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 59904,
+    "cost_usd": 0.017642400000000003,
+    "input_tokens": 64276,
+    "output_tokens": 587
+  },
+  "violations": []
+}

@@ -1,0 +1,76 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "jira:13649909:created - Apache Kafka JIRA issue KAFKA-20549 created 2026-05-04 with status Open, no status changes recorded before cutoff date 2026-05-31"
+    ],
+    "value": "Open"
+  },
+  "arm": "H-engine-b8",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 38.27234957300243,
+  "engine": {
+    "calls": 1,
+    "chat": {
+      "calls": 4,
+      "cancelled": 0,
+      "cost_usd": 0.0002822,
+      "input_tokens": 11200,
+      "output_tokens": 344,
+      "retries": 0
+    },
+    "cost_usd": 0.00050686,
+    "discarded_attempts": 0,
+    "jev": {
+      "calls": 4,
+      "cancelled": 0,
+      "cost_usd": 0.00022466,
+      "input_tokens": 5349,
+      "output_tokens": 829,
+      "retries": 0
+    },
+    "partial": 0,
+    "provider_retry_usd": 0,
+    "seconds": 24.632,
+    "unmetered_upper_usd": 0,
+    "waited_s": 0
+  },
+  "family": "status_at_snapshot",
+  "grade": {
+    "actual": "Open",
+    "correct": false,
+    "evidence": [
+      "jira:13649909:created - Apache Kafka JIRA issue KAFKA-20549 created 2026-05-04 with status Open, no status changes recorded before cutoff date 2026-05-31"
+    ],
+    "expected": "In Progress"
+  },
+  "image_id": "sha256:1de715f951a3fc013cabad66407b87028bc2a5af6e58efdea5338b4cf9fb1485",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "e0406b141b65bdbeb54c42d1b98148dfa7efd3e232f9581644fabb888c529da7",
+  "run_index": 16,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-status_at_snapshot-a1d0868d65",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 59945,
+    "cost_usd": 0.018155499999999998,
+    "input_tokens": 64329,
+    "output_tokens": 684
+  },
+  "violations": []
+}

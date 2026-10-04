@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "discussions/kip-1324-client-configuration-observability.md (lines 55-63: Responses to Apoorv Mittal Questions, AM4)",
+    "WINDOW-119-SUMMARY.md (May 15, 2026 discussion update)"
+  ],
+  "value": "ClientConfigTooLargeException"
+}

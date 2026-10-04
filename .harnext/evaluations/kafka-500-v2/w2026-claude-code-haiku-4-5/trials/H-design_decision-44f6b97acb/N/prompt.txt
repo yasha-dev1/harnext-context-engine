@@ -1,0 +1,9 @@
+Context snapshot cutoff (inclusive): 2026-03-31T23:59:59Z.
+
+In this discussion of reducing group coordinator load by batching assignment recalculations and offloading assignment computation to a separate thread pool, as of the final update to the KIP, what is the name of the broker/executor config that controls the number of threads used for this offload work? Answer with the exact value as the project wrote it. Give the decision as it stood at the snapshot, not an earlier proposal.
+
+Return JSON {"value": <answer>, "evidence": [<ids or file paths of the sources you relied on>]}. Answer as of the cutoff; do not substitute a later or today's issue state.
+
+No project-history context is provided for this task. Work from the task statement and your own knowledge; there is no network access.
+
+Reply with one JSON object {"value": ..., "evidence": [...]}: `value` is the answer in the requested type (null if it cannot be determined), `evidence` lists the sources you relied on.

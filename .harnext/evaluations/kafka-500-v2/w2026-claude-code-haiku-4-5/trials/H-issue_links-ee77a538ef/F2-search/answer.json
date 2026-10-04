@@ -1,0 +1,10 @@
+{
+  "evidence": [
+    "issues/KAFKA-20066/2026-03-09-jira-change-13638867-68f1d9b3.md",
+    "issues/KAFKA-20066/2026-03-09-jira-change-13638867-4306c084.md",
+    "issues/KAFKA-20066/2026-03-09-jira-change-13638867-288532e1.md"
+  ],
+  "value": [
+    "KAFKA-20282"
+  ]
+}

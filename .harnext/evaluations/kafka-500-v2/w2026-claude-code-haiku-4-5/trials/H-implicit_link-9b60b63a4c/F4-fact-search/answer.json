@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "discussions/kip-1323-share-group-offset-initialization.md",
+    "issues/kafka-20524-share-group-offset-initialization.md",
+    "WINDOW-102-SUMMARY.md"
+  ],
+  "value": "KAFKA-20524"
+}

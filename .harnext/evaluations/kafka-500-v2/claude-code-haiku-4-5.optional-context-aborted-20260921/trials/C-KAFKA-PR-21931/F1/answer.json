@@ -1,0 +1,3 @@
+{
+  "summary": "Successfully implemented KAFKA-20368 by changing the metricTags field in RLMExpirationTask from HashMap to LinkedHashMap. This ensures deterministic ordering of metric tags (topic, then partition) in JMX metric names. Added LinkedHashMap import at line 105 and updated the field initialization at line 1146 in RemoteLogManager.java. All 90 tests in RemoteLogManagerTest pass, including the metric-related tests that validate the correct tag ordering."
+}

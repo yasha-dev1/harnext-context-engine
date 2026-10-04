@@ -1,0 +1,3 @@
+{
+  "summary": "Implemented KAFKA-20368 by updating RLMExpirationTask to use MetricsUtils.getTags() for deterministic metric tags ordering. Added import for org.apache.kafka.common.metrics.internals.MetricsUtils and modified the RLMExpirationTask constructor to initialize metricTags using the getTags() method with consistent tag ordering (topic, partition). This replaces the previous HashMap-based initialization with a LinkedHashMap that maintains insertion order. All RemoteLogManagerTest tests pass successfully, confirming the metric tags are now in the expected deterministic order."
+}

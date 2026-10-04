@@ -1,0 +1,152 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "KAFKA-20168 JIRA issue (from: jira issue view KAFKA-20168)",
+      "gh pr view for PRs #21452, #21461, #21462, #21505, #21559, #21560, #21561, #21562"
+    ],
+    "value": [
+      {
+        "pr": 21452,
+        "state": "merged"
+      },
+      {
+        "pr": 21461,
+        "state": "merged"
+      },
+      {
+        "pr": 21462,
+        "state": "merged"
+      },
+      {
+        "pr": 21505,
+        "state": "merged"
+      },
+      {
+        "pr": 21559,
+        "state": "merged"
+      },
+      {
+        "pr": 21560,
+        "state": "closed"
+      },
+      {
+        "pr": 21561,
+        "state": "merged"
+      },
+      {
+        "pr": 21562,
+        "state": "merged"
+      }
+    ]
+  },
+  "arm": "S-tools",
+  "checkpoint": "2026-02",
+  "cli_calls": {
+    "gh": 1,
+    "jira": 6
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 23.36610555399966,
+  "family": "issue_prs",
+  "grade": {
+    "actual": [
+      {
+        "pr": 21452,
+        "state": "merged"
+      },
+      {
+        "pr": 21461,
+        "state": "merged"
+      },
+      {
+        "pr": 21462,
+        "state": "merged"
+      },
+      {
+        "pr": 21505,
+        "state": "merged"
+      },
+      {
+        "pr": 21559,
+        "state": "merged"
+      },
+      {
+        "pr": 21560,
+        "state": "closed"
+      },
+      {
+        "pr": 21561,
+        "state": "merged"
+      },
+      {
+        "pr": 21562,
+        "state": "merged"
+      }
+    ],
+    "correct": true,
+    "evidence": [
+      "KAFKA-20168 JIRA issue (from: jira issue view KAFKA-20168)",
+      "gh pr view for PRs #21452, #21461, #21462, #21505, #21559, #21560, #21561, #21562"
+    ],
+    "expected": [
+      {
+        "pr": 21452,
+        "state": "merged"
+      },
+      {
+        "pr": 21461,
+        "state": "merged"
+      },
+      {
+        "pr": 21462,
+        "state": "merged"
+      },
+      {
+        "pr": 21505,
+        "state": "merged"
+      },
+      {
+        "pr": 21559,
+        "state": "merged"
+      },
+      {
+        "pr": 21560,
+        "state": "closed"
+      },
+      {
+        "pr": 21561,
+        "state": "merged"
+      },
+      {
+        "pr": 21562,
+        "state": "merged"
+      }
+    ]
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 9,
+  "prompt_sha256": "b02c5fc430df5b079d50416e5e3aaf5d89e328967319189ad4e25decf6df89d7",
+  "run_index": 15,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-issue_prs-4d925a3d3e",
+  "tool_calls": {
+    "Bash": 8,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 195938,
+    "cost_usd": 0.04535380000000001,
+    "input_tokens": 203257,
+    "output_tokens": 2239
+  },
+  "violations": []
+}

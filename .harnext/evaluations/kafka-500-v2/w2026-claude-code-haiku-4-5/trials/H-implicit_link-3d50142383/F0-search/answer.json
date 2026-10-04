@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "events/2026/04/01/mail-3a486f07414ee44d7163c381-dc2a53d8.md — Aditya Kousik's mailing list message starting the KIP-1307 discussion on 2026-04-01",
+    "events/2026/03/31/jira-13646867-created-297612c7.md — KAFKA-20386 created on 2026-03-31 to track SerDe and Interceptor Metrics work",
+    "events/2026/04/04/jira-13646867-comment-18071116-88555ee3.md — KAFKA-20386 comment linking to KIP-1307"
+  ],
+  "value": "KAFKA-20386"
+}

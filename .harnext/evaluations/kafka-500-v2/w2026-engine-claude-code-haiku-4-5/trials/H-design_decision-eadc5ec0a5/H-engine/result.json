@@ -1,0 +1,63 @@
+{
+  "agent": "claude-code",
+  "answer": null,
+  "arm": "H-engine",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": "wall-clock limit reached",
+  "effort": "medium",
+  "elapsed_s": 900.460385888,
+  "engine": {
+    "calls": 10,
+    "chat": {
+      "calls": 129,
+      "cancelled": 6,
+      "cost_usd": 0.01461691,
+      "input_tokens": 704511,
+      "output_tokens": 11846,
+      "retries": 0
+    },
+    "cost_usd": 0.0297885,
+    "discarded_attempts": 0,
+    "jev": {
+      "calls": 181,
+      "cancelled": 0,
+      "cost_usd": 0.01517159,
+      "input_tokens": 361228,
+      "output_tokens": 66657,
+      "retries": 0
+    },
+    "partial": 10,
+    "provider_retry_usd": 0,
+    "seconds": 847.552,
+    "unmetered_upper_usd": 0.00227042,
+    "waited_s": 0
+  },
+  "family": "design_decision",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": null,
+    "expected": "UUID"
+  },
+  "image_id": "sha256:4615b2564319d58319029548af66970c954e128401ee89c8705684861de4bc07",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 12,
+  "prompt_sha256": "be22e3c0c47518348f5282267a728e40d4fb4bab7d2739151dc4fdb93ffc2867",
+  "run_index": 49,
+  "status": "timeout",
+  "success": false,
+  "task_id": "H-design_decision-eadc5ec0a5",
+  "tool_calls": {
+    "ToolSearch": 1,
+    "mcp__history__context_research": 11
+  },
+  "trace": "trace.jsonl",
+  "usage": {},
+  "violations": []
+}

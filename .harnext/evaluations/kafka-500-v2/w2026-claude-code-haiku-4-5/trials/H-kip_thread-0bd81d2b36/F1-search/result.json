@@ -1,0 +1,61 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "entities/thread/CACvVgwGtqLAOzTb2ffjWecS-NvJGZH4Fuupg9xXAyUj9_ocUHg-mail.gmail.com-8e958fd6/timeline.md",
+      "entities/kip/KIP-1262/timeline.md"
+    ],
+    "value": {
+      "participants": 3,
+      "starter": "Kevin Wu"
+    }
+  },
+  "arm": "F1-search",
+  "checkpoint": "2026-02",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 42.773266389995115,
+  "family": "kip_thread",
+  "grade": {
+    "actual": {
+      "participants": 3,
+      "starter": "Kevin Wu"
+    },
+    "correct": true,
+    "evidence": [
+      "entities/thread/CACvVgwGtqLAOzTb2ffjWecS-NvJGZH4Fuupg9xXAyUj9_ocUHg-mail.gmail.com-8e958fd6/timeline.md",
+      "entities/kip/KIP-1262/timeline.md"
+    ],
+    "expected": {
+      "participants": 3,
+      "starter": "Kevin Wu"
+    }
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 5,
+  "prompt_sha256": "daf09eb419694f6ee070bcd8fe63cda61c10025b676b5523aa0c6aa075491b26",
+  "run_index": 35,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-kip_thread-0bd81d2b36",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 113710,
+    "cost_usd": 0.033536,
+    "input_tokens": 120300,
+    "output_tokens": 1806
+  },
+  "violations": []
+}

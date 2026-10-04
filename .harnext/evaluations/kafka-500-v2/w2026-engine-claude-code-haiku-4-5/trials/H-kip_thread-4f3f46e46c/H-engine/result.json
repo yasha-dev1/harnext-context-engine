@@ -1,0 +1,111 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail:550c648f6ddf3a323092287d",
+      "mail:ce4c9730ee6c37bc81d0cd1e",
+      "mail:8379690aa2bf96c5b418ae3e",
+      "mail:7a0ea32c35a9c834851850f8",
+      "mail:30137767042bf7e848f7a807",
+      "mail:d6912ccc512d32df7a246110",
+      "mail:8cafe5c1265af9d7eb31faa7",
+      "mail:4e7099123aab260e25a05d65",
+      "mail:ab91a8ee1efedccf40d3c5f8",
+      "mail:263b0239b98e36fe0c99fba8",
+      "mail:2034d686308bfb1f60b2770e",
+      "mail:7c2559471b2316a3f26da0f7",
+      "mail:53483f864893b079ae14e077",
+      "mail:dd3c1f08370863d0873aee43"
+    ],
+    "value": {
+      "participants": 7,
+      "starter": "Lianet Magrans"
+    }
+  },
+  "arm": "H-engine",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 134.88968013699923,
+  "engine": {
+    "calls": 1,
+    "chat": {
+      "calls": 12,
+      "cancelled": 1,
+      "cost_usd": 0.00263276,
+      "input_tokens": 93907,
+      "output_tokens": 5521,
+      "retries": 0
+    },
+    "cost_usd": 0.00392212,
+    "discarded_attempts": 0,
+    "jev": {
+      "calls": 12,
+      "cancelled": 0,
+      "cost_usd": 0.00128936,
+      "input_tokens": 30699,
+      "output_tokens": 3419,
+      "retries": 0
+    },
+    "partial": 1,
+    "provider_retry_usd": 0,
+    "seconds": 120.003,
+    "unmetered_upper_usd": 0.00028753,
+    "waited_s": 0
+  },
+  "family": "kip_thread",
+  "grade": {
+    "actual": {
+      "participants": 7,
+      "starter": "Lianet Magrans"
+    },
+    "correct": false,
+    "evidence": [
+      "mail:550c648f6ddf3a323092287d",
+      "mail:ce4c9730ee6c37bc81d0cd1e",
+      "mail:8379690aa2bf96c5b418ae3e",
+      "mail:7a0ea32c35a9c834851850f8",
+      "mail:30137767042bf7e848f7a807",
+      "mail:d6912ccc512d32df7a246110",
+      "mail:8cafe5c1265af9d7eb31faa7",
+      "mail:4e7099123aab260e25a05d65",
+      "mail:ab91a8ee1efedccf40d3c5f8",
+      "mail:263b0239b98e36fe0c99fba8",
+      "mail:2034d686308bfb1f60b2770e",
+      "mail:7c2559471b2316a3f26da0f7",
+      "mail:53483f864893b079ae14e077",
+      "mail:dd3c1f08370863d0873aee43"
+    ],
+    "expected": {
+      "participants": 8,
+      "starter": "Lianet Magrans"
+    }
+  },
+  "image_id": "sha256:4615b2564319d58319029548af66970c954e128401ee89c8705684861de4bc07",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "137fad190e8509d38fb409f84a41f1baa815856a08c9037fcdceb56f08cc9b46",
+  "run_index": 17,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-kip_thread-4f3f46e46c",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 63616,
+    "cost_usd": 0.0151086,
+    "input_tokens": 65638,
+    "output_tokens": 946
+  },
+  "violations": []
+}

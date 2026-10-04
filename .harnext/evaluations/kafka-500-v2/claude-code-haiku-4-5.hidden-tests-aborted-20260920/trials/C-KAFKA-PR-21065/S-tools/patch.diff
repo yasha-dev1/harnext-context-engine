@@ -1,0 +1,107 @@
+diff --git a/clients/src/main/java/org/apache/kafka/clients/producer/internals/ProducerBatch.java b/clients/src/main/java/org/apache/kafka/clients/producer/internals/ProducerBatch.java
+index c4f9c0f7f08d387304923ba9183cbf232c186d55..1d093748b30fa5ae997a099fbcceabc914904498 100644
+--- a/clients/src/main/java/org/apache/kafka/clients/producer/internals/ProducerBatch.java
++++ b/clients/src/main/java/org/apache/kafka/clients/producer/internals/ProducerBatch.java
+@@ -86,6 +86,10 @@ public final class ProducerBatch {
+     // Tracks the attempt in which leader was changed to currentLeaderEpoch for the 1st time.
+     private int attemptsWhenLeaderLastChanged;
+ 
++    // Tracks the topic this batch was intended to be sent to
++    private String intendedTopic;
++    private boolean topicMismatchLogged;
++
+     public ProducerBatch(TopicPartition tp, MemoryRecordsBuilder recordsBuilder, long createdMs) {
+         this(tp, recordsBuilder, createdMs, false);
+     }
+@@ -99,6 +103,8 @@ public final class ProducerBatch {
+         this.produceFuture = new ProduceRequestResult(topicPartition);
+         this.retry = false;
+         this.isSplitBatch = isSplitBatch;
++        this.intendedTopic = null;
++        this.topicMismatchLogged = false;
+         float compressionRatioEstimation = CompressionRatioEstimator.estimation(topicPartition.topic(),
+                                                                                 recordsBuilder.compression().type());
+         this.currentLeaderEpoch = OptionalInt.empty();
+@@ -158,6 +164,9 @@ public final class ProducerBatch {
+             // split to several new batches and resent.
+             thunks.add(new Thunk(callback, future));
+             this.recordCount++;
++            if (this.recordCount == 1) {
++                this.intendedTopic = topicPartition.topic();
++            }
+             return future;
+         }
+     }
+@@ -183,6 +192,9 @@ public final class ProducerBatch {
+             thunk.future.chain(future);
+             this.thunks.add(thunk);
+             this.recordCount++;
++            if (this.recordCount == 1) {
++                this.intendedTopic = topicPartition.topic();
++            }
+             return true;
+         }
+     }
+@@ -447,6 +459,16 @@ public final class ProducerBatch {
+         return attempts.get();
+     }
+ 
++    void verifyTopic(String expectedTopic) {
++        if (this.recordCount > 0 && this.intendedTopic != null && !this.intendedTopic.equals(expectedTopic)) {
++            if (!topicMismatchLogged) {
++                log.warn("Detected topic mismatch for batch: intended topic {}, but batch is assigned to topic {}",
++                        this.intendedTopic, expectedTopic);
++                topicMismatchLogged = true;
++            }
++        }
++    }
++
+     void reenqueued(long now) {
+         attempts.getAndIncrement();
+         lastAttemptMs = Math.max(lastAppendTime, now);
+diff --git a/clients/src/main/java/org/apache/kafka/clients/producer/internals/Sender.java b/clients/src/main/java/org/apache/kafka/clients/producer/internals/Sender.java
+index f9ac810ca1c1937fb6934ef8756e2ab01b14fcb3..46b1fbd58bd45f0ded1a3d9e2f5924bf94c8e958 100644
+--- a/clients/src/main/java/org/apache/kafka/clients/producer/internals/Sender.java
++++ b/clients/src/main/java/org/apache/kafka/clients/producer/internals/Sender.java
+@@ -872,6 +872,7 @@ public class Sender implements Runnable {
+         ProduceRequestData.TopicProduceDataCollection tpd = new ProduceRequestData.TopicProduceDataCollection();
+         for (ProducerBatch batch : batches) {
+             TopicPartition tp = batch.topicPartition;
++            batch.verifyTopic(tp.topic());
+             MemoryRecords records = batch.records();
+             Uuid topicId = topicIds.get(tp.topic());
+             ProduceRequestData.TopicProduceData tpData = tpd.find(tp.topic(), topicId);
+diff --git a/clients/src/test/java/org/apache/kafka/clients/producer/internals/ProducerBatchTest.java b/clients/src/test/java/org/apache/kafka/clients/producer/internals/ProducerBatchTest.java
+index 38ac88e95ca383afd00074c10488a6365d56eac3..417dbee04aca14de22420bb01e6ee744ef62d0ba 100644
+--- a/clients/src/test/java/org/apache/kafka/clients/producer/internals/ProducerBatchTest.java
++++ b/clients/src/test/java/org/apache/kafka/clients/producer/internals/ProducerBatchTest.java
+@@ -358,6 +358,29 @@ public class ProducerBatchTest {
+         }
+     }
+ 
++    @Test
++    public void testVerifyTopicSameTopicNoWarning() throws Exception {
++        ProducerBatch batch = new ProducerBatch(new TopicPartition("topic", 1), memoryRecordsBuilder, now);
++        batch.tryAppend(now, null, new byte[10], Record.EMPTY_HEADERS, null, now);
++        // Should not log a warning since the batch topic matches the expected topic
++        batch.verifyTopic("topic");
++    }
++
++    @Test
++    public void testVerifyTopicDifferentTopicWarning() throws Exception {
++        ProducerBatch batch = new ProducerBatch(new TopicPartition("topic-A", 1), memoryRecordsBuilder, now);
++        batch.tryAppend(now, null, new byte[10], Record.EMPTY_HEADERS, null, now);
++        // Should log a warning since the batch topic doesn't match the expected topic
++        batch.verifyTopic("topic-B");
++    }
++
++    @Test
++    public void testVerifyTopicEmptyBatchNoWarning() throws Exception {
++        ProducerBatch batch = new ProducerBatch(new TopicPartition("topic", 1), memoryRecordsBuilder, now);
++        // Should not log a warning since no records have been appended
++        batch.verifyTopic("different-topic");
++    }
++
+     private static class MockCallback implements Callback {
+         private int invocations = 0;
+         private RecordMetadata metadata;

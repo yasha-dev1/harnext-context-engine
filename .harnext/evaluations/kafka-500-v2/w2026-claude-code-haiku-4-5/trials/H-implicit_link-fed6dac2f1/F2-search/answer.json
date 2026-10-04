@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "issues/KAFKA-20186/2026-02-13-jira-created-912d0bb7.md",
+    "mail/2026-02-13-mail-JIRA-13642045-KAFKA-20186-bf46f627.md",
+    "mail/2026-02-13-mail-discuss-KIP-1267-cluster-mirroring-f991153e.md"
+  ],
+  "value": "KAFKA-20186"
+}

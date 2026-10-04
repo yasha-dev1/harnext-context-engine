@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "Unable to locate the specific workaround in project history searches. Multiple queries targeting KIP-1248, KIP-1255, rack routing, client metadata requests, and similar concepts returned references to these documents but not the detailed design section containing the answer."
+  ],
+  "value": null
+}

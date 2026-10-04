@@ -1,0 +1,205 @@
+{
+  "arms": {
+    "F0": {
+      "agent_seconds": 6584.8,
+      "by_kind": {
+        "coding": {
+          "agent_seconds": 6584.8,
+          "by_family": {
+            "pr_implementation": {
+              "agent_seconds": 6584.8,
+              "cached_input_tokens": 22330908,
+              "context_bytes": 0,
+              "input_tokens": 22784454,
+              "n": 7,
+              "output_tokens": 117043,
+              "status": {
+                "completed": 7
+              },
+              "success": 4,
+              "tool_calls": 379
+            }
+          },
+          "cached_input_tokens": 22330908,
+          "context_bytes": 0,
+          "input_tokens": 22784454,
+          "n": 7,
+          "output_tokens": 117043,
+          "status": {
+            "completed": 7
+          },
+          "success": 4,
+          "tool_calls": 379
+        }
+      },
+      "cached_input_tokens": 22330908,
+      "context_bytes": 0,
+      "input_tokens": 22784454,
+      "n": 7,
+      "output_tokens": 117043,
+      "status": {
+        "completed": 7
+      },
+      "success": 4,
+      "tool_calls": 379
+    },
+    "F1": {
+      "agent_seconds": 5126.9,
+      "by_kind": {
+        "coding": {
+          "agent_seconds": 5126.9,
+          "by_family": {
+            "pr_implementation": {
+              "agent_seconds": 5126.9,
+              "cached_input_tokens": 22367872,
+              "context_bytes": 0,
+              "input_tokens": 22813157,
+              "n": 7,
+              "output_tokens": 103279,
+              "status": {
+                "completed": 7
+              },
+              "success": 4,
+              "tool_calls": 321
+            }
+          },
+          "cached_input_tokens": 22367872,
+          "context_bytes": 0,
+          "input_tokens": 22813157,
+          "n": 7,
+          "output_tokens": 103279,
+          "status": {
+            "completed": 7
+          },
+          "success": 4,
+          "tool_calls": 321
+        }
+      },
+      "cached_input_tokens": 22367872,
+      "context_bytes": 0,
+      "input_tokens": 22813157,
+      "n": 7,
+      "output_tokens": 103279,
+      "status": {
+        "completed": 7
+      },
+      "success": 4,
+      "tool_calls": 321
+    },
+    "N": {
+      "agent_seconds": 4699.5,
+      "by_kind": {
+        "coding": {
+          "agent_seconds": 4699.5,
+          "by_family": {
+            "pr_implementation": {
+              "agent_seconds": 4699.5,
+              "cached_input_tokens": 17995512,
+              "context_bytes": 0,
+              "input_tokens": 18420605,
+              "n": 8,
+              "output_tokens": 112287,
+              "status": {
+                "completed": 8
+              },
+              "success": 6,
+              "tool_calls": 309
+            }
+          },
+          "cached_input_tokens": 17995512,
+          "context_bytes": 0,
+          "input_tokens": 18420605,
+          "n": 8,
+          "output_tokens": 112287,
+          "status": {
+            "completed": 8
+          },
+          "success": 6,
+          "tool_calls": 309
+        }
+      },
+      "cached_input_tokens": 17995512,
+      "context_bytes": 0,
+      "input_tokens": 18420605,
+      "n": 8,
+      "output_tokens": 112287,
+      "status": {
+        "completed": 8
+      },
+      "success": 6,
+      "tool_calls": 309
+    },
+    "S-tools": {
+      "agent_seconds": 3848.8,
+      "by_kind": {
+        "coding": {
+          "agent_seconds": 3848.8,
+          "by_family": {
+            "pr_implementation": {
+              "agent_seconds": 3848.8,
+              "cached_input_tokens": 17014835,
+              "context_bytes": 0,
+              "input_tokens": 17377106,
+              "n": 6,
+              "output_tokens": 78450,
+              "status": {
+                "completed": 6
+              },
+              "success": 4,
+              "tool_calls": 232
+            }
+          },
+          "cached_input_tokens": 17014835,
+          "context_bytes": 0,
+          "input_tokens": 17377106,
+          "n": 6,
+          "output_tokens": 78450,
+          "status": {
+            "completed": 6
+          },
+          "success": 4,
+          "tool_calls": 232
+        }
+      },
+      "cached_input_tokens": 17014835,
+      "context_bytes": 0,
+      "input_tokens": 17377106,
+      "n": 6,
+      "output_tokens": 78450,
+      "status": {
+        "completed": 6
+      },
+      "success": 4,
+      "tool_calls": 232
+    }
+  },
+  "not_recorded": [],
+  "paired_vs_N": {
+    "F0": {
+      "both": 4,
+      "harmed": 0,
+      "helped": 0,
+      "neither": 2,
+      "pairs": 6
+    },
+    "F1": {
+      "both": 4,
+      "harmed": 1,
+      "helped": 0,
+      "neither": 2,
+      "pairs": 7
+    },
+    "S-tools": {
+      "both": 4,
+      "harmed": 0,
+      "helped": 0,
+      "neither": 2,
+      "pairs": 6
+    }
+  },
+  "reason": null,
+  "recorded": 28,
+  "status": "running",
+  "target": 120,
+  "updated_at_unix": 1789966343.153283
+}

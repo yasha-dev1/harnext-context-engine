@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "discussions.md (KIP-1270 discussion, 2026-02-20 decision by Lucas Brutschy)"
+  ],
+  "value": "processing.exception.handler.global.enabled"
+}

@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "entities/issue/KAFKA-20056/OVERVIEW.md",
+    "entities/pr/apache__kafka/21345/OVERVIEW.md"
+  ],
+  "value": "no"
+}

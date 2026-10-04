@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "issues.md (lines 628-640) - KAFKA-20604 created 2026-05-24 to implement KIP-1348",
+    "discussions.md (lines 709-721) - confirms JIRA KAFKA-20604 created 2026-05-24 for KIP-1348"
+  ],
+  "value": "KAFKA-20604"
+}

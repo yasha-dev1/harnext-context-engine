@@ -1,0 +1,10 @@
+{
+  "evidence": [
+    "discussions/kip-1262-auto-formatting-directories.md",
+    "WINDOW-34-SUMMARY.md"
+  ],
+  "value": {
+    "participants": 3,
+    "starter": "Kevin Wu"
+  }
+}

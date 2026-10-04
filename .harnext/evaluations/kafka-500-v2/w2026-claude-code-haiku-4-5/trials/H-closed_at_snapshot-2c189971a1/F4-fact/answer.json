@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "issues/kafka-20158-session-store-with-headers.md (Status: In Progress, last changed 2026-02-18T22:20:34Z)",
+    "issues/kafka-20158-rocksdb-session-stores-headers.md (Status: In Progress)",
+    "issues/kafka-20158-changelog-session-store-headers.md (Related PR merged 2026-02-25, issue status not Closed)"
+  ],
+  "value": false
+}

@@ -1,0 +1,9 @@
+{
+  "evidence": [
+    "store/issues.md (lines 1591-1601)",
+    "store/discussions.md (lines 1222-1234)",
+    "store/people.md (line 613)",
+    "store/index.md (line 935)"
+  ],
+  "value": "KAFKA-20186"
+}

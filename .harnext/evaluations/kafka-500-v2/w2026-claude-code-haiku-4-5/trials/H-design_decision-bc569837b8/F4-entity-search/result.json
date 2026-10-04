@@ -1,0 +1,55 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "pull-requests/21547.md - PR #21547 KAFKA-20176: Add MetaProperties V2",
+      "issues/KAFKA-20176.md - KAFKA-20176: Add MetaProperties V2",
+      "kips/KIP-1262 (referenced in WINDOW-65-2026-03-15-to-2026-03-16-summary.md) - approved by Jun Rao and Luke Chen by 2026-03-16"
+    ],
+    "value": "V1"
+  },
+  "arm": "F4-entity-search",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 151.00317088999145,
+  "family": "design_decision",
+  "grade": {
+    "actual": "V1",
+    "correct": false,
+    "evidence": [
+      "pull-requests/21547.md - PR #21547 KAFKA-20176: Add MetaProperties V2",
+      "issues/KAFKA-20176.md - KAFKA-20176: Add MetaProperties V2",
+      "kips/KIP-1262 (referenced in WINDOW-65-2026-03-15-to-2026-03-16-summary.md) - approved by Jun Rao and Luke Chen by 2026-03-16"
+    ],
+    "expected": "V2"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 18,
+  "prompt_sha256": "0d33695245530d943854f5c46c098fc99cb088887ae1509f459d3321657a6b74",
+  "run_index": 50,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-bc569837b8",
+  "tool_calls": {
+    "Read": 1,
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 14
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 603570,
+    "cost_usd": 0.15971999999999997,
+    "input_tokens": 643045,
+    "output_tokens": 4112
+  },
+  "violations": []
+}

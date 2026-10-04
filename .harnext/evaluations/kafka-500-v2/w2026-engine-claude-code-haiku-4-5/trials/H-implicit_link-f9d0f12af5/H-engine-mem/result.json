@@ -1,0 +1,76 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "jira:13640487:created - JIRA issue KAFKA-20104 created 2026-01-30 with summary 'Inquiry about migrating from ZooKeeper to KRaft' by Jianbin Chen"
+    ],
+    "value": "KAFKA-20104"
+  },
+  "arm": "H-engine-mem",
+  "checkpoint": "2026-01",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 45.07433527899775,
+  "engine": {
+    "calls": 1,
+    "chat": {
+      "calls": 9,
+      "cancelled": 0,
+      "cost_usd": 0.00048301,
+      "input_tokens": 21759,
+      "output_tokens": 1015,
+      "retries": 0
+    },
+    "cost_usd": 0.00147879,
+    "discarded_attempts": 0,
+    "jev": {
+      "calls": 12,
+      "cancelled": 0,
+      "cost_usd": 0.00099578,
+      "input_tokens": 23709,
+      "output_tokens": 4193,
+      "retries": 0
+    },
+    "partial": 1,
+    "provider_retry_usd": 0,
+    "seconds": 31.141,
+    "unmetered_upper_usd": 0,
+    "waited_s": 0
+  },
+  "family": "implicit_link",
+  "grade": {
+    "actual": "KAFKA-20104",
+    "correct": true,
+    "evidence": [
+      "jira:13640487:created - JIRA issue KAFKA-20104 created 2026-01-30 with summary 'Inquiry about migrating from ZooKeeper to KRaft' by Jianbin Chen"
+    ],
+    "expected": "KAFKA-20104"
+  },
+  "image_id": "sha256:4615b2564319d58319029548af66970c954e128401ee89c8705684861de4bc07",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "0cc60b88c134731f18efaa2141b3e8005c2da4d6c53976836ccdba7d2db79ffb",
+  "run_index": 78,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-implicit_link-f9d0f12af5",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 63630,
+    "cost_usd": 0.011896,
+    "input_tokens": 64595,
+    "output_tokens": 726
+  },
+  "violations": []
+}

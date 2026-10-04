@@ -1,0 +1,86 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "jira:13638867:change:22965795:0",
+      "jira:13638867:change:22965798:0",
+      "jira:13638867:change:22965819:0"
+    ],
+    "value": [
+      "KAFKA-20282"
+    ]
+  },
+  "arm": "H-engine-b8-ds",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 216.35495792201255,
+  "engine": {
+    "calls": 3,
+    "chat": {
+      "calls": 18,
+      "cancelled": 0,
+      "cost_usd": 0.00456768,
+      "input_tokens": 87932,
+      "output_tokens": 8881,
+      "retries": 0
+    },
+    "cost_usd": 0.0077331,
+    "discarded_attempts": 0,
+    "jev": {
+      "calls": 35,
+      "cancelled": 0,
+      "cost_usd": 0.00316542,
+      "input_tokens": 75367,
+      "output_tokens": 13222,
+      "retries": 0
+    },
+    "partial": 0,
+    "provider_retry_usd": 0,
+    "seconds": 196.889,
+    "unmetered_upper_usd": 0,
+    "waited_s": 0
+  },
+  "family": "issue_links",
+  "grade": {
+    "actual": [
+      "KAFKA-20282"
+    ],
+    "correct": true,
+    "evidence": [
+      "jira:13638867:change:22965795:0",
+      "jira:13638867:change:22965798:0",
+      "jira:13638867:change:22965819:0"
+    ],
+    "expected": [
+      "KAFKA-20282"
+    ]
+  },
+  "image_id": "sha256:1de715f951a3fc013cabad66407b87028bc2a5af6e58efdea5338b4cf9fb1485",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 5,
+  "prompt_sha256": "19632b7a9e808a0023808da5dd712504bdda483451135eccfb3e073766ce0b9e",
+  "run_index": 6,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-issue_links-ee77a538ef",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 3
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 108751,
+    "cost_usd": 0.0235921,
+    "input_tokens": 111976,
+    "output_tokens": 1262
+  },
+  "violations": []
+}

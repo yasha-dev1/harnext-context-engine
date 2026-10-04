@@ -1,0 +1,10 @@
+{
+  "evidence": [
+    "pull-requests.md (lines 1867-1879): PR #21785 merged 2026-03-17T16:02:46Z, component 'share coordinator, DLQ', Changed Files: ShareGroupDLQ.java, RecordState.java",
+    "window-68-summary.md (lines 50-62): PR #21785 merged 2026-03-17T16:02:46Z with merge commit c48bc49a8fdf8a3decb43f23ea3288e0bb3e0ef9, Changed Files: ShareGroupDLQ.java, RecordState.java"
+  ],
+  "value": [
+    "RecordState.java",
+    "ShareGroupDLQ.java"
+  ]
+}

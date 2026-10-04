@@ -1,0 +1,57 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "f884fe02638d7de53fef380a - Jun Rao email May 12, 2026",
+      "1736e3e8f4a1ef534d61f830 - Kevin Wu email May 12, 2026 arguing against reusing existing record",
+      "d4889f8586d3dca1bfd32d95 - José Armando García Sancio email May 15, 2026 confirming decision to introduce new unregistration controller record"
+    ],
+    "value": "new record type"
+  },
+  "arm": "S-tools",
+  "checkpoint": "2026-05",
+  "cli_calls": {
+    "gh": 2,
+    "jira": 2,
+    "mail": 24
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 218.31361297200783,
+  "family": "design_decision",
+  "grade": {
+    "actual": "new record type",
+    "correct": true,
+    "evidence": [
+      "f884fe02638d7de53fef380a - Jun Rao email May 12, 2026",
+      "1736e3e8f4a1ef534d61f830 - Kevin Wu email May 12, 2026 arguing against reusing existing record",
+      "d4889f8586d3dca1bfd32d95 - José Armando García Sancio email May 15, 2026 confirming decision to introduce new unregistration controller record"
+    ],
+    "expected": "new record type"
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 30,
+  "prompt_sha256": "d71d493d97c5cb30051442897ae820af4bc89a87ec83c5bbbba255ada2976aab",
+  "run_index": 23,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-646c4d2ed6",
+  "tool_calls": {
+    "Bash": 28,
+    "Read": 1,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 1378680,
+    "cost_usd": 0.3295330000000001,
+    "input_tokens": 1462688,
+    "output_tokens": 4778
+  },
+  "violations": []
+}

@@ -1,0 +1,53 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "events/2026/01/28/mail-1efa3c4297d631388e2668aa-b411b0f2.md (original forwarded message from Jianbin Chen on 2026-01-28)",
+      "events/2026/01/30/jira-13640487-created-3f6b9dfd.md (JIRA issue creation event)",
+      "events/2026/01/30/mail-486720ed47e33a5638d15878-df6c7e69.md (JIRA notification email)"
+    ],
+    "value": "KAFKA-20104"
+  },
+  "arm": "F0-search",
+  "checkpoint": "2026-01",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 15.880290344997775,
+  "family": "implicit_link",
+  "grade": {
+    "actual": "KAFKA-20104",
+    "correct": true,
+    "evidence": [
+      "events/2026/01/28/mail-1efa3c4297d631388e2668aa-b411b0f2.md (original forwarded message from Jianbin Chen on 2026-01-28)",
+      "events/2026/01/30/jira-13640487-created-3f6b9dfd.md (JIRA issue creation event)",
+      "events/2026/01/30/mail-486720ed47e33a5638d15878-df6c7e69.md (JIRA notification email)"
+    ],
+    "expected": "KAFKA-20104"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "057223128171aa6cb2afce4a477ab8a1f9c77a086c23bcb3575f85fbcf9e4178",
+  "run_index": 78,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-implicit_link-f9d0f12af5",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__search_context": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 64150,
+    "cost_usd": 0.020945000000000002,
+    "input_tokens": 68791,
+    "output_tokens": 1055
+  },
+  "violations": []
+}

@@ -1,0 +1,9 @@
+{
+  "evidence": [
+    "issues/KAFKA-19964/jira-13635972-change-22870335-0-2ea1fad1.md",
+    "issues/KAFKA-19964/jira-13635972-change-22870335-1-7001b32e.md"
+  ],
+  "value": [
+    "4.3.0"
+  ]
+}

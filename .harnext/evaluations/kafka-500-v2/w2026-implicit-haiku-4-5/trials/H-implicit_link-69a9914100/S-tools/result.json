@@ -1,0 +1,54 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail message id: 112a535ad8c4fa1e9928d615 (Haifeng Chen, 2026-05-05, [DISCUSS] KIP-1333: Support log segments larger than 2 GB)",
+      "JIRA issue KAFKA-20552 (created 2026-05-05, reported by Haifeng Chen, references KIP-1333)"
+    ],
+    "value": "KAFKA-20552"
+  },
+  "arm": "S-tools",
+  "checkpoint": "2026-05",
+  "cli_calls": {
+    "jira": 4,
+    "mail": 5
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 70.6312405589997,
+  "family": "implicit_link",
+  "grade": {
+    "actual": "KAFKA-20552",
+    "correct": true,
+    "evidence": [
+      "mail message id: 112a535ad8c4fa1e9928d615 (Haifeng Chen, 2026-05-05, [DISCUSS] KIP-1333: Support log segments larger than 2 GB)",
+      "JIRA issue KAFKA-20552 (created 2026-05-05, reported by Haifeng Chen, references KIP-1333)"
+    ],
+    "expected": "KAFKA-20552"
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 12,
+  "prompt_sha256": "3652164ce1cdf13ef83bb38c4c1cd2480da7c4564318aab1943f34c7a309dd12",
+  "run_index": 8,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-implicit_link-69a9914100",
+  "tool_calls": {
+    "Bash": 10,
+    "StructuredOutput": 1,
+    "ToolSearch": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 269638,
+    "cost_usd": 0.0526208,
+    "input_tokens": 278040,
+    "output_tokens": 1790
+  },
+  "violations": []
+}

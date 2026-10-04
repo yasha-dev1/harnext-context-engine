@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "discussions.md (lines 2088-2099): Chia-Ping Tsai request on 2026-04-01T06:33:15Z for 'specific exception type when group creation time unknown' (chia_11)",
+    "discussions.md (lines 994-1006): Confirmation that 'Throws exception if group truly has no creation time' in KIP-1282",
+    "discussions.md (lines 2022-2036): Protocol design discussion about distinguishing 'broker too old' vs 'broker supports but group has no creation time'"
+  ],
+  "value": null
+}

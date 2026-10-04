@@ -1,0 +1,85 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "github:api:apache/kafka:pr-21785-merged"
+    ],
+    "value": [
+      "server-common/src/main/java/org/apache/kafka/server/share/dlq/ShareGroupDLQ.java",
+      "server/src/main/java/org/apache/kafka/server/share/fetch/RecordState.java"
+    ]
+  },
+  "arm": "H-engine-b8-ds",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 361.27889964000497,
+  "engine": {
+    "calls": 4,
+    "chat": {
+      "calls": 43,
+      "cancelled": 0,
+      "cost_usd": 0.01153809,
+      "input_tokens": 221567,
+      "output_tokens": 20999,
+      "retries": 0
+    },
+    "cost_usd": 0.01717336,
+    "discarded_attempts": 0,
+    "jev": {
+      "calls": 61,
+      "cancelled": 0,
+      "cost_usd": 0.00563527,
+      "input_tokens": 134173,
+      "output_tokens": 23433,
+      "retries": 0
+    },
+    "partial": 0,
+    "provider_retry_usd": 0,
+    "seconds": 334.597,
+    "unmetered_upper_usd": 0,
+    "waited_s": 0
+  },
+  "family": "issue_changed_files",
+  "grade": {
+    "actual": [
+      "server-common/src/main/java/org/apache/kafka/server/share/dlq/ShareGroupDLQ.java",
+      "server/src/main/java/org/apache/kafka/server/share/fetch/RecordState.java"
+    ],
+    "correct": true,
+    "evidence": [
+      "github:api:apache/kafka:pr-21785-merged"
+    ],
+    "expected": [
+      "server-common/src/main/java/org/apache/kafka/server/share/dlq/ShareGroupDLQ.java",
+      "server/src/main/java/org/apache/kafka/server/share/fetch/RecordState.java"
+    ]
+  },
+  "image_id": "sha256:1de715f951a3fc013cabad66407b87028bc2a5af6e58efdea5338b4cf9fb1485",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 6,
+  "prompt_sha256": "d2859b4add5e0ee9dfe8b7d0d38fca4277ee5bbc2a2b26a39a4861f4572452fc",
+  "run_index": 29,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-issue_changed_files-e69edbb589",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 4
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 130546,
+    "cost_usd": 0.035460599999999995,
+    "input_tokens": 138032,
+    "output_tokens": 1497
+  },
+  "violations": []
+}

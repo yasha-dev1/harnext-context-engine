@@ -1,0 +1,9 @@
+{
+  "evidence": [
+    "mail:d41fcd228a23be83811257ae",
+    "jira:13643618:created",
+    "mail:80583385757ab899e85f29fa",
+    "github:api:apache/kafka:commit-188a910d1592b0010bea03bbc0cf7e3f4490b05f"
+  ],
+  "value": "KAFKA-20239"
+}

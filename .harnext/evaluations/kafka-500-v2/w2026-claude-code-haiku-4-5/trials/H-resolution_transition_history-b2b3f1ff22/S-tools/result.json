@@ -1,0 +1,83 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "jira issue view KAFKA-20255 --history"
+    ],
+    "value": [
+      {
+        "at": "2026-03-05T09:40:54.681000Z",
+        "from": null,
+        "to": "Fixed"
+      },
+      {
+        "at": "2026-03-13T07:44:14.073000Z",
+        "from": "Fixed",
+        "to": "Duplicate"
+      }
+    ]
+  },
+  "arm": "S-tools",
+  "checkpoint": "2026-04",
+  "cli_calls": {
+    "jira": 3
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 11.238383044998045,
+  "family": "resolution_transition_history",
+  "grade": {
+    "actual": [
+      {
+        "at": "2026-03-05T09:40:54.681000Z",
+        "from": null,
+        "to": "Fixed"
+      },
+      {
+        "at": "2026-03-13T07:44:14.073000Z",
+        "from": "Fixed",
+        "to": "Duplicate"
+      }
+    ],
+    "correct": true,
+    "evidence": [
+      "jira issue view KAFKA-20255 --history"
+    ],
+    "expected": [
+      {
+        "at": "2026-03-05T09:40:54.681000Z",
+        "from": null,
+        "to": "Fixed"
+      },
+      {
+        "at": "2026-03-13T07:44:14.073000Z",
+        "from": "Fixed",
+        "to": "Duplicate"
+      }
+    ]
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "3b63df0b62c7269b6bf33545910426a673423a792209b29b0f80e06e6e04fa85",
+  "run_index": 27,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-resolution_transition_history-b2b3f1ff22",
+  "tool_calls": {
+    "Bash": 3,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 60288,
+    "cost_usd": 0.020718800000000002,
+    "input_tokens": 65258,
+    "output_tokens": 955
+  },
+  "violations": []
+}

@@ -1,0 +1,54 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail:4f7fd3d7ae5bfb5b7fd2a661 (2026-03-01 announcement by Sean Quah)",
+      "github:api:apache/kafka:pr-21555-opened (2026-02-23 PR title)",
+      "github:api:apache/kafka:pr-21555-merged (2026-03-03 PR merge confirmation)"
+    ],
+    "value": "group.coordinator.background.threads"
+  },
+  "arm": "R-hyb",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 42.12528813899553,
+  "family": "design_decision",
+  "grade": {
+    "actual": "group.coordinator.background.threads",
+    "correct": true,
+    "evidence": [
+      "mail:4f7fd3d7ae5bfb5b7fd2a661 (2026-03-01 announcement by Sean Quah)",
+      "github:api:apache/kafka:pr-21555-opened (2026-02-23 PR title)",
+      "github:api:apache/kafka:pr-21555-merged (2026-03-03 PR merge confirmation)"
+    ],
+    "expected": "group.coordinator.background.threads"
+  },
+  "instructions_sha256": "dfaa5b284d06c378ef7e4c08b53dc77835c91d7591fca0335bbfa33d3e53eb37",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 6,
+  "prompt_sha256": "9c1d1a6341b7cc98a5df3bbbfab44a3173595b7e76cb3537d09ef718049355da",
+  "run_index": 51,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-44f6b97acb",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__read_event": 1,
+    "mcp__history__search": 3
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 148915,
+    "cost_usd": 0.0625285,
+    "input_tokens": 168474,
+    "output_tokens": 1714
+  },
+  "violations": []
+}

@@ -1,0 +1,11 @@
+{
+  "evidence": [
+    "Knowledge cutoff: February 2025",
+    "Snapshot cutoff: 2026-03-31",
+    "Network access: none",
+    "Local project context: none provided"
+  ],
+  "value": [
+    "Cannot determine — knowledge cutoff February 2025 is before snapshot date 2026-03-31, and no network access or local project history provided"
+  ]
+}

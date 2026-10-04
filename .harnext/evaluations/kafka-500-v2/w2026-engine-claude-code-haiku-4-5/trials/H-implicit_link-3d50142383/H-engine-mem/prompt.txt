@@ -1,0 +1,9 @@
+Context snapshot cutoff (inclusive): 2026-04-30T23:59:59Z.
+
+On the Apache Kafka mailing list, Aditya Kousik started a thread with the subject "[DISCUSS] KIP-1307: SerDe and Interceptor Metrics" on 2026-04-01. Which Apache Kafka JIRA issue tracks the problem, proposal or work raised in that thread? Return the issue key (for example KAFKA-12345); null if no JIRA issue tracks it.
+
+Return JSON {"value": <answer>, "evidence": [<ids or file paths of the sources you relied on>]}. Answer as of the cutoff; do not substitute a later or today's issue state.
+
+The MCP server `history` holds the project's recorded history up to the cutoff. Its tool `context_research(question)` asks Harnext's research agent, which reads the stored context and returns a cited answer; ask as many focused questions as you need. Nothing later than the cutoff is in it and there is no network access.
+
+Reply with one JSON object {"value": ..., "evidence": [...]}: `value` is the answer in the requested type (null if it cannot be determined), `evidence` lists the sources you relied on.

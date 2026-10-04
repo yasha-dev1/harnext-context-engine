@@ -1,0 +1,9 @@
+{
+  "evidence": [
+    "entities/issue/KAFKA-20210/facts.md",
+    "entities/issue/KAFKA-20210/OVERVIEW.md",
+    "entities/pr/apache__kafka__21555/OVERVIEW.md",
+    "entities/pr/apache__kafka/21555/facts.md"
+  ],
+  "value": "group.coordinator.background.threads"
+}

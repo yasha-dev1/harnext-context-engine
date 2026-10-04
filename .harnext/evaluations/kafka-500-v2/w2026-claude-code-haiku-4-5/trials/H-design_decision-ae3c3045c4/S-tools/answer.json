@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "mail: 2b8888b66b964eada5234616 (Lianet Magrans, 2026-02-16) - discusses phase 1 recommendation using 'an info message'",
+    "mail: e437a5f929aa48c75a64ae98 (Lianet Magrans, 2026-02-14) - states 'We can achieve that via an info message (and introduce the warn when we deprecate, as in the KIP), so agreed. Updated phase 1 with this.'",
+    "KIP-1274 discussion thread - where Matthias J. Sax questioned whether WARN or INFO would be appropriate for phase 1, and Lianet confirmed INFO for phase 1 with WARN reserved for phase 2"
+  ],
+  "value": "INFO"
+}

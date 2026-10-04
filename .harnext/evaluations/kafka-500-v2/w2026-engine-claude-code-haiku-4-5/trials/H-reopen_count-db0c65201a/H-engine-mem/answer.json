@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "JIRA change query for KAFKA-18866 with to_value='Reopened' returned 0 rows"
+  ],
+  "value": 0
+}

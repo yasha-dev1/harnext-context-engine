@@ -1,0 +1,54 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "window-49-summary.md (Active PR Reviews section) - explicitly lists PR #21273 with chia7712 review comments on MetadataVersion file with 12 events (evt:0014, 0015, 0016, 0019, 0020, 0022, 0078, 0079, 0080, 0091, 0092, 0093)",
+      "window-49-summary.md - PR #21629 description mentions MetadataVersion.java file",
+      "pull-requests.md - PR #21273 documentation shows 83 files changed in the merge"
+    ],
+    "value": "core/src/main/java/org/apache/kafka/server/metadata/MetadataVersion.java"
+  },
+  "arm": "F6-search",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 139.5472233729961,
+  "family": "review_hotspot",
+  "grade": {
+    "actual": "core/src/main/java/org/apache/kafka/server/metadata/MetadataVersion.java",
+    "correct": false,
+    "evidence": [
+      "window-49-summary.md (Active PR Reviews section) - explicitly lists PR #21273 with chia7712 review comments on MetadataVersion file with 12 events (evt:0014, 0015, 0016, 0019, 0020, 0022, 0078, 0079, 0080, 0091, 0092, 0093)",
+      "window-49-summary.md - PR #21629 description mentions MetadataVersion.java file",
+      "pull-requests.md - PR #21273 documentation shows 83 files changed in the merge"
+    ],
+    "expected": "core/src/main/scala/kafka/server/DynamicBrokerConfig.scala"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 12,
+  "prompt_sha256": "99e0a4698cda2e47294e2ee9fb480163310ded5a62cc876d5fc3729c8a50693a",
+  "run_index": 46,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-review_hotspot-a8b9eae3c9",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 9
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 408315,
+    "cost_usd": 0.1444445,
+    "input_tokens": 446166,
+    "output_tokens": 5602
+  },
+  "violations": []
+}

@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "Mail message from Ivan Yurchenko (id: a45e65f0a43099e7e8f15e06, dated 2026-01-22T09:01:53Z) explicitly stating: 'We have deprecated KIP-1181 as it's now incorporated into KIP-1163.' in response to Jun Rao's question about KIP-1181 status",
+    "KAFKA-19257: Issue tracking KIP-1181 (Metadata Rack Awareness for Diskless Topics) as a sub-KIP of KIP-1150",
+    "KIP-1163 represents the coordinator-less core design that superseded the original coordinator-based approach and incorporated the metadata changes from KIP-1181"
+  ],
+  "value": "deprecated and merged into the main proposal"
+}

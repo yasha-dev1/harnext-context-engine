@@ -1,0 +1,37 @@
+{
+  "evidence": [
+    "issues/KAFKA-20134.md",
+    "pull-requests/21465.md",
+    "pull-requests/21474.md",
+    "pull-requests/21478.md",
+    "pull-requests/21493.md",
+    "pull-requests/21497.md",
+    "pull-requests/21581.md"
+  ],
+  "value": [
+    {
+      "pr": 21465,
+      "state": "open"
+    },
+    {
+      "pr": 21474,
+      "state": "closed"
+    },
+    {
+      "pr": 21478,
+      "state": "open"
+    },
+    {
+      "pr": 21493,
+      "state": "merged"
+    },
+    {
+      "pr": 21497,
+      "state": "open"
+    },
+    {
+      "pr": 21581,
+      "state": "open"
+    }
+  ]
+}

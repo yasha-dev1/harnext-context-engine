@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "store/window-38-summary.md (lines 174-175)",
+    "store/window-37-summary.md (lines 136-138)",
+    "pull-requests.md (PR #21535)"
+  ],
+  "value": "processing.exception.handler.global.enabled"
+}

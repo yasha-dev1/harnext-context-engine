@@ -1,0 +1,3 @@
+{
+  "summary": "Successfully implemented extended I/O metrics collection for Kafka (KAFKA-20223). Added 5 new metrics (rchar, wchar, syscr, syscw, cancelled_write_bytes) to LinuxIoMetricsCollector with proper parsing from /proc/self/io, and registered them as gauges in both KafkaBroker and ControllerServer. All tests pass: LinuxIoMetricsCollectorTest (3/3 tests) and MetricsTest (all tests including testLinuxIoMetrics)."
+}

@@ -1,0 +1,9 @@
+{
+  "evidence": [
+    "mail:59c5fd3092adaf090832eeba#0 (2026-02-20T09:41:00Z - Lucas Brutschy's suggestion for config name)",
+    "mail:29c82027835a2e9497c104ed#1 (2026-02-22T20:36:39Z - Matthias's acknowledgment of Lucas's suggestion)",
+    "mail:6c3820ffd9a8d9249b65b7f2#0 (2026-02-23T00:30:12Z - Arpit confirming KIP update)",
+    "mail:f16b612910ec9fbddbacb736#0 (2026-02-23T10:13:27Z - Lucas confirming updates)"
+  ],
+  "value": "processing.exception.handler.global.enabled"
+}

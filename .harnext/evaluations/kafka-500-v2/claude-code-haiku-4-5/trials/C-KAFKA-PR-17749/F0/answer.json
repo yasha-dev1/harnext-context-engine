@@ -1,0 +1,3 @@
+{
+  "summary": "Fixed the typo in CreateDelegationTokenOptions public API by renaming maxlifeTimeMs() to maxLifetimeMs() (with proper camelCase \"Lifetime\"). Updated method names in the main API class and all references in KafkaAdminClient, MockAdminClient, and DelegationTokenCommand. Both test suites (DelegationTokenRequestsTest and SaslSslAdminIntegrationTest) now pass successfully."
+}

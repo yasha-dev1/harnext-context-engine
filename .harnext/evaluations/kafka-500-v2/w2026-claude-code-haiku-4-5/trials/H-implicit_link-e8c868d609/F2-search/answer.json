@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "kips/KIP-1348/2026-05-20-mail-KIP-1348-discussion-6cd700a13d988e1df4186856-7d84d3fd.md",
+    "issues/KAFKA-20604/2026-05-24-jira-created-13652155-3b670272.md",
+    "issues/KAFKA-20604/2026-05-24-mail-jira-notification-8b09146c3e228474deabacb7-73aa76d7.md"
+  ],
+  "value": "KAFKA-20604"
+}

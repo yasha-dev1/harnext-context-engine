@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "kips/KIP-1263.md",
+    "issues/KAFKA-20210.md",
+    "pull-requests/21555.md"
+  ],
+  "value": "group.coordinator.background.threads"
+}

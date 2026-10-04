@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "mail:e088dfe94bcfd66ed5f542ce (2026-03-19) - Greg Harris notes eventual consistency applies to PUT and LIST paths",
+    "mail:3b03034816281c500f3c3b46 (2026-04-27) - Greg Harris confirms GET must remain strongly consistent"
+  ],
+  "value": "list"
+}

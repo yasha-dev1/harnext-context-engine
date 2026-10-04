@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "discussions.md - Apoorv Mittal's question AM4 (May 12, 2026) references 'ClientConfigTooLargeException behavior' as the exception for rejecting oversized configurations",
+    "discussions.md - Multiple Windows (110-117) show Kirk True's responses to May 5-15, 2026 discussions about KIP-1324 exception handling",
+    "context_research result - Referenced Andrew Schofield's comments mentioning 'ClientConfigTooLargeException' among exception classes for the KIP"
+  ],
+  "value": "ClientConfigTooLargeException"
+}

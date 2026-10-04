@@ -1,0 +1,9 @@
+{
+  "evidence": [
+    "issues/KAFKA-20288.md"
+  ],
+  "value": {
+    "days": 0,
+    "first": "merge"
+  }
+}

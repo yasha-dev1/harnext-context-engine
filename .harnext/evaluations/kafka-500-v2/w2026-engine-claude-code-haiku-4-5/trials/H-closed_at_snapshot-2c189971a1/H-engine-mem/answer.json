@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "jira:13641465:change:22943422:0",
+    "entities/issue/KAFKA-20158/facts.md",
+    "entities/issue/KAFKA-20158/timeline.md"
+  ],
+  "value": false
+}

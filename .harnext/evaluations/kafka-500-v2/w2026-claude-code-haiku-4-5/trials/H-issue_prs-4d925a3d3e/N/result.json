@@ -1,0 +1,80 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "Cannot determine: issue creation date (2026-02) post-dates knowledge cutoff (2025-02); no network access available; no local project history provided"
+    ],
+    "value": []
+  },
+  "arm": "N",
+  "checkpoint": "2026-02",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 11.689933451001707,
+  "family": "issue_prs",
+  "grade": {
+    "actual": [],
+    "correct": false,
+    "evidence": [
+      "Cannot determine: issue creation date (2026-02) post-dates knowledge cutoff (2025-02); no network access available; no local project history provided"
+    ],
+    "expected": [
+      {
+        "pr": 21452,
+        "state": "merged"
+      },
+      {
+        "pr": 21461,
+        "state": "merged"
+      },
+      {
+        "pr": 21462,
+        "state": "merged"
+      },
+      {
+        "pr": 21505,
+        "state": "merged"
+      },
+      {
+        "pr": 21559,
+        "state": "merged"
+      },
+      {
+        "pr": 21560,
+        "state": "closed"
+      },
+      {
+        "pr": 21561,
+        "state": "merged"
+      },
+      {
+        "pr": 21562,
+        "state": "merged"
+      }
+    ]
+  },
+  "instructions_sha256": null,
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 2,
+  "prompt_sha256": "a3bcf294e93430dfc207e03ccbfaa1d303c57f99e33501eeb7483c6d8e598af7",
+  "run_index": 15,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-issue_prs-4d925a3d3e",
+  "tool_calls": {
+    "StructuredOutput": 2
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 38249,
+    "cost_usd": 0.016489900000000002,
+    "input_tokens": 42235,
+    "output_tokens": 942
+  },
+  "violations": []
+}

@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "Unable to retrieve full message content from mailing list discussions. The MCP history search tool returns only index/timeline metadata, not message bodies. The configuration property name would be specified in the KIP-1331 discussion messages (2026-05-04 through 2026-05-29) or implementation PRs #22393/#22413."
+  ],
+  "value": null
+}

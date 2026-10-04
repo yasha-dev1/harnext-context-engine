@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "events/2026/02/20/mail-59c5fd3092adaf090832eeba-08518722.md (Lucas Brutschy's suggestion)",
+    "events/2026/02/20/mail-d0ea5a94789da80c21eb21d1-6f0bfda8.md (Arpit Goyal's acceptance)",
+    "events/2026/02/22/mail-29c82027835a2e9497c104ed-e7a8ec27.md (Matthias J. Sax confirmation)"
+  ],
+  "value": "processing.exception.handler.global.enabled"
+}

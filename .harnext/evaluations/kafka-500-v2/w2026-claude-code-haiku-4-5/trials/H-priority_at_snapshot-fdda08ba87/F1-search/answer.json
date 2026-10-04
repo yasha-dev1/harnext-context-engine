@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "entities/issue/KAFKA-20185/OVERVIEW.md",
+    "entities/issue/KAFKA-20185/timeline.md"
+  ],
+  "value": "Blocker"
+}

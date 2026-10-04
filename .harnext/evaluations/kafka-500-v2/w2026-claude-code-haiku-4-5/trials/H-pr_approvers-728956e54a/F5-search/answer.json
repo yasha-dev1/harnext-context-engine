@@ -1,0 +1,9 @@
+{
+  "evidence": [
+    "Searched context for: KAFKA-20354, Control Batch types documentation, Apache Kafka PRs from 2026-03",
+    "Result: No matching records found in context filesystem (INDEX.md, entity directories, and batch incorporation files)"
+  ],
+  "value": [
+    "The requested PR cannot be found in the available context"
+  ]
+}

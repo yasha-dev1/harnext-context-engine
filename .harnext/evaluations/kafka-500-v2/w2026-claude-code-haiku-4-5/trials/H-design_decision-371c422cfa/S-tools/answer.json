@@ -1,0 +1,9 @@
+{
+  "evidence": [
+    "KIP-1274 discussion thread: Lianet Magrans email 2026-01-28T20:54:13Z (returning to initial proposal of removing group.protocol)",
+    "KIP-1274 discussion thread: Matthias J. Sax email 2026-01-28T16:53:06Z (advocating for removal)",
+    "KIP-1274 discussion thread: Lianet Magrans email 2026-02-16T03:41:13Z (clarifying deprecation in 5.0 and removal in 6.0)",
+    "KIP-1274 vote result: 2026-02-23T16:49:41Z (KIP accepted with binding votes from David Jacot, Lucas Brutschy, Andrew Schofield, and Matthias J. Sax)"
+  ],
+  "value": "remove the config entirely"
+}

@@ -1,0 +1,57 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "05dea6cdc4e709f639e41414 (Federico Valeri email dated 2026-04-15: 'we decided to remove the --replication-factor flag to always honor the destination cluster default')",
+      "d143b0b41a8baaf69dfb3a1d (Andrew Schofield confirmation email dated 2026-04-21: 'It's all good in the current version')",
+      "KIP-1279: Cluster Mirroring discussion thread"
+    ],
+    "value": "destination cluster default replication factor"
+  },
+  "arm": "S-tools",
+  "checkpoint": "2026-04",
+  "cli_calls": {
+    "gh": 7,
+    "jira": 10,
+    "mail": 4
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 114.79488221900829,
+  "family": "design_decision",
+  "grade": {
+    "actual": "destination cluster default replication factor",
+    "correct": true,
+    "evidence": [
+      "05dea6cdc4e709f639e41414 (Federico Valeri email dated 2026-04-15: 'we decided to remove the --replication-factor flag to always honor the destination cluster default')",
+      "d143b0b41a8baaf69dfb3a1d (Andrew Schofield confirmation email dated 2026-04-21: 'It's all good in the current version')",
+      "KIP-1279: Cluster Mirroring discussion thread"
+    ],
+    "expected": "destination cluster default replication factor"
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 16,
+  "prompt_sha256": "2cf54d5ba4c4b2867e751f263aa11d3b96afe0cffc334d12bf3e1313a55bfe67",
+  "run_index": 68,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-35e51bbc1a",
+  "tool_calls": {
+    "Bash": 21,
+    "Read": 2,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 535914,
+    "cost_usd": 0.1871784,
+    "input_tokens": 592052,
+    "output_tokens": 4288
+  },
+  "violations": []
+}

@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "dev@kafka.apache.org message fd9d85a63c9e86b008ed8da0 from 2026-02-13 (Lianet Magrans confirming INFO level for Phase 1)",
+    "dev@kafka.apache.org message b96c0c41bad0fc9745839b89 from 2026-02-13 (Matthias J. Sax's question about log level)",
+    "KIP-1274 discussion thread starting 2026-01-22, voted and approved 2026-02-17"
+  ],
+  "value": "INFO"
+}

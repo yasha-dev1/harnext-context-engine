@@ -1,0 +1,41 @@
+{
+  "evidence": [
+    "entities/issue/KAFKA-20168/OVERVIEW.md",
+    "entities/issue/KAFKA-20168/timeline.md",
+    "entities/pr/apache__kafka__21452/OVERVIEW.md",
+    "entities/pr/apache__kafka__21559/OVERVIEW.md",
+    "entities/pr/apache__kafka__21561/OVERVIEW.md",
+    "entities/pr/apache__kafka__21562/OVERVIEW.md",
+    "INDEX.md"
+  ],
+  "value": [
+    {
+      "pr": 21452,
+      "state": "merged"
+    },
+    {
+      "pr": 21461,
+      "state": "merged"
+    },
+    {
+      "pr": 21462,
+      "state": "merged"
+    },
+    {
+      "pr": 21559,
+      "state": "merged"
+    },
+    {
+      "pr": 21560,
+      "state": "open"
+    },
+    {
+      "pr": 21561,
+      "state": "merged"
+    },
+    {
+      "pr": 21562,
+      "state": "merged"
+    }
+  ]
+}

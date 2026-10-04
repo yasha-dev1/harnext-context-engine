@@ -1,0 +1,10 @@
+{
+  "evidence": [
+    "KAFKA-20327",
+    "store/issues/kafka-20327-add-sessionstore-overrides-abstract-decorators.md"
+  ],
+  "value": {
+    "days": 0,
+    "first": "merge"
+  }
+}

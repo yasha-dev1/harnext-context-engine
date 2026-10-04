@@ -1,0 +1,62 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "KAFKA-20327 JIRA history showing resolution set at 2026-03-17T18:49:34.456000Z",
+      "GitHub PR #21791 showing merged at 2026-03-17T18:47:50Z"
+    ],
+    "value": {
+      "days": 0,
+      "first": "merge"
+    }
+  },
+  "arm": "S-tools",
+  "checkpoint": "2026-05",
+  "cli_calls": {
+    "gh": 3,
+    "jira": 6
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 25.78706455900101,
+  "family": "resolution_vs_merge_order",
+  "grade": {
+    "actual": {
+      "days": 0,
+      "first": "merge"
+    },
+    "correct": true,
+    "evidence": [
+      "KAFKA-20327 JIRA history showing resolution set at 2026-03-17T18:49:34.456000Z",
+      "GitHub PR #21791 showing merged at 2026-03-17T18:47:50Z"
+    ],
+    "expected": {
+      "days": 0,
+      "first": "merge"
+    }
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 9,
+  "prompt_sha256": "a010b429626e68cb67590aebbe1cc0061ab77dba9aa88cacdab4edb0467657a7",
+  "run_index": 29,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-resolution_vs_merge_order-d55cc13ea1",
+  "tool_calls": {
+    "Bash": 9,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 199584,
+    "cost_usd": 0.0445104,
+    "input_tokens": 207124,
+    "output_tokens": 1909
+  },
+  "violations": []
+}

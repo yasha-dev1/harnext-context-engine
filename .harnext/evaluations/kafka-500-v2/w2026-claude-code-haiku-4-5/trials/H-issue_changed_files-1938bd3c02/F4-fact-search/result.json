@@ -1,0 +1,71 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "prs/21744-kafka-20307-iqv1-headers-stores.md - PR merged 2026-03-16 but detailed file list not documented",
+      "issues/kafka-20307-iqv1-headers-aware-stores.md - Lists components modified but not file paths",
+      "Context research confirms file paths are not available in stored history"
+    ],
+    "value": []
+  },
+  "arm": "F4-fact-search",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 175.50023131701164,
+  "family": "issue_changed_files",
+  "grade": {
+    "actual": [],
+    "correct": false,
+    "evidence": [
+      "prs/21744-kafka-20307-iqv1-headers-stores.md - PR merged 2026-03-16 but detailed file list not documented",
+      "issues/kafka-20307-iqv1-headers-aware-stores.md - Lists components modified but not file paths",
+      "Context research confirms file paths are not available in stored history"
+    ],
+    "expected": [
+      "streams/integration-tests/src/test/java/org/apache/kafka/streams/integration/HeadersStoreUpgradeIntegrationTest.java",
+      "streams/src/main/java/org/apache/kafka/streams/processor/internals/AbstractReadOnlyDecorator.java",
+      "streams/src/main/java/org/apache/kafka/streams/processor/internals/StateManagerUtil.java",
+      "streams/src/main/java/org/apache/kafka/streams/state/QueryableStoreTypes.java",
+      "streams/src/main/java/org/apache/kafka/streams/state/internals/GlobalStateStoreProvider.java",
+      "streams/src/main/java/org/apache/kafka/streams/state/internals/StreamThreadStateStoreProvider.java",
+      "streams/src/main/java/org/apache/kafka/streams/state/internals/ValueConverters.java",
+      "streams/src/main/java/org/apache/kafka/streams/state/internals/WindowToTimestampedWindowByteStoreAdapter.java",
+      "streams/src/test/java/org/apache/kafka/streams/processor/internals/StateManagerUtilConverterTest.java",
+      "streams/src/test/java/org/apache/kafka/streams/state/QueryableStoreTypesWithHeadersTest.java",
+      "streams/src/test/java/org/apache/kafka/streams/state/internals/GenericReadOnlyKeyValueStoreFacadeTest.java",
+      "streams/src/test/java/org/apache/kafka/streams/state/internals/GenericReadOnlyWindowStoreFacadeTest.java",
+      "streams/src/test/java/org/apache/kafka/streams/state/internals/GlobalStateStoreProviderTest.java",
+      "streams/src/test/java/org/apache/kafka/streams/state/internals/StreamThreadStateStoreProviderTest.java",
+      "streams/src/test/java/org/apache/kafka/streams/state/internals/ValueConvertersTest.java",
+      "streams/test-utils/src/main/java/org/apache/kafka/streams/TopologyTestDriver.java"
+    ]
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 19,
+  "prompt_sha256": "8bfa758dbc803b9b9841d0e82d0bc2f8e12b25f58c17704d89b766d2a2f7542e",
+  "run_index": 32,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-issue_changed_files-1938bd3c02",
+  "tool_calls": {
+    "StructuredOutput": 2,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 2,
+    "mcp__history__search_context": 14
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 839487,
+    "cost_usd": 0.20994470000000004,
+    "input_tokens": 891870,
+    "output_tokens": 4277
+  },
+  "violations": []
+}

@@ -1,0 +1,53 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "Knowledge cutoff is February 2025; issue created January 2026 (after training data cutoff)",
+      "No network access to query Apache Kafka JIRA",
+      "No local project history or cached JIRA data in /workspace"
+    ],
+    "value": []
+  },
+  "arm": "N",
+  "checkpoint": "2026-02",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 16.302049937999982,
+  "family": "fix_version_at_snapshot",
+  "grade": {
+    "actual": [],
+    "correct": false,
+    "evidence": [
+      "Knowledge cutoff is February 2025; issue created January 2026 (after training data cutoff)",
+      "No network access to query Apache Kafka JIRA",
+      "No local project history or cached JIRA data in /workspace"
+    ],
+    "expected": [
+      "4.3.0"
+    ]
+  },
+  "instructions_sha256": null,
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "80b7b02091726a9f982b9c0c03711c4a5565232128f3bc9b0610f2c0f7cd3917",
+  "run_index": 39,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-fix_version_at_snapshot-d78a1c1eb7",
+  "tool_calls": {
+    "StructuredOutput": 2
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 59356,
+    "cost_usd": 0.020343600000000003,
+    "input_tokens": 63401,
+    "output_tokens": 1269
+  },
+  "violations": []
+}

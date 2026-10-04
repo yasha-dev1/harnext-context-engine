@@ -1,0 +1,26 @@
+Context snapshot cutoff (inclusive): 2023-03-26T02:42:54Z.
+
+The workspace is the apache/kafka repository at commit b8f3776f2458d0270276bd3d59db66f4c7f3748c.
+
+Issue KAFKA-12525: Inaccurate task status due to status record interleaving in fast rebalances in Connect
+
+When a task is stopped in Connect it produces an {{UNASSIGNED}} status record. 
+Equivalently, when a task is started or restarted in Connect it produces an {{RUNNING}} status record in the Connect status topic.
+
+At the same time rebalances are decoupled from task start and stop. These operations happen in separate executor outside of the main worker thread that performs the rebalance.
+
+Normally, any delayed and stale {{UNASSIGNED}} status records are fenced by the worker that is sending them. This worker is using the {{StatusBackingStore#putSafe}} method that will reject any stale status messages (called only for {{UNASSIGNED}} or {{FAILED}}) as long as the worker is aware of the newer status record that declares a task as {{RUNNING}}.
+
+In cases of fast consecutive rebalances where a task is revoked from one worker and assigned to another one, it has been observed that there is a small time window and thus a race condition during which a {{RUNNING}} status record in the new generation is produced and is immediately followed by a delayed {{UNASSIGNED}} status record belonging to the same or a previous generation before the worker that sends this message reads the {{RUNNING}} status record that corresponds to the latest generation.
+
+A couple of options are available to remediate this race condition. 
+For example a worker that is has started a task can re-write the {{RUNNING}} status message in the topic if it reads a stale {{UNASSIGNED}} message from a previous generation (that should have been fenced). 
+Another option is to ignore stale {{UNASSIGNED}} message (messages from an earlier generation than the one in which the task had {{RUNNING}} status).
+
+Worth noting that when this race condition takes place, besides the inaccurate status representation, the actual execution of the tasks remains unaffected (e.g. the tasks are running correctly even though they appear as {{UNASSIGNED}}).
+
+Implement the change this issue asks for by editing the workspace. The tests written for this change have already been added to the workspace (uncommitted; see `git status`): `connect/runtime/src/test/java/org/apache/kafka/connect/storage/KafkaStatusBackingStoreTest.java`. They fail or do not compile until the change is implemented. Make them pass with `./gradlew :connect:runtime:test --tests org.apache.kafka.connect.storage.KafkaStatusBackingStoreTest --offline`. Do not edit those test files: grading restores them to their original content and runs them against your other changes. Keep the change focused and do not substitute knowledge of how the project evolved after the cutoff.
+
+No project-history context is provided for this task. Work from the task statement, the repository and your own knowledge; there is no network access.
+
+The repository is checked out at /workspace. The workspace is a git repository whose history ends at the base commit; `git log`, `git blame` and `git show` work offline. Make the change by editing source files there; the tests named above, restored to their original content, decide whether the issue is resolved. Gradle works offline only (`./gradlew :module:test --tests X --offline`). Finish with one JSON object {"summary": "..."}.

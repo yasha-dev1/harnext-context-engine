@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "kips/KIP-1305/mail-40031bc0941c4eeec10f5c3a-d36d4b99.md",
+    "issues/KAFKA-20384/2026-03-31-created-13646857-423d8790.md",
+    "mail/2026-03-31-mail-f25ed34b9cd1960b957fc55a-71e8fb23.md"
+  ],
+  "value": "KAFKA-20384"
+}

@@ -1,0 +1,9 @@
+{
+  "evidence": [
+    "Cannot access JIRA API (no network access)",
+    "No project history context provided",
+    "No local files containing issue transition data available in /workspace",
+    "Knowledge cutoff is February 2025, predating the query date of 2026-05-31"
+  ],
+  "value": 0
+}

@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "PR #22139 inline review comments analysis - LogManagerTest.java received 4 inline review comments (the most on this PR), followed by LogManager.java with 2 comments"
+  ],
+  "value": "storage/src/test/java/org/apache/kafka/storage/internals/log/LogManagerTest.java"
+}

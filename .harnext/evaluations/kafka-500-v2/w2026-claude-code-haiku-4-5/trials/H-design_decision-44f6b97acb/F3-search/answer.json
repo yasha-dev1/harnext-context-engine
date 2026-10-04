@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "_intake_backup/2026/02/23/github-api-apache-kafka-pr-21555-opened-92a8cbec.md",
+    "issues/kafka-20291.md"
+  ],
+  "value": "group.coordinator.background.threads"
+}

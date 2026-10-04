@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "mail:bfae351428945364a45fb155#0 (Lucas Brutschy response, 2026-05-11T13:09:31Z, explicitly states: 'Changed back to group.streams.topology.description.plugin.class')",
+    "mail:a7acb9c0ce17a9a47fb25c00#0 (KAFKA-20630 documentation task, 2026-05-27T16:22:00Z, lists configuration as 'group.streams.topology.description.plugin.class')"
+  ],
+  "value": "group.streams.topology.description.plugin.class"
+}

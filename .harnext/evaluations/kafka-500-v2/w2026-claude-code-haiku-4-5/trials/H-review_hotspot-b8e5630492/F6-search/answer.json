@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "window-105-summary.md - PR #22139 review analysis showing inline comments on LogManager.java and LogManagerTest.java with event distribution: 0044, 0046, 0047, 0048, 0169, 0170, 0171, 0172, 0173, 0174",
+    "KAFKA-20435 issue tracking the move of LogManagerTest from core to storage module",
+    "window-102-summary.md - PR #22139 context showing reviews by chia7712 and mimaison"
+  ],
+  "value": "LogManagerTest.java"
+}

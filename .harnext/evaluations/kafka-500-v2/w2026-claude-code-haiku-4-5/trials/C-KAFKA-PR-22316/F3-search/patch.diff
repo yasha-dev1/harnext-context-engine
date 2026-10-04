@@ -1,0 +1,102 @@
+diff --git a/streams/src/main/java/org/apache/kafka/streams/state/internals/MeteredKeyValueStore.java b/streams/src/main/java/org/apache/kafka/streams/state/internals/MeteredKeyValueStore.java
+index 673f887779ce64cfe89e14f46c3a17685a8450d2..5e873a3464807946a594aa28d3e52acde67f6371 100644
+--- a/streams/src/main/java/org/apache/kafka/streams/state/internals/MeteredKeyValueStore.java
++++ b/streams/src/main/java/org/apache/kafka/streams/state/internals/MeteredKeyValueStore.java
+@@ -16,6 +16,7 @@
+  */
+ package org.apache.kafka.streams.state.internals;
+ 
++import org.apache.kafka.common.IsolationLevel;
+ import org.apache.kafka.common.TopicPartition;
+ import org.apache.kafka.common.metrics.Sensor;
+ import org.apache.kafka.common.serialization.Serde;
+@@ -44,6 +45,7 @@ import org.apache.kafka.streams.query.ResultOrder;
+ import org.apache.kafka.streams.query.internals.InternalQueryResultUtil;
+ import org.apache.kafka.streams.state.KeyValueIterator;
+ import org.apache.kafka.streams.state.KeyValueStore;
++import org.apache.kafka.streams.state.ReadOnlyKeyValueStore;
+ import org.apache.kafka.streams.state.StateSerdes;
+ import org.apache.kafka.streams.state.internals.StoreQueryUtils.QueryHandler;
+ import org.apache.kafka.streams.state.internals.metrics.StateStoreMetrics;
+@@ -423,6 +425,12 @@ public class MeteredKeyValueStore<K, V>
+         return new MeteredKeyValueStoreIterator(wrapped().reverseAll(), allSensor);
+     }
+ 
++    @Override
++    public ReadOnlyKeyValueStore<K, V> readOnly(final IsolationLevel isolationLevel) {
++        Objects.requireNonNull(isolationLevel, "isolationLevel cannot be null");
++        return new ReadOnlyView(wrapped().readOnly(isolationLevel));
++    }
++
+     @Override
+     public void commit(final Map<TopicPartition, Long> changelogOffsets) {
+         maybeMeasureLatency(() -> super.commit(changelogOffsets), time, commitSensor);
+@@ -474,6 +482,68 @@ public class MeteredKeyValueStore<K, V>
+         }
+     }
+ 
++    private final class ReadOnlyView implements ReadOnlyKeyValueStore<K, V> {
++
++        private final ReadOnlyKeyValueStore<Bytes, byte[]> underlying;
++
++        ReadOnlyView(final ReadOnlyKeyValueStore<Bytes, byte[]> underlying) {
++            this.underlying = underlying;
++        }
++
++        @Override
++        public V get(final K key) {
++            Objects.requireNonNull(key, "key cannot be null");
++            return maybeMeasureLatency(
++                () -> deserializeValue(underlying.get(serializeKey(key))),
++                time,
++                getSensor
++            );
++        }
++
++        @Override
++        public KeyValueIterator<K, V> range(final K from, final K to) {
++            return new MeteredKeyValueStoreIterator(
++                underlying.range(serializeKey(from), serializeKey(to)),
++                rangeSensor
++            );
++        }
++
++        @Override
++        public KeyValueIterator<K, V> reverseRange(final K from, final K to) {
++            return new MeteredKeyValueStoreIterator(
++                underlying.reverseRange(serializeKey(from), serializeKey(to)),
++                rangeSensor
++            );
++        }
++
++        @Override
++        public KeyValueIterator<K, V> all() {
++            return new MeteredKeyValueStoreIterator(underlying.all(), allSensor);
++        }
++
++        @Override
++        public KeyValueIterator<K, V> reverseAll() {
++            return new MeteredKeyValueStoreIterator(underlying.reverseAll(), allSensor);
++        }
++
++        @Override
++        public <PS extends Serializer<P>, P> KeyValueIterator<K, V> prefixScan(final P prefix, final PS prefixKeySerializer) {
++            Objects.requireNonNull(prefix, "prefix cannot be null");
++            Objects.requireNonNull(prefixKeySerializer, "prefixKeySerializer cannot be null");
++            return new MeteredKeyValueStoreIterator(underlying.prefixScan(prefix, prefixKeySerializer), prefixScanSensor);
++        }
++
++        @Override
++        public long approximateNumEntries() {
++            return underlying.approximateNumEntries();
++        }
++
++        @Override
++        public ReadOnlyKeyValueStore<K, V> readOnly(final IsolationLevel isolationLevel) {
++            return new ReadOnlyView(underlying.readOnly(isolationLevel));
++        }
++    }
++
+     private class MeteredKeyValueStoreIterator implements KeyValueIterator<K, V>, MeteredIterator {
+ 
+         private final KeyValueIterator<Bytes, byte[]> iter;

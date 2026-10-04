@@ -1,0 +1,60 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "store/events/2026/03/25/github-api-apache-kafka-review-PRR_kwDOACG9q87ut0NT-7bd5d058.md",
+      "store/events/2026/03/31/github-api-apache-kafka-review-PRR_kwDOACG9q87wkbjc-44dbaab7.md"
+    ],
+    "value": [
+      "AndrewJSchofield",
+      "showuon"
+    ]
+  },
+  "arm": "F0",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 31.421973158001492,
+  "family": "pr_approvers",
+  "grade": {
+    "actual": [
+      "AndrewJSchofield",
+      "showuon"
+    ],
+    "correct": true,
+    "evidence": [
+      "store/events/2026/03/25/github-api-apache-kafka-review-PRR_kwDOACG9q87ut0NT-7bd5d058.md",
+      "store/events/2026/03/31/github-api-apache-kafka-review-PRR_kwDOACG9q87wkbjc-44dbaab7.md"
+    ],
+    "expected": [
+      "AndrewJSchofield",
+      "showuon"
+    ]
+  },
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "e606047da7425dbad88152ce3f2d129c086418073d35729387fbf4e8749ad88f",
+  "run_index": 49,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-pr_approvers-728956e54a",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 59933,
+    "cost_usd": 0.0189083,
+    "input_tokens": 64684,
+    "output_tokens": 688
+  },
+  "violations": []
+}

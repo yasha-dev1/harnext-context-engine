@@ -1,0 +1,52 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "The Harnext context filesystem does not contain information about KAFKA-19964. The context has been maintained through builds that processed events up to 2026-03-31T23:59:59Z and contains 371+ JIRA issues, but focuses primarily on issues in the KAFKA-20000 range. KAFKA-19964 is not present in the available context data."
+    ],
+    "value": []
+  },
+  "arm": "F5-search",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 37.124668269010726,
+  "family": "fix_version_at_snapshot",
+  "grade": {
+    "actual": [],
+    "correct": false,
+    "evidence": [
+      "The Harnext context filesystem does not contain information about KAFKA-19964. The context has been maintained through builds that processed events up to 2026-03-31T23:59:59Z and contains 371+ JIRA issues, but focuses primarily on issues in the KAFKA-20000 range. KAFKA-19964 is not present in the available context data."
+    ],
+    "expected": [
+      "4.3.0"
+    ]
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 7,
+  "prompt_sha256": "b422f502c4f7be58504cd72ff2d2850d92007803791539ffaf3607255dca713b",
+  "run_index": 40,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-fix_version_at_snapshot-ffdb6586ec",
+  "tool_calls": {
+    "StructuredOutput": 3,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 2
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 163280,
+    "cost_usd": 0.034242,
+    "input_tokens": 168444,
+    "output_tokens": 1529
+  },
+  "violations": []
+}

@@ -1,0 +1,9 @@
+{
+  "evidence": [
+    "mail search result: Jianbin Chen's email thread 'Fwd: Inquiry about migrating from ZooKeeper to KRaft' from 2026-01-28",
+    "mail read 1efa3c4297d631388e2668aa: Original email from Jianbin Chen on dev@kafka.apache.org dated 2026-01-28T08:19:16Z describing the ZooKeeper to KRaft migration issue",
+    "jira issue view KAFKA-20104: JIRA issue created 2026-01-30T01:19:12Z with title 'Inquiry about migrating from ZooKeeper to KRaft' reporting the same problem",
+    "mail read 486720ed47e33a5638d15878: JIRA notification showing KAFKA-20104 was created on 2026-01-30T01:20:00Z"
+  ],
+  "value": "KAFKA-20104"
+}

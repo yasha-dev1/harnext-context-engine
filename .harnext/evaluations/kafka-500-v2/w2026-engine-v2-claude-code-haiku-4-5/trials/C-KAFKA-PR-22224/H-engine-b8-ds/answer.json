@@ -1,0 +1,3 @@
+{
+  "summary": "Implemented topic ID support for TxnOffsetCommit API (KAFKA-20444/KIP-1319) by adding topic IDs to request/response error handling and creating dual-mode builder pattern (TopicIdBuilder and TopicNameBuilder) for backward compatibility. All 31 tests passing."
+}

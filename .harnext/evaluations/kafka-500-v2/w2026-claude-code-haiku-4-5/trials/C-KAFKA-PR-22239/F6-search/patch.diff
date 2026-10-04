@@ -1,0 +1,15 @@
+diff --git a/clients/src/main/java/org/apache/kafka/clients/producer/internals/TransactionManager.java b/clients/src/main/java/org/apache/kafka/clients/producer/internals/TransactionManager.java
+index 50e35d32096d7fd233d1b76a22ed2f4a6932e24a..72c3af7c7349b993b0c53cd9a7fbcf8c3fb56cf5 100644
+--- a/clients/src/main/java/org/apache/kafka/clients/producer/internals/TransactionManager.java
++++ b/clients/src/main/java/org/apache/kafka/clients/producer/internals/TransactionManager.java
+@@ -1940,7 +1940,9 @@ public class TransactionManager {
+                     abortableError(error.exception());
+                     break;
+                 } else if (error == Errors.UNKNOWN_MEMBER_ID
+-                        || error == Errors.ILLEGAL_GENERATION) {
++                        || error == Errors.ILLEGAL_GENERATION
++                        || error == Errors.GROUP_ID_NOT_FOUND
++                        || error == Errors.STALE_MEMBER_EPOCH) {
+                     abortableError(new CommitFailedException("Transaction offset Commit failed " +
+                         "due to consumer group metadata mismatch: " + error.exception().getMessage()));
+                     break;

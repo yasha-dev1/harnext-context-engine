@@ -1,0 +1,11 @@
+{
+  "evidence": [
+    "discussions/kip-1274-deprecate-classic-rebalance.md",
+    "discussions/kip-1274-classic-rebalance-deprecation.md",
+    "discussions/kip-1274-deprecate-classic-rebalance-protocol.md"
+  ],
+  "value": {
+    "participants": 6,
+    "starter": "Lianet Magrans"
+  }
+}

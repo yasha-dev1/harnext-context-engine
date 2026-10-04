@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "store/kips/KIP-1274.md (lines 59-62)"
+  ],
+  "value": "keep the config but restrict it to the value consumer"
+}

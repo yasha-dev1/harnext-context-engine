@@ -1,0 +1,63 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "events/2026/03/19/jira-13645437-created-a8a9ed7e.md",
+      "events/2026/03/31/jira-13645437-change-23001629-0-4af99585.md",
+      "events/2026/04/28/jira-13645437-change-23039170-0-f0a277e6.md",
+      "events/2026/04/28/jira-13645437-change-23039645-0-71ebcb36.md",
+      "events/2026/04/28/jira-13645437-comment-18076771-5bc3ba20.md"
+    ],
+    "value": [
+      "4.3.0"
+    ]
+  },
+  "arm": "F0",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 44.52109520299928,
+  "family": "fix_version_at_snapshot",
+  "grade": {
+    "actual": [
+      "4.3.0"
+    ],
+    "correct": true,
+    "evidence": [
+      "events/2026/03/19/jira-13645437-created-a8a9ed7e.md",
+      "events/2026/03/31/jira-13645437-change-23001629-0-4af99585.md",
+      "events/2026/04/28/jira-13645437-change-23039170-0-f0a277e6.md",
+      "events/2026/04/28/jira-13645437-change-23039645-0-71ebcb36.md",
+      "events/2026/04/28/jira-13645437-comment-18076771-5bc3ba20.md"
+    ],
+    "expected": [
+      "4.3.0"
+    ]
+  },
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "64f5711949b784c5e0e3390009fb7abd6165aacab7a0efcf054f90fa06472003",
+  "run_index": 9,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-fix_version_at_snapshot-af2f4eda70",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 63785,
+    "cost_usd": 0.0130875,
+    "input_tokens": 65008,
+    "output_tokens": 858
+  },
+  "violations": []
+}

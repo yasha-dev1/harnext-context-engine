@@ -1,0 +1,11 @@
+{
+  "evidence": [
+    "dev@kafka.apache.org mailing list - KIP-1270 discussion thread (2026-01-23 to 2026-01-27)",
+    "Mail ID 0cd1da9b3ea5d6d07a9cf457: Matthias J. Sax on 2026-01-27 stated that ErrorHandlerContext provides sufficient information (topic(), processorNodeId(), taskId()) to distinguish cases without needing a ThreadType parameter",
+    "Mail ID c8e42cc6bc8a5e4ae0fb0d26: Arpit Goyal's response confirming 'There is no need to introduce ThreadType parameter or another configuration'",
+    "Mail ID e95cf0a05fd47c30fbb99cfa: Final confirmation before voting that a single handler implementation using existing context fields is sufficient",
+    "KAFKA-19930 issue description noting the initial non-support for GlobalKTable processors",
+    "Consensus in discussion: Users can implement different logic in a single handler by inspecting ErrorHandlerContext fields rather than having an explicit ThreadType parameter"
+  ],
+  "value": "no"
+}

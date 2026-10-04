@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "entities/thread/CACvVgwHhpHN2qmfqALM3=9wv4vHv-rZzkMU1kb97-aeXH2HVwg/OVERVIEW.md",
+    "entities/pr/apache__kafka__22191/timeline.md",
+    "entities/issue/KAFKA-20395 (referenced in PR #22191)"
+  ],
+  "value": null
+}

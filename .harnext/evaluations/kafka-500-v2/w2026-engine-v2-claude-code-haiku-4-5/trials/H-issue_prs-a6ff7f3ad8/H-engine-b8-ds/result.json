@@ -1,0 +1,109 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "github:api:apache/kafka:pr-22041-opened",
+      "jira:13647972:change:23020074:0",
+      "github:api:apache/kafka:pr-22182-opened",
+      "jira:13647972:change:23040726:0"
+    ],
+    "value": [
+      {
+        "pr": 22041,
+        "state": "open"
+      },
+      {
+        "pr": 22182,
+        "state": "open"
+      }
+    ]
+  },
+  "arm": "H-engine-b8-ds",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 46.12389362300746,
+  "engine": {
+    "calls": 1,
+    "chat": {
+      "calls": 10,
+      "cancelled": 0,
+      "cost_usd": 0.00212412,
+      "input_tokens": 51002,
+      "output_tokens": 3769,
+      "retries": 0
+    },
+    "cost_usd": 0.00363872,
+    "discarded_attempts": 0,
+    "jev": {
+      "calls": 17,
+      "cancelled": 0,
+      "cost_usd": 0.0015146,
+      "input_tokens": 36062,
+      "output_tokens": 6411,
+      "retries": 0
+    },
+    "partial": 0,
+    "provider_retry_usd": 0,
+    "seconds": 31.214,
+    "unmetered_upper_usd": 0,
+    "waited_s": 0
+  },
+  "family": "issue_prs",
+  "grade": {
+    "actual": [
+      {
+        "pr": 22041,
+        "state": "open"
+      },
+      {
+        "pr": 22182,
+        "state": "open"
+      }
+    ],
+    "correct": true,
+    "evidence": [
+      "github:api:apache/kafka:pr-22041-opened",
+      "jira:13647972:change:23020074:0",
+      "github:api:apache/kafka:pr-22182-opened",
+      "jira:13647972:change:23040726:0"
+    ],
+    "expected": [
+      {
+        "pr": 22041,
+        "state": "open"
+      },
+      {
+        "pr": 22182,
+        "state": "open"
+      }
+    ]
+  },
+  "image_id": "sha256:1de715f951a3fc013cabad66407b87028bc2a5af6e58efdea5338b4cf9fb1485",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "d02af8fc5d55fea76ba0669e775cdb20b84e33ae4e41042eefa2fe1d59f52e50",
+  "run_index": 30,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-issue_prs-a6ff7f3ad8",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 63663,
+    "cost_usd": 0.0122913,
+    "input_tokens": 64854,
+    "output_tokens": 714
+  },
+  "violations": []
+}

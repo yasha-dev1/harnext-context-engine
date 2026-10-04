@@ -1,0 +1,27 @@
+diff --git a/connect/runtime/src/main/java/org/apache/kafka/connect/storage/KafkaStatusBackingStore.java b/connect/runtime/src/main/java/org/apache/kafka/connect/storage/KafkaStatusBackingStore.java
+index 20f47db2262a42ebc3caa8c515d7aaf95c89ad05..c668bb21952cb1965091544348383541cdb89db8 100644
+--- a/connect/runtime/src/main/java/org/apache/kafka/connect/storage/KafkaStatusBackingStore.java
++++ b/connect/runtime/src/main/java/org/apache/kafka/connect/storage/KafkaStatusBackingStore.java
+@@ -588,6 +588,22 @@ public class KafkaStatusBackingStore extends KafkaTopicBasedBackingStore impleme
+         synchronized (this) {
+             log.trace("Received task {} status update {}", id, status);
+             CacheEntry<TaskStatus> entry = getOrAdd(id);
++
++            // Ignore stale UNASSIGNED or FAILED statuses from earlier generations
++            // if the current status is RUNNING from a newer generation.
++            // This prevents inaccurate status representation during fast rebalances
++            // when a RUNNING status is followed by a delayed UNASSIGNED status
++            // from an earlier generation before the worker reads the RUNNING status.
++            TaskStatus currentStatus = entry.get();
++            if ((status.state() == TaskStatus.State.UNASSIGNED || status.state() == TaskStatus.State.FAILED)
++                    && currentStatus != null
++                    && currentStatus.state() == TaskStatus.State.RUNNING
++                    && currentStatus.generation() > status.generation()) {
++                log.debug("Ignoring stale {} status for task {} with generation {} (current RUNNING generation: {})",
++                        status.state(), id, status.generation(), currentStatus.generation());
++                return;
++            }
++
+             entry.put(status);
+         }
+     }

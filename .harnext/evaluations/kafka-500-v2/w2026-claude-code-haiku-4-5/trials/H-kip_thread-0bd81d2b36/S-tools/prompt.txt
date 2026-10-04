@@ -1,0 +1,9 @@
+Context snapshot cutoff (inclusive): 2026-02-28T23:59:59Z.
+
+Consider the mailing-list discussion of KIP-1262: the thread holding the earliest message whose subject contains "[DISCUSS] KIP-1262". Who sent that thread's first message, and how many distinct senders had posted in it by the snapshot? Return {"starter": <sender name exactly as recorded>, "participants": <integer>}.
+
+Return JSON {"value": <answer>, "evidence": [<ids or file paths of the sources you relied on>]}. Answer as of the cutoff; do not substitute a later or today's issue state.
+
+No pre-built project memory is provided. You can query time-frozen offline replicas of the project's systems of record as of the cutoff with the usual command-line tools: `gh` (pull requests, reviews, commits), `jira` (issues, comments, change history), `mail` (mailing lists). Run `<tool> --help` for the supported commands. The live internet is not reachable.
+
+Reply with one JSON object {"value": ..., "evidence": [...]}: `value` is the answer in the requested type (null if it cannot be determined), `evidence` lists the sources you relied on.

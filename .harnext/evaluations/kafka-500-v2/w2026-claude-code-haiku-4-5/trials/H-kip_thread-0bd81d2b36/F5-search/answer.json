@@ -1,0 +1,11 @@
+{
+  "evidence": [
+    "INDEX.md shows 'Thread: KIP-1262 Discussion | thread | 2026-02-26T20:47:03Z | Enable auto-formatting directories (3 messages through 2026-02-26T20:47:03Z)'",
+    "entities/thread/CACvVgwGtqLAOzTb2ffjWecS_NvJGZH4Fuupg9xXAyUj9_ocUHg_mail.gmail.com - Contains Re: [DISCUSS] KIP-1262 thread but not the original [DISCUSS] thread",
+    "The original [DISCUSS] KIP-1262 thread facts file could not be located in search results"
+  ],
+  "value": {
+    "participants": 3,
+    "starter": "Unknown"
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "kips/KIP-1266/mail-fae59ef23c15af1ca719cef5-f1967464.md",
+      "kips/KIP-1266/2026-01-12-mail-discuss-remote-log-metadata-3c39548c.md",
+      "kips/KIP-1266/2026-01-14-mail-d0eb8ce129ffef70296f85a7-de7d95c0.md",
+      "kips/KIP-1266/2026-01-15-mail-d42ec61c1696ad3122663d8a-ab534859.md",
+      "kips/KIP-1266/2026-01-18-mail-422fb6a7.md",
+      "kips/KIP-1266/2026-01-20-mail-b3176fec.md",
+      "kips/KIP-1266/2026-03-06-mail-09bc95d778f7d18b9e28a519-a200c8d3.md",
+      "kips/KIP-1266/2026-03-30-mail-0b65a9cc-aed6f035.md",
+      "kips/KIP-1266/2026-03-31-mail-3db35274-9aaad341.md",
+      "kips/KIP-1266/2026-03-31-mail-e268f29a-00bec1dc.md"
+    ],
+    "value": {
+      "participants": 4,
+      "starter": "Lijun Tong"
+    }
+  },
+  "arm": "F2-search",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 64.67503999300243,
+  "family": "kip_thread",
+  "grade": {
+    "actual": {
+      "participants": 4,
+      "starter": "Lijun Tong"
+    },
+    "correct": true,
+    "evidence": [
+      "kips/KIP-1266/mail-fae59ef23c15af1ca719cef5-f1967464.md",
+      "kips/KIP-1266/2026-01-12-mail-discuss-remote-log-metadata-3c39548c.md",
+      "kips/KIP-1266/2026-01-14-mail-d0eb8ce129ffef70296f85a7-de7d95c0.md",
+      "kips/KIP-1266/2026-01-15-mail-d42ec61c1696ad3122663d8a-ab534859.md",
+      "kips/KIP-1266/2026-01-18-mail-422fb6a7.md",
+      "kips/KIP-1266/2026-01-20-mail-b3176fec.md",
+      "kips/KIP-1266/2026-03-06-mail-09bc95d778f7d18b9e28a519-a200c8d3.md",
+      "kips/KIP-1266/2026-03-30-mail-0b65a9cc-aed6f035.md",
+      "kips/KIP-1266/2026-03-31-mail-3db35274-9aaad341.md",
+      "kips/KIP-1266/2026-03-31-mail-e268f29a-00bec1dc.md"
+    ],
+    "expected": {
+      "participants": 4,
+      "starter": "Lijun Tong"
+    }
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 5,
+  "prompt_sha256": "ff8ac0d5956021421b4ba1718090c5ced7240200c47796132ee623df9b438c13",
+  "run_index": 43,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-kip_thread-723b6cf85c",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 114550,
+    "cost_usd": 0.037575,
+    "input_tokens": 120770,
+    "output_tokens": 2745
+  },
+  "violations": []
+}

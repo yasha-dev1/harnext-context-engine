@@ -1,0 +1,3 @@
+{
+  "summary": "Implemented KAFKA-20368 by replacing HashMap with LinkedHashMap for deterministic metric tags ordering in RLMExpirationTask. This ensures metric tags (topic, partition) maintain a consistent order in JMX metrics. All 90 RemoteLogManagerTest tests pass successfully."
+}

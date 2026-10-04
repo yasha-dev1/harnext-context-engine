@@ -1,0 +1,11 @@
+{
+  "evidence": [
+    "No network access available",
+    "No local project context provided",
+    "Working directory is not a git repository",
+    "No file sources available to query PR #22177 approval state"
+  ],
+  "value": [
+    "null"
+  ]
+}

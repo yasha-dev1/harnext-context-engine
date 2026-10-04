@@ -1,0 +1,51 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "pull-requests.md - PR #22085, #21999, #21998 (mjsax approvals)",
+      "pull-requests.md - PR #21511, #21513, #21527 (frankvicky approvals - tied at 3)"
+    ],
+    "value": "mjsax"
+  },
+  "arm": "F4-topic-search",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 141.5426880120067,
+  "family": "top_reviewer_for_author",
+  "grade": {
+    "actual": "mjsax",
+    "correct": true,
+    "evidence": [
+      "pull-requests.md - PR #22085, #21999, #21998 (mjsax approvals)",
+      "pull-requests.md - PR #21511, #21513, #21527 (frankvicky approvals - tied at 3)"
+    ],
+    "expected": "mjsax"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "64ca4c6afd65993cfd2bfeff0514fbda1e6c8966ced33316f16bc9be94a769c5",
+  "run_index": 30,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-top_reviewer_for_author-39fcac1803",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 64194,
+    "cost_usd": 0.029904399999999998,
+    "input_tokens": 66510,
+    "output_tokens": 3776
+  },
+  "violations": []
+}

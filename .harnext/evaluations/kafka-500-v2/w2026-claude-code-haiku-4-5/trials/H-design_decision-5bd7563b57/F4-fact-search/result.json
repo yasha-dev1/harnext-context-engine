@@ -1,0 +1,51 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "store/WINDOW-85-SUMMARY.md:86",
+      "store/discussions/kip-1282-prevent-data-loss-partition-expansion.md:40"
+    ],
+    "value": "GroupCreationTimeNotAvailableException"
+  },
+  "arm": "F4-fact-search",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 59.27825442000176,
+  "family": "design_decision",
+  "grade": {
+    "actual": "GroupCreationTimeNotAvailableException",
+    "correct": false,
+    "evidence": [
+      "store/WINDOW-85-SUMMARY.md:86",
+      "store/discussions/kip-1282-prevent-data-loss-partition-expansion.md:40"
+    ],
+    "expected": "GroupCreationTimeUnknownException"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "bdf564cadeab292048cd986f9016c7cc42a654791b8287d8c17f91b0f7696dcb",
+  "run_index": 65,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-5bd7563b57",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 64105,
+    "cost_usd": 0.0122765,
+    "input_tokens": 65369,
+    "output_tokens": 673
+  },
+  "violations": []
+}

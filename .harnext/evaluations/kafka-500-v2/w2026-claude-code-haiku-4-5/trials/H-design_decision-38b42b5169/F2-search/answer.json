@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "kips/KIP-1285/2026-02-23-discuss-KIP-1285-DSL-header-aware-state-stores-a75c98ed.md",
+    "kips/KIP-1285/2026-02-23-discuss-KIP-1285-DSL-header-aware-state-stores-2378b0e1.md"
+  ],
+  "value": "dsl.store.format"
+}

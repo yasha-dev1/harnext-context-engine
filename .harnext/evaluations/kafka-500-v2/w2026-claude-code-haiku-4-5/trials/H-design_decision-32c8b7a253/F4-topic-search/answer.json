@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "discussions.md (lines 633-638): KIP-1181 Metadata changes (now incorporated into KIP-1163)",
+    "index.md (line 533): metadata changes from KIP-1181 now included in KIP-1163"
+  ],
+  "value": "deprecated and merged into the main proposal"
+}

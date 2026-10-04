@@ -1,0 +1,50 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "WINDOW-4-SUMMARY.md"
+    ],
+    "value": 0
+  },
+  "arm": "F4-fact-search",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 63.57942594800261,
+  "family": "reopen_count",
+  "grade": {
+    "actual": 0,
+    "correct": true,
+    "evidence": [
+      "WINDOW-4-SUMMARY.md"
+    ],
+    "expected": 0
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 4,
+  "prompt_sha256": "d36406fed07fbe91c563a5566b90ee68913cf0ac780e59b4cb86af32cac8697d",
+  "run_index": 37,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-reopen_count-db0c65201a",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 87842,
+    "cost_usd": 0.019573200000000002,
+    "input_tokens": 91224,
+    "output_tokens": 812
+  },
+  "violations": []
+}

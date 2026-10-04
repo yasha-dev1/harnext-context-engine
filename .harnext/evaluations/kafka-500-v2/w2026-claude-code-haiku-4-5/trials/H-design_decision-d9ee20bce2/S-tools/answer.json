@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "mail thread CABfG-YZZ+yHdbvjytYKxhMkvZNC+NXbzXGdKPgv4nsL96o-Fow@mail.gmail.com (KIP-1266 discussion)",
+    "Lijun Tong's response 2026-01-16T06:45:00Z explicitly rejecting delete policy in final configuration",
+    "Lijun Tong's final response 2026-01-20T01:59:54Z confirming cleanup policy change to compact"
+  ],
+  "value": "compact"
+}

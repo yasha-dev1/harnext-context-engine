@@ -1,0 +1,9 @@
+{
+  "evidence": [
+    "_intake/2026/03/17/github-api-apache-kafka-pr-21785-merged-8cd730f8.md"
+  ],
+  "value": [
+    "server-common/src/main/java/org/apache/kafka/server/share/dlq/ShareGroupDLQ.java",
+    "server/src/main/java/org/apache/kafka/server/share/fetch/RecordState.java"
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "The Harnext context filesystem does not contain information about KAFKA-19964. The context has been maintained through builds that processed events up to 2026-03-31T23:59:59Z and contains 371+ JIRA issues, but focuses primarily on issues in the KAFKA-20000 range. KAFKA-19964 is not present in the available context data."
+  ],
+  "value": []
+}

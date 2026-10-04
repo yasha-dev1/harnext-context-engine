@@ -1,0 +1,9 @@
+{
+  "evidence": [
+    "issues/KAFKA-20336/2026-04-28-jira-change-13645437-23039645-0-71ebcb36.md",
+    "issues/KAFKA-20336/2026-04-28-jira-change-13645437-23039170-0-f0a277e6.md"
+  ],
+  "value": [
+    "3.6.0"
+  ]
+}

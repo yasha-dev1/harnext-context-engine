@@ -1,0 +1,12 @@
+{
+  "evidence": [
+    "issues/kafka-20255-refactor-dsl-store-config-and-propagate-dslstoreformat.md"
+  ],
+  "value": [
+    {
+      "at": "2026-03-05T09:40:54.000000Z",
+      "from": null,
+      "to": "Fixed"
+    }
+  ]
+}

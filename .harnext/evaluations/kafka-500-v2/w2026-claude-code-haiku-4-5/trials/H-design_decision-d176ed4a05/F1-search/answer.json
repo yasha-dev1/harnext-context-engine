@@ -1,0 +1,9 @@
+{
+  "evidence": [
+    "entities/kip/KIP-1331 — discussion history from 2026-05-04 through 2026-05-29",
+    "entities/issue/KAFKA-20618 — Streams Group Topology Description Plugin",
+    "entities/issue/KAFKA-20620 — Add StreamsGroupTopologyDescriptionUpdate RPC schema",
+    "entities/pr/22397 — StreamsGroupTopologyDescriptionUpdate RPC schema PR with Lucas Brutschy review on StreamsGroupDescribeRequest.json"
+  ],
+  "value": null
+}

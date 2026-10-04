@@ -1,0 +1,9 @@
+{
+  "evidence": [
+    "mail:44843036d638b29f0550d70c",
+    "mail:3ff994af98687f284b08fecb",
+    "mail:b32b985603ecf53569b819c6",
+    "mail:5d73dbf07c94c92bd8490ec2"
+  ],
+  "value": "Admin.addTopicsToMirror/Admin.removeTopicsFromMirror"
+}

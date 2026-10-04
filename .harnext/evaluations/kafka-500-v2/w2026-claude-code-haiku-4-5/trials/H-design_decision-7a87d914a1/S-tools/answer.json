@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "dev@kafka.apache.org mailing list thread on KIP-1270, message from Lucas Brutschy dated 2026-02-20T09:41:00Z suggesting the config name",
+    "dev@kafka.apache.org mailing list thread on KIP-1270, message from Arpit Goyal dated 2026-02-20T10:21:56Z confirming he updated the KIP with the feedback",
+    "dev@kafka.apache.org mailing list thread on KIP-1270, message from Matthias J. Sax dated 2026-02-24T00:11:47Z confirming LGTM"
+  ],
+  "value": "processing.exception.handler.global.enabled"
+}

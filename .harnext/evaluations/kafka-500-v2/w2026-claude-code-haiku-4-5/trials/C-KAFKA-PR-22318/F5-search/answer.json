@@ -1,0 +1,3 @@
+{
+  "summary": "{\"summary\": \"Implemented ReadOnlyView for MeteredWindowStore (KAFKA-20497) by adding a readOnly(IsolationLevel) method that returns a custom ReadOnlyWindowStore<K, V> view. The view applies proper metering, key/value deserialization, and iterator tracking to all read operations (fetch, backwardFetch, fetchAll, backwardFetchAll, all, backwardAll). The implementation follows existing metering patterns in MeteredWindowStore and passes all tests.\"}"
+}

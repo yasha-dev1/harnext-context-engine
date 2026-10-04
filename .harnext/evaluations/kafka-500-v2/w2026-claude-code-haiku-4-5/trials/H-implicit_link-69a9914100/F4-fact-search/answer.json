@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "store/issues/kafka-20552-support-log-segments-larger-2gb.md"
+  ],
+  "value": "KAFKA-20552"
+}

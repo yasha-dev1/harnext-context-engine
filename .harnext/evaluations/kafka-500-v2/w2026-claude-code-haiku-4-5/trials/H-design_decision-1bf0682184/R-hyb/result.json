@@ -1,0 +1,52 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail:bfae351428945364a45fb155#0 (Lucas Brutschy response, 2026-05-11T13:09:31Z, explicitly states: 'Changed back to group.streams.topology.description.plugin.class')",
+      "mail:a7acb9c0ce17a9a47fb25c00#0 (KAFKA-20630 documentation task, 2026-05-27T16:22:00Z, lists configuration as 'group.streams.topology.description.plugin.class')"
+    ],
+    "value": "group.streams.topology.description.plugin.class"
+  },
+  "arm": "R-hyb",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 42.53031758998986,
+  "family": "design_decision",
+  "grade": {
+    "actual": "group.streams.topology.description.plugin.class",
+    "correct": true,
+    "evidence": [
+      "mail:bfae351428945364a45fb155#0 (Lucas Brutschy response, 2026-05-11T13:09:31Z, explicitly states: 'Changed back to group.streams.topology.description.plugin.class')",
+      "mail:a7acb9c0ce17a9a47fb25c00#0 (KAFKA-20630 documentation task, 2026-05-27T16:22:00Z, lists configuration as 'group.streams.topology.description.plugin.class')"
+    ],
+    "expected": "group.streams.topology.description.plugin.class"
+  },
+  "instructions_sha256": "dfaa5b284d06c378ef7e4c08b53dc77835c91d7591fca0335bbfa33d3e53eb37",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 7,
+  "prompt_sha256": "8872d418ad9abb41b70a4b669ee78c9d6f7610c294c9198355c7569ccebab4d8",
+  "run_index": 74,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-1bf0682184",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__read_event": 2,
+    "mcp__history__search": 3
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 178137,
+    "cost_usd": 0.06857970000000001,
+    "input_tokens": 198992,
+    "output_tokens": 1823
+  },
+  "violations": []
+}

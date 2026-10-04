@@ -1,0 +1,80 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail:1c0b316b9c6624add1f97d07",
+      "mail:cc6691acddb4132e5b46a141",
+      "mail:56a76d3a2f1c08227d88d1f4"
+    ],
+    "value": "varint"
+  },
+  "arm": "H-engine",
+  "checkpoint": "2026-01",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 198.20238120700014,
+  "engine": {
+    "calls": 2,
+    "chat": {
+      "calls": 20,
+      "cancelled": 1,
+      "cost_usd": 0.00263027,
+      "input_tokens": 112421,
+      "output_tokens": 2318,
+      "retries": 0
+    },
+    "cost_usd": 0.00497345,
+    "discarded_attempts": 0,
+    "jev": {
+      "calls": 29,
+      "cancelled": 0,
+      "cost_usd": 0.00234318,
+      "input_tokens": 55790,
+      "output_tokens": 10277,
+      "retries": 0
+    },
+    "partial": 1,
+    "provider_retry_usd": 0,
+    "seconds": 172.806,
+    "unmetered_upper_usd": 0.00029189,
+    "waited_s": 0
+  },
+  "family": "design_decision",
+  "grade": {
+    "actual": "varint",
+    "correct": true,
+    "evidence": [
+      "mail:1c0b316b9c6624add1f97d07",
+      "mail:cc6691acddb4132e5b46a141",
+      "mail:56a76d3a2f1c08227d88d1f4"
+    ],
+    "expected": "varint"
+  },
+  "image_id": "sha256:4615b2564319d58319029548af66970c954e128401ee89c8705684861de4bc07",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 4,
+  "prompt_sha256": "52b003d6bb7165fc3f2e184e3979cbdc93523006e74d4671bac8b969c7517fcf",
+  "run_index": 56,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-9afbb2a368",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 2
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 82144,
+    "cost_usd": 0.0324344,
+    "input_tokens": 90539,
+    "output_tokens": 1493
+  },
+  "violations": []
+}

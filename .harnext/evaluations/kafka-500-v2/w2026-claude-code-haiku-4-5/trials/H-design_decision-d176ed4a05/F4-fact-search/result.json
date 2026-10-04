@@ -1,0 +1,54 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "prs/22393-kafka-20618-kip-1331-topology-description-poc.md",
+      "issues/kafka-20621-topology-epoch-metadata.md",
+      "discussions/kip-1331-streams-topology-description-plugin.md"
+    ],
+    "value": "removed entirely, identified by topologyEpoch and group creation timestamp instead"
+  },
+  "arm": "F4-fact-search",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 160.5035657390108,
+  "family": "design_decision",
+  "grade": {
+    "actual": "removed entirely, identified by topologyEpoch and group creation timestamp instead",
+    "correct": true,
+    "evidence": [
+      "prs/22393-kafka-20618-kip-1331-topology-description-poc.md",
+      "issues/kafka-20621-topology-epoch-metadata.md",
+      "discussions/kip-1331-streams-topology-description-plugin.md"
+    ],
+    "expected": "removed entirely, identified by topologyEpoch and group creation timestamp instead"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 23,
+  "prompt_sha256": "018ac1c4ab53b76ad23ee530b458b852a78cf1d4522c8fee03f7905e1d076ddc",
+  "run_index": 75,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-d176ed4a05",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 19
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 805685,
+    "cost_usd": 0.16638350000000002,
+    "input_tokens": 837732,
+    "output_tokens": 4382
+  },
+  "violations": []
+}

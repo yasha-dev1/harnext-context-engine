@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "kips/KIP-1279/2026-02-20-mail-0a9bb7f24cac428cae178e83-bda1e11a.md"
+  ],
+  "value": "Long.MAX_VALUE - sourceProducerId - 1"
+}

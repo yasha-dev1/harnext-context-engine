@@ -1,0 +1,3 @@
+{
+  "summary": "Successfully implemented readOnly() method and ReadOnlyView inner class for MeteredWindowStore to provide a custom read-only view that applies metering domain logic (serialization, deserialization, and metric recording) on the wrapped store's read-only view. All 34 MeteredWindowStoreTest tests pass, including the new readOnly-related tests. The implementation follows KAFKA-20497 requirements by providing custom ReadOnlyView implementations for wrapper stores that maintain their own state (like caching and metering)."
+}

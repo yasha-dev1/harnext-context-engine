@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "store/window-86-summary.md (lines 289-290) - shows KAFKA-19701 with comment activity but no assignee information",
+    "store/window-90-summary.md (lines 162-164) - KAFKA-19701 linked to PR #22000, no assignment indicated",
+    "store/window-106-summary.md (line 302) - last activity on KAFKA-19701 on 2026-04-30T21:01:19Z with no assignment indicated"
+  ],
+  "value": null
+}

@@ -1,0 +1,9 @@
+Context snapshot cutoff (inclusive): 2026-05-31T23:59:59Z.
+
+In the Diskless Core design discussion, the participants debated whether diskless topics should keep depending on the existing tiered-storage remote log metadata manager (RLMM) for their segment/object metadata, or use a separate metadata component. As of the final agreement reached in this thread, which approach was settled on? Answer with one of: "reuse the existing RLMM for diskless metadata", "build a new metadata component independent of RLMM". Answer with exactly one of: "reuse the existing RLMM for diskless metadata", "build a new metadata component independent of RLMM". Give the decision as it stood at the snapshot, not an earlier proposal.
+
+Return JSON {"value": <answer>, "evidence": [<ids or file paths of the sources you relied on>]}. Answer as of the cutoff; do not substitute a later or today's issue state.
+
+The MCP server `history` holds the project's recorded history up to the cutoff. It has two tools: `context_research(question)` asks Harnext's research agent, which reads the stored context and returns a cited report; `search_context(query, k)` returns the best-matching stored passages with their file paths, for you to read yourself. Nothing later than the cutoff is in it and there is no network access.
+
+Reply with one JSON object {"value": ..., "evidence": [...]}: `value` is the answer in the requested type (null if it cannot be determined), `evidence` lists the sources you relied on.

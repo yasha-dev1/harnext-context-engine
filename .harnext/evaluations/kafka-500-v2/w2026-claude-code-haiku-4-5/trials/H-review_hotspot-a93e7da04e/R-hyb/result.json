@@ -1,0 +1,56 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86zt69y",
+      "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86zuDQF",
+      "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86zvq-7",
+      "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86zvqsz"
+    ],
+    "value": "server-common/src/main/java/org/apache/kafka/server/util/timer/SystemTimerReaper.java"
+  },
+  "arm": "R-hyb",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 64.56796765099716,
+  "family": "review_hotspot",
+  "grade": {
+    "actual": "server-common/src/main/java/org/apache/kafka/server/util/timer/SystemTimerReaper.java",
+    "correct": true,
+    "evidence": [
+      "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86zt69y",
+      "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86zuDQF",
+      "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86zvq-7",
+      "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86zvqsz"
+    ],
+    "expected": "server-common/src/main/java/org/apache/kafka/server/util/timer/SystemTimerReaper.java"
+  },
+  "instructions_sha256": "dfaa5b284d06c378ef7e4c08b53dc77835c91d7591fca0335bbfa33d3e53eb37",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 11,
+  "prompt_sha256": "b64d8d9d8d65bde1de8e36224ffb6039773231606984cb01b6360c70677b458e",
+  "run_index": 55,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-review_hotspot-a93e7da04e",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__read_event": 4,
+    "mcp__history__search": 7
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 378493,
+    "cost_usd": 0.1356493,
+    "input_tokens": 419302,
+    "output_tokens": 3255
+  },
+  "violations": []
+}

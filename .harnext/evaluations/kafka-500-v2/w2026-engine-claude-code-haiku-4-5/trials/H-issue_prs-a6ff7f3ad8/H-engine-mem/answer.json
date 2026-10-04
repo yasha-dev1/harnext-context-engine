@@ -1,0 +1,18 @@
+{
+  "evidence": [
+    "github:api:apache/kafka:pr-22041-opened",
+    "github:api:apache/kafka:pr-22182-opened",
+    "entities/issue/KAFKA-20440/OVERVIEW.md",
+    "entities/issue/KAFKA-20440/timeline.md"
+  ],
+  "value": [
+    {
+      "pr": 22041,
+      "state": "open"
+    },
+    {
+      "pr": 22182,
+      "state": "open"
+    }
+  ]
+}

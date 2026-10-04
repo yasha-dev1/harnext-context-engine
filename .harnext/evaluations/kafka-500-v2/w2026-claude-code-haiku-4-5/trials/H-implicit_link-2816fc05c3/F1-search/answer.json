@@ -1,0 +1,9 @@
+{
+  "evidence": [
+    "entities/issue/KAFKA-20186/OVERVIEW.md",
+    "entities/issue/KAFKA-20186/timeline.md",
+    "entities/kip/KIP-1279/timeline.md",
+    "entities/thread/CAMeNjWJ28d1670e424eKLFym79z826O1AT-pBztGg8OJakPqnw-mail.gmail.com-74954004/OVERVIEW.md"
+  ],
+  "value": "KAFKA-20186"
+}

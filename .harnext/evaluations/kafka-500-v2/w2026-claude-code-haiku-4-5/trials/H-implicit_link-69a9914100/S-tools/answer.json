@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "mail thread 112a535ad8c4fa1e9928d615 (mailing list message from Haifeng Chen on 2026-05-05)",
+    "jira issue KAFKA-20552 (Support log segments larger than 2 GB, created 2026-05-05 by Haifeng Chen, references KIP-1333)"
+  ],
+  "value": "KAFKA-20552"
+}

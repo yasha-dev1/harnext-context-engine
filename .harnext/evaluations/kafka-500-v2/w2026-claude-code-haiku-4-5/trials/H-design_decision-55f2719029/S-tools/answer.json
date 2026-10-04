@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "f7476bc5df952b32c1079dd3 (Viktor Somogyi-Vass, 2026-04-24T13:46:02Z): KIP-1163 discussion where Viktor states that 'list' can stay eventually consistent for garbage collection, while get and put must be strongly consistent"
+  ],
+  "value": "list"
+}

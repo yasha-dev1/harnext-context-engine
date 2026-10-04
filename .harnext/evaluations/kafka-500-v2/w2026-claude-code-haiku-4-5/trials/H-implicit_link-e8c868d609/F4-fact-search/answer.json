@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "discussions/kip-1348-logandcontinue-production-exception-handler.md",
+    "issues/kafka-20604-kip-1348-log-and-continue-production-exception-handler.md"
+  ],
+  "value": "KAFKA-20604"
+}

@@ -1,0 +1,56 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail id 8ea2d404f2c259c3934f9386 (2026-05-14T17:08:35Z Kevin Wu)",
+      "mail id 0f2639ff8155c501d54c3ee4 (2026-05-14T17:53:13Z Tony Tang)",
+      "KAFKA-20513 (KIP-1322 discussion)"
+    ],
+    "value": "always report regardless of state"
+  },
+  "arm": "S-tools",
+  "checkpoint": "2026-05",
+  "cli_calls": {
+    "gh": 10,
+    "jira": 8,
+    "mail": 4
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 98.4957163999934,
+  "family": "design_decision",
+  "grade": {
+    "actual": "always report regardless of state",
+    "correct": true,
+    "evidence": [
+      "mail id 8ea2d404f2c259c3934f9386 (2026-05-14T17:08:35Z Kevin Wu)",
+      "mail id 0f2639ff8155c501d54c3ee4 (2026-05-14T17:53:13Z Tony Tang)",
+      "KAFKA-20513 (KIP-1322 discussion)"
+    ],
+    "expected": "always report regardless of state"
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 13,
+  "prompt_sha256": "35635f1d878a50389fb646f78632ce75e54d005b0b27da470557ea3a5fbcc591",
+  "run_index": 71,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-7169fd1b2b",
+  "tool_calls": {
+    "Bash": 22,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 319699,
+    "cost_usd": 0.1078299,
+    "input_tokens": 349744,
+    "output_tokens": 3175
+  },
+  "violations": []
+}

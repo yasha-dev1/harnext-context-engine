@@ -1,0 +1,53 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "Knowledge cutoff: February 2025 (task references April 2026 event)",
+      "No network access available",
+      "No local project files or mailing list archives provided",
+      "Cannot determine JIRA issue tracking KIP-1324 discussion"
+    ],
+    "value": null
+  },
+  "arm": "N",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 6.002512407998438,
+  "family": "implicit_link",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "Knowledge cutoff: February 2025 (task references April 2026 event)",
+      "No network access available",
+      "No local project files or mailing list archives provided",
+      "Cannot determine JIRA issue tracking KIP-1324 discussion"
+    ],
+    "expected": "KAFKA-20525"
+  },
+  "instructions_sha256": null,
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 1,
+  "prompt_sha256": "7cce6f1fae47b148beb85e7e23a7e7fb6a072cf08d0fcee02e08e7694d5eb274",
+  "run_index": 11,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-implicit_link-a50314bc94",
+  "tool_calls": {
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 17497,
+    "cost_usd": 0.0102747,
+    "input_tokens": 20639,
+    "output_tokens": 450
+  },
+  "violations": []
+}

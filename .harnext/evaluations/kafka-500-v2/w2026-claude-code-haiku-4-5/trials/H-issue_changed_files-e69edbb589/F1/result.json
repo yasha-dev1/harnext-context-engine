@@ -1,0 +1,60 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "store/entities/pr/21785/OVERVIEW.md",
+      "store/entities/pr/21785/timeline.md",
+      "store/entities/issue/KAFKA-20245/timeline.md"
+    ],
+    "value": [
+      "server-common/src/main/java/org/apache/kafka/server/share/dlq/ShareGroupDLQ.java"
+    ]
+  },
+  "arm": "F1",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 153.6209426819987,
+  "family": "issue_changed_files",
+  "grade": {
+    "actual": [
+      "server-common/src/main/java/org/apache/kafka/server/share/dlq/ShareGroupDLQ.java"
+    ],
+    "correct": false,
+    "evidence": [
+      "store/entities/pr/21785/OVERVIEW.md",
+      "store/entities/pr/21785/timeline.md",
+      "store/entities/issue/KAFKA-20245/timeline.md"
+    ],
+    "expected": [
+      "server-common/src/main/java/org/apache/kafka/server/share/dlq/ShareGroupDLQ.java",
+      "server/src/main/java/org/apache/kafka/server/share/fetch/RecordState.java"
+    ]
+  },
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 6,
+  "prompt_sha256": "d2859b4add5e0ee9dfe8b7d0d38fca4277ee5bbc2a2b26a39a4861f4572452fc",
+  "run_index": 59,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-issue_changed_files-e69edbb589",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 4
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 110807,
+    "cost_usd": 0.0668287,
+    "input_tokens": 134959,
+    "output_tokens": 1499
+  },
+  "violations": []
+}

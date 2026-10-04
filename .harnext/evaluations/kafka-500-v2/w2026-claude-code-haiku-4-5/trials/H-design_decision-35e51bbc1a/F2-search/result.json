@@ -1,0 +1,53 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "kips/KIP-1279/2026-04-15-discuss-cluster-mirroring-d1515ee7.md",
+      "mail/2026-04-03-mail-3da03c7762b02a3dc6d931ae-3cd2d5a4.md",
+      "kips/KIP-1279/2026-04-07-mail-9733e74f5415b581f89213be-756d0d01.md"
+    ],
+    "value": "destination cluster default replication factor"
+  },
+  "arm": "F2-search",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 47.27364988499903,
+  "family": "design_decision",
+  "grade": {
+    "actual": "destination cluster default replication factor",
+    "correct": true,
+    "evidence": [
+      "kips/KIP-1279/2026-04-15-discuss-cluster-mirroring-d1515ee7.md",
+      "mail/2026-04-03-mail-3da03c7762b02a3dc6d931ae-3cd2d5a4.md",
+      "kips/KIP-1279/2026-04-07-mail-9733e74f5415b581f89213be-756d0d01.md"
+    ],
+    "expected": "destination cluster default replication factor"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "7059419a5fbd1c69f4c973328befcb30a4eb935b4d3465354451298aa4b7d9d5",
+  "run_index": 68,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-35e51bbc1a",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 64141,
+    "cost_usd": 0.014411100000000001,
+    "input_tokens": 65553,
+    "output_tokens": 1040
+  },
+  "violations": []
+}

@@ -1,0 +1,73 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "entities/issue/KAFKA-20185/OVERVIEW.md"
+    ],
+    "value": null
+  },
+  "arm": "H-engine-mem",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 85.78288920900013,
+  "engine": {
+    "calls": 1,
+    "chat": {
+      "calls": 15,
+      "cancelled": 0,
+      "cost_usd": 0.00068534,
+      "input_tokens": 30523,
+      "output_tokens": 1141,
+      "retries": 0
+    },
+    "cost_usd": 0.00146616,
+    "jev": {
+      "calls": 11,
+      "cancelled": 0,
+      "cost_usd": 0.00078082,
+      "input_tokens": 18591,
+      "output_tokens": 3468,
+      "retries": 0
+    },
+    "partial": 1,
+    "seconds": 72.146,
+    "unmetered_upper_usd": 0
+  },
+  "family": "priority_at_snapshot",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "entities/issue/KAFKA-20185/OVERVIEW.md"
+    ],
+    "expected": "Blocker"
+  },
+  "image_id": "sha256:a75ed05ffc6eace9ec0ed4705d31b20aa2579267b3e737b4f61017882112ea66",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "019080167fd7afbd012244f778e8fd9130a398818ed61353672f9984a69e1e04",
+  "run_index": 21,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-priority_at_snapshot-fdda08ba87",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 42387,
+    "cost_usd": 0.0510797,
+    "input_tokens": 64256,
+    "output_tokens": 626
+  },
+  "violations": []
+}

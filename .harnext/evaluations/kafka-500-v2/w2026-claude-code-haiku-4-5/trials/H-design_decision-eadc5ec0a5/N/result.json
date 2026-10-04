@@ -1,0 +1,48 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "No project files found in /workspace. My knowledge cutoff (February 2025) is before the snapshot cutoff (March 31, 2026). No network access available to locate this proposal."
+    ],
+    "value": null
+  },
+  "arm": "N",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 11.169753242997103,
+  "family": "design_decision",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "No project files found in /workspace. My knowledge cutoff (February 2025) is before the snapshot cutoff (March 31, 2026). No network access available to locate this proposal."
+    ],
+    "expected": "UUID"
+  },
+  "instructions_sha256": null,
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "79cd6b449cf141ec53905ef3df46faf18e91549c91a00795c3a2c779a2547512",
+  "run_index": 49,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-eadc5ec0a5",
+  "tool_calls": {
+    "Bash": 2,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 59086,
+    "cost_usd": 0.0170436,
+    "input_tokens": 62796,
+    "output_tokens": 748
+  },
+  "violations": []
+}

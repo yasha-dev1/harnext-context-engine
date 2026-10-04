@@ -1,0 +1,53 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "events/2026/02/23/github-api-apache-kafka-pr-21555-opened-92a8cbec.md",
+      "events/2026/02/24/github-api-apache-kafka-review-comment-PRRC_kwDOACG9q86plOY3-bf4ab17a.md",
+      "events/2026/03/01/mail-4f7fd3d7ae5bfb5b7fd2a661-eccd0f4d.md"
+    ],
+    "value": "group.coordinator.background.threads"
+  },
+  "arm": "F0-search",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 60.72717832800117,
+  "family": "design_decision",
+  "grade": {
+    "actual": "group.coordinator.background.threads",
+    "correct": true,
+    "evidence": [
+      "events/2026/02/23/github-api-apache-kafka-pr-21555-opened-92a8cbec.md",
+      "events/2026/02/24/github-api-apache-kafka-review-comment-PRRC_kwDOACG9q86plOY3-bf4ab17a.md",
+      "events/2026/03/01/mail-4f7fd3d7ae5bfb5b7fd2a661-eccd0f4d.md"
+    ],
+    "expected": "group.coordinator.background.threads"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "b205f0bb27a3e114953daf338bceea7b187b3a561abc6ca59f2491d9daeaf311",
+  "run_index": 51,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-44f6b97acb",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 60470,
+    "cost_usd": 0.021031,
+    "input_tokens": 65743,
+    "output_tokens": 893
+  },
+  "violations": []
+}

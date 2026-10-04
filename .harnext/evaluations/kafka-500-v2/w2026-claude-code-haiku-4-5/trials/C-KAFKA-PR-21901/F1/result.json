@@ -1,0 +1,132 @@
+{
+  "agent": "claude-code",
+  "answer": null,
+  "arm": "F1",
+  "checkpoint": "2026-02",
+  "cli_calls": {
+    "git": 2
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 528.6502208270031,
+  "family": "pr_implementation",
+  "grade": {
+    "counts": {
+      "passed": 44
+    },
+    "dropped_paths": [
+      "streams/src/test/java/org/apache/kafka/streams/processor/internals/StoreChangelogReaderTest.java"
+    ],
+    "fail_to_pass_failed": [],
+    "graded_by": "gradle",
+    "grading_timed_out": false,
+    "gradle_returncode": 0,
+    "other_failed_tasks": [],
+    "outcomes": {
+      "org.apache.kafka.streams.processor.internals.StoreChangelogReaderTest#\"shouldInitializeChangelogAndCheckForCompletion(TaskType).type=ACTIVE\"": "passed",
+      "org.apache.kafka.streams.processor.internals.StoreChangelogReaderTest#\"shouldInitializeChangelogAndCheckForCompletion(TaskType).type=STANDBY\"": "passed",
+      "org.apache.kafka.streams.processor.internals.StoreChangelogReaderTest#\"shouldNotRegisterSameStoreMultipleTimes(TaskType).type=ACTIVE\"": "passed",
+      "org.apache.kafka.streams.processor.internals.StoreChangelogReaderTest#\"shouldNotRegisterSameStoreMultipleTimes(TaskType).type=STANDBY\"": "passed",
+      "org.apache.kafka.streams.processor.internals.StoreChangelogReaderTest#\"shouldPollWithRightTimeout(TaskType).type=ACTIVE\"": "passed",
+      "org.apache.kafka.streams.processor.internals.StoreChangelogReaderTest#\"shouldPollWithRightTimeout(TaskType).type=STANDBY\"": "passed",
+      "org.apache.kafka.streams.processor.internals.StoreChangelogReaderTest#\"shouldRequestCommittedOffsetsAndHandleTimeoutException(TaskType).type=ACTIVE\"": "passed",
+      "org.apache.kafka.streams.processor.internals.StoreChangelogReaderTest#\"shouldRequestCommittedOffsetsAndHandleTimeoutException(TaskType).type=STANDBY\"": "passed",
+      "org.apache.kafka.streams.processor.internals.StoreChangelogReaderTest#\"shouldRestoreFromBeginningAndCheckCompletion(TaskType).type=ACTIVE\"": "passed",
+      "org.apache.kafka.streams.processor.internals.StoreChangelogReaderTest#\"shouldRestoreFromBeginningAndCheckCompletion(TaskType).type=STANDBY\"": "passed",
+      "org.apache.kafka.streams.processor.internals.StoreChangelogReaderTest#\"shouldRestoreFromPositionAndCheckForCompletion(TaskType).type=ACTIVE\"": "passed",
+      "org.apache.kafka.streams.processor.internals.StoreChangelogReaderTest#\"shouldRestoreFromPositionAndCheckForCompletion(TaskType).type=STANDBY\"": "passed",
+      "org.apache.kafka.streams.processor.internals.StoreChangelogReaderTest#\"shouldSupportUnregisterChangelogAfterCompletion(TaskType).type=ACTIVE\"": "passed",
+      "org.apache.kafka.streams.processor.internals.StoreChangelogReaderTest#\"shouldSupportUnregisterChangelogAfterCompletion(TaskType).type=STANDBY\"": "passed",
+      "org.apache.kafka.streams.processor.internals.StoreChangelogReaderTest#\"shouldSupportUnregisterChangelogBeforeCompletion(TaskType).type=ACTIVE\"": "passed",
+      "org.apache.kafka.streams.processor.internals.StoreChangelogReaderTest#\"shouldSupportUnregisterChangelogBeforeCompletion(TaskType).type=STANDBY\"": "passed",
+      "org.apache.kafka.streams.processor.internals.StoreChangelogReaderTest#\"shouldSupportUnregisterChangelogBeforeInitialization(TaskType).type=ACTIVE\"": "passed",
+      "org.apache.kafka.streams.processor.internals.StoreChangelogReaderTest#\"shouldSupportUnregisterChangelogBeforeInitialization(TaskType).type=STANDBY\"": "passed",
+      "org.apache.kafka.streams.processor.internals.StoreChangelogReaderTest#\"shouldThrowIfCommittedOffsetsFail(TaskType).type=ACTIVE\"": "passed",
+      "org.apache.kafka.streams.processor.internals.StoreChangelogReaderTest#\"shouldThrowIfCommittedOffsetsFail(TaskType).type=GLOBAL\"": "passed",
+      "org.apache.kafka.streams.processor.internals.StoreChangelogReaderTest#\"shouldThrowIfCommittedOffsetsFail(TaskType).type=STANDBY\"": "passed",
+      "org.apache.kafka.streams.processor.internals.StoreChangelogReaderTest#\"shouldTriggerRestoreListenerWithOffsetZeroIfPositionThrowsTimeoutException(TaskType).type=ACTIVE\"": "passed",
+      "org.apache.kafka.streams.processor.internals.StoreChangelogReaderTest#\"shouldTriggerRestoreListenerWithOffsetZeroIfPositionThrowsTimeoutException(TaskType).type=STANDBY\"": "passed",
+      "org.apache.kafka.streams.processor.internals.StoreChangelogReaderTest#shouldCallRecordRestoreTimeAtTheEndOfRestore()": "passed",
+      "org.apache.kafka.streams.processor.internals.StoreChangelogReaderTest#shouldCheckCompletionIfPositionLargerThanEndOffset()": "passed",
+      "org.apache.kafka.streams.processor.internals.StoreChangelogReaderTest#shouldNotCallRecordRestoreTimeIfRestoreDoesNotComplete()": "passed",
+      "org.apache.kafka.streams.processor.internals.StoreChangelogReaderTest#shouldNotRegisterStoreWithoutMetadata()": "passed",
+      "org.apache.kafka.streams.processor.internals.StoreChangelogReaderTest#shouldNotThrowOnUnknownRevokedPartition()": "passed",
+      "org.apache.kafka.streams.processor.internals.StoreChangelogReaderTest#shouldNotUpdateLimitForNonSourceStandbyChangelog()": "passed",
+      "org.apache.kafka.streams.processor.internals.StoreChangelogReaderTest#shouldOnlyRestoreStandbyChangelogInUpdateStandbyState()": "passed",
+      "org.apache.kafka.streams.processor.internals.StoreChangelogReaderTest#shouldPassSuspendReasonToStandbyListener()": "passed",
+      "org.apache.kafka.streams.processor.internals.StoreChangelogReaderTest#shouldRequestEndOffsetsAndHandleTimeoutException()": "passed",
+      "org.apache.kafka.streams.processor.internals.StoreChangelogReaderTest#shouldRequestPositionAndHandleTimeoutException()": "passed",
+      "org.apache.kafka.streams.processor.internals.StoreChangelogReaderTest#shouldRestoreMultipleChangelogs()": "passed",
+      "org.apache.kafka.streams.processor.internals.StoreChangelogReaderTest#shouldRestoreToLimitInStandbyState()": "passed",
+      "org.apache.kafka.streams.processor.internals.StoreChangelogReaderTest#shouldSeekByTimestampForWindowedStoreWithoutCheckpoint()": "passed",
+      "org.apache.kafka.streams.processor.internals.StoreChangelogReaderTest#shouldSeekToBeginningForNonWindowedStoreWithoutCheckpoint()": "passed",
+      "org.apache.kafka.streams.processor.internals.StoreChangelogReaderTest#shouldSeekToBeginningWhenBrokerReturnsNullForOffsetsForTimes()": "passed",
+      "org.apache.kafka.streams.processor.internals.StoreChangelogReaderTest#shouldThrowIfEndOffsetsFail()": "passed",
+      "org.apache.kafka.streams.processor.internals.StoreChangelogReaderTest#shouldThrowIfPositionFail()": "passed",
+      "org.apache.kafka.streams.processor.internals.StoreChangelogReaderTest#shouldThrowIfRestoreCallbackThrows()": "passed",
+      "org.apache.kafka.streams.processor.internals.StoreChangelogReaderTest#shouldThrowIfUnsubscribeFail()": "passed",
+      "org.apache.kafka.streams.processor.internals.StoreChangelogReaderTest#shouldTransitState()": "passed",
+      "org.apache.kafka.streams.processor.internals.StoreChangelogReaderTest#shouldTransitStateBackToActiveRestoringAfterRemovingLastTask()": "passed"
+    },
+    "pass_to_pass_failed": [],
+    "patch_bytes": 14606,
+    "patch_empty": false,
+    "resolved": true,
+    "seconds": 148.7,
+    "similarity": {
+      "added_lines": {
+        "f1": 0.105,
+        "precision": 0.132,
+        "recall": 0.087
+      },
+      "files": {
+        "agent": 2,
+        "f1": 0.444,
+        "golden": 7,
+        "precision": 1.0,
+        "recall": 0.286,
+        "shared": 2
+      },
+      "location_recall": 0.217,
+      "removed_lines": {
+        "f1": 0.167,
+        "precision": 1.0,
+        "recall": 0.091
+      },
+      "size": {
+        "agent_added": 53,
+        "agent_removed": 1,
+        "golden_added": 80,
+        "golden_removed": 11
+      }
+    },
+    "test_compile_failed": []
+  },
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "coding",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 51,
+  "prompt_sha256": "f697aa16a78f0b0ec9fed346296d28130c4fbdd3980bc38852d4107a00ac5cde",
+  "run_index": 8,
+  "status": "completed",
+  "success": true,
+  "task_id": "C-KAFKA-PR-21901",
+  "tool_calls": {
+    "Bash": 32,
+    "Edit": 6,
+    "Read": 9,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 3
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 3977501,
+    "cost_usd": 0.6564141000000002,
+    "input_tokens": 4069827,
+    "output_tokens": 14885
+  },
+  "violations": []
+}

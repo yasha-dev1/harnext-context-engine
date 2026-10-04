@@ -1,0 +1,54 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "Workspace is empty",
+      "No project files available",
+      "No network access provided",
+      "Design discussion source document not accessible"
+    ],
+    "value": null
+  },
+  "arm": "N",
+  "checkpoint": "2026-01",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 11.87172644000384,
+  "family": "design_decision",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "Workspace is empty",
+      "No project files available",
+      "No network access provided",
+      "Design discussion source document not accessible"
+    ],
+    "expected": "metadata version"
+  },
+  "instructions_sha256": null,
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 2,
+  "prompt_sha256": "ce65b364badf591ecbef5ce7086ab7d2934b45e5141269cb8fad00aa4b61de99",
+  "run_index": 47,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-c6538d5496",
+  "tool_calls": {
+    "Bash": 2,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 38124,
+    "cost_usd": 0.0159914,
+    "input_tokens": 41847,
+    "output_tokens": 950
+  },
+  "violations": []
+}

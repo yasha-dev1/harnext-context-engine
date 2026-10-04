@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "issues/kafka-20231-rack-aware-minimum-isr.md"
+  ],
+  "value": "KAFKA-20231"
+}

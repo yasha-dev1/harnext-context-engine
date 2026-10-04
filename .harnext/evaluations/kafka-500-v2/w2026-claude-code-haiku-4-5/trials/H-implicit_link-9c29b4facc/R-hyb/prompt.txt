@@ -1,0 +1,9 @@
+Context snapshot cutoff (inclusive): 2026-02-28T23:59:59Z.
+
+On the Apache Kafka mailing list, Karl Sorensen started a thread with the subject "[DISCUSS] KIP-1290: Rack-Aware Minimum In-Sync Replicas" on 2026-02-25. Which Apache Kafka JIRA issue tracks the problem, proposal or work raised in that thread? Return the issue key (for example KAFKA-12345); null if no JIRA issue tracks it.
+
+Return JSON {"value": <answer>, "evidence": [<ids or file paths of the sources you relied on>]}. Answer as of the cutoff; do not substitute a later or today's issue state.
+
+The MCP server `history` holds the project's recorded history up to the cutoff. Use its tools (search, read_event) to consult it as you see fit; nothing later than the cutoff is in it and there is no network access.
+
+Reply with one JSON object {"value": ..., "evidence": [...]}: `value` is the answer in the requested type (null if it cannot be determined), `evidence` lists the sources you relied on.

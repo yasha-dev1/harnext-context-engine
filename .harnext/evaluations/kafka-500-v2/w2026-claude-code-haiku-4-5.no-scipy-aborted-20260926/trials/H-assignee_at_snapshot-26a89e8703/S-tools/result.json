@@ -1,0 +1,50 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "jira issue view KAFKA-19701 --history output shows assignee: Muralidhar Basani as of 2026-04-30T21:01:23Z (last update, within cutoff), with assignment history showing Muralidhar Basani became assignee on 2026-04-08T14:25:43Z with no subsequent reassignment"
+    ],
+    "value": "Muralidhar Basani"
+  },
+  "arm": "S-tools",
+  "checkpoint": "2026-04",
+  "cli_calls": {
+    "jira": 2
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 11.241665427000044,
+  "family": "assignee_at_snapshot",
+  "grade": {
+    "actual": "Muralidhar Basani",
+    "correct": true,
+    "evidence": [
+      "jira issue view KAFKA-19701 --history output shows assignee: Muralidhar Basani as of 2026-04-30T21:01:23Z (last update, within cutoff), with assignment history showing Muralidhar Basani became assignee on 2026-04-08T14:25:43Z with no subsequent reassignment"
+    ],
+    "expected": "Muralidhar Basani"
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "58f5127022605ea2595e7730e00e39dc1b565ed204d2dd1f16a1273a24370deb",
+  "run_index": 1,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-assignee_at_snapshot-26a89e8703",
+  "tool_calls": {
+    "Bash": 2,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 42129,
+    "cost_usd": 0.0535829,
+    "input_tokens": 64834,
+    "output_tokens": 797
+  },
+  "violations": []
+}

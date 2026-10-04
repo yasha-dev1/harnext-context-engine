@@ -1,0 +1,51 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "No project-history files provided",
+      "No network access to external systems",
+      "Knowledge cutoff: February 2025 (before snapshot date 2026-04-30)"
+    ],
+    "value": null
+  },
+  "arm": "N",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 10.339673881000635,
+  "family": "assignee_at_snapshot",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "No project-history files provided",
+      "No network access to external systems",
+      "Knowledge cutoff: February 2025 (before snapshot date 2026-04-30)"
+    ],
+    "expected": "Muralidhar Basani"
+  },
+  "instructions_sha256": null,
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 1,
+  "prompt_sha256": "5921bfaca5e00cff7ad105aacff3dc6206184f53ef1e04db3c4c5fd128498665",
+  "run_index": 1,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-assignee_at_snapshot-26a89e8703",
+  "tool_calls": {
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 17497,
+    "cost_usd": 0.0120177,
+    "input_tokens": 20588,
+    "output_tokens": 819
+  },
+  "violations": []
+}

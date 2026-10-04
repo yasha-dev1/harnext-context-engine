@@ -1,0 +1,54 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "PR #21842 found in pull-requests.md (lines 1817-1826) and mentioned in index.md showing it was opened 2026-03-20T20:26:35Z",
+      "Context history does not contain file-by-file inline review comment counts for this PR",
+      "Harnext context store has basic PR metadata but lacks detailed review comment distribution across files"
+    ],
+    "value": "null"
+  },
+  "arm": "F4-topic-search",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 95.13935532300093,
+  "family": "review_hotspot",
+  "grade": {
+    "actual": "null",
+    "correct": false,
+    "evidence": [
+      "PR #21842 found in pull-requests.md (lines 1817-1826) and mentioned in index.md showing it was opened 2026-03-20T20:26:35Z",
+      "Context history does not contain file-by-file inline review comment counts for this PR",
+      "Harnext context store has basic PR metadata but lacks detailed review comment distribution across files"
+    ],
+    "expected": "server-common/src/main/java/org/apache/kafka/server/util/timer/SystemTimerReaper.java"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 12,
+  "prompt_sha256": "f6cf721bf1b74adb72e6bd47620d9c050d5fa0e69a053234225525479fb8ac63",
+  "run_index": 39,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-review_hotspot-a93e7da04e",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 9
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 433154,
+    "cost_usd": 0.14371540000000002,
+    "input_tokens": 476871,
+    "output_tokens": 2613
+  },
+  "violations": []
+}

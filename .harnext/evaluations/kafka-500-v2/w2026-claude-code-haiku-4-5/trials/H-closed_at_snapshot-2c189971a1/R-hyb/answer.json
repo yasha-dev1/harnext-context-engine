@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "jira:13641465:change:22943422:0 — KAFKA-20158 status change from Open to In Progress on 2026-02-18T22:20:34Z",
+    "No subsequent status change events found for KAFKA-20158 before cutoff 2026-02-28T23:59:59Z"
+  ],
+  "value": false
+}

@@ -1,0 +1,41 @@
+{
+  "evidence": [
+    "prs/21465-kafka-20134-timestamped-window-store-headers-1.md",
+    "prs/21474-kafka-20134-timestamped-windowstore-headers-closed.md",
+    "prs/21478-kafka-20134-timestamped-windowstore-headers-2.md",
+    "prs/21486-kafka-20134-implement-timestamped-windowstore-headers.md",
+    "prs/21493-kafka-20134-timestamped-window-store-headers.md",
+    "prs/21497-kafka-20134-timestamped-window-store-headers-5n.md",
+    "prs/21581-kafka-20134-window-headers.md"
+  ],
+  "value": [
+    {
+      "pr": 21465,
+      "state": "open"
+    },
+    {
+      "pr": 21474,
+      "state": "closed"
+    },
+    {
+      "pr": 21478,
+      "state": "open"
+    },
+    {
+      "pr": 21486,
+      "state": "merged"
+    },
+    {
+      "pr": 21493,
+      "state": "merged"
+    },
+    {
+      "pr": 21497,
+      "state": "open"
+    },
+    {
+      "pr": 21581,
+      "state": "open"
+    }
+  ]
+}

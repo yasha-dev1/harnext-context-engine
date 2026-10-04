@@ -1,0 +1,3 @@
+{
+  "summary": "Implemented KAFKA-20282: Added log recommendation message in ClassicKafkaConsumer when using classic rebalance protocol with a group ID. The message informs users that the new consumer rebalance protocol (KIP-848) is production ready and suggests switching to it. All tests pass."
+}

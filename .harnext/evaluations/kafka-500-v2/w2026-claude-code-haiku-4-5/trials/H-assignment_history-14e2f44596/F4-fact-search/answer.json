@@ -1,0 +1,24 @@
+{
+  "evidence": [
+    "issues/kafka-20592-fix-typos-streams-documentation.md — Assignment History section (lines 37-41) and Status History section (lines 42-59)",
+    "prs/22293-fix-typos-streams-documentation.md — Related JIRA section documenting assignee changes",
+    "Event IDs: evt:jira-13651234-change-23062139, evt:jira-13651234-change-23062296, evt:0192-jira-13651234-change-23063464-0-1424ff34"
+  ],
+  "value": [
+    {
+      "at": "2026-05-15T10:37:01.000000Z",
+      "from": null,
+      "to": "Sanskar Jhajharia"
+    },
+    {
+      "at": "2026-05-15T12:25:20.000000Z",
+      "from": "Sanskar Jhajharia",
+      "to": null
+    },
+    {
+      "at": "2026-05-16T06:04:22.000000Z",
+      "from": null,
+      "to": "Akhil Sabu"
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+diff --git a/metadata/src/main/java/org/apache/kafka/controller/AclControlManager.java b/metadata/src/main/java/org/apache/kafka/controller/AclControlManager.java
+index 08ed04d53019363ffb7ce351b4d6b0cf303205cb..d5ecae2eed26e3963456ad9759baad4149e30f80 100644
+--- a/metadata/src/main/java/org/apache/kafka/controller/AclControlManager.java
++++ b/metadata/src/main/java/org/apache/kafka/controller/AclControlManager.java
+@@ -96,6 +96,7 @@ public class AclControlManager {
+         List<AclCreateResult> results = new ArrayList<>(acls.size());
+         List<ApiMessageAndVersion> records =
+                 BoundedList.newArrayBacked(MAX_RECORDS_PER_USER_OP);
++        Set<StandardAcl> createdInThisBatch = new HashSet<>();
+         for (AclBinding acl : acls) {
+             try {
+                 validateNewAcl(acl);
+@@ -106,9 +107,10 @@ public class AclControlManager {
+                 continue;
+             }
+             StandardAcl standardAcl = StandardAcl.fromAclBinding(acl);
+-            if (!existingAcls.contains(standardAcl)) {
++            if (!createdInThisBatch.contains(standardAcl) && !existingAcls.contains(standardAcl)) {
+                 StandardAclWithId standardAclWithId = new StandardAclWithId(newAclId(), standardAcl);
+                 records.add(new ApiMessageAndVersion(standardAclWithId.toRecord(), (short) 0));
++                createdInThisBatch.add(standardAcl);
+             } else {
+                 log.debug("Not creating ACL since it already exists: {}", standardAcl);
+             }
+diff --git a/metadata/src/test/java/org/apache/kafka/controller/AclControlManagerTest.java b/metadata/src/test/java/org/apache/kafka/controller/AclControlManagerTest.java
+index 64f193b5ef852f61ac6619625f245e8029e8dce6..e68310afc8ac6290be6fa111f7890608b000468f 100644
+--- a/metadata/src/test/java/org/apache/kafka/controller/AclControlManagerTest.java
++++ b/metadata/src/test/java/org/apache/kafka/controller/AclControlManagerTest.java
+@@ -336,11 +336,26 @@ public class AclControlManagerTest {
+         assertFalse(iterator.hasNext());
+     }
+ 
++    @Test
++    public void testCreateDedupe() {
++        AclControlManager manager = new AclControlManager.Builder().build();
++
++        AclBinding aclBinding = new AclBinding(new ResourcePattern(TOPIC, "topic-1", LITERAL),
++                new AccessControlEntry("User:user", "10.0.0.1", AclOperation.ALL, ALLOW));
++
++        ControllerResult<List<AclCreateResult>> createResult = manager.createAcls(List.of(aclBinding, aclBinding));
++        RecordTestUtils.replayAll(manager, createResult.records());
++        assertEquals(1, createResult.records().size());
++        assertEquals(1, manager.idToAcl().size());
++
++        createResult = manager.createAcls(List.of(aclBinding));
++        assertEquals(0, createResult.records().size());
++        assertEquals(1, manager.idToAcl().size());
++    }
++
+     @Test
+     public void testDeleteDedupe() {
+         AclControlManager manager = new AclControlManager.Builder().build();
+-        MockClusterMetadataAuthorizer authorizer = new MockClusterMetadataAuthorizer();
+-        authorizer.loadSnapshot(manager.idToAcl());
+ 
+         AclBinding aclBinding = new AclBinding(new ResourcePattern(TOPIC, "topic-1", LITERAL),
+                 new AccessControlEntry("User:user", "10.0.0.1", AclOperation.ALL, ALLOW));

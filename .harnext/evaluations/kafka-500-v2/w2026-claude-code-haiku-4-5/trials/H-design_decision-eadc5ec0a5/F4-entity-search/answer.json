@@ -1,0 +1,11 @@
+{
+  "evidence": [
+    "issues/KAFKA-20174.md",
+    "issues/KAFKA-20175.md",
+    "issues/KAFKA-20207.md",
+    "pull-requests/21547.md",
+    "WINDOW-34-2026-02-18-summary.md",
+    "WINDOW-65-2026-03-15-to-2026-03-16-summary.md"
+  ],
+  "value": null
+}

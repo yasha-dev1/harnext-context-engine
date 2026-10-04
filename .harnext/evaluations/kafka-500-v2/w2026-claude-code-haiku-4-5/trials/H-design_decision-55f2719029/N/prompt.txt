@@ -1,0 +1,9 @@
+Context snapshot cutoff (inclusive): 2026-04-30T23:59:59Z.
+
+The discussion covered which of the three basic object-store operations used by Diskless (put, get, list) could tolerate eventual consistency versus needing strong, read-after-write consistency. As of the final consensus in this thread, which single operation was agreed to be allowed to remain eventually consistent? Answer with one of: "put", "get", "list". Answer with exactly one of: "put", "get", "list". Give the decision as it stood at the snapshot, not an earlier proposal.
+
+Return JSON {"value": <answer>, "evidence": [<ids or file paths of the sources you relied on>]}. Answer as of the cutoff; do not substitute a later or today's issue state.
+
+No project-history context is provided for this task. Work from the task statement and your own knowledge; there is no network access.
+
+Reply with one JSON object {"value": ..., "evidence": [...]}: `value` is the answer in the requested type (null if it cannot be determined), `evidence` lists the sources you relied on.

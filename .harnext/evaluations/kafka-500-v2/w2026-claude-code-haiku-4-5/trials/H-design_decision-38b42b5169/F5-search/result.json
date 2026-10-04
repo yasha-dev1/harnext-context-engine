@@ -1,0 +1,50 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "Unable to determine from available search results. Related sources: entities/pr/apache__kafka/21572 (KAFKA-20220, KIP-1285), entities/thread/CAO11b17hL_jQGqOeHqGErMXw11KFxLSv-SoKNEa7nS45WKxNCg_mail.gmail.com (KIP-1285 discussion)"
+    ],
+    "value": null
+  },
+  "arm": "F5-search",
+  "checkpoint": "2026-02",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 210.11709209099354,
+  "family": "design_decision",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "Unable to determine from available search results. Related sources: entities/pr/apache__kafka/21572 (KAFKA-20220, KIP-1285), entities/thread/CAO11b17hL_jQGqOeHqGErMXw11KFxLSv-SoKNEa7nS45WKxNCg_mail.gmail.com (KIP-1285 discussion)"
+    ],
+    "expected": "dsl.store.format"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 32,
+  "prompt_sha256": "12362acbeac4650641f23f915847095c05c0de562fa552edc949e2d66f9135ad",
+  "run_index": 61,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-38b42b5169",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 29
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 1464652,
+    "cost_usd": 0.2939642,
+    "input_tokens": 1523196,
+    "output_tokens": 6134
+  },
+  "violations": []
+}

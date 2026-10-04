@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "mail id 8ea2d404f2c259c3934f9386 (2026-05-14T17:08:35Z Kevin Wu)",
+    "mail id 0f2639ff8155c501d54c3ee4 (2026-05-14T17:53:13Z Tony Tang)",
+    "KAFKA-20513 (KIP-1322 discussion)"
+  ],
+  "value": "always report regardless of state"
+}

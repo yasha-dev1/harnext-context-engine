@@ -1,0 +1,54 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "pull-requests.md (lines 1322-1343): PR #21842 summary with reviewers but no file-level comment breakdown",
+      "window-73-summary.md (lines 119-149): PR opening summary without detailed review comment analysis",
+      "window-75-summary.md: PR status change to In Progress but no inline comment metrics by file"
+    ],
+    "value": "null"
+  },
+  "arm": "F6-search",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 159.3480661240028,
+  "family": "review_hotspot",
+  "grade": {
+    "actual": "null",
+    "correct": false,
+    "evidence": [
+      "pull-requests.md (lines 1322-1343): PR #21842 summary with reviewers but no file-level comment breakdown",
+      "window-73-summary.md (lines 119-149): PR opening summary without detailed review comment analysis",
+      "window-75-summary.md: PR status change to In Progress but no inline comment metrics by file"
+    ],
+    "expected": "server-common/src/main/java/org/apache/kafka/server/util/timer/SystemTimerReaper.java"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 14,
+  "prompt_sha256": "f6cf721bf1b74adb72e6bd47620d9c050d5fa0e69a053234225525479fb8ac63",
+  "run_index": 39,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-review_hotspot-a93e7da04e",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 2,
+    "mcp__history__search_context": 10
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 495267,
+    "cost_usd": 0.14400469999999999,
+    "input_tokens": 535606,
+    "output_tokens": 2783
+  },
+  "violations": []
+}

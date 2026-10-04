@@ -1,0 +1,19 @@
+{
+  "evidence": [
+    "KAFKA-20317 (created 2026-03-16): Enable time-ordered header window store in DSL",
+    "PR #21780 (merged 2026-03-18T23:37:18Z)",
+    "store/entities/issue/KAFKA-20317/OVERVIEW.md",
+    "store/entities/issue/KAFKA-20317/timeline.md",
+    "store/entities/pr/21780/OVERVIEW.md",
+    "store/entities/pr/21780/timeline.md"
+  ],
+  "value": [
+    "streams/src/main/java/org/apache/kafka/streams/state/internals/AbstractRocksDBTimeOrderedSegmentedBytesStore.java",
+    "streams/src/main/java/org/apache/kafka/streams/state/internals/RocksDBMigratingWindowStoreWithHeaders.java",
+    "streams/src/main/java/org/apache/kafka/streams/state/internals/RocksDBTimeOrderedWindowSegmentedBytesStoreWithHeaders.java",
+    "streams/src/main/java/org/apache/kafka/streams/state/internals/RocksDBTimeOrderedWindowStore.java",
+    "streams/src/main/java/org/apache/kafka/streams/state/internals/RocksDBTimeOrderedWindowStoreWithHeaders.java",
+    "streams/src/test/java/org/apache/kafka/streams/processor/internals/WindowStoreMaterializerTest.java",
+    "streams/src/test/java/org/apache/kafka/streams/state/internals/TimeOrderedWindowStoreUpgradeTest.java"
+  ]
+}

@@ -1,0 +1,3 @@
+{
+  "summary": "Implemented KAFKA-20444: Align TxnOffsetCommit API with OffsetCommit API (KIP-1319). Added metadata refresh logic to KafkaProducer.sendOffsetsToTransaction() to ensure topic IDs are available in the metadata cache before sending TxnOffsetCommit requests. This enables the producer to negotiate API v6+ with topic ID support instead of being limited to v5 with topic names. The implementation adds an awaitTopicMetadata() method that adds topics to the metadata cache, requests updates, and waits for completion before the transactional request is sent."
+}

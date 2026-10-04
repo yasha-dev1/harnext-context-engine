@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "jira_changes query for issue KAFKA-18866 with status field transition to 'Reopened' returned 0 results"
+  ],
+  "value": 0
+}

@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "kips-and-discussions.md (lines 2753-2772) - KIP-1263 discussion dated 2026-03-01 documenting the finalized config name",
+    "window-45-summary.md (lines 258-269) - Summary of executor naming changes during PR #21555 review",
+    "pull-requests.md (lines 5304-5324) - PR #21555 merged 2026-03-03 with the finalized config name"
+  ],
+  "value": "group.coordinator.background.threads"
+}

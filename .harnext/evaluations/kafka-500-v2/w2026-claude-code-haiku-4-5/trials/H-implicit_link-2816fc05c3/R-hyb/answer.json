@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "mail:74954004f83dfbbd96fb4d41#0 - mailing list message from 2026-02-14T07:17:27Z with subject '[DISCUSS] KIP-1279: Cluster Mirroring' by Federico Valeri",
+    "jira:13642045:change:22920592:0#0 - JIRA issue KAFKA-20186 description edited on 2026-02-14T07:13:36Z stating 'This Jira tracks the development of KIP-1279'"
+  ],
+  "value": "KAFKA-20186"
+}

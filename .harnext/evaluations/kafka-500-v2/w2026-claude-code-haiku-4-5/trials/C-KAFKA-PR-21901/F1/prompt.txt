@@ -1,0 +1,17 @@
+Context snapshot cutoff (inclusive): 2026-03-30T22:02:53Z.
+
+The workspace is the apache/kafka repository at commit d84e19dde4f59fc956a34a41df924f5f6a32670a.
+
+Issue KAFKA-13499: Avoid restoring outdated records
+
+Kafka Streams has the config `windowstore.changelog.additional.retention.ms` to allow for an increase retention time.
+
+While an increase retention time can be useful, it can also lead to unnecessary restore cost, especially for stream-stream joins. Assume a stream-stream join with 1h window size and a grace period of 1h. For this case, we only need 2h of data to restore. If we lag, the `windowstore.changelog.additional.retention.ms` helps to prevent the broker from truncating data too early. However, if we don't lag and we need to restore, we restore everything from the changelog.
+
+Instead of doing a seek-to-beginning, we could use the timestamp index to seek the first offset older than the 2h "window" of data that we need to restore, to avoid unnecessary work.
+
+Implement the change this issue asks for by editing the workspace. The tests written for this change have already been added to the workspace (uncommitted; see `git status`): `streams/src/test/java/org/apache/kafka/streams/processor/internals/StoreChangelogReaderTest.java`. They fail or do not compile until the change is implemented. Make them pass with `./gradlew :streams:test --tests org.apache.kafka.streams.processor.internals.StoreChangelogReaderTest --offline`. Do not edit those test files: grading restores them to their original content and runs them against your other changes. Keep the change focused and do not substitute knowledge of how the project evolved after the cutoff.
+
+The MCP server `history` holds the project's recorded history up to the cutoff. Its tool `context_research(question)` asks Harnext's research agent, which reads the stored context and returns a cited answer; ask as many focused questions as you need. Nothing later than the cutoff is in it and there is no network access.
+
+The repository is checked out at /workspace. The workspace is a git repository whose history ends at the base commit; `git log`, `git blame` and `git show` work offline. Make the change by editing source files there; the tests named above, restored to their original content, decide whether the issue is resolved. Gradle works offline only (`./gradlew :module:test --tests X --offline`). Finish with one JSON object {"summary": "..."}.

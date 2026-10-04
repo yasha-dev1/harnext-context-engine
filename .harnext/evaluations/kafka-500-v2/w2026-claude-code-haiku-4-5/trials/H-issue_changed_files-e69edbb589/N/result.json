@@ -1,0 +1,60 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "Knowledge cutoff: February 2025",
+      "Snapshot cutoff: 2026-03-31",
+      "Network access: none",
+      "Local project context: none provided"
+    ],
+    "value": [
+      "Cannot determine — knowledge cutoff February 2025 is before snapshot date 2026-03-31, and no network access or local project history provided"
+    ]
+  },
+  "arm": "N",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 8.951873755999259,
+  "family": "issue_changed_files",
+  "grade": {
+    "actual": [
+      "Cannot determine — knowledge cutoff February 2025 is before snapshot date 2026-03-31, and no network access or local project history provided"
+    ],
+    "correct": false,
+    "evidence": [
+      "Knowledge cutoff: February 2025",
+      "Snapshot cutoff: 2026-03-31",
+      "Network access: none",
+      "Local project context: none provided"
+    ],
+    "expected": [
+      "server-common/src/main/java/org/apache/kafka/server/share/dlq/ShareGroupDLQ.java",
+      "server/src/main/java/org/apache/kafka/server/share/fetch/RecordState.java"
+    ]
+  },
+  "instructions_sha256": null,
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 1,
+  "prompt_sha256": "acab26d9479764e3dd4f1553c51ed3c1d67ba52df633ed0b6bea37f573b1f2b9",
+  "run_index": 59,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-issue_changed_files-e69edbb589",
+  "tool_calls": {
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 17503,
+    "cost_usd": 0.011503300000000001,
+    "input_tokens": 20614,
+    "output_tokens": 708
+  },
+  "violations": []
+}

@@ -1,0 +1,3 @@
+{
+  "summary": "KAFKA-20623 implementation verified: All 27 GroupCoordinatorServiceTopologyDescriptionTest tests pass. The feature integrates the topology description plugin into GroupCoordinatorService with proper heartbeat gating, plugin invocation, backoff management, and deleteGroups integration. No code changes were needed as the implementation was already complete in the codebase."
+}

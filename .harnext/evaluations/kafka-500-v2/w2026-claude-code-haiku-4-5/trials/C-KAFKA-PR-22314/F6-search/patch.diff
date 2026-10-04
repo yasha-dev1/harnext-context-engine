@@ -1,0 +1,186 @@
+diff --git a/streams/src/main/java/org/apache/kafka/streams/state/internals/CachingWindowStore.java b/streams/src/main/java/org/apache/kafka/streams/state/internals/CachingWindowStore.java
+index 5d68349eeb1560106437f6022da9e7585cfc8937..3e00268441e20bf64fd5488f3680bd60b78c1d3f 100644
+--- a/streams/src/main/java/org/apache/kafka/streams/state/internals/CachingWindowStore.java
++++ b/streams/src/main/java/org/apache/kafka/streams/state/internals/CachingWindowStore.java
+@@ -16,6 +16,7 @@
+  */
+ package org.apache.kafka.streams.state.internals;
+ 
++import org.apache.kafka.common.IsolationLevel;
+ import org.apache.kafka.common.TopicPartition;
+ import org.apache.kafka.common.serialization.Serdes;
+ import org.apache.kafka.common.utils.Bytes;
+@@ -30,6 +31,7 @@ import org.apache.kafka.streams.processor.internals.ProcessorContextUtils;
+ import org.apache.kafka.streams.processor.internals.ProcessorRecordContext;
+ import org.apache.kafka.streams.processor.internals.RecordQueue;
+ import org.apache.kafka.streams.state.KeyValueIterator;
++import org.apache.kafka.streams.state.ReadOnlyWindowStore;
+ import org.apache.kafka.streams.state.StateSerdes;
+ import org.apache.kafka.streams.state.WindowStore;
+ import org.apache.kafka.streams.state.WindowStoreIterator;
+@@ -293,8 +295,9 @@ public class CachingWindowStore
+                                                                    final long timeFrom,
+                                                                    final long timeTo) {
+         if (keyFrom != null && keyTo != null && keyFrom.compareTo(keyTo) > 0) {
+-            LOG.warn("Returning empty iterator for fetch with invalid key range: from > to. "
+-                + "This may be due to serdes that don't preserve ordering when lexicographically comparing the serialized bytes. " +
++            LOG.warn("Returning empty iterator for fetch with invalid key range: from > to. " +
++                "This may be due to range arguments set in the wrong order, " +
++                "or serdes that don't preserve ordering when lexicographically comparing the serialized bytes. " +
+                 "Note that the built-in numerical serdes do not follow this for negative numbers");
+             return KeyValueIterators.emptyIterator();
+         }
+@@ -424,6 +427,12 @@ public class CachingWindowStore
+         internalContext.cache().clear(cacheName);
+     }
+ 
++    @Override
++    public ReadOnlyWindowStore<Bytes, byte[]> readOnly(final IsolationLevel isolationLevel) {
++        java.util.Objects.requireNonNull(isolationLevel, "isolationLevel cannot be null");
++        return new ReadOnlyView(isolationLevel);
++    }
++
+     @Override
+     public synchronized void close() {
+         final LinkedList<RuntimeException> suppressed = executeAll(
+@@ -438,6 +447,140 @@ public class CachingWindowStore
+     }
+ 
+ 
++    private class ReadOnlyView implements ReadOnlyWindowStore<Bytes, byte[]> {
++
++        private final IsolationLevel isolationLevel;
++        private final ReadOnlyWindowStore<Bytes, byte[]> readOnlyUnderlying;
++
++        ReadOnlyView(final IsolationLevel isolationLevel) {
++            this.isolationLevel = isolationLevel;
++            this.readOnlyUnderlying = wrapped().readOnly(isolationLevel);
++        }
++
++        @Override
++        public byte[] fetch(final Bytes key, final long timestamp) {
++            validateStoreOpen();
++            if (isolationLevel == IsolationLevel.READ_COMMITTED) {
++                return readOnlyUnderlying.fetch(key, timestamp);
++            }
++            return CachingWindowStore.this.fetch(key, timestamp);
++        }
++
++        @Override
++        public WindowStoreIterator<byte[]> fetch(
++            final Bytes key,
++            final java.time.Instant timeFrom,
++            final java.time.Instant timeTo) {
++            validateStoreOpen();
++            if (isolationLevel == IsolationLevel.READ_COMMITTED) {
++                return readOnlyUnderlying.fetch(key, timeFrom, timeTo);
++            }
++            return CachingWindowStore.this.fetch(
++                key,
++                timeFrom.toEpochMilli(),
++                timeTo.toEpochMilli()
++            );
++        }
++
++        @Override
++        public WindowStoreIterator<byte[]> backwardFetch(
++            final Bytes key,
++            final java.time.Instant timeFrom,
++            final java.time.Instant timeTo) {
++            validateStoreOpen();
++            if (isolationLevel == IsolationLevel.READ_COMMITTED) {
++                return readOnlyUnderlying.backwardFetch(key, timeFrom, timeTo);
++            }
++            return CachingWindowStore.this.backwardFetch(
++                key,
++                timeFrom.toEpochMilli(),
++                timeTo.toEpochMilli()
++            );
++        }
++
++        @Override
++        public KeyValueIterator<Windowed<Bytes>, byte[]> fetch(
++            final Bytes keyFrom,
++            final Bytes keyTo,
++            final java.time.Instant timeFrom,
++            final java.time.Instant timeTo) {
++            validateStoreOpen();
++            if (isolationLevel == IsolationLevel.READ_COMMITTED) {
++                return readOnlyUnderlying.fetch(keyFrom, keyTo, timeFrom, timeTo);
++            }
++            return CachingWindowStore.this.fetch(
++                keyFrom,
++                keyTo,
++                timeFrom.toEpochMilli(),
++                timeTo.toEpochMilli()
++            );
++        }
++
++        @Override
++        public KeyValueIterator<Windowed<Bytes>, byte[]> backwardFetch(
++            final Bytes keyFrom,
++            final Bytes keyTo,
++            final java.time.Instant timeFrom,
++            final java.time.Instant timeTo) {
++            validateStoreOpen();
++            if (isolationLevel == IsolationLevel.READ_COMMITTED) {
++                return readOnlyUnderlying.backwardFetch(keyFrom, keyTo, timeFrom, timeTo);
++            }
++            return CachingWindowStore.this.backwardFetch(
++                keyFrom,
++                keyTo,
++                timeFrom.toEpochMilli(),
++                timeTo.toEpochMilli()
++            );
++        }
++
++        @Override
++        public KeyValueIterator<Windowed<Bytes>, byte[]> all() {
++            validateStoreOpen();
++            if (isolationLevel == IsolationLevel.READ_COMMITTED) {
++                return readOnlyUnderlying.all();
++            }
++            return CachingWindowStore.this.all();
++        }
++
++        @Override
++        public KeyValueIterator<Windowed<Bytes>, byte[]> backwardAll() {
++            validateStoreOpen();
++            if (isolationLevel == IsolationLevel.READ_COMMITTED) {
++                return readOnlyUnderlying.backwardAll();
++            }
++            return CachingWindowStore.this.backwardAll();
++        }
++
++        @Override
++        public KeyValueIterator<Windowed<Bytes>, byte[]> fetchAll(
++            final java.time.Instant timeFrom,
++            final java.time.Instant timeTo) {
++            validateStoreOpen();
++            if (isolationLevel == IsolationLevel.READ_COMMITTED) {
++                return readOnlyUnderlying.fetchAll(timeFrom, timeTo);
++            }
++            return CachingWindowStore.this.fetchAll(
++                timeFrom.toEpochMilli(),
++                timeTo.toEpochMilli()
++            );
++        }
++
++        @Override
++        public KeyValueIterator<Windowed<Bytes>, byte[]> backwardFetchAll(
++            final java.time.Instant timeFrom,
++            final java.time.Instant timeTo) {
++            validateStoreOpen();
++            if (isolationLevel == IsolationLevel.READ_COMMITTED) {
++                return readOnlyUnderlying.backwardFetchAll(timeFrom, timeTo);
++            }
++            return CachingWindowStore.this.backwardFetchAll(
++                timeFrom.toEpochMilli(),
++                timeTo.toEpochMilli()
++            );
++        }
++    }
++
+     private class CacheIteratorWrapper implements PeekingKeyValueIterator<Bytes, LRUCacheEntry> {
+ 
+         private final long segmentInterval;

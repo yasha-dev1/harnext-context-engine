@@ -1,0 +1,56 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "discussions/kip-1249-offset-reset-consumer-rebalance.md",
+      "discussions/kip-1249-better-offset-reset.md",
+      "WINDOW-91-SUMMARY.md",
+      "issues/kafka-20195-better-offset-reset-consumer-rebalance.md"
+    ],
+    "value": null
+  },
+  "arm": "F4-fact-search",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 219.09245531400666,
+  "family": "design_decision",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "discussions/kip-1249-offset-reset-consumer-rebalance.md",
+      "discussions/kip-1249-better-offset-reset.md",
+      "WINDOW-91-SUMMARY.md",
+      "issues/kafka-20195-better-offset-reset-consumer-rebalance.md"
+    ],
+    "expected": "--by-start-time"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 37,
+  "prompt_sha256": "0b7d07b3156688433d0eb4ba9dc65091bfa30193828b7c4143fba0862bc7e1c9",
+  "run_index": 66,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-074f443eea",
+  "tool_calls": {
+    "StructuredOutput": 2,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 32
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 1808692,
+    "cost_usd": 0.3503922,
+    "input_tokens": 1875054,
+    "output_tokens": 7420
+  },
+  "violations": []
+}

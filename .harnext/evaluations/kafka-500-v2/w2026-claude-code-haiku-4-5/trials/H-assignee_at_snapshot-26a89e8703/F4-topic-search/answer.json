@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "pull-requests.md (lines 3296-3304): KAFKA-19701 referenced as related issue to PR #22000, but no individual issue entry found",
+    "context_research result: Full issue details including assignee not available in context filesystem as of cutoff 2026-04-30T23:59:59Z"
+  ],
+  "value": null
+}

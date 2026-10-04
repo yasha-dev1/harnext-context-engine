@@ -1,0 +1,52 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail thread id 89bbe11d99bac4f7901570fe: [DISCUSS] KIP-1351 by Manan Gupta on 2026-05-26",
+      "mail message id c0a975ef30702ac2b69cff7a: JIRA notification showing KAFKA-20614 created for KIP-1351"
+    ],
+    "value": "KAFKA-20614"
+  },
+  "arm": "S-tools",
+  "checkpoint": "2026-05",
+  "cli_calls": {
+    "mail": 4
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 81.6372414919897,
+  "family": "implicit_link",
+  "grade": {
+    "actual": "KAFKA-20614",
+    "correct": true,
+    "evidence": [
+      "mail thread id 89bbe11d99bac4f7901570fe: [DISCUSS] KIP-1351 by Manan Gupta on 2026-05-26",
+      "mail message id c0a975ef30702ac2b69cff7a: JIRA notification showing KAFKA-20614 created for KIP-1351"
+    ],
+    "expected": "KAFKA-20614"
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 5,
+  "prompt_sha256": "c71889906d69d4b8d3fbdc40c169796a6b90f8cb6c52dc9c18b21c542e99a803",
+  "run_index": 4,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-implicit_link-5f99ef72d8",
+  "tool_calls": {
+    "Bash": 4,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 103942,
+    "cost_usd": 0.027877199999999998,
+    "input_tokens": 109414,
+    "output_tokens": 1316
+  },
+  "violations": []
+}

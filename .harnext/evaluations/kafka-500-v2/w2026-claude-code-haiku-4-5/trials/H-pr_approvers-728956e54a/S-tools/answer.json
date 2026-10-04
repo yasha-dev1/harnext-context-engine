@@ -1,0 +1,9 @@
+{
+  "evidence": [
+    "gh pr view 21866 --json reviews - PR #21866 is the KAFKA-20354 PR, approved reviews extracted from response"
+  ],
+  "value": [
+    "AndrewJSchofield",
+    "showuon"
+  ]
+}

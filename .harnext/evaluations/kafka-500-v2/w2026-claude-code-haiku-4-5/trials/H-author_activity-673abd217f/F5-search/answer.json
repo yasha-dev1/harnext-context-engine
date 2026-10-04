@@ -1,0 +1,9 @@
+{
+  "evidence": [
+    "PR #21638 (merged 2026-03-06)",
+    "PR #21641 (merged 2026-03-06)",
+    "/store/entities/pr/apache__kafka__21638/OVERVIEW.md",
+    "/store/entities/pr/apache__kafka/21641/OVERVIEW.md"
+  ],
+  "value": 2
+}

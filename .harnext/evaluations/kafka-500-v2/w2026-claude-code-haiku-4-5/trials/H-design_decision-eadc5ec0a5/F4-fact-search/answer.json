@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "discussions/kip-1262-auto-formatting.md (lines 44-45)",
+    "prs/21632-clusterid-metadata-image.md"
+  ],
+  "value": "String"
+}

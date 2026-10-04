@@ -1,0 +1,148 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "prs/21465-kafka-20134-timestamped-window-store-headers-1.md",
+      "prs/21474-kafka-20134-timestamped-windowstore-headers-closed.md",
+      "prs/21478-kafka-20134-timestamped-windowstore-headers-2.md",
+      "prs/21486-kafka-20134-implement-timestamped-windowstore-headers.md",
+      "prs/21493-kafka-20134-timestamped-window-store-headers.md",
+      "prs/21497-kafka-20134-timestamped-window-store-headers-5n.md",
+      "prs/21581-kafka-20134-window-headers.md"
+    ],
+    "value": [
+      {
+        "pr": 21465,
+        "state": "open"
+      },
+      {
+        "pr": 21474,
+        "state": "closed"
+      },
+      {
+        "pr": 21478,
+        "state": "open"
+      },
+      {
+        "pr": 21486,
+        "state": "merged"
+      },
+      {
+        "pr": 21493,
+        "state": "merged"
+      },
+      {
+        "pr": 21497,
+        "state": "open"
+      },
+      {
+        "pr": 21581,
+        "state": "open"
+      }
+    ]
+  },
+  "arm": "F4-fact-search",
+  "checkpoint": "2026-02",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 36.72168551800132,
+  "family": "issue_prs",
+  "grade": {
+    "actual": [
+      {
+        "pr": 21465,
+        "state": "open"
+      },
+      {
+        "pr": 21474,
+        "state": "closed"
+      },
+      {
+        "pr": 21478,
+        "state": "open"
+      },
+      {
+        "pr": 21486,
+        "state": "merged"
+      },
+      {
+        "pr": 21493,
+        "state": "merged"
+      },
+      {
+        "pr": 21497,
+        "state": "open"
+      },
+      {
+        "pr": 21581,
+        "state": "open"
+      }
+    ],
+    "correct": false,
+    "evidence": [
+      "prs/21465-kafka-20134-timestamped-window-store-headers-1.md",
+      "prs/21474-kafka-20134-timestamped-windowstore-headers-closed.md",
+      "prs/21478-kafka-20134-timestamped-windowstore-headers-2.md",
+      "prs/21486-kafka-20134-implement-timestamped-windowstore-headers.md",
+      "prs/21493-kafka-20134-timestamped-window-store-headers.md",
+      "prs/21497-kafka-20134-timestamped-window-store-headers-5n.md",
+      "prs/21581-kafka-20134-window-headers.md"
+    ],
+    "expected": [
+      {
+        "pr": 21465,
+        "state": "merged"
+      },
+      {
+        "pr": 21474,
+        "state": "closed"
+      },
+      {
+        "pr": 21478,
+        "state": "merged"
+      },
+      {
+        "pr": 21486,
+        "state": "merged"
+      },
+      {
+        "pr": 21493,
+        "state": "merged"
+      },
+      {
+        "pr": 21497,
+        "state": "open"
+      },
+      {
+        "pr": 21581,
+        "state": "open"
+      }
+    ]
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "09e02e7ec53d44a691250e965f3b9768ab6225d82449cb83eec1a5c1e4c65bc4",
+  "run_index": 34,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-issue_prs-3c243a5702",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 64137,
+    "cost_usd": 0.0160177,
+    "input_tokens": 65985,
+    "output_tokens": 1187
+  },
+  "violations": []
+}

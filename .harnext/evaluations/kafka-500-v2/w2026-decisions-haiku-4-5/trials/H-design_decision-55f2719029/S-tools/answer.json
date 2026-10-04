@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "mail message 9fd9164f86d9ca01e49ed6e7 from Viktor Somogyi-Vass (April 24, 2026, in discussion thread starting 2025-04-23T09:41:03Z about [DISCUSS] KIP-1163: Diskless Core)",
+    "The key passage: \"I can expect though that 'list' can stay eventually consistent as the KIP relies on it for only garbage collection where it is fine if a few segments can be collected only in the next iteration.\" The message also confirms: \"we should expect the get and put operations to be strongly consistent for the read-after-write scenarios.\""
+  ],
+  "value": "list"
+}

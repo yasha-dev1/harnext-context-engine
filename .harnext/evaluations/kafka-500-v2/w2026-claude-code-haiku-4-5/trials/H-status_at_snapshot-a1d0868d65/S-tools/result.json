@@ -1,0 +1,51 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "KAFKA-20549 (jira issue view output showing status field)"
+    ],
+    "value": "In Progress"
+  },
+  "arm": "S-tools",
+  "checkpoint": "2026-05",
+  "cli_calls": {
+    "jira": 3
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 14.398930256997119,
+  "family": "status_at_snapshot",
+  "grade": {
+    "actual": "In Progress",
+    "correct": true,
+    "evidence": [
+      "KAFKA-20549 (jira issue view output showing status field)"
+    ],
+    "expected": "In Progress"
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 5,
+  "prompt_sha256": "1ade5ea56435c1b12b72212b8efa8af4d0d1a561f5ba226ebd7cd473e1107a89",
+  "run_index": 33,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-status_at_snapshot-a1d0868d65",
+  "tool_calls": {
+    "Bash": 3,
+    "StructuredOutput": 1,
+    "ToolSearch": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 103016,
+    "cost_usd": 0.0251596,
+    "input_tokens": 107863,
+    "output_tokens": 1041
+  },
+  "violations": []
+}

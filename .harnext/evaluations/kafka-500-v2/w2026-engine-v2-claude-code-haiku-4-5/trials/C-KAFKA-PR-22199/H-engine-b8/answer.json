@@ -1,0 +1,3 @@
+{
+  "summary": "Implemented CPU usage optimization for async consumer under low max.poll.records by adding hasPendingReconciliation tracking field and setter method to AsyncKafkaConsumer, and modified collectFetch() to only wait for reconciliation checks when there's a pending reconciliation. All tests pass."
+}

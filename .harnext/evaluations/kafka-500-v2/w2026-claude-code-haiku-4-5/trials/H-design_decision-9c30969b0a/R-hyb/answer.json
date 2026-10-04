@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "mail:c4bfde361f38ca346dffd233 (2026-02-22T14:16:29Z): Alieh Saeedi states 'the older constructor that does not take a DslStoreType (now DslStoreFormat)' when responding to Lucas Brutschy's suggestion to change the config name from dsl.store.type to dsl.store.format",
+    "mail:47eb079b4b68cc79bfdc73e1 (2026-02-23T16:39:26Z): Bill Bejeck references 'the DslStoreFormat enum' with DEFAULT and HEADERS values"
+  ],
+  "value": "DslStoreFormat"
+}

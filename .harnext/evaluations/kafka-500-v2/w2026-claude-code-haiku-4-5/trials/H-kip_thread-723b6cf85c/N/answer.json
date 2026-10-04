@@ -1,0 +1,12 @@
+{
+  "evidence": [
+    "Cannot determine: workspace is empty",
+    "No network access available to query Kafka mailing lists",
+    "No local mailing list archive files provided",
+    "Information is beyond available knowledge cutoff (Feb 2025) and snapshot date (March 31, 2026)"
+  ],
+  "value": {
+    "participants": 0,
+    "starter": "Unknown"
+  }
+}

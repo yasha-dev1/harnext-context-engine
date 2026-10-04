@@ -1,0 +1,44 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [],
+    "value": null
+  },
+  "arm": "N",
+  "checkpoint": "2026-01",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 14.971909797008266,
+  "family": "design_decision",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [],
+    "expected": "compact"
+  },
+  "instructions_sha256": null,
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 4,
+  "prompt_sha256": "c3015bd535e1c75c31a9c1a1b77af62ca8979d01e48e8a6b2157a76e145627af",
+  "run_index": 48,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-d9ee20bce2",
+  "tool_calls": {
+    "Bash": 5,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 80999,
+    "cost_usd": 0.0233429,
+    "input_tokens": 85497,
+    "output_tokens": 1256
+  },
+  "violations": []
+}

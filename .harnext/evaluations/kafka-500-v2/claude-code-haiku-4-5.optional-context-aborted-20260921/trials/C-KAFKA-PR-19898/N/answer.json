@@ -1,0 +1,3 @@
+{
+  "summary": "Fixed unsafe state update in AclControlManager#createAcls by adding local batch-level deduplication using a `createdInThisBatch` set. This prevents creation of duplicate records within a single batch without relying on uncommitted timeline state, while maintaining cross-batch deduplication through existingAcls checks after replay. All 9 AclControlManagerTest tests pass, including the previously failing testCreateDedupe."
+}

@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "KAFKA-20336 issue history - context_research confirmed no fix versions were set (no jira_changes records show changes to Fix Versions field)"
+  ],
+  "value": []
+}

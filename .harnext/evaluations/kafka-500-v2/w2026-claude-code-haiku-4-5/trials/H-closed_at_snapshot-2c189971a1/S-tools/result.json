@@ -1,0 +1,50 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "KAFKA-20158"
+    ],
+    "value": false
+  },
+  "arm": "S-tools",
+  "checkpoint": "2026-02",
+  "cli_calls": {
+    "jira": 2
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 11.594472061999113,
+  "family": "closed_at_snapshot",
+  "grade": {
+    "actual": false,
+    "correct": true,
+    "evidence": [
+      "KAFKA-20158"
+    ],
+    "expected": false
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "dbe8f4b13bb4fe97081b095b3a63c1ee3ff8843694ca1b6d5f1e832f9d4d35e9",
+  "run_index": 7,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-closed_at_snapshot-2c189971a1",
+  "tool_calls": {
+    "Bash": 2,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 59902,
+    "cost_usd": 0.025385200000000004,
+    "input_tokens": 67352,
+    "output_tokens": 904
+  },
+  "violations": []
+}

@@ -1,0 +1,78 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "entities/issue/KAFKA-20056/OVERVIEW.md",
+      "entities/pr/apache__kafka/21345/OVERVIEW.md"
+    ],
+    "value": "no"
+  },
+  "arm": "H-engine-mem",
+  "checkpoint": "2026-01",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 57.07738940600029,
+  "engine": {
+    "calls": 1,
+    "chat": {
+      "calls": 9,
+      "cancelled": 0,
+      "cost_usd": 0.00038578,
+      "input_tokens": 15095,
+      "output_tokens": 783,
+      "retries": 0
+    },
+    "cost_usd": 0.00098445,
+    "discarded_attempts": 0,
+    "jev": {
+      "calls": 6,
+      "cancelled": 0,
+      "cost_usd": 0.00059867,
+      "input_tokens": 14254,
+      "output_tokens": 2019,
+      "retries": 0
+    },
+    "partial": 0,
+    "provider_retry_usd": 0,
+    "seconds": 44.115,
+    "unmetered_upper_usd": 0,
+    "waited_s": 0
+  },
+  "family": "design_decision",
+  "grade": {
+    "actual": "no",
+    "correct": true,
+    "evidence": [
+      "entities/issue/KAFKA-20056/OVERVIEW.md",
+      "entities/pr/apache__kafka/21345/OVERVIEW.md"
+    ],
+    "expected": "no"
+  },
+  "image_id": "sha256:4615b2564319d58319029548af66970c954e128401ee89c8705684861de4bc07",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "c13176808d6b04bab1523297de3f9fe460974220db1aff6c6161fff7e474f5bd",
+  "run_index": 57,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-73c3dfd4d4",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 60022,
+    "cost_usd": 0.0182992,
+    "input_tokens": 64539,
+    "output_tokens": 658
+  },
+  "violations": []
+}

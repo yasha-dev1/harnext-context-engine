@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "mail:cf97670bbdc327e681e9529b (2026-01-15T22:44:32Z) - Lijun Tong explicitly rejecting keeping 'delete' in final policy",
+    "mail:8f86d3e081d42349f4ce90f0 (2026-01-15T23:20:16Z) - Jian Fu's agreement that delete should not be kept in final config",
+    "mail:d42ec61c1696ad3122663d8a (2026-01-15T05:15:59Z) - Kamal's initial proposal that was then disputed"
+  ],
+  "value": "compact"
+}

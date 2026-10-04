@@ -1,0 +1,11 @@
+{
+  "evidence": [
+    "jira-issues.md:2642-2654 (KAFKA-20085 resolved state showing FixVersion: 4.3.0 and also applied to 4.0.2, 4.1.2, 4.2.1)"
+  ],
+  "value": [
+    "4.0.2",
+    "4.1.2",
+    "4.2.1",
+    "4.3.0"
+  ]
+}

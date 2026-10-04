@@ -1,0 +1,195 @@
+{
+  "arms": {
+    "F0": {
+      "agent_seconds": 0,
+      "by_kind": {},
+      "cached_input_tokens": 0,
+      "context_bytes": 0,
+      "input_tokens": 0,
+      "n": 0,
+      "output_tokens": 0,
+      "status": {},
+      "success": 0,
+      "tool_calls": 0
+    },
+    "F1": {
+      "agent_seconds": 0,
+      "by_kind": {},
+      "cached_input_tokens": 0,
+      "context_bytes": 0,
+      "input_tokens": 0,
+      "n": 0,
+      "output_tokens": 0,
+      "status": {},
+      "success": 0,
+      "tool_calls": 0
+    },
+    "N": {
+      "agent_seconds": 439.4,
+      "by_kind": {
+        "coding": {
+          "agent_seconds": 439.4,
+          "by_family": {
+            "pr_implementation": {
+              "agent_seconds": 439.4,
+              "cached_input_tokens": 1164656,
+              "context_bytes": 0,
+              "input_tokens": 1240251,
+              "n": 1,
+              "output_tokens": 6332,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 19
+            }
+          },
+          "cached_input_tokens": 1164656,
+          "context_bytes": 0,
+          "input_tokens": 1240251,
+          "n": 1,
+          "output_tokens": 6332,
+          "status": {
+            "completed": 1
+          },
+          "success": 1,
+          "tool_calls": 19
+        }
+      },
+      "cached_input_tokens": 1164656,
+      "context_bytes": 0,
+      "input_tokens": 1240251,
+      "n": 1,
+      "output_tokens": 6332,
+      "status": {
+        "completed": 1
+      },
+      "success": 1,
+      "tool_calls": 19
+    },
+    "R-hyb": {
+      "agent_seconds": 22.9,
+      "by_kind": {
+        "historical": {
+          "agent_seconds": 22.9,
+          "by_family": {
+            "assignee_at_snapshot": {
+              "agent_seconds": 22.9,
+              "cached_input_tokens": 84732,
+              "context_bytes": 0,
+              "input_tokens": 92668,
+              "n": 1,
+              "output_tokens": 877,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 4
+            }
+          },
+          "cached_input_tokens": 84732,
+          "context_bytes": 0,
+          "input_tokens": 92668,
+          "n": 1,
+          "output_tokens": 877,
+          "status": {
+            "completed": 1
+          },
+          "success": 1,
+          "tool_calls": 4
+        }
+      },
+      "cached_input_tokens": 84732,
+      "context_bytes": 0,
+      "input_tokens": 92668,
+      "n": 1,
+      "output_tokens": 877,
+      "status": {
+        "completed": 1
+      },
+      "success": 1,
+      "tool_calls": 4
+    },
+    "S-tools": {
+      "agent_seconds": 8.9,
+      "by_kind": {
+        "historical": {
+          "agent_seconds": 8.9,
+          "by_family": {
+            "assignee_at_snapshot": {
+              "agent_seconds": 8.9,
+              "cached_input_tokens": 41760,
+              "context_bytes": 0,
+              "input_tokens": 42508,
+              "n": 1,
+              "output_tokens": 641,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 2
+            }
+          },
+          "cached_input_tokens": 41760,
+          "context_bytes": 0,
+          "input_tokens": 42508,
+          "n": 1,
+          "output_tokens": 641,
+          "status": {
+            "completed": 1
+          },
+          "success": 1,
+          "tool_calls": 2
+        }
+      },
+      "cached_input_tokens": 41760,
+      "context_bytes": 0,
+      "input_tokens": 42508,
+      "n": 1,
+      "output_tokens": 641,
+      "status": {
+        "completed": 1
+      },
+      "success": 1,
+      "tool_calls": 2
+    }
+  },
+  "not_recorded": [
+    "H-assignee_at_snapshot-26a89e8703/F0"
+  ],
+  "paired_vs_N": {
+    "F0": {
+      "both": 0,
+      "harmed": 0,
+      "helped": 0,
+      "neither": 0,
+      "pairs": 0
+    },
+    "F1": {
+      "both": 0,
+      "harmed": 0,
+      "helped": 0,
+      "neither": 0,
+      "pairs": 0
+    },
+    "R-hyb": {
+      "both": 0,
+      "harmed": 0,
+      "helped": 0,
+      "neither": 0,
+      "pairs": 0
+    },
+    "S-tools": {
+      "both": 0,
+      "harmed": 0,
+      "helped": 0,
+      "neither": 0,
+      "pairs": 0
+    }
+  },
+  "reason": "H-assignee_at_snapshot-26a89e8703/F0: the research MCP server never started",
+  "recorded": 3,
+  "status": "paused",
+  "target": 100,
+  "updated_at_unix": 1790429182.2167914
+}

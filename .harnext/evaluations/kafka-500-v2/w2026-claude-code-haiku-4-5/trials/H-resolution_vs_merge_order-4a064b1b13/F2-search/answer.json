@@ -1,0 +1,10 @@
+{
+  "evidence": [
+    "prs/21758/2026-03-17-merged-59b93d42.md",
+    "issues/KAFKA-20288/2026-03-17-change-e9bb85c6.md"
+  ],
+  "value": {
+    "days": 0,
+    "first": "merge"
+  }
+}

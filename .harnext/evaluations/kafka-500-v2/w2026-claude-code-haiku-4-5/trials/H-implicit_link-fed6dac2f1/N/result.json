@@ -1,0 +1,47 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "Knowledge cutoff February 2025; thread dated February 2026 is outside available knowledge"
+    ],
+    "value": null
+  },
+  "arm": "N",
+  "checkpoint": "2026-02",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 6.317522262994316,
+  "family": "implicit_link",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "Knowledge cutoff February 2025; thread dated February 2026 is outside available knowledge"
+    ],
+    "expected": "KAFKA-20186"
+  },
+  "instructions_sha256": null,
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 1,
+  "prompt_sha256": "f336b851711231662f18a8a46dd8302811e677036938479a412c298da5620398",
+  "run_index": 88,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-implicit_link-fed6dac2f1",
+  "tool_calls": {
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 17497,
+    "cost_usd": 0.0108357,
+    "input_tokens": 20642,
+    "output_tokens": 561
+  },
+  "violations": []
+}

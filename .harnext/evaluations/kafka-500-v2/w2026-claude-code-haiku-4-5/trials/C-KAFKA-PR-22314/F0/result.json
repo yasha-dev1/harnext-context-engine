@@ -1,0 +1,151 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "summary": "Successfully implemented readOnly(IsolationLevel) method for CachingWindowStore that provides READ_COMMITTED (cache-bypassing) and READ_UNCOMMITTED (cache-merging) views of the window store. All 61 tests in CachingPersistentWindowStoreTest pass."
+  },
+  "arm": "F0",
+  "checkpoint": "2026-04",
+  "cli_calls": {
+    "git": 2
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 594.056953872001,
+  "family": "pr_implementation",
+  "grade": {
+    "counts": {
+      "passed": 60
+    },
+    "dropped_paths": [
+      "streams/src/test/java/org/apache/kafka/streams/state/internals/CachingPersistentWindowStoreTest.java"
+    ],
+    "fail_to_pass_failed": [],
+    "graded_by": "gradle",
+    "grading_timed_out": false,
+    "gradle_returncode": 0,
+    "other_failed_tasks": [],
+    "outcomes": {
+      "org.apache.kafka.streams.state.internals.CachingPersistentWindowStoreTest#shouldBackwardFetchAndIterateOverExactKeys()": "passed",
+      "org.apache.kafka.streams.state.internals.CachingPersistentWindowStoreTest#shouldClearNamespaceCacheOnClose()": "passed",
+      "org.apache.kafka.streams.state.internals.CachingPersistentWindowStoreTest#shouldCloseCacheAfterErrorDuringStateStoreClose()": "passed",
+      "org.apache.kafka.streams.state.internals.CachingPersistentWindowStoreTest#shouldCloseCacheAndWrappedStoreAfterErrorDuringCacheFlush()": "passed",
+      "org.apache.kafka.streams.state.internals.CachingPersistentWindowStoreTest#shouldCloseWrappedStoreAfterErrorDuringCacheClose()": "passed",
+      "org.apache.kafka.streams.state.internals.CachingPersistentWindowStoreTest#shouldDelegateInit()": "passed",
+      "org.apache.kafka.streams.state.internals.CachingPersistentWindowStoreTest#shouldFetchAllBackwardWithinTimestampRange()": "passed",
+      "org.apache.kafka.streams.state.internals.CachingPersistentWindowStoreTest#shouldFetchAllWithinTimestampRange()": "passed",
+      "org.apache.kafka.streams.state.internals.CachingPersistentWindowStoreTest#shouldFetchAndIterateOverExactKeys()": "passed",
+      "org.apache.kafka.streams.state.internals.CachingPersistentWindowStoreTest#shouldFetchAndIterateOverKeyBackwardRange()": "passed",
+      "org.apache.kafka.streams.state.internals.CachingPersistentWindowStoreTest#shouldFetchAndIterateOverKeyRange()": "passed",
+      "org.apache.kafka.streams.state.internals.CachingPersistentWindowStoreTest#shouldFlushEvictedItemsIntoUnderlyingStore()": "passed",
+      "org.apache.kafka.streams.state.internals.CachingPersistentWindowStoreTest#shouldForwardDirtyItemToListenerWhenEvicted()": "passed",
+      "org.apache.kafka.streams.state.internals.CachingPersistentWindowStoreTest#shouldForwardDirtyItemsWhenFlushCalled()": "passed",
+      "org.apache.kafka.streams.state.internals.CachingPersistentWindowStoreTest#shouldForwardOldValuesWhenDisabled()": "passed",
+      "org.apache.kafka.streams.state.internals.CachingPersistentWindowStoreTest#shouldForwardOldValuesWhenEnabled()": "passed",
+      "org.apache.kafka.streams.state.internals.CachingPersistentWindowStoreTest#shouldGetAllBackwardFromCache()": "passed",
+      "org.apache.kafka.streams.state.internals.CachingPersistentWindowStoreTest#shouldGetAllFromCache()": "passed",
+      "org.apache.kafka.streams.state.internals.CachingPersistentWindowStoreTest#shouldIterateAcrossWindows()": "passed",
+      "org.apache.kafka.streams.state.internals.CachingPersistentWindowStoreTest#shouldIterateBackwardAcrossWindows()": "passed",
+      "org.apache.kafka.streams.state.internals.CachingPersistentWindowStoreTest#shouldIterateBackwardCacheAndStore()": "passed",
+      "org.apache.kafka.streams.state.internals.CachingPersistentWindowStoreTest#shouldIterateBackwardCacheAndStoreKeyRange()": "passed",
+      "org.apache.kafka.streams.state.internals.CachingPersistentWindowStoreTest#shouldIterateCacheAndStore()": "passed",
+      "org.apache.kafka.streams.state.internals.CachingPersistentWindowStoreTest#shouldIterateCacheAndStoreKeyRange()": "passed",
+      "org.apache.kafka.streams.state.internals.CachingPersistentWindowStoreTest#shouldMatchPositionAfterPutWithFlushListener()": "passed",
+      "org.apache.kafka.streams.state.internals.CachingPersistentWindowStoreTest#shouldMatchPositionAfterPutWithoutFlushListener()": "passed",
+      "org.apache.kafka.streams.state.internals.CachingPersistentWindowStoreTest#shouldNotReturnDuplicatesInRanges()": "passed",
+      "org.apache.kafka.streams.state.internals.CachingPersistentWindowStoreTest#shouldNotThrowInvalidBackwardRangeExceptionWithNegativeFromKey()": "passed",
+      "org.apache.kafka.streams.state.internals.CachingPersistentWindowStoreTest#shouldNotThrowInvalidRangeExceptionWithNegativeFromKey()": "passed",
+      "org.apache.kafka.streams.state.internals.CachingPersistentWindowStoreTest#shouldNotThrowNullPointerExceptionOnPutNullValue()": "passed",
+      "org.apache.kafka.streams.state.internals.CachingPersistentWindowStoreTest#shouldPutBackwardFetchRangeFromCacheForNullKeyFrom()": "passed",
+      "org.apache.kafka.streams.state.internals.CachingPersistentWindowStoreTest#shouldPutBackwardFetchRangeFromCacheForNullKeyFromKeyTo()": "passed",
+      "org.apache.kafka.streams.state.internals.CachingPersistentWindowStoreTest#shouldPutBackwardFetchRangeFromCacheForNullKeyTo()": "passed",
+      "org.apache.kafka.streams.state.internals.CachingPersistentWindowStoreTest#shouldPutFetchFromCache()": "passed",
+      "org.apache.kafka.streams.state.internals.CachingPersistentWindowStoreTest#shouldPutFetchRangeFromCache()": "passed",
+      "org.apache.kafka.streams.state.internals.CachingPersistentWindowStoreTest#shouldPutFetchRangeFromCacheForNullKeyFrom()": "passed",
+      "org.apache.kafka.streams.state.internals.CachingPersistentWindowStoreTest#shouldPutFetchRangeFromCacheForNullKeyFromKeyTo()": "passed",
+      "org.apache.kafka.streams.state.internals.CachingPersistentWindowStoreTest#shouldPutFetchRangeFromCacheForNullKeyTo()": "passed",
+      "org.apache.kafka.streams.state.internals.CachingPersistentWindowStoreTest#shouldReadCommittedBypassesCache()": "passed",
+      "org.apache.kafka.streams.state.internals.CachingPersistentWindowStoreTest#shouldReadUncommittedViewAllMergesCacheAndStore()": "passed",
+      "org.apache.kafka.streams.state.internals.CachingPersistentWindowStoreTest#shouldReadUncommittedViewBackwardAllMergesCacheAndStore()": "passed",
+      "org.apache.kafka.streams.state.internals.CachingPersistentWindowStoreTest#shouldReadUncommittedViewBackwardFetchAllMergesCacheAndStore()": "passed",
+      "org.apache.kafka.streams.state.internals.CachingPersistentWindowStoreTest#shouldReadUncommittedViewBackwardFetchRangeMergesCacheAndStore()": "passed",
+      "org.apache.kafka.streams.state.internals.CachingPersistentWindowStoreTest#shouldReadUncommittedViewBackwardFetchSingleKeyMergesCacheAndStore()": "passed",
+      "org.apache.kafka.streams.state.internals.CachingPersistentWindowStoreTest#shouldReadUncommittedViewFetchAllMergesCacheAndStore()": "passed",
+      "org.apache.kafka.streams.state.internals.CachingPersistentWindowStoreTest#shouldReadUncommittedViewFetchPointInTime()": "passed",
+      "org.apache.kafka.streams.state.internals.CachingPersistentWindowStoreTest#shouldReadUncommittedViewFetchRangeMergesCacheAndStore()": "passed",
+      "org.apache.kafka.streams.state.internals.CachingPersistentWindowStoreTest#shouldReadUncommittedViewFetchSingleKeyMergesCacheAndStore()": "passed",
+      "org.apache.kafka.streams.state.internals.CachingPersistentWindowStoreTest#shouldReadUncommittedViewOnNonPersistentUnderlying()": "passed",
+      "org.apache.kafka.streams.state.internals.CachingPersistentWindowStoreTest#shouldReturnSameResultsForSingleKeyFetchAndEqualKeyRangeBackwardFetch()": "passed",
+      "org.apache.kafka.streams.state.internals.CachingPersistentWindowStoreTest#shouldReturnSameResultsForSingleKeyFetchAndEqualKeyRangeFetch()": "passed",
+      "org.apache.kafka.streams.state.internals.CachingPersistentWindowStoreTest#shouldSetFlushListener()": "passed",
+      "org.apache.kafka.streams.state.internals.CachingPersistentWindowStoreTest#shouldTakeValueFromCacheIfSameTimestampFlushedToRocks()": "passed",
+      "org.apache.kafka.streams.state.internals.CachingPersistentWindowStoreTest#shouldThrowIfTryingToFetchFromClosedCachingStore()": "passed",
+      "org.apache.kafka.streams.state.internals.CachingPersistentWindowStoreTest#shouldThrowIfTryingToFetchRangeFromClosedCachingStore()": "passed",
+      "org.apache.kafka.streams.state.internals.CachingPersistentWindowStoreTest#shouldThrowIfTryingToWriteToClosedCachingStore()": "passed",
+      "org.apache.kafka.streams.state.internals.CachingPersistentWindowStoreTest#shouldThrowNpeOnNullInstantInViewFetch()": "passed",
+      "org.apache.kafka.streams.state.internals.CachingPersistentWindowStoreTest#shouldThrowNpeOnNullIsolationLevel()": "passed",
+      "org.apache.kafka.streams.state.internals.CachingPersistentWindowStoreTest#shouldThrowNullPointerExceptionOnFetchNullKey()": "passed",
+      "org.apache.kafka.streams.state.internals.CachingPersistentWindowStoreTest#shouldThrowNullPointerExceptionOnPutNullKey()": "passed"
+    },
+    "pass_to_pass_failed": [],
+    "patch_bytes": 27423,
+    "patch_empty": false,
+    "resolved": true,
+    "seconds": 145.9,
+    "similarity": {
+      "added_lines": {
+        "f1": 0.229,
+        "precision": 0.19,
+        "recall": 0.289
+      },
+      "files": {
+        "agent": 1,
+        "f1": 1.0,
+        "golden": 1,
+        "precision": 1.0,
+        "recall": 1.0,
+        "shared": 1
+      },
+      "location_recall": 0.109,
+      "removed_lines": {
+        "f1": 0.034,
+        "precision": 1.0,
+        "recall": 0.018
+      },
+      "size": {
+        "agent_added": 216,
+        "agent_removed": 2,
+        "golden_added": 142,
+        "golden_removed": 114
+      }
+    },
+    "test_compile_failed": []
+  },
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "coding",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 38,
+  "prompt_sha256": "bcce23003da018c0d02e0458653ba0ba4bb6acb75a328cbf36e5f604475d0239",
+  "run_index": 10,
+  "status": "completed",
+  "success": true,
+  "task_id": "C-KAFKA-PR-22314",
+  "tool_calls": {
+    "Bash": 16,
+    "Edit": 7,
+    "Read": 11,
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 4
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 2677639,
+    "cost_usd": 0.5010029,
+    "input_tokens": 2755933,
+    "output_tokens": 15392
+  },
+  "violations": []
+}

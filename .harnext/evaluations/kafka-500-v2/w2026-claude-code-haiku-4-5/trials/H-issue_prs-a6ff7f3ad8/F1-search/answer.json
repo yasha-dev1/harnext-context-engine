@@ -1,0 +1,17 @@
+{
+  "evidence": [
+    "store/entities/pr/22041/OVERVIEW.md",
+    "store/entities/pr/22182/OVERVIEW.md",
+    "store/entities/issue/KAFKA-20440/OVERVIEW.md"
+  ],
+  "value": [
+    {
+      "pr": 22041,
+      "state": "open"
+    },
+    {
+      "pr": 22182,
+      "state": "open"
+    }
+  ]
+}

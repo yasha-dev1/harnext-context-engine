@@ -1,0 +1,11 @@
+{
+  "evidence": [
+    "prs/21710-kafka-20261-window-store-upgrade.md (approved 2026-03-13T05:47:43Z)",
+    "prs/21511-kafka-20158-aggregation-with-headers.md (frankvicky also has 2 approvals: 21511, 21513)",
+    "prs/21513-kafka-20158-session-store-headers.md",
+    "issues/kafka-20301-session-store-upgrade-tests.md (PR #21748 approved by mjsax)",
+    "prs/21791-kafka-20327-add-overrides-abstract-decorators.md (clolov: 1 approval)",
+    "WINDOW-71-SUMMARY.md showing mjsax extensive review activity on streams PRs"
+  ],
+  "value": "mjsax"
+}

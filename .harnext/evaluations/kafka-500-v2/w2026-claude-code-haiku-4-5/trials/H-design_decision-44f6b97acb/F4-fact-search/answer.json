@@ -1,0 +1,9 @@
+{
+  "evidence": [
+    "WINDOW-45-SUMMARY.md (lines 108-112)",
+    "prs/21555-kafka-20210-group-coordinator-background-threads.md (lines 22-26)",
+    "kips/KIP-1263/overview.md (lines 17-21)",
+    "issues/KAFKA-20210/overview.md (lines 6-16)"
+  ],
+  "value": "group.coordinator.background.threads"
+}

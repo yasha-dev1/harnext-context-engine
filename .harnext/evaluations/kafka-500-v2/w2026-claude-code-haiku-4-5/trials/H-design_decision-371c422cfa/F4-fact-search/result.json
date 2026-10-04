@@ -1,0 +1,51 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "discussions/kip-1274-classic-rebalance-deprecation.md",
+      "issues/kafka-17337-consumerconfig-group-protocol-default.md"
+    ],
+    "value": "keep the config but restrict it to the value consumer"
+  },
+  "arm": "F4-fact-search",
+  "checkpoint": "2026-02",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 104.38371029999689,
+  "family": "design_decision",
+  "grade": {
+    "actual": "keep the config but restrict it to the value consumer",
+    "correct": false,
+    "evidence": [
+      "discussions/kip-1274-classic-rebalance-deprecation.md",
+      "issues/kafka-17337-consumerconfig-group-protocol-default.md"
+    ],
+    "expected": "remove the config entirely"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "9d74f852abc53c36399b16fa6899e0d907bbffcf89e1e55352498710f73e275a",
+  "run_index": 58,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-371c422cfa",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 64213,
+    "cost_usd": 0.0134313,
+    "input_tokens": 65689,
+    "output_tokens": 817
+  },
+  "violations": []
+}

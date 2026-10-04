@@ -1,0 +1,53 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "store/pull-requests/22191.md",
+      "store/WINDOW-108-2026-05-01-to-2026-05-02-summary.md",
+      "store/kips/KIP-1312.md"
+    ],
+    "value": "new record type"
+  },
+  "arm": "F4-entity-search",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 105.03201744900434,
+  "family": "design_decision",
+  "grade": {
+    "actual": "new record type",
+    "correct": true,
+    "evidence": [
+      "store/pull-requests/22191.md",
+      "store/WINDOW-108-2026-05-01-to-2026-05-02-summary.md",
+      "store/kips/KIP-1312.md"
+    ],
+    "expected": "new record type"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "59b7a972c6da97d37ae4e063d0a9d8c78457c6fe723cacd39e2d78a89c8b3001",
+  "run_index": 70,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-646c4d2ed6",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 64169,
+    "cost_usd": 0.0137359,
+    "input_tokens": 65812,
+    "output_tokens": 812
+  },
+  "violations": []
+}

@@ -1,0 +1,17 @@
+Context snapshot cutoff (inclusive): 2025-10-27T23:16:15Z.
+
+The workspace is the apache/kafka repository at commit 69e1c9101c65b293b64bb69faa178c719210fdcc.
+
+Issue KAFKA-19449: Unexpected UNREVOKED_PARTITIONS to UNRELEASED_PARTITIONS transition in consumer member reconciliation
+
+We transition to `UNRELEASED_PARTITIONS` when advancing to a new target assignment and partitions in the assignment are "owned" by another member.
+
+Partitions are considered "owned" by another member if they are in a member's assignment or partitions pending revocation. Ownership is only updated after reconciliation has finished.
+
+When the latest target assignment includes partitions from the partitions pending revocation list, we mistakenly think the partitions are owned by another member and can transition from `UNREVOKED_PARTITIONS` to `UNRELEASED_PARTITIONS` instead.
+
+Implement the change this issue asks for by editing the workspace. The tests written for this change have already been added to the workspace (uncommitted; see `git status`): `group-coordinator/src/test/java/org/apache/kafka/coordinator/group/modern/consumer/CurrentAssignmentBuilderTest.java`. They fail or do not compile until the change is implemented. Make them pass with `./gradlew :group-coordinator:test --tests org.apache.kafka.coordinator.group.modern.consumer.CurrentAssignmentBuilderTest --offline`. Do not edit those test files: grading restores them to their original content and runs them against your other changes. Keep the change focused and do not substitute knowledge of how the project evolved after the cutoff.
+
+No project-history context is provided for this task. Work from the task statement, the repository and your own knowledge; there is no network access.
+
+The repository is checked out at /workspace. The workspace is a git repository whose history ends at the base commit; `git log`, `git blame` and `git show` work offline. Make the change by editing source files there; the tests named above, restored to their original content, decide whether the issue is resolved. Gradle works offline only (`./gradlew :module:test --tests X --offline`). Finish with one JSON object {"summary": "..."}.

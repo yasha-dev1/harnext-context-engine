@@ -1,0 +1,3 @@
+{
+  "summary": "KAFKA-12525: Implemented fix for inaccurate task status due to status record interleaving in fast rebalances. Added logic to KafkaStatusBackingStore to ignore stale UNASSIGNED/FAILED status records from other workers when a newer RUNNING/PAUSED status exists, while preserving the ability for put() operations to update status regardless of generation. Changes made to readTaskStatus() and readConnectorStatus() methods using helper functions to keep complexity within style guidelines. All 15 tests pass including the new readTaskStateShouldIgnoreStaleStatusesFromOtherWorkers test that validates the fix, and existing tests confirm no regressions."
+}

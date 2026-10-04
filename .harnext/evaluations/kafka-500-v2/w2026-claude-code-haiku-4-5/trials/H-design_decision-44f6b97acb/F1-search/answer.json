@@ -1,0 +1,10 @@
+{
+  "evidence": [
+    "entities/kip/KIP-1263/OVERVIEW.md",
+    "entities/issue/KAFKA-20210/OVERVIEW.md",
+    "entities/issue/KAFKA-20210/timeline.md",
+    "entities/pr/21555/OVERVIEW.md",
+    "entities/pr/21555/timeline.md"
+  ],
+  "value": "group.coordinator.background.threads"
+}

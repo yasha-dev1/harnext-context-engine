@@ -1,0 +1,10 @@
+{
+  "evidence": [
+    "/store/pull-requests.md (lines 7332-7344)",
+    "/store/issues.md (lines 4798-4805)"
+  ],
+  "value": {
+    "days": 0,
+    "first": "merge"
+  }
+}

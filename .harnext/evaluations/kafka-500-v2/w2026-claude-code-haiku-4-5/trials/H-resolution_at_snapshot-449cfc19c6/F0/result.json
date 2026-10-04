@@ -1,0 +1,51 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "store/events/2026/05/15/jira-12664433-change-23063296-0-96be2d4f.md",
+      "store/events/2026/05/15/jira-12664433-change-23063296-1-8effb3f2.md"
+    ],
+    "value": "Abandoned"
+  },
+  "arm": "F0",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 28.22766230999696,
+  "family": "resolution_at_snapshot",
+  "grade": {
+    "actual": "Abandoned",
+    "correct": true,
+    "evidence": [
+      "store/events/2026/05/15/jira-12664433-change-23063296-0-96be2d4f.md",
+      "store/events/2026/05/15/jira-12664433-change-23063296-1-8effb3f2.md"
+    ],
+    "expected": "Abandoned"
+  },
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "0a72105a3e0bef5edbb0ad94bc6d44cf35e2a6ed8133aa98b54a4a79020ca38f",
+  "run_index": 25,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-resolution_at_snapshot-449cfc19c6",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 63474,
+    "cost_usd": 0.012518399999999999,
+    "input_tokens": 64558,
+    "output_tokens": 806
+  },
+  "violations": []
+}

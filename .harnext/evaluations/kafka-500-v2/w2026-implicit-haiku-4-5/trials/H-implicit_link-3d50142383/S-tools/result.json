@@ -1,0 +1,53 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail message 3a486f07414ee44d7163c381: [DISCUSS] KIP-1307 thread by Aditya Kousik (2026-04-01)",
+      "JIRA issue KAFKA-20386: SerDe and Interceptor Metrics (created 2026-03-31, reporter Aditya Kousik, references KIP-1307)"
+    ],
+    "value": "KAFKA-20386"
+  },
+  "arm": "S-tools",
+  "checkpoint": "2026-04",
+  "cli_calls": {
+    "jira": 4,
+    "mail": 3
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 83.03371545299888,
+  "family": "implicit_link",
+  "grade": {
+    "actual": "KAFKA-20386",
+    "correct": true,
+    "evidence": [
+      "mail message 3a486f07414ee44d7163c381: [DISCUSS] KIP-1307 thread by Aditya Kousik (2026-04-01)",
+      "JIRA issue KAFKA-20386: SerDe and Interceptor Metrics (created 2026-03-31, reporter Aditya Kousik, references KIP-1307)"
+    ],
+    "expected": "KAFKA-20386"
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 8,
+  "prompt_sha256": "2d0afdac4b3c79a6d1a960e3bc45a526aaf1984512c2ae5a3b61c15586a9c910",
+  "run_index": 10,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-implicit_link-3d50142383",
+  "tool_calls": {
+    "Bash": 7,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 172086,
+    "cost_usd": 0.0371516,
+    "input_tokens": 178185,
+    "output_tokens": 1562
+  },
+  "violations": []
+}

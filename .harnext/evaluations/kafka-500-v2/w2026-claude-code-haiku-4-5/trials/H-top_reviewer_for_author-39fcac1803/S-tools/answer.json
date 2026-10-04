@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "gh pr list --author bbejeck --state merged --limit 100 output (offline replica as of 2026-05-01)",
+    "PR approvals by reviewer in date range 2025-05-01 through 2026-04-30: mjsax approved 21 PRs (19956, 19957, 20166, 20448, 20661, 20981, 21091, 21120, 21528, 21600, 21623, 21624, 21653, 21670, 21680, 21734, 21748, 21749, 21998, 21999, 22085)"
+  ],
+  "value": "mjsax"
+}

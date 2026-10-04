@@ -1,0 +1,48 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "No project files available in /workspace to search for the design discussion; no network access to retrieve external documentation; the specific RPC naming decision for cluster mirroring cannot be determined from available sources"
+    ],
+    "value": null
+  },
+  "arm": "N",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 12.41868758200144,
+  "family": "design_decision",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "No project files available in /workspace to search for the design discussion; no network access to retrieve external documentation; the specific RPC naming decision for cluster mirroring cannot be determined from available sources"
+    ],
+    "expected": "StartMirrorTopics/StopMirrorTopics"
+  },
+  "instructions_sha256": null,
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "926070c0a81270e7b607aa2dcdb470cef42c0eb8da95d063a11241afaa455db5",
+  "run_index": 67,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-7b55b02c3c",
+  "tool_calls": {
+    "Bash": 2,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 59424,
+    "cost_usd": 0.0189164,
+    "input_tokens": 63426,
+    "output_tokens": 999
+  },
+  "violations": []
+}

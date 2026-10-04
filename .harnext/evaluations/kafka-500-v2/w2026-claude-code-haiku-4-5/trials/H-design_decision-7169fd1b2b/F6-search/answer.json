@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "window-118-summary.md (lines 160-165): KIP-1322 design decision documented as of 2026-05-14 showing discussion between Tony Tang and Kevin Wu with resolution approach 'Always report metrics, increment counter only on expiration'"
+  ],
+  "value": "always report regardless of state"
+}

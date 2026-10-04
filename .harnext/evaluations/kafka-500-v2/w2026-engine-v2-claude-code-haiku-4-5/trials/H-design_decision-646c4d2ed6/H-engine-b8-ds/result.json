@@ -1,0 +1,84 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "github:api:apache/kafka:pr-22191-opened",
+      "mail:1736e3e8f4a1ef534d61f830",
+      "mail:bf2eb97f1e7622fe0746cec3",
+      "mail:e3b827b0e21a99273cda94cb",
+      "mail:f884fe02638d7de53fef380a"
+    ],
+    "value": "new record type"
+  },
+  "arm": "H-engine-b8-ds",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 63.078921884007286,
+  "engine": {
+    "calls": 1,
+    "chat": {
+      "calls": 12,
+      "cancelled": 0,
+      "cost_usd": 0.00395828,
+      "input_tokens": 85072,
+      "output_tokens": 6021,
+      "retries": 0
+    },
+    "cost_usd": 0.00838252,
+    "discarded_attempts": 0,
+    "jev": {
+      "calls": 34,
+      "cancelled": 0,
+      "cost_usd": 0.00442424,
+      "input_tokens": 105339,
+      "output_tokens": 20148,
+      "retries": 0
+    },
+    "partial": 0,
+    "provider_retry_usd": 0,
+    "seconds": 47.56,
+    "unmetered_upper_usd": 0,
+    "waited_s": 0
+  },
+  "family": "design_decision",
+  "grade": {
+    "actual": "new record type",
+    "correct": true,
+    "evidence": [
+      "github:api:apache/kafka:pr-22191-opened",
+      "mail:1736e3e8f4a1ef534d61f830",
+      "mail:bf2eb97f1e7622fe0746cec3",
+      "mail:e3b827b0e21a99273cda94cb",
+      "mail:f884fe02638d7de53fef380a"
+    ],
+    "expected": "new record type"
+  },
+  "image_id": "sha256:1de715f951a3fc013cabad66407b87028bc2a5af6e58efdea5338b4cf9fb1485",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "275264602d63c3a33fdf183192095b9d385c2205f054f7e1c707f5214cc8cd70",
+  "run_index": 58,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-646c4d2ed6",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 63619,
+    "cost_usd": 0.014063899999999999,
+    "input_tokens": 65111,
+    "output_tokens": 949
+  },
+  "violations": []
+}

@@ -1,0 +1,3 @@
+{
+  "summary": "Successfully implemented readOnly(IsolationLevel) method for CachingWindowStore with custom ReadOnlyView that provides proper caching behavior for READ_UNCOMMITTED and cache-bypass behavior for READ_COMMITTED isolation levels. All 60 tests pass."
+}

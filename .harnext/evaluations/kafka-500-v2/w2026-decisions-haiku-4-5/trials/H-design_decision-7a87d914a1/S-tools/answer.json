@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "mail message 59c5fd3092adaf090832eeba from Lucas Brutschy (2026-02-20T09:41:00Z) suggesting the config name",
+    "mail message d0ea5a94789da80c21eb21d1 from Arpit Goyal (2026-02-20T10:21:56Z) confirming all feedback was addressed and KIP was updated"
+  ],
+  "value": "processing.exception.handler.global.enabled"
+}

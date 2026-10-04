@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "mcp__history__context_research query on bbejeck's pull requests merged 2025-05-01 to 2026-04-30 and their approvals",
+    "Found 22 merged PRs authored by bbejeck in the specified period",
+    "Approval counts (excluding bbejeck): mjsax 13, frankvicky 7, aliehsaeedii 4, clolov 3, lucasbru 1, nicktelford 1, eduwercamacaro 1"
+  ],
+  "value": "mjsax"
+}

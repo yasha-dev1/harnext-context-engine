@@ -1,0 +1,9 @@
+{
+  "evidence": [
+    "mail message 2c9914fcd59c78f2ca473e49 (Matthias J. Sax, Jan 27, 2026)",
+    "mail message in nested thread showing Chia-Ping Tsai's confirmation on Jan 15, 2026",
+    "mail message showing Alieh Saeedi's KIP update on Jan 16, 2026",
+    "KAFKA-20056 issue (KIP-1271: Allow to Store Record Headers in State Stores)"
+  ],
+  "value": "varint"
+}

@@ -1,0 +1,25 @@
+{
+  "evidence": [
+    "PR #21744 (merged 2026-03-16T13:22:47Z, before cutoff 2026-03-31T23:59:59Z)",
+    "KAFKA-20307: Add Interactive Queries (IQv1) support for headers-aware stores",
+    "_intake/2026/03/16/github-api-apache-kafka-pr-21744-merged-8ca266e1.md"
+  ],
+  "value": [
+    "streams/integration-tests/src/test/java/org/apache/kafka/streams/integration/HeadersStoreUpgradeIntegrationTest.java",
+    "streams/src/main/java/org/apache/kafka/streams/processor/internals/AbstractReadOnlyDecorator.java",
+    "streams/src/main/java/org/apache/kafka/streams/processor/internals/StateManagerUtil.java",
+    "streams/src/main/java/org/apache/kafka/streams/state/internals/GlobalStateStoreProvider.java",
+    "streams/src/main/java/org/apache/kafka/streams/state/internals/StreamThreadStateStoreProvider.java",
+    "streams/src/main/java/org/apache/kafka/streams/state/internals/ValueConverters.java",
+    "streams/src/main/java/org/apache/kafka/streams/state/internals/WindowToTimestampedWindowByteStoreAdapter.java",
+    "streams/src/main/java/org/apache/kafka/streams/state/QueryableStoreTypes.java",
+    "streams/src/test/java/org/apache/kafka/streams/processor/internals/StateManagerUtilConverterTest.java",
+    "streams/src/test/java/org/apache/kafka/streams/state/internals/GenericReadOnlyKeyValueStoreFacadeTest.java",
+    "streams/src/test/java/org/apache/kafka/streams/state/internals/GenericReadOnlyWindowStoreFacadeTest.java",
+    "streams/src/test/java/org/apache/kafka/streams/state/internals/GlobalStateStoreProviderTest.java",
+    "streams/src/test/java/org/apache/kafka/streams/state/internals/StreamThreadStateStoreProviderTest.java",
+    "streams/src/test/java/org/apache/kafka/streams/state/internals/ValueConvertersTest.java",
+    "streams/src/test/java/org/apache/kafka/streams/state/QueryableStoreTypesWithHeadersTest.java",
+    "streams/test-utils/src/main/java/org/apache/kafka/streams/TopologyTestDriver.java"
+  ]
+}

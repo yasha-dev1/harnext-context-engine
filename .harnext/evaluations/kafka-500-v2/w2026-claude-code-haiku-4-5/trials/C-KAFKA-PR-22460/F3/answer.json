@@ -1,0 +1,3 @@
+{
+  "summary": "Implemented KIP-1319 alignment for TxnOffsetCommit API by adding metadata awaiting logic in KafkaProducer.sendOffsetsToTransaction(). This single focused change ensures topic IDs are available in the metadata cache before the TransactionManager creates the TxnOffsetCommit handler, enabling v6+ API negotiation with topic ID support when brokers support it. The TransactionManager can now detect available topic IDs and use forTopicIdsOrNames() factory method for higher API versions."
+}

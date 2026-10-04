@@ -1,0 +1,3 @@
+{
+  "summary": "Implemented KAFKA-20623 by sanitizing error messages in StreamsGroupTopologyDescriptionManager.toFailureEntry() to return \"Topology description plugin failed to delete the topology.\" instead of raw plugin error messages. This prevents leaking plugin-specific implementation details to clients while maintaining consistency with how the codebase handles other plugin failures. The change allows all 28 tests in GroupCoordinatorServiceTopologyDescriptionTest to pass."
+}

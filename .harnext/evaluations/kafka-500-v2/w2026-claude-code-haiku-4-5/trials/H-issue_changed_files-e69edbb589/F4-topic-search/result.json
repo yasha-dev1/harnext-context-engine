@@ -1,0 +1,65 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "PR #21785 merged 2026-03-17T16:02:46Z (commit c48bc49a8fdf8a3decb43f23ea3288e0bb3e0ef9)",
+      "Component: share",
+      "File mentioned in review: ShareGroupDLQ.java",
+      "Related PR #21640 shows similar files in server-common/src/main/java/org/apache/kafka/server/share/dlq/ directory",
+      "Source: pull-requests.md, lines 2453-2464 and 2716-2725"
+    ],
+    "value": [
+      "Unable to determine complete file list - detailed file changes for PR #21785 not documented in available context"
+    ]
+  },
+  "arm": "F4-topic-search",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 180.44866895100859,
+  "family": "issue_changed_files",
+  "grade": {
+    "actual": [
+      "Unable to determine complete file list - detailed file changes for PR #21785 not documented in available context"
+    ],
+    "correct": false,
+    "evidence": [
+      "PR #21785 merged 2026-03-17T16:02:46Z (commit c48bc49a8fdf8a3decb43f23ea3288e0bb3e0ef9)",
+      "Component: share",
+      "File mentioned in review: ShareGroupDLQ.java",
+      "Related PR #21640 shows similar files in server-common/src/main/java/org/apache/kafka/server/share/dlq/ directory",
+      "Source: pull-requests.md, lines 2453-2464 and 2716-2725"
+    ],
+    "expected": [
+      "server-common/src/main/java/org/apache/kafka/server/share/dlq/ShareGroupDLQ.java",
+      "server/src/main/java/org/apache/kafka/server/share/fetch/RecordState.java"
+    ]
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 14,
+  "prompt_sha256": "537bae4d14e2967f3a9da18a5ef3526c7f75744edf88fac91b3b9d4680aa082d",
+  "run_index": 41,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-issue_changed_files-e69edbb589",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 2,
+    "mcp__history__search_context": 10
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 541987,
+    "cost_usd": 0.1639097,
+    "input_tokens": 589195,
+    "output_tokens": 3082
+  },
+  "violations": []
+}

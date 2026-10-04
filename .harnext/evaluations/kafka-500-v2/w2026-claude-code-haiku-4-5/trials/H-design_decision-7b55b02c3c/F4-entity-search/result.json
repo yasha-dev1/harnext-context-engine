@@ -1,0 +1,58 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "kips/KIP-1279.md",
+      "WINDOW-53-2026-03-06-07-summary.md",
+      "WINDOW-58-2026-03-10-11-summary.md",
+      "WINDOW-64-2026-03-15-summary.md",
+      "WINDOW-106-2026-04-29-30-summary.md"
+    ],
+    "value": null
+  },
+  "arm": "F4-entity-search",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 154.30676580300496,
+  "family": "design_decision",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "kips/KIP-1279.md",
+      "WINDOW-53-2026-03-06-07-summary.md",
+      "WINDOW-58-2026-03-10-11-summary.md",
+      "WINDOW-64-2026-03-15-summary.md",
+      "WINDOW-106-2026-04-29-30-summary.md"
+    ],
+    "expected": "StartMirrorTopics/StopMirrorTopics"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 33,
+  "prompt_sha256": "4dd7fe72b08bbc5f2701de83c0b385c0ebed3e812f33126cf5faa4bbdf51ee9a",
+  "run_index": 67,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-7b55b02c3c",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 30
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 1322368,
+    "cost_usd": 0.24256280000000002,
+    "input_tokens": 1363447,
+    "output_tokens": 5687
+  },
+  "violations": []
+}

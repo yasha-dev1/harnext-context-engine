@@ -1,0 +1,51 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "Knowledge cutoff: February 2025 (before thread date 2026-03-01)",
+      "No network access to mailing list archives or JIRA",
+      "No local project context provided"
+    ],
+    "value": null
+  },
+  "arm": "N",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 6.920911064997199,
+  "family": "implicit_link",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "Knowledge cutoff: February 2025 (before thread date 2026-03-01)",
+      "No network access to mailing list archives or JIRA",
+      "No local project context provided"
+    ],
+    "expected": "KAFKA-20239"
+  },
+  "instructions_sha256": null,
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 1,
+  "prompt_sha256": "e2502c18c8f0ac11d594e01c498e9b83c400bc4705a7573da99bd796b0710147",
+  "run_index": 79,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-implicit_link-343147259e",
+  "tool_calls": {
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 17497,
+    "cost_usd": 0.0107727,
+    "input_tokens": 20638,
+    "output_tokens": 550
+  },
+  "violations": []
+}

@@ -1,0 +1,3 @@
+{
+  "summary": "Implemented KAFKA-20282: Added a log recommendation for users of the Classic rebalance protocol to consider switching to the new consumer rebalance protocol (KIP-848). The implementation logs \"The consumer rebalance protocol (KIP-848) is production ready! Please consider switching to the new consumer protocol.\" at INFO level in ClassicKafkaConsumer when a GROUP_ID is configured. All four required test cases pass successfully: testClassicProtocolLogsRecommendationToTryConsumerProtocol, testConsumerProtocolDoesNotLogRecommendation, testDefaultProtocolLogsRecommendationToTryConsumerProtocol, and testNoGroupIdDoesNotLogGroupProtocolMessage. The entire KafkaConsumerTest suite passes with no regressions."
+}

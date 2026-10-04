@@ -1,0 +1,135 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "summary": "Successfully implemented readOnly(IsolationLevel) for MeteredKeyValueStore (KAFKA-20497). Added a ReadOnlyView inner class that wraps the underlying read-only store, applies serdes for key/value conversion, and records metrics using the existing sensors (getSensor, rangeSensor, allSensor, prefixScanSensor). All 47 tests pass, including 9 new readOnly-related tests that verify proper deserialization and metric recording for all read operations (get, range, reverseRange, all, reverseAll, prefixScan) and proper delegation of approximateNumEntries and isolation level propagation."
+  },
+  "arm": "F6-search",
+  "checkpoint": "2026-04",
+  "cli_calls": {
+    "git": 2
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 297.32611307900515,
+  "family": "pr_implementation",
+  "grade": {
+    "counts": {
+      "passed": 43
+    },
+    "dropped_paths": [
+      "streams/src/test/java/org/apache/kafka/streams/state/internals/MeteredKeyValueStoreTest.java"
+    ],
+    "fail_to_pass_failed": [],
+    "graded_by": "gradle",
+    "grading_timed_out": false,
+    "gradle_returncode": 0,
+    "other_failed_tasks": [],
+    "outcomes": {
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldDelegateInit()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldDeleteFromInnerStoreAndRecordDeleteMetric()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldFlushInnerWhenCommitTimeRecords()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldGetAllFromInnerStoreAndRecordAllMetric()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldGetBytesFromInnerStoreAndReturnGetMetric()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldGetRangeFromInnerStoreAndRecordRangeMetric()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldGetRecordsWithPrefixKey()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldNotSetFlushListenerOnWrappedNoneCachingStore()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldNotThrowNullPointerExceptionIfGetReturnsNull()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldPassChangelogTopicNameToStateStoreSerde()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldPassDefaultChangelogTopicNameToStateStoreSerdeIfLoggingDisabled()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldPassReadCommittedThroughToInner()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldPassRecordHeadersToValueDeserializerWhenFlushListenerIsSet()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldPutAllToInnerStoreAndRecordPutAllMetric()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldPutIfAbsentAndRecordPutIfAbsentMetric()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldReadOnlyViewAllApplySerdesAndRecordAllMetric()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldReadOnlyViewApproximateNumEntriesDelegatesToUnderlying()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldReadOnlyViewGetApplySerdesAndRecordGetMetric()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldReadOnlyViewPrefixScanApplySerdesAndRecordPrefixScanMetric()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldReadOnlyViewRangeApplySerdesAndRecordRangeMetric()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldReadOnlyViewReverseAllApplySerdesAndRecordAllMetric()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldReadOnlyViewReverseRangeApplySerdesAndRecordRangeMetric()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldRecordRestoreLatencyOnRecordRestoreTime()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldRemoveMetricsEvenIfWrappedStoreThrowsOnClose()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldRemoveMetricsOnClose()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldSetFlushListenerOnWrappedCachingStore()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldThrowNpeOnNullIsolationLevel()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldThrowNullPointerOnDeleteIfKeyIsNull()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldThrowNullPointerOnGetIfKeyIsNull()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldThrowNullPointerOnPrefixScanIfPrefixIsNull()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldThrowNullPointerOnPutAllIfAnyKeyIsNull()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldThrowNullPointerOnPutIfAbsentIfKeyIsNull()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldThrowNullPointerOnPutIfKeyIsNull()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldThrowNullPointerOnRangeIfFromIsNull()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldThrowNullPointerOnRangeIfToIsNull()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldThrowNullPointerOnReverseRangeIfFromIsNull()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldThrowNullPointerOnReverseRangeIfToIsNull()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldTimeIteratorDuration()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldTrackNumKeysMetric()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldTrackOldestOpenIteratorTimestamp()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldTrackOpenIteratorsMetric()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldWriteBytesToInnerStoreAndRecordPutMetric()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#testMetrics()": "passed"
+    },
+    "pass_to_pass_failed": [],
+    "patch_bytes": 12384,
+    "patch_empty": false,
+    "resolved": true,
+    "seconds": 128.1,
+    "similarity": {
+      "added_lines": {
+        "f1": 0.313,
+        "precision": 0.622,
+        "recall": 0.209
+      },
+      "files": {
+        "agent": 1,
+        "f1": 0.667,
+        "golden": 2,
+        "precision": 1.0,
+        "recall": 0.5,
+        "shared": 1
+      },
+      "location_recall": 0.132,
+      "removed_lines": {
+        "f1": 0.0,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      "size": {
+        "agent_added": 45,
+        "agent_removed": 0,
+        "golden_added": 134,
+        "golden_removed": 31
+      }
+    },
+    "test_compile_failed": []
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "coding",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 32,
+  "prompt_sha256": "43fa885a8d7c12ec5868dc93acb01e466a05099676dd68b45efba5ce05170f62",
+  "run_index": 6,
+  "status": "completed",
+  "success": true,
+  "task_id": "C-KAFKA-PR-22316",
+  "tool_calls": {
+    "Bash": 14,
+    "Edit": 4,
+    "Read": 8,
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 2
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 1561732,
+    "cost_usd": 0.2923372,
+    "input_tokens": 1605977,
+    "output_tokens": 9587
+  },
+  "violations": []
+}

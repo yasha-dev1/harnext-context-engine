@@ -1,0 +1,53 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "store/discussions.md (lines 1222-1234, 1327-1339, 485-496 - discussions about KIP-1279 Cluster Mirroring by Federico Valeri)",
+      "store/issues.md (KAFKA-20186 - Cluster Mirroring epic)",
+      "Correction note from 2026-02-14T05:50:03Z clarifying that Cluster Mirroring is KIP-1279, not KIP-1267"
+    ],
+    "value": "KAFKA-20186"
+  },
+  "arm": "F4-topic-search",
+  "checkpoint": "2026-02",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 47.83311793199391,
+  "family": "implicit_link",
+  "grade": {
+    "actual": "KAFKA-20186",
+    "correct": true,
+    "evidence": [
+      "store/discussions.md (lines 1222-1234, 1327-1339, 485-496 - discussions about KIP-1279 Cluster Mirroring by Federico Valeri)",
+      "store/issues.md (KAFKA-20186 - Cluster Mirroring epic)",
+      "Correction note from 2026-02-14T05:50:03Z clarifying that Cluster Mirroring is KIP-1279, not KIP-1267"
+    ],
+    "expected": "KAFKA-20186"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "d85a23ca1e2dab86371e62ebabd0ec11a2487e894a14a26a3224925a032df595",
+  "run_index": 88,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-implicit_link-fed6dac2f1",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 64162,
+    "cost_usd": 0.0151472,
+    "input_tokens": 65701,
+    "output_tokens": 1136
+  },
+  "violations": []
+}

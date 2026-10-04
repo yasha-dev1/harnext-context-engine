@@ -1,0 +1,10 @@
+{
+  "evidence": [
+    "KAFKA-20327 JIRA history showing resolution set at 2026-03-17T18:49:34.456000Z",
+    "GitHub PR #21791 showing merged at 2026-03-17T18:47:50Z"
+  ],
+  "value": {
+    "days": 0,
+    "first": "merge"
+  }
+}

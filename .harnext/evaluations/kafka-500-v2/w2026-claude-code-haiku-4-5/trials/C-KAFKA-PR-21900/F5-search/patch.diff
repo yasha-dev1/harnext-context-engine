@@ -1,0 +1,17 @@
+diff --git a/clients/src/main/java/org/apache/kafka/clients/consumer/internals/ClassicKafkaConsumer.java b/clients/src/main/java/org/apache/kafka/clients/consumer/internals/ClassicKafkaConsumer.java
+index b8e181743a25084b2db81084ca71145f9dc308a4..b784e9d45a84457a309dc7af56ee65ba6d9042d9 100644
+--- a/clients/src/main/java/org/apache/kafka/clients/consumer/internals/ClassicKafkaConsumer.java
++++ b/clients/src/main/java/org/apache/kafka/clients/consumer/internals/ClassicKafkaConsumer.java
+@@ -169,6 +169,12 @@ public class ClassicKafkaConsumer<K, V> implements ConsumerDelegate<K, V> {
+             this.log = logContext.logger(getClass());
+             boolean enableAutoCommit = config.getBoolean(ENABLE_AUTO_COMMIT_CONFIG);
+ 
++            if (groupId.isPresent()) {
++                log.info("The consumer rebalance protocol (KIP-848) is production ready! " +
++                        "Consider using the new consumer group protocol by setting " +
++                        "group.protocol=consumer.");
++            }
++
+             log.debug("Initializing the Kafka consumer");
+             this.requestTimeoutMs = config.getInt(ConsumerConfig.REQUEST_TIMEOUT_MS_CONFIG);
+             this.defaultApiTimeoutMs = config.getInt(ConsumerConfig.DEFAULT_API_TIMEOUT_MS_CONFIG);

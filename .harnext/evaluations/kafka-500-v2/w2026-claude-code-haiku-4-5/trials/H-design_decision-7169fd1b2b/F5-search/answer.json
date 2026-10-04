@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "The KIP-1322 discussion thread exists in INDEX.md (dated 2026-05-22T22:24:49Z) with 3 messages from Tony Tang, Kevin Wu, and Justine Olshan",
+    "Initial context_research response indicated the discussion thread is tracked but detailed design decision content has not been incorporated into the context filesystem entity structure",
+    "KAFKA-20513 (Add metrics to Kraft for fetch/election timeouts) is referenced as a related issue but the specific design decision details are not available in the searchable context"
+  ],
+  "value": null
+}

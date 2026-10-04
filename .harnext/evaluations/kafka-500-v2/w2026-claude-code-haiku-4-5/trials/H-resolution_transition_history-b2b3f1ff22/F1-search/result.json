@@ -1,0 +1,83 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "entities/issue/KAFKA-20255/timeline.md"
+    ],
+    "value": [
+      {
+        "at": "2026-03-05T09:40:54.000000Z",
+        "from": null,
+        "to": "Fixed"
+      },
+      {
+        "at": "2026-03-13T07:44:14.000000Z",
+        "from": "Fixed",
+        "to": "Duplicate"
+      }
+    ]
+  },
+  "arm": "F1-search",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 39.51203917300154,
+  "family": "resolution_transition_history",
+  "grade": {
+    "actual": [
+      {
+        "at": "2026-03-05T09:40:54.000000Z",
+        "from": null,
+        "to": "Fixed"
+      },
+      {
+        "at": "2026-03-13T07:44:14.000000Z",
+        "from": "Fixed",
+        "to": "Duplicate"
+      }
+    ],
+    "correct": false,
+    "evidence": [
+      "entities/issue/KAFKA-20255/timeline.md"
+    ],
+    "expected": [
+      {
+        "at": "2026-03-05T09:40:54.681000Z",
+        "from": null,
+        "to": "Fixed"
+      },
+      {
+        "at": "2026-03-13T07:44:14.073000Z",
+        "from": "Fixed",
+        "to": "Duplicate"
+      }
+    ]
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 4,
+  "prompt_sha256": "5e4911bf4f083e5faec021fecf430cac5cdd86d3cb686e8f0bfe36054e56c5d6",
+  "run_index": 27,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-resolution_transition_history-b2b3f1ff22",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 87241,
+    "cost_usd": 0.0252031,
+    "input_tokens": 92098,
+    "output_tokens": 1360
+  },
+  "violations": []
+}

@@ -1,0 +1,54 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "discussions.md - Apoorv Mittal's question AM4 (May 12, 2026) references 'ClientConfigTooLargeException behavior' as the exception for rejecting oversized configurations",
+      "discussions.md - Multiple Windows (110-117) show Kirk True's responses to May 5-15, 2026 discussions about KIP-1324 exception handling",
+      "context_research result - Referenced Andrew Schofield's comments mentioning 'ClientConfigTooLargeException' among exception classes for the KIP"
+    ],
+    "value": "ClientConfigTooLargeException"
+  },
+  "arm": "F4-topic-search",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 246.21881879300054,
+  "family": "design_decision",
+  "grade": {
+    "actual": "ClientConfigTooLargeException",
+    "correct": false,
+    "evidence": [
+      "discussions.md - Apoorv Mittal's question AM4 (May 12, 2026) references 'ClientConfigTooLargeException behavior' as the exception for rejecting oversized configurations",
+      "discussions.md - Multiple Windows (110-117) show Kirk True's responses to May 5-15, 2026 discussions about KIP-1324 exception handling",
+      "context_research result - Referenced Andrew Schofield's comments mentioning 'ClientConfigTooLargeException' among exception classes for the KIP"
+    ],
+    "expected": "ConfigTooLargeException"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 19,
+  "prompt_sha256": "6c7d6c42de5e2cdef303dcfc7221678c25f3e7b16714e3ce972bc979b9efc015",
+  "run_index": 72,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-9747f2e7bf",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 2,
+    "mcp__history__search_context": 15
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 772308,
+    "cost_usd": 0.19511679999999998,
+    "input_tokens": 819266,
+    "output_tokens": 4825
+  },
+  "violations": []
+}

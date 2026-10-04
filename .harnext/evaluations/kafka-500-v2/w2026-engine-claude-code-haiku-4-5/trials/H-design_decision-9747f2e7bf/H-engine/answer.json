@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "KIP commit implementing oversized pushed client configuration handling (dated 2026-05-05)",
+    "Context research via Harnext history (13 turns of research, 92753 input tokens analyzed)"
+  ],
+  "value": "OversizedPushedClientConfigException"
+}

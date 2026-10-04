@@ -1,0 +1,84 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "jira:13635972:change:22870335:1",
+      "jira:13635972:change:22870335:0"
+    ],
+    "value": [
+      "4.3.0"
+    ]
+  },
+  "arm": "H-engine",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 66.8788136889998,
+  "engine": {
+    "calls": 1,
+    "chat": {
+      "calls": 10,
+      "cancelled": 0,
+      "cost_usd": 0.00120804,
+      "input_tokens": 60415,
+      "output_tokens": 1179,
+      "retries": 0
+    },
+    "cost_usd": 0.00210537,
+    "discarded_attempts": 0,
+    "jev": {
+      "calls": 10,
+      "cancelled": 0,
+      "cost_usd": 0.00089733,
+      "input_tokens": 21365,
+      "output_tokens": 4277,
+      "retries": 0
+    },
+    "partial": 1,
+    "provider_retry_usd": 0,
+    "seconds": 54.19,
+    "unmetered_upper_usd": 0,
+    "waited_s": 0
+  },
+  "family": "fix_version_at_snapshot",
+  "grade": {
+    "actual": [
+      "4.3.0"
+    ],
+    "correct": true,
+    "evidence": [
+      "jira:13635972:change:22870335:1",
+      "jira:13635972:change:22870335:0"
+    ],
+    "expected": [
+      "4.3.0"
+    ]
+  },
+  "image_id": "sha256:4615b2564319d58319029548af66970c954e128401ee89c8705684861de4bc07",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "ae108b2220eaaa2aef919a9c81a303fd271aaa132147df912fcdaf4005500da7",
+  "run_index": 40,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-fix_version_at_snapshot-ffdb6586ec",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 59899,
+    "cost_usd": 0.0181159,
+    "input_tokens": 64278,
+    "output_tokens": 679
+  },
+  "violations": []
+}

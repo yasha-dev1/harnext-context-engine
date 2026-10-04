@@ -1,0 +1,51 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "issues/KAFKA-20614.md",
+      "WINDOW-126-2026-05-25-to-2026-05-26.md"
+    ],
+    "value": "KAFKA-20614"
+  },
+  "arm": "F4-entity-search",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 14.769151764005073,
+  "family": "implicit_link",
+  "grade": {
+    "actual": "KAFKA-20614",
+    "correct": true,
+    "evidence": [
+      "issues/KAFKA-20614.md",
+      "WINDOW-126-2026-05-25-to-2026-05-26.md"
+    ],
+    "expected": "KAFKA-20614"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "be84dfaaa1c22b173143b9c5ca7b14734c13291749b38144628a83e7a1509fe9",
+  "run_index": 80,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-implicit_link-5f99ef72d8",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__search_context": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 60358,
+    "cost_usd": 0.0212448,
+    "input_tokens": 65981,
+    "output_tokens": 798
+  },
+  "violations": []
+}

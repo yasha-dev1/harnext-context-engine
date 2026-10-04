@@ -1,0 +1,59 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "Searched context for: KAFKA-20354, Control Batch types documentation, Apache Kafka PRs from 2026-03",
+      "Result: No matching records found in context filesystem (INDEX.md, entity directories, and batch incorporation files)"
+    ],
+    "value": [
+      "The requested PR cannot be found in the available context"
+    ]
+  },
+  "arm": "F5-search",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 43.57911485400109,
+  "family": "pr_approvers",
+  "grade": {
+    "actual": [
+      "The requested PR cannot be found in the available context"
+    ],
+    "correct": false,
+    "evidence": [
+      "Searched context for: KAFKA-20354, Control Batch types documentation, Apache Kafka PRs from 2026-03",
+      "Result: No matching records found in context filesystem (INDEX.md, entity directories, and batch incorporation files)"
+    ],
+    "expected": [
+      "AndrewJSchofield",
+      "showuon"
+    ]
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 9,
+  "prompt_sha256": "dd4fcad644806102769080973ad1c8aab12afd6ac376dc85907dff8bd4435ea5",
+  "run_index": 36,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-pr_approvers-728956e54a",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 2,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 5
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 220876,
+    "cost_usd": 0.04905760000000001,
+    "input_tokens": 230227,
+    "output_tokens": 1669
+  },
+  "violations": []
+}

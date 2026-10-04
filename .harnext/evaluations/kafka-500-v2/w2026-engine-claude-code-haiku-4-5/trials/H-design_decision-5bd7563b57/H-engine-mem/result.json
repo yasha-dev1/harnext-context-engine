@@ -1,0 +1,80 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail:0dd4bef668efdd149d63c1de",
+      "mail:36b3dd6f3cf0c5181c080be0",
+      "mail:e04bca021de39c776b56e428"
+    ],
+    "value": "GroupCreationTimeNotAvailableException"
+  },
+  "arm": "H-engine-mem",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 81.33118933900187,
+  "engine": {
+    "calls": 1,
+    "chat": {
+      "calls": 21,
+      "cancelled": 0,
+      "cost_usd": 0.00156243,
+      "input_tokens": 74994,
+      "output_tokens": 2278,
+      "retries": 0
+    },
+    "cost_usd": 0.00382732,
+    "discarded_attempts": 0,
+    "jev": {
+      "calls": 25,
+      "cancelled": 0,
+      "cost_usd": 0.00226489,
+      "input_tokens": 53926,
+      "output_tokens": 7349,
+      "retries": 0
+    },
+    "partial": 1,
+    "provider_retry_usd": 0,
+    "seconds": 66.427,
+    "unmetered_upper_usd": 0,
+    "waited_s": 0
+  },
+  "family": "design_decision",
+  "grade": {
+    "actual": "GroupCreationTimeNotAvailableException",
+    "correct": false,
+    "evidence": [
+      "mail:0dd4bef668efdd149d63c1de",
+      "mail:36b3dd6f3cf0c5181c080be0",
+      "mail:e04bca021de39c776b56e428"
+    ],
+    "expected": "GroupCreationTimeUnknownException"
+  },
+  "image_id": "sha256:4615b2564319d58319029548af66970c954e128401ee89c8705684861de4bc07",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "aed1a9adfdd2bab8dc7b751095be4ed1d0153793a3a3ff30513deca69c42785b",
+  "run_index": 65,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-5bd7563b57",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 60083,
+    "cost_usd": 0.0195513,
+    "input_tokens": 64923,
+    "output_tokens": 778
+  },
+  "violations": []
+}

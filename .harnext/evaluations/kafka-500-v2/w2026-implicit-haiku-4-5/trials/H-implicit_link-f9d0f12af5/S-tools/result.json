@@ -1,0 +1,53 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail search result: 1efa3c4297d631388e2668aa (2026-01-28T08:19:16Z) - Jianbin Chen's forward of inquiry about ZooKeeper to KRaft migration",
+      "jira issue view KAFKA-20104 - created 2026-01-30T01:19:12Z with matching title and description from the mailing list thread"
+    ],
+    "value": "KAFKA-20104"
+  },
+  "arm": "S-tools",
+  "checkpoint": "2026-01",
+  "cli_calls": {
+    "jira": 2,
+    "mail": 4
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 44.274173949001124,
+  "family": "implicit_link",
+  "grade": {
+    "actual": "KAFKA-20104",
+    "correct": true,
+    "evidence": [
+      "mail search result: 1efa3c4297d631388e2668aa (2026-01-28T08:19:16Z) - Jianbin Chen's forward of inquiry about ZooKeeper to KRaft migration",
+      "jira issue view KAFKA-20104 - created 2026-01-30T01:19:12Z with matching title and description from the mailing list thread"
+    ],
+    "expected": "KAFKA-20104"
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 6,
+  "prompt_sha256": "7a3289d7f7579b20b5434b66b1c2cd5443a0addacf431b3a2f3c9ba85f0ce1e3",
+  "run_index": 2,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-implicit_link-f9d0f12af5",
+  "tool_calls": {
+    "Bash": 6,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 128961,
+    "cost_usd": 0.035650100000000004,
+    "input_tokens": 136650,
+    "output_tokens": 1485
+  },
+  "violations": []
+}

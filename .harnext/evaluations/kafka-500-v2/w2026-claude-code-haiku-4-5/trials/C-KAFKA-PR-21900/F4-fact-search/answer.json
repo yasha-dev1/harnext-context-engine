@@ -1,0 +1,3 @@
+{
+  "summary": "Implemented KAFKA-20282 by adding an informational log message to ClassicKafkaConsumer when initialized with a group ID. The message \"The consumer rebalance protocol (KIP-848) is production ready!\" informs users about the new consumer rebalance protocol, supporting KIP-1274's phased deprecation plan for the classic protocol. Modified only clients/src/main/java/org/apache/kafka/clients/consumer/internals/ClassicKafkaConsumer.java to add the log statement in the constructor when groupId is not empty."
+}

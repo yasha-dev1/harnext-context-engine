@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "pull-requests.md (lines 8320-8332 and 14052-14064)",
+    "The history context contains only summary information: PR #21273 was merged on 2026-02-19 with 45 files changed across multiple modules, reviewed by Christo Lolov and PoAn Yang. However, the detailed file-by-file inline review comment counts are not available in the context store."
+  ],
+  "value": "null"
+}

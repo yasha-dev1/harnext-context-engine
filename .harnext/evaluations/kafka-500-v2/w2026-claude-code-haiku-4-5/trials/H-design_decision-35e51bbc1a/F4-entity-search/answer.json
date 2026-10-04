@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "kips/KIP-1279.md - contains overview and discussion points but not detailed specification sections",
+    "KAFKA-20186.md - tracking issue referencing the KIP",
+    "Multiple window summaries (WINDOW-32 through WINDOW-106) documenting discussions but not the decision itself"
+  ],
+  "value": null
+}

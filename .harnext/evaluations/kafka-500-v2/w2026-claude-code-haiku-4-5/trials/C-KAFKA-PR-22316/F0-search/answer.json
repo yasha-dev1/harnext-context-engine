@@ -1,0 +1,3 @@
+{
+  "summary": "Implemented readOnly(IsolationLevel) method for MeteredKeyValueStore with a ReadOnlyView inner class that applies metering and serdes to all read operations, following the pattern established by MeteredWindowStore and MeteredSessionStore. All tests pass."
+}

@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "Message 1c0b316b9c6624add1f97d07 (2026-01-14) from Alieh Saeedi: 'I have removed the two-byte header size and its associated configuration property. Since we are using varints for the header count, as well as for individual key and value sizes within each header, a global \"headers size\" field is redundant and could be restrictive.'",
+    "Initial proposal message (2026-01-09) mentioned 'a small config to cap the size of headers written into state' but this was removed during discussion as stated above",
+    "KIP-1271 voting thread (2026-01-19 onwards) approved the design without the dedicated configuration property"
+  ],
+  "value": "no"
+}

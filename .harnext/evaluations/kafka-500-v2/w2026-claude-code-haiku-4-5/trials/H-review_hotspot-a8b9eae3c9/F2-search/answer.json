@@ -1,0 +1,13 @@
+{
+  "evidence": [
+    "store/prs/21273/github-api-apache-kafka-review-comment-PRRC_kwDOACG9q86p8ow3-32612f41.md",
+    "store/prs/21273/2026-02-22-github-api-apache-kafka-review-comment-PRRC_kwDOACG9q86pI1Oz-a67f8b1d.md",
+    "store/prs/21273/2026-02-24-gh-review-comment-PRRC_kwDOACG9q86psVlJ-099fbeed.md",
+    "store/prs/21273/2026-02-24-gh-review-comment-PRRC_kwDOACG9q86ppdme-f5f52cca.md",
+    "store/prs/21273/2026-02-19-gh-review-comment-PRRC_kwDOACG9q86oldo9-52d86c60.md",
+    "store/prs/21273/2026-02-20-gh-review-comment-PRRC_kwDOACG9q86o1uEQ-9a7548be.md",
+    "store/prs/21273/2026-02-20-gh-review-comment-PRRC_kwDOACG9q86o11In-928a84dd.md",
+    "store/prs/21273/2026-01-28-gh-review-comment-FrankYang0529-8a3c2f1e.md"
+  ],
+  "value": "core/src/main/scala/kafka/server/DynamicBrokerConfig.scala"
+}

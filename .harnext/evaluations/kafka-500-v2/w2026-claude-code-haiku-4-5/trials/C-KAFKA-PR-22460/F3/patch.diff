@@ -1,0 +1,22 @@
+diff --git a/clients/src/main/java/org/apache/kafka/clients/producer/KafkaProducer.java b/clients/src/main/java/org/apache/kafka/clients/producer/KafkaProducer.java
+index cd495956269ec3fb1110828b699717bd3b057c83..e776fc12d9256c92426ca31e9642eb9b7b621972 100644
+--- a/clients/src/main/java/org/apache/kafka/clients/producer/KafkaProducer.java
++++ b/clients/src/main/java/org/apache/kafka/clients/producer/KafkaProducer.java
+@@ -774,6 +774,17 @@ public class KafkaProducer<K, V> implements Producer<K, V> {
+ 
+         if (!offsets.isEmpty()) {
+             long start = time.nanoseconds();
++            // Ensure metadata has topic IDs for all topics in the offsets map.
++            // This allows the producer to negotiate TxnOffsetCommit v6+ when
++            // the broker supports topic IDs (KIP-1319).
++            for (TopicPartition tp : offsets.keySet()) {
++                try {
++                    waitOnMetadata(tp.topic(), null, time.milliseconds(), maxBlockTimeMs);
++                } catch (InterruptedException e) {
++                    Thread.currentThread().interrupt();
++                    throw new InterruptException(e);
++                }
++            }
+             TransactionalRequestResult result = transactionManager.sendOffsetsToTransaction(offsets, groupMetadata);
+             sender.wakeup();
+             result.await(maxBlockTimeMs, TimeUnit.MILLISECONDS, SEND_OFFSETS_TIMEOUT_MSG);

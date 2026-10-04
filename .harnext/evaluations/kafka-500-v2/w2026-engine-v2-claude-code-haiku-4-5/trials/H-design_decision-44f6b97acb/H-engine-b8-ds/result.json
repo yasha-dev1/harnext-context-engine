@@ -1,0 +1,88 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "github:api:apache/kafka:pr-21555-opened",
+      "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86pwzZp",
+      "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86qMNKx",
+      "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86qMNV-",
+      "mail:4f7fd3d7ae5bfb5b7fd2a661",
+      "github:api:apache/kafka:pr-21555-merged",
+      "mail:23f99b924d7f9230d0545faf"
+    ],
+    "value": "group.coordinator.background.threads"
+  },
+  "arm": "H-engine-b8-ds",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 255.7614334069949,
+  "engine": {
+    "calls": 2,
+    "chat": {
+      "calls": 28,
+      "cancelled": 0,
+      "cost_usd": 0.00813652,
+      "input_tokens": 187887,
+      "output_tokens": 14553,
+      "retries": 0
+    },
+    "cost_usd": 0.01317039,
+    "discarded_attempts": 0,
+    "jev": {
+      "calls": 44,
+      "cancelled": 0,
+      "cost_usd": 0.00503387,
+      "input_tokens": 119854,
+      "output_tokens": 19476,
+      "retries": 0
+    },
+    "partial": 0,
+    "provider_retry_usd": 0,
+    "seconds": 232.16,
+    "unmetered_upper_usd": 0,
+    "waited_s": 0
+  },
+  "family": "design_decision",
+  "grade": {
+    "actual": "group.coordinator.background.threads",
+    "correct": true,
+    "evidence": [
+      "github:api:apache/kafka:pr-21555-opened",
+      "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86pwzZp",
+      "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86qMNKx",
+      "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86qMNV-",
+      "mail:4f7fd3d7ae5bfb5b7fd2a661",
+      "github:api:apache/kafka:pr-21555-merged",
+      "mail:23f99b924d7f9230d0545faf"
+    ],
+    "expected": "group.coordinator.background.threads"
+  },
+  "image_id": "sha256:1de715f951a3fc013cabad66407b87028bc2a5af6e58efdea5338b4cf9fb1485",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 4,
+  "prompt_sha256": "d150598880703e4cecead6fe7163c25e47d9749430db01446ef14b50a608fdc7",
+  "run_index": 39,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-44f6b97acb",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 2
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 82481,
+    "cost_usd": 0.0266891,
+    "input_tokens": 88454,
+    "output_tokens": 1306
+  },
+  "violations": []
+}

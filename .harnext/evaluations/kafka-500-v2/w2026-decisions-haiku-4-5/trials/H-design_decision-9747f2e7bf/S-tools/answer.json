@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "Mail message a1a76025a895e9029a8c8b94 from Kirk True dated 2026-05-05T15:09:46Z in response to Mickael Maison's MM1 question about exception definitions. Kirk explicitly states: 'I've added the definition for the ConfigTooLargeException which is now the only exception added.'"
+  ],
+  "value": "ConfigTooLargeException"
+}

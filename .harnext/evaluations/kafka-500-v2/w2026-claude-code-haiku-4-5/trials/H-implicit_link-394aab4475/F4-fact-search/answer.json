@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "store/issues/kafka-20387-recordheader-api-extensions.md",
+    "store/discussions/kip-1308-extend-recordheader-api-value-types.md"
+  ],
+  "value": "KAFKA-20387"
+}

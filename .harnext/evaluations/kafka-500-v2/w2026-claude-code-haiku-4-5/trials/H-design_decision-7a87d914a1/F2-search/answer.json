@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "/store/kips/KIP-1270/2026-02-20-mail-59c5fd3092adaf090832eeba-08518722.md",
+    "/store/kips/KIP-1270/2026-02-20-mail-d0ea5a94789da80c21eb21d1-6f0bfda8.md"
+  ],
+  "value": "processing.exception.handler.global.enabled"
+}

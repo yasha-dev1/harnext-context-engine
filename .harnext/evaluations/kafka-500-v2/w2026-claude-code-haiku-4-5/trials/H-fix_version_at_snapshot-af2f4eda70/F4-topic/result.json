@@ -1,0 +1,53 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "issues.md (line 1092)",
+      "pull-requests.md (lines 5022-5030)"
+    ],
+    "value": []
+  },
+  "arm": "F4-topic",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 251.03205031300604,
+  "family": "fix_version_at_snapshot",
+  "grade": {
+    "actual": [],
+    "correct": false,
+    "evidence": [
+      "issues.md (line 1092)",
+      "pull-requests.md (lines 5022-5030)"
+    ],
+    "expected": [
+      "4.3.0"
+    ]
+  },
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 5,
+  "prompt_sha256": "64f5711949b784c5e0e3390009fb7abd6165aacab7a0efcf054f90fa06472003",
+  "run_index": 9,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-fix_version_at_snapshot-af2f4eda70",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 3
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 105334,
+    "cost_usd": 0.0280224,
+    "input_tokens": 111500,
+    "output_tokens": 1040
+  },
+  "violations": []
+}

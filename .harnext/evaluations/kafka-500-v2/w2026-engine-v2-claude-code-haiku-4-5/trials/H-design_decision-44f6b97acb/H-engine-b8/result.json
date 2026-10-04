@@ -1,0 +1,78 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "jira:13642872:change:22958255:0",
+      "mail:23f99b924d7f9230d0545faf"
+    ],
+    "value": "group.coordinator.executor.threads"
+  },
+  "arm": "H-engine-b8",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 77.08090627400088,
+  "engine": {
+    "calls": 1,
+    "chat": {
+      "calls": 21,
+      "cancelled": 0,
+      "cost_usd": 0.00316847,
+      "input_tokens": 126524,
+      "output_tokens": 2043,
+      "retries": 0
+    },
+    "cost_usd": 0.00497296,
+    "discarded_attempts": 0,
+    "jev": {
+      "calls": 23,
+      "cancelled": 0,
+      "cost_usd": 0.00180449,
+      "input_tokens": 42964,
+      "output_tokens": 7292,
+      "retries": 0
+    },
+    "partial": 0,
+    "provider_retry_usd": 0,
+    "seconds": 60.09,
+    "unmetered_upper_usd": 0,
+    "waited_s": 0
+  },
+  "family": "design_decision",
+  "grade": {
+    "actual": "group.coordinator.executor.threads",
+    "correct": false,
+    "evidence": [
+      "jira:13642872:change:22958255:0",
+      "mail:23f99b924d7f9230d0545faf"
+    ],
+    "expected": "group.coordinator.background.threads"
+  },
+  "image_id": "sha256:1de715f951a3fc013cabad66407b87028bc2a5af6e58efdea5338b4cf9fb1485",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "d150598880703e4cecead6fe7163c25e47d9749430db01446ef14b50a608fdc7",
+  "run_index": 39,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-44f6b97acb",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 63587,
+    "cost_usd": 0.012172699999999998,
+    "input_tokens": 64665,
+    "output_tokens": 737
+  },
+  "violations": []
+}

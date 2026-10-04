@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "store/issues/KAFKA-20223/jira-13643141-created-97b3760e.md",
+    "store/issues/KAFKA-20223/mail-9bec6b097ffa84958c857c0b-6dfae0f5.md",
+    "store/kips/KIP-1291/mail-2cc3dbf3d225151be41d4a9e-8c5ee504.md"
+  ],
+  "value": "KAFKA-20223"
+}

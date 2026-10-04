@@ -1,0 +1,11 @@
+{
+  "evidence": [
+    "github:api:apache/kafka:pr-21638-merged",
+    "github:api:apache/kafka:pr-21641-merged",
+    "github:api:apache/kafka:pr-21642-merged",
+    "github:api:apache/kafka:pr-21685-merged",
+    "github:api:apache/kafka:pr-21772-merged",
+    "github:api:apache/kafka:pr-22067-merged"
+  ],
+  "value": 6
+}

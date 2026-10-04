@@ -1,0 +1,10 @@
+{
+  "evidence": [
+    "github:api:apache/kafka:pr-21758-merged",
+    "jira:13644381:change:22977461:2"
+  ],
+  "value": {
+    "days": 0,
+    "first": "merge"
+  }
+}

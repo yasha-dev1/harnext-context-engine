@@ -1,0 +1,53 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "store/events/2026/01/22/mail-3e8f59469c20bdceab1a1ca0-5c66fee4.md",
+      "store/events/2026/01/07/mail-615f552c42093fa9f5e277c0-926ed506.md",
+      "store/events/2026/01/12/mail-ea210866a1277c46b831a7bd-e1f172d1.md"
+    ],
+    "value": "deprecated and merged into the main proposal"
+  },
+  "arm": "F0-search",
+  "checkpoint": "2026-01",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 64.52952264100895,
+  "family": "design_decision",
+  "grade": {
+    "actual": "deprecated and merged into the main proposal",
+    "correct": true,
+    "evidence": [
+      "store/events/2026/01/22/mail-3e8f59469c20bdceab1a1ca0-5c66fee4.md",
+      "store/events/2026/01/07/mail-615f552c42093fa9f5e277c0-926ed506.md",
+      "store/events/2026/01/12/mail-ea210866a1277c46b831a7bd-e1f172d1.md"
+    ],
+    "expected": "deprecated and merged into the main proposal"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "79257ad1fc4b40fa2668bb37c3a68906f6609229c74d6a6a0a384c2eec2e9881",
+  "run_index": 54,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-32c8b7a253",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 64184,
+    "cost_usd": 0.0142884,
+    "input_tokens": 65640,
+    "output_tokens": 997
+  },
+  "violations": []
+}

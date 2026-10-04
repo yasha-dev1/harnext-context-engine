@@ -1,0 +1,47 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "Unable to access: (1) knowledge cutoff is Feb 2025, event is Apr 2026; (2) no project files provided; (3) no network access to mailing lists or JIRA"
+    ],
+    "value": null
+  },
+  "arm": "N",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 11.82080627999676,
+  "family": "implicit_link",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "Unable to access: (1) knowledge cutoff is Feb 2025, event is Apr 2026; (2) no project files provided; (3) no network access to mailing lists or JIRA"
+    ],
+    "expected": "KAFKA-20386"
+  },
+  "instructions_sha256": null,
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 1,
+  "prompt_sha256": "0f00ed8b03fd6ac66416d39bb1b056706a791f1f362d8f41d245515ae83ca0dd",
+  "run_index": 86,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-implicit_link-3d50142383",
+  "tool_calls": {
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 17497,
+    "cost_usd": 0.0129397,
+    "input_tokens": 20649,
+    "output_tokens": 979
+  },
+  "violations": []
+}

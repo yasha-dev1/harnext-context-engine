@@ -1,0 +1,10 @@
+{
+  "evidence": [
+    "kips/KIP-1150.md (lines 8-11): 'KIP-1150 is a motivational KIP intended to establish the architectural direction for diskless topics in Apache Kafka. The specific implementation details are delegated to separate sub-KIPs (such as KIP-1163), which will be discussed and voted on individually.'",
+    "kips/KIP-1150.md (lines 29-33): 'Sub-KIPs: KIP-1163: Diskless Core - detailed implementation architecture'",
+    "kips/KIP-1150.md (lines 84-89): 'KIP-1163: Diskless Core (high-level design companion to KIP-1150)'",
+    "WINDOW-12-2026-01-21-to-2026-01-22-summary.md (lines 219-223): 'KIP-1150 Design: Community consensus to polish KIP-1150 & KIP-1163 design before vote rather than proceeding with simpler KIP-1176'",
+    "INDEX-WINDOW-12.md (lines 61-67): Shows KIP-1150 and KIP-1163 as separate ongoing items in the KIP discussion table"
+  ],
+  "value": "kept as an independent proposal"
+}

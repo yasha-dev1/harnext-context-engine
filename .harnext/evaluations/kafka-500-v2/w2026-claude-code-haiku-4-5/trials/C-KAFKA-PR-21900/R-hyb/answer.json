@@ -1,0 +1,3 @@
+{
+  "summary": "Successfully implemented KAFKA-20282: Added log recommendation for KIP-848 consumer rebalance protocol. Modified ClassicKafkaConsumer constructor to log \"The consumer rebalance protocol (KIP-848) is production ready!\" when a group ID is configured. All four test cases pass (testClassicProtocolLogsRecommendationToTryConsumerProtocol, testConsumerProtocolDoesNotLogRecommendation, testDefaultProtocolLogsRecommendationToTryConsumerProtocol, testNoGroupIdDoesNotLogGroupProtocolMessage) with no regressions in full test suite."
+}

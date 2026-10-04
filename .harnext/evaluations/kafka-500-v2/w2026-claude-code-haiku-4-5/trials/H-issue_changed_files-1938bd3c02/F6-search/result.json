@@ -1,0 +1,77 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "pull-requests.md (lines 2325-2335): PR #21744 merged 2026-03-16 with commit a2efacd44ef298c5725bf012fcd10259b9d12518",
+      "window-65-summary.md (lines 50-62): PR #21744 detailed summary listing class changes",
+      "window-64-summary.md (lines 80-99): Review activity with partial file paths shown, truncated with 'streams/sr…'",
+      "jira-issues.md (lines 1360-1368, 1621-1631): KAFKA-20307 issue confirming PR #21744 as only merged PR"
+    ],
+    "value": [
+      "Unable to determine - context store incomplete"
+    ]
+  },
+  "arm": "F6-search",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 141.6999420820066,
+  "family": "issue_changed_files",
+  "grade": {
+    "actual": [
+      "Unable to determine - context store incomplete"
+    ],
+    "correct": false,
+    "evidence": [
+      "pull-requests.md (lines 2325-2335): PR #21744 merged 2026-03-16 with commit a2efacd44ef298c5725bf012fcd10259b9d12518",
+      "window-65-summary.md (lines 50-62): PR #21744 detailed summary listing class changes",
+      "window-64-summary.md (lines 80-99): Review activity with partial file paths shown, truncated with 'streams/sr…'",
+      "jira-issues.md (lines 1360-1368, 1621-1631): KAFKA-20307 issue confirming PR #21744 as only merged PR"
+    ],
+    "expected": [
+      "streams/integration-tests/src/test/java/org/apache/kafka/streams/integration/HeadersStoreUpgradeIntegrationTest.java",
+      "streams/src/main/java/org/apache/kafka/streams/processor/internals/AbstractReadOnlyDecorator.java",
+      "streams/src/main/java/org/apache/kafka/streams/processor/internals/StateManagerUtil.java",
+      "streams/src/main/java/org/apache/kafka/streams/state/QueryableStoreTypes.java",
+      "streams/src/main/java/org/apache/kafka/streams/state/internals/GlobalStateStoreProvider.java",
+      "streams/src/main/java/org/apache/kafka/streams/state/internals/StreamThreadStateStoreProvider.java",
+      "streams/src/main/java/org/apache/kafka/streams/state/internals/ValueConverters.java",
+      "streams/src/main/java/org/apache/kafka/streams/state/internals/WindowToTimestampedWindowByteStoreAdapter.java",
+      "streams/src/test/java/org/apache/kafka/streams/processor/internals/StateManagerUtilConverterTest.java",
+      "streams/src/test/java/org/apache/kafka/streams/state/QueryableStoreTypesWithHeadersTest.java",
+      "streams/src/test/java/org/apache/kafka/streams/state/internals/GenericReadOnlyKeyValueStoreFacadeTest.java",
+      "streams/src/test/java/org/apache/kafka/streams/state/internals/GenericReadOnlyWindowStoreFacadeTest.java",
+      "streams/src/test/java/org/apache/kafka/streams/state/internals/GlobalStateStoreProviderTest.java",
+      "streams/src/test/java/org/apache/kafka/streams/state/internals/StreamThreadStateStoreProviderTest.java",
+      "streams/src/test/java/org/apache/kafka/streams/state/internals/ValueConvertersTest.java",
+      "streams/test-utils/src/main/java/org/apache/kafka/streams/TopologyTestDriver.java"
+    ]
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 14,
+  "prompt_sha256": "8bfa758dbc803b9b9841d0e82d0bc2f8e12b25f58c17704d89b766d2a2f7542e",
+  "run_index": 32,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-issue_changed_files-1938bd3c02",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 2,
+    "mcp__history__search_context": 10
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 500898,
+    "cost_usd": 0.1509128,
+    "input_tokens": 540837,
+    "output_tokens": 4212
+  },
+  "violations": []
+}

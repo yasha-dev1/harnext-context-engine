@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "issues/KAFKA-20525.md",
+    "INDEX-WINDOW-102.md",
+    "kips/KIP-1324.md"
+  ],
+  "value": "KAFKA-20525"
+}

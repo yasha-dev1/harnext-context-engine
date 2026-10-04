@@ -1,0 +1,54 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "entities/kip/KIP-1150/OVERVIEW.md",
+      "entities/kip/KIP-1150/timeline.md",
+      "Context research indicates actual discussion content not stored in accessible files"
+    ],
+    "value": null
+  },
+  "arm": "F1-search",
+  "checkpoint": "2026-01",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 193.00187146100507,
+  "family": "design_decision",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "entities/kip/KIP-1150/OVERVIEW.md",
+      "entities/kip/KIP-1150/timeline.md",
+      "Context research indicates actual discussion content not stored in accessible files"
+    ],
+    "expected": "deprecated and merged into the main proposal"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 10,
+  "prompt_sha256": "79257ad1fc4b40fa2668bb37c3a68906f6609229c74d6a6a0a384c2eec2e9881",
+  "run_index": 54,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-32c8b7a253",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 2,
+    "mcp__history__search_context": 6
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 305782,
+    "cost_usd": 0.0909892,
+    "input_tokens": 331359,
+    "output_tokens": 1868
+  },
+  "violations": []
+}

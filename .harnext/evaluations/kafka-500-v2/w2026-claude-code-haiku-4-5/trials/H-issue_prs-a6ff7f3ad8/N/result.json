@@ -1,0 +1,56 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "Unable to determine: knowledge cutoff (February 2025) predates snapshot cutoff (April 30, 2026); no network access; no project-history context provided"
+    ],
+    "value": []
+  },
+  "arm": "N",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 10.30113618800533,
+  "family": "issue_prs",
+  "grade": {
+    "actual": [],
+    "correct": false,
+    "evidence": [
+      "Unable to determine: knowledge cutoff (February 2025) predates snapshot cutoff (April 30, 2026); no network access; no project-history context provided"
+    ],
+    "expected": [
+      {
+        "pr": 22041,
+        "state": "open"
+      },
+      {
+        "pr": 22182,
+        "state": "open"
+      }
+    ]
+  },
+  "instructions_sha256": null,
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 2,
+  "prompt_sha256": "4c80b4abf5556cc7cb88ab134a3a714096d69e088f694500233f589154bbec13",
+  "run_index": 61,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-issue_prs-a6ff7f3ad8",
+  "tool_calls": {
+    "StructuredOutput": 2
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 38221,
+    "cost_usd": 0.0157371,
+    "input_tokens": 42082,
+    "output_tokens": 842
+  },
+  "violations": []
+}

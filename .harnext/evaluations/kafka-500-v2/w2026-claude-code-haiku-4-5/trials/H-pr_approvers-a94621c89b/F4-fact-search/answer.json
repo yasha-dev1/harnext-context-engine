@@ -1,0 +1,13 @@
+{
+  "evidence": [
+    "issues/kafka-20405-remove-redundant-timeline-counter.md",
+    "prs/21663-rebalance-on-classic-group-downgrade.md",
+    "issues/kafka-20152-remove-unused-metrics.md",
+    "prs/21719-kafka-20297-remove-mappediterator.md"
+  ],
+  "value": [
+    "dajac",
+    "nileshkumar3",
+    "squah-confluent"
+  ]
+}

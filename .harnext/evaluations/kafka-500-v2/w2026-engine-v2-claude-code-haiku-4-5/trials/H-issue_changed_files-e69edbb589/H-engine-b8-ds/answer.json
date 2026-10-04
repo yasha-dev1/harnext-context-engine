@@ -1,0 +1,9 @@
+{
+  "evidence": [
+    "github:api:apache/kafka:pr-21785-merged"
+  ],
+  "value": [
+    "server-common/src/main/java/org/apache/kafka/server/share/dlq/ShareGroupDLQ.java",
+    "server/src/main/java/org/apache/kafka/server/share/fetch/RecordState.java"
+  ]
+}

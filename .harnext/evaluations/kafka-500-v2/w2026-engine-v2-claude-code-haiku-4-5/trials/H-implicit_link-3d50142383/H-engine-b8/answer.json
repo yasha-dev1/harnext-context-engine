@@ -1,0 +1,9 @@
+{
+  "evidence": [
+    "jira:13646867:created",
+    "jira:13646867:comment:18071115",
+    "jira:13646867:comment:18071116",
+    "jira:13646867:change:23002903:0"
+  ],
+  "value": "KAFKA-20386"
+}

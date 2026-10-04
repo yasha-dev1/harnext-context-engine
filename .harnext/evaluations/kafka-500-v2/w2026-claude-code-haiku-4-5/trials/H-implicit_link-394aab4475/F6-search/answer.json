@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "window-82-summary.md",
+    "kips-and-discussions.md",
+    "issues/KAFKA-20387.md"
+  ],
+  "value": "KAFKA-20387"
+}

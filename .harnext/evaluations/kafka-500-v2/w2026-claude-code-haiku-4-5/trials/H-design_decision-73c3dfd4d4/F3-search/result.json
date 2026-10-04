@@ -1,0 +1,53 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "_intake/2026/01/09/mail-ff47cb0b3f9a6f3692cca972-faecd0fe.md",
+      "_intake/2026/01/12/mail-f02043314bea5e4bc5754aae-4d51a4d3.md",
+      "_intake/2026/01/14/mail-1c0b316b9c6624add1f97d07-4afb9253.md"
+    ],
+    "value": "no"
+  },
+  "arm": "F3-search",
+  "checkpoint": "2026-01",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 60.125945456995396,
+  "family": "design_decision",
+  "grade": {
+    "actual": "no",
+    "correct": true,
+    "evidence": [
+      "_intake/2026/01/09/mail-ff47cb0b3f9a6f3692cca972-faecd0fe.md",
+      "_intake/2026/01/12/mail-f02043314bea5e4bc5754aae-4d51a4d3.md",
+      "_intake/2026/01/14/mail-1c0b316b9c6624add1f97d07-4afb9253.md"
+    ],
+    "expected": "no"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "23bc4b6a2b2b413c20a36b01b48442ee2781c27ce9700a95268ee35ff641db43",
+  "run_index": 57,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-73c3dfd4d4",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 63990,
+    "cost_usd": 0.013055,
+    "input_tokens": 65614,
+    "output_tokens": 687
+  },
+  "violations": []
+}

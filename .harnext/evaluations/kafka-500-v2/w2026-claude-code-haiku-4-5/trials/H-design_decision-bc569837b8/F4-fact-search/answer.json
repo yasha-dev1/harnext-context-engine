@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "prs/21547-kafka-20176-metaproperties-v2.md",
+    "issues/kafka-20176-metaproperties-v2.md",
+    "discussions/kip-1262-auto-formatting-directories.md"
+  ],
+  "value": "V1"
+}

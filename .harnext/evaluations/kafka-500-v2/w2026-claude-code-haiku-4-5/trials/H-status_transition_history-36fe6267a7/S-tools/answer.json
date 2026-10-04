@@ -1,0 +1,27 @@
+{
+  "evidence": [
+    "jira issue view KAFKA-20258 --history"
+  ],
+  "value": [
+    {
+      "at": "2026-03-13T07:42:33.427000Z",
+      "from": "Open",
+      "to": "Resolved"
+    },
+    {
+      "at": "2026-03-13T07:43:10.484000Z",
+      "from": "Resolved",
+      "to": "Reopened"
+    },
+    {
+      "at": "2026-03-17T03:21:37.778000Z",
+      "from": "Reopened",
+      "to": "Patch Available"
+    },
+    {
+      "at": "2026-03-18T19:20:28.665000Z",
+      "from": "Patch Available",
+      "to": "Resolved"
+    }
+  ]
+}

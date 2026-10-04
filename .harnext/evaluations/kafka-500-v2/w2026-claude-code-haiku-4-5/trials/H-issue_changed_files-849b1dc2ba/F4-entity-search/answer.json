@@ -1,0 +1,11 @@
+{
+  "evidence": [
+    "issues/KAFKA-20317.md - Confirms PR #21780 merged 2026-03-18T23:37:18Z with 17 changed files",
+    "WINDOW-70-2026-03-18-to-2026-03-19-summary.md - Documents PR #21780 merged for KAFKA-20317, states 17 changed files in streams module",
+    "INDEX-WINDOW-70.md - PR #21780 merged by mjsax for KIP-1285",
+    "context_research findings - Confirmed PR #21780 details but noted complete file list not available in context filesystem"
+  ],
+  "value": [
+    "Unable to determine - complete file list not available in context"
+  ]
+}

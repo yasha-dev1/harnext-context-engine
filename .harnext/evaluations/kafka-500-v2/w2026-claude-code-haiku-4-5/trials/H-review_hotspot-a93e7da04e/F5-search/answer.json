@@ -1,0 +1,9 @@
+{
+  "evidence": [
+    "Searched history context for KAFKA-19937, ReaperThread, NetworkPartitionMetadataClient, Persister - no results found",
+    "Context research agent returned: no matches found in INDEX.md or any PR entity directories",
+    "Indexed context covers March 19-20, 2026 onward through March 31, 2026 cutoff",
+    "Cannot determine which file received most inline review comments due to unavailable PR data"
+  ],
+  "value": "null"
+}

@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "mail:d37552be08c2868e8e60d311 (Federico Valeri's discussion thread dated 2026-02-13T16:45:21Z with subject '[DISCUSS] KIP-1267: Cluster Mirroring')",
+    "mail:993dc2b28ba9d24644959039 (JIRA notification email dated 2026-02-13T16:42:00Z stating 'Federico Valeri created KAFKA-20186' with summary 'Cluster Mirroring' tracking 'KIP-1267')"
+  ],
+  "value": "KAFKA-20186"
+}

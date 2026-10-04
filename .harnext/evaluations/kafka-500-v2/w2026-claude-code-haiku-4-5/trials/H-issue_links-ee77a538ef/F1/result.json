@@ -1,0 +1,59 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "entities/issue/KAFKA-20066/OVERVIEW.md - contains linked issues but no relationship types",
+      "entities/issue/KAFKA-20066/timeline.md - records link events but not relationship types",
+      "context_research queries confirmed no JSON/API response data with issuelinks relationship types is available in the context filesystem"
+    ],
+    "value": [
+      "Unable to determine - the context filesystem does not contain link relationship type metadata"
+    ]
+  },
+  "arm": "F1",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 313.9424244969996,
+  "family": "issue_links",
+  "grade": {
+    "actual": [
+      "Unable to determine - the context filesystem does not contain link relationship type metadata"
+    ],
+    "correct": false,
+    "evidence": [
+      "entities/issue/KAFKA-20066/OVERVIEW.md - contains linked issues but no relationship types",
+      "entities/issue/KAFKA-20066/timeline.md - records link events but not relationship types",
+      "context_research queries confirmed no JSON/API response data with issuelinks relationship types is available in the context filesystem"
+    ],
+    "expected": [
+      "KAFKA-20282"
+    ]
+  },
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 7,
+  "prompt_sha256": "19632b7a9e808a0023808da5dd712504bdda483451135eccfb3e073766ce0b9e",
+  "run_index": 13,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-issue_links-ee77a538ef",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 5
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 159789,
+    "cost_usd": 0.0340879,
+    "input_tokens": 164983,
+    "output_tokens": 1556
+  },
+  "violations": []
+}

@@ -1,0 +1,47 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "Cannot determine — event occurred after February 2025 knowledge cutoff; no network access; no local resources provided"
+    ],
+    "value": null
+  },
+  "arm": "N",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 8.31751922899275,
+  "family": "implicit_link",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "Cannot determine — event occurred after February 2025 knowledge cutoff; no network access; no local resources provided"
+    ],
+    "expected": "KAFKA-20614"
+  },
+  "instructions_sha256": null,
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 1,
+  "prompt_sha256": "4d81712e7a4a9db1976b5f846953f6ff055c1691b18ed97d15789653cf629bf2",
+  "run_index": 80,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-implicit_link-5f99ef72d8",
+  "tool_calls": {
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 17497,
+    "cost_usd": 0.0114387,
+    "input_tokens": 20651,
+    "output_tokens": 678
+  },
+  "violations": []
+}

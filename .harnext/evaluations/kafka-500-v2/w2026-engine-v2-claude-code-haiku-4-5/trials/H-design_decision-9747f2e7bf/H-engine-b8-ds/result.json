@@ -1,0 +1,78 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail:a1a76025a895e9029a8c8b94",
+      "mail:3c95b9de8b2aa4f6ed3bef47"
+    ],
+    "value": "ConfigTooLargeException"
+  },
+  "arm": "H-engine-b8-ds",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 132.08661565100192,
+  "engine": {
+    "calls": 1,
+    "chat": {
+      "calls": 16,
+      "cancelled": 0,
+      "cost_usd": 0.00526939,
+      "input_tokens": 127994,
+      "output_tokens": 8111,
+      "retries": 0
+    },
+    "cost_usd": 0.0093885,
+    "discarded_attempts": 0,
+    "jev": {
+      "calls": 34,
+      "cancelled": 0,
+      "cost_usd": 0.00411911,
+      "input_tokens": 98074,
+      "output_tokens": 15918,
+      "retries": 0
+    },
+    "partial": 0,
+    "provider_retry_usd": 0,
+    "seconds": 118.285,
+    "unmetered_upper_usd": 0,
+    "waited_s": 0
+  },
+  "family": "design_decision",
+  "grade": {
+    "actual": "ConfigTooLargeException",
+    "correct": true,
+    "evidence": [
+      "mail:a1a76025a895e9029a8c8b94",
+      "mail:3c95b9de8b2aa4f6ed3bef47"
+    ],
+    "expected": "ConfigTooLargeException"
+  },
+  "image_id": "sha256:1de715f951a3fc013cabad66407b87028bc2a5af6e58efdea5338b4cf9fb1485",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "6cf16e5ab7bbd2724b92d95668b9bad080a309e5ddd4c3c4fec4d477d6f76cd8",
+  "run_index": 60,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-9747f2e7bf",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 63604,
+    "cost_usd": 0.0121564,
+    "input_tokens": 64788,
+    "output_tokens": 691
+  },
+  "violations": []
+}

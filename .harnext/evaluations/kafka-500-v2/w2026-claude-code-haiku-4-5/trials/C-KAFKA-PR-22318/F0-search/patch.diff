@@ -1,0 +1,180 @@
+diff --git a/streams/src/main/java/org/apache/kafka/streams/state/internals/MeteredWindowStore.java b/streams/src/main/java/org/apache/kafka/streams/state/internals/MeteredWindowStore.java
+index f4009b9f9ea8095ef896988f3ed7d5a0c6271a07..ff20af52083ab18c264f758f1c5e052f842e53d2 100644
+--- a/streams/src/main/java/org/apache/kafka/streams/state/internals/MeteredWindowStore.java
++++ b/streams/src/main/java/org/apache/kafka/streams/state/internals/MeteredWindowStore.java
+@@ -16,6 +16,7 @@
+  */
+ package org.apache.kafka.streams.state.internals;
+ 
++import org.apache.kafka.common.IsolationLevel;
+ import org.apache.kafka.common.TopicPartition;
+ import org.apache.kafka.common.metrics.Sensor;
+ import org.apache.kafka.common.serialization.Serde;
+@@ -41,6 +42,7 @@ import org.apache.kafka.streams.query.WindowKeyQuery;
+ import org.apache.kafka.streams.query.WindowRangeQuery;
+ import org.apache.kafka.streams.query.internals.InternalQueryResultUtil;
+ import org.apache.kafka.streams.state.KeyValueIterator;
++import org.apache.kafka.streams.state.ReadOnlyWindowStore;
+ import org.apache.kafka.streams.state.StateSerdes;
+ import org.apache.kafka.streams.state.WindowStore;
+ import org.apache.kafka.streams.state.WindowStoreIterator;
+@@ -394,6 +396,12 @@ public class MeteredWindowStore<K, V>
+         }
+     }
+ 
++    @Override
++    public ReadOnlyWindowStore<K, V> readOnly(final IsolationLevel isolationLevel) {
++        Objects.requireNonNull(isolationLevel, "isolationLevel cannot be null");
++        return new ReadOnlyMeteredWindowStore(wrapped().readOnly(isolationLevel));
++    }
++
+     @SuppressWarnings("unchecked")
+     @Override
+     public <R> QueryResult<R> query(
+@@ -552,4 +560,146 @@ public class MeteredWindowStore<K, V>
+             e2eLatencySensor.record(e2eLatency, currentTime);
+         }
+     }
++
++    private class ReadOnlyMeteredWindowStore implements ReadOnlyWindowStore<K, V> {
++        private final ReadOnlyWindowStore<Bytes, byte[]> inner;
++
++        ReadOnlyMeteredWindowStore(final ReadOnlyWindowStore<Bytes, byte[]> inner) {
++            this.inner = inner;
++        }
++
++        @Override
++        public V fetch(final K key, final long time) {
++            Objects.requireNonNull(key, "key cannot be null");
++            return maybeMeasureLatency(
++                () -> {
++                    final byte[] result = inner.fetch(serializeKey(key), time);
++                    if (result == null) {
++                        return null;
++                    }
++                    return deserializeValue(result);
++                },
++                MeteredWindowStore.this.time,
++                fetchSensor
++            );
++        }
++
++        @Override
++        public WindowStoreIterator<V> fetch(final K key, final java.time.Instant timeFrom, final java.time.Instant timeTo)
++            throws IllegalArgumentException {
++            Objects.requireNonNull(key, "key cannot be null");
++            return new MeteredWindowStoreIterator<>(
++                inner.fetch(serializeKey(key), timeFrom, timeTo),
++                fetchSensor,
++                iteratorDurationSensor,
++                MeteredWindowStore.this::deserializeValue,
++                MeteredWindowStore.this.time,
++                numOpenIterators,
++                openIterators
++            );
++        }
++
++        @Override
++        public WindowStoreIterator<V> backwardFetch(final K key, final java.time.Instant timeFrom, final java.time.Instant timeTo)
++            throws IllegalArgumentException {
++            Objects.requireNonNull(key, "key cannot be null");
++            return new MeteredWindowStoreIterator<>(
++                inner.backwardFetch(serializeKey(key), timeFrom, timeTo),
++                fetchSensor,
++                iteratorDurationSensor,
++                MeteredWindowStore.this::deserializeValue,
++                MeteredWindowStore.this.time,
++                numOpenIterators,
++                openIterators
++            );
++        }
++
++        @Override
++        public KeyValueIterator<Windowed<K>, V> fetch(final K keyFrom, final K keyTo, final java.time.Instant timeFrom, final java.time.Instant timeTo)
++            throws IllegalArgumentException {
++            return new MeteredWindowedKeyValueIterator<>(
++                inner.fetch(serializeKey(keyFrom), serializeKey(keyTo), timeFrom, timeTo),
++                fetchSensor,
++                iteratorDurationSensor,
++                MeteredWindowStore.this::deserializeKey,
++                MeteredWindowStore.this::deserializeValue,
++                MeteredWindowStore.this.time,
++                numOpenIterators,
++                openIterators
++            );
++        }
++
++        @Override
++        public KeyValueIterator<Windowed<K>, V> backwardFetch(final K keyFrom, final K keyTo, final java.time.Instant timeFrom, final java.time.Instant timeTo)
++            throws IllegalArgumentException {
++            return new MeteredWindowedKeyValueIterator<>(
++                inner.backwardFetch(serializeKey(keyFrom), serializeKey(keyTo), timeFrom, timeTo),
++                fetchSensor,
++                iteratorDurationSensor,
++                MeteredWindowStore.this::deserializeKey,
++                MeteredWindowStore.this::deserializeValue,
++                MeteredWindowStore.this.time,
++                numOpenIterators,
++                openIterators
++            );
++        }
++
++        @Override
++        public KeyValueIterator<Windowed<K>, V> all() {
++            return new MeteredWindowedKeyValueIterator<>(
++                inner.all(),
++                fetchSensor,
++                iteratorDurationSensor,
++                MeteredWindowStore.this::deserializeKey,
++                MeteredWindowStore.this::deserializeValue,
++                MeteredWindowStore.this.time,
++                numOpenIterators,
++                openIterators
++            );
++        }
++
++        @Override
++        public KeyValueIterator<Windowed<K>, V> backwardAll() {
++            return new MeteredWindowedKeyValueIterator<>(
++                inner.backwardAll(),
++                fetchSensor,
++                iteratorDurationSensor,
++                MeteredWindowStore.this::deserializeKey,
++                MeteredWindowStore.this::deserializeValue,
++                MeteredWindowStore.this.time,
++                numOpenIterators,
++                openIterators
++            );
++        }
++
++        @Override
++        public KeyValueIterator<Windowed<K>, V> fetchAll(final java.time.Instant timeFrom, final java.time.Instant timeTo)
++            throws IllegalArgumentException {
++            return new MeteredWindowedKeyValueIterator<>(
++                inner.fetchAll(timeFrom, timeTo),
++                fetchSensor,
++                iteratorDurationSensor,
++                MeteredWindowStore.this::deserializeKey,
++                MeteredWindowStore.this::deserializeValue,
++                MeteredWindowStore.this.time,
++                numOpenIterators,
++                openIterators
++            );
++        }
++
++        @Override
++        public KeyValueIterator<Windowed<K>, V> backwardFetchAll(final java.time.Instant timeFrom, final java.time.Instant timeTo)
++            throws IllegalArgumentException {
++            return new MeteredWindowedKeyValueIterator<>(
++                inner.backwardFetchAll(timeFrom, timeTo),
++                fetchSensor,
++                iteratorDurationSensor,
++                MeteredWindowStore.this::deserializeKey,
++                MeteredWindowStore.this::deserializeValue,
++                MeteredWindowStore.this.time,
++                numOpenIterators,
++                openIterators
++            );
++        }
++    }
+ }

@@ -1,0 +1,24 @@
+{
+  "evidence": [
+    "issues/KAFKA-20258.md",
+    "pull-requests/21784.md",
+    "WINDOW-50-2026-03-05-summary.md"
+  ],
+  "value": [
+    {
+      "at": "2026-03-05T09:38:39.000000Z",
+      "from": null,
+      "to": "Open"
+    },
+    {
+      "at": "2026-03-17T03:21:37.000000Z",
+      "from": "Open",
+      "to": "Patch Available"
+    },
+    {
+      "at": "2026-03-18T19:20:28.000000Z",
+      "from": "Patch Available",
+      "to": "Resolved"
+    }
+  ]
+}

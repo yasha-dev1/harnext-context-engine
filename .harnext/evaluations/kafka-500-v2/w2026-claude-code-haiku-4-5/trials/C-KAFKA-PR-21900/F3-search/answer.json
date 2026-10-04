@@ -1,0 +1,3 @@
+{
+  "summary": "Successfully implemented KAFKA-20282: Added INFO level log recommendation in ClassicKafkaConsumer constructor to inform users about the new Consumer rebalance protocol (KIP-848) when they use the classic protocol with a configured group ID. The message logs only when group.id is configured and provides guidance on enabling the new protocol via group.protocol=CONSUMER configuration. All related tests pass."
+}

@@ -1,0 +1,11 @@
+{
+  "evidence": [
+    "gh pr view 21785 --json files",
+    "gh pr view 21787 --json state,mergedAt (CLOSED, not merged)",
+    "gh pr view 21793 --json state,mergedAt (OPEN, not merged)"
+  ],
+  "value": [
+    "server-common/src/main/java/org/apache/kafka/server/share/dlq/ShareGroupDLQ.java",
+    "server/src/main/java/org/apache/kafka/server/share/fetch/RecordState.java"
+  ]
+}

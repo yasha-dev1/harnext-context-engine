@@ -1,0 +1,107 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "summary": "## KAFKA-12525: Fixed Inaccurate Task Status Due to Status Record Interleaving in Fast Rebalances\n\n### Issue\nWhen fast consecutive rebalances occur in Kafka Connect, a race condition can cause stale status records to override newer ones. Specifically:\n- A worker assigns a task to another worker (produces RUNNING status)\n- The original worker is told to revoke the task (produces UNASSIGNED status from an earlier generation)\n- Due to network delays, the UNASSIGNED message arrives after the RUNNING message\n- This causes task status to appear as UNASSIGNED even though it's actually running\n\n### Solution\nModified `KafkaStatusBackingStore.java` to ignore stale UNASSIGNED or FAILED status records when a newer RUNNING status exists:\n\n1. **Track non-safe writes**: Added `lastNonSafeWriteKey` and `lastNonSafeWriteGeneration` fields to track `put()` operations, allowing them to override any existing status.\n\n2. **Implement stale message filtering**: Added helper methods `shouldIgnoreStaleConnectorStatus()` and `shouldIgnoreStaleTaskStatus()` that ignore incoming UNASSIGNED/FAILED statuses when:\n   - Message is from a regular read (not from a non-safe write/put)\n   - Current cached status is RUNNING from a higher generation\n   - Message is from a different worker than the current RUNNING status owner\n\n3. **Preserve same-worker behavior**: Statuses from the same worker are never ignored, preserving the ability for a worker to correct its own status history.\n\n### Changes\n- Modified `readConnectorStatus()` and `readTaskStatus()` methods in KafkaStatusBackingStore.java\n- Added two new helper methods to reduce boolean expression complexity and improve code readability\n- All 15 existing tests pass plus the new `readTaskStateShouldIgnoreStaleStatusesFromOtherWorkers` test\n\n### Test Results\n✅ All 15 tests in KafkaStatusBackingStoreTest pass:\n- The new race condition test verifies that stale UNASSIGNED messages are properly ignored\n- Existing tests verify that `put()` and `putSafe()` operations still work correctly\n- All checkstyle and spotbugs validations pass"
+  },
+  "arm": "F0",
+  "checkpoint": "2023-02",
+  "cli_calls": {
+    "git": 4
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 946.976063889,
+  "family": "pr_implementation",
+  "grade": {
+    "counts": {
+      "passed": 15
+    },
+    "dropped_paths": [
+      "connect/runtime/src/test/java/org/apache/kafka/connect/storage/KafkaStatusBackingStoreTest.java"
+    ],
+    "fail_to_pass_failed": [],
+    "graded_by": "gradle",
+    "grading_timed_out": false,
+    "gradle_returncode": 0,
+    "other_failed_tasks": [],
+    "outcomes": {
+      "org.apache.kafka.connect.storage.KafkaStatusBackingStoreTest#deleteConnectorState": "passed",
+      "org.apache.kafka.connect.storage.KafkaStatusBackingStoreTest#deleteTaskState": "passed",
+      "org.apache.kafka.connect.storage.KafkaStatusBackingStoreTest#misconfigurationOfStatusBackingStore": "passed",
+      "org.apache.kafka.connect.storage.KafkaStatusBackingStoreTest#putConnectorState": "passed",
+      "org.apache.kafka.connect.storage.KafkaStatusBackingStoreTest#putConnectorStateNonRetriableFailure": "passed",
+      "org.apache.kafka.connect.storage.KafkaStatusBackingStoreTest#putConnectorStateRetriableFailure": "passed",
+      "org.apache.kafka.connect.storage.KafkaStatusBackingStoreTest#putConnectorStateShouldOverride": "passed",
+      "org.apache.kafka.connect.storage.KafkaStatusBackingStoreTest#putSafeConnectorIgnoresStaleStatus": "passed",
+      "org.apache.kafka.connect.storage.KafkaStatusBackingStoreTest#putSafeOverridesValueSetBySameWorker": "passed",
+      "org.apache.kafka.connect.storage.KafkaStatusBackingStoreTest#putSafeWithNoPreviousValueIsPropagated": "passed",
+      "org.apache.kafka.connect.storage.KafkaStatusBackingStoreTest#putTaskState": "passed",
+      "org.apache.kafka.connect.storage.KafkaStatusBackingStoreTest#readConnectorState": "passed",
+      "org.apache.kafka.connect.storage.KafkaStatusBackingStoreTest#readTaskState": "passed",
+      "org.apache.kafka.connect.storage.KafkaStatusBackingStoreTest#readTaskStateShouldIgnoreStaleStatusesFromOtherWorkers": "passed",
+      "org.apache.kafka.connect.storage.KafkaStatusBackingStoreTest#testClientIds": "passed"
+    },
+    "pass_to_pass_failed": [],
+    "patch_bytes": 8588,
+    "patch_empty": false,
+    "resolved": true,
+    "seconds": 230.4,
+    "similarity": {
+      "added_lines": {
+        "f1": 0.0,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      "files": {
+        "agent": 1,
+        "f1": 1.0,
+        "golden": 1,
+        "precision": 1.0,
+        "recall": 1.0,
+        "shared": 1
+      },
+      "location_recall": 1.0,
+      "removed_lines": {
+        "f1": 0.0,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      "size": {
+        "agent_added": 49,
+        "agent_removed": 2,
+        "golden_added": 16,
+        "golden_removed": 0
+      }
+    },
+    "test_compile_failed": []
+  },
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "coding",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 30,
+  "prompt_sha256": "857c457a93730ff0b4dc8cebd667b42d97d481a3cdcd6c75b97142978517ceac",
+  "run_index": 2,
+  "status": "completed",
+  "success": true,
+  "task_id": "C-KAFKA-PR-13453",
+  "tool_calls": {
+    "Bash": 13,
+    "Edit": 10,
+    "Read": 4,
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "bash": 1,
+    "mcp__history__context_research": 3
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 1825150,
+    "cost_usd": 0.520974,
+    "input_tokens": 1896911,
+    "output_tokens": 39036
+  },
+  "violations": []
+}

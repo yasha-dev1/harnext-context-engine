@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "kips/KIP-1322/2026-05-14-mail-discuss-21488e5b.md",
+    "kips/KIP-1322/2026-05-13-mail-aa4a89deddc8b16336616ab2-24eac6ec.md",
+    "kips/KIP-1322/2026-05-12-mail-e24330f96e5db037c1aa3178-7bb6529e.md"
+  ],
+  "value": "always report regardless of state"
+}

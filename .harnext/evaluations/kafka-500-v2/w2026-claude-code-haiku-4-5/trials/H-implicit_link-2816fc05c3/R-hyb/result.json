@@ -1,0 +1,51 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail:74954004f83dfbbd96fb4d41#0 - mailing list message from 2026-02-14T07:17:27Z with subject '[DISCUSS] KIP-1279: Cluster Mirroring' by Federico Valeri",
+      "jira:13642045:change:22920592:0#0 - JIRA issue KAFKA-20186 description edited on 2026-02-14T07:13:36Z stating 'This Jira tracks the development of KIP-1279'"
+    ],
+    "value": "KAFKA-20186"
+  },
+  "arm": "R-hyb",
+  "checkpoint": "2026-02",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 21.57343918400875,
+  "family": "implicit_link",
+  "grade": {
+    "actual": "KAFKA-20186",
+    "correct": true,
+    "evidence": [
+      "mail:74954004f83dfbbd96fb4d41#0 - mailing list message from 2026-02-14T07:17:27Z with subject '[DISCUSS] KIP-1279: Cluster Mirroring' by Federico Valeri",
+      "jira:13642045:change:22920592:0#0 - JIRA issue KAFKA-20186 description edited on 2026-02-14T07:13:36Z stating 'This Jira tracks the development of KIP-1279'"
+    ],
+    "expected": "KAFKA-20186"
+  },
+  "instructions_sha256": "dfaa5b284d06c378ef7e4c08b53dc77835c91d7591fca0335bbfa33d3e53eb37",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "5ba7d233da848732b6cff948c462f680382da4958738e4c8d168da37aeb00071",
+  "run_index": 89,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-implicit_link-2816fc05c3",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__search": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 60043,
+    "cost_usd": 0.029968300000000003,
+    "input_tokens": 69341,
+    "output_tokens": 1079
+  },
+  "violations": []
+}

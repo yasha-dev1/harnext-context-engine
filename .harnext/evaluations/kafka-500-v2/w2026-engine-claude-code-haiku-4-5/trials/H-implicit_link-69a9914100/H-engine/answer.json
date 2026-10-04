@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "mail:afac71e1bc95221e93c97bf4",
+    "jira:13650085:comment:18078806",
+    "jira:13650085:change:23050795:0"
+  ],
+  "value": "KAFKA-20552"
+}

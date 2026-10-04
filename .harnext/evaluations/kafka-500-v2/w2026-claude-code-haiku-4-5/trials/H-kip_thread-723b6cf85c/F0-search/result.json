@@ -1,0 +1,88 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "events/2026/01/05/mail-fae59ef23c15af1ca719cef5-f1967464.md",
+      "events/2026/01/06/mail-25888a786e32c109db6ea259-737a72b0.md",
+      "events/2026/01/06/mail-3782ab07571adaf410138509-73c2d845.md",
+      "events/2026/01/06/mail-8ce4b9ae74948f5379a153d9-7d9bdb77.md",
+      "events/2026/01/08/mail-b489a1b13ef8985cb665d11b-c46c123a.md",
+      "events/2026/01/12/mail-36edead0219503cbb1eb9f1e-3c39548c.md",
+      "events/2026/01/14/mail-d0eb8ce129ffef70296f85a7-de7d95c0.md",
+      "events/2026/01/15/mail-8f86d3e081d42349f4ce90f0-3b80398f.md",
+      "events/2026/01/15/mail-a917764f5a77659c873b44b3-7e41f0fd.md",
+      "events/2026/01/15/mail-cf97670bbdc327e681e9529b-9abceaea.md",
+      "events/2026/01/15/mail-d42ec61c1696ad3122663d8a-ab534859.md",
+      "events/2026/01/18/mail-8798ead7dd94fed1e7820b5c-422fb6a7.md",
+      "events/2026/01/20/mail-34fc284fbaae3665c418057e-b3176fec.md",
+      "events/2026/03/06/mail-09bc95d778f7d18b9e28a519-a200c8d3.md",
+      "events/2026/03/25/mail-fe408cd6864152f57d5b86ff-35c12112.md",
+      "events/2026/03/30/mail-0b65a9cc63965fbb5b5c67af-aed6f035.md"
+    ],
+    "value": {
+      "participants": 4,
+      "starter": "Lijun Tong"
+    }
+  },
+  "arm": "F0-search",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 61.18055802499293,
+  "family": "kip_thread",
+  "grade": {
+    "actual": {
+      "participants": 4,
+      "starter": "Lijun Tong"
+    },
+    "correct": true,
+    "evidence": [
+      "events/2026/01/05/mail-fae59ef23c15af1ca719cef5-f1967464.md",
+      "events/2026/01/06/mail-25888a786e32c109db6ea259-737a72b0.md",
+      "events/2026/01/06/mail-3782ab07571adaf410138509-73c2d845.md",
+      "events/2026/01/06/mail-8ce4b9ae74948f5379a153d9-7d9bdb77.md",
+      "events/2026/01/08/mail-b489a1b13ef8985cb665d11b-c46c123a.md",
+      "events/2026/01/12/mail-36edead0219503cbb1eb9f1e-3c39548c.md",
+      "events/2026/01/14/mail-d0eb8ce129ffef70296f85a7-de7d95c0.md",
+      "events/2026/01/15/mail-8f86d3e081d42349f4ce90f0-3b80398f.md",
+      "events/2026/01/15/mail-a917764f5a77659c873b44b3-7e41f0fd.md",
+      "events/2026/01/15/mail-cf97670bbdc327e681e9529b-9abceaea.md",
+      "events/2026/01/15/mail-d42ec61c1696ad3122663d8a-ab534859.md",
+      "events/2026/01/18/mail-8798ead7dd94fed1e7820b5c-422fb6a7.md",
+      "events/2026/01/20/mail-34fc284fbaae3665c418057e-b3176fec.md",
+      "events/2026/03/06/mail-09bc95d778f7d18b9e28a519-a200c8d3.md",
+      "events/2026/03/25/mail-fe408cd6864152f57d5b86ff-35c12112.md",
+      "events/2026/03/30/mail-0b65a9cc63965fbb5b5c67af-aed6f035.md"
+    ],
+    "expected": {
+      "participants": 4,
+      "starter": "Lijun Tong"
+    }
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "ff8ac0d5956021421b4ba1718090c5ced7240200c47796132ee623df9b438c13",
+  "run_index": 43,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-kip_thread-723b6cf85c",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 64179,
+    "cost_usd": 0.0165439,
+    "input_tokens": 66158,
+    "output_tokens": 1239
+  },
+  "violations": []
+}

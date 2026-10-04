@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "kips/KIP-1307.md",
+    "INDEX-WINDOW-82.md"
+  ],
+  "value": "KAFKA-20386"
+}

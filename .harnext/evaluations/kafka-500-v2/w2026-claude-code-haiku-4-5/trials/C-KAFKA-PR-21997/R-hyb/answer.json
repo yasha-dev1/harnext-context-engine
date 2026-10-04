@@ -1,0 +1,3 @@
+{
+  "summary": "Implemented KAFKA-20332 fix to ensure app thread doesn't collect records for partitions being revoked. Modified AsyncKafkaConsumer.collectFetch() to check if reconciliation check is complete before collecting records from buffer. If not complete, returns empty Fetch immediately (non-blocking). This prevents the race condition where records could be returned for revoked partitions. The background thread marks reconciliation check complete in ApplicationEventProcessor after calling maybeReconcile(). All 119 AsyncKafkaConsumerTest tests pass, including testPollWaitsForReconciliationCheckComplete and testWakeupWhileWaitingOnReconciliationCheck."
+}

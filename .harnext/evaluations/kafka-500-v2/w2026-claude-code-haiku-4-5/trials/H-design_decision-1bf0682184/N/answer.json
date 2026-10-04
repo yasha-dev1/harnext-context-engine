@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "Workspace is empty; no prior conversation context provided; cannot locate the Kafka Streams broker config property without project files or prior discussion history"
+  ],
+  "value": null
+}

@@ -1,0 +1,71 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "PR #21638 (merged 2026-03-06)",
+      "PR #21641 (merged 2026-03-06)",
+      "PR #21642 (merged 2026-03-10)",
+      "PR #21685 (merged 2026-03-10)",
+      "PR #21772 (merged 2026-04-28)",
+      "PR #22067 (merged 2026-04-28)",
+      "_intake/2026/03/06/github-api-apache-kafka-pr-21638-merged-4cb0d476.md",
+      "_intake/2026/03/06/github-api-apache-kafka-pr-21641-merged-31bda900.md",
+      "_intake/2026/03/10/github-api-apache-kafka-pr-21642-merged-7fa009dc.md",
+      "_intake/2026/03/10/github-api-apache-kafka-pr-21685-merged-7e520ab9.md",
+      "_intake/2026/04/28/github-api-apache-kafka-pr-21772-merged-df26183b.md",
+      "_intake/2026/04/28/github-api-apache-kafka-pr-22067-merged-c06b4c06.md"
+    ],
+    "value": 6
+  },
+  "arm": "F3",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 59.663969351997366,
+  "family": "author_activity",
+  "grade": {
+    "actual": 6,
+    "correct": true,
+    "evidence": [
+      "PR #21638 (merged 2026-03-06)",
+      "PR #21641 (merged 2026-03-06)",
+      "PR #21642 (merged 2026-03-10)",
+      "PR #21685 (merged 2026-03-10)",
+      "PR #21772 (merged 2026-04-28)",
+      "PR #22067 (merged 2026-04-28)",
+      "_intake/2026/03/06/github-api-apache-kafka-pr-21638-merged-4cb0d476.md",
+      "_intake/2026/03/06/github-api-apache-kafka-pr-21641-merged-31bda900.md",
+      "_intake/2026/03/10/github-api-apache-kafka-pr-21642-merged-7fa009dc.md",
+      "_intake/2026/03/10/github-api-apache-kafka-pr-21685-merged-7e520ab9.md",
+      "_intake/2026/04/28/github-api-apache-kafka-pr-21772-merged-df26183b.md",
+      "_intake/2026/04/28/github-api-apache-kafka-pr-22067-merged-c06b4c06.md"
+    ],
+    "expected": 6
+  },
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "75524fc83386b85ec2dfed95393e1265ce15be20277cf181c32228a8c8888b36",
+  "run_index": 5,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-author_activity-673abd217f",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 42751,
+    "cost_usd": 0.0555221,
+    "input_tokens": 65333,
+    "output_tokens": 1222
+  },
+  "violations": []
+}

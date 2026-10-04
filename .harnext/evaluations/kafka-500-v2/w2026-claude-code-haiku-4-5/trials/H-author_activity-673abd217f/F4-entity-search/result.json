@@ -1,0 +1,55 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "PR #21641 (merged 2026-03-06): /store/pull-requests/21641.md",
+      "PR #21642 (merged 2026-03-10): /store/pull-requests/21642.md",
+      "/store/WINDOW-52-2026-03-06-summary.md",
+      "/store/WINDOW-57-2026-03-10-summary.md"
+    ],
+    "value": 2
+  },
+  "arm": "F4-entity-search",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 109.67188976400939,
+  "family": "author_activity",
+  "grade": {
+    "actual": 2,
+    "correct": false,
+    "evidence": [
+      "PR #21641 (merged 2026-03-06): /store/pull-requests/21641.md",
+      "PR #21642 (merged 2026-03-10): /store/pull-requests/21642.md",
+      "/store/WINDOW-52-2026-03-06-summary.md",
+      "/store/WINDOW-57-2026-03-10-summary.md"
+    ],
+    "expected": 6
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "b9a21ba2325bef9ca70a4d1a395ccbbc3ae4a94144e83b5ceba55a300f29fc09",
+  "run_index": 5,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-author_activity-673abd217f",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 64023,
+    "cost_usd": 0.013642300000000001,
+    "input_tokens": 65569,
+    "output_tokens": 835
+  },
+  "violations": []
+}

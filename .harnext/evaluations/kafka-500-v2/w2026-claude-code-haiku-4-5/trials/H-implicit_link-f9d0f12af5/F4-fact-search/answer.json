@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "issues/kafka-20104-inquiry-zookeeper-kraft-migration.md",
+    "WINDOW-18-SUMMARY.md"
+  ],
+  "value": "KAFKA-20104"
+}

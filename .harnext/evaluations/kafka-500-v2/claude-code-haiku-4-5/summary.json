@@ -1,0 +1,208 @@
+{
+  "arms": {
+    "F0": {
+      "agent_seconds": 5709.8,
+      "by_kind": {
+        "coding": {
+          "agent_seconds": 5709.8,
+          "by_family": {
+            "pr_implementation": {
+              "agent_seconds": 5709.8,
+              "cached_input_tokens": 16073551,
+              "context_bytes": 0,
+              "input_tokens": 16394690,
+              "n": 5,
+              "output_tokens": 117446,
+              "status": {
+                "completed": 5
+              },
+              "success": 3,
+              "tool_calls": 285
+            }
+          },
+          "cached_input_tokens": 16073551,
+          "context_bytes": 0,
+          "input_tokens": 16394690,
+          "n": 5,
+          "output_tokens": 117446,
+          "status": {
+            "completed": 5
+          },
+          "success": 3,
+          "tool_calls": 285
+        }
+      },
+      "cached_input_tokens": 16073551,
+      "context_bytes": 0,
+      "input_tokens": 16394690,
+      "n": 5,
+      "output_tokens": 117446,
+      "status": {
+        "completed": 5
+      },
+      "success": 3,
+      "tool_calls": 285
+    },
+    "F1": {
+      "agent_seconds": 2817.9,
+      "by_kind": {
+        "coding": {
+          "agent_seconds": 2817.9,
+          "by_family": {
+            "pr_implementation": {
+              "agent_seconds": 2817.9,
+              "cached_input_tokens": 4873456,
+              "context_bytes": 0,
+              "input_tokens": 5074489,
+              "n": 4,
+              "output_tokens": 63769,
+              "status": {
+                "completed": 4
+              },
+              "success": 3,
+              "tool_calls": 107
+            }
+          },
+          "cached_input_tokens": 4873456,
+          "context_bytes": 0,
+          "input_tokens": 5074489,
+          "n": 4,
+          "output_tokens": 63769,
+          "status": {
+            "completed": 4
+          },
+          "success": 3,
+          "tool_calls": 107
+        }
+      },
+      "cached_input_tokens": 4873456,
+      "context_bytes": 0,
+      "input_tokens": 5074489,
+      "n": 4,
+      "output_tokens": 63769,
+      "status": {
+        "completed": 4
+      },
+      "success": 3,
+      "tool_calls": 107
+    },
+    "N": {
+      "agent_seconds": 3208.1,
+      "by_kind": {
+        "coding": {
+          "agent_seconds": 3208.1,
+          "by_family": {
+            "pr_implementation": {
+              "agent_seconds": 3208.1,
+              "cached_input_tokens": 14251576,
+              "context_bytes": 0,
+              "input_tokens": 14498421,
+              "n": 5,
+              "output_tokens": 70673,
+              "status": {
+                "completed": 5
+              },
+              "success": 3,
+              "tool_calls": 219
+            }
+          },
+          "cached_input_tokens": 14251576,
+          "context_bytes": 0,
+          "input_tokens": 14498421,
+          "n": 5,
+          "output_tokens": 70673,
+          "status": {
+            "completed": 5
+          },
+          "success": 3,
+          "tool_calls": 219
+        }
+      },
+      "cached_input_tokens": 14251576,
+      "context_bytes": 0,
+      "input_tokens": 14498421,
+      "n": 5,
+      "output_tokens": 70673,
+      "status": {
+        "completed": 5
+      },
+      "success": 3,
+      "tool_calls": 219
+    },
+    "S-tools": {
+      "agent_seconds": 4669.9,
+      "by_kind": {
+        "coding": {
+          "agent_seconds": 4669.9,
+          "by_family": {
+            "pr_implementation": {
+              "agent_seconds": 4669.9,
+              "cached_input_tokens": 22825296,
+              "context_bytes": 0,
+              "input_tokens": 23219663,
+              "n": 6,
+              "output_tokens": 113768,
+              "status": {
+                "completed": 6
+              },
+              "success": 4,
+              "tool_calls": 329
+            }
+          },
+          "cached_input_tokens": 22825296,
+          "context_bytes": 0,
+          "input_tokens": 23219663,
+          "n": 6,
+          "output_tokens": 113768,
+          "status": {
+            "completed": 6
+          },
+          "success": 4,
+          "tool_calls": 329
+        }
+      },
+      "cached_input_tokens": 22825296,
+      "context_bytes": 0,
+      "input_tokens": 23219663,
+      "n": 6,
+      "output_tokens": 113768,
+      "status": {
+        "completed": 6
+      },
+      "success": 4,
+      "tool_calls": 329
+    }
+  },
+  "not_recorded": [
+    "C-KAFKA-PR-21065/F1",
+    "C-KAFKA-PR-22316/F0"
+  ],
+  "paired_vs_N": {
+    "F0": {
+      "both": 3,
+      "harmed": 0,
+      "helped": 0,
+      "neither": 2,
+      "pairs": 5
+    },
+    "F1": {
+      "both": 3,
+      "harmed": 0,
+      "helped": 0,
+      "neither": 1,
+      "pairs": 4
+    },
+    "S-tools": {
+      "both": 3,
+      "harmed": 0,
+      "helped": 0,
+      "neither": 2,
+      "pairs": 5
+    }
+  },
+  "reason": "C-KAFKA-PR-22316/F0: rate_limit | success api_error 429: You've hit your session limit · resets 3:30pm (UTC)",
+  "recorded": 20,
+  "status": "paused",
+  "target": 120,
+  "updated_at_unix": 1790422988.460989
+}

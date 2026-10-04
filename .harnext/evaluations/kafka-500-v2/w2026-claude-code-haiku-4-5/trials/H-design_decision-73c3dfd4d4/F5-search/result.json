@@ -1,0 +1,56 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "KAFKA-20056 issue status as of 2026-01-20 shows implementation in progress",
+      "PR #21345 WIP-PoC opened 2026-01-22",
+      "KIP-1271 discussion threads referenced but content not indexed",
+      "Cutoff date 2026-01-31 shows voting still ongoing, not finalized"
+    ],
+    "value": null
+  },
+  "arm": "F5-search",
+  "checkpoint": "2026-01",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 94.43861244000436,
+  "family": "design_decision",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "KAFKA-20056 issue status as of 2026-01-20 shows implementation in progress",
+      "PR #21345 WIP-PoC opened 2026-01-22",
+      "KIP-1271 discussion threads referenced but content not indexed",
+      "Cutoff date 2026-01-31 shows voting still ongoing, not finalized"
+    ],
+    "expected": "no"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 10,
+  "prompt_sha256": "23bc4b6a2b2b413c20a36b01b48442ee2781c27ce9700a95268ee35ff641db43",
+  "run_index": 57,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-73c3dfd4d4",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 7
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 287860,
+    "cost_usd": 0.095893,
+    "input_tokens": 314795,
+    "output_tokens": 2664
+  },
+  "violations": []
+}

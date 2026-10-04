@@ -1,0 +1,55 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail search result: f25ed34b9cd1960b957fc55a (JIRA notification created 2026-03-31)",
+      "mail message 40031bc0941c4eeec10f5c3a (discussion thread on 2026-04-01)",
+      "jira issue view KAFKA-20384 (shows creation date 2026-03-31T20:39:05Z, references KIP-1305)"
+    ],
+    "value": "KAFKA-20384"
+  },
+  "arm": "S-tools",
+  "checkpoint": "2026-04",
+  "cli_calls": {
+    "jira": 2,
+    "mail": 5
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 191.54958413999702,
+  "family": "implicit_link",
+  "grade": {
+    "actual": "KAFKA-20384",
+    "correct": true,
+    "evidence": [
+      "mail search result: f25ed34b9cd1960b957fc55a (JIRA notification created 2026-03-31)",
+      "mail message 40031bc0941c4eeec10f5c3a (discussion thread on 2026-04-01)",
+      "jira issue view KAFKA-20384 (shows creation date 2026-03-31T20:39:05Z, references KIP-1305)"
+    ],
+    "expected": "KAFKA-20384"
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 7,
+  "prompt_sha256": "617cc8cb2b5d9d04444139c1e107bbcbc4ac79261daa9e551c00c963ba8742e7",
+  "run_index": 83,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-implicit_link-f6cda24f3f",
+  "tool_calls": {
+    "Bash": 7,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 151150,
+    "cost_usd": 0.038655,
+    "input_tokens": 158156,
+    "output_tokens": 1917
+  },
+  "violations": []
+}

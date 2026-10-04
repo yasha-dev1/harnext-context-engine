@@ -1,0 +1,53 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail search 'KIP-1290' result showing KAFKA-20231 created on 2026-02-26",
+      "jira issue view KAFKA-20231 confirming title 'KIP-1290: Rack-Aware Minimum In-Sync Replicas' and creator Karl Sorensen"
+    ],
+    "value": "KAFKA-20231"
+  },
+  "arm": "S-tools",
+  "checkpoint": "2026-02",
+  "cli_calls": {
+    "jira": 2,
+    "mail": 4
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 205.70284826899297,
+  "family": "implicit_link",
+  "grade": {
+    "actual": "KAFKA-20231",
+    "correct": true,
+    "evidence": [
+      "mail search 'KIP-1290' result showing KAFKA-20231 created on 2026-02-26",
+      "jira issue view KAFKA-20231 confirming title 'KIP-1290: Rack-Aware Minimum In-Sync Replicas' and creator Karl Sorensen"
+    ],
+    "expected": "KAFKA-20231"
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 7,
+  "prompt_sha256": "8d073008feef221cca705589462aaf0bc75ac70efd1cc4acc8b90b4fe4dce370",
+  "run_index": 1,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-implicit_link-9c29b4facc",
+  "tool_calls": {
+    "Bash": 6,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 149498,
+    "cost_usd": 0.0333208,
+    "input_tokens": 155472,
+    "output_tokens": 1296
+  },
+  "violations": []
+}

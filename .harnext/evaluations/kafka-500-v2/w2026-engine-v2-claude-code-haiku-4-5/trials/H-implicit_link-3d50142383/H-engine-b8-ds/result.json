@@ -1,0 +1,84 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "jira:13646867:created",
+      "jira:13646867:change:23002903:0",
+      "mail:ae3afc9065b1b455fcfba134",
+      "mail:3a486f07414ee44d7163c381",
+      "mail:762e9120bdb64c23c73d6106"
+    ],
+    "value": "KAFKA-20386"
+  },
+  "arm": "H-engine-b8-ds",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 66.17789088400605,
+  "engine": {
+    "calls": 1,
+    "chat": {
+      "calls": 12,
+      "cancelled": 0,
+      "cost_usd": 0.00255702,
+      "input_tokens": 66498,
+      "output_tokens": 4307,
+      "retries": 0
+    },
+    "cost_usd": 0.00518303,
+    "discarded_attempts": 0,
+    "jev": {
+      "calls": 26,
+      "cancelled": 0,
+      "cost_usd": 0.00262601,
+      "input_tokens": 62524,
+      "output_tokens": 10330,
+      "retries": 0
+    },
+    "partial": 0,
+    "provider_retry_usd": 0,
+    "seconds": 51.238,
+    "unmetered_upper_usd": 0,
+    "waited_s": 0
+  },
+  "family": "implicit_link",
+  "grade": {
+    "actual": "KAFKA-20386",
+    "correct": true,
+    "evidence": [
+      "jira:13646867:created",
+      "jira:13646867:change:23002903:0",
+      "mail:ae3afc9065b1b455fcfba134",
+      "mail:3a486f07414ee44d7163c381",
+      "mail:762e9120bdb64c23c73d6106"
+    ],
+    "expected": "KAFKA-20386"
+  },
+  "image_id": "sha256:1de715f951a3fc013cabad66407b87028bc2a5af6e58efdea5338b4cf9fb1485",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "0df654e5459e67e8fd3221066cf8aa1b6151d250b53a84672c4c387f6188c68c",
+  "run_index": 74,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-implicit_link-3d50142383",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 63663,
+    "cost_usd": 0.0140033,
+    "input_tokens": 65175,
+    "output_tokens": 928
+  },
+  "violations": []
+}

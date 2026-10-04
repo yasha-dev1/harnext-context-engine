@@ -1,0 +1,57 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "_intake/2026/04/24/github-api-apache-kafka-pr-22139-opened-19a70bb6.md",
+      "_intake/2026/04/24/github-api-apache-kafka-review-comment-PRRC_kwDOACG9q867BWQE-9421c745.md",
+      "_intake/2026/04/24/github-api-apache-kafka-review-comment-PRRC_kwDOACG9q867CKY6-fa1342a1.md",
+      "_intake/2026/04/28/github-api-apache-kafka-review-comment-PRRC_kwDOACG9q868HN_H-177fd010.md",
+      "_intake/2026/04/29/github-api-apache-kafka-review-comment-PRRC_kwDOACG9q868XsDp-2cbdd421.md"
+    ],
+    "value": "storage/src/test/java/org/apache/kafka/storage/internals/log/LogManagerTest.java"
+  },
+  "arm": "F3-search",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 42.73693137000373,
+  "family": "review_hotspot",
+  "grade": {
+    "actual": "storage/src/test/java/org/apache/kafka/storage/internals/log/LogManagerTest.java",
+    "correct": true,
+    "evidence": [
+      "_intake/2026/04/24/github-api-apache-kafka-pr-22139-opened-19a70bb6.md",
+      "_intake/2026/04/24/github-api-apache-kafka-review-comment-PRRC_kwDOACG9q867BWQE-9421c745.md",
+      "_intake/2026/04/24/github-api-apache-kafka-review-comment-PRRC_kwDOACG9q867CKY6-fa1342a1.md",
+      "_intake/2026/04/28/github-api-apache-kafka-review-comment-PRRC_kwDOACG9q868HN_H-177fd010.md",
+      "_intake/2026/04/29/github-api-apache-kafka-review-comment-PRRC_kwDOACG9q868XsDp-2cbdd421.md"
+    ],
+    "expected": "storage/src/test/java/org/apache/kafka/storage/internals/log/LogManagerTest.java"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "261b85dae1cf0752624695ed533fc6341b0ca000c5bfd551c8cfb9a06b07b1d6",
+  "run_index": 31,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-review_hotspot-b8e5630492",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 64214,
+    "cost_usd": 0.0129644,
+    "input_tokens": 65754,
+    "output_tokens": 698
+  },
+  "violations": []
+}

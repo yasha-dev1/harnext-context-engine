@@ -1,0 +1,86 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail:98c74ce0cc524d41899cb8ac - KIP-1285 creation (2026-02-18)",
+      "mail:2369f96bca60829ee377e605 - Initial enum proposal (2026-02-19)",
+      "mail:c4bfde361f38ca346dffd233 - Confirmation of DslStoreFormat name as of 2026-02-22",
+      "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86qoWyK - PR review showing DslStoreFormat usage (2026-02-27)",
+      "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86qoXgU - PR review confirming DslStoreFormat usage (2026-02-27)",
+      "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86qodJ7 - Code snippet demonstrating DslStoreFormat in DslKeyValueParams (2026-02-27)"
+    ],
+    "value": "DslStoreFormat"
+  },
+  "arm": "H-engine-mem",
+  "checkpoint": "2026-02",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 122.43701678200159,
+  "engine": {
+    "calls": 1,
+    "chat": {
+      "calls": 21,
+      "cancelled": 0,
+      "cost_usd": 0.00225455,
+      "input_tokens": 90884,
+      "output_tokens": 2496,
+      "retries": 0
+    },
+    "cost_usd": 0.00383547,
+    "discarded_attempts": 0,
+    "jev": {
+      "calls": 19,
+      "cancelled": 0,
+      "cost_usd": 0.00158092,
+      "input_tokens": 37641,
+      "output_tokens": 6902,
+      "retries": 0
+    },
+    "partial": 0,
+    "provider_retry_usd": 0,
+    "seconds": 107.761,
+    "unmetered_upper_usd": 0,
+    "waited_s": 0
+  },
+  "family": "design_decision",
+  "grade": {
+    "actual": "DslStoreFormat",
+    "correct": true,
+    "evidence": [
+      "mail:98c74ce0cc524d41899cb8ac - KIP-1285 creation (2026-02-18)",
+      "mail:2369f96bca60829ee377e605 - Initial enum proposal (2026-02-19)",
+      "mail:c4bfde361f38ca346dffd233 - Confirmation of DslStoreFormat name as of 2026-02-22",
+      "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86qoWyK - PR review showing DslStoreFormat usage (2026-02-27)",
+      "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86qoXgU - PR review confirming DslStoreFormat usage (2026-02-27)",
+      "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86qodJ7 - Code snippet demonstrating DslStoreFormat in DslKeyValueParams (2026-02-27)"
+    ],
+    "expected": "DslStoreFormat"
+  },
+  "image_id": "sha256:4615b2564319d58319029548af66970c954e128401ee89c8705684861de4bc07",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "a7b35087541de34d6ac3f5a634b7f86c57d3efefc48146219a6ce376c746d380",
+  "run_index": 62,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-9c30969b0a",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 63643,
+    "cost_usd": 0.014741299999999999,
+    "input_tokens": 65370,
+    "output_tokens": 990
+  },
+  "violations": []
+}

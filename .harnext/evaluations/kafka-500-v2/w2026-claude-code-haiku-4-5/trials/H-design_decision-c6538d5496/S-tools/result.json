@@ -1,0 +1,54 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail id: 34fc284fbaae3665c418057e from Lijun Tong (2026-01-20T01:59:54Z) in response to Kamal's concerns about feature gating during rolling upgrades",
+      "The message states: 'The solution I have in mind is this feature is *gated by the metadata version*. The new tombstone semantics and the additional fields (for example in RemoteLogSegmentUpdateRecord) are only enabled once the cluster metadata version is upgraded to the version that introduces this feature.'"
+    ],
+    "value": "metadata version"
+  },
+  "arm": "S-tools",
+  "checkpoint": "2026-01",
+  "cli_calls": {
+    "gh": 7,
+    "jira": 8,
+    "mail": 5
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 101.49356603100023,
+  "family": "design_decision",
+  "grade": {
+    "actual": "metadata version",
+    "correct": true,
+    "evidence": [
+      "mail id: 34fc284fbaae3665c418057e from Lijun Tong (2026-01-20T01:59:54Z) in response to Kamal's concerns about feature gating during rolling upgrades",
+      "The message states: 'The solution I have in mind is this feature is *gated by the metadata version*. The new tombstone semantics and the additional fields (for example in RemoteLogSegmentUpdateRecord) are only enabled once the cluster metadata version is upgraded to the version that introduces this feature.'"
+    ],
+    "expected": "metadata version"
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 8,
+  "prompt_sha256": "ff43d159d17f86eecbe260fd07beb1d7c3d2d7f7a460cfd672c609a01029736b",
+  "run_index": 47,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-c6538d5496",
+  "tool_calls": {
+    "Bash": 20,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 196384,
+    "cost_usd": 0.1055614,
+    "input_tokens": 231928,
+    "output_tokens": 2980
+  },
+  "violations": []
+}

@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "mail message id: 112a535ad8c4fa1e9928d615 (Haifeng Chen, 2026-05-05, [DISCUSS] KIP-1333: Support log segments larger than 2 GB)",
+    "JIRA issue KAFKA-20552 (created 2026-05-05, reported by Haifeng Chen, references KIP-1333)"
+  ],
+  "value": "KAFKA-20552"
+}

@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "mail:468c78200770789f37bb484d - Jun Rao's question (2026-03-27) about whether the formatter could write V2 instead of V1 when --cluster-id is specified",
+    "mail:3ec7bda2af768a83e362079f - Kevin Wu's agreement (2026-03-30) stating 'Yeah, I think it is fine to write V2'"
+  ],
+  "value": "V2"
+}

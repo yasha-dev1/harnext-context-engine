@@ -1,0 +1,84 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "store/_intake_backup/2026/03/05/jira-13643952-change-22961787-0-b517fe44.md",
+      "store/_intake/2026/03/13/jira-13643952-change-22973231-0-a68b4335.md"
+    ],
+    "value": [
+      {
+        "at": "2026-03-05T09:40:54.681000Z",
+        "from": null,
+        "to": "Fixed"
+      },
+      {
+        "at": "2026-03-13T07:44:14.073000Z",
+        "from": "Fixed",
+        "to": "Duplicate"
+      }
+    ]
+  },
+  "arm": "F3",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 51.93848987599631,
+  "family": "resolution_transition_history",
+  "grade": {
+    "actual": [
+      {
+        "at": "2026-03-05T09:40:54.681000Z",
+        "from": null,
+        "to": "Fixed"
+      },
+      {
+        "at": "2026-03-13T07:44:14.073000Z",
+        "from": "Fixed",
+        "to": "Duplicate"
+      }
+    ],
+    "correct": true,
+    "evidence": [
+      "store/_intake_backup/2026/03/05/jira-13643952-change-22961787-0-b517fe44.md",
+      "store/_intake/2026/03/13/jira-13643952-change-22973231-0-a68b4335.md"
+    ],
+    "expected": [
+      {
+        "at": "2026-03-05T09:40:54.681000Z",
+        "from": null,
+        "to": "Fixed"
+      },
+      {
+        "at": "2026-03-13T07:44:14.073000Z",
+        "from": "Fixed",
+        "to": "Duplicate"
+      }
+    ]
+  },
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "19c64d87d10b95bbf37ba4e945b43576db5fafc3d9539d9f4e956bb2587a8a6d",
+  "run_index": 27,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-resolution_transition_history-b2b3f1ff22",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 63835,
+    "cost_usd": 0.015174499999999999,
+    "input_tokens": 65319,
+    "output_tokens": 1170
+  },
+  "violations": []
+}

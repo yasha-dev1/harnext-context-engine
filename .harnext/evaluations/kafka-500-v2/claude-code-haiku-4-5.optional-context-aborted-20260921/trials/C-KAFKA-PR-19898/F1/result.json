@@ -1,0 +1,98 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "summary": "Fixed KAFKA-19347: Unsafe state update in AclControlManager#createAcls\n\n**Problem**: The createAcls method was updating timeline data structures (idToAcl and existingAcls) before records were replayed, potentially exposing uncommitted state to callers.\n\n**Solution**: Modified the createAcls method to track deduplication locally using a Set<StandardAcl> instead of updating timeline structures. The fix:\n1. Added a local aclsInThisCall set to track ACLs added within the current call\n2. Changed the condition from `!existingAcls.contains(standardAcl)` to `!existingAcls.contains(standardAcl) && aclsInThisCall.add(standardAcl)`\n3. This ensures deduplication both within a single call and across calls without modifying timeline structures\n4. All timeline updates now happen exclusively through replay methods\n\n**Testing**: All 9 AclControlManagerTest tests pass, including testCreateDedupe which verifies proper deduplication within and across createAcls calls.\n\n**File changed**: metadata/src/main/java/org/apache/kafka/controller/AclControlManager.java"
+  },
+  "arm": "F1",
+  "checkpoint": "2025-05",
+  "cli_calls": {
+    "git": 15
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 316.48364564595977,
+  "family": "pr_implementation",
+  "grade": {
+    "counts": {
+      "passed": 9
+    },
+    "dropped_paths": [
+      "metadata/src/test/java/org/apache/kafka/controller/AclControlManagerTest.java"
+    ],
+    "fail_to_pass_failed": [],
+    "graded_by": "gradle",
+    "grading_timed_out": false,
+    "gradle_returncode": 0,
+    "other_failed_tasks": [],
+    "outcomes": {
+      "org.apache.kafka.controller.AclControlManagerTest#testAddAndDelete()": "passed",
+      "org.apache.kafka.controller.AclControlManagerTest#testCreateAclDeleteAcl()": "passed",
+      "org.apache.kafka.controller.AclControlManagerTest#testCreateDedupe()": "passed",
+      "org.apache.kafka.controller.AclControlManagerTest#testDeleteDedupe()": "passed",
+      "org.apache.kafka.controller.AclControlManagerTest#testLoadSnapshot()": "passed",
+      "org.apache.kafka.controller.AclControlManagerTest#testValidateAclWithBadPrincipal()": "passed",
+      "org.apache.kafka.controller.AclControlManagerTest#testValidateAclWithEmptyPrincipal()": "passed",
+      "org.apache.kafka.controller.AclControlManagerTest#testValidateFilter()": "passed",
+      "org.apache.kafka.controller.AclControlManagerTest#testValidateNewAcl()": "passed"
+    },
+    "pass_to_pass_failed": [],
+    "patch_bytes": 3152,
+    "patch_empty": false,
+    "resolved": true,
+    "seconds": 157.5,
+    "similarity": {
+      "added_lines": {
+        "f1": 0.0,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      "files": {
+        "agent": 1,
+        "f1": 1.0,
+        "golden": 1,
+        "precision": 1.0,
+        "recall": 1.0,
+        "shared": 1
+      },
+      "location_recall": 0.529,
+      "removed_lines": {
+        "f1": 0.0,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      "size": {
+        "agent_added": 2,
+        "agent_removed": 1,
+        "golden_added": 6,
+        "golden_removed": 2
+      }
+    },
+    "test_compile_failed": []
+  },
+  "kind": "coding",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 25,
+  "prompt_sha256": "2338bb9e2e408d665334552b48eac2346c228115518c89e3010697666ecbf226",
+  "run_index": 4,
+  "status": "completed",
+  "success": true,
+  "task_id": "C-KAFKA-PR-19898",
+  "tool_calls": {
+    "Bash": 18,
+    "Edit": 1,
+    "Read": 4,
+    "StructuredOutput": 1,
+    "ToolSearch": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 914543,
+    "cost_usd": 0.2044393,
+    "input_tokens": 942412,
+    "output_tokens": 11490
+  },
+  "violations": []
+}

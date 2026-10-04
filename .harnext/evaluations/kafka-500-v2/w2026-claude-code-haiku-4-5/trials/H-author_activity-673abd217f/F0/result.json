@@ -1,0 +1,59 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "store/events/2026/03/06/github-api-apache-kafka-pr-21638-merged-4cb0d476.md",
+      "store/events/2026/03/06/github-api-apache-kafka-pr-21641-merged-31bda900.md",
+      "store/events/2026/03/10/github-api-apache-kafka-pr-21642-merged-7fa009dc.md",
+      "store/events/2026/03/10/github-api-apache-kafka-pr-21685-merged-7e520ab9.md",
+      "store/events/2026/04/28/github-api-apache-kafka-pr-21772-merged-df26183b.md",
+      "store/events/2026/04/28/github-api-apache-kafka-pr-22067-merged-c06b4c06.md"
+    ],
+    "value": 6
+  },
+  "arm": "F0",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 59.60713250000117,
+  "family": "author_activity",
+  "grade": {
+    "actual": 6,
+    "correct": true,
+    "evidence": [
+      "store/events/2026/03/06/github-api-apache-kafka-pr-21638-merged-4cb0d476.md",
+      "store/events/2026/03/06/github-api-apache-kafka-pr-21641-merged-31bda900.md",
+      "store/events/2026/03/10/github-api-apache-kafka-pr-21642-merged-7fa009dc.md",
+      "store/events/2026/03/10/github-api-apache-kafka-pr-21685-merged-7e520ab9.md",
+      "store/events/2026/04/28/github-api-apache-kafka-pr-21772-merged-df26183b.md",
+      "store/events/2026/04/28/github-api-apache-kafka-pr-22067-merged-c06b4c06.md"
+    ],
+    "expected": 6
+  },
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "75524fc83386b85ec2dfed95393e1265ce15be20277cf181c32228a8c8888b36",
+  "run_index": 5,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-author_activity-673abd217f",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 60019,
+    "cost_usd": 0.0216969,
+    "input_tokens": 65400,
+    "output_tokens": 992
+  },
+  "violations": []
+}

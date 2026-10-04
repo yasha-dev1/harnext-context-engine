@@ -1,0 +1,9 @@
+{
+  "evidence": [
+    "Message ID: 5f2811d100330e528ddb32e3 (Jun Rao, 2026-01-22 21:24:32Z, DISCUSS thread)",
+    "Message ID: dd72e188e244a14eeb227fa2 (Ivan Yurchenko, 2026-01-23 12:01:44Z, responding to Jun Rao's earlier Jan 12 message)",
+    "Explicit statement: 'We have deprecated KIP-1181 as it's now incorporated into KIP-1163.'",
+    "KAFKA-19257 JIRA issue describes KIP-1181 as sub-KIP of KIP-1150"
+  ],
+  "value": "deprecated and merged into the main proposal"
+}

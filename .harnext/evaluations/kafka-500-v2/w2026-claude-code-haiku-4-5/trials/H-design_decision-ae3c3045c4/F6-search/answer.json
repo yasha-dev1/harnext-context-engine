@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "kips-and-discussions.md — KIP-1274 discussion and voting documentation",
+    "window-28-summary.md through window-33-summary.md — KIP-1274 activity summaries",
+    "The context snapshot does not contain the specific technical decision about the log level (INFO vs WARN) for the phase 1 deprecation message"
+  ],
+  "value": null
+}

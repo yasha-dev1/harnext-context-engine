@@ -1,0 +1,3 @@
+{
+  "summary": "Fixed KAFKA-20368 by replacing HashMap with MetricsUtils.getTags() in RLMExpirationTask to ensure deterministic metric tags order. Added import for MetricsUtils and modified the metricTags initialization to use MetricsUtils.getTags(\"topic\", ..., \"partition\", ...) instead of manually creating a HashMap and adding entries. All tests pass successfully."
+}

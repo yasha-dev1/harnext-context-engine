@@ -1,0 +1,50 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "I searched extensively using context_research and search_context tools across KAFKA-20208, KAFKA-20176, KAFKA-20175, KAFKA-20174, KIP-1262, and related threads, but could not locate the specific decision about which meta.properties version is written when --cluster-id is used. The answer may be in discussion content, facts files, or documentation not accessible through my searches, or in sources created after the cutoff date (2026-03-31)."
+    ],
+    "value": null
+  },
+  "arm": "F5-search",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 217.4171670020005,
+  "family": "design_decision",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "I searched extensively using context_research and search_context tools across KAFKA-20208, KAFKA-20176, KAFKA-20175, KAFKA-20174, KIP-1262, and related threads, but could not locate the specific decision about which meta.properties version is written when --cluster-id is used. The answer may be in discussion content, facts files, or documentation not accessible through my searches, or in sources created after the cutoff date (2026-03-31)."
+    ],
+    "expected": "V2"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 29,
+  "prompt_sha256": "0d33695245530d943854f5c46c098fc99cb088887ae1509f459d3321657a6b74",
+  "run_index": 50,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-bc569837b8",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 2,
+    "mcp__history__search_context": 25
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 1297188,
+    "cost_usd": 0.27710080000000004,
+    "input_tokens": 1358084,
+    "output_tokens": 5165
+  },
+  "violations": []
+}

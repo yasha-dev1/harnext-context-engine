@@ -1,0 +1,61 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "No network access available",
+      "No local project context provided",
+      "Working directory is not a git repository",
+      "No file sources available to query PR #22177 approval state"
+    ],
+    "value": [
+      "null"
+    ]
+  },
+  "arm": "N",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 6.329826774999674,
+  "family": "pr_approvers",
+  "grade": {
+    "actual": [
+      "null"
+    ],
+    "correct": false,
+    "evidence": [
+      "No network access available",
+      "No local project context provided",
+      "Working directory is not a git repository",
+      "No file sources available to query PR #22177 approval state"
+    ],
+    "expected": [
+      "m1a2st",
+      "muralibasani",
+      "pratyakshsharma"
+    ]
+  },
+  "instructions_sha256": null,
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 1,
+  "prompt_sha256": "2fe21001f5a2205ad7cafae12d3f54ad4a4debbd7fb68c4103d991f938eeec12",
+  "run_index": 19,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-pr_approvers-78f6a3cea2",
+  "tool_calls": {
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 17503,
+    "cost_usd": 0.010206300000000001,
+    "input_tokens": 20588,
+    "output_tokens": 459
+  },
+  "violations": []
+}

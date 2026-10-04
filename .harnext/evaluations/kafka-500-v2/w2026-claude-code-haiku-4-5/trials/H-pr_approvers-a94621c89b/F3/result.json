@@ -1,0 +1,65 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "_intake/2026/04/07/github-api-apache-kafka-review-PRR_kwDOACG9q87ycGzC-6e22e398.md (squah-confluent approval)",
+      "_intake/2026/04/07/github-api-apache-kafka-review-PRR_kwDOACG9q87ydMWz-bcb4fef8.md (nileshkumar3 approval)",
+      "_intake/2026/04/07/github-api-apache-kafka-review-PRR_kwDOACG9q87ydMbp-88d3b986.md (dajac approval)"
+    ],
+    "value": [
+      "dajac",
+      "nileshkumar3",
+      "squah-confluent"
+    ]
+  },
+  "arm": "F3",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 36.29856439899595,
+  "family": "pr_approvers",
+  "grade": {
+    "actual": [
+      "dajac",
+      "nileshkumar3",
+      "squah-confluent"
+    ],
+    "correct": true,
+    "evidence": [
+      "_intake/2026/04/07/github-api-apache-kafka-review-PRR_kwDOACG9q87ycGzC-6e22e398.md (squah-confluent approval)",
+      "_intake/2026/04/07/github-api-apache-kafka-review-PRR_kwDOACG9q87ydMWz-bcb4fef8.md (nileshkumar3 approval)",
+      "_intake/2026/04/07/github-api-apache-kafka-review-PRR_kwDOACG9q87ydMbp-88d3b986.md (dajac approval)"
+    ],
+    "expected": [
+      "dajac",
+      "nileshkumar3",
+      "squah-confluent"
+    ]
+  },
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "ebfb3036be6a9e5e9554aef24fb35e80416afca9f3f094f47b3b04e15f61aadf",
+  "run_index": 65,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-pr_approvers-a94621c89b",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 59877,
+    "cost_usd": 0.018792700000000002,
+    "input_tokens": 64538,
+    "output_tokens": 702
+  },
+  "violations": []
+}

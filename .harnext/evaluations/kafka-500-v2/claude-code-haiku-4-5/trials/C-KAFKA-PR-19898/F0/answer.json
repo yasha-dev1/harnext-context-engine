@@ -1,0 +1,3 @@
+{
+  "summary": "Implemented KAFKA-19347 fix: Modified AclControlManager.createAcls() to stop updating timeline data structures (idToAcl and existingAcls) prematurely. The method now uses a local HashSet to deduplicate within a batch while preserving safe behavior - timeline structures are only updated in replay methods after records are persisted. All 9 AclControlManagerTest tests pass, including testCreateDedupe() which validates the fix."
+}

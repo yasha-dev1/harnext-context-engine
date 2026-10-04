@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "The exact final broker config property name (*.class property) for KIP-1331's Streams Group Topology Description Plugin could not be determined from the available search results. While extensive searches found references to the KIP-1331 discussion (initiated 2026-05-04), feedback from Andrew Schofield noting config name ambiguity (2026-05-08), and the vote passing (2026-05-27), the truncated summaries did not reveal the final resolved configuration property name.",
+    "The search results consistently showed: KIP-1331 discussion threads, KAFKA-20622 (Define StreamsGroupTopologyDescriptionPlugin SPI), POC PR #22413, but the complete discussion text addressing the config name ambiguity feedback was truncated in all results."
+  ],
+  "value": null
+}

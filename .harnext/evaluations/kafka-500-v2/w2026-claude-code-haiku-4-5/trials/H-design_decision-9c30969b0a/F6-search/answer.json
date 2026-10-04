@@ -1,0 +1,10 @@
+{
+  "evidence": [
+    "kips-and-discussions.md (lines 721-734, 849-863)",
+    "pull-requests.md (lines 125-132, 766-781)",
+    "window-40-summary.md (lines 139-150, 308-316)",
+    "window-38-summary.md (lines 180-193)",
+    "versions-and-releases.md (lines 249-253)"
+  ],
+  "value": "DslStoreFormat"
+}

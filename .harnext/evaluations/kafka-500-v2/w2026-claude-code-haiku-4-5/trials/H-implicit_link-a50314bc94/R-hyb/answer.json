@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "mail:6c643315a34fcdb22f25b861",
+    "jira:13648992:created",
+    "mail:808bc6785589a2f7f1be1aa5"
+  ],
+  "value": "KAFKA-20525"
+}

@@ -1,0 +1,56 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "Mail thread [DISCUSS] KIP-1262: Enable auto-formatting directories - Kevin Wu's response on 2026-03-30T16:00:52Z (ID: 3ec7bda2af768a83e362079f)",
+      "Jun Rao's question on 2026-03-27T21:19:34Z (ID: 468c78200770789f37bb484d)",
+      "GitHub PR 21547: KAFKA-20176: Add MetaProperties V2 (for context)"
+    ],
+    "value": "V2"
+  },
+  "arm": "S-tools",
+  "checkpoint": "2026-03",
+  "cli_calls": {
+    "gh": 11,
+    "jira": 9,
+    "mail": 7
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 148.99600894498872,
+  "family": "design_decision",
+  "grade": {
+    "actual": "V2",
+    "correct": true,
+    "evidence": [
+      "Mail thread [DISCUSS] KIP-1262: Enable auto-formatting directories - Kevin Wu's response on 2026-03-30T16:00:52Z (ID: 3ec7bda2af768a83e362079f)",
+      "Jun Rao's question on 2026-03-27T21:19:34Z (ID: 468c78200770789f37bb484d)",
+      "GitHub PR 21547: KAFKA-20176: Add MetaProperties V2 (for context)"
+    ],
+    "expected": "V2"
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 11,
+  "prompt_sha256": "d0c0e59c77d69db2d64dba53aca37c3f7136f1529721a69698f89f57683b0771",
+  "run_index": 3,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-bc569837b8",
+  "tool_calls": {
+    "Bash": 27,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 300342,
+    "cost_usd": 0.11619220000000001,
+    "input_tokens": 330038,
+    "output_tokens": 5371
+  },
+  "violations": []
+}

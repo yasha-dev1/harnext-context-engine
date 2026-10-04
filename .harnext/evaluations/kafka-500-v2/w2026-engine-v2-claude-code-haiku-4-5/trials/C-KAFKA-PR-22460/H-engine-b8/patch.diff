@@ -1,0 +1,225 @@
+diff --git a/clients/src/main/java/org/apache/kafka/clients/producer/KafkaProducer.java b/clients/src/main/java/org/apache/kafka/clients/producer/KafkaProducer.java
+index cd495956269ec3fb1110828b699717bd3b057c83..fd9c44e8154531b2ec358b361a5009f58ba67781 100644
+--- a/clients/src/main/java/org/apache/kafka/clients/producer/KafkaProducer.java
++++ b/clients/src/main/java/org/apache/kafka/clients/producer/KafkaProducer.java
+@@ -774,6 +774,12 @@ public class KafkaProducer<K, V> implements Producer<K, V> {
+ 
+         if (!offsets.isEmpty()) {
+             long start = time.nanoseconds();
++            // Request metadata updates for any topics that are not yet user-tracked.
++            // This ensures that when the TxnOffsetCommit request is built, topic IDs
++            // will be available for KIP-1319 v6+ negotiation.
++            for (TopicPartition topicPartition : offsets.keySet()) {
++                metadata.requestUpdateForTopic(topicPartition.topic());
++            }
+             TransactionalRequestResult result = transactionManager.sendOffsetsToTransaction(offsets, groupMetadata);
+             sender.wakeup();
+             result.await(maxBlockTimeMs, TimeUnit.MILLISECONDS, SEND_OFFSETS_TIMEOUT_MSG);
+diff --git a/clients/src/main/java/org/apache/kafka/clients/producer/internals/TransactionManager.java b/clients/src/main/java/org/apache/kafka/clients/producer/internals/TransactionManager.java
+index 266bdeb0270220259e0d483d554208bd414706e4..15774cfcb8ea46c7d9d303132d60b983f44c7a7b 100644
+--- a/clients/src/main/java/org/apache/kafka/clients/producer/internals/TransactionManager.java
++++ b/clients/src/main/java/org/apache/kafka/clients/producer/internals/TransactionManager.java
+@@ -1249,14 +1249,7 @@ public class TransactionManager {
+     private TxnOffsetCommitHandler txnOffsetCommitHandler(TransactionalRequestResult result,
+                                                           Map<TopicPartition, OffsetAndMetadata> offsets,
+                                                           ConsumerGroupMetadata groupMetadata) {
+-        // Resolve topic ids from the metadata cache at request build time.
+-        // KafkaProducer.sendOffsetsToTransaction has already ensured the cache
+-        // is fresh for these topics, so this is a non-blocking lookup.
+-        var topicIds = metadata.topicIds();
+-        var requestTopicsByName = new HashMap<String, TxnOffsetCommitRequestTopic>();
+-        var topicNamesByIds = new HashMap<Uuid, String>();
+-        var topics = new ArrayList<TxnOffsetCommitRequestTopic>();
+-        var allHaveTopicIds = true;
++        // Store offsets in pendingTxnOffsetCommits for tracking.
+         for (var entry : offsets.entrySet()) {
+             var tp = entry.getKey();
+             var offsetAndMetadata = entry.getValue();
+@@ -1268,40 +1261,13 @@ public class TransactionManager {
+                     offsetAndMetadata.leaderEpoch()
+                 )
+             );
+-            var topicId = topicIds.getOrDefault(tp.topic(), Uuid.ZERO_UUID);
+-            allHaveTopicIds &= !topicId.equals(Uuid.ZERO_UUID);
+-            var topic = requestTopicsByName.computeIfAbsent(tp.topic(), name -> {
+-                var t = new TxnOffsetCommitRequestTopic().setName(name).setTopicId(topicId);
+-                topics.add(t);
+-                if (!topicId.equals(Uuid.ZERO_UUID)) {
+-                    topicNamesByIds.put(topicId, name);
+-                }
+-                return t;
+-            });
+-            topic.partitions().add(new TxnOffsetCommitRequestData.TxnOffsetCommitRequestPartition()
+-                .setPartitionIndex(tp.partition())
+-                .setCommittedOffset(offsetAndMetadata.offset())
+-                .setCommittedLeaderEpoch(offsetAndMetadata.leaderEpoch().orElse(RecordBatch.NO_PARTITION_LEADER_EPOCH))
+-                .setCommittedMetadata(offsetAndMetadata.metadata()));
+-        }
+-
+-        var data = new TxnOffsetCommitRequestData()
+-            .setTransactionalId(transactionalId)
+-            .setGroupId(groupMetadata.groupId())
+-            .setProducerId(producerIdAndEpoch.producerId)
+-            .setProducerEpoch(producerIdAndEpoch.epoch)
+-            .setMemberId(groupMetadata.memberId())
+-            .setGenerationIdOrMemberEpoch(groupMetadata.generationId())
+-            .setGroupInstanceId(groupMetadata.groupInstanceId().orElse(null))
+-            .setTopics(topics);
+-        var builder = allHaveTopicIds
+-            ? TxnOffsetCommitRequest.Builder.forTopicIdsOrNames(data, isTransactionV2Enabled(), true)
+-            : TxnOffsetCommitRequest.Builder.forTopicNames(data, isTransactionV2Enabled());
++        }
++
+         if (result == null) {
+             // In this case, transaction V2 is in use.
+-            return new TxnOffsetCommitHandler(builder, topicNamesByIds);
++            return new TxnOffsetCommitHandler(offsets, groupMetadata);
+         }
+-        return new TxnOffsetCommitHandler(result, builder, topicNamesByIds);
++        return new TxnOffsetCommitHandler(result, offsets, groupMetadata);
+     }
+ 
+     private void throwIfPendingState(TransactionOperation operation) {
+@@ -1912,31 +1878,84 @@ public class TransactionManager {
+     }
+ 
+     private class TxnOffsetCommitHandler extends TxnRequestHandler {
+-        private final TxnOffsetCommitRequest.Builder builder;
+-        // Snapshot of the topic-id -> name map captured when the request was
+-        // built. v6+ responses omit the topic name on the wire, so we resolve
+-        // it via this snapshot rather than the live metadata cache (which may
+-        // have changed by the time the response arrives).
+-        private final Map<Uuid, String> topicNamesByIds;
++        private final Map<TopicPartition, OffsetAndMetadata> offsets;
++        private final ConsumerGroupMetadata groupMetadata;
++        // Snapshot of the topic-id -> name map captured at request-build time.
++        // v6+ responses omit the topic name on the wire, so we resolve it via
++        // this snapshot rather than the live metadata cache (which may have
++        // changed by the time the response arrives).
++        private Map<Uuid, String> topicNamesByIds;
++        private TxnOffsetCommitRequest.Builder cachedBuilder;
+ 
+         private TxnOffsetCommitHandler(TransactionalRequestResult result,
+-                                       TxnOffsetCommitRequest.Builder builder,
+-                                       Map<Uuid, String> topicNamesByIds) {
++                                       Map<TopicPartition, OffsetAndMetadata> offsets,
++                                       ConsumerGroupMetadata groupMetadata) {
+             super(result);
+-            this.builder = builder;
+-            this.topicNamesByIds = topicNamesByIds;
++            this.offsets = offsets;
++            this.groupMetadata = groupMetadata;
++            this.topicNamesByIds = null;
++            this.cachedBuilder = null;
+         }
+ 
+-        private TxnOffsetCommitHandler(TxnOffsetCommitRequest.Builder builder,
+-                                       Map<Uuid, String> topicNamesByIds) {
++        private TxnOffsetCommitHandler(Map<TopicPartition, OffsetAndMetadata> offsets,
++                                       ConsumerGroupMetadata groupMetadata) {
+             super("TxnOffsetCommitHandler");
+-            this.builder = builder;
+-            this.topicNamesByIds = topicNamesByIds;
++            this.offsets = offsets;
++            this.groupMetadata = groupMetadata;
++            this.topicNamesByIds = null;
++            this.cachedBuilder = null;
+         }
+ 
+         @Override
+         TxnOffsetCommitRequest.Builder requestBuilder() {
+-            return builder;
++            if (cachedBuilder == null) {
++                buildRequest();
++            }
++            return cachedBuilder;
++        }
++
++        private void buildRequest() {
++            // Resolve topic ids from the metadata cache at request-send time.
++            // This allows us to pick up topic IDs that were added to metadata
++            // after this handler was created (e.g., from a metadata refresh
++            // triggered by sendOffsetsToTransaction).
++            var topicIds = metadata.topicIds();
++            var requestTopicsByName = new HashMap<String, TxnOffsetCommitRequestTopic>();
++            topicNamesByIds = new HashMap<Uuid, String>();
++            var topics = new ArrayList<TxnOffsetCommitRequestTopic>();
++            var allHaveTopicIds = true;
++            for (var entry : offsets.entrySet()) {
++                var tp = entry.getKey();
++                var offsetAndMetadata = entry.getValue();
++                var topicId = topicIds.getOrDefault(tp.topic(), Uuid.ZERO_UUID);
++                allHaveTopicIds &= !topicId.equals(Uuid.ZERO_UUID);
++                var topic = requestTopicsByName.computeIfAbsent(tp.topic(), name -> {
++                    var t = new TxnOffsetCommitRequestTopic().setName(name).setTopicId(topicId);
++                    topics.add(t);
++                    if (!topicId.equals(Uuid.ZERO_UUID)) {
++                        topicNamesByIds.put(topicId, name);
++                    }
++                    return t;
++                });
++                topic.partitions().add(new TxnOffsetCommitRequestData.TxnOffsetCommitRequestPartition()
++                    .setPartitionIndex(tp.partition())
++                    .setCommittedOffset(offsetAndMetadata.offset())
++                    .setCommittedLeaderEpoch(offsetAndMetadata.leaderEpoch().orElse(RecordBatch.NO_PARTITION_LEADER_EPOCH))
++                    .setCommittedMetadata(offsetAndMetadata.metadata()));
++            }
++
++            var data = new TxnOffsetCommitRequestData()
++                .setTransactionalId(transactionalId)
++                .setGroupId(groupMetadata.groupId())
++                .setProducerId(producerIdAndEpoch.producerId)
++                .setProducerEpoch(producerIdAndEpoch.epoch)
++                .setMemberId(groupMetadata.memberId())
++                .setGenerationIdOrMemberEpoch(groupMetadata.generationId())
++                .setGroupInstanceId(groupMetadata.groupInstanceId().orElse(null))
++                .setTopics(topics);
++            cachedBuilder = allHaveTopicIds
++                ? TxnOffsetCommitRequest.Builder.forTopicIdsOrNames(data, isTransactionV2Enabled(), true)
++                : TxnOffsetCommitRequest.Builder.forTopicNames(data, isTransactionV2Enabled());
+         }
+ 
+         @Override
+@@ -1951,7 +1970,7 @@ public class TransactionManager {
+ 
+         @Override
+         String coordinatorKey() {
+-            return builder.data.groupId();
++            return groupMetadata.groupId();
+         }
+ 
+         @SuppressWarnings({"checkstyle:NPathComplexity"})
+@@ -1961,7 +1980,7 @@ public class TransactionManager {
+             boolean coordinatorReloaded = false;
+ 
+             log.debug("Received TxnOffsetCommit response for consumer group {}: {}",
+-                builder.data.groupId(), txnOffsetCommitResponse.data().topics());
++                groupMetadata.groupId(), txnOffsetCommitResponse.data().topics());
+ 
+             for (TxnOffsetCommitResponseData.TxnOffsetCommitResponseTopic responseTopic : txnOffsetCommitResponse.data().topics()) {
+                 // v6+ responses omit the topic name on the wire; fall back to
+@@ -1971,7 +1990,7 @@ public class TransactionManager {
+                     : topicNamesByIds.get(responseTopic.topicId());
+                 if (topicName == null) {
+                     log.warn("Received TxnOffsetCommit response for consumer group {} with an unknown topic id {}",
+-                        builder.data.groupId(), responseTopic.topicId());
++                        groupMetadata.groupId(), responseTopic.topicId());
+                     continue;
+                 }
+                 for (TxnOffsetCommitResponseData.TxnOffsetCommitResponsePartition responsePartition : responseTopic.partitions()) {
+@@ -1984,13 +2003,13 @@ public class TransactionManager {
+                             || error == Errors.REQUEST_TIMED_OUT) {
+                         if (!coordinatorReloaded) {
+                             coordinatorReloaded = true;
+-                            lookupCoordinator(FindCoordinatorRequest.CoordinatorType.GROUP, builder.data.groupId());
++                            lookupCoordinator(FindCoordinatorRequest.CoordinatorType.GROUP, groupMetadata.groupId());
+                         }
+                     } else if (error.exception() instanceof RetriableException) {
+                         // The topic is unknown, the coordinator is loading, or it is another retriable error;
+                         // retry with the current coordinator.
+                     } else if (error == Errors.GROUP_AUTHORIZATION_FAILED) {
+-                        abortableError(GroupAuthorizationException.forGroupId(builder.data.groupId()));
++                        abortableError(GroupAuthorizationException.forGroupId(groupMetadata.groupId()));
+                         break;
+                     } else if (error == Errors.FENCED_INSTANCE_ID ||
+                             error == Errors.TRANSACTION_ABORTABLE) {

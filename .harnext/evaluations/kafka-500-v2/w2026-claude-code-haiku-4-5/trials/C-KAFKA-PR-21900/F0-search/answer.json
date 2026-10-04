@@ -1,0 +1,3 @@
+{
+  "summary": "Successfully implemented KAFKA-20282 by adding an INFO-level log message to ClassicKafkaConsumer that recommends switching to the new consumer rebalance protocol (KIP-848). The message is logged only when the Classic protocol is used with a group.id configured, aligning with Phase 1 of KIP-1274. All four related tests pass: testClassicProtocolLogsRecommendationToTryConsumerProtocol, testConsumerProtocolDoesNotLogRecommendation, testDefaultProtocolLogsRecommendationToTryConsumerProtocol, and testNoGroupIdDoesNotLogGroupProtocolMessage."
+}

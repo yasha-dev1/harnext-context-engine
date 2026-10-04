@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "kips-and-discussions.md (lines 3082-3090): JR7 consistency question raised but not answered",
+    "window-53-summary.md (lines 378-395): Jun Rao's JR7 concern documented",
+    "window-99-summary.md, window-100-summary.md, window-102-summary.md, window-103-summary.md: References to ongoing Diskless Core discussions in April but no specific consensus on which operation permits eventual consistency"
+  ],
+  "value": null
+}

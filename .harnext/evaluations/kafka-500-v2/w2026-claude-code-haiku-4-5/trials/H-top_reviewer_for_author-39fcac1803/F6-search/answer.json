@@ -1,0 +1,11 @@
+{
+  "evidence": [
+    "pull-requests.md (PR #21623: Author bbejeck, Approved by mjsax, merged 2026-03-04)",
+    "pull-requests.md (PR #21624: Author bbejeck, Approved by mjsax, merged 2026-03-04)",
+    "pull-requests.md (PR #21670: Author bbejeck, Reviewers Matthias Sax, merged 2026-03-11)",
+    "pull-requests.md (PR #21999: Author bbejeck, Approved by mjsax at 2026-04-17T17:40:30Z, merged 2026-04-17)",
+    "window-48-summary.md (PRs #21623-#21624 Streams test flakiness fixes approved by mjsax)",
+    "window-97-summary.md (PR #21999 KIP-1035 self-managed offset lifecycle integration tests approved by mjsax)"
+  ],
+  "value": "mjsax"
+}

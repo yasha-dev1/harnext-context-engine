@@ -1,0 +1,52 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "entities/thread/CAMeNjWJqFj3g-Vz3WODknBwjDMGMxotyXSTk_CnoRwa20vGvGA_mail.gmail.com/OVERVIEW.md - indicates the discussion was moved to a new KIP-1279 thread, but that thread is not indexed in the context",
+      "_meta/build-summary-2026-03-20.md - references KIP-1279 discussions on mailing lists but does not contain the specific RPC naming details"
+    ],
+    "value": null
+  },
+  "arm": "F5-search",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 162.2529734080017,
+  "family": "design_decision",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "entities/thread/CAMeNjWJqFj3g-Vz3WODknBwjDMGMxotyXSTk_CnoRwa20vGvGA_mail.gmail.com/OVERVIEW.md - indicates the discussion was moved to a new KIP-1279 thread, but that thread is not indexed in the context",
+      "_meta/build-summary-2026-03-20.md - references KIP-1279 discussions on mailing lists but does not contain the specific RPC naming details"
+    ],
+    "expected": "StartMirrorTopics/StopMirrorTopics"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 17,
+  "prompt_sha256": "4dd7fe72b08bbc5f2701de83c0b385c0ebed3e812f33126cf5faa4bbdf51ee9a",
+  "run_index": 67,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-7b55b02c3c",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 2,
+    "mcp__history__search_context": 13
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 565433,
+    "cost_usd": 0.14082030000000004,
+    "input_tokens": 599386,
+    "output_tokens": 3302
+  },
+  "violations": []
+}

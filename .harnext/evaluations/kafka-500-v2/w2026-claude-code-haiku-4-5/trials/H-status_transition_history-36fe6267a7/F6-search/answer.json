@@ -1,0 +1,25 @@
+{
+  "evidence": [
+    "jira-issues.md (lines 4304-4312): Created 2026-03-05T09:38:39Z with initial status Open [evt:0074, evt:0075]",
+    "window-67-summary.md (lines 104-115, 220-225): PR #21784 opened 2026-03-17T03:21:13Z, status changed Reopened → Patch Available [evt:0081]",
+    "window-70-summary.md (lines 102-114): PR #21784 merged 2026-03-18T19:19:41Z, status changed to Resolved with fixVersion 4.3.0 [evt:0159-0160]",
+    "pull-requests.md (lines 4350-4362): PR #21784 opened 2026-03-17T03:21:13Z with Patch Available status"
+  ],
+  "value": [
+    {
+      "at": "2026-03-05T09:38:39.000000Z",
+      "from": null,
+      "to": "Open"
+    },
+    {
+      "at": "2026-03-17T03:21:13.000000Z",
+      "from": "Reopened",
+      "to": "Patch Available"
+    },
+    {
+      "at": "2026-03-18T19:19:41.000000Z",
+      "from": "Patch Available",
+      "to": "Resolved"
+    }
+  ]
+}

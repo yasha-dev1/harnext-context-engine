@@ -1,0 +1,65 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "window-76-summary.md - PR #21866 approved by showuon on 2026-03-25T08:44:22Z",
+      "window-81-summary.md - PR #21866 status changed to Approved with AndrewJSchofield as reviewer",
+      "pull-requests.md - PR #21866 details confirming approvals",
+      "contributors.md - Activity records for both showuon and AndrewJSchofield"
+    ],
+    "value": [
+      "AndrewJSchofield",
+      "showuon"
+    ]
+  },
+  "arm": "F6-search",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 150.13839548299438,
+  "family": "pr_approvers",
+  "grade": {
+    "actual": [
+      "AndrewJSchofield",
+      "showuon"
+    ],
+    "correct": true,
+    "evidence": [
+      "window-76-summary.md - PR #21866 approved by showuon on 2026-03-25T08:44:22Z",
+      "window-81-summary.md - PR #21866 status changed to Approved with AndrewJSchofield as reviewer",
+      "pull-requests.md - PR #21866 details confirming approvals",
+      "contributors.md - Activity records for both showuon and AndrewJSchofield"
+    ],
+    "expected": [
+      "AndrewJSchofield",
+      "showuon"
+    ]
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 8,
+  "prompt_sha256": "dd4fcad644806102769080973ad1c8aab12afd6ac376dc85907dff8bd4435ea5",
+  "run_index": 36,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-pr_approvers-728956e54a",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 2,
+    "mcp__history__search_context": 4
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 209972,
+    "cost_usd": 0.07456819999999999,
+    "input_tokens": 226066,
+    "output_tokens": 4290
+  },
+  "violations": []
+}

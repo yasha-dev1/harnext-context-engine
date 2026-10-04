@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "discussions/kip-1312-support-unregistering-controllers.md (lines 117-126)",
+    "prs/22191-kafka-20395-support-unregistering-controllers.md (line 26)"
+  ],
+  "value": "new record type"
+}

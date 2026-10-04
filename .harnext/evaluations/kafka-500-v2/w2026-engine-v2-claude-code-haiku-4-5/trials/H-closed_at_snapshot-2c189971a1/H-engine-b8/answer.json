@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "jira:13641465:change:22943422:0 — KAFKA-20158's workflow status was 'In Progress' at the cutoff date (2026-02-28), not 'Closed'. The status changed from Open to In Progress on 2026-02-18 with no subsequent changes before the cutoff."
+  ],
+  "value": false
+}

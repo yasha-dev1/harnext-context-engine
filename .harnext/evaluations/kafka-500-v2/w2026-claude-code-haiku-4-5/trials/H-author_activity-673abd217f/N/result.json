@@ -1,0 +1,47 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "Cannot be determined: no network access available to query GitHub API, and working directory is not a git repository"
+    ],
+    "value": 0
+  },
+  "arm": "N",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 10.339552662000642,
+  "family": "author_activity",
+  "grade": {
+    "actual": 0,
+    "correct": false,
+    "evidence": [
+      "Cannot be determined: no network access available to query GitHub API, and working directory is not a git repository"
+    ],
+    "expected": 6
+  },
+  "instructions_sha256": null,
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 2,
+  "prompt_sha256": "3390755880a3ee2e939f399630ee79e034054f07b16bb89bb0f2b31c0bb087c7",
+  "run_index": 5,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-author_activity-673abd217f",
+  "tool_calls": {
+    "StructuredOutput": 2
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 20595,
+    "cost_usd": 0.048071499999999996,
+    "input_tokens": 41782,
+    "output_tokens": 731
+  },
+  "violations": []
+}

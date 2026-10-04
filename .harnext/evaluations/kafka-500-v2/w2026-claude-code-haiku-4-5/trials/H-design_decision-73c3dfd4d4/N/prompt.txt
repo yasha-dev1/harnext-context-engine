@@ -1,0 +1,9 @@
+Context snapshot cutoff (inclusive): 2026-01-31T23:59:59Z.
+
+In the proposal to let Kafka Streams state stores preserve record headers, was a dedicated configuration to cap the maximum size of headers written into state ultimately kept in the final design as of mid-January 2026? Answer with one of: "yes", "no". Answer with exactly one of: "yes", "no". Give the decision as it stood at the snapshot, not an earlier proposal.
+
+Return JSON {"value": <answer>, "evidence": [<ids or file paths of the sources you relied on>]}. Answer as of the cutoff; do not substitute a later or today's issue state.
+
+No project-history context is provided for this task. Work from the task statement and your own knowledge; there is no network access.
+
+Reply with one JSON object {"value": ..., "evidence": [...]}: `value` is the answer in the requested type (null if it cannot be determined), `evidence` lists the sources you relied on.

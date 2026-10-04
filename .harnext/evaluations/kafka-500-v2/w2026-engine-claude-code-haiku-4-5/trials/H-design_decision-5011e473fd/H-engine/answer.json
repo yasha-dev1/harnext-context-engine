@@ -1,0 +1,10 @@
+{
+  "evidence": [
+    "mail:620fcc0982fad00dc9a0bd54",
+    "mail:51a25dcd9861c2e258ab8f04",
+    "mail:48e929153846405ff3b22830",
+    "mail:e4a05c90c512657787366663",
+    "mail:a192cc3ce6018a685014966e"
+  ],
+  "value": "build a new metadata component independent of RLMM"
+}

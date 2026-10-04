@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "jira:13648741:created",
+    "mail:db399df8a2e4d63cd49faeb4",
+    "mail:8ea2d404f2c259c3934f9386"
+  ],
+  "value": "always report regardless of state"
+}

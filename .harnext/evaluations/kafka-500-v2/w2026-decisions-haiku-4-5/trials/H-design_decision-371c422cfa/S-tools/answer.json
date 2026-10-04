@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "mail message e437a5f929aa48c75a64ae98 (2026-02-14) from Lianet Magrans clarifying the KIP-1274 decision: 'The intention is indeed to deprecate the public-facing group.protocol config in 5.0 and remove in 6.0'",
+    "mail message 745ef36c7a7bc568bde226af (2026-02-23) confirming KIP-1274 acceptance with binding votes from David Jacot, Lucas Brutschy, Andrew Schofield, and Matthias Sax"
+  ],
+  "value": "remove the config entirely"
+}

@@ -1,0 +1,11 @@
+{
+  "agent_version": "2.1.278 (Claude Code)",
+  "argv": [
+    "/home/yasha/Desktop/uni/masters/harnext-context-engine/apps/eval/src/harnext_eval/e2/v2/runner.py",
+    "--config",
+    "apps/eval/configs/e2-w2026-engine-v2-claude-haiku.yaml",
+    "--live"
+  ],
+  "image_id": "sha256:1de715f951a3fc013cabad66407b87028bc2a5af6e58efdea5338b4cf9fb1485",
+  "recorded_at_start": 0
+}

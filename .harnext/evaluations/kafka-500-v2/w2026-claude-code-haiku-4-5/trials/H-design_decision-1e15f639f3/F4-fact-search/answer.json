@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "store/discussions/kip-1279-cluster-mirroring.md (line 32)"
+  ],
+  "value": "Long.MAX_VALUE - sourceProducerId - 1"
+}

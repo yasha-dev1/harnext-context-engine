@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "Unable to determine: knowledge cutoff (Feb 2025) predates snapshot date (May 31, 2026); specific implementation detail not found in training data"
+  ],
+  "value": null
+}

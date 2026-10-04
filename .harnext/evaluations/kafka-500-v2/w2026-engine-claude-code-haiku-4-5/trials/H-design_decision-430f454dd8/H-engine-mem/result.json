@@ -1,0 +1,88 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail:1736e3e8f4a1ef534d61f830",
+      "mail:c2141a8b1662eba9b6c532ff",
+      "mail:d4889f8586d3dca1bfd32d95",
+      "mail:29cf2f72fecac8c41020eb9f",
+      "mail:2c4f193afac11ed1dadaa56d",
+      "mail:bf2eb97f1e7622fe0746cec3",
+      "entities/thread/CACvVgwHhpHN2qmfqALM3=9wv4vHv-rZzkMU1kb97-aeXH2HVwg/OVERVIEW.md"
+    ],
+    "value": "CONTROLER_ID_NOT_REGISTERED"
+  },
+  "arm": "H-engine-mem",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 676.2774473080026,
+  "engine": {
+    "calls": 7,
+    "chat": {
+      "calls": 103,
+      "cancelled": 1,
+      "cost_usd": 0.00741925,
+      "input_tokens": 338522,
+      "output_tokens": 9456,
+      "retries": 1
+    },
+    "cost_usd": 0.01659079,
+    "discarded_attempts": 1,
+    "jev": {
+      "calls": 98,
+      "cancelled": 0,
+      "cost_usd": 0.00917154,
+      "input_tokens": 218370,
+      "output_tokens": 34260,
+      "retries": 1
+    },
+    "partial": 6,
+    "provider_retry_usd": 0.00384581,
+    "seconds": 524.913,
+    "unmetered_upper_usd": 0.00057487,
+    "waited_s": 0.94
+  },
+  "family": "design_decision",
+  "grade": {
+    "actual": "CONTROLER_ID_NOT_REGISTERED",
+    "correct": true,
+    "evidence": [
+      "mail:1736e3e8f4a1ef534d61f830",
+      "mail:c2141a8b1662eba9b6c532ff",
+      "mail:d4889f8586d3dca1bfd32d95",
+      "mail:29cf2f72fecac8c41020eb9f",
+      "mail:2c4f193afac11ed1dadaa56d",
+      "mail:bf2eb97f1e7622fe0746cec3",
+      "entities/thread/CACvVgwHhpHN2qmfqALM3=9wv4vHv-rZzkMU1kb97-aeXH2HVwg/OVERVIEW.md"
+    ],
+    "expected": "CONTROLER_ID_NOT_REGISTERED"
+  },
+  "image_id": "sha256:4615b2564319d58319029548af66970c954e128401ee89c8705684861de4bc07",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 9,
+  "prompt_sha256": "c13fbe9609b9686f7cb191c1e686d8ea9ce4c0eb0c566a03183ff719ca85e08d",
+  "run_index": 69,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-430f454dd8",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 7
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 197722,
+    "cost_usd": 0.044611200000000004,
+    "input_tokens": 205099,
+    "output_tokens": 2032
+  },
+  "violations": []
+}

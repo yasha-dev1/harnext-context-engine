@@ -1,0 +1,3 @@
+{
+  "summary": "Successfully implemented readOnly(IsolationLevel) method for CachingWindowStore with support for both READ_COMMITTED and READ_UNCOMMITTED isolation levels. For READ_COMMITTED, delegates to underlying store. For READ_UNCOMMITTED, returns a custom ReadOnlyView that merges cache and store data across all read-only operations. All 60 tests in CachingPersistentWindowStoreTest pass."
+}

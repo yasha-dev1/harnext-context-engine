@@ -1,0 +1,16 @@
+{
+  "evidence": [
+    "pull-requests.md:3146-3166",
+    "issues.md:2350-2358",
+    "commit: a2efacd44ef298c5725bf012fcd10259b9d12518"
+  ],
+  "value": [
+    "streams/src/main/java/org/apache/kafka/streams/processor/internals/AbstractReadOnlyDecorator.java",
+    "streams/src/main/java/org/apache/kafka/streams/processor/internals/StateManagerUtil.java",
+    "streams/src/main/java/org/apache/kafka/streams/state/QueryableStoreTypes.java",
+    "streams/src/main/java/org/apache/kafka/streams/state/internals/GlobalStateStoreProvider.java",
+    "streams/src/main/java/org/apache/kafka/streams/state/internals/StreamThreadStateStoreProvider.java",
+    "streams/src/main/java/org/apache/kafka/streams/state/internals/ValueConverters.java",
+    "streams/src/main/java/org/apache/kafka/streams/state/internals/WindowToTimestampedWindowByteStoreAdapter.java"
+  ]
+}

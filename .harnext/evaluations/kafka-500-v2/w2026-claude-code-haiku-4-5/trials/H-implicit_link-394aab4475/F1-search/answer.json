@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "entities/issue/KAFKA-20387/OVERVIEW.md",
+    "entities/kip/KIP-1308/OVERVIEW.md"
+  ],
+  "value": "KAFKA-20387"
+}

@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "entities/issue/KAFKA-1014/OVERVIEW.md",
+    "entities/thread/JIRA.12664433.1376941777000-Atlassian.JIRA-f5c96da9/OVERVIEW.md",
+    "entities/issue/KAFKA-1014/timeline.md"
+  ],
+  "value": "Abandoned"
+}

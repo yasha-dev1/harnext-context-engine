@@ -1,0 +1,12 @@
+{
+  "evidence": [
+    "events/2026/01/06/mail-8e958fd66bd3b2546376c7fe-4486b08d.md",
+    "events/2026/02/18/mail-979d019b1a7020acae3fdd3c-b3a0dafa.md",
+    "events/2026/02/25/mail-fc43d61fdfdfa544476d4f34-d455c3c1.md",
+    "events/2026/02/26/mail-114ea15d5f65819265676872-7c4998ca.md"
+  ],
+  "value": {
+    "participants": 3,
+    "starter": "Kevin Wu"
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "pull-requests.md (lines 1418-1428): PR #21866 status showing 'Approved on 2026-03-25T08:44:22Z by showuon'",
+      "issues.md (lines 1081-1093): KAFKA-20354 related PR status confirming approval by showuon on 2026-03-25T08:44:22Z"
+    ],
+    "value": [
+      "showuon"
+    ]
+  },
+  "arm": "F4-topic-search",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 29.125339594000252,
+  "family": "pr_approvers",
+  "grade": {
+    "actual": [
+      "showuon"
+    ],
+    "correct": false,
+    "evidence": [
+      "pull-requests.md (lines 1418-1428): PR #21866 status showing 'Approved on 2026-03-25T08:44:22Z by showuon'",
+      "issues.md (lines 1081-1093): KAFKA-20354 related PR status confirming approval by showuon on 2026-03-25T08:44:22Z"
+    ],
+    "expected": [
+      "AndrewJSchofield",
+      "showuon"
+    ]
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 5,
+  "prompt_sha256": "dd4fcad644806102769080973ad1c8aab12afd6ac376dc85907dff8bd4435ea5",
+  "run_index": 36,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-pr_approvers-728956e54a",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__search_context": 3
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 116094,
+    "cost_usd": 0.0434764,
+    "input_tokens": 126369,
+    "output_tokens": 2272
+  },
+  "violations": []
+}

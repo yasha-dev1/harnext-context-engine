@@ -1,0 +1,3 @@
+{
+  "summary": "Implemented fix for KAFKA-19012: Messages ending up on the wrong topic. Added tracking of batch expiration and buffer deallocation status to prevent buffers from being reused after batches expire. The new test `testNoBufferReuseWhenBatchExpires` now passes, verifying that expired batch buffers are not reused."
+}

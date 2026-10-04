@@ -1,0 +1,10 @@
+{
+  "evidence": [
+    "github:api:apache/kafka:review-PRR_kwDOACG9q87wkbjc",
+    "github:api:apache/kafka:review-PRR_kwDOACG9q87ut0NT"
+  ],
+  "value": [
+    "AndrewJSchofield",
+    "showuon"
+  ]
+}

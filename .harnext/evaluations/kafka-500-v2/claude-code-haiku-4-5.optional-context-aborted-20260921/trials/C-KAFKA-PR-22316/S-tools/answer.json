@@ -1,0 +1,3 @@
+{
+  "summary": "Successfully implemented readOnly(IsolationLevel) for MeteredKeyValueStore. Added a ReadOnlyView inner class that wraps the underlying read-only store and applies serdes for key/value transformation and records metrics for all read operations (get, range, reverseRange, all, reverseAll, prefixScan). The implementation validates that isolation level is not null and delegates to wrapped().readOnly(isolationLevel). All MeteredKeyValueStoreTest tests pass."
+}

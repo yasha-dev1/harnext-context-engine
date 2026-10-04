@@ -1,0 +1,78 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "entities/issue/KAFKA-20207/OVERVIEW.md",
+      "entities/pr/apache__kafka__21632/OVERVIEW.md"
+    ],
+    "value": "UUID"
+  },
+  "arm": "H-engine-mem",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 232.90687168300065,
+  "engine": {
+    "calls": 4,
+    "chat": {
+      "calls": 52,
+      "cancelled": 1,
+      "cost_usd": 0.00282095,
+      "input_tokens": 125859,
+      "output_tokens": 4150,
+      "retries": 0
+    },
+    "cost_usd": 0.0071325,
+    "discarded_attempts": 0,
+    "jev": {
+      "calls": 47,
+      "cancelled": 0,
+      "cost_usd": 0.00431155,
+      "input_tokens": 102656,
+      "output_tokens": 16699,
+      "retries": 0
+    },
+    "partial": 3,
+    "provider_retry_usd": 0,
+    "seconds": 212.958,
+    "unmetered_upper_usd": 0.00035298,
+    "waited_s": 0
+  },
+  "family": "design_decision",
+  "grade": {
+    "actual": "UUID",
+    "correct": true,
+    "evidence": [
+      "entities/issue/KAFKA-20207/OVERVIEW.md",
+      "entities/pr/apache__kafka__21632/OVERVIEW.md"
+    ],
+    "expected": "UUID"
+  },
+  "image_id": "sha256:4615b2564319d58319029548af66970c954e128401ee89c8705684861de4bc07",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 6,
+  "prompt_sha256": "be22e3c0c47518348f5282267a728e40d4fb4bab7d2739151dc4fdb93ffc2867",
+  "run_index": 49,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-eadc5ec0a5",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 4
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 127314,
+    "cost_usd": 0.0302734,
+    "input_tokens": 133283,
+    "output_tokens": 1131
+  },
+  "violations": []
+}

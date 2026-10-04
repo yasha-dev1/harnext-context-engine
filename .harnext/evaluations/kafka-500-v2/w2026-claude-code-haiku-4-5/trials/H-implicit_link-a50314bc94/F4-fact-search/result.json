@@ -1,0 +1,53 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "WINDOW-102-SUMMARY.md:77-86",
+      "issues/kafka-20525-client-configuration-observability.md:27-29",
+      "discussions/kip-1324-client-configuration-observability.md:6-12"
+    ],
+    "value": "KAFKA-20525"
+  },
+  "arm": "F4-fact-search",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 16.118684387998655,
+  "family": "implicit_link",
+  "grade": {
+    "actual": "KAFKA-20525",
+    "correct": true,
+    "evidence": [
+      "WINDOW-102-SUMMARY.md:77-86",
+      "issues/kafka-20525-client-configuration-observability.md:27-29",
+      "discussions/kip-1324-client-configuration-observability.md:6-12"
+    ],
+    "expected": "KAFKA-20525"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "f3e3db358d47e3fc09792cf686ad0a9a7573d29ea3390ee3b525f9fa18e44d6c",
+  "run_index": 87,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-implicit_link-a50314bc94",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__search_context": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 64076,
+    "cost_usd": 0.0143246,
+    "input_tokens": 65803,
+    "output_tokens": 898
+  },
+  "violations": []
+}

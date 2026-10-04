@@ -1,0 +1,75 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "PR #21638 (2026-03-06)",
+      "PR #21641 (2026-03-06)",
+      "PR #21558 (2026-03-09)",
+      "PR #21642 (2026-03-10)",
+      "PR #21655 (2026-03-10)",
+      "PR #21685 (2026-03-10)",
+      "PR #21692 (2026-03-18)",
+      "PR #21817 (2026-03-20)",
+      "PR #21989 (2026-04-08)",
+      "PR #21772 (2026-04-28)",
+      "PR #22067 (2026-04-28)",
+      "PR #22282 (2026-05-26)",
+      "PR #21579 (2026-05-27)",
+      "PR #22374 (2026-05-27)"
+    ],
+    "value": 14
+  },
+  "arm": "F1",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 160.94298204400184,
+  "family": "author_activity",
+  "grade": {
+    "actual": 14,
+    "correct": false,
+    "evidence": [
+      "PR #21638 (2026-03-06)",
+      "PR #21641 (2026-03-06)",
+      "PR #21558 (2026-03-09)",
+      "PR #21642 (2026-03-10)",
+      "PR #21655 (2026-03-10)",
+      "PR #21685 (2026-03-10)",
+      "PR #21692 (2026-03-18)",
+      "PR #21817 (2026-03-20)",
+      "PR #21989 (2026-04-08)",
+      "PR #21772 (2026-04-28)",
+      "PR #22067 (2026-04-28)",
+      "PR #22282 (2026-05-26)",
+      "PR #21579 (2026-05-27)",
+      "PR #22374 (2026-05-27)"
+    ],
+    "expected": 6
+  },
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 4,
+  "prompt_sha256": "75524fc83386b85ec2dfed95393e1265ce15be20277cf181c32228a8c8888b36",
+  "run_index": 5,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-author_activity-673abd217f",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 2
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 85458,
+    "cost_usd": 0.020436799999999998,
+    "input_tokens": 87386,
+    "output_tokens": 1614
+  },
+  "violations": []
+}

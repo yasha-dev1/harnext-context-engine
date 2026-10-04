@@ -1,0 +1,9 @@
+Context snapshot cutoff (inclusive): 2026-04-30T23:59:59Z.
+
+Among the pull requests authored by the GitHub user bbejeck and merged in the 365 days before the snapshot (merged at or after 2025-05-01T00:00:00Z, through the cutoff), which GitHub login approved the largest number of them (approvals through the cutoff, one count per pull request, the author's own reviews excluded)? Return the login as a string.
+
+Return JSON {"value": <answer>, "evidence": [<ids or file paths of the sources you relied on>]}. Answer as of the cutoff; do not substitute a later or today's issue state.
+
+No project-history context is provided for this task. Work from the task statement and your own knowledge; there is no network access.
+
+Reply with one JSON object {"value": ..., "evidence": [...]}: `value` is the answer in the requested type (null if it cannot be determined), `evidence` lists the sources you relied on.

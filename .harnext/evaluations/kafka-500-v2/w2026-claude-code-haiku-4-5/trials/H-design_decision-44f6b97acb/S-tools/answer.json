@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "mail ID 4f7fd3d7ae5bfb5b7fd2a661 (Sean Quah, 2026-03-01, mailing list announcement of rename during PR 21555 review)",
+    "PR 21555 KAFKA-20210 (merged 2026-03-03)",
+    "commit 065315431d81dc285e1fa1070216c11715c4865a (commit message: 'KAFKA-20210: Add group.coordinator.background.threads config')"
+  ],
+  "value": "group.coordinator.background.threads"
+}

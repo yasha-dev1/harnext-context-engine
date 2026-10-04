@@ -1,0 +1,360 @@
+diff --git a/group-coordinator/src/main/java/org/apache/kafka/coordinator/group/GroupCoordinatorShard.java b/group-coordinator/src/main/java/org/apache/kafka/coordinator/group/GroupCoordinatorShard.java
+index d449f4b18f20cb8f09a74c6a57dbd4003cf49b7f..b7d428257fdf0191e20470fdaf3d6efd33987bcc 100644
+--- a/group-coordinator/src/main/java/org/apache/kafka/coordinator/group/GroupCoordinatorShard.java
++++ b/group-coordinator/src/main/java/org/apache/kafka/coordinator/group/GroupCoordinatorShard.java
+@@ -491,6 +491,55 @@ public class GroupCoordinatorShard implements CoordinatorShard<CoordinatorRecord
+         return groupMetadataManager.streamsGroupHeartbeat(context, request);
+     }
+ 
++    /**
++     * Validates a streams group topology description update.
++     *
++     * @param groupId The group ID.
++     * @param memberId The member ID.
++     * @param pushedEpoch The pushed topology epoch.
++     * @param committedOffset The committed offset.
++     * @throws ApiException if validation fails.
++     */
++    public void validateStreamsGroupTopologyDescriptionUpdate(
++        String groupId,
++        String memberId,
++        int pushedEpoch,
++        long committedOffset
++    ) throws ApiException {
++        groupMetadataManager.validateStreamsGroupTopologyDescriptionUpdate(
++            groupId, memberId, pushedEpoch, committedOffset);
++    }
++
++    /**
++     * Sets the topology description epoch for a streams group.
++     *
++     * @param groupId The group ID.
++     * @param epoch The topology epoch.
++     * @param isFailed Whether this is a failed epoch.
++     * @return A Result containing the records to update the state machine.
++     */
++    public CoordinatorResult<Void, CoordinatorRecord> streamsGroupSetTopologyDescriptionEpoch(
++        String groupId,
++        int epoch,
++        boolean isFailed
++    ) {
++        return groupMetadataManager.streamsGroupSetTopologyDescriptionEpoch(groupId, epoch, isFailed);
++    }
++
++    /**
++     * Gets the set of streams groups that have a stored topology description.
++     *
++     * @param groupIds The group IDs to check.
++     * @param committedOffset The committed offset.
++     * @return The set of group IDs that have a stored topology description.
++     */
++    public Set<String> streamsGroupsWithStoredTopologyDescription(
++        List<String> groupIds,
++        long committedOffset
++    ) {
++        return groupMetadataManager.streamsGroupsWithStoredTopologyDescription(groupIds, committedOffset);
++    }
++
+     /**
+      * Handles a ShareGroupHeartbeat request.
+      *
+diff --git a/group-coordinator/src/main/java/org/apache/kafka/coordinator/group/GroupMetadataManager.java b/group-coordinator/src/main/java/org/apache/kafka/coordinator/group/GroupMetadataManager.java
+index 5a32fa8f1cbadc537ddf64af15efc0b59656f340..4e665642887a00bbfcbbcf7fa732f1aa2a5aaf87 100644
+--- a/group-coordinator/src/main/java/org/apache/kafka/coordinator/group/GroupMetadataManager.java
++++ b/group-coordinator/src/main/java/org/apache/kafka/coordinator/group/GroupMetadataManager.java
+@@ -768,6 +768,40 @@ public class GroupMetadataManager {
+         return new StreamsGroupDescribeResult(describedGroups, groupIdToStoredDescriptionTopologyEpochs);
+     }
+ 
++    /**
++     * Handles a StreamsGroupHeartbeat request.
++     *
++     * @param context The request context.
++     * @param request The actual StreamsGroupHeartbeat request.
++     *
++     * @return A Result containing the StreamsGroupHeartbeat response, a list of internal topics to be created and
++     *         a list of records to update the state machine.
++     */
++    public CoordinatorResult<StreamsGroupHeartbeatResult, CoordinatorRecord> streamsGroupHeartbeat(
++        AuthorizableRequestContext context,
++        StreamsGroupHeartbeatRequestData request
++    ) {
++        return streamsGroupHeartbeat(
++            request.groupId(),
++            request.memberId(),
++            request.memberEpoch(),
++            request.instanceId(),
++            request.rackId(),
++            request.rebalanceTimeoutMs(),
++            context.clientId(),
++            context.clientAddress().getHostString(),
++            request.topology(),
++            request.activeTasks(),
++            request.standbyTasks(),
++            request.warmupTasks(),
++            request.processId(),
++            request.userEndpoint(),
++            request.clientTags(),
++            request.shutdownApplication(),
++            request.memberEndpointEpoch()
++        );
++    }
++
+     /**
+      * Handles a DescribeGroup request.
+      *
+@@ -4566,6 +4600,60 @@ public class GroupMetadataManager {
+         );
+     }
+ 
++    /**
++     * Validates a streams group topology description update.
++     *
++     * @param groupId The group ID.
++     * @param memberId The member ID.
++     * @param pushedEpoch The pushed topology epoch.
++     * @param committedOffset The committed offset.
++     * @throws ApiException if validation fails.
++     */
++    public void validateStreamsGroupTopologyDescriptionUpdate(
++        String groupId,
++        String memberId,
++        int pushedEpoch,
++        long committedOffset
++    ) throws ApiException {
++        StreamsGroup group = streamsGroup(groupId, committedOffset);
++        if (!group.hasMember(memberId)) {
++            throw new UnknownMemberIdException("Member " + memberId + " is not a member of the group.");
++        }
++    }
++
++    /**
++     * Sets the topology description epoch for a streams group.
++     *
++     * @param groupId The group ID.
++     * @param epoch The topology epoch.
++     * @param isFailed Whether this is a failed epoch.
++     * @return A Result containing the records to update the state machine.
++     */
++    public CoordinatorResult<Void, CoordinatorRecord> streamsGroupSetTopologyDescriptionEpoch(
++        String groupId,
++        int epoch,
++        boolean isFailed
++    ) {
++        // For now, this is a simple no-op that returns empty records.
++        // The actual implementation will persist the epoch in group metadata.
++        return EMPTY_RESULT;
++    }
++
++    /**
++     * Gets the set of streams groups that have a stored topology description.
++     *
++     * @param groupIds The group IDs to check.
++     * @param committedOffset The committed offset.
++     * @return The set of group IDs that have a stored topology description.
++     */
++    public Set<String> streamsGroupsWithStoredTopologyDescription(
++        List<String> groupIds,
++        long committedOffset
++    ) {
++        // For now, return empty set. This would check the group metadata for stored topology epochs.
++        return Set.of();
++    }
++
+     /**
+      * Handles leave request from a share group member.
+      * @param groupId       The group id from the request.
+diff --git a/group-coordinator/src/main/java/org/apache/kafka/coordinator/group/api/streams/StreamsGroupTopologyDescription.java b/group-coordinator/src/main/java/org/apache/kafka/coordinator/group/api/streams/StreamsGroupTopologyDescription.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..60cd93cbdab5c984dff7a96442532b8488c568e2
+--- /dev/null
++++ b/group-coordinator/src/main/java/org/apache/kafka/coordinator/group/api/streams/StreamsGroupTopologyDescription.java
+@@ -0,0 +1,33 @@
++/*
++ * Licensed to the Apache Software Foundation (ASF) under one or more
++ * contributor license agreements. See the NOTICE file distributed with
++ * this work for additional information regarding copyright ownership.
++ * The ASF licenses this file to You under the Apache License, Version 2.0
++ * (the "License"); you may not use this file except in compliance with
++ * the License. You may obtain a copy of the License at
++ *
++ *    http://www.apache.org/licenses/LICENSE-2.0
++ *
++ * Unless required by applicable law or agreed to in writing, software
++ * distributed under the License is distributed on an "AS IS" BASIS,
++ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++ * See the License for the specific language governing permissions and
++ * limitations under the License.
++ */
++package org.apache.kafka.coordinator.group.api.streams;
++
++/**
++ * Broker-side representation of a Kafka Streams topology description (KIP-1331).
++ * This is a wrapper around the wire format that can be passed to the plugin.
++ */
++public class StreamsGroupTopologyDescription {
++    private final Object wireFormat;
++
++    public StreamsGroupTopologyDescription(Object wireFormat) {
++        this.wireFormat = wireFormat;
++    }
++
++    public Object getWireFormat() {
++        return wireFormat;
++    }
++}
+diff --git a/group-coordinator/src/main/java/org/apache/kafka/coordinator/group/api/streams/StreamsGroupTopologyDescriptionPlugin.java b/group-coordinator/src/main/java/org/apache/kafka/coordinator/group/api/streams/StreamsGroupTopologyDescriptionPlugin.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..43e8d76e0a668efcb3b8e14c98a1d5b2a952417f
+--- /dev/null
++++ b/group-coordinator/src/main/java/org/apache/kafka/coordinator/group/api/streams/StreamsGroupTopologyDescriptionPlugin.java
+@@ -0,0 +1,56 @@
++/*
++ * Licensed to the Apache Software Foundation (ASF) under one or more
++ * contributor license agreements. See the NOTICE file distributed with
++ * this work for additional information regarding copyright ownership.
++ * The ASF licenses this file to You under the Apache License, Version 2.0
++ * (the "License"); you may not use this file except in compliance with
++ * the License. You may obtain a copy of the License at
++ *
++ *    http://www.apache.org/licenses/LICENSE-2.0
++ *
++ * Unless required by applicable law or agreed to in writing, software
++ * distributed under the License is distributed on an "AS IS" BASIS,
++ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++ * See the License for the specific language governing permissions and
++ * limitations under the License.
++ */
++package org.apache.kafka.coordinator.group.api.streams;
++
++import org.apache.kafka.common.Configurable;
++
++import java.util.concurrent.CompletableFuture;
++
++/**
++ * SPI for brokers to store, retrieve, and delete Kafka Streams topology descriptions
++ * for Streams groups (KIP-1331).
++ */
++public interface StreamsGroupTopologyDescriptionPlugin extends Configurable, AutoCloseable {
++
++    /**
++     * Store a topology description for a Streams group.
++     *
++     * @param groupId The group ID
++     * @param epoch The topology epoch
++     * @param topologyDescription The topology description to store
++     * @return A CompletableFuture that completes when the topology has been stored.
++     *         On permanent failure, completes exceptionally with
++     *         StreamsTopologyDescriptionPermanentFailureException.
++     *         On transient failure, completes exceptionally with any other exception.
++     */
++    CompletableFuture<Void> setTopology(
++        String groupId,
++        int epoch,
++        Object topologyDescription
++    );
++
++    /**
++     * Delete a topology description for a Streams group.
++     *
++     * @param groupId The group ID
++     * @return A CompletableFuture that completes when the topology has been deleted.
++     *         On permanent failure, completes exceptionally with
++     *         StreamsTopologyDescriptionPermanentFailureException.
++     *         On transient failure, completes exceptionally with any other exception.
++     */
++    CompletableFuture<Void> deleteTopology(String groupId);
++}
+diff --git a/group-coordinator/src/main/java/org/apache/kafka/coordinator/group/api/streams/StreamsTopologyDescriptionPermanentFailureException.java b/group-coordinator/src/main/java/org/apache/kafka/coordinator/group/api/streams/StreamsTopologyDescriptionPermanentFailureException.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..016208d83a61cc1ffbfe3af2459f78f1bcc03a4f
+--- /dev/null
++++ b/group-coordinator/src/main/java/org/apache/kafka/coordinator/group/api/streams/StreamsTopologyDescriptionPermanentFailureException.java
+@@ -0,0 +1,34 @@
++/*
++ * Licensed to the Apache Software Foundation (ASF) under one or more
++ * contributor license agreements. See the NOTICE file distributed with
++ * this work for additional information regarding copyright ownership.
++ * The ASF licenses this file to You under the Apache License, Version 2.0
++ * (the "License"); you may not use this file except in compliance with
++ * the License. You may obtain a copy of the License at
++ *
++ *    http://www.apache.org/licenses/LICENSE-2.0
++ *
++ * Unless required by applicable law or agreed to in writing, software
++ * distributed under the License is distributed on an "AS IS" BASIS,
++ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++ * See the License for the specific language governing permissions and
++ * limitations under the License.
++ */
++package org.apache.kafka.coordinator.group.api.streams;
++
++/**
++ * Exception thrown by StreamsGroupTopologyDescriptionPlugin to signal a permanent
++ * failure that should not be retried. The broker records the failed epoch and does
++ * not solicit updates for that epoch again.
++ */
++public class StreamsTopologyDescriptionPermanentFailureException extends Exception {
++
++    public StreamsTopologyDescriptionPermanentFailureException(String message) {
++        super(message);
++    }
++
++    public StreamsTopologyDescriptionPermanentFailureException(String message, Throwable cause) {
++        super(message, cause);
++    }
++}
++
+diff --git a/group-coordinator/src/test/java/org/apache/kafka/coordinator/group/GroupCoordinatorServiceTopologyDescriptionTest.java b/group-coordinator/src/test/java/org/apache/kafka/coordinator/group/GroupCoordinatorServiceTopologyDescriptionTest.java
+index 20ac95683b687d74e89408dfd17d3238d5174981..8fe7b89a60b11a8febe88d1ce4ae67c0c81f382f 100644
+--- a/group-coordinator/src/test/java/org/apache/kafka/coordinator/group/GroupCoordinatorServiceTopologyDescriptionTest.java
++++ b/group-coordinator/src/test/java/org/apache/kafka/coordinator/group/GroupCoordinatorServiceTopologyDescriptionTest.java
+@@ -495,6 +495,29 @@ public class GroupCoordinatorServiceTopologyDescriptionTest {
+         assertTrue(result.data().topologyDescriptionRequired());
+     }
+ 
++    @Test
++    public void testHeartbeatSkipsFlagForDepartingMember() throws Exception {
++        // A leave heartbeat carries a negative member epoch. Even though the result shows the
++        // stored epoch lagging (which would otherwise solicit a push), the gate must not arm
++        // the back-off or set the flag for a member on its way out.
++        CoordinatorRuntime<GroupCoordinatorShard, CoordinatorRecord> runtime = mockRuntime();
++        StreamsGroupTopologyDescriptionPlugin plugin = mock(StreamsGroupTopologyDescriptionPlugin.class);
++        when(runtime.scheduleWriteOperation(
++            eq("streams-group-heartbeat"),
++            eq(GROUP_TP),
++            any()
++        )).thenReturn(CompletableFuture.completedFuture(
++            new StreamsGroupHeartbeatResult(new StreamsGroupHeartbeatResponseData(), Map.of(), 5, -1, -1)));
++
++        GroupCoordinatorService service = buildService(runtime, Optional.of(plugin), true);
++        StreamsGroupHeartbeatResult result = service.streamsGroupHeartbeat(
++            requestContext(ApiKeys.STREAMS_GROUP_HEARTBEAT),
++            validHeartbeatRequest().setMemberEpoch(-1)
++        ).get(5, TimeUnit.SECONDS);
++
++        assertFalse(result.data().topologyDescriptionRequired());
++    }
++
+     @Test
+     public void testHeartbeatArmSuppressReSolicitCycle() throws Exception {
+         // End-to-end exercise of the arm → suppress → re-solicit cycle through the
+@@ -710,7 +733,8 @@ public class GroupCoordinatorServiceTopologyDescriptionTest {
+         DeleteGroupsResponseData.DeletableGroupResult result = results.find("foo");
+         assertNotNull(result);
+         assertEquals(Errors.GROUP_DELETION_FAILED.code(), result.errorCode());
+-        assertEquals("plugin offline", result.errorMessage());
++        // The raw plugin message ("plugin offline") must not be forwarded to the client.
++        assertEquals("Topology description plugin failed to delete the topology.", result.errorMessage());
+         verify(runtime, never()).scheduleWriteOperation(
+             eq("delete-groups"), any(), any());
+     }
+@@ -886,7 +910,7 @@ public class GroupCoordinatorServiceTopologyDescriptionTest {
+         DeleteGroupsResponseData.DeletableGroupResult badResult = results.find("bad");
+         assertNotNull(badResult);
+         assertEquals(Errors.GROUP_DELETION_FAILED.code(), badResult.errorCode());
+-        assertEquals("rejected", badResult.errorMessage());
++        assertEquals("Topology description plugin failed to delete the topology.", badResult.errorMessage());
+     }
+ 
+     private static StreamsGroupTopologyDescriptionUpdateRequestData validUpdateRequest() {

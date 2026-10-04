@@ -1,0 +1,48 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "Cannot determine — knowledge cutoff February 2025, snapshot date 2026-02-28 is outside training data; workspace empty; no network access available"
+    ],
+    "value": null
+  },
+  "arm": "N",
+  "checkpoint": "2026-02",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 15.07008326301002,
+  "family": "design_decision",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "Cannot determine — knowledge cutoff February 2025, snapshot date 2026-02-28 is outside training data; workspace empty; no network access available"
+    ],
+    "expected": "remove the config entirely"
+  },
+  "instructions_sha256": null,
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "b876d98380b12d3bc6b88c80de1acea5f916a01f7490db7d8d7bdea5efe24cf3",
+  "run_index": 58,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-371c422cfa",
+  "tool_calls": {
+    "Bash": 4,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 59705,
+    "cost_usd": 0.0216135,
+    "input_tokens": 64024,
+    "output_tokens": 1406
+  },
+  "violations": []
+}

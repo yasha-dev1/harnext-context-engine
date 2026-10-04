@@ -1,0 +1,77 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "entities/issue/KAFKA-20317/OVERVIEW.md",
+      "entities/pr/apache__kafka__21780/OVERVIEW.md",
+      "entities/issue/KAFKA-20317/timeline.md"
+    ],
+    "value": []
+  },
+  "arm": "F5-search",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 66.9280990610132,
+  "family": "issue_changed_files",
+  "grade": {
+    "actual": [],
+    "correct": false,
+    "evidence": [
+      "entities/issue/KAFKA-20317/OVERVIEW.md",
+      "entities/pr/apache__kafka__21780/OVERVIEW.md",
+      "entities/issue/KAFKA-20317/timeline.md"
+    ],
+    "expected": [
+      "streams/src/main/java/org/apache/kafka/streams/state/HeadersBytesStore.java",
+      "streams/src/main/java/org/apache/kafka/streams/state/internals/AbstractRocksDBTimeOrderedSegmentedBytesStore.java",
+      "streams/src/main/java/org/apache/kafka/streams/state/internals/RocksDBMigratingWindowStoreWithHeaders.java",
+      "streams/src/main/java/org/apache/kafka/streams/state/internals/RocksDBTimeOrderedKeyValueBytesStore.java",
+      "streams/src/main/java/org/apache/kafka/streams/state/internals/RocksDBTimeOrderedSessionSegmentedBytesStore.java",
+      "streams/src/main/java/org/apache/kafka/streams/state/internals/RocksDBTimeOrderedWindowSegmentedBytesStore.java",
+      "streams/src/main/java/org/apache/kafka/streams/state/internals/RocksDBTimeOrderedWindowStore.java",
+      "streams/src/main/java/org/apache/kafka/streams/state/internals/RocksDBTimeOrderedWindowStoreWithHeaders.java",
+      "streams/src/main/java/org/apache/kafka/streams/state/internals/RocksDbIndexedTimeOrderedWindowBytesStoreSupplier.java",
+      "streams/src/main/java/org/apache/kafka/streams/state/internals/TimestampedWindowStoreWithHeadersBuilder.java",
+      "streams/src/main/java/org/apache/kafka/streams/state/internals/WindowSegmentWithHeaders.java",
+      "streams/src/main/java/org/apache/kafka/streams/state/internals/WindowSegmentsWithHeaders.java",
+      "streams/src/test/java/org/apache/kafka/streams/processor/internals/WindowStoreMaterializerTest.java",
+      "streams/src/test/java/org/apache/kafka/streams/state/internals/AbstractDualSchemaRocksDBSegmentedBytesStoreTest.java",
+      "streams/src/test/java/org/apache/kafka/streams/state/internals/AbstractRocksDBWindowStoreTest.java",
+      "streams/src/test/java/org/apache/kafka/streams/state/internals/RocksDBTimeOrderedWindowStoreWithHeadersTest.java",
+      "streams/src/test/java/org/apache/kafka/streams/state/internals/RocksDBTimeOrderedWindowStoreWithHeadersWithIndexTest.java",
+      "streams/src/test/java/org/apache/kafka/streams/state/internals/RocksDBTimeOrderedWindowStoreWithHeadersWithoutIndexTest.java",
+      "streams/src/test/java/org/apache/kafka/streams/state/internals/RocksDbIndexedTimeOrderedWindowBytesStoreSupplierTest.java",
+      "streams/src/test/java/org/apache/kafka/streams/state/internals/TimeOrderedCachingPersistentWindowStoreTest.java",
+      "streams/src/test/java/org/apache/kafka/streams/state/internals/TimeOrderedWindowStoreTest.java",
+      "streams/src/test/java/org/apache/kafka/streams/state/internals/TimeOrderedWindowStoreUpgradeTest.java"
+    ]
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 5,
+  "prompt_sha256": "0a65cae8d5561d6b1949b114bb9cfcf17ca5d45e269c849c23605337df0a9b7a",
+  "run_index": 11,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-issue_changed_files-849b1dc2ba",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 2
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 111123,
+    "cost_usd": 0.027294299999999997,
+    "input_tokens": 115493,
+    "output_tokens": 1497
+  },
+  "violations": []
+}

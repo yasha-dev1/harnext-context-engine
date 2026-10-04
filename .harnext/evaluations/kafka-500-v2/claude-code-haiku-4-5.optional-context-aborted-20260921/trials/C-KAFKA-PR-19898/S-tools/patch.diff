@@ -1,0 +1,21 @@
+diff --git a/metadata/src/main/java/org/apache/kafka/controller/AclControlManager.java b/metadata/src/main/java/org/apache/kafka/controller/AclControlManager.java
+index 08ed04d53019363ffb7ce351b4d6b0cf303205cb..ea00b0d7966c540cfb52a405ee0ef71e7b04cca8 100644
+--- a/metadata/src/main/java/org/apache/kafka/controller/AclControlManager.java
++++ b/metadata/src/main/java/org/apache/kafka/controller/AclControlManager.java
+@@ -96,6 +96,7 @@ public class AclControlManager {
+         List<AclCreateResult> results = new ArrayList<>(acls.size());
+         List<ApiMessageAndVersion> records =
+                 BoundedList.newArrayBacked(MAX_RECORDS_PER_USER_OP);
++        Set<StandardAcl> createdAcls = new HashSet<>();
+         for (AclBinding acl : acls) {
+             try {
+                 validateNewAcl(acl);
+@@ -106,7 +107,7 @@ public class AclControlManager {
+                 continue;
+             }
+             StandardAcl standardAcl = StandardAcl.fromAclBinding(acl);
+-            if (!existingAcls.contains(standardAcl)) {
++            if (!existingAcls.contains(standardAcl) && createdAcls.add(standardAcl)) {
+                 StandardAclWithId standardAclWithId = new StandardAclWithId(newAclId(), standardAcl);
+                 records.add(new ApiMessageAndVersion(standardAclWithId.toRecord(), (short) 0));
+             } else {

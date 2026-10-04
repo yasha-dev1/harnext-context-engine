@@ -1,0 +1,82 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail:ea210866a1277c46b831a7bd",
+      "mail:9e900521cece967a4fb6c230",
+      "mail:4517a25a511ff6f25bb9f2e5",
+      "mail:33490d3cc6cc37717931c69b"
+    ],
+    "value": "deprecated and merged into the main proposal"
+  },
+  "arm": "H-engine-b8-ds",
+  "checkpoint": "2026-01",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 261.66166685300414,
+  "engine": {
+    "calls": 2,
+    "chat": {
+      "calls": 40,
+      "cancelled": 0,
+      "cost_usd": 0.01293424,
+      "input_tokens": 338919,
+      "output_tokens": 20420,
+      "retries": 0
+    },
+    "cost_usd": 0.01723071,
+    "discarded_attempts": 0,
+    "jev": {
+      "calls": 46,
+      "cancelled": 0,
+      "cost_usd": 0.00429647,
+      "input_tokens": 102297,
+      "output_tokens": 19369,
+      "retries": 0
+    },
+    "partial": 0,
+    "provider_retry_usd": 0,
+    "seconds": 243.869,
+    "unmetered_upper_usd": 0,
+    "waited_s": 0
+  },
+  "family": "design_decision",
+  "grade": {
+    "actual": "deprecated and merged into the main proposal",
+    "correct": true,
+    "evidence": [
+      "mail:ea210866a1277c46b831a7bd",
+      "mail:9e900521cece967a4fb6c230",
+      "mail:4517a25a511ff6f25bb9f2e5",
+      "mail:33490d3cc6cc37717931c69b"
+    ],
+    "expected": "deprecated and merged into the main proposal"
+  },
+  "image_id": "sha256:1de715f951a3fc013cabad66407b87028bc2a5af6e58efdea5338b4cf9fb1485",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 4,
+  "prompt_sha256": "6d0869103e77954d844028a922200f69187d21580100830f7653d4d495c54985",
+  "run_index": 42,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-32c8b7a253",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 2
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 85947,
+    "cost_usd": 0.0178957,
+    "input_tokens": 88385,
+    "output_tokens": 892
+  },
+  "violations": []
+}

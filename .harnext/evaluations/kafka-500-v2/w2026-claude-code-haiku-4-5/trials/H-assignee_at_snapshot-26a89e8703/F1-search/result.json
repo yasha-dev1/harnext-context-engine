@@ -1,0 +1,51 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "entities/issue/KAFKA-19701/OVERVIEW.md",
+      "entities/issue/KAFKA-19701/timeline.md"
+    ],
+    "value": "Muralidhar Basani"
+  },
+  "arm": "F1-search",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 25.750653451992548,
+  "family": "assignee_at_snapshot",
+  "grade": {
+    "actual": "Muralidhar Basani",
+    "correct": true,
+    "evidence": [
+      "entities/issue/KAFKA-19701/OVERVIEW.md",
+      "entities/issue/KAFKA-19701/timeline.md"
+    ],
+    "expected": "Muralidhar Basani"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "fc8bdf690f8b661e16f8f118b74e298ceafcd4a06037a225e0be6e177255ceb1",
+  "run_index": 1,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-assignee_at_snapshot-26a89e8703",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__search_context": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 64321,
+    "cost_usd": 0.020308100000000003,
+    "input_tokens": 69005,
+    "output_tokens": 907
+  },
+  "violations": []
+}

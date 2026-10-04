@@ -1,0 +1,10 @@
+{
+  "evidence": [
+    "store/pull-requests/22256.md",
+    "store/issues/KAFKA-20565.md"
+  ],
+  "value": {
+    "days": 0,
+    "first": "merge"
+  }
+}

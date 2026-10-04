@@ -1,0 +1,50 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "KAFKA-19701 (last updated 2026-04-30T21:01:23Z)"
+    ],
+    "value": "Muralidhar Basani"
+  },
+  "arm": "S-tools",
+  "checkpoint": "2026-04",
+  "cli_calls": {
+    "jira": 2
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 7.186010845000055,
+  "family": "assignee_at_snapshot",
+  "grade": {
+    "actual": "Muralidhar Basani",
+    "correct": true,
+    "evidence": [
+      "KAFKA-19701 (last updated 2026-04-30T21:01:23Z)"
+    ],
+    "expected": "Muralidhar Basani"
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 2,
+  "prompt_sha256": "58f5127022605ea2595e7730e00e39dc1b565ed204d2dd1f16a1273a24370deb",
+  "run_index": 1,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-assignee_at_snapshot-26a89e8703",
+  "tool_calls": {
+    "Bash": 1,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 41760,
+    "cost_usd": 0.007776,
+    "input_tokens": 42346,
+    "output_tokens": 489
+  },
+  "violations": []
+}

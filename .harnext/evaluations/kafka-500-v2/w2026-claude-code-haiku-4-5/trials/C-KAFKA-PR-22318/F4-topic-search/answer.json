@@ -1,0 +1,3 @@
+{
+  "summary": "Implemented ReadOnlyView for MeteredWindowStore (KAFKA-20497). Added readOnly(IsolationLevel) method that returns a ReadOnlyWindowStore wrapper with serde application and metric recording. The inner class ReadOnlyMeteredWindowStore implements all read-only operations (fetch, backwardFetch, all, fetchAll, etc.) with proper key/value deserialization and metrics tracking. All 40 MeteredWindowStoreTest tests pass including 9 new ReadOnly-specific test cases verifying correct serde application, metrics recording, and isolation level handling."
+}

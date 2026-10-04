@@ -1,0 +1,50 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "discussions.md lines 827-844: Lijun Tong's response on 2026-01-20T01:59:54Z addressing the migration strategy - 'Feature gated by metadata version, new tombstone semantics only enabled post-upgrade'"
+    ],
+    "value": "metadata version"
+  },
+  "arm": "F4-topic-search",
+  "checkpoint": "2026-01",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 44.52524233800068,
+  "family": "design_decision",
+  "grade": {
+    "actual": "metadata version",
+    "correct": true,
+    "evidence": [
+      "discussions.md lines 827-844: Lijun Tong's response on 2026-01-20T01:59:54Z addressing the migration strategy - 'Feature gated by metadata version, new tombstone semantics only enabled post-upgrade'"
+    ],
+    "expected": "metadata version"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 5,
+  "prompt_sha256": "eba8d64483c7c9fcfa389c0127aef40402227469e36a4f4c107a52bec8271bf6",
+  "run_index": 47,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-c6538d5496",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 2
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 112640,
+    "cost_usd": 0.030323999999999997,
+    "input_tokens": 118914,
+    "output_tokens": 1311
+  },
+  "violations": []
+}

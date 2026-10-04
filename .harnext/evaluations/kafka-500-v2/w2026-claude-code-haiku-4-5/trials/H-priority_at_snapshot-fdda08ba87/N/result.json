@@ -1,0 +1,47 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "Unable to determine: no network access, no local project files, knowledge cutoff before snapshot date"
+    ],
+    "value": null
+  },
+  "arm": "N",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 7.330911464996461,
+  "family": "priority_at_snapshot",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "Unable to determine: no network access, no local project files, knowledge cutoff before snapshot date"
+    ],
+    "expected": "Blocker"
+  },
+  "instructions_sha256": null,
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 1,
+  "prompt_sha256": "b98821d8ccae88004df4b66710d4c7b2118239f1265116ddcf5ab445079a1e89",
+  "run_index": 21,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-priority_at_snapshot-fdda08ba87",
+  "tool_calls": {
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 17497,
+    "cost_usd": 0.0106587,
+    "input_tokens": 20576,
+    "output_tokens": 552
+  },
+  "violations": []
+}

@@ -1,0 +1,3 @@
+{
+  "summary": "Successfully implemented KAFKA-20368: Use LinkedHashMap for deterministic metric tags order in RLMExpirationTask\n\nChanges made:\n1. Added `import java.util.LinkedHashMap;` to RemoteLogManager.java\n2. Changed the metricTags field in RLMExpirationTask class from `new HashMap<>()` to `new LinkedHashMap<>()`\n\nThis ensures that metric tags are registered in a deterministic order (topic, then partition), which allows the test assertions to match metric names with predictable tag ordering. LinkedHashMap maintains insertion order, so the tags will always appear in the order they are inserted in the constructor.\n\nTest results: BUILD SUCCESSFUL - All 90 tests passed"
+}

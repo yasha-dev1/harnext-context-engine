@@ -1,0 +1,56 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail message d41fcd228a23be83811257ae (2026-03-01T20:47:11Z Dale Lane's proposal)",
+      "mail message 80583385757ab899e85f29fa (2026-03-02T09:37:00Z JIRA notification for KAFKA-20239 creation)",
+      "jira issue KAFKA-20239 (created 2026-03-02T09:36:19Z, with description referencing the mailing list discussion)"
+    ],
+    "value": "KAFKA-20239"
+  },
+  "arm": "S-tools",
+  "checkpoint": "2026-03",
+  "cli_calls": {
+    "jira": 2,
+    "mail": 7
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 233.7581696999987,
+  "family": "implicit_link",
+  "grade": {
+    "actual": "KAFKA-20239",
+    "correct": true,
+    "evidence": [
+      "mail message d41fcd228a23be83811257ae (2026-03-01T20:47:11Z Dale Lane's proposal)",
+      "mail message 80583385757ab899e85f29fa (2026-03-02T09:37:00Z JIRA notification for KAFKA-20239 creation)",
+      "jira issue KAFKA-20239 (created 2026-03-02T09:36:19Z, with description referencing the mailing list discussion)"
+    ],
+    "expected": "KAFKA-20239"
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 11,
+  "prompt_sha256": "acdffd5179c7cd7a244dfb757ad58a47e89c5f0a35c827062b9cc8ed63a4264a",
+  "run_index": 79,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-implicit_link-343147259e",
+  "tool_calls": {
+    "Bash": 9,
+    "Read": 1,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 251180,
+    "cost_usd": 0.056547999999999994,
+    "input_tokens": 260752,
+    "output_tokens": 2475
+  },
+  "violations": []
+}

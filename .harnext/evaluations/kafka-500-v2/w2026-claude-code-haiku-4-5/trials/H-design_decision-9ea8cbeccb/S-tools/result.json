@@ -1,0 +1,52 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "ca5590cea750ef8d93ddf7b9 (mail message from Kirk True, 2026-05-05T14:47:53Z, in response to Muralidhar Basani's mb-6 question about RPC retry behavior)"
+    ],
+    "value": "yes, retries target a different broker"
+  },
+  "arm": "S-tools",
+  "checkpoint": "2026-05",
+  "cli_calls": {
+    "gh": 1,
+    "jira": 1,
+    "mail": 11
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 75.33198337101203,
+  "family": "design_decision",
+  "grade": {
+    "actual": "yes, retries target a different broker",
+    "correct": true,
+    "evidence": [
+      "ca5590cea750ef8d93ddf7b9 (mail message from Kirk True, 2026-05-05T14:47:53Z, in response to Muralidhar Basani's mb-6 question about RPC retry behavior)"
+    ],
+    "expected": "yes, retries target a different broker"
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 6,
+  "prompt_sha256": "62f74f1d5df3e523d97d176be6d6f94799d8d2436c31fe741d836d7251dbf630",
+  "run_index": 73,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-9ea8cbeccb",
+  "tool_calls": {
+    "Bash": 13,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 138981,
+    "cost_usd": 0.07066410000000001,
+    "input_tokens": 161501,
+    "output_tokens": 2355
+  },
+  "violations": []
+}

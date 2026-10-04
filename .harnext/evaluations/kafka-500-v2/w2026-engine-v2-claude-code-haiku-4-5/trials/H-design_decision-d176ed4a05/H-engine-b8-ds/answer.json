@@ -1,0 +1,9 @@
+{
+  "evidence": [
+    "mail:bfae351428945364a45fb155 - Lucas Brutschy: 'I dropped the UUID, as it introduced more complexities than it solved' (2026-05-11)",
+    "mail:154b667449f3621f5f52519e - KIP update confirming topology description using only topologyEpoch and group creation timestamp (2026-05-13)",
+    "github:api:apache/kafka:pr-22397-opened - RPC scaffolding without dedicated identifier (2026-05-28)",
+    "github:api:apache/kafka:pr-22413-opened - PoC PR persisting StoredTopologyEpoch and LastFailedTopologyEpoch (2026-05-29)"
+  ],
+  "value": "removed entirely, identified by topologyEpoch and group creation timestamp instead"
+}

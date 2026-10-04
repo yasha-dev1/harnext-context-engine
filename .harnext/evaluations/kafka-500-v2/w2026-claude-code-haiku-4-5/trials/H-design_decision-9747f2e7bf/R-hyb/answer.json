@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "mail:a1a76025a895e9029a8c8b94 - Kirk True's response on 2026-05-05T15:09:46Z to KIP-1324 discussion, explicitly stating 'I've added the definition for the ConfigTooLargeException which is now the only exception added.'"
+  ],
+  "value": "ConfigTooLargeException"
+}

@@ -1,0 +1,10 @@
+{
+  "evidence": [
+    "entities/pr/apache__kafka__21744/OVERVIEW.md - PR #21744 merged for KAFKA-20307 on 2026-03-16T13:22:47Z (within snapshot cutoff of 2026-03-31T23:59:59Z)",
+    "entities/pr/apache__kafka__21744/timeline.md - Review comments by mjsax explicitly mention GlobalStateStoreProviderTest.java as a file modified in this PR",
+    "mcp__history__context_research - Confirmed that the context filesystem does not contain a complete file change list for PR #21744; only partial file information is available from review comments"
+  ],
+  "value": [
+    "streams/src/test/java/org/apache/kafka/streams/processor/internals/GlobalStateStoreProviderTest.java"
+  ]
+}

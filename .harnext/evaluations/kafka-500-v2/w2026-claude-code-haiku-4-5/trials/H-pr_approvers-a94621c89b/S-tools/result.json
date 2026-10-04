@@ -1,0 +1,62 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "gh pr view 21978 --json reviews"
+    ],
+    "value": [
+      "dajac",
+      "nileshkumar3",
+      "squah-confluent"
+    ]
+  },
+  "arm": "S-tools",
+  "checkpoint": "2026-04",
+  "cli_calls": {
+    "gh": 1
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 7.03864900800545,
+  "family": "pr_approvers",
+  "grade": {
+    "actual": [
+      "dajac",
+      "nileshkumar3",
+      "squah-confluent"
+    ],
+    "correct": true,
+    "evidence": [
+      "gh pr view 21978 --json reviews"
+    ],
+    "expected": [
+      "dajac",
+      "nileshkumar3",
+      "squah-confluent"
+    ]
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 2,
+  "prompt_sha256": "2a868b37662e5ab594dfcc841816cd373f276f761a67f86398443f6d1b6a2143",
+  "run_index": 65,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-pr_approvers-a94621c89b",
+  "tool_calls": {
+    "Bash": 1,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 38383,
+    "cost_usd": 0.014522299999999998,
+    "input_tokens": 42356,
+    "output_tokens": 551
+  },
+  "violations": []
+}

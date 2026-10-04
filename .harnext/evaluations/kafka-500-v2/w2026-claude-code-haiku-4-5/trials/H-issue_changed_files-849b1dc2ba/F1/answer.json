@@ -1,0 +1,15 @@
+{
+  "evidence": [
+    "KAFKA-20317 (created 2026-03-16, merged PR #21780 on 2026-03-18)",
+    "PR #21780 OVERVIEW and timeline data from context history",
+    "PR #21838 was NOT merged by cutoff date 2026-03-31"
+  ],
+  "value": [
+    "streams/src/main/java/org/apache/kafka/streams/processor/internals/WindowStoreMaterializerTest.java",
+    "streams/src/main/java/org/apache/kafka/streams/state/internals/AbstractRocksDBTimeOrderedSegmentedBytesStore.java",
+    "streams/src/main/java/org/apache/kafka/streams/state/internals/RocksDBMigratingWindowStoreWithHeaders.java",
+    "streams/src/main/java/org/apache/kafka/streams/state/internals/RocksDBTimeOrderedWindowSegmentedBytesStoreWithHeaders.java",
+    "streams/src/main/java/org/apache/kafka/streams/state/internals/RocksDBTimeOrderedWindowStore.java",
+    "streams/src/test/java/org/apache/kafka/streams/state/internals/TimeOrderedWindowStoreUpgradeTest.java"
+  ]
+}

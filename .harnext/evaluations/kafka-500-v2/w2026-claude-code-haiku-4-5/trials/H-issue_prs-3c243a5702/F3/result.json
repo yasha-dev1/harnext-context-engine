@@ -1,0 +1,138 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "_intake/2026/02/20/github-api-apache-kafka-pr-21465-merged-54020690.md",
+      "_intake/2026/02/20/github-api-apache-kafka-pr-21478-merged-324eaf61.md",
+      "_intake/2026/02/24/github-api-apache-kafka-pr-21486-merged-507fe403.md",
+      "_intake/2026/02/25/github-api-apache-kafka-pr-21493-merged-8f226eef.md",
+      "_intake/2026/02/17/github-api-apache-kafka-pr-21497-opened-9c58bfe3.md",
+      "_intake/2026/02/25/github-api-apache-kafka-pr-21581-opened-36101df5.md"
+    ],
+    "value": [
+      {
+        "pr": 21465,
+        "state": "merged"
+      },
+      {
+        "pr": 21478,
+        "state": "merged"
+      },
+      {
+        "pr": 21486,
+        "state": "merged"
+      },
+      {
+        "pr": 21493,
+        "state": "merged"
+      },
+      {
+        "pr": 21497,
+        "state": "open"
+      },
+      {
+        "pr": 21581,
+        "state": "open"
+      }
+    ]
+  },
+  "arm": "F3",
+  "checkpoint": "2026-02",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 63.77215062200412,
+  "family": "issue_prs",
+  "grade": {
+    "actual": [
+      {
+        "pr": 21465,
+        "state": "merged"
+      },
+      {
+        "pr": 21478,
+        "state": "merged"
+      },
+      {
+        "pr": 21486,
+        "state": "merged"
+      },
+      {
+        "pr": 21493,
+        "state": "merged"
+      },
+      {
+        "pr": 21497,
+        "state": "open"
+      },
+      {
+        "pr": 21581,
+        "state": "open"
+      }
+    ],
+    "correct": false,
+    "evidence": [
+      "_intake/2026/02/20/github-api-apache-kafka-pr-21465-merged-54020690.md",
+      "_intake/2026/02/20/github-api-apache-kafka-pr-21478-merged-324eaf61.md",
+      "_intake/2026/02/24/github-api-apache-kafka-pr-21486-merged-507fe403.md",
+      "_intake/2026/02/25/github-api-apache-kafka-pr-21493-merged-8f226eef.md",
+      "_intake/2026/02/17/github-api-apache-kafka-pr-21497-opened-9c58bfe3.md",
+      "_intake/2026/02/25/github-api-apache-kafka-pr-21581-opened-36101df5.md"
+    ],
+    "expected": [
+      {
+        "pr": 21465,
+        "state": "merged"
+      },
+      {
+        "pr": 21474,
+        "state": "closed"
+      },
+      {
+        "pr": 21478,
+        "state": "merged"
+      },
+      {
+        "pr": 21486,
+        "state": "merged"
+      },
+      {
+        "pr": 21493,
+        "state": "merged"
+      },
+      {
+        "pr": 21497,
+        "state": "open"
+      },
+      {
+        "pr": 21581,
+        "state": "open"
+      }
+    ]
+  },
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 4,
+  "prompt_sha256": "f9fbde00c4b613f30ba6c735e30768c65c60f10480d17cfd8f81fcb76de07157",
+  "run_index": 45,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-issue_prs-3c243a5702",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 2
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 86080,
+    "cost_usd": 0.018925,
+    "input_tokens": 88561,
+    "output_tokens": 1078
+  },
+  "violations": []
+}

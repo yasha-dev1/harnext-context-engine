@@ -1,0 +1,56 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail:47f073640492e933b0d9421a - Kevin Wu's March 3, 2026 response explaining the decision to use String type rather than UUID",
+      "mail:b1a402a046d91f2938ac4aab - Jun Rao's March 2, 2026 message suggesting UUID but Kevin's response clarifying String",
+      "mail:b537315c702a3bf1c99a0711 - Jun Rao's approval vote on March 5, 2026",
+      "mail:8af79c876aaf760bcd042da4 - Luke Chen's approval vote on March 16, 2026"
+    ],
+    "value": "String"
+  },
+  "arm": "R-hyb",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 89.74560920399381,
+  "family": "design_decision",
+  "grade": {
+    "actual": "String",
+    "correct": false,
+    "evidence": [
+      "mail:47f073640492e933b0d9421a - Kevin Wu's March 3, 2026 response explaining the decision to use String type rather than UUID",
+      "mail:b1a402a046d91f2938ac4aab - Jun Rao's March 2, 2026 message suggesting UUID but Kevin's response clarifying String",
+      "mail:b537315c702a3bf1c99a0711 - Jun Rao's approval vote on March 5, 2026",
+      "mail:8af79c876aaf760bcd042da4 - Luke Chen's approval vote on March 16, 2026"
+    ],
+    "expected": "UUID"
+  },
+  "instructions_sha256": "dfaa5b284d06c378ef7e4c08b53dc77835c91d7591fca0335bbfa33d3e53eb37",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 14,
+  "prompt_sha256": "6bb387dc484eaea2d916f342cfe105ece09cc6ae24f30683945013a58f91db72",
+  "run_index": 49,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-eadc5ec0a5",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__read_event": 4,
+    "mcp__history__search": 8
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 586915,
+    "cost_usd": 0.18489450000000004,
+    "input_tokens": 641164,
+    "output_tokens": 3564
+  },
+  "violations": []
+}

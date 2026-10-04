@@ -1,0 +1,3 @@
+{
+  "summary": "Fixed KAFKA-17314 typo by renaming methods from `maxlifeTimeMs` to `maxLifetimeMs` in CreateDelegationTokenOptions.java and updating all callers in KafkaAdminClient.java and DelegationTokenCommand.java. Tests SaslSslAdminIntegrationTest (18 tests) and DelegationTokenRequestsTest (1 test) both pass successfully."
+}

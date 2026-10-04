@@ -1,0 +1,52 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "pull-requests.md (lines 3296-3304): KAFKA-19701 referenced as related issue to PR #22000, but no individual issue entry found",
+      "context_research result: Full issue details including assignee not available in context filesystem as of cutoff 2026-04-30T23:59:59Z"
+    ],
+    "value": null
+  },
+  "arm": "F4-topic-search",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 93.93339417500829,
+  "family": "assignee_at_snapshot",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "pull-requests.md (lines 3296-3304): KAFKA-19701 referenced as related issue to PR #22000, but no individual issue entry found",
+      "context_research result: Full issue details including assignee not available in context filesystem as of cutoff 2026-04-30T23:59:59Z"
+    ],
+    "expected": "Muralidhar Basani"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 8,
+  "prompt_sha256": "fc8bdf690f8b661e16f8f118b74e298ceafcd4a06037a225e0be6e177255ceb1",
+  "run_index": 1,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-assignee_at_snapshot-26a89e8703",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 2,
+    "mcp__history__search_context": 4
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 200143,
+    "cost_usd": 0.049237300000000005,
+    "input_tokens": 210833,
+    "output_tokens": 1582
+  },
+  "violations": []
+}

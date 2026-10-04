@@ -1,0 +1,65 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "github:api:apache/kafka:review-PRR_kwDOACG9q876AT11",
+      "github:api:apache/kafka:review-PRR_kwDOACG9q876UImH",
+      "github:api:apache/kafka:review-PRR_kwDOACG9q876kK7T"
+    ],
+    "value": [
+      "m1a2st",
+      "muralibasani",
+      "pratyakshsharma"
+    ]
+  },
+  "arm": "R-hyb",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 24.40474329299468,
+  "family": "pr_approvers",
+  "grade": {
+    "actual": [
+      "m1a2st",
+      "muralibasani",
+      "pratyakshsharma"
+    ],
+    "correct": true,
+    "evidence": [
+      "github:api:apache/kafka:review-PRR_kwDOACG9q876AT11",
+      "github:api:apache/kafka:review-PRR_kwDOACG9q876UImH",
+      "github:api:apache/kafka:review-PRR_kwDOACG9q876kK7T"
+    ],
+    "expected": [
+      "m1a2st",
+      "muralibasani",
+      "pratyakshsharma"
+    ]
+  },
+  "instructions_sha256": "dfaa5b284d06c378ef7e4c08b53dc77835c91d7591fca0335bbfa33d3e53eb37",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "5405b72e50122d2692343bf2f07650af41c7a72a05ef559a3ca46a699c5165be",
+  "run_index": 19,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-pr_approvers-78f6a3cea2",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__search": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 59822,
+    "cost_usd": 0.0258182,
+    "input_tokens": 66816,
+    "output_tokens": 1175
+  },
+  "violations": []
+}

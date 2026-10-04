@@ -1,0 +1,10 @@
+{
+  "evidence": [
+    "issues/kafka-20565-flaky-autocommit-position-update.md",
+    "issues/kafka-20565-flaky-autocommit-test.md"
+  ],
+  "value": {
+    "days": 0,
+    "first": "merge"
+  }
+}

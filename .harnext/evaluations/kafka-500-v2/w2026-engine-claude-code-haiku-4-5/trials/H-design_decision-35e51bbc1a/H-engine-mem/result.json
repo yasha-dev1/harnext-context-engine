@@ -1,0 +1,78 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "entities/issue/KAFKA-20186/OVERVIEW.md",
+      "entities/thread/CAMeNjWJqFj3g-Vz3WODknBwjDMGMxotyXSTk_CnoRwa20vGvGA_mail.gmail.com/OVERVIEW.md"
+    ],
+    "value": "destination cluster default replication factor"
+  },
+  "arm": "H-engine-mem",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 59.78048951500023,
+  "engine": {
+    "calls": 2,
+    "chat": {
+      "calls": 22,
+      "cancelled": 0,
+      "cost_usd": 0.00137876,
+      "input_tokens": 36635,
+      "output_tokens": 2091,
+      "retries": 0
+    },
+    "cost_usd": 0.0022532,
+    "discarded_attempts": 0,
+    "jev": {
+      "calls": 12,
+      "cancelled": 0,
+      "cost_usd": 0.00087444,
+      "input_tokens": 20820,
+      "output_tokens": 1700,
+      "retries": 0
+    },
+    "partial": 2,
+    "provider_retry_usd": 0,
+    "seconds": 42.825,
+    "unmetered_upper_usd": 0,
+    "waited_s": 0
+  },
+  "family": "design_decision",
+  "grade": {
+    "actual": "destination cluster default replication factor",
+    "correct": true,
+    "evidence": [
+      "entities/issue/KAFKA-20186/OVERVIEW.md",
+      "entities/thread/CAMeNjWJqFj3g-Vz3WODknBwjDMGMxotyXSTk_CnoRwa20vGvGA_mail.gmail.com/OVERVIEW.md"
+    ],
+    "expected": "destination cluster default replication factor"
+  },
+  "image_id": "sha256:4615b2564319d58319029548af66970c954e128401ee89c8705684861de4bc07",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 4,
+  "prompt_sha256": "57b6d3683f2ee39d7e853aedbe002491db031bb4f49d46f4f4ea0a39e5214f69",
+  "run_index": 68,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-35e51bbc1a",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 2
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 85557,
+    "cost_usd": 0.0165777,
+    "input_tokens": 87128,
+    "output_tokens": 983
+  },
+  "violations": []
+}

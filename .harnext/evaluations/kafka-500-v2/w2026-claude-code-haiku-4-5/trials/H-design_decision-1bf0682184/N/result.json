@@ -1,0 +1,48 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "Workspace is empty; no prior conversation context provided; cannot locate the Kafka Streams broker config property without project files or prior discussion history"
+    ],
+    "value": null
+  },
+  "arm": "N",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 11.92066956400231,
+  "family": "design_decision",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "Workspace is empty; no prior conversation context provided; cannot locate the Kafka Streams broker config property without project files or prior discussion history"
+    ],
+    "expected": "group.streams.topology.description.plugin.class"
+  },
+  "instructions_sha256": null,
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "731b8e0886b5a620f1b3e680c9588ce020eee265360b5da168b48df9dfe8e8ea",
+  "run_index": 74,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-1bf0682184",
+  "tool_calls": {
+    "Bash": 2,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 59194,
+    "cost_usd": 0.0183574,
+    "input_tokens": 62988,
+    "output_tokens": 975
+  },
+  "violations": []
+}

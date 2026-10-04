@@ -1,0 +1,57 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail: eb6c1df0388d4f4c9d485a37 (Federico Valeri, 2026-04-15) - Response AS27 states: 'We changed AddTopicsToMirror/RemoveTopicsFromMirror to StartMirrorTopics/StopMirrorTopics'",
+      "mail: d143b0b41a8baaf69dfb3a1d (Ivan Yurchenko, 2026-04-30) - Confirms these names in the thread discussion",
+      "JIRA: KAFKA-20186 - Links to KIP-1279: Cluster Mirroring design discussion"
+    ],
+    "value": "StartMirrorTopics/StopMirrorTopics"
+  },
+  "arm": "S-tools",
+  "checkpoint": "2026-04",
+  "cli_calls": {
+    "gh": 6,
+    "jira": 4,
+    "mail": 4
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 84.38535917199624,
+  "family": "design_decision",
+  "grade": {
+    "actual": "StartMirrorTopics/StopMirrorTopics",
+    "correct": true,
+    "evidence": [
+      "mail: eb6c1df0388d4f4c9d485a37 (Federico Valeri, 2026-04-15) - Response AS27 states: 'We changed AddTopicsToMirror/RemoveTopicsFromMirror to StartMirrorTopics/StopMirrorTopics'",
+      "mail: d143b0b41a8baaf69dfb3a1d (Ivan Yurchenko, 2026-04-30) - Confirms these names in the thread discussion",
+      "JIRA: KAFKA-20186 - Links to KIP-1279: Cluster Mirroring design discussion"
+    ],
+    "expected": "StartMirrorTopics/StopMirrorTopics"
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 17,
+  "prompt_sha256": "7af511a3df7bb96e3327481f970c9ca18a7792436d2b2288d36d4c5a3203d320",
+  "run_index": 67,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-7b55b02c3c",
+  "tool_calls": {
+    "Bash": 15,
+    "StructuredOutput": 1,
+    "ToolSearch": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 419551,
+    "cost_usd": 0.0858281,
+    "input_tokens": 434407,
+    "output_tokens": 2860
+  },
+  "violations": []
+}

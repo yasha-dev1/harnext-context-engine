@@ -1,0 +1,73 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "jira:13628682:change:23012626:0"
+    ],
+    "value": "Muralidhar Basani"
+  },
+  "arm": "H-engine-mem",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 62.82877743900099,
+  "engine": {
+    "calls": 1,
+    "chat": {
+      "calls": 14,
+      "cancelled": 0,
+      "cost_usd": 0.00119789,
+      "input_tokens": 32852,
+      "output_tokens": 1105,
+      "retries": 0
+    },
+    "cost_usd": 0.00205423,
+    "jev": {
+      "calls": 9,
+      "cancelled": 0,
+      "cost_usd": 0.00085634,
+      "input_tokens": 20389,
+      "output_tokens": 3524,
+      "retries": 0
+    },
+    "partial": 1,
+    "seconds": 49.567,
+    "unmetered_upper_usd": 0
+  },
+  "family": "assignee_at_snapshot",
+  "grade": {
+    "actual": "Muralidhar Basani",
+    "correct": true,
+    "evidence": [
+      "jira:13628682:change:23012626:0"
+    ],
+    "expected": "Muralidhar Basani"
+  },
+  "image_id": "sha256:a75ed05ffc6eace9ec0ed4705d31b20aa2579267b3e737b4f61017882112ea66",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "c4fd98262eac334a96d847fce5585d98a589d6891dc87fbd11640a72be58e309",
+  "run_index": 1,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-assignee_at_snapshot-26a89e8703",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 42394,
+    "cost_usd": 0.0510954,
+    "input_tokens": 64298,
+    "output_tokens": 615
+  },
+  "violations": []
+}

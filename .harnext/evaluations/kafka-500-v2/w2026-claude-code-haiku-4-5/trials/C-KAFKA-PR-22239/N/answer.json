@@ -1,0 +1,3 @@
+{
+  "summary": "Implemented KIP-1319 error handling for TxnOffsetCommit API alignment. Added GROUP_ID_NOT_FOUND and STALE_MEMBER_EPOCH error codes to be treated as CommitFailedException in the TxnOffsetCommitHandler, matching the behavior for ILLEGAL_GENERATION from older broker versions. All 168 tests in TransactionManagerTest now pass."
+}

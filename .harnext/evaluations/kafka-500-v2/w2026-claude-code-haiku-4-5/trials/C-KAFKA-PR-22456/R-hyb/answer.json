@@ -1,0 +1,3 @@
+{
+  "summary": "Successfully implemented KAFKA-18209 Cleanup __transaction_state config logic. Consolidated transaction state topic configuration by renaming transactionTopicConfigs to transactionStateTopicConfigs in TransactionStateManager, TransactionCoordinator, and their call sites. Updated DefaultAutoTopicCreationManager to use transactionStateTopicConfigsSupplier for consistency. Both test suites pass: TransactionStateManagerTest (45 tests) and KafkaApisTest (all tests complete successfully)."
+}

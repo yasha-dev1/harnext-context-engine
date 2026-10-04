@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "discussions.md - Design Resolution Notes section (lines 1051-1061)",
+    "discussions.md - Continued Discussion Window 7 (lines 1014-1042)",
+    "discussions.md - Window 15 discussions mentioning final encoding (lines 419-429)"
+  ],
+  "value": "2-byte fixed maximum (64 KB limit)"
+}

@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "issues/KAFKA-20524.md",
+    "INDEX-WINDOW-102.md",
+    "WINDOW-102-2026-04-23-to-2026-04-24.md"
+  ],
+  "value": "KAFKA-20524"
+}

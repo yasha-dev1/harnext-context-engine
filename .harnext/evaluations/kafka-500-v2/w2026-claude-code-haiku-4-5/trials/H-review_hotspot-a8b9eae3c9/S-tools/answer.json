@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "PR #21273 review comments queried via gh api repos/apache/kafka/pulls/21273/comments",
+    "Comment count by file: DynamicBrokerConfig.scala (8), MetadataVersion.java (4), KafkaConfig.scala (3), others (1-2)"
+  ],
+  "value": "core/src/main/scala/kafka/server/DynamicBrokerConfig.scala"
+}

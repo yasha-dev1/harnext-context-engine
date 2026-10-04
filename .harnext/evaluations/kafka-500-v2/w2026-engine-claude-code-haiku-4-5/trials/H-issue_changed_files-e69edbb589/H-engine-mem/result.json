@@ -1,0 +1,87 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "github:api:apache/kafka:pr-21785-merged",
+      "PR #21785 was the only merged PR for KAFKA-20245 by cutoff 2026-03-31"
+    ],
+    "value": [
+      "server-common/src/main/java/org/apache/kafka/server/share/dlq/ShareGroupDLQ.java",
+      "server/src/main/java/org/apache/kafka/server/share/fetch/RecordState.java"
+    ]
+  },
+  "arm": "H-engine-mem",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 167.49633749499844,
+  "engine": {
+    "calls": 2,
+    "chat": {
+      "calls": 33,
+      "cancelled": 1,
+      "cost_usd": 0.00211369,
+      "input_tokens": 96219,
+      "output_tokens": 3152,
+      "retries": 0
+    },
+    "cost_usd": 0.00463184,
+    "discarded_attempts": 0,
+    "jev": {
+      "calls": 26,
+      "cancelled": 0,
+      "cost_usd": 0.00251815,
+      "input_tokens": 59956,
+      "output_tokens": 12329,
+      "retries": 0
+    },
+    "partial": 2,
+    "provider_retry_usd": 0,
+    "seconds": 151.046,
+    "unmetered_upper_usd": 0.00022502,
+    "waited_s": 0
+  },
+  "family": "issue_changed_files",
+  "grade": {
+    "actual": [
+      "server-common/src/main/java/org/apache/kafka/server/share/dlq/ShareGroupDLQ.java",
+      "server/src/main/java/org/apache/kafka/server/share/fetch/RecordState.java"
+    ],
+    "correct": true,
+    "evidence": [
+      "github:api:apache/kafka:pr-21785-merged",
+      "PR #21785 was the only merged PR for KAFKA-20245 by cutoff 2026-03-31"
+    ],
+    "expected": [
+      "server-common/src/main/java/org/apache/kafka/server/share/dlq/ShareGroupDLQ.java",
+      "server/src/main/java/org/apache/kafka/server/share/fetch/RecordState.java"
+    ]
+  },
+  "image_id": "sha256:4615b2564319d58319029548af66970c954e128401ee89c8705684861de4bc07",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 4,
+  "prompt_sha256": "d2859b4add5e0ee9dfe8b7d0d38fca4277ee5bbc2a2b26a39a4861f4572452fc",
+  "run_index": 41,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-issue_changed_files-e69edbb589",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 2
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 81810,
+    "cost_usd": 0.023081,
+    "input_tokens": 86805,
+    "output_tokens": 989
+  },
+  "violations": []
+}

@@ -1,0 +1,12 @@
+{
+  "evidence": [
+    "prs/21780-kafka-20317-header-window-store-dsl.md",
+    "issues/kafka-20317-time-ordered-header-window-store.md",
+    "prs/21780-kafka-20317-enable-time-ordered-header-window-store.md",
+    "WINDOW-66-SUMMARY.md",
+    "WINDOW-70-SUMMARY.md"
+  ],
+  "value": [
+    "null"
+  ]
+}

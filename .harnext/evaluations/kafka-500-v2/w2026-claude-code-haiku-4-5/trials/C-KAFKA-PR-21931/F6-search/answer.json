@@ -1,0 +1,3 @@
+{
+  "summary": "Successfully implemented KAFKA-20368 by replacing HashMap with MetricsUtils.getTags() to create metric tags with deterministic LinkedHashMap ordering. The change ensures metric tags are ordered as \"topic\" then \"partition\" for consistent JMX reporting. All 90 RemoteLogManagerTest tests pass successfully."
+}

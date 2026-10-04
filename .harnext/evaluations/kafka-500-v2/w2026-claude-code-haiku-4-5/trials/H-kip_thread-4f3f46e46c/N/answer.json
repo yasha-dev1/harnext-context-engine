@@ -1,0 +1,11 @@
+{
+  "evidence": [
+    "No mailing list data available in /workspace",
+    "No network access to retrieve external data",
+    "Knowledge cutoff is February 2025, before the snapshot cutoff of 2026-03-31"
+  ],
+  "value": {
+    "participants": 0,
+    "starter": ""
+  }
+}

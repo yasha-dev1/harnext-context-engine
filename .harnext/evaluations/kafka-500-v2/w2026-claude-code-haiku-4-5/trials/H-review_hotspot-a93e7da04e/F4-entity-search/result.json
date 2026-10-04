@@ -1,0 +1,52 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "pull-requests/21842.md - PR file does not contain Review Comments section with file-level inline comment counts",
+      "context_research result - confirmed that file-level review comment data is not available in the stored context for this PR"
+    ],
+    "value": "null"
+  },
+  "arm": "F4-entity-search",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 114.13313771600951,
+  "family": "review_hotspot",
+  "grade": {
+    "actual": "null",
+    "correct": false,
+    "evidence": [
+      "pull-requests/21842.md - PR file does not contain Review Comments section with file-level inline comment counts",
+      "context_research result - confirmed that file-level review comment data is not available in the stored context for this PR"
+    ],
+    "expected": "server-common/src/main/java/org/apache/kafka/server/util/timer/SystemTimerReaper.java"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 8,
+  "prompt_sha256": "f6cf721bf1b74adb72e6bd47620d9c050d5fa0e69a053234225525479fb8ac63",
+  "run_index": 39,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-review_hotspot-a93e7da04e",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 5
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 197604,
+    "cost_usd": 0.0561464,
+    "input_tokens": 211053,
+    "output_tokens": 1911
+  },
+  "violations": []
+}

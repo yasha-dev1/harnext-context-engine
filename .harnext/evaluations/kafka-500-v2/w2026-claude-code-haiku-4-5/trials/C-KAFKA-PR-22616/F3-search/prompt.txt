@@ -1,0 +1,17 @@
+Context snapshot cutoff (inclusive): 2026-06-18T10:51:34Z.
+
+The workspace is the apache/kafka repository at commit e3a282afea68d7948cbc553124b39295d23aa1ed.
+
+Issue KAFKA-20623: Wire topology description plugin into GroupCoordinatorService
+
+Write path, heartbeat gating, delete:
+
+
+
+GroupCoordinatorService: builder plumbing for plugin. Heartbeat post-processing: set TopologyDescriptionRequired=true when StoredTopologyEpoch != currentTopologyEpoch AND LastFailedTopologyEpoch != currentTopologyEpoch AND backoff not active (skip STALE_TOPOLOGY members). In-memory per-group exponential backoff (30s → 1h). StreamsGroupTopologyDescriptionUpdate handler: validate MemberId against current group membership (→ UNKNOWN_MEMBER_ID), call plugin.setTopology, on success write StoredTopologyEpoch metadata record, on permanent failure write LastFailedTopologyEpoch, on transient failure arm backoff. POJO↔wire converters. deleteGroups integration: call plugin.deleteTopology before tombstoning, return DELETE_FAILED on plugin failure. GroupCoordinator interface update. GroupCoordinatorServiceTest.
+
+Implement the change this issue asks for by editing the workspace. The tests written for this change have already been added to the workspace (uncommitted; see `git status`): `group-coordinator/src/test/java/org/apache/kafka/coordinator/group/GroupCoordinatorServiceTopologyDescriptionTest.java`. They fail or do not compile until the change is implemented. Make them pass with `./gradlew :group-coordinator:test --tests org.apache.kafka.coordinator.group.GroupCoordinatorServiceTopologyDescriptionTest --offline`. Do not edit those test files: grading restores them to their original content and runs them against your other changes. Keep the change focused and do not substitute knowledge of how the project evolved after the cutoff.
+
+The MCP server `history` holds the project's recorded history up to the cutoff. It has two tools: `context_research(question)` asks Harnext's research agent, which reads the stored context and returns a cited report; `search_context(query, k)` returns the best-matching stored passages with their file paths, for you to read yourself. Nothing later than the cutoff is in it and there is no network access.
+
+The repository is checked out at /workspace. The workspace is a git repository whose history ends at the base commit; `git log`, `git blame` and `git show` work offline. Make the change by editing source files there; the tests named above, restored to their original content, decide whether the issue is resolved. Gradle works offline only (`./gradlew :module:test --tests X --offline`). Finish with one JSON object {"summary": "..."}.

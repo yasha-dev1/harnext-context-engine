@@ -1,0 +1,16 @@
+{
+  "evidence": [
+    "github:api:apache/kafka:pr-22041-opened",
+    "github:api:apache/kafka:pr-22182-opened"
+  ],
+  "value": [
+    {
+      "pr": 22041,
+      "state": "open"
+    },
+    {
+      "pr": 22182,
+      "state": "open"
+    }
+  ]
+}

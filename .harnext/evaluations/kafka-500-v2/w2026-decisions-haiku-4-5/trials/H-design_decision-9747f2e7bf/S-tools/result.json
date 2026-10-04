@@ -1,0 +1,52 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "Mail message a1a76025a895e9029a8c8b94 from Kirk True dated 2026-05-05T15:09:46Z in response to Mickael Maison's MM1 question about exception definitions. Kirk explicitly states: 'I've added the definition for the ConfigTooLargeException which is now the only exception added.'"
+    ],
+    "value": "ConfigTooLargeException"
+  },
+  "arm": "S-tools",
+  "checkpoint": "2026-05",
+  "cli_calls": {
+    "gh": 2,
+    "jira": 2,
+    "mail": 9
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 100.98717901000055,
+  "family": "design_decision",
+  "grade": {
+    "actual": "ConfigTooLargeException",
+    "correct": true,
+    "evidence": [
+      "Mail message a1a76025a895e9029a8c8b94 from Kirk True dated 2026-05-05T15:09:46Z in response to Mickael Maison's MM1 question about exception definitions. Kirk explicitly states: 'I've added the definition for the ConfigTooLargeException which is now the only exception added.'"
+    ],
+    "expected": "ConfigTooLargeException"
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 7,
+  "prompt_sha256": "4ae087d216d1321e633c63959c1fd4875ed34c89ed7013115ac79ab084fdb6a4",
+  "run_index": 25,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-9747f2e7bf",
+  "tool_calls": {
+    "Bash": 11,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 164656,
+    "cost_usd": 0.0679376,
+    "input_tokens": 183473,
+    "output_tokens": 2779
+  },
+  "violations": []
+}

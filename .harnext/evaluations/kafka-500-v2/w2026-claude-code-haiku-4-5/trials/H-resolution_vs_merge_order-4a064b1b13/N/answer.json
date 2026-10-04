@@ -1,0 +1,9 @@
+{
+  "evidence": [
+    "Cannot determine - no access to KAFKA-20288 issue tracker, git history, or reliable training data for this specific issue. The question requires timestamps for PR merge and resolution setting that are not available without project access. This answer cannot be verified and should not be relied upon."
+  ],
+  "value": {
+    "days": 0,
+    "first": "merge"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "issues/KAFKA-20186/2026-02-14-jira-change-13642045-22920592-0-cf95b7fa.md",
+    "kips/KIP-1279/2026-02-14-mail-74954004f83dfbbd96fb4d41-e40cb15b.md"
+  ],
+  "value": "KAFKA-20186"
+}

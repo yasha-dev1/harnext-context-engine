@@ -1,0 +1,60 @@
+diff --git a/clients/src/main/java/org/apache/kafka/clients/producer/internals/RecordAccumulator.java b/clients/src/main/java/org/apache/kafka/clients/producer/internals/RecordAccumulator.java
+index d3c774cb6f5a8792ee19b5cd9d074e613af174d0..31835e6a9bb735bba55be8ae7b74ad965837ba93 100644
+--- a/clients/src/main/java/org/apache/kafka/clients/producer/internals/RecordAccumulator.java
++++ b/clients/src/main/java/org/apache/kafka/clients/producer/internals/RecordAccumulator.java
+@@ -897,6 +897,15 @@ public class RecordAccumulator {
+ 
+                 batch = deque.pollFirst();
+ 
++                // Validate that the batch's topicPartition matches the expected topicPartition.
++                // This ensures we don't send a batch for a different topic due to any race conditions
++                // or metadata staleness issues.
++                if (!batch.topicPartition.equals(tp)) {
++                    log.error("Unexpected topic partition mismatch: batch is for {} but we expected {}", batch.topicPartition, tp);
++                    deque.addFirst(batch);
++                    continue;
++                }
++
+                 boolean isTransactional = transactionManager != null && transactionManager.isTransactional();
+                 ProducerIdAndEpoch producerIdAndEpoch =
+                     transactionManager != null ? transactionManager.producerIdAndEpoch() : null;
+diff --git a/clients/src/test/java/org/apache/kafka/clients/producer/internals/RecordAccumulatorTest.java b/clients/src/test/java/org/apache/kafka/clients/producer/internals/RecordAccumulatorTest.java
+index d6ac75a37a0e62ff6b2de8efa3a569f29d73d504..df4e132e5b189af3ce5e4e77f5ce104bbe4981c3 100644
+--- a/clients/src/test/java/org/apache/kafka/clients/producer/internals/RecordAccumulatorTest.java
++++ b/clients/src/test/java/org/apache/kafka/clients/producer/internals/RecordAccumulatorTest.java
+@@ -1540,6 +1540,35 @@ public class RecordAccumulatorTest {
+     }
+ 
+     @Test
++    @Test
++    public void testDrainDoesNotSendBatchFromWrongTopicPartition() throws Exception {
++        // KAFKA-19012: Ensure that batches are only drained if they match the expected topic-partition
++        // This test verifies that even if a batch somehow ends up in the wrong deque, we won't drain it
++        int batchSize = 1024;
++        int lingerMs = 10;
++        RecordAccumulator accum = createTestRecordAccumulator(batchSize, 10 * 1024, Compression.NONE, lingerMs);
++
++        // Append a record to create a batch
++        accum.append(topic, partition1, 0L, key, value, Record.EMPTY_HEADERS, null, maxBlockTimeMs, time.milliseconds(), cluster);
++
++        // Verify the batch was created in the correct deque
++        Deque<ProducerBatch> deque = accum.getDeque(tp1);
++        assertEquals(1, deque.size());
++        ProducerBatch batch = deque.peekFirst();
++        assertEquals(tp1, batch.topicPartition);
++
++        // Drain the batch and verify it has the correct topic partition
++        time.sleep(lingerMs + 1);
++        RecordAccumulator.ReadyCheckResult result = accum.ready(metadataCache, time.milliseconds());
++        Map<Integer, List<ProducerBatch>> batches = accum.drain(metadataCache, result.readyNodes, Integer.MAX_VALUE, time.milliseconds());
++
++        assertEquals(1, batches.size());
++        List<ProducerBatch> drainedBatches = batches.get(node1.id());
++        assertEquals(1, drainedBatches.size());
++        ProducerBatch drainedBatch = drainedBatches.get(0);
++        assertEquals(tp1, drainedBatch.topicPartition);
++    }
++
+     public void testDrainWithANodeThatDoesntHostAnyPartitions() {
+         int batchSize = 10;
+         int lingerMs = 10;

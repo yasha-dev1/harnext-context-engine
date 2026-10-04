@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "store/discussions.md (lines 1121-1134)",
+    "Window 96 discussion dated 2026-04-15T08:31:19Z",
+    "KIP-1279 design decision AS25: 'Decided against inheriting source replication factor; use destination cluster default'"
+  ],
+  "value": "destination cluster default replication factor"
+}

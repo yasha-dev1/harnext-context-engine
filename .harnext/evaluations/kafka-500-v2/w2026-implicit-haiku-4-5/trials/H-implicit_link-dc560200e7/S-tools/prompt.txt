@@ -1,0 +1,9 @@
+Context snapshot cutoff (inclusive): 2026-02-28T23:59:59Z.
+
+On the Apache Kafka mailing list, Sahil Devgon started a thread with the subject "[DISCUSS] KIP-1291: Extended I/O Metrics Collection" on 2026-02-25. Which Apache Kafka JIRA issue tracks the problem, proposal or work raised in that thread? Return the issue key (for example KAFKA-12345); null if no JIRA issue tracks it.
+
+Return JSON {"value": <answer>, "evidence": [<ids or file paths of the sources you relied on>]}. Answer as of the cutoff; do not substitute a later or today's issue state.
+
+No pre-built project memory is provided. You can query time-frozen offline replicas of the project's systems of record as of the cutoff with the usual command-line tools: `gh` (pull requests, reviews, commits), `jira` (issues, comments, change history), `mail` (mailing lists). Run `<tool> --help` for the supported commands. The live internet is not reachable.
+
+Reply with one JSON object {"value": ..., "evidence": [...]}: `value` is the answer in the requested type (null if it cannot be determined), `evidence` lists the sources you relied on.

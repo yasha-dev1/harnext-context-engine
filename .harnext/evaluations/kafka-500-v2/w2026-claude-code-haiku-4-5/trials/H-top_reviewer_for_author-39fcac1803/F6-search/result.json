@@ -1,0 +1,60 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "pull-requests.md (PR #21623: Author bbejeck, Approved by mjsax, merged 2026-03-04)",
+      "pull-requests.md (PR #21624: Author bbejeck, Approved by mjsax, merged 2026-03-04)",
+      "pull-requests.md (PR #21670: Author bbejeck, Reviewers Matthias Sax, merged 2026-03-11)",
+      "pull-requests.md (PR #21999: Author bbejeck, Approved by mjsax at 2026-04-17T17:40:30Z, merged 2026-04-17)",
+      "window-48-summary.md (PRs #21623-#21624 Streams test flakiness fixes approved by mjsax)",
+      "window-97-summary.md (PR #21999 KIP-1035 self-managed offset lifecycle integration tests approved by mjsax)"
+    ],
+    "value": "mjsax"
+  },
+  "arm": "F6-search",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 171.41854630800663,
+  "family": "top_reviewer_for_author",
+  "grade": {
+    "actual": "mjsax",
+    "correct": true,
+    "evidence": [
+      "pull-requests.md (PR #21623: Author bbejeck, Approved by mjsax, merged 2026-03-04)",
+      "pull-requests.md (PR #21624: Author bbejeck, Approved by mjsax, merged 2026-03-04)",
+      "pull-requests.md (PR #21670: Author bbejeck, Reviewers Matthias Sax, merged 2026-03-11)",
+      "pull-requests.md (PR #21999: Author bbejeck, Approved by mjsax at 2026-04-17T17:40:30Z, merged 2026-04-17)",
+      "window-48-summary.md (PRs #21623-#21624 Streams test flakiness fixes approved by mjsax)",
+      "window-97-summary.md (PR #21999 KIP-1035 self-managed offset lifecycle integration tests approved by mjsax)"
+    ],
+    "expected": "mjsax"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 20,
+  "prompt_sha256": "64ca4c6afd65993cfd2bfeff0514fbda1e6c8966ced33316f16bc9be94a769c5",
+  "run_index": 30,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-top_reviewer_for_author-39fcac1803",
+  "tool_calls": {
+    "StructuredOutput": 2,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 15
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 1027508,
+    "cost_usd": 0.26198279999999996,
+    "input_tokens": 1092669,
+    "output_tokens": 5815
+  },
+  "violations": []
+}

@@ -1,0 +1,3 @@
+{
+  "summary": "KAFKA-20623 implementation complete: wired topology description plugin into GroupCoordinatorService with proper error message handling. All 30 tests passing. Fixed error message leakage in StreamsGroupTopologyDescriptionManager.toFailureEntry() to use generic message instead of raw plugin errors."
+}

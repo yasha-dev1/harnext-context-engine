@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "Mail thread [DISCUSS] KIP-1262: Enable auto-formatting directories - Kevin Wu's response on 2026-03-30T16:00:52Z (ID: 3ec7bda2af768a83e362079f)",
+    "Jun Rao's question on 2026-03-27T21:19:34Z (ID: 468c78200770789f37bb484d)",
+    "GitHub PR 21547: KAFKA-20176: Add MetaProperties V2 (for context)"
+  ],
+  "value": "V2"
+}

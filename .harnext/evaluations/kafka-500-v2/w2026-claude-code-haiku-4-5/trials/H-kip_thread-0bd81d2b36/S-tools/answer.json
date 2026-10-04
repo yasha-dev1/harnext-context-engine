@@ -1,0 +1,10 @@
+{
+  "evidence": [
+    "mail search '[DISCUSS] KIP-1262' results showing thread starting with Kevin Wu on 2026-01-06",
+    "mail thread 8e958fd66bd3b2546376c7fe showing all 8 messages with 3 distinct senders: Kevin Wu, Jun Rao via dev, Alyssa Huang via dev"
+  ],
+  "value": {
+    "participants": 3,
+    "starter": "Kevin Wu"
+  }
+}

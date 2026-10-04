@@ -1,0 +1,103 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "summary": "Implemented fix for KAFKA-12525 by adding logic to the KafkaStatusBackingStore.readTaskStatus() method to ignore stale UNASSIGNED status records from earlier generations when a newer RUNNING status exists. This prevents the race condition that could occur during fast consecutive rebalances. All 15 tests in KafkaStatusBackingStoreTest pass, including the specific test that validates this fix."
+  },
+  "arm": "N",
+  "checkpoint": "2023-02",
+  "cli_calls": {
+    "git": 5
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 569.049792138976,
+  "family": "pr_implementation",
+  "grade": {
+    "counts": {
+      "passed": 15
+    },
+    "dropped_paths": [
+      "connect/runtime/src/test/java/org/apache/kafka/connect/storage/KafkaStatusBackingStoreTest.java"
+    ],
+    "fail_to_pass_failed": [],
+    "graded_by": "gradle",
+    "grading_timed_out": false,
+    "gradle_returncode": 0,
+    "other_failed_tasks": [],
+    "outcomes": {
+      "org.apache.kafka.connect.storage.KafkaStatusBackingStoreTest#deleteConnectorState": "passed",
+      "org.apache.kafka.connect.storage.KafkaStatusBackingStoreTest#deleteTaskState": "passed",
+      "org.apache.kafka.connect.storage.KafkaStatusBackingStoreTest#misconfigurationOfStatusBackingStore": "passed",
+      "org.apache.kafka.connect.storage.KafkaStatusBackingStoreTest#putConnectorState": "passed",
+      "org.apache.kafka.connect.storage.KafkaStatusBackingStoreTest#putConnectorStateNonRetriableFailure": "passed",
+      "org.apache.kafka.connect.storage.KafkaStatusBackingStoreTest#putConnectorStateRetriableFailure": "passed",
+      "org.apache.kafka.connect.storage.KafkaStatusBackingStoreTest#putConnectorStateShouldOverride": "passed",
+      "org.apache.kafka.connect.storage.KafkaStatusBackingStoreTest#putSafeConnectorIgnoresStaleStatus": "passed",
+      "org.apache.kafka.connect.storage.KafkaStatusBackingStoreTest#putSafeOverridesValueSetBySameWorker": "passed",
+      "org.apache.kafka.connect.storage.KafkaStatusBackingStoreTest#putSafeWithNoPreviousValueIsPropagated": "passed",
+      "org.apache.kafka.connect.storage.KafkaStatusBackingStoreTest#putTaskState": "passed",
+      "org.apache.kafka.connect.storage.KafkaStatusBackingStoreTest#readConnectorState": "passed",
+      "org.apache.kafka.connect.storage.KafkaStatusBackingStoreTest#readTaskState": "passed",
+      "org.apache.kafka.connect.storage.KafkaStatusBackingStoreTest#readTaskStateShouldIgnoreStaleStatusesFromOtherWorkers": "passed",
+      "org.apache.kafka.connect.storage.KafkaStatusBackingStoreTest#testClientIds": "passed"
+    },
+    "pass_to_pass_failed": [],
+    "patch_bytes": 4901,
+    "patch_empty": false,
+    "resolved": true,
+    "seconds": 291.5,
+    "similarity": {
+      "added_lines": {
+        "f1": 0.154,
+        "precision": 0.2,
+        "recall": 0.125
+      },
+      "files": {
+        "agent": 1,
+        "f1": 1.0,
+        "golden": 1,
+        "precision": 1.0,
+        "recall": 1.0,
+        "shared": 1
+      },
+      "location_recall": 1.0,
+      "removed_lines": {
+        "f1": 0.0,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      "size": {
+        "agent_added": 10,
+        "agent_removed": 0,
+        "golden_added": 16,
+        "golden_removed": 0
+      }
+    },
+    "test_compile_failed": []
+  },
+  "kind": "coding",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 27,
+  "prompt_sha256": "df66604b1e9b63ba4fb2ffb217f682567913ef532df4b06f283668e5e81def43",
+  "run_index": 2,
+  "status": "completed",
+  "success": true,
+  "task_id": "C-KAFKA-PR-13453",
+  "tool_calls": {
+    "Bash": 17,
+    "Edit": 1,
+    "Read": 7,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 1186714,
+    "cost_usd": 0.2420154,
+    "input_tokens": 1227268,
+    "output_tokens": 8491
+  },
+  "violations": []
+}

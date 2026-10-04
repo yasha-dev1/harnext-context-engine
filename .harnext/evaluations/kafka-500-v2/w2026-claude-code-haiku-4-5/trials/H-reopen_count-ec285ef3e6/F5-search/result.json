@@ -1,0 +1,50 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "INDEX.md (line 461: 'KAFKA-20516 - close(REMAIN_IN_GROUP) for async consumer (Resolved as Won't Fix)')"
+    ],
+    "value": 0
+  },
+  "arm": "F5-search",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 75.3818036349985,
+  "family": "reopen_count",
+  "grade": {
+    "actual": 0,
+    "correct": false,
+    "evidence": [
+      "INDEX.md (line 461: 'KAFKA-20516 - close(REMAIN_IN_GROUP) for async consumer (Resolved as Won't Fix)')"
+    ],
+    "expected": 1
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 12,
+  "prompt_sha256": "24a16e05eeecd8137a18dc1cfb349d3fe2aa2c46aefbfb4e103c86aced6a5fce",
+  "run_index": 23,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-reopen_count-ec285ef3e6",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 9
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 343090,
+    "cost_usd": 0.08881799999999998,
+    "input_tokens": 363284,
+    "output_tokens": 2844
+  },
+  "violations": []
+}

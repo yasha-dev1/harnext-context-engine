@@ -1,0 +1,52 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "WINDOW-16-SUMMARY.md (line 85) — only reference found to KAFKA-19964; no issue file with fix versions exists in history context"
+    ],
+    "value": []
+  },
+  "arm": "F4-fact-search",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 96.9529025790107,
+  "family": "fix_version_at_snapshot",
+  "grade": {
+    "actual": [],
+    "correct": false,
+    "evidence": [
+      "WINDOW-16-SUMMARY.md (line 85) — only reference found to KAFKA-19964; no issue file with fix versions exists in history context"
+    ],
+    "expected": [
+      "4.3.0"
+    ]
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 20,
+  "prompt_sha256": "b422f502c4f7be58504cd72ff2d2850d92007803791539ffaf3607255dca713b",
+  "run_index": 40,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-fix_version_at_snapshot-ffdb6586ec",
+  "tool_calls": {
+    "StructuredOutput": 2,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 2,
+    "mcp__history__search_context": 14
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 707533,
+    "cost_usd": 0.1428263,
+    "input_tokens": 735512,
+    "output_tokens": 3256
+  },
+  "violations": []
+}

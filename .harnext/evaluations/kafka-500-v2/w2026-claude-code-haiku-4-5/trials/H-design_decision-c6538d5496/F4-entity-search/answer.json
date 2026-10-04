@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "WINDOW-11-2026-01-19-to-2026-01-21-summary.md - References KIP-1266 discussing 'metadata version handling clarifications'",
+    "KAFKA-20033.md - Tracks KIP-1266 implementation for RemoteLogMetadata topic compaction",
+    "context_research result indicating mechanism details not in provided context files"
+  ],
+  "value": "Unable to determine - the specific gating mechanism is not documented in the available context, though metadata version handling was being addressed in KIP-1266 discussions around 2026-01-20."
+}

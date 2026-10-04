@@ -1,0 +1,52 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "discussions.md — KIP-1308 discussion initiated 2026-04-01T15:35:47Z by Aditya Kousik",
+      "issues.md — KAFKA-20387 Extend RecordHeader API for Common Value Types (In Progress, assigned to Axel Dovskog)"
+    ],
+    "value": "KAFKA-20387"
+  },
+  "arm": "F4-topic-search",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 54.477004674990894,
+  "family": "implicit_link",
+  "grade": {
+    "actual": "KAFKA-20387",
+    "correct": true,
+    "evidence": [
+      "discussions.md — KIP-1308 discussion initiated 2026-04-01T15:35:47Z by Aditya Kousik",
+      "issues.md — KAFKA-20387 Extend RecordHeader API for Common Value Types (In Progress, assigned to Axel Dovskog)"
+    ],
+    "expected": "KAFKA-20387"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 5,
+  "prompt_sha256": "1ec5cc678e351b9d01184eb75d4b7b4a2e43ab9ba873f9dad6f0eff4e4dc7ab4",
+  "run_index": 82,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-implicit_link-394aab4475",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 2
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 115818,
+    "cost_usd": 0.0306518,
+    "input_tokens": 122522,
+    "output_tokens": 1141
+  },
+  "violations": []
+}

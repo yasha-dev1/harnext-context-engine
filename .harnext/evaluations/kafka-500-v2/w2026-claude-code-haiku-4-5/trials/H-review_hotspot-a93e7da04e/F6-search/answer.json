@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "pull-requests.md (lines 1322-1343): PR #21842 summary with reviewers but no file-level comment breakdown",
+    "window-73-summary.md (lines 119-149): PR opening summary without detailed review comment analysis",
+    "window-75-summary.md: PR status change to In Progress but no inline comment metrics by file"
+  ],
+  "value": "null"
+}

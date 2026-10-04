@@ -1,0 +1,12 @@
+{
+  "evidence": [
+    "window-76-summary.md - PR #21866 approved by showuon on 2026-03-25T08:44:22Z",
+    "window-81-summary.md - PR #21866 status changed to Approved with AndrewJSchofield as reviewer",
+    "pull-requests.md - PR #21866 details confirming approvals",
+    "contributors.md - Activity records for both showuon and AndrewJSchofield"
+  ],
+  "value": [
+    "AndrewJSchofield",
+    "showuon"
+  ]
+}

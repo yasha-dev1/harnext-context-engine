@@ -1,0 +1,3 @@
+{
+  "summary": "Successfully implemented KAFKA-12525 fix by adding logic to the readTaskStatus method in KafkaStatusBackingStore to ignore stale UNASSIGNED/FAILED messages from earlier generations when a newer RUNNING status exists. This prevents race conditions during fast consecutive rebalances where delayed status records could overwrite newer status information. The implementation adds 13 focused lines of code that check if an incoming UNASSIGNED or FAILED message has an older generation than the current RUNNING status, and if so, ignores it. All 15 tests pass, including the critical new test readTaskStateShouldIgnoreStaleStatusesFromOtherWorkers."
+}

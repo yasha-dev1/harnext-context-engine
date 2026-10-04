@@ -1,0 +1,111 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "jira:13643952:change:22961787:0",
+      "jira:13643952:change:22973231:0"
+    ],
+    "value": [
+      {
+        "at": "2026-03-05T09:40:54.681000Z",
+        "from": null,
+        "to": "Fixed"
+      },
+      {
+        "at": "2026-03-13T07:44:14.073000Z",
+        "from": "Fixed",
+        "to": "Duplicate"
+      }
+    ]
+  },
+  "arm": "H-engine-b8",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 76.17867681999633,
+  "engine": {
+    "calls": 1,
+    "chat": {
+      "calls": 11,
+      "cancelled": 0,
+      "cost_usd": 0.00094081,
+      "input_tokens": 49010,
+      "output_tokens": 1210,
+      "retries": 0
+    },
+    "cost_usd": 0.0014123,
+    "discarded_attempts": 0,
+    "jev": {
+      "calls": 6,
+      "cancelled": 0,
+      "cost_usd": 0.00047149,
+      "input_tokens": 11226,
+      "output_tokens": 2135,
+      "retries": 0
+    },
+    "partial": 0,
+    "provider_retry_usd": 0,
+    "seconds": 59.74,
+    "unmetered_upper_usd": 0,
+    "waited_s": 0
+  },
+  "family": "resolution_transition_history",
+  "grade": {
+    "actual": [
+      {
+        "at": "2026-03-05T09:40:54.681000Z",
+        "from": null,
+        "to": "Fixed"
+      },
+      {
+        "at": "2026-03-13T07:44:14.073000Z",
+        "from": "Fixed",
+        "to": "Duplicate"
+      }
+    ],
+    "correct": true,
+    "evidence": [
+      "jira:13643952:change:22961787:0",
+      "jira:13643952:change:22973231:0"
+    ],
+    "expected": [
+      {
+        "at": "2026-03-05T09:40:54.681000Z",
+        "from": null,
+        "to": "Fixed"
+      },
+      {
+        "at": "2026-03-13T07:44:14.073000Z",
+        "from": "Fixed",
+        "to": "Duplicate"
+      }
+    ]
+  },
+  "image_id": "sha256:1de715f951a3fc013cabad66407b87028bc2a5af6e58efdea5338b4cf9fb1485",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 4,
+  "prompt_sha256": "19c64d87d10b95bbf37ba4e945b43576db5fafc3d9539d9f4e956bb2587a8a6d",
+  "run_index": 13,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-resolution_transition_history-b2b3f1ff22",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 85678,
+    "cost_usd": 0.0159828,
+    "input_tokens": 86984,
+    "output_tokens": 968
+  },
+  "violations": []
+}

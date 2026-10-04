@@ -1,0 +1,55 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail:34fa83dae238a6129c835a60 (Kevin Wu, 2026-05-08)",
+      "The KIP-1312 discussion shows that Kevin Wu explicitly mentions supporting a new `UnregisterControllerRecord` metadata record type. In his response to David Arthur's questions about error codes, he states: 'an `UNSUPPORTED_VERSION` error if the cluster's MetadataVersion does not support `UnregisterControllerRecord`'. This indicates the design decision was to introduce a dedicated new metadata record type for controller unregistration rather than reuse an existing record type."
+    ],
+    "value": "new record type"
+  },
+  "arm": "S-tools",
+  "checkpoint": "2026-05",
+  "cli_calls": {
+    "gh": 1,
+    "jira": 3,
+    "mail": 8
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 169.41135766298976,
+  "family": "design_decision",
+  "grade": {
+    "actual": "new record type",
+    "correct": true,
+    "evidence": [
+      "mail:34fa83dae238a6129c835a60 (Kevin Wu, 2026-05-08)",
+      "The KIP-1312 discussion shows that Kevin Wu explicitly mentions supporting a new `UnregisterControllerRecord` metadata record type. In his response to David Arthur's questions about error codes, he states: 'an `UNSUPPORTED_VERSION` error if the cluster's MetadataVersion does not support `UnregisterControllerRecord`'. This indicates the design decision was to introduce a dedicated new metadata record type for controller unregistration rather than reuse an existing record type."
+    ],
+    "expected": "new record type"
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 13,
+  "prompt_sha256": "d71d493d97c5cb30051442897ae820af4bc89a87ec83c5bbbba255ada2976aab",
+  "run_index": 70,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-646c4d2ed6",
+  "tool_calls": {
+    "Bash": 12,
+    "Read": 2,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 387390,
+    "cost_usd": 0.169075,
+    "input_tokens": 447218,
+    "output_tokens": 2157
+  },
+  "violations": []
+}

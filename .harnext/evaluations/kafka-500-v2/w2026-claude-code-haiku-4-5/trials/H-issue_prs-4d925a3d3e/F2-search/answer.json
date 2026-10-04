@@ -1,0 +1,46 @@
+{
+  "evidence": [
+    "prs/21452/2026-02-12-gh-pr-merged-95b68bdc.md",
+    "prs/21461/2026-02-12-gh-pr-merged-0c67e9a0.md",
+    "prs/21462/2026-02-12-gh-pr-merged-92e441fb.md",
+    "prs/21505/2026-02-18-pr-merged-a24ab2e8.md",
+    "prs/21559/2026-02-25-gh-pr-merged-cd925935.md",
+    "prs/21560/2026-02-25-gh-pr-closed-4385f1a3.md",
+    "prs/21561/2026-02-24-gh-pr-merged-dfc61901.md",
+    "prs/21562/2026-02-24-gh-pr-merged-9a035742.md"
+  ],
+  "value": [
+    {
+      "pr": 21452,
+      "state": "merged"
+    },
+    {
+      "pr": 21461,
+      "state": "merged"
+    },
+    {
+      "pr": 21462,
+      "state": "merged"
+    },
+    {
+      "pr": 21505,
+      "state": "merged"
+    },
+    {
+      "pr": 21559,
+      "state": "merged"
+    },
+    {
+      "pr": 21560,
+      "state": "closed"
+    },
+    {
+      "pr": 21561,
+      "state": "merged"
+    },
+    {
+      "pr": 21562,
+      "state": "merged"
+    }
+  ]
+}

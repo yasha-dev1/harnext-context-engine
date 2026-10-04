@@ -1,0 +1,83 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "pull-requests.md:681-687",
+      "window-105-summary.md:190-214",
+      "window-106-summary.md:10-20",
+      "jira-issues.md:475-484"
+    ],
+    "value": [
+      {
+        "pr": 22041,
+        "state": "open"
+      },
+      {
+        "pr": 22182,
+        "state": "open"
+      }
+    ]
+  },
+  "arm": "F6-search",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 109.39536604299792,
+  "family": "issue_prs",
+  "grade": {
+    "actual": [
+      {
+        "pr": 22041,
+        "state": "open"
+      },
+      {
+        "pr": 22182,
+        "state": "open"
+      }
+    ],
+    "correct": true,
+    "evidence": [
+      "pull-requests.md:681-687",
+      "window-105-summary.md:190-214",
+      "window-106-summary.md:10-20",
+      "jira-issues.md:475-484"
+    ],
+    "expected": [
+      {
+        "pr": 22041,
+        "state": "open"
+      },
+      {
+        "pr": 22182,
+        "state": "open"
+      }
+    ]
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 11,
+  "prompt_sha256": "5aecefffcf78e565b4e40137306969486b8e2db41b048aafb5f24cee6ab3830d",
+  "run_index": 42,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-issue_prs-a6ff7f3ad8",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 11
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 355668,
+    "cost_usd": 0.12727280000000002,
+    "input_tokens": 392769,
+    "output_tokens": 3519
+  },
+  "violations": []
+}

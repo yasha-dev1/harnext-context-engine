@@ -1,0 +1,9 @@
+{
+  "evidence": [
+    "store/entities/issue/KAFKA-20386/OVERVIEW.md",
+    "store/entities/issue/KAFKA-20386/facts.md",
+    "store/entities/issue/KAFKA-20386/timeline.md",
+    "store/INDEX.md"
+  ],
+  "value": "KAFKA-20386"
+}

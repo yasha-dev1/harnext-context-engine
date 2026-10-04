@@ -1,0 +1,16 @@
+{
+  "evidence": [
+    "_intake/2026/04/13/github-api-apache-kafka-pr-22041-opened-ecf243c4.md",
+    "_intake/2026/04/29/github-api-apache-kafka-pr-22182-opened-675f3bb2.md"
+  ],
+  "value": [
+    {
+      "pr": 22041,
+      "state": "open"
+    },
+    {
+      "pr": 22182,
+      "state": "open"
+    }
+  ]
+}

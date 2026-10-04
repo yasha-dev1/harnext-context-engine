@@ -1,0 +1,73 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "jira:13642029:created"
+    ],
+    "value": "Major"
+  },
+  "arm": "H-engine",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 35.27451332799865,
+  "engine": {
+    "calls": 1,
+    "chat": {
+      "calls": 4,
+      "cancelled": 0,
+      "cost_usd": 0.00022568,
+      "input_tokens": 11293,
+      "output_tokens": 249,
+      "retries": 0
+    },
+    "cost_usd": 0.00048734,
+    "jev": {
+      "calls": 5,
+      "cancelled": 0,
+      "cost_usd": 0.00026166,
+      "input_tokens": 6230,
+      "output_tokens": 850,
+      "retries": 0
+    },
+    "partial": 0,
+    "seconds": 23.565,
+    "unmetered_upper_usd": 0
+  },
+  "family": "priority_at_snapshot",
+  "grade": {
+    "actual": "Major",
+    "correct": false,
+    "evidence": [
+      "jira:13642029:created"
+    ],
+    "expected": "Blocker"
+  },
+  "image_id": "sha256:a75ed05ffc6eace9ec0ed4705d31b20aa2579267b3e737b4f61017882112ea66",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "019080167fd7afbd012244f778e8fd9130a398818ed61353672f9984a69e1e04",
+  "run_index": 21,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-priority_at_snapshot-fdda08ba87",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 63337,
+    "cost_usd": 0.0104017,
+    "input_tokens": 64097,
+    "output_tokens": 515
+  },
+  "violations": []
+}

@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "discussions/kip-1163-diskless-core.md (lines 115-127, specifically Consensus Points line 3: 'Object store consistency can assume strongly consistent gets/puts for major clouds')"
+  ],
+  "value": "list"
+}

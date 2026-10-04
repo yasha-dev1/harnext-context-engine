@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "entities/kip/KIP-1305/OVERVIEW.md",
+    "entities/issue/KAFKA-20384/OVERVIEW.md",
+    "entities/thread/EF8340D9-3FB4-43E3-A0BF-967865335D48-icloud.com-40031bc0/timeline.md"
+  ],
+  "value": "KAFKA-20384"
+}

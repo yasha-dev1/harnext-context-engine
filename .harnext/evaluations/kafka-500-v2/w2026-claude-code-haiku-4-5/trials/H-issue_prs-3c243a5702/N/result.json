@@ -1,0 +1,76 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "Cannot determine: no network access to query GitHub/Jira, no local git repository in /workspace, no provided historical data, knowledge cutoff (Feb 2025) is before snapshot date (Feb 2026)"
+    ],
+    "value": []
+  },
+  "arm": "N",
+  "checkpoint": "2026-02",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 13.193621298996732,
+  "family": "issue_prs",
+  "grade": {
+    "actual": [],
+    "correct": false,
+    "evidence": [
+      "Cannot determine: no network access to query GitHub/Jira, no local git repository in /workspace, no provided historical data, knowledge cutoff (Feb 2025) is before snapshot date (Feb 2026)"
+    ],
+    "expected": [
+      {
+        "pr": 21465,
+        "state": "merged"
+      },
+      {
+        "pr": 21474,
+        "state": "closed"
+      },
+      {
+        "pr": 21478,
+        "state": "merged"
+      },
+      {
+        "pr": 21486,
+        "state": "merged"
+      },
+      {
+        "pr": 21493,
+        "state": "merged"
+      },
+      {
+        "pr": 21497,
+        "state": "open"
+      },
+      {
+        "pr": 21581,
+        "state": "open"
+      }
+    ]
+  },
+  "instructions_sha256": null,
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "7119eec66158e45feaffb4bbfdbfb87e93e0bc57c2c877397d8281158ae96922",
+  "run_index": 45,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-issue_prs-3c243a5702",
+  "tool_calls": {
+    "StructuredOutput": 3
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 59603,
+    "cost_usd": 0.018910299999999998,
+    "input_tokens": 63728,
+    "output_tokens": 945
+  },
+  "violations": []
+}

@@ -1,0 +1,56 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail thread c4bfde361f38ca346dffd233 (Alieh Saeedi, 2026-02-22T14:16:29Z): confirms 'DslStoreType (now DslStoreFormat)'",
+      "mail thread 6ea3402c8bc00ae4fb37dcf5 (Matthias J. Sax, 2026-02-22T19:51:59Z): references Lucas' feedback on 'format vs type'",
+      "KAFKA-20056 issue linking to KIP-1285 discussion"
+    ],
+    "value": "DslStoreFormat"
+  },
+  "arm": "S-tools",
+  "checkpoint": "2026-02",
+  "cli_calls": {
+    "gh": 8,
+    "jira": 21,
+    "mail": 7
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 146.30102008700487,
+  "family": "design_decision",
+  "grade": {
+    "actual": "DslStoreFormat",
+    "correct": true,
+    "evidence": [
+      "mail thread c4bfde361f38ca346dffd233 (Alieh Saeedi, 2026-02-22T14:16:29Z): confirms 'DslStoreType (now DslStoreFormat)'",
+      "mail thread 6ea3402c8bc00ae4fb37dcf5 (Matthias J. Sax, 2026-02-22T19:51:59Z): references Lucas' feedback on 'format vs type'",
+      "KAFKA-20056 issue linking to KIP-1285 discussion"
+    ],
+    "expected": "DslStoreFormat"
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 37,
+  "prompt_sha256": "8175af8af31f43d93a9fc81d2a41f1e3fb6f7f8abc084117606f98f442ee1f52",
+  "run_index": 62,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-9c30969b0a",
+  "tool_calls": {
+    "Bash": 36,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 1065846,
+    "cost_usd": 0.19057759999999999,
+    "input_tokens": 1094101,
+    "output_tokens": 5556
+  },
+  "violations": []
+}

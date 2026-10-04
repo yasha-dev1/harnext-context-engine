@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "mail:4f7fd3d7ae5bfb5b7fd2a661 — Sean Quah's mailing list reply (2026-03-01) documenting the renaming of the executor config from group.coordinator.executor.threads to group.coordinator.background.threads"
+  ],
+  "value": "group.coordinator.background.threads"
+}

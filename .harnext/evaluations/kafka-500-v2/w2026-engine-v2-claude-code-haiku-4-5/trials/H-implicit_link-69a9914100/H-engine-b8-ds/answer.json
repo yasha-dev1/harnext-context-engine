@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "mail:afac71e1bc95221e93c97bf4 (JIRA creation notification for KAFKA-20552 on 2026-05-05)",
+    "mail:112a535ad8c4fa1e9928d615 (Mailing list discussion by Haifeng Chen on 2026-05-05 referencing KIP-1333)"
+  ],
+  "value": "KAFKA-20552"
+}

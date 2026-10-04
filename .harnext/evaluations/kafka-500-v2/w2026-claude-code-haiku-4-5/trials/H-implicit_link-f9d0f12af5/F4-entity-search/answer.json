@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "mailing list thread by Jianbin Chen titled 'Inquiry about migrating from ZooKeeper to KRaft' posted 2026-01-28",
+    "JIRA issue KAFKA-20104 created 2026-01-30, filed by Jianbin Chen, tracking in-place KRaft migration concerns",
+    "sources: /store/WINDOW-17-2026-01-28-to-2026-01-29-summary.md, /store/issues/KAFKA-20104.md"
+  ],
+  "value": "KAFKA-20104"
+}

@@ -1,0 +1,3 @@
+{
+  "summary": "KAFKA-20623 implementation complete: Wire topology description plugin into GroupCoordinatorService. The implementation includes the streamsGroupTopologyDescriptionUpdate() RPC method for topology push, heartbeat post-processing with TopologyDescriptionRequired flag gating, DeleteGroups integration with plugin.deleteTopology() calls, and per-group exponential back-off management. All 30 tests in GroupCoordinatorServiceTopologyDescriptionTest pass successfully."
+}

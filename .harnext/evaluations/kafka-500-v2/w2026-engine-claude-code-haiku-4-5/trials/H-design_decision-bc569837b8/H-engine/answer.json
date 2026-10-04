@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "github:api:apache/kafka:pr-21547-opened - PR KAFKA-20176: Add MetaProperties V2, dated 2026-02-23, which states that formatting will still write meta.properties V1 to enforce that cluster.id is always present, even though V2 is added"
+  ],
+  "value": "V1"
+}

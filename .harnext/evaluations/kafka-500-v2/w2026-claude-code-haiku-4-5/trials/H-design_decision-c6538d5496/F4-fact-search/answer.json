@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "WINDOW-11-SUMMARY.md (lines 210-217)",
+    "discussions/kip-1266-remote-log-metadata-bounding.md"
+  ],
+  "value": "metadata version gating"
+}

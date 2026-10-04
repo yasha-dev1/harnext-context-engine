@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "PR #21273 review comments",
+    "8 inline comments on DynamicBrokerConfig.scala"
+  ],
+  "value": "core/src/main/scala/kafka/server/DynamicBrokerConfig.scala"
+}

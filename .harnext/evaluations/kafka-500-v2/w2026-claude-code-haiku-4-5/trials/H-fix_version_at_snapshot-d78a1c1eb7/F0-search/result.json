@@ -1,0 +1,55 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "events/2026/01/28/jira-13639570-change-22897189-0-27e8f7a7.md"
+    ],
+    "value": [
+      "4.3.0"
+    ]
+  },
+  "arm": "F0-search",
+  "checkpoint": "2026-02",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 27.922170803998597,
+  "family": "fix_version_at_snapshot",
+  "grade": {
+    "actual": [
+      "4.3.0"
+    ],
+    "correct": true,
+    "evidence": [
+      "events/2026/01/28/jira-13639570-change-22897189-0-27e8f7a7.md"
+    ],
+    "expected": [
+      "4.3.0"
+    ]
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 5,
+  "prompt_sha256": "ae82705acce34cd6c4dd2c849303bde9990d8b98b86f2e0460c7aec170c018de",
+  "run_index": 39,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-fix_version_at_snapshot-d78a1c1eb7",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__search_context": 3
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 111588,
+    "cost_usd": 0.0454338,
+    "input_tokens": 123652,
+    "output_tokens": 2038
+  },
+  "violations": []
+}

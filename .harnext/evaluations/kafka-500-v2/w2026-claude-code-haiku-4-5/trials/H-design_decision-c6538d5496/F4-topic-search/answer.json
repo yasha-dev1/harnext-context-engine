@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "discussions.md lines 827-844: Lijun Tong's response on 2026-01-20T01:59:54Z addressing the migration strategy - 'Feature gated by metadata version, new tombstone semantics only enabled post-upgrade'"
+  ],
+  "value": "metadata version"
+}

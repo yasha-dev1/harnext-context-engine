@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "WINDOW-31-2026-02-13-to-2026-02-14-summary.md (lines 47-56): KAFKA-20186 created 2026-02-13T16:41:42Z by Federico Valeri with Related KIP: KIP-1267, and Discussion thread: KIP-1267 [DISCUSS] started 2026-02-13T16:45:21Z",
+    "issues/KAFKA-20186.md (lines 30-39): Issue created by Federico Valeri on 2026-02-13T16:41:42Z, Description tracks development of KIP-1267, KIP-1267 discussion thread started by Federico Valeri on 2026-02-13T16:45:21Z"
+  ],
+  "value": "KAFKA-20186"
+}

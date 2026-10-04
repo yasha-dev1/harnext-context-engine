@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "jira:13642045:created",
+    "mail:993dc2b28ba9d24644959039",
+    "entities/issue/KAFKA-20186/OVERVIEW.md"
+  ],
+  "value": "KAFKA-20186"
+}

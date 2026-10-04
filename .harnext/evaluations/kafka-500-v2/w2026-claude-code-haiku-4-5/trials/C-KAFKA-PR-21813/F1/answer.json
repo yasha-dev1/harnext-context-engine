@@ -1,0 +1,3 @@
+{
+  "summary": "Implemented KAFKA-20106 to defer consumer assignment updates until poll() by creating StreamsTasksAssignedEvent that defers subscriptionState updates from background thread to application thread. Added applyAssignment() method and modified StreamsMembershipManager.assignTasks() to send events instead of directly updating state. All 88 tests passing."
+}

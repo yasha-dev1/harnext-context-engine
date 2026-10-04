@@ -1,0 +1,9 @@
+{
+  "evidence": [
+    "No access to Apache Kafka JIRA instance",
+    "No snapshot data provided",
+    "No network access available",
+    "Task requires specific historical JIRA state from 2026-05-31 cutoff"
+  ],
+  "value": null
+}

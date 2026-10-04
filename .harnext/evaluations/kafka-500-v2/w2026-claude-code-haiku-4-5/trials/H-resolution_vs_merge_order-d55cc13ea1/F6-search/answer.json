@@ -1,0 +1,10 @@
+{
+  "evidence": [
+    "window-68-summary.md",
+    "jira-issues.md"
+  ],
+  "value": {
+    "days": 0,
+    "first": "merge"
+  }
+}

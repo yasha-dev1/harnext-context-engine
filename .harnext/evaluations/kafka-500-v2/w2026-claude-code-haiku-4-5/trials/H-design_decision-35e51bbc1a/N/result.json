@@ -1,0 +1,52 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "No project files available in /workspace",
+      "No design documentation provided",
+      "Cannot determine specific design decision without source materials"
+    ],
+    "value": null
+  },
+  "arm": "N",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 14.518553582005552,
+  "family": "design_decision",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "No project files available in /workspace",
+      "No design documentation provided",
+      "Cannot determine specific design decision without source materials"
+    ],
+    "expected": "destination cluster default replication factor"
+  },
+  "instructions_sha256": null,
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "3c08eef3012d19104a75af1be6eade0aaa25fae88a90394f4520cb808f7bf057",
+  "run_index": 68,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-35e51bbc1a",
+  "tool_calls": {
+    "Bash": 2,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 59255,
+    "cost_usd": 0.0195095,
+    "input_tokens": 63117,
+    "output_tokens": 1177
+  },
+  "violations": []
+}

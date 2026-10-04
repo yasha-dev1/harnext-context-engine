@@ -1,0 +1,3 @@
+{
+  "summary": "Fixed KAFKA-19012 by adding validation in RecordAccumulator.drainBatchesForOneNode to ensure batches match the expected TopicPartition before draining. Added a corresponding test case to verify the fix works correctly."
+}

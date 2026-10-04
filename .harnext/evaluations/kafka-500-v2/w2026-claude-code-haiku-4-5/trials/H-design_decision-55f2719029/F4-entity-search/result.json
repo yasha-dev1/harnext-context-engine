@@ -1,0 +1,50 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "Unable to locate the specific consensus decision through available context search tools. KIP-1163 discussions were confirmed in WINDOW-78 (2026-03-26), WINDOW-100 (2026-04-21-22), and WINDOW-102 (2026-04-23-24), but the detailed discussion content containing the final consensus on which of put/get/list operations was agreed to remain eventually consistent could not be retrieved from the Harnext context engine."
+    ],
+    "value": null
+  },
+  "arm": "F4-entity-search",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 188.26490413599822,
+  "family": "design_decision",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "Unable to locate the specific consensus decision through available context search tools. KIP-1163 discussions were confirmed in WINDOW-78 (2026-03-26), WINDOW-100 (2026-04-21-22), and WINDOW-102 (2026-04-23-24), but the detailed discussion content containing the final consensus on which of put/get/list operations was agreed to remain eventually consistent could not be retrieved from the Harnext context engine."
+    ],
+    "expected": "list"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 31,
+  "prompt_sha256": "19293b52b79fc69f061a64d7d040590d51a0d0ff978a41136696ad90d14c65ea",
+  "run_index": 64,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-55f2719029",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 27
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 1278300,
+    "cost_usd": 0.257228,
+    "input_tokens": 1329883,
+    "output_tokens": 5297
+  },
+  "violations": []
+}

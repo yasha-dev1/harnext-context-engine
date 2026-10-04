@@ -1,0 +1,12 @@
+{
+  "evidence": [
+    "discussions/kip-1266-remote-log-metadata-bounding.md — Discussion Initiated: 2026-01-05T21:22:10Z with Proposer: Lijun Tong",
+    "discussions/kip-1266-remote-log-metadata-bounding.md — Window 2: Lijun Tong response to Henry Haiying Cai's suggestions on 2026-01-06T02:04:47Z",
+    "discussions/kip-1266-remote-log-metadata-bounding.md — Window 2: Kamal Chandraprakash questions on 2026-01-06T09:00:02Z",
+    "discussions/kip-1266-remote-log-metadata-bounding.md — Window 81 Updates: Lijun Tong response to Kamal on 2026-03-30T17:50:54Z"
+  ],
+  "value": {
+    "participants": 3,
+    "starter": "Lijun Tong"
+  }
+}

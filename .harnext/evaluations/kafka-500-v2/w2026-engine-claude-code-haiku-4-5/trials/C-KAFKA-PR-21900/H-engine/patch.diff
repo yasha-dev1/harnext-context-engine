@@ -1,0 +1,115 @@
+diff --git a/clients/src/main/java/org/apache/kafka/clients/consumer/internals/ClassicKafkaConsumer.java b/clients/src/main/java/org/apache/kafka/clients/consumer/internals/ClassicKafkaConsumer.java
+index b8e181743a25084b2db81084ca71145f9dc308a4..3c6cd1b3befcb36c9926f74f032c95c8f01c350e 100644
+--- a/clients/src/main/java/org/apache/kafka/clients/consumer/internals/ClassicKafkaConsumer.java
++++ b/clients/src/main/java/org/apache/kafka/clients/consumer/internals/ClassicKafkaConsumer.java
+@@ -170,6 +170,7 @@ public class ClassicKafkaConsumer<K, V> implements ConsumerDelegate<K, V> {
+             boolean enableAutoCommit = config.getBoolean(ENABLE_AUTO_COMMIT_CONFIG);
+ 
+             log.debug("Initializing the Kafka consumer");
++            logConsumerProtocolRecommendation(config);
+             this.requestTimeoutMs = config.getInt(ConsumerConfig.REQUEST_TIMEOUT_MS_CONFIG);
+             this.defaultApiTimeoutMs = config.getInt(ConsumerConfig.DEFAULT_API_TIMEOUT_MS_CONFIG);
+             this.time = Time.SYSTEM;
+@@ -402,6 +403,17 @@ public class ClassicKafkaConsumer<K, V> implements ConsumerDelegate<K, V> {
+             retryBackoffMs,
+             retryBackoffMaxMs
+         );
++
++        logConsumerProtocolRecommendation(config);
++    }
++
++    private void logConsumerProtocolRecommendation(ConsumerConfig config) {
++        if (groupId.isPresent() && !groupId.get().isEmpty()) {
++            String protocol = config.getString(ConsumerConfig.GROUP_PROTOCOL_CONFIG);
++            if (!protocol.equalsIgnoreCase(GroupProtocol.CONSUMER.name())) {
++                log.info("The consumer rebalance protocol (KIP-848) is production ready!");
++            }
++        }
+     }
+ 
+     public Set<TopicPartition> assignment() {
+diff --git a/clients/src/test/java/org/apache/kafka/clients/consumer/KafkaConsumerTest.java b/clients/src/test/java/org/apache/kafka/clients/consumer/KafkaConsumerTest.java
+index 498f1fcbf41650ad717bb05bb9a12a5b58f2cd76..bcc22f6da179e23f6c9ef6f32cfb3299730d8830 100644
+--- a/clients/src/test/java/org/apache/kafka/clients/consumer/KafkaConsumerTest.java
++++ b/clients/src/test/java/org/apache/kafka/clients/consumer/KafkaConsumerTest.java
+@@ -113,6 +113,7 @@ import org.apache.kafka.test.TestUtils;
+ 
+ import org.apache.logging.log4j.Level;
+ import org.junit.jupiter.api.AfterEach;
++import org.junit.jupiter.api.Test;
+ import org.junit.jupiter.api.Timeout;
+ import org.junit.jupiter.params.ParameterizedTest;
+ import org.junit.jupiter.params.provider.EnumSource;
+@@ -620,6 +621,72 @@ public class KafkaConsumerTest {
+         assertEquals("Class an.invalid.class cannot be found", e.getCause().getMessage());
+     }
+ 
++    @Test
++    public void testClassicProtocolLogsRecommendationToTryConsumerProtocol() {
++        Properties props = new Properties();
++        props.setProperty(ConsumerConfig.GROUP_PROTOCOL_CONFIG, GroupProtocol.CLASSIC.name());
++        props.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9999");
++        props.setProperty(ConsumerConfig.GROUP_ID_CONFIG, "test-group");
++
++        try (LogCaptureAppender appender = LogCaptureAppender.createAndRegister()) {
++            appender.setClassLogger(ClassicKafkaConsumer.class, Level.INFO);
++            consumer = newConsumer(props, new StringDeserializer(), new StringDeserializer());
++            assertTrue(
++                    appender.getMessages().stream().anyMatch(m -> m.contains("The consumer rebalance protocol (KIP-848) is production ready!")),
++                    "Log message about consumer protocol not showing as expected when starting a consumer using the classic protocol"
++            );
++        }
++    }
++
++    @Test
++    public void testConsumerProtocolDoesNotLogRecommendation() {
++        Properties props = new Properties();
++        props.setProperty(ConsumerConfig.GROUP_PROTOCOL_CONFIG, GroupProtocol.CONSUMER.name());
++        props.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9999");
++        props.setProperty(ConsumerConfig.GROUP_ID_CONFIG, "test-group");
++
++        try (LogCaptureAppender appender = LogCaptureAppender.createAndRegister()) {
++            appender.setClassLogger(ClassicKafkaConsumer.class, Level.INFO);
++            consumer = newConsumer(props, new StringDeserializer(), new StringDeserializer());
++            assertFalse(
++                    appender.getMessages().stream().anyMatch(m -> m.contains("The consumer rebalance protocol (KIP-848) is production ready!")),
++                    "Should not log recommendation when already using consumer protocol"
++            );
++        }
++    }
++
++    @Test
++    public void testDefaultProtocolLogsRecommendationToTryConsumerProtocol() {
++        Properties props = new Properties();
++        props.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9999");
++        props.setProperty(ConsumerConfig.GROUP_ID_CONFIG, "test-group");
++
++        try (LogCaptureAppender appender = LogCaptureAppender.createAndRegister()) {
++            appender.setClassLogger(ClassicKafkaConsumer.class, Level.INFO);
++            consumer = newConsumer(props, new StringDeserializer(), new StringDeserializer());
++            assertTrue(
++                    appender.getMessages().stream().anyMatch(m -> m.contains("The consumer rebalance protocol (KIP-848) is production ready!")),
++                    "Log message about consumer protocol not showing as expected when starting a consumer using the default (classic) protocol"
++            );
++        }
++    }
++
++    @Test
++    public void testNoGroupIdDoesNotLogGroupProtocolMessage() {
++        Properties props = new Properties();
++        props.setProperty(ConsumerConfig.GROUP_PROTOCOL_CONFIG, GroupProtocol.CLASSIC.name());
++        props.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9999");
++
++        try (LogCaptureAppender appender = LogCaptureAppender.createAndRegister()) {
++            appender.setClassLogger(ClassicKafkaConsumer.class, Level.INFO);
++            consumer = newConsumer(props, new StringDeserializer(), new StringDeserializer());
++            assertFalse(
++                    appender.getMessages().stream().anyMatch(m -> m.contains("The consumer rebalance protocol (KIP-848) is production ready!")),
++                    "Should not log recommendation when no group.id is set"
++            );
++        }
++    }
++
+     @ParameterizedTest
+     @EnumSource(GroupProtocol.class)
+     public void testOsDefaultSocketBufferSizes(GroupProtocol groupProtocol) {

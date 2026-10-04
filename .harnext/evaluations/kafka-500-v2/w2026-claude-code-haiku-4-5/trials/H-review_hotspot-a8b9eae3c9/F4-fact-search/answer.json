@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "prs/21273-kafka-19774-cordon-log-dirs.md"
+  ],
+  "value": "core/src/main/scala/kafka/server/DynamicBrokerConfig.scala"
+}

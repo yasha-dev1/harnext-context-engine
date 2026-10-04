@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "discussions/kip-1307-serde-interceptor-metrics.md",
+    "issues/kafka-20386-serde-interceptor-metrics.md",
+    "WINDOW-82-SUMMARY.md"
+  ],
+  "value": "KAFKA-20386"
+}

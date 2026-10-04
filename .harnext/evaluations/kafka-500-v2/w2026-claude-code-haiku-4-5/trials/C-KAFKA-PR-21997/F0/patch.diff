@@ -1,0 +1,65 @@
+diff --git a/clients/src/main/java/org/apache/kafka/clients/consumer/internals/AsyncKafkaConsumer.java b/clients/src/main/java/org/apache/kafka/clients/consumer/internals/AsyncKafkaConsumer.java
+index 8adc71b904b7dfe44280931540fb6e236dd23347..17b2e95c9055c3a3edad602d657f8f239ebd9a0e 100644
+--- a/clients/src/main/java/org/apache/kafka/clients/consumer/internals/AsyncKafkaConsumer.java
++++ b/clients/src/main/java/org/apache/kafka/clients/consumer/internals/AsyncKafkaConsumer.java
+@@ -2025,20 +2025,9 @@ public class AsyncKafkaConsumer<K, V> implements ConsumerDelegate<K, V> {
+         // that triggers commits and marks partitions as pending revocation, before we can
+         // safely collect records from the buffer.
+         if (inflightPoll != null && !inflightPoll.isReconciliationCheckComplete()) {
+-            // If the background hasn't had the time to check for pending reconciliation,
+-            // we need to wait for that check before moving on (instead of returning empty right away,
+-            // which will lead to blocking on buffer data)
+-            long timeoutMs = inflightPoll.deadlineMs() - time.milliseconds();
+-            if (timeoutMs > 0) {
+-                try {
+-                    ConsumerUtils.getResult(inflightPoll.reconciliationCheckFuture(), timeoutMs);
+-                } catch (TimeoutException e) {
+-                    return Fetch.empty();
+-                }
+-            } else {
+-                // No time to wait and reconciliation check not complete
+-                return Fetch.empty();
+-            }
++            // If the background hasn't checked pending reconciliations yet, return empty.
++            // The poll loop will loop back and check again, which ensures wakeups are checked promptly.
++            return Fetch.empty();
+         }
+ 
+         // With the non-blocking async poll, it's critical that the application thread wait until the background
+diff --git a/clients/src/test/java/org/apache/kafka/clients/consumer/internals/AsyncKafkaConsumerTest.java b/clients/src/test/java/org/apache/kafka/clients/consumer/internals/AsyncKafkaConsumerTest.java
+index 327f1b25afc1d280bee49309901b5d850ccad469..61b5b7cfef442f940e11d1f6b4d4ecd8932c8089 100644
+--- a/clients/src/test/java/org/apache/kafka/clients/consumer/internals/AsyncKafkaConsumerTest.java
++++ b/clients/src/test/java/org/apache/kafka/clients/consumer/internals/AsyncKafkaConsumerTest.java
+@@ -479,6 +479,32 @@ public class AsyncKafkaConsumerTest {
+         assertThrows(WakeupException.class, () -> consumer.poll(Duration.ZERO));
+     }
+ 
++    @Test
++    public void testWakeupWhileWaitingOnReconciliationCheck() {
++        FetchBuffer fetchBuffer = mock(FetchBuffer.class);
++        SubscriptionState subscriptions = new SubscriptionState(new LogContext(), AutoOffsetResetStrategy.NONE);
++        consumer = newConsumer(fetchBuffer, mock(ConsumerInterceptors.class),
++            mock(ConsumerRebalanceListenerInvoker.class), subscriptions);
++
++        final TopicPartition tp = new TopicPartition("topic1", 0);
++        subscriptions.assignFromUser(singleton(tp));
++        subscriptions.seek(tp, 0);
++
++        // Do not complete the AsyncPollEvent and call wakeup().
++        // The call to poll should throw WakeupException without blocking for the full timeout.
++        doAnswer(invocation -> {
++            consumer.wakeup();
++            return null;
++        }).when(applicationEventHandler).add(ArgumentMatchers.isA(AsyncPollEvent.class));
++        doReturn(Fetch.empty()).when(fetchCollector).collectFetch(any(FetchBuffer.class));
++
++        long startTime = System.currentTimeMillis();
++        assertThrows(WakeupException.class, () -> consumer.poll(Duration.ofMillis(1500)));
++        long elapsed = System.currentTimeMillis() - startTime;
++
++        assertTrue(elapsed < 500, "Wakeup should interrupt promptly, took " + elapsed + "ms");
++    }
++
+     @Test
+     public void testCommitInRebalanceCallback() {
+         consumer = newConsumer();

@@ -1,0 +1,52 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "PR #21273 review comments queried via gh api repos/apache/kafka/pulls/21273/comments",
+      "Comment count by file: DynamicBrokerConfig.scala (8), MetadataVersion.java (4), KafkaConfig.scala (3), others (1-2)"
+    ],
+    "value": "core/src/main/scala/kafka/server/DynamicBrokerConfig.scala"
+  },
+  "arm": "S-tools",
+  "checkpoint": "2026-03",
+  "cli_calls": {
+    "gh": 5
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 86.25347357000282,
+  "family": "review_hotspot",
+  "grade": {
+    "actual": "core/src/main/scala/kafka/server/DynamicBrokerConfig.scala",
+    "correct": true,
+    "evidence": [
+      "PR #21273 review comments queried via gh api repos/apache/kafka/pulls/21273/comments",
+      "Comment count by file: DynamicBrokerConfig.scala (8), MetadataVersion.java (4), KafkaConfig.scala (3), others (1-2)"
+    ],
+    "expected": "core/src/main/scala/kafka/server/DynamicBrokerConfig.scala"
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 10,
+  "prompt_sha256": "d90f95ae86653fe2ddd22a7053bff56d36f9e9a4cbb68999d7fd3377b9b26f97",
+  "run_index": 69,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-review_hotspot-a8b9eae3c9",
+  "tool_calls": {
+    "Bash": 9,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 272835,
+    "cost_usd": 0.1235065,
+    "input_tokens": 295607,
+    "output_tokens": 10152
+  },
+  "violations": []
+}

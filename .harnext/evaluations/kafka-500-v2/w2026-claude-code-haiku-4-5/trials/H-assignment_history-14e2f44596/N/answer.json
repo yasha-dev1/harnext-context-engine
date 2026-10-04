@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "Knowledge cutoff (February 2025) is before the issue creation date (2026-05) and snapshot cutoff (2026-05-31)",
+    "No network access available to query Apache Kafka JIRA",
+    "No local JIRA export or project history provided in the working directory"
+  ],
+  "value": []
+}

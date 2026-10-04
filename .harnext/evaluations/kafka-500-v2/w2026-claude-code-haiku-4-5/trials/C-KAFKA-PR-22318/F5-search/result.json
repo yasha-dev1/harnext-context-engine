@@ -1,0 +1,130 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "summary": "{\"summary\": \"Implemented ReadOnlyView for MeteredWindowStore (KAFKA-20497) by adding a readOnly(IsolationLevel) method that returns a custom ReadOnlyWindowStore<K, V> view. The view applies proper metering, key/value deserialization, and iterator tracking to all read operations (fetch, backwardFetch, fetchAll, backwardFetchAll, all, backwardAll). The implementation follows existing metering patterns in MeteredWindowStore and passes all tests.\"}"
+  },
+  "arm": "F5-search",
+  "checkpoint": "2026-04",
+  "cli_calls": {
+    "git": 12
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 579.3748398339958,
+  "family": "pr_implementation",
+  "grade": {
+    "counts": {
+      "passed": 40
+    },
+    "dropped_paths": [],
+    "fail_to_pass_failed": [],
+    "graded_by": "gradle",
+    "grading_timed_out": false,
+    "gradle_returncode": 0,
+    "other_failed_tasks": [],
+    "outcomes": {
+      "org.apache.kafka.streams.state.internals.MeteredWindowStoreTest#shouldBackwardFetchAllFromInnerStoreAndRecordFetchMetrics()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredWindowStoreTest#shouldBackwardFetchFromInnerStoreAndRecordFetchMetrics()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredWindowStoreTest#shouldBackwardFetchRangeFromInnerStoreAndRecordFetchMetrics()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredWindowStoreTest#shouldCloseUnderlyingStore()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredWindowStoreTest#shouldDelegateInit()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredWindowStoreTest#shouldFetchAllFromInnerStoreAndRecordFetchMetrics()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredWindowStoreTest#shouldFetchFromInnerStoreAndRecordFetchMetrics()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredWindowStoreTest#shouldFetchRangeFromInnerStoreAndRecordFetchMetrics()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredWindowStoreTest#shouldNotSetFlushListenerOnWrappedNoneCachingStore()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredWindowStoreTest#shouldNotThrowNullPointerExceptionIfFetchReturnsNull()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredWindowStoreTest#shouldPassChangelogTopicNameToStateStoreSerde()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredWindowStoreTest#shouldPassDefaultChangelogTopicNameToStateStoreSerdeIfLoggingDisabled()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredWindowStoreTest#shouldPassReadCommittedThroughToInner()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredWindowStoreTest#shouldPassRecordHeadersToValueDeserializerWhenFlushListenerIsSet()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredWindowStoreTest#shouldPutToInnerStoreAndRecordPutMetrics()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredWindowStoreTest#shouldReadOnlyViewAllApplySerdesAndRecordMetric()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredWindowStoreTest#shouldReadOnlyViewBackwardAllApplySerdesAndRecordMetric()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredWindowStoreTest#shouldReadOnlyViewBackwardFetchAllApplySerdesAndRecordMetric()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredWindowStoreTest#shouldReadOnlyViewBackwardFetchRangeApplySerdesAndRecordMetric()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredWindowStoreTest#shouldReadOnlyViewBackwardFetchSingleKeyApplySerdesAndRecordMetric()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredWindowStoreTest#shouldReadOnlyViewFetchAllApplySerdesAndRecordMetric()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredWindowStoreTest#shouldReadOnlyViewFetchPointInTimeApplySerdesAndRecordMetric()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredWindowStoreTest#shouldReadOnlyViewFetchRangeApplySerdesAndRecordMetric()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredWindowStoreTest#shouldReadOnlyViewFetchSingleKeyApplySerdesAndRecordMetric()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredWindowStoreTest#shouldRecordCommitLatency()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredWindowStoreTest#shouldRecordOpenIteratorMetricsOnReadOnlyViewIterators()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredWindowStoreTest#shouldRecordRestoreLatencyOnRecordRestoreTime()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredWindowStoreTest#shouldRemoveMetricsEvenIfWrappedStoreThrowsOnClose()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredWindowStoreTest#shouldRemoveMetricsOnClose()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredWindowStoreTest#shouldReturnNoRecordWhenFetchedKeyHasExpired()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredWindowStoreTest#shouldSetFlushListenerOnWrappedCachingStore()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredWindowStoreTest#shouldThrowNpeOnNullIsolationLevel()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredWindowStoreTest#shouldThrowNullPointerOnBackwardFetchIfKeyIsNull()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredWindowStoreTest#shouldThrowNullPointerOnFetchIfKeyIsNull()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredWindowStoreTest#shouldThrowNullPointerOnPutIfKeyIsNull()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredWindowStoreTest#shouldTimeIteratorDuration()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredWindowStoreTest#shouldTrackNumKeysMetric()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredWindowStoreTest#shouldTrackOldestOpenIteratorTimestamp()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredWindowStoreTest#shouldTrackOpenIteratorsMetric()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredWindowStoreTest#testMetrics()": "passed"
+    },
+    "pass_to_pass_failed": [],
+    "patch_bytes": 7762,
+    "patch_empty": false,
+    "resolved": true,
+    "seconds": 158.6,
+    "similarity": {
+      "added_lines": {
+        "f1": 0.373,
+        "precision": 0.321,
+        "recall": 0.447
+      },
+      "files": {
+        "agent": 1,
+        "f1": 1.0,
+        "golden": 1,
+        "precision": 1.0,
+        "recall": 1.0,
+        "shared": 1
+      },
+      "location_recall": 0.123,
+      "removed_lines": {
+        "f1": 0.0,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      "size": {
+        "agent_added": 131,
+        "agent_removed": 0,
+        "golden_added": 94,
+        "golden_removed": 78
+      }
+    },
+    "test_compile_failed": []
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "coding",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 64,
+  "prompt_sha256": "80ce0c5e0a7d8269381dbab7969df4eb7b2ebc6307df679b30faea4f7e29fae7",
+  "run_index": 22,
+  "status": "completed",
+  "success": true,
+  "task_id": "C-KAFKA-PR-22318",
+  "tool_calls": {
+    "Bash": 45,
+    "Edit": 4,
+    "Read": 10,
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 2
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 4271371,
+    "cost_usd": 0.6568031000000001,
+    "input_tokens": 4346125,
+    "output_tokens": 16135
+  },
+  "violations": []
+}

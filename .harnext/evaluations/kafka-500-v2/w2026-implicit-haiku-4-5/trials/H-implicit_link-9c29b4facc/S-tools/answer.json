@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "mail search 'KIP-1290' result showing KAFKA-20231 created on 2026-02-26",
+    "jira issue view KAFKA-20231 confirming title 'KIP-1290: Rack-Aware Minimum In-Sync Replicas' and creator Karl Sorensen"
+  ],
+  "value": "KAFKA-20231"
+}

@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "I searched extensively using context_research and search_context tools across KAFKA-20208, KAFKA-20176, KAFKA-20175, KAFKA-20174, KIP-1262, and related threads, but could not locate the specific decision about which meta.properties version is written when --cluster-id is used. The answer may be in discussion content, facts files, or documentation not accessible through my searches, or in sources created after the cutoff date (2026-03-31)."
+  ],
+  "value": null
+}

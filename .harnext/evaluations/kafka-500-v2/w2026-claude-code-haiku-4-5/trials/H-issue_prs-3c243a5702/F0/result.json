@@ -1,0 +1,158 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "events/2026/02/12/github-api-apache-kafka-pr-21465-opened-3bf64401.md",
+      "events/2026/02/13/github-api-apache-kafka-pr-21474-opened-9a3638d8.md",
+      "events/2026/02/13/github-api-apache-kafka-pr-21478-opened-5e614df8.md",
+      "events/2026/02/16/github-api-apache-kafka-pr-21486-opened-1bbaa465.md",
+      "events/2026/02/17/github-api-apache-kafka-pr-21493-opened-9f8eee86.md",
+      "events/2026/02/17/github-api-apache-kafka-pr-21497-opened-9c58bfe3.md",
+      "events/2026/02/25/github-api-apache-kafka-pr-21581-opened-36101df5.md",
+      "events/2026/02/20/github-api-apache-kafka-pr-21465-merged-54020690.md",
+      "events/2026/02/13/github-api-apache-kafka-pr-21474-closed-d36a47de.md",
+      "events/2026/02/20/github-api-apache-kafka-pr-21478-merged-324eaf61.md",
+      "events/2026/02/24/github-api-apache-kafka-pr-21486-merged-507fe403.md",
+      "events/2026/02/25/github-api-apache-kafka-pr-21493-merged-8f226eef.md"
+    ],
+    "value": [
+      {
+        "pr": 21465,
+        "state": "merged"
+      },
+      {
+        "pr": 21474,
+        "state": "closed"
+      },
+      {
+        "pr": 21478,
+        "state": "merged"
+      },
+      {
+        "pr": 21486,
+        "state": "merged"
+      },
+      {
+        "pr": 21493,
+        "state": "merged"
+      },
+      {
+        "pr": 21497,
+        "state": "open"
+      },
+      {
+        "pr": 21581,
+        "state": "open"
+      }
+    ]
+  },
+  "arm": "F0",
+  "checkpoint": "2026-02",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 64.64895435899962,
+  "family": "issue_prs",
+  "grade": {
+    "actual": [
+      {
+        "pr": 21465,
+        "state": "merged"
+      },
+      {
+        "pr": 21474,
+        "state": "closed"
+      },
+      {
+        "pr": 21478,
+        "state": "merged"
+      },
+      {
+        "pr": 21486,
+        "state": "merged"
+      },
+      {
+        "pr": 21493,
+        "state": "merged"
+      },
+      {
+        "pr": 21497,
+        "state": "open"
+      },
+      {
+        "pr": 21581,
+        "state": "open"
+      }
+    ],
+    "correct": true,
+    "evidence": [
+      "events/2026/02/12/github-api-apache-kafka-pr-21465-opened-3bf64401.md",
+      "events/2026/02/13/github-api-apache-kafka-pr-21474-opened-9a3638d8.md",
+      "events/2026/02/13/github-api-apache-kafka-pr-21478-opened-5e614df8.md",
+      "events/2026/02/16/github-api-apache-kafka-pr-21486-opened-1bbaa465.md",
+      "events/2026/02/17/github-api-apache-kafka-pr-21493-opened-9f8eee86.md",
+      "events/2026/02/17/github-api-apache-kafka-pr-21497-opened-9c58bfe3.md",
+      "events/2026/02/25/github-api-apache-kafka-pr-21581-opened-36101df5.md",
+      "events/2026/02/20/github-api-apache-kafka-pr-21465-merged-54020690.md",
+      "events/2026/02/13/github-api-apache-kafka-pr-21474-closed-d36a47de.md",
+      "events/2026/02/20/github-api-apache-kafka-pr-21478-merged-324eaf61.md",
+      "events/2026/02/24/github-api-apache-kafka-pr-21486-merged-507fe403.md",
+      "events/2026/02/25/github-api-apache-kafka-pr-21493-merged-8f226eef.md"
+    ],
+    "expected": [
+      {
+        "pr": 21465,
+        "state": "merged"
+      },
+      {
+        "pr": 21474,
+        "state": "closed"
+      },
+      {
+        "pr": 21478,
+        "state": "merged"
+      },
+      {
+        "pr": 21486,
+        "state": "merged"
+      },
+      {
+        "pr": 21493,
+        "state": "merged"
+      },
+      {
+        "pr": 21497,
+        "state": "open"
+      },
+      {
+        "pr": 21581,
+        "state": "open"
+      }
+    ]
+  },
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "f9fbde00c4b613f30ba6c735e30768c65c60f10480d17cfd8f81fcb76de07157",
+  "run_index": 45,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-issue_prs-3c243a5702",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 60185,
+    "cost_usd": 0.0232705,
+    "input_tokens": 65692,
+    "output_tokens": 1253
+  },
+  "violations": []
+}

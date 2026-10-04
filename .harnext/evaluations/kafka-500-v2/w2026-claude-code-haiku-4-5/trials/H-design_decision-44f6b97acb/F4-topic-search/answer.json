@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "pull-requests.md (PR #21555 merged 2026-03-03)",
+    "discussions.md (KIP-1263 update 2026-03-01 showing config rename finalization from group.coordinator.executor.threads to group.coordinator.background.threads)"
+  ],
+  "value": "group.coordinator.background.threads"
+}

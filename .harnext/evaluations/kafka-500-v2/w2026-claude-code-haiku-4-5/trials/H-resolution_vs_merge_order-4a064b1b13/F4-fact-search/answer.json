@@ -1,0 +1,10 @@
+{
+  "evidence": [
+    "store/issues/kafka-20288-remove-orphaned-groups-from-config-manager.md",
+    "store/prs/21758-kafka-20288-remove-orphaned-groups.md"
+  ],
+  "value": {
+    "days": 0,
+    "first": "merge"
+  }
+}

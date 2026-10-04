@@ -1,0 +1,13 @@
+Context snapshot cutoff (inclusive): 2026-06-03T08:11:26Z.
+
+The workspace is the apache/kafka repository at commit 8cfc1cc97f522a9d8ece5cba47edf1a00757cd8c.
+
+Issue KAFKA-20444: Align TxnOffsetCommit API with OffsetCommit API (KIP-1319)
+
+Track implementation of https://cwiki.apache.org/confluence/display/KAFKA/KIP-1319%3A+Align+TxnOffsetCommit+API+with+OffsetCommit+API.
+
+Implement the change this issue asks for by editing the workspace. The tests written for this change have already been added to the workspace (uncommitted; see `git status`): `clients/src/test/java/org/apache/kafka/clients/producer/KafkaProducerTest.java`. They fail or do not compile until the change is implemented. Make them pass with `./gradlew :clients:test --tests org.apache.kafka.clients.producer.KafkaProducerTest --offline`. Do not edit those test files: grading restores them to their original content and runs them against your other changes. Keep the change focused and do not substitute knowledge of how the project evolved after the cutoff.
+
+No pre-built project memory is provided. You can query time-frozen offline replicas of the project's systems of record as of the cutoff with the usual command-line tools: `gh` (pull requests, reviews, commits), `jira` (issues, comments, change history), `mail` (mailing lists). Run `<tool> --help` for the supported commands. The live internet is not reachable.
+
+The repository is checked out at /workspace. The workspace is a git repository whose history ends at the base commit; `git log`, `git blame` and `git show` work offline. Make the change by editing source files there; the tests named above, restored to their original content, decide whether the issue is resolved. Gradle works offline only (`./gradlew :module:test --tests X --offline`). Finish with one JSON object {"summary": "..."}.

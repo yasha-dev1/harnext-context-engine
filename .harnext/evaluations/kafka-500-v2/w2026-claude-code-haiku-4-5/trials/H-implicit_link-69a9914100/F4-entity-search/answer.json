@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "kips/KIP-1333.md (lines 15-18): Related Issue section lists 'KAFKA-20552: Support log segments larger than 2 GB'",
+    "issues/KAFKA-20552.md (header): Confirms KAFKA-20552 is titled 'Support log segments larger than 2 GB' with status Open"
+  ],
+  "value": "KAFKA-20552"
+}

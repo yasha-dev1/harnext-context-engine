@@ -1,0 +1,10 @@
+{
+  "evidence": [
+    "prs/22256/2026-05-20-merged-KAFKA-20565-c3cb5150.md",
+    "mail/2026-05-20-JIRA-KAFKA-20565-resolved-df69608f.md"
+  ],
+  "value": {
+    "days": 0,
+    "first": "merge"
+  }
+}

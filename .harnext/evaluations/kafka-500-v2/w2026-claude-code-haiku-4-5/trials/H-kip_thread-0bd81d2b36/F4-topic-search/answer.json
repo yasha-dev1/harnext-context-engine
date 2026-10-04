@@ -1,0 +1,11 @@
+{
+  "evidence": [
+    "store/discussions.md (lines 3897-3915: KIP-1262 discussion section; lines 1003-1011: Window 34 continuation)",
+    "store/index.md (line 275: KIP-1262 mentioned in Window 2 highlights)",
+    "store/people.md (line 2138: Kevin Wu's activity listing)"
+  ],
+  "value": {
+    "participants": 2,
+    "starter": "Kevin Wu"
+  }
+}

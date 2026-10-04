@@ -1,0 +1,56 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "window-86-summary.md:289-291",
+      "pull-requests.md:1274-1281",
+      "jira-issues.md:1301-1311",
+      "window-90-summary.md:158-167"
+    ],
+    "value": null
+  },
+  "arm": "F6-search",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 211.03223556900048,
+  "family": "assignee_at_snapshot",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "window-86-summary.md:289-291",
+      "pull-requests.md:1274-1281",
+      "jira-issues.md:1301-1311",
+      "window-90-summary.md:158-167"
+    ],
+    "expected": "Muralidhar Basani"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 20,
+  "prompt_sha256": "fc8bdf690f8b661e16f8f118b74e298ceafcd4a06037a225e0be6e177255ceb1",
+  "run_index": 1,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-assignee_at_snapshot-26a89e8703",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 2,
+    "mcp__history__search_context": 16
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 652040,
+    "cost_usd": 0.135553,
+    "input_tokens": 677751,
+    "output_tokens": 3818
+  },
+  "violations": []
+}

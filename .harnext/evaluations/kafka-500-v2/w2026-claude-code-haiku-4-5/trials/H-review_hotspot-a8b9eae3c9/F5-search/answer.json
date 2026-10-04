@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "entities/pr/apache__kafka/21273/timeline.md",
+    "entities/pr/apache__kafka__21273/timeline.md"
+  ],
+  "value": "DynamicBrokerConfig.scala"
+}

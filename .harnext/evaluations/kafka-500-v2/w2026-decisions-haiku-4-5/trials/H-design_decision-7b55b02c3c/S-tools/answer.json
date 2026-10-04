@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "05dea6cdc4e709f639e41414 (Andrew Schofield, 2026-04-21, mailing list confirmation)",
+    "Federico Valeri message in same thread (2026-04-15, mailing list original proposal): 'We changed AddTopicsToMirror/RemoveTopicsFromMirror to StartMirrorTopics/StopMirrorTopics'"
+  ],
+  "value": "StartMirrorTopics/StopMirrorTopics"
+}

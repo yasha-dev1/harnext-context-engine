@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "store/discussions/kip-1351-cancel-all-reassign-partitions.md",
+    "store/issues/kafka-20614-cancel-all-reassign-partitions.md"
+  ],
+  "value": "KAFKA-20614"
+}

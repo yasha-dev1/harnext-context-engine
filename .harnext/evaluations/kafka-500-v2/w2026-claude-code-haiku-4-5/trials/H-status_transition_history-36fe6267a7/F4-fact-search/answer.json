@@ -1,0 +1,27 @@
+{
+  "evidence": [
+    "issues/kafka-20258-refactor-dsl-store-config.md",
+    "issues/kafka-20258-refactor-dsl-store-config-and-propagate-dslstoreformat.md",
+    "prs/21784-kafka-20258-refactor-dsl-store-config.md",
+    "WINDOW-67-SUMMARY.md",
+    "WINDOW-68-SUMMARY.md",
+    "WINDOW-70-SUMMARY.md"
+  ],
+  "value": [
+    {
+      "at": "2026-03-05T09:38:39.000000Z",
+      "from": null,
+      "to": "Open"
+    },
+    {
+      "at": "2026-03-17T03:21:37.000000Z",
+      "from": "Open",
+      "to": "Patch Available"
+    },
+    {
+      "at": "2026-03-18T19:20:28.000000Z",
+      "from": "Patch Available",
+      "to": "Resolved"
+    }
+  ]
+}

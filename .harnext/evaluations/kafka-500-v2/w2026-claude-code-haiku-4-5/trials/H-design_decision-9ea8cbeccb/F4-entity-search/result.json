@@ -1,0 +1,54 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "kips/KIP-1331.md",
+      "WINDOW-110-2026-05-04-to-2026-05-05.md",
+      "INDEX-WINDOW-110.md"
+    ],
+    "value": null
+  },
+  "arm": "F4-entity-search",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 255.4820516639884,
+  "family": "design_decision",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "kips/KIP-1331.md",
+      "WINDOW-110-2026-05-04-to-2026-05-05.md",
+      "INDEX-WINDOW-110.md"
+    ],
+    "expected": "yes, retries target a different broker"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 22,
+  "prompt_sha256": "56baad5901031a20c722428fa9c03eca5ca407917bfa479252a6c66207033705",
+  "run_index": 73,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-9ea8cbeccb",
+  "tool_calls": {
+    "StructuredOutput": 2,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 3,
+    "mcp__history__search_context": 15
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 798526,
+    "cost_usd": 0.1700406,
+    "input_tokens": 833318,
+    "output_tokens": 4157
+  },
+  "violations": []
+}

@@ -1,0 +1,50 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "discussions/kip-1285-dsl-header-aware-stores.md (lines 79-93, 35-44)"
+    ],
+    "value": "DslStoreType"
+  },
+  "arm": "F4-fact-search",
+  "checkpoint": "2026-02",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 41.325947972989525,
+  "family": "design_decision",
+  "grade": {
+    "actual": "DslStoreType",
+    "correct": false,
+    "evidence": [
+      "discussions/kip-1285-dsl-header-aware-stores.md (lines 79-93, 35-44)"
+    ],
+    "expected": "DslStoreFormat"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 5,
+  "prompt_sha256": "da88f9572731db2367845afc792da6a50981ccb8436c42b668428f61b624da66",
+  "run_index": 62,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-9c30969b0a",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 2
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 112665,
+    "cost_usd": 0.026986500000000004,
+    "input_tokens": 117499,
+    "output_tokens": 1219
+  },
+  "violations": []
+}

@@ -1,0 +1,100 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "summary": "Implemented KAFKA-19347 fix: Modified AclControlManager.createAcls() to stop updating timeline data structures (idToAcl and existingAcls) prematurely. The method now uses a local HashSet to deduplicate within a batch while preserving safe behavior - timeline structures are only updated in replay methods after records are persisted. All 9 AclControlManagerTest tests pass, including testCreateDedupe() which validates the fix."
+  },
+  "arm": "F0",
+  "checkpoint": "2025-05",
+  "cli_calls": {
+    "git": 8
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 672.3968035779999,
+  "family": "pr_implementation",
+  "grade": {
+    "counts": {
+      "passed": 9
+    },
+    "dropped_paths": [
+      "metadata/src/test/java/org/apache/kafka/controller/AclControlManagerTest.java"
+    ],
+    "fail_to_pass_failed": [],
+    "graded_by": "gradle",
+    "grading_timed_out": false,
+    "gradle_returncode": 0,
+    "other_failed_tasks": [],
+    "outcomes": {
+      "org.apache.kafka.controller.AclControlManagerTest#testAddAndDelete()": "passed",
+      "org.apache.kafka.controller.AclControlManagerTest#testCreateAclDeleteAcl()": "passed",
+      "org.apache.kafka.controller.AclControlManagerTest#testCreateDedupe()": "passed",
+      "org.apache.kafka.controller.AclControlManagerTest#testDeleteDedupe()": "passed",
+      "org.apache.kafka.controller.AclControlManagerTest#testLoadSnapshot()": "passed",
+      "org.apache.kafka.controller.AclControlManagerTest#testValidateAclWithBadPrincipal()": "passed",
+      "org.apache.kafka.controller.AclControlManagerTest#testValidateAclWithEmptyPrincipal()": "passed",
+      "org.apache.kafka.controller.AclControlManagerTest#testValidateFilter()": "passed",
+      "org.apache.kafka.controller.AclControlManagerTest#testValidateNewAcl()": "passed"
+    },
+    "pass_to_pass_failed": [],
+    "patch_bytes": 3313,
+    "patch_empty": false,
+    "resolved": true,
+    "seconds": 145.3,
+    "similarity": {
+      "added_lines": {
+        "f1": 0.0,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      "files": {
+        "agent": 1,
+        "f1": 1.0,
+        "golden": 1,
+        "precision": 1.0,
+        "recall": 1.0,
+        "shared": 1
+      },
+      "location_recall": 0.647,
+      "removed_lines": {
+        "f1": 0.0,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      "size": {
+        "agent_added": 3,
+        "agent_removed": 1,
+        "golden_added": 6,
+        "golden_removed": 2
+      }
+    },
+    "test_compile_failed": []
+  },
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "coding",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 24,
+  "prompt_sha256": "2338bb9e2e408d665334552b48eac2346c228115518c89e3010697666ecbf226",
+  "run_index": 4,
+  "status": "completed",
+  "success": true,
+  "task_id": "C-KAFKA-PR-19898",
+  "tool_calls": {
+    "Bash": 14,
+    "Edit": 1,
+    "Read": 5,
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 5
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 960488,
+    "cost_usd": 0.21833080000000002,
+    "input_tokens": 998660,
+    "output_tokens": 9227
+  },
+  "violations": []
+}

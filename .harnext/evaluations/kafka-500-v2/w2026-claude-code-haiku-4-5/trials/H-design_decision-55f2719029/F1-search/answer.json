@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "The context history (Harnext MCP server) contains references to KIP-1163: Diskless Core discussion from 2026-03-02 to 2026-04-27, but the actual message content discussing consistency models for object-store operations (put, get, list) is not accessible in the indexed context.",
+    "The history appears to only contain metadata files (timelines, overviews) with event IDs but not the full text of the email messages themselves."
+  ],
+  "value": null
+}

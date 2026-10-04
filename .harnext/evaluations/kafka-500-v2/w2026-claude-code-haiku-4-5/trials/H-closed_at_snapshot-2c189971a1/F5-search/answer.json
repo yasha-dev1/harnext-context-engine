@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "entities/issue/KAFKA-20158/OVERVIEW.md",
+    "entities/issue/KAFKA-20158/timeline.md",
+    "entities/issue/KAFKA-20158/facts.md"
+  ],
+  "value": false
+}

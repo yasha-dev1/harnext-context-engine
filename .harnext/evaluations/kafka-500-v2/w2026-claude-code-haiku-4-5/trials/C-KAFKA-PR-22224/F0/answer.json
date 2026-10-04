@@ -1,0 +1,3 @@
+{
+  "summary": "Successfully implemented topic ID support for the TxnOffsetCommit API to align with KIP-1319. Modified TxnOffsetCommitResponse.java to support both TopicIdBuilder and TopicNameBuilder patterns, and updated TxnOffsetCommitRequest.java to preserve topic IDs in error responses. The implementation follows the established OffsetCommitResponse patterns and enables TxnOffsetCommit v6 to use topic IDs. All tests pass."
+}

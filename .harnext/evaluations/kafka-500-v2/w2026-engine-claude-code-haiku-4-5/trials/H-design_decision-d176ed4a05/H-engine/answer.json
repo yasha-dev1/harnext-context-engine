@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "mail:54b7a95c4e0a9850e6218625",
+    "mail:54c3894fd13d5f9f592580c0",
+    "mail:ee00a6ad3693a11315ed8072"
+  ],
+  "value": "removed entirely, identified by topologyEpoch and group creation timestamp instead"
+}

@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "05dea6cdc4e709f639e41414 (Federico Valeri email dated 2026-04-15: 'we decided to remove the --replication-factor flag to always honor the destination cluster default')",
+    "d143b0b41a8baaf69dfb3a1d (Andrew Schofield confirmation email dated 2026-04-21: 'It's all good in the current version')",
+    "KIP-1279: Cluster Mirroring discussion thread"
+  ],
+  "value": "destination cluster default replication factor"
+}

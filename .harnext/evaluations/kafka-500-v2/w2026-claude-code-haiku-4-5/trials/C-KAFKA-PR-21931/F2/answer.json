@@ -1,0 +1,3 @@
+{
+  "summary": "Successfully implemented KAFKA-20368 by changing metricTags from HashMap to LinkedHashMap in RLMExpirationTask to ensure deterministic metric tags ordering for JMX metrics. Modified file: storage/src/main/java/org/apache/kafka/server/log/remote/storage/RemoteLogManager.java. Added LinkedHashMap import and changed instantiation from HashMap to LinkedHashMap at line 1146. All 90 tests in RemoteLogManagerTest pass successfully."
+}

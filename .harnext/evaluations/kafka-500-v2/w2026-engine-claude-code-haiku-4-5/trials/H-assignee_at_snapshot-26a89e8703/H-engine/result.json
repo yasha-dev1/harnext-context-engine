@@ -1,0 +1,73 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "jira:13628682:change:23012626:0 - Change event on 2026-04-08T14:25:43.000000Z assigning KAFKA-19701 to Muralidhar Basani, with no subsequent changes before cutoff 2026-04-30"
+    ],
+    "value": "Muralidhar Basani"
+  },
+  "arm": "H-engine",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 35.174034791998565,
+  "engine": {
+    "calls": 1,
+    "chat": {
+      "calls": 4,
+      "cancelled": 0,
+      "cost_usd": 0.0004097,
+      "input_tokens": 11198,
+      "output_tokens": 545,
+      "retries": 0
+    },
+    "cost_usd": 0.00087065,
+    "jev": {
+      "calls": 6,
+      "cancelled": 0,
+      "cost_usd": 0.00046095,
+      "input_tokens": 10975,
+      "output_tokens": 2071,
+      "retries": 0
+    },
+    "partial": 0,
+    "seconds": 22.23,
+    "unmetered_upper_usd": 0
+  },
+  "family": "assignee_at_snapshot",
+  "grade": {
+    "actual": "Muralidhar Basani",
+    "correct": true,
+    "evidence": [
+      "jira:13628682:change:23012626:0 - Change event on 2026-04-08T14:25:43.000000Z assigning KAFKA-19701 to Muralidhar Basani, with no subsequent changes before cutoff 2026-04-30"
+    ],
+    "expected": "Muralidhar Basani"
+  },
+  "image_id": "sha256:a75ed05ffc6eace9ec0ed4705d31b20aa2579267b3e737b4f61017882112ea66",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "c4fd98262eac334a96d847fce5585d98a589d6891dc87fbd11640a72be58e309",
+  "run_index": 1,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-assignee_at_snapshot-26a89e8703",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 63394,
+    "cost_usd": 0.011460399999999999,
+    "input_tokens": 64338,
+    "output_tokens": 652
+  },
+  "violations": []
+}

@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "mail:c4bfde361f38ca346dffd233 — 2026-02-22T14:16:29Z message from Alieh Saeedi confirming the property name was changed from 'dsl.store.type' to 'dsl.store.format' based on Lucas Brutschy's feedback about ambiguity with dsl.store.suppliers.class"
+  ],
+  "value": "dsl.store.format"
+}

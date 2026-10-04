@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "mail:808bc6785589a2f7f1be1aa5 (JIRA notification from Kirk True on 2026-04-23 about KAFKA-20525)",
+    "mail:6c643315a34fcdb22f25b861 (Kirk True's mailing list post on 2026-04-23 starting KIP-1324 discussion)"
+  ],
+  "value": "KAFKA-20525"
+}

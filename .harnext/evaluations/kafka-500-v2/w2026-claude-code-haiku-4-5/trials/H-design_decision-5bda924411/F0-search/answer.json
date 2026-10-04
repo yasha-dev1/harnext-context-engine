@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "events/2026/01/23/mail-dd72e188e244a14eeb227fa2-9b009d05.md (lines 12-34: Ivan Yurchenko's mailing list message on KIP-1150 Diskless Topics, discussing workaround for older MetadataRequest versions lacking RackId)"
+  ],
+  "value": "encode the rack information in the client ID"
+}

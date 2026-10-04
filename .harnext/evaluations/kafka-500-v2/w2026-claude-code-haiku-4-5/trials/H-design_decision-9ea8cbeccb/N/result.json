@@ -1,0 +1,47 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "Cannot determine: question asks about May 5, 2026 (after February 2025 knowledge cutoff); no project context or network access provided to look up the KIP document"
+    ],
+    "value": null
+  },
+  "arm": "N",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 8.869082142002298,
+  "family": "design_decision",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "Cannot determine: question asks about May 5, 2026 (after February 2025 knowledge cutoff); no project context or network access provided to look up the KIP document"
+    ],
+    "expected": "yes, retries target a different broker"
+  },
+  "instructions_sha256": null,
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 1,
+  "prompt_sha256": "87ec5a4ad1f2560a245b38883a92d43db0258254d26380fb7e0597efb0871776",
+  "run_index": 73,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-9ea8cbeccb",
+  "tool_calls": {
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 17497,
+    "cost_usd": 0.0116197,
+    "input_tokens": 20669,
+    "output_tokens": 707
+  },
+  "violations": []
+}

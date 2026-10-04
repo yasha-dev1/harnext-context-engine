@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "The specific workaround for recovering client rack information when older-version metadata requests lack a rack ID is discussed in KIP-1150 (Diskless Topics) mailing list thread (CAOJ18G5=jt9Ef4JECOxvrefnxn2dXqMfOs948B=b4Vuus1YNZg@mail.gmail.com) referenced as [evt:0001], [evt:0108] in the project history. Andrew Schofield raised the question about 'Rack ID inclusion in metadata requests for rack-aligned responses' on 2026-01-22T10:58:33Z, and Ivan Yurchenko provided extensive responses about metadata handling with 'lying vs truthful responses' approaches. However, the exact phrase describing the workaround mechanism is contained in the full mailing list discussion content, which is not included in the available summary documents in the context system."
+  ],
+  "value": null
+}

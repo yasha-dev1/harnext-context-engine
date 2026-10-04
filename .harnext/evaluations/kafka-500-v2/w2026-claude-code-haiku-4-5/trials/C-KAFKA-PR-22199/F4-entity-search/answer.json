@@ -1,0 +1,3 @@
+{
+  "summary": "Successfully implemented KAFKA-20535 optimization to improve async consumer CPU usage under low max.poll.records scenarios. Added `hasPendingReconciliation` volatile boolean field and `setHasPendingReconciliation()` method to AsyncKafkaConsumer. Modified `collectFetch()` to conditionally wait for reconciliation check only when pending reconciliation is true. This optimization skips unnecessary waits during normal operation, reducing CPU usage in busy-loop scenarios. All tests pass including the two new test cases that verify the optimization works correctly."
+}

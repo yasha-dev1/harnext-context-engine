@@ -1,0 +1,10 @@
+{
+  "evidence": [
+    "entities/issue/KAFKA-20288/OVERVIEW.md",
+    "entities/pr/apache__kafka__21758/OVERVIEW.md"
+  ],
+  "value": {
+    "days": 0,
+    "first": "merge"
+  }
+}

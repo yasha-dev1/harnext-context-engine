@@ -1,0 +1,9 @@
+{
+  "evidence": [
+    "jira-issues.md:876-887 shows KAFKA-20421 with 'Related Issues: Links to KAFKA-20056'",
+    "context_research confirmed the relationship type is 'follow-up' not 'is related to'"
+  ],
+  "value": [
+    "PLACEHOLDER_NOT_APPLICABLE"
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "_intake/2026/03/27/mail-468c78200770789f37bb484d-0692112c.md — Jun Rao questions why V1 is written and suggests V2",
+      "_intake/2026/03/30/mail-3ec7bda2af768a83e362079f-03ad905c.md — Kevin Wu's response agreeing to write V2 format"
+    ],
+    "value": "V2"
+  },
+  "arm": "F3-search",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 111.80565319999005,
+  "family": "design_decision",
+  "grade": {
+    "actual": "V2",
+    "correct": true,
+    "evidence": [
+      "_intake/2026/03/27/mail-468c78200770789f37bb484d-0692112c.md — Jun Rao questions why V1 is written and suggests V2",
+      "_intake/2026/03/30/mail-3ec7bda2af768a83e362079f-03ad905c.md — Kevin Wu's response agreeing to write V2 format"
+    ],
+    "expected": "V2"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 6,
+  "prompt_sha256": "0d33695245530d943854f5c46c098fc99cb088887ae1509f459d3321657a6b74",
+  "run_index": 50,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-bc569837b8",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 3
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 155636,
+    "cost_usd": 0.0559736,
+    "input_tokens": 171219,
+    "output_tokens": 1859
+  },
+  "violations": []
+}

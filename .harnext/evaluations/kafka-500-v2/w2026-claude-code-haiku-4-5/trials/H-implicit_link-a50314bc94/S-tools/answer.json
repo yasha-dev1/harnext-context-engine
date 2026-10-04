@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "mail search result: ID 808bc6785589a2f7f1be1aa5 (2026-04-23T17:54:00Z) showing '[jira] [Created] (KAFKA-20525) Support client configuration observability'",
+    "jira issue view KAFKA-20525 showing created 2026-04-23T17:53:42Z with matching title and KIP-1324 reference",
+    "mail read 6c643315a34fcdb22f25b861 showing Kirk True's discussion thread on 2026-04-23T17:59:11Z"
+  ],
+  "value": "KAFKA-20525"
+}

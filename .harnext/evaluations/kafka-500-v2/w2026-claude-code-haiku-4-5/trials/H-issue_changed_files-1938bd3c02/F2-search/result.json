@@ -1,0 +1,106 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "PR #21744 (merged 2026-03-16)",
+      "KAFKA-20307 issue linking",
+      "prs/21744/2026-03-16-pr-merged-8ca266e1.md",
+      "issues/KAFKA-20307/2026-03-13-change-linked-pr-22973741-21f3f363.md"
+    ],
+    "value": [
+      "streams/integration-tests/src/test/java/org/apache/kafka/streams/integration/HeadersStoreUpgradeIntegrationTest.java",
+      "streams/src/main/java/org/apache/kafka/streams/processor/internals/AbstractReadOnlyDecorator.java",
+      "streams/src/main/java/org/apache/kafka/streams/processor/internals/StateManagerUtil.java",
+      "streams/src/main/java/org/apache/kafka/streams/state/QueryableStoreTypes.java",
+      "streams/src/main/java/org/apache/kafka/streams/state/internals/GlobalStateStoreProvider.java",
+      "streams/src/main/java/org/apache/kafka/streams/state/internals/StreamThreadStateStoreProvider.java",
+      "streams/src/main/java/org/apache/kafka/streams/state/internals/ValueConverters.java",
+      "streams/src/main/java/org/apache/kafka/streams/state/internals/WindowToTimestampedWindowByteStoreAdapter.java",
+      "streams/src/test/java/org/apache/kafka/streams/processor/internals/StateManagerUtilConverterTest.java",
+      "streams/src/test/java/org/apache/kafka/streams/state/QueryableStoreTypesWithHeadersTest.java",
+      "streams/src/test/java/org/apache/kafka/streams/state/internals/GenericReadOnlyKeyValueStoreFacadeTest.java",
+      "streams/src/test/java/org/apache/kafka/streams/state/internals/GenericReadOnlyWindowStoreFacadeTest.java",
+      "streams/src/test/java/org/apache/kafka/streams/state/internals/GlobalStateStoreProviderTest.java",
+      "streams/src/test/java/org/apache/kafka/streams/state/internals/StreamThreadStateStoreProviderTest.java",
+      "streams/src/test/java/org/apache/kafka/streams/state/internals/ValueConvertersTest.java",
+      "streams/test-utils/src/main/java/org/apache/kafka/streams/TopologyTestDriver.java"
+    ]
+  },
+  "arm": "F2-search",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 57.7812191730045,
+  "family": "issue_changed_files",
+  "grade": {
+    "actual": [
+      "streams/integration-tests/src/test/java/org/apache/kafka/streams/integration/HeadersStoreUpgradeIntegrationTest.java",
+      "streams/src/main/java/org/apache/kafka/streams/processor/internals/AbstractReadOnlyDecorator.java",
+      "streams/src/main/java/org/apache/kafka/streams/processor/internals/StateManagerUtil.java",
+      "streams/src/main/java/org/apache/kafka/streams/state/QueryableStoreTypes.java",
+      "streams/src/main/java/org/apache/kafka/streams/state/internals/GlobalStateStoreProvider.java",
+      "streams/src/main/java/org/apache/kafka/streams/state/internals/StreamThreadStateStoreProvider.java",
+      "streams/src/main/java/org/apache/kafka/streams/state/internals/ValueConverters.java",
+      "streams/src/main/java/org/apache/kafka/streams/state/internals/WindowToTimestampedWindowByteStoreAdapter.java",
+      "streams/src/test/java/org/apache/kafka/streams/processor/internals/StateManagerUtilConverterTest.java",
+      "streams/src/test/java/org/apache/kafka/streams/state/QueryableStoreTypesWithHeadersTest.java",
+      "streams/src/test/java/org/apache/kafka/streams/state/internals/GenericReadOnlyKeyValueStoreFacadeTest.java",
+      "streams/src/test/java/org/apache/kafka/streams/state/internals/GenericReadOnlyWindowStoreFacadeTest.java",
+      "streams/src/test/java/org/apache/kafka/streams/state/internals/GlobalStateStoreProviderTest.java",
+      "streams/src/test/java/org/apache/kafka/streams/state/internals/StreamThreadStateStoreProviderTest.java",
+      "streams/src/test/java/org/apache/kafka/streams/state/internals/ValueConvertersTest.java",
+      "streams/test-utils/src/main/java/org/apache/kafka/streams/TopologyTestDriver.java"
+    ],
+    "correct": true,
+    "evidence": [
+      "PR #21744 (merged 2026-03-16)",
+      "KAFKA-20307 issue linking",
+      "prs/21744/2026-03-16-pr-merged-8ca266e1.md",
+      "issues/KAFKA-20307/2026-03-13-change-linked-pr-22973741-21f3f363.md"
+    ],
+    "expected": [
+      "streams/integration-tests/src/test/java/org/apache/kafka/streams/integration/HeadersStoreUpgradeIntegrationTest.java",
+      "streams/src/main/java/org/apache/kafka/streams/processor/internals/AbstractReadOnlyDecorator.java",
+      "streams/src/main/java/org/apache/kafka/streams/processor/internals/StateManagerUtil.java",
+      "streams/src/main/java/org/apache/kafka/streams/state/QueryableStoreTypes.java",
+      "streams/src/main/java/org/apache/kafka/streams/state/internals/GlobalStateStoreProvider.java",
+      "streams/src/main/java/org/apache/kafka/streams/state/internals/StreamThreadStateStoreProvider.java",
+      "streams/src/main/java/org/apache/kafka/streams/state/internals/ValueConverters.java",
+      "streams/src/main/java/org/apache/kafka/streams/state/internals/WindowToTimestampedWindowByteStoreAdapter.java",
+      "streams/src/test/java/org/apache/kafka/streams/processor/internals/StateManagerUtilConverterTest.java",
+      "streams/src/test/java/org/apache/kafka/streams/state/QueryableStoreTypesWithHeadersTest.java",
+      "streams/src/test/java/org/apache/kafka/streams/state/internals/GenericReadOnlyKeyValueStoreFacadeTest.java",
+      "streams/src/test/java/org/apache/kafka/streams/state/internals/GenericReadOnlyWindowStoreFacadeTest.java",
+      "streams/src/test/java/org/apache/kafka/streams/state/internals/GlobalStateStoreProviderTest.java",
+      "streams/src/test/java/org/apache/kafka/streams/state/internals/StreamThreadStateStoreProviderTest.java",
+      "streams/src/test/java/org/apache/kafka/streams/state/internals/ValueConvertersTest.java",
+      "streams/test-utils/src/main/java/org/apache/kafka/streams/TopologyTestDriver.java"
+    ]
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "8bfa758dbc803b9b9841d0e82d0bc2f8e12b25f58c17704d89b766d2a2f7542e",
+  "run_index": 32,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-issue_changed_files-1938bd3c02",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 64055,
+    "cost_usd": 0.0196155,
+    "input_tokens": 66121,
+    "output_tokens": 1821
+  },
+  "violations": []
+}

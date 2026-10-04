@@ -1,0 +1,52 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "issues.md — KAFKA-20549 issue record with status history showing change to 'In Progress' on 2026-05-12T08:53:44Z (evt:jira-13649909-change-23057202-0-c173337d)",
+      "pull-requests.md — Related PR merge records confirming ongoing multi-part implementation through 2026-05-27"
+    ],
+    "value": "IN PROGRESS"
+  },
+  "arm": "F4-topic-search",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 84.57961336900189,
+  "family": "status_at_snapshot",
+  "grade": {
+    "actual": "IN PROGRESS",
+    "correct": false,
+    "evidence": [
+      "issues.md — KAFKA-20549 issue record with status history showing change to 'In Progress' on 2026-05-12T08:53:44Z (evt:jira-13649909-change-23057202-0-c173337d)",
+      "pull-requests.md — Related PR merge records confirming ongoing multi-part implementation through 2026-05-27"
+    ],
+    "expected": "In Progress"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 5,
+  "prompt_sha256": "6373f4f8d78905684be53214a14718ddddff31a85543bf605eb0f1e2f171be53",
+  "run_index": 28,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-status_at_snapshot-a1d0868d65",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 2
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 115706,
+    "cost_usd": 0.0334466,
+    "input_tokens": 123073,
+    "output_tokens": 1437
+  },
+  "violations": []
+}

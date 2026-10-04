@@ -1,0 +1,56 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "entities/issue/KAFKA-20435/OVERVIEW.md",
+      "entities/issue/KAFKA-20435/facts.md",
+      "entities/issue/KAFKA-20435/timeline.md",
+      "INDEX.md (line 201)"
+    ],
+    "value": "null"
+  },
+  "arm": "F5-search",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 66.62950546300272,
+  "family": "review_hotspot",
+  "grade": {
+    "actual": "null",
+    "correct": false,
+    "evidence": [
+      "entities/issue/KAFKA-20435/OVERVIEW.md",
+      "entities/issue/KAFKA-20435/facts.md",
+      "entities/issue/KAFKA-20435/timeline.md",
+      "INDEX.md (line 201)"
+    ],
+    "expected": "storage/src/test/java/org/apache/kafka/storage/internals/log/LogManagerTest.java"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 8,
+  "prompt_sha256": "261b85dae1cf0752624695ed533fc6341b0ca000c5bfd551c8cfb9a06b07b1d6",
+  "run_index": 27,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-review_hotspot-b8e5630492",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 2,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 4
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 204561,
+    "cost_usd": 0.051025100000000004,
+    "input_tokens": 216275,
+    "output_tokens": 1442
+  },
+  "violations": []
+}

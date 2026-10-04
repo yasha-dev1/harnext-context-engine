@@ -1,0 +1,3 @@
+{
+  "summary": "Successfully implemented fix for KAFKA-20434 by adding logic to detect and bump group epoch when the preferred server-side assignor changes. The fix ensures that when static members rejoin with a different majority assignor, the target assignment is recomputed with the new assignor. All tests pass."
+}

@@ -1,0 +1,167 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "summary": "Successfully implemented KAFKA-20444 (KIP-1319) to align TxnOffsetCommit API with OffsetCommit API by adding topic ID support. Updated TxnOffsetCommitResponse builder pattern with TopicIdBuilder class and version-based selection, modified error response methods to preserve topic IDs, and updated KafkaApis handler to pass topic IDs. All provided tests now pass."
+  },
+  "arm": "H-engine-mem",
+  "checkpoint": "2026-04",
+  "cli_calls": {
+    "git": 6
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 1272.3904744739993,
+  "engine": {
+    "calls": 4,
+    "chat": {
+      "calls": 66,
+      "cancelled": 2,
+      "cost_usd": 0.00492446,
+      "input_tokens": 226656,
+      "output_tokens": 6113,
+      "retries": 0
+    },
+    "cost_usd": 0.00993237,
+    "discarded_attempts": 0,
+    "jev": {
+      "calls": 59,
+      "cancelled": 0,
+      "cost_usd": 0.00500791,
+      "input_tokens": 119236,
+      "output_tokens": 18728,
+      "retries": 0
+    },
+    "partial": 2,
+    "provider_retry_usd": 0,
+    "seconds": 324.978,
+    "unmetered_upper_usd": 0.00069057,
+    "waited_s": 0
+  },
+  "family": "pr_implementation",
+  "grade": {
+    "counts": {
+      "passed": 48
+    },
+    "dropped_paths": [
+      "clients/src/test/java/org/apache/kafka/common/requests/TxnOffsetCommitRequestTest.java",
+      "clients/src/test/java/org/apache/kafka/common/requests/TxnOffsetCommitResponseTest.java"
+    ],
+    "fail_to_pass_failed": [],
+    "graded_by": "gradle",
+    "grading_timed_out": false,
+    "gradle_returncode": 0,
+    "other_failed_tasks": [],
+    "outcomes": {
+      "org.apache.kafka.common.requests.TxnOffsetCommitRequestTest#\"testConstructor(short).version=0\"": "passed",
+      "org.apache.kafka.common.requests.TxnOffsetCommitRequestTest#\"testConstructor(short).version=1\"": "passed",
+      "org.apache.kafka.common.requests.TxnOffsetCommitRequestTest#\"testConstructor(short).version=2\"": "passed",
+      "org.apache.kafka.common.requests.TxnOffsetCommitRequestTest#\"testConstructor(short).version=3\"": "passed",
+      "org.apache.kafka.common.requests.TxnOffsetCommitRequestTest#\"testConstructor(short).version=4\"": "passed",
+      "org.apache.kafka.common.requests.TxnOffsetCommitRequestTest#\"testConstructor(short).version=5\"": "passed",
+      "org.apache.kafka.common.requests.TxnOffsetCommitRequestTest#\"testForTopicIdsOrNamesWithTopicIdOnly(short).version=0\"": "passed",
+      "org.apache.kafka.common.requests.TxnOffsetCommitRequestTest#\"testForTopicIdsOrNamesWithTopicIdOnly(short).version=1\"": "passed",
+      "org.apache.kafka.common.requests.TxnOffsetCommitRequestTest#\"testForTopicIdsOrNamesWithTopicIdOnly(short).version=2\"": "passed",
+      "org.apache.kafka.common.requests.TxnOffsetCommitRequestTest#\"testForTopicIdsOrNamesWithTopicIdOnly(short).version=3\"": "passed",
+      "org.apache.kafka.common.requests.TxnOffsetCommitRequestTest#\"testForTopicIdsOrNamesWithTopicIdOnly(short).version=4\"": "passed",
+      "org.apache.kafka.common.requests.TxnOffsetCommitRequestTest#\"testForTopicIdsOrNamesWithTopicIdOnly(short).version=5\"": "passed",
+      "org.apache.kafka.common.requests.TxnOffsetCommitRequestTest#\"testForTopicIdsOrNamesWithTopicIdOnly(short).version=6\"": "passed",
+      "org.apache.kafka.common.requests.TxnOffsetCommitRequestTest#\"testForTopicIdsOrNamesWithTopicNameOnly(short).version=0\"": "passed",
+      "org.apache.kafka.common.requests.TxnOffsetCommitRequestTest#\"testForTopicIdsOrNamesWithTopicNameOnly(short).version=1\"": "passed",
+      "org.apache.kafka.common.requests.TxnOffsetCommitRequestTest#\"testForTopicIdsOrNamesWithTopicNameOnly(short).version=2\"": "passed",
+      "org.apache.kafka.common.requests.TxnOffsetCommitRequestTest#\"testForTopicIdsOrNamesWithTopicNameOnly(short).version=3\"": "passed",
+      "org.apache.kafka.common.requests.TxnOffsetCommitRequestTest#\"testForTopicIdsOrNamesWithTopicNameOnly(short).version=4\"": "passed",
+      "org.apache.kafka.common.requests.TxnOffsetCommitRequestTest#\"testForTopicIdsOrNamesWithTopicNameOnly(short).version=5\"": "passed",
+      "org.apache.kafka.common.requests.TxnOffsetCommitRequestTest#\"testForTopicIdsOrNamesWithTopicNameOnly(short).version=6\"": "passed",
+      "org.apache.kafka.common.requests.TxnOffsetCommitRequestTest#\"testVersionSupportForGroupMetadata(short).version=0\"": "passed",
+      "org.apache.kafka.common.requests.TxnOffsetCommitRequestTest#\"testVersionSupportForGroupMetadata(short).version=1\"": "passed",
+      "org.apache.kafka.common.requests.TxnOffsetCommitRequestTest#\"testVersionSupportForGroupMetadata(short).version=2\"": "passed",
+      "org.apache.kafka.common.requests.TxnOffsetCommitRequestTest#\"testVersionSupportForGroupMetadata(short).version=3\"": "passed",
+      "org.apache.kafka.common.requests.TxnOffsetCommitRequestTest#\"testVersionSupportForGroupMetadata(short).version=4\"": "passed",
+      "org.apache.kafka.common.requests.TxnOffsetCommitRequestTest#\"testVersionSupportForGroupMetadata(short).version=5\"": "passed",
+      "org.apache.kafka.common.requests.TxnOffsetCommitRequestTest#testConstructor()": "passed",
+      "org.apache.kafka.common.requests.TxnOffsetCommitRequestTest#testForTopicIdsOrNamesCapsAtTransactionV1WhenTransactionV2IsDisabled()": "passed",
+      "org.apache.kafka.common.requests.TxnOffsetCommitRequestTest#testForTopicIdsOrNamesUsesLatestStableVersionWhenUnstableIsDisabled()": "passed",
+      "org.apache.kafka.common.requests.TxnOffsetCommitRequestTest#testForTopicIdsOrNamesUsesLatestUnstableVersionWhenUnstableIsEnabled()": "passed",
+      "org.apache.kafka.common.requests.TxnOffsetCommitRequestTest#testForTopicNamesCapsAtTransactionV1WhenTransactionV2IsDisabled()": "passed",
+      "org.apache.kafka.common.requests.TxnOffsetCommitRequestTest#testForTopicNamesCapsAtV5WhenTransactionV2IsEnabled()": "passed",
+      "org.apache.kafka.common.requests.TxnOffsetCommitRequestTest#testGetErrorResponse()": "passed",
+      "org.apache.kafka.common.requests.TxnOffsetCommitRequestTest#testVersionSupportForGroupInstanceId()": "passed",
+      "org.apache.kafka.common.requests.TxnOffsetCommitResponseTest#\"testBuilderAddPartition(boolean).useTopicIds=false\"": "passed",
+      "org.apache.kafka.common.requests.TxnOffsetCommitResponseTest#\"testBuilderAddPartition(boolean).useTopicIds=true\"": "passed",
+      "org.apache.kafka.common.requests.TxnOffsetCommitResponseTest#\"testBuilderAddPartitions(boolean).useTopicIds=false\"": "passed",
+      "org.apache.kafka.common.requests.TxnOffsetCommitResponseTest#\"testBuilderAddPartitions(boolean).useTopicIds=true\"": "passed",
+      "org.apache.kafka.common.requests.TxnOffsetCommitResponseTest#\"testBuilderMergeAddsNewTopic(boolean).useTopicIds=false\"": "passed",
+      "org.apache.kafka.common.requests.TxnOffsetCommitResponseTest#\"testBuilderMergeAddsNewTopic(boolean).useTopicIds=true\"": "passed",
+      "org.apache.kafka.common.requests.TxnOffsetCommitResponseTest#\"testBuilderMergeAppendsToExistingTopic(boolean).useTopicIds=false\"": "passed",
+      "org.apache.kafka.common.requests.TxnOffsetCommitResponseTest#\"testBuilderMergeAppendsToExistingTopic(boolean).useTopicIds=true\"": "passed",
+      "org.apache.kafka.common.requests.TxnOffsetCommitResponseTest#\"testBuilderMergeIntoEmpty(boolean).useTopicIds=false\"": "passed",
+      "org.apache.kafka.common.requests.TxnOffsetCommitResponseTest#\"testBuilderMergeIntoEmpty(boolean).useTopicIds=true\"": "passed",
+      "org.apache.kafka.common.requests.TxnOffsetCommitResponseTest#\"testBuilderRejectsNullKey(boolean).useTopicIds=false\"": "passed",
+      "org.apache.kafka.common.requests.TxnOffsetCommitResponseTest#\"testBuilderRejectsNullKey(boolean).useTopicIds=true\"": "passed",
+      "org.apache.kafka.common.requests.TxnOffsetCommitResponseTest#testConstructorWithErrorResponse()": "passed",
+      "org.apache.kafka.common.requests.TxnOffsetCommitResponseTest#testParse()": "passed"
+    },
+    "pass_to_pass_failed": [],
+    "patch_bytes": 25644,
+    "patch_empty": false,
+    "resolved": true,
+    "seconds": 156.4,
+    "similarity": {
+      "added_lines": {
+        "f1": 0.92,
+        "precision": 0.902,
+        "recall": 0.939
+      },
+      "files": {
+        "agent": 3,
+        "f1": 1.0,
+        "golden": 3,
+        "precision": 1.0,
+        "recall": 1.0,
+        "shared": 3
+      },
+      "location_recall": 0.766,
+      "removed_lines": {
+        "f1": 0.522,
+        "precision": 0.857,
+        "recall": 0.375
+      },
+      "size": {
+        "agent_added": 51,
+        "agent_removed": 14,
+        "golden_added": 49,
+        "golden_removed": 32
+      }
+    },
+    "test_compile_failed": []
+  },
+  "image_id": "sha256:4615b2564319d58319029548af66970c954e128401ee89c8705684861de4bc07",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "coding",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 43,
+  "prompt_sha256": "e9a7d950d4d10f6da2bd67020838a6036b9c72a320d40135c7e1c1c0ff3fd4f3",
+  "run_index": 4,
+  "status": "completed",
+  "success": true,
+  "task_id": "C-KAFKA-PR-22224",
+  "tool_calls": {
+    "Bash": 25,
+    "Edit": 6,
+    "Read": 10,
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 4
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 2552138,
+    "cost_usd": 0.4554598000000001,
+    "input_tokens": 2613268,
+    "output_tokens": 15667
+  },
+  "violations": []
+}

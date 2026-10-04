@@ -1,0 +1,10 @@
+{
+  "evidence": [
+    "entities/issue/KAFKA-20066/OVERVIEW.md",
+    "entities/issue/KAFKA-20066/timeline.md",
+    "context_research query result showing link types are not stored in project history"
+  ],
+  "value": [
+    "Unable to determine - link type metadata not stored"
+  ]
+}

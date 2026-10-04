@@ -1,0 +1,10 @@
+{
+  "evidence": [
+    "550c648f6ddf3a323092287d (first message in thread, sent by Lianet Magrans on 2026-01-22T22:04:53Z)",
+    "mail thread dd3c1f08370863d0873aee43 (complete thread showing all 23 messages and 7 distinct senders from 2026-01-22 to 2026-02-16)"
+  ],
+  "value": {
+    "participants": 7,
+    "starter": "Lianet Magrans"
+  }
+}

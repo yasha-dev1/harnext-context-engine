@@ -1,0 +1,9 @@
+Context snapshot cutoff (inclusive): 2026-05-31T23:59:59Z.
+
+For KAFKA-20565, exactly one pull request had been merged and the resolution had been set by the snapshot. Which happened first, and how many whole days lay between the two instants? Return {"first": "resolution"|"merge", "days": <integer: the absolute difference floored to whole days>}.
+
+Return JSON {"value": <answer>, "evidence": [<ids or file paths of the sources you relied on>]}. Answer as of the cutoff; do not substitute a later or today's issue state.
+
+No project-history context is provided for this task. Work from the task statement and your own knowledge; there is no network access.
+
+Reply with one JSON object {"value": ..., "evidence": [...]}: `value` is the answer in the requested type (null if it cannot be determined), `evidence` lists the sources you relied on.

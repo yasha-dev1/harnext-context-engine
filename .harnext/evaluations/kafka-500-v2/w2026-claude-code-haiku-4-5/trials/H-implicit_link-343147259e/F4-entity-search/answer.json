@@ -1,0 +1,9 @@
+{
+  "evidence": [
+    "INDEX-WINDOW-45.md",
+    "issues/KAFKA-20239.md",
+    "WINDOW-45-2026-03-01-to-2026-03-02-summary.md",
+    "pull-requests/21615.md"
+  ],
+  "value": "KAFKA-20239"
+}

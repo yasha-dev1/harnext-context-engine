@@ -1,0 +1,80 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail:40031bc0941c4eeec10f5c3a (original thread by Aditya Kousik on 2026-04-01)",
+      "mail:22a91fbbace4350cbe0630b2 (reply in thread on 2026-04-16)",
+      "context_research query confirms no JIRA issue key is linked to this discussion in available records"
+    ],
+    "value": null
+  },
+  "arm": "H-engine",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 95.33081950799897,
+  "engine": {
+    "calls": 1,
+    "chat": {
+      "calls": 10,
+      "cancelled": 0,
+      "cost_usd": 0.00101985,
+      "input_tokens": 48370,
+      "output_tokens": 1435,
+      "retries": 0
+    },
+    "cost_usd": 0.00241698,
+    "discarded_attempts": 0,
+    "jev": {
+      "calls": 17,
+      "cancelled": 0,
+      "cost_usd": 0.00139713,
+      "input_tokens": 33265,
+      "output_tokens": 6298,
+      "retries": 0
+    },
+    "partial": 1,
+    "provider_retry_usd": 0,
+    "seconds": 81.51,
+    "unmetered_upper_usd": 0,
+    "waited_s": 0
+  },
+  "family": "implicit_link",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "mail:40031bc0941c4eeec10f5c3a (original thread by Aditya Kousik on 2026-04-01)",
+      "mail:22a91fbbace4350cbe0630b2 (reply in thread on 2026-04-16)",
+      "context_research query confirms no JIRA issue key is linked to this discussion in available records"
+    ],
+    "expected": "KAFKA-20384"
+  },
+  "image_id": "sha256:4615b2564319d58319029548af66970c954e128401ee89c8705684861de4bc07",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "fc14a0e9e448f2451ecddeda1a9038c5355742fe4106e17fefedaf4967d9e20d",
+  "run_index": 83,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-implicit_link-f6cda24f3f",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 63555,
+    "cost_usd": 0.012029499999999999,
+    "input_tokens": 64633,
+    "output_tokens": 709
+  },
+  "violations": []
+}

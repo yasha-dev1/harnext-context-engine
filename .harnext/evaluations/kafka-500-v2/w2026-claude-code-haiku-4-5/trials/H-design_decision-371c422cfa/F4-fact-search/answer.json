@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "discussions/kip-1274-classic-rebalance-deprecation.md",
+    "issues/kafka-17337-consumerconfig-group-protocol-default.md"
+  ],
+  "value": "keep the config but restrict it to the value consumer"
+}

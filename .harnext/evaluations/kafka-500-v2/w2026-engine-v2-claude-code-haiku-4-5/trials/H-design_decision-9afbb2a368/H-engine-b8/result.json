@@ -1,0 +1,78 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail:bd104003033b64b1b66392f7",
+      "mail:cc6691acddb4132e5b46a141"
+    ],
+    "value": "varint"
+  },
+  "arm": "H-engine-b8",
+  "checkpoint": "2026-01",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 51.32682143099373,
+  "engine": {
+    "calls": 1,
+    "chat": {
+      "calls": 17,
+      "cancelled": 0,
+      "cost_usd": 0.00192435,
+      "input_tokens": 88113,
+      "output_tokens": 1270,
+      "retries": 0
+    },
+    "cost_usd": 0.0034891,
+    "discarded_attempts": 0,
+    "jev": {
+      "calls": 21,
+      "cancelled": 0,
+      "cost_usd": 0.00156475,
+      "input_tokens": 37256,
+      "output_tokens": 6873,
+      "retries": 0
+    },
+    "partial": 0,
+    "provider_retry_usd": 0,
+    "seconds": 37.431,
+    "unmetered_upper_usd": 0,
+    "waited_s": 0
+  },
+  "family": "design_decision",
+  "grade": {
+    "actual": "varint",
+    "correct": true,
+    "evidence": [
+      "mail:bd104003033b64b1b66392f7",
+      "mail:cc6691acddb4132e5b46a141"
+    ],
+    "expected": "varint"
+  },
+  "image_id": "sha256:1de715f951a3fc013cabad66407b87028bc2a5af6e58efdea5338b4cf9fb1485",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "52b003d6bb7165fc3f2e184e3979cbdc93523006e74d4671bac8b969c7517fcf",
+  "run_index": 44,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-9afbb2a368",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 60083,
+    "cost_usd": 0.0190623,
+    "input_tokens": 64666,
+    "output_tokens": 783
+  },
+  "violations": []
+}

@@ -1,0 +1,56 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail message c4bfde361f38ca346dffd233 (Alieh Saeedi, 2026-02-22) explicitly states: 'DslStoreType (now DslStoreFormat)'",
+      "mail message 847911d68e3b8fae10b2806b (Alieh Saeedi, 2026-02-23) discusses 'the DslStoreFormat enum'",
+      "mail message 752198a892fb9e878e0b88dc (Bill Bejeck, 2026-02-23) confirms: 'In the KIP, we are deprecating the isTimestamped field and the associated getter, but the DslStoreFormat enum only specifies DEFAULT and HEADERS'"
+    ],
+    "value": "DslStoreFormat"
+  },
+  "arm": "S-tools",
+  "checkpoint": "2026-02",
+  "cli_calls": {
+    "gh": 6,
+    "jira": 6,
+    "mail": 6
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 113.13813598200795,
+  "family": "design_decision",
+  "grade": {
+    "actual": "DslStoreFormat",
+    "correct": true,
+    "evidence": [
+      "mail message c4bfde361f38ca346dffd233 (Alieh Saeedi, 2026-02-22) explicitly states: 'DslStoreType (now DslStoreFormat)'",
+      "mail message 847911d68e3b8fae10b2806b (Alieh Saeedi, 2026-02-23) discusses 'the DslStoreFormat enum'",
+      "mail message 752198a892fb9e878e0b88dc (Bill Bejeck, 2026-02-23) confirms: 'In the KIP, we are deprecating the isTimestamped field and the associated getter, but the DslStoreFormat enum only specifies DEFAULT and HEADERS'"
+    ],
+    "expected": "DslStoreFormat"
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 19,
+  "prompt_sha256": "8175af8af31f43d93a9fc81d2a41f1e3fb6f7f8abc084117606f98f442ee1f52",
+  "run_index": 15,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-9c30969b0a",
+  "tool_calls": {
+    "Bash": 18,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 455045,
+    "cost_usd": 0.1047525,
+    "input_tokens": 475788,
+    "output_tokens": 3583
+  },
+  "violations": []
+}

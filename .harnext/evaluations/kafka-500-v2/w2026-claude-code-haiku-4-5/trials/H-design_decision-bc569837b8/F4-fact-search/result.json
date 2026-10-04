@@ -1,0 +1,53 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "prs/21547-kafka-20176-metaproperties-v2.md",
+      "issues/kafka-20176-metaproperties-v2.md",
+      "discussions/kip-1262-auto-formatting-directories.md"
+    ],
+    "value": "V1"
+  },
+  "arm": "F4-fact-search",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 51.77781851799227,
+  "family": "design_decision",
+  "grade": {
+    "actual": "V1",
+    "correct": false,
+    "evidence": [
+      "prs/21547-kafka-20176-metaproperties-v2.md",
+      "issues/kafka-20176-metaproperties-v2.md",
+      "discussions/kip-1262-auto-formatting-directories.md"
+    ],
+    "expected": "V2"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "0d33695245530d943854f5c46c098fc99cb088887ae1509f459d3321657a6b74",
+  "run_index": 50,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-bc569837b8",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 64162,
+    "cost_usd": 0.013581200000000002,
+    "input_tokens": 65498,
+    "output_tokens": 904
+  },
+  "violations": []
+}

@@ -1,0 +1,165 @@
+{
+  "arms": {
+    "F0": {
+      "agent_seconds": 0,
+      "by_kind": {},
+      "cached_input_tokens": 0,
+      "context_bytes": 0,
+      "input_tokens": 0,
+      "n": 0,
+      "output_tokens": 0,
+      "status": {},
+      "success": 0,
+      "tool_calls": 0
+    },
+    "F1": {
+      "agent_seconds": 0,
+      "by_kind": {},
+      "cached_input_tokens": 0,
+      "context_bytes": 0,
+      "input_tokens": 0,
+      "n": 0,
+      "output_tokens": 0,
+      "status": {},
+      "success": 0,
+      "tool_calls": 0
+    },
+    "N": {
+      "agent_seconds": 0,
+      "by_kind": {},
+      "cached_input_tokens": 0,
+      "context_bytes": 0,
+      "input_tokens": 0,
+      "n": 0,
+      "output_tokens": 0,
+      "status": {},
+      "success": 0,
+      "tool_calls": 0
+    },
+    "R-hyb": {
+      "agent_seconds": 15.8,
+      "by_kind": {
+        "historical": {
+          "agent_seconds": 15.8,
+          "by_family": {
+            "assignee_at_snapshot": {
+              "agent_seconds": 15.8,
+              "cached_input_tokens": 61195,
+              "context_bytes": 0,
+              "input_tokens": 66687,
+              "n": 1,
+              "output_tokens": 873,
+              "status": {
+                "completed": 1
+              },
+              "success": 0,
+              "tool_calls": 3
+            }
+          },
+          "cached_input_tokens": 61195,
+          "context_bytes": 0,
+          "input_tokens": 66687,
+          "n": 1,
+          "output_tokens": 873,
+          "status": {
+            "completed": 1
+          },
+          "success": 0,
+          "tool_calls": 3
+        }
+      },
+      "cached_input_tokens": 61195,
+      "context_bytes": 0,
+      "input_tokens": 66687,
+      "n": 1,
+      "output_tokens": 873,
+      "status": {
+        "completed": 1
+      },
+      "success": 0,
+      "tool_calls": 3
+    },
+    "S-tools": {
+      "agent_seconds": 11.2,
+      "by_kind": {
+        "historical": {
+          "agent_seconds": 11.2,
+          "by_family": {
+            "assignee_at_snapshot": {
+              "agent_seconds": 11.2,
+              "cached_input_tokens": 42129,
+              "context_bytes": 0,
+              "input_tokens": 64834,
+              "n": 1,
+              "output_tokens": 797,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 3
+            }
+          },
+          "cached_input_tokens": 42129,
+          "context_bytes": 0,
+          "input_tokens": 64834,
+          "n": 1,
+          "output_tokens": 797,
+          "status": {
+            "completed": 1
+          },
+          "success": 1,
+          "tool_calls": 3
+        }
+      },
+      "cached_input_tokens": 42129,
+      "context_bytes": 0,
+      "input_tokens": 64834,
+      "n": 1,
+      "output_tokens": 797,
+      "status": {
+        "completed": 1
+      },
+      "success": 1,
+      "tool_calls": 3
+    }
+  },
+  "not_recorded": [
+    "C-KAFKA-PR-21931/N",
+    "H-assignee_at_snapshot-26a89e8703/F0"
+  ],
+  "paired_vs_N": {
+    "F0": {
+      "both": 0,
+      "harmed": 0,
+      "helped": 0,
+      "neither": 0,
+      "pairs": 0
+    },
+    "F1": {
+      "both": 0,
+      "harmed": 0,
+      "helped": 0,
+      "neither": 0,
+      "pairs": 0
+    },
+    "R-hyb": {
+      "both": 0,
+      "harmed": 0,
+      "helped": 0,
+      "neither": 0,
+      "pairs": 0
+    },
+    "S-tools": {
+      "both": 0,
+      "harmed": 0,
+      "helped": 0,
+      "neither": 0,
+      "pairs": 0
+    }
+  },
+  "reason": "signal SIGTERM",
+  "recorded": 2,
+  "status": "paused",
+  "target": 100,
+  "updated_at_unix": 1790428053.3790274
+}

@@ -1,0 +1,36 @@
+{
+  "evidence": [
+    "store/entities/issue/KAFKA-20134/OVERVIEW.md",
+    "store/entities/issue/KAFKA-20134/timeline.md"
+  ],
+  "value": [
+    {
+      "pr": 21465,
+      "state": "merged"
+    },
+    {
+      "pr": 21474,
+      "state": "closed"
+    },
+    {
+      "pr": 21478,
+      "state": "merged"
+    },
+    {
+      "pr": 21486,
+      "state": "merged"
+    },
+    {
+      "pr": 21493,
+      "state": "merged"
+    },
+    {
+      "pr": 21497,
+      "state": "open"
+    },
+    {
+      "pr": 21581,
+      "state": "open"
+    }
+  ]
+}

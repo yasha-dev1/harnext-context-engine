@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "events/2026/05/15/mail-a192cc3ce6018a685014966e-52210511.md",
+    "events/2026/05/15/mail-e4a05c90c512657787366663-d91a6d58.md",
+    "events/2026/05/14/mail-eccf8894903dbc34be1145c8-3e3a9a34.md"
+  ],
+  "value": "build a new metadata component independent of RLMM"
+}

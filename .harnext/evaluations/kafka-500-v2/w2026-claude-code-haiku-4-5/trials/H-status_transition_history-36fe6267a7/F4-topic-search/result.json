@@ -1,0 +1,119 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "issues.md:9728-9736 (issue creation timestamp)",
+      "issues.md:8398-8410 (status changes from Open → Resolved → Reopened with event IDs jira-13643968-change-22973219-0 and jira-13643968-change-22973221-1)",
+      "issues.md:7476-7483 (Reopened → Patch Available change with event ID jira-13643968-change-22977261-0)",
+      "pull-requests.md:12149-12158 (PR #21784 merge and status change correlation)"
+    ],
+    "value": [
+      {
+        "at": "2026-03-05T09:38:39.000000Z",
+        "from": null,
+        "to": "Open"
+      },
+      {
+        "at": "2026-03-13T07:42:33.000000Z",
+        "from": "Open",
+        "to": "Resolved"
+      },
+      {
+        "at": "2026-03-13T07:43:10.000000Z",
+        "from": "Resolved",
+        "to": "Reopened"
+      },
+      {
+        "at": "2026-03-17T03:21:37.000000Z",
+        "from": "Reopened",
+        "to": "Patch Available"
+      }
+    ]
+  },
+  "arm": "F4-topic-search",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 66.18177750799805,
+  "family": "status_transition_history",
+  "grade": {
+    "actual": [
+      {
+        "at": "2026-03-05T09:38:39.000000Z",
+        "from": null,
+        "to": "Open"
+      },
+      {
+        "at": "2026-03-13T07:42:33.000000Z",
+        "from": "Open",
+        "to": "Resolved"
+      },
+      {
+        "at": "2026-03-13T07:43:10.000000Z",
+        "from": "Resolved",
+        "to": "Reopened"
+      },
+      {
+        "at": "2026-03-17T03:21:37.000000Z",
+        "from": "Reopened",
+        "to": "Patch Available"
+      }
+    ],
+    "correct": false,
+    "evidence": [
+      "issues.md:9728-9736 (issue creation timestamp)",
+      "issues.md:8398-8410 (status changes from Open → Resolved → Reopened with event IDs jira-13643968-change-22973219-0 and jira-13643968-change-22973221-1)",
+      "issues.md:7476-7483 (Reopened → Patch Available change with event ID jira-13643968-change-22977261-0)",
+      "pull-requests.md:12149-12158 (PR #21784 merge and status change correlation)"
+    ],
+    "expected": [
+      {
+        "at": "2026-03-13T07:42:33.427000Z",
+        "from": "Open",
+        "to": "Resolved"
+      },
+      {
+        "at": "2026-03-13T07:43:10.484000Z",
+        "from": "Resolved",
+        "to": "Reopened"
+      },
+      {
+        "at": "2026-03-17T03:21:37.778000Z",
+        "from": "Reopened",
+        "to": "Patch Available"
+      },
+      {
+        "at": "2026-03-18T19:20:28.665000Z",
+        "from": "Patch Available",
+        "to": "Resolved"
+      }
+    ]
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 9,
+  "prompt_sha256": "ca9c0feb9fe24bc6d028103d75dc04c7554a483d7ecbcb147cdd9855de97a044",
+  "run_index": 29,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-status_transition_history-36fe6267a7",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 6
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 270823,
+    "cost_usd": 0.1015703,
+    "input_tokens": 301072,
+    "output_tokens": 2813
+  },
+  "violations": []
+}

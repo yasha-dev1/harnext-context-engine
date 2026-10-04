@@ -1,0 +1,19 @@
+============================================================
+Bun v1.4.3 (8c28b3167) Linux x64
+Linux Kernel v7.0.0 | glibc v2.43
+CPU: sse42 popcnt avx avx2 avx512
+Args: "claude" "-p" "--output-format" "stream-json" "--verbose" "--dangerously-skip-permissions" "--model" "claude-haiku-4-5-20251001" "--effort" "medium" "--disallowedTools" "WebFetch,WebSearch" "--strict-mcp-config" "--json-schema" "{\"addition"...
+Features: Bun.stderr(2) Bun.stdin(2) Bun.stdout(2) fetch(2) http_client_proxy jsc spawn(7) standalone_executable claude_code 
+Builtins: "bun:main" "node:assert" "node:async_hooks" "node:buffer" "node:child_process" "node:constants" "node:crypto" "node:dns" "node:dns/promises" "node:events" "node:fs" "node:fs/promises" "node:http" "node:http2" "node:https" "node:module" "node:net" "node:os" "node:path" "node:path/posix" "node:path/win32" "node:perf_hooks" "node:process" "node:readline" "node:stream" "node:stream/consumers" "node:stream/promises" "node:string_decoder" "node:timers/promises" "node:tls" "node:tty" "node:url" "node:util" "node:util/types" "node:vm" "node:zlib" "undici" "ws" 
+
+Elapsed: 40356ms | User: 1452ms | Sys: 206ms
+RSS: 0.24 GB | Peak: 0.25 GB | Commit: 0.30 GB | Faults: 0 | Machine: 10.74 GB
+
+panic: Segmentation fault at address 0x5913C6FE770
+oh no: Bun has crashed. This indicates a bug in Bun, not your code.
+
+To send a redacted crash report to Bun's team,
+please file a GitHub issue using the link below:
+
+ https://bun.report/1.4.3/l_18c28b31mggggQugogDy+81mCult4mC+r12mCy/+oBm95tCA2i5Cg3z/t8B
+

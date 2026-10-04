@@ -1,0 +1,55 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [],
+    "value": []
+  },
+  "arm": "N",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 15.046670919997268,
+  "family": "resolution_transition_history",
+  "grade": {
+    "actual": [],
+    "correct": false,
+    "evidence": [],
+    "expected": [
+      {
+        "at": "2026-03-05T09:40:54.681000Z",
+        "from": null,
+        "to": "Fixed"
+      },
+      {
+        "at": "2026-03-13T07:44:14.073000Z",
+        "from": "Fixed",
+        "to": "Duplicate"
+      }
+    ]
+  },
+  "instructions_sha256": null,
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 4,
+  "prompt_sha256": "115ac8d9e996baf467c0520dc1e51144573e582e698ce2d90b57c58c1301ac26",
+  "run_index": 27,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-resolution_transition_history-b2b3f1ff22",
+  "tool_calls": {
+    "Bash": 3,
+    "StructuredOutput": 2
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 81050,
+    "cost_usd": 0.022967,
+    "input_tokens": 85595,
+    "output_tokens": 1161
+  },
+  "violations": []
+}

@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "INDEX.md (line 1380) - KAFKA-19701 listed as related to PR #22000",
+    "entities/pr/apache__kafka__22000/OVERVIEW.md - KAFKA-19701 referenced but no dedicated entity record exists"
+  ],
+  "value": null
+}

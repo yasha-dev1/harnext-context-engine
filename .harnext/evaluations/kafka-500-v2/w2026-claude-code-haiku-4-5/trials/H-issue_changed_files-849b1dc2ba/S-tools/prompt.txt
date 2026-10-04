@@ -1,0 +1,9 @@
+Context snapshot cutoff (inclusive): 2026-03-31T23:59:59Z.
+
+Which files were changed by the pull requests merged for the Apache Kafka JIRA issue titled "Enable time-ordered header window store in DSL" (created in 2026-03) by the snapshot? Return the sorted array of repository-relative file paths (the union over those merged pull requests, each path once); pull requests not merged by the snapshot do not count.
+
+Return JSON {"value": <answer>, "evidence": [<ids or file paths of the sources you relied on>]}. Answer as of the cutoff; do not substitute a later or today's issue state.
+
+No pre-built project memory is provided. You can query time-frozen offline replicas of the project's systems of record as of the cutoff with the usual command-line tools: `gh` (pull requests, reviews, commits), `jira` (issues, comments, change history), `mail` (mailing lists). Run `<tool> --help` for the supported commands. The live internet is not reachable.
+
+Reply with one JSON object {"value": ..., "evidence": [...]}: `value` is the answer in the requested type (null if it cannot be determined), `evidence` lists the sources you relied on.

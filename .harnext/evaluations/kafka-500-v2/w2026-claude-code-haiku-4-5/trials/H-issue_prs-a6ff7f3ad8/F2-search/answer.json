@@ -1,0 +1,17 @@
+{
+  "evidence": [
+    "prs/22041/2026-04-13-gh-pr-opened-ecf243c4.md",
+    "prs/22182/2026-04-29-gh-pr-opened-675f3bb2.md",
+    "issues/KAFKA-20440/2026-04-13-jira-created-13647972-ebe20079.md"
+  ],
+  "value": [
+    {
+      "pr": 22041,
+      "state": "open"
+    },
+    {
+      "pr": 22182,
+      "state": "open"
+    }
+  ]
+}

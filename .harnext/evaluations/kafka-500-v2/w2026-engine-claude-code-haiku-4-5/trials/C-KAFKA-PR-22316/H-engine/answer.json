@@ -1,0 +1,3 @@
+{
+  "summary": "Successfully implemented `readOnly(IsolationLevel)` for MeteredKeyValueStore in KAFKA-20497. Added imports for IsolationLevel and ReadOnlyKeyValueStore, implemented the readOnly() method with null validation, and created a ReadOnlyView inner class that wraps the underlying read-only store while applying serdes and recording metrics for all 8 interface methods. All 43 tests pass including the 9 new readOnly-specific tests."
+}

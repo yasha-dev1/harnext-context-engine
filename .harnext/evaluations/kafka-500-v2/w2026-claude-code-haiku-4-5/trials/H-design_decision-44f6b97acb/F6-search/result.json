@@ -1,0 +1,54 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "kips-and-discussions.md (lines 2753-2772) - KIP-1263 discussion dated 2026-03-01 documenting the finalized config name",
+      "window-45-summary.md (lines 258-269) - Summary of executor naming changes during PR #21555 review",
+      "pull-requests.md (lines 5304-5324) - PR #21555 merged 2026-03-03 with the finalized config name"
+    ],
+    "value": "group.coordinator.background.threads"
+  },
+  "arm": "F6-search",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 38.97586131899152,
+  "family": "design_decision",
+  "grade": {
+    "actual": "group.coordinator.background.threads",
+    "correct": true,
+    "evidence": [
+      "kips-and-discussions.md (lines 2753-2772) - KIP-1263 discussion dated 2026-03-01 documenting the finalized config name",
+      "window-45-summary.md (lines 258-269) - Summary of executor naming changes during PR #21555 review",
+      "pull-requests.md (lines 5304-5324) - PR #21555 merged 2026-03-03 with the finalized config name"
+    ],
+    "expected": "group.coordinator.background.threads"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 4,
+  "prompt_sha256": "b205f0bb27a3e114953daf338bceea7b187b3a561abc6ca59f2491d9daeaf311",
+  "run_index": 51,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-44f6b97acb",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 86366,
+    "cost_usd": 0.0228436,
+    "input_tokens": 90707,
+    "output_tokens": 1112
+  },
+  "violations": []
+}

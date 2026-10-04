@@ -1,0 +1,9 @@
+{
+  "evidence": [
+    "kips/KIP-1331-streams-group-topology-description.md - Implementation uses StoredTopologyEpoch and LastFailedTopologyEpoch persisted on StreamsGroupMetadataValue",
+    "kips/KIP-1331.md - No separate TopologyId or broker-generated UUID field mentioned in design",
+    "kips-discussions.md - PR #22393 POC documentation shows only topology epoch fields, no separate identifier",
+    "window-128-overview.md - KIP-1331 implementation documentation references only epoch-based identification"
+  ],
+  "value": "removed entirely, identified by topologyEpoch and group creation timestamp instead"
+}

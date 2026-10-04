@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "kips-and-discussions.md (lines 1087-1101, 1271-1299)",
+    "window-6-summary.md (lines 333-354)",
+    "Configuration parameter `streams.store.headers.max.bytes` documented in Matthias J. Sax feedback dated 2026-01-12"
+  ],
+  "value": "yes"
+}

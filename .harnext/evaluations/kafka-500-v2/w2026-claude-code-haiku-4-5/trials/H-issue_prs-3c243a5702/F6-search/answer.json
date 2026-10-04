@@ -1,0 +1,40 @@
+{
+  "evidence": [
+    "pull-requests.md",
+    "window-36-summary.md",
+    "window-39-summary.md",
+    "window-40-summary.md",
+    "kips-and-discussions.md",
+    "jira-issues.md"
+  ],
+  "value": [
+    {
+      "pr": 21465,
+      "state": "merged"
+    },
+    {
+      "pr": 21474,
+      "state": "closed"
+    },
+    {
+      "pr": 21478,
+      "state": "merged"
+    },
+    {
+      "pr": 21486,
+      "state": "merged"
+    },
+    {
+      "pr": 21493,
+      "state": "merged"
+    },
+    {
+      "pr": 21497,
+      "state": "open"
+    },
+    {
+      "pr": 21581,
+      "state": "open"
+    }
+  ]
+}

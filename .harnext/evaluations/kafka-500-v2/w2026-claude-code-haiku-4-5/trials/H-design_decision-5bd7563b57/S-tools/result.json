@@ -1,0 +1,58 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "KIP-1282 discussed in mail thread starting 2026-02-23",
+      "KAFKA-20035: Prevent data loss during partition expansion by enforcing 'earliest' offset reset for dynamically added partitions",
+      "Mail discussion confirms exception thrown when group creation time unavailable, but specific exception name not found in available sources",
+      "PR #21647 and #21952 implementing KIP-1282 were WIP and closed without merge as of cutoff date"
+    ],
+    "value": null
+  },
+  "arm": "S-tools",
+  "checkpoint": "2026-04",
+  "cli_calls": {
+    "gh": 47,
+    "jira": 24,
+    "mail": 20
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 550.0248774909996,
+  "family": "design_decision",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "KIP-1282 discussed in mail thread starting 2026-02-23",
+      "KAFKA-20035: Prevent data loss during partition expansion by enforcing 'earliest' offset reset for dynamically added partitions",
+      "Mail discussion confirms exception thrown when group creation time unavailable, but specific exception name not found in available sources",
+      "PR #21647 and #21952 implementing KIP-1282 were WIP and closed without merge as of cutoff date"
+    ],
+    "expected": "GroupCreationTimeUnknownException"
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 91,
+  "prompt_sha256": "0dbdd5e74b5921988b09208d533cdbb316173533cad8bff9ccf329a9d0086995",
+  "run_index": 65,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-5bd7563b57",
+  "tool_calls": {
+    "Bash": 91,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 5677188,
+    "cost_usd": 0.8202718000000002,
+    "input_tokens": 5760974,
+    "output_tokens": 17142
+  },
+  "violations": []
+}

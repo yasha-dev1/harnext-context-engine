@@ -1,0 +1,47 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "Unable to locate Kafka project discussions or code without network access or provided project context"
+    ],
+    "value": null
+  },
+  "arm": "N",
+  "checkpoint": "2026-02",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 8.166938891998143,
+  "family": "design_decision",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "Unable to locate Kafka project discussions or code without network access or provided project context"
+    ],
+    "expected": "INFO"
+  },
+  "instructions_sha256": null,
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 1,
+  "prompt_sha256": "6a61ff40fbd21a68d45d3726d5b3cd1d716b67735a15b86e3bf19a88b008c226",
+  "run_index": 59,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-ae3c3045c4",
+  "tool_calls": {
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 17497,
+    "cost_usd": 0.0113877,
+    "input_tokens": 20653,
+    "output_tokens": 667
+  },
+  "violations": []
+}

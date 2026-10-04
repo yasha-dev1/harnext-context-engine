@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "dd72e188e244a14eeb227fa2 (mail: Ivan Yurchenko's message on 2026-01-23 regarding KIP-1150 Diskless Topics discussion, specifically section 2.1 describing the workaround for older-version metadata requests)"
+  ],
+  "value": "encode the rack information in the client ID"
+}

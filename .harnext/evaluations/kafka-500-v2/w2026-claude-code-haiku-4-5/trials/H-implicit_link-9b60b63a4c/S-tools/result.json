@@ -1,0 +1,52 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail search result showing 'f8aa74e0b411a6b720fcf072 2026-04-23T17:23:00Z Andrew Schofield (Jira) [jira] [Created] (KAFKA-20524) Initialization of share group offsets from a specific offset or a file'",
+      "mail read output confirming JIRA issue KAFKA-20524 was created with summary 'Initialization of share group offsets from a specific offset or a file' explicitly implementing 'KIP-1323'"
+    ],
+    "value": "KAFKA-20524"
+  },
+  "arm": "S-tools",
+  "checkpoint": "2026-04",
+  "cli_calls": {
+    "mail": 4
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 52.17419205099577,
+  "family": "implicit_link",
+  "grade": {
+    "actual": "KAFKA-20524",
+    "correct": true,
+    "evidence": [
+      "mail search result showing 'f8aa74e0b411a6b720fcf072 2026-04-23T17:23:00Z Andrew Schofield (Jira) [jira] [Created] (KAFKA-20524) Initialization of share group offsets from a specific offset or a file'",
+      "mail read output confirming JIRA issue KAFKA-20524 was created with summary 'Initialization of share group offsets from a specific offset or a file' explicitly implementing 'KIP-1323'"
+    ],
+    "expected": "KAFKA-20524"
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 5,
+  "prompt_sha256": "aa4b2dbfa2514cb66af3e42aec680edc60d880d939c68feda8c3557af9fb0981",
+  "run_index": 81,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-implicit_link-9b60b63a4c",
+  "tool_calls": {
+    "Bash": 4,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 103989,
+    "cost_usd": 0.0270679,
+    "input_tokens": 109304,
+    "output_tokens": 1216
+  },
+  "violations": []
+}

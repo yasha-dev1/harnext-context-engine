@@ -1,0 +1,3 @@
+{
+  "summary": "Fixed the typo in the Kafka public API by renaming the method `maxlifeTimeMs` to `maxLifetimeMs` in CreateDelegationTokenOptions class. Updated all usages across CreateDelegationTokenOptions.java, KafkaAdminClient.java, DelegationTokenCommand.java, and MockAdminClient.java. The typo fix is complete and all references to the old method name have been corrected to use the properly camelCased method name following Java naming conventions."
+}

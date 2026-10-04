@@ -1,0 +1,51 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "store/discussions/kip-1271-record-headers-state-stores.md (lines 67, 111)",
+      "issues/kafka-20056-streams-record-headers-state-stores.md"
+    ],
+    "value": "no"
+  },
+  "arm": "F4-fact-search",
+  "checkpoint": "2026-01",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 31.82453823198739,
+  "family": "design_decision",
+  "grade": {
+    "actual": "no",
+    "correct": true,
+    "evidence": [
+      "store/discussions/kip-1271-record-headers-state-stores.md (lines 67, 111)",
+      "issues/kafka-20056-streams-record-headers-state-stores.md"
+    ],
+    "expected": "no"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "23bc4b6a2b2b413c20a36b01b48442ee2781c27ce9700a95268ee35ff641db43",
+  "run_index": 57,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-73c3dfd4d4",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 64046,
+    "cost_usd": 0.0125616,
+    "input_tokens": 65263,
+    "output_tokens": 750
+  },
+  "violations": []
+}

@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "Cannot be determined: no network access available to query GitHub API, and working directory is not a git repository"
+  ],
+  "value": 0
+}

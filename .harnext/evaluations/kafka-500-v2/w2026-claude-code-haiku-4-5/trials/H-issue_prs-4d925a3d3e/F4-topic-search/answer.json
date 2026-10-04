@@ -1,0 +1,40 @@
+{
+  "evidence": [
+    "store/issues.md",
+    "store/pull-requests.md"
+  ],
+  "value": [
+    {
+      "pr": 21452,
+      "state": "merged"
+    },
+    {
+      "pr": 21461,
+      "state": "merged"
+    },
+    {
+      "pr": 21462,
+      "state": "merged"
+    },
+    {
+      "pr": 21505,
+      "state": "merged"
+    },
+    {
+      "pr": 21559,
+      "state": "merged"
+    },
+    {
+      "pr": 21560,
+      "state": "closed"
+    },
+    {
+      "pr": 21561,
+      "state": "merged"
+    },
+    {
+      "pr": 21562,
+      "state": "merged"
+    }
+  ]
+}

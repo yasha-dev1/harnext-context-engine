@@ -1,0 +1,50 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "discussions/kip-1270-process-exception-handler-global-thread.md (lines 49-63, 71-76)"
+    ],
+    "value": "yes"
+  },
+  "arm": "F4-fact-search",
+  "checkpoint": "2026-01",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 32.00781626200478,
+  "family": "design_decision",
+  "grade": {
+    "actual": "yes",
+    "correct": false,
+    "evidence": [
+      "discussions/kip-1270-process-exception-handler-global-thread.md (lines 49-63, 71-76)"
+    ],
+    "expected": "no"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 4,
+  "prompt_sha256": "6bef78af49f8a099144226642e9ef9300b2a0d5737790c8f9655f61ee849562d",
+  "run_index": 53,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-32101f33f4",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 86653,
+    "cost_usd": 0.0194683,
+    "input_tokens": 89617,
+    "output_tokens": 982
+  },
+  "violations": []
+}

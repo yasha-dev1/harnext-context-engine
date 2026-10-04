@@ -1,0 +1,9 @@
+{
+  "evidence": [
+    "KIP-1285 updated on 2026-02-20T09:30:09Z (evt:mail-636f39043956784fc7b822fb-4fda4104)",
+    "PR #21572 merged with 20+ review comments from mjsax on StreamsConfig.java changes",
+    "Feedback mentioned DSL_STORE_TYPE_DOC visibility suggesting a property related to store type",
+    "Context files do not contain the specific property name or original name that was changed"
+  ],
+  "value": null
+}

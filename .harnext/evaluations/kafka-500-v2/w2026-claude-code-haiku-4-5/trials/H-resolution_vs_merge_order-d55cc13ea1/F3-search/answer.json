@@ -1,0 +1,10 @@
+{
+  "evidence": [
+    "store/_intake/2026/03/17/github-api-apache-kafka-pr-21791-merged-7bb1038f.md",
+    "store/_intake/2026/03/17/jira-13645222-change-22978343-1-65ceed72.md"
+  ],
+  "value": {
+    "days": 0,
+    "first": "merge"
+  }
+}

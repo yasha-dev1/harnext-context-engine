@@ -1,0 +1,52 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "No files found in /workspace directory",
+      "Training data cutoff: February 2025, before referenced snapshot date of 2026-04-30",
+      "No network access available to locate external discussion records"
+    ],
+    "value": null
+  },
+  "arm": "N",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 12.619313846997102,
+  "family": "design_decision",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "No files found in /workspace directory",
+      "Training data cutoff: February 2025, before referenced snapshot date of 2026-04-30",
+      "No network access available to locate external discussion records"
+    ],
+    "expected": "list"
+  },
+  "instructions_sha256": null,
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "09f093900296c9a09a3f5a70b15867a35de05c49fd9b4a534754074ffc5f9624",
+  "run_index": 64,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-55f2719029",
+  "tool_calls": {
+    "Bash": 2,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 59231,
+    "cost_usd": 0.0185191,
+    "input_tokens": 63069,
+    "output_tokens": 989
+  },
+  "violations": []
+}

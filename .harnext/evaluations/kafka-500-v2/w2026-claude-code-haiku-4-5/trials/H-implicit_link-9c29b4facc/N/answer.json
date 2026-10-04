@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "Knowledge cutoff is February 2025; the mailing list thread is from February 2026 (outside training data)",
+    "No network access available to query Kafka mailing list or JIRA"
+  ],
+  "value": null
+}

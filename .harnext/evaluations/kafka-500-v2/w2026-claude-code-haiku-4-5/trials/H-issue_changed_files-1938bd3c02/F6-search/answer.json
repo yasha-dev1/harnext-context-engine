@@ -1,0 +1,11 @@
+{
+  "evidence": [
+    "pull-requests.md (lines 2325-2335): PR #21744 merged 2026-03-16 with commit a2efacd44ef298c5725bf012fcd10259b9d12518",
+    "window-65-summary.md (lines 50-62): PR #21744 detailed summary listing class changes",
+    "window-64-summary.md (lines 80-99): Review activity with partial file paths shown, truncated with 'streams/sr…'",
+    "jira-issues.md (lines 1360-1368, 1621-1631): KAFKA-20307 issue confirming PR #21744 as only merged PR"
+  ],
+  "value": [
+    "Unable to determine - context store incomplete"
+  ]
+}

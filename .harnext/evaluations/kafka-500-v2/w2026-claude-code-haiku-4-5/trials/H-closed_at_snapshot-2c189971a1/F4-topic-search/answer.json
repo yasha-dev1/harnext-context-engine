@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "issues.md - KAFKA-20158 status was 'Open' as of Window 43 (2026-02-26 to 2026-02-28)",
+    "context_research confirmed KAFKA-20158 showed status '(Progressing)' at cutoff, with no evidence of Closed or Resolved status"
+  ],
+  "value": false
+}

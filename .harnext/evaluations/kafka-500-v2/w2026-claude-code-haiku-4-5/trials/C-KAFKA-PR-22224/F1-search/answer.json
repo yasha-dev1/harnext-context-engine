@@ -1,0 +1,3 @@
+{
+  "summary": "Successfully implemented topic ID support for TxnOffsetCommit API (KAFKA-20444/KIP-1319). Added a parameterized builder factory method in TxnOffsetCommitResponse to handle both topic IDs (TopicIdBuilder) and topic names (TopicNameBuilder). Updated error response generation in TxnOffsetCommitRequest to preserve topic IDs from requests. All 32 tests (17 request + 15 response) pass successfully."
+}

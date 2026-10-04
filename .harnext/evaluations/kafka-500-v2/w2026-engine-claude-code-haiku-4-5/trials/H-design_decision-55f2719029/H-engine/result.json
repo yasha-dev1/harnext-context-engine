@@ -1,0 +1,80 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail:7722c5ca5257330fd506a7c5",
+      "mail:e088dfe94bcfd66ed5f542ce",
+      "mail:3b03034816281c500f3c3b46"
+    ],
+    "value": "put"
+  },
+  "arm": "H-engine",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 347.87450210599854,
+  "engine": {
+    "calls": 4,
+    "chat": {
+      "calls": 57,
+      "cancelled": 1,
+      "cost_usd": 0.00565818,
+      "input_tokens": 263970,
+      "output_tokens": 6272,
+      "retries": 0
+    },
+    "cost_usd": 0.01263698,
+    "discarded_attempts": 0,
+    "jev": {
+      "calls": 87,
+      "cancelled": 0,
+      "cost_usd": 0.0069788,
+      "input_tokens": 166162,
+      "output_tokens": 30338,
+      "retries": 0
+    },
+    "partial": 4,
+    "provider_retry_usd": 0,
+    "seconds": 326.056,
+    "unmetered_upper_usd": 0.00027396,
+    "waited_s": 0
+  },
+  "family": "design_decision",
+  "grade": {
+    "actual": "put",
+    "correct": false,
+    "evidence": [
+      "mail:7722c5ca5257330fd506a7c5",
+      "mail:e088dfe94bcfd66ed5f542ce",
+      "mail:3b03034816281c500f3c3b46"
+    ],
+    "expected": "list"
+  },
+  "image_id": "sha256:4615b2564319d58319029548af66970c954e128401ee89c8705684861de4bc07",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 6,
+  "prompt_sha256": "c0b7ff304dec217ce97dddca872af6e01b5945eb88ff6b681811f0b78eeb5766",
+  "run_index": 64,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-55f2719029",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 4
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 127989,
+    "cost_usd": 0.0316749,
+    "input_tokens": 134335,
+    "output_tokens": 1247
+  },
+  "violations": []
+}

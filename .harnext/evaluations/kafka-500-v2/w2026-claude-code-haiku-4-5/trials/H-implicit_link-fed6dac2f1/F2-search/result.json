@@ -1,0 +1,53 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "issues/KAFKA-20186/2026-02-13-jira-created-912d0bb7.md",
+      "mail/2026-02-13-mail-JIRA-13642045-KAFKA-20186-bf46f627.md",
+      "mail/2026-02-13-mail-discuss-KIP-1267-cluster-mirroring-f991153e.md"
+    ],
+    "value": "KAFKA-20186"
+  },
+  "arm": "F2-search",
+  "checkpoint": "2026-02",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 38.974041962006595,
+  "family": "implicit_link",
+  "grade": {
+    "actual": "KAFKA-20186",
+    "correct": true,
+    "evidence": [
+      "issues/KAFKA-20186/2026-02-13-jira-created-912d0bb7.md",
+      "mail/2026-02-13-mail-JIRA-13642045-KAFKA-20186-bf46f627.md",
+      "mail/2026-02-13-mail-discuss-KIP-1267-cluster-mirroring-f991153e.md"
+    ],
+    "expected": "KAFKA-20186"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "d85a23ca1e2dab86371e62ebabd0ec11a2487e894a14a26a3224925a032df595",
+  "run_index": 88,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-implicit_link-fed6dac2f1",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 64147,
+    "cost_usd": 0.013782700000000002,
+    "input_tokens": 65712,
+    "output_tokens": 853
+  },
+  "violations": []
+}

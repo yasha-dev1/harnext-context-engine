@@ -1,0 +1,51 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail:112a535ad8c4fa1e9928d615 — [DISCUSS] KIP-1333 mailing list thread by Haifeng Chen (2026-05-05)",
+      "jira:13650085:comment:18078806 — KAFKA-20552 comment linking to KIP-1333 (2026-05-06)"
+    ],
+    "value": "KAFKA-20552"
+  },
+  "arm": "R-hyb",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 21.67342830900452,
+  "family": "implicit_link",
+  "grade": {
+    "actual": "KAFKA-20552",
+    "correct": true,
+    "evidence": [
+      "mail:112a535ad8c4fa1e9928d615 — [DISCUSS] KIP-1333 mailing list thread by Haifeng Chen (2026-05-05)",
+      "jira:13650085:comment:18078806 — KAFKA-20552 comment linking to KIP-1333 (2026-05-06)"
+    ],
+    "expected": "KAFKA-20552"
+  },
+  "instructions_sha256": "dfaa5b284d06c378ef7e4c08b53dc77835c91d7591fca0335bbfa33d3e53eb37",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "3787b39a0f0c073c92dc38c738f60c3fb5606211869b42cb19d4ce7f5faf311d",
+  "run_index": 84,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-implicit_link-69a9914100",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__search": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 60046,
+    "cost_usd": 0.029426600000000004,
+    "input_tokens": 69023,
+    "output_tokens": 1099
+  },
+  "violations": []
+}

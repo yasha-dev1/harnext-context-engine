@@ -1,0 +1,83 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "jira:13638867:change:22965795:0",
+      "jira:13638867:change:22965819:0"
+    ],
+    "value": [
+      "KAFKA-7140",
+      "KAFKA-20282"
+    ]
+  },
+  "arm": "H-engine",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 128.53688494400012,
+  "engine": {
+    "calls": 2,
+    "chat": {
+      "calls": 16,
+      "cancelled": 0,
+      "cost_usd": 0.00128313,
+      "input_tokens": 55874,
+      "output_tokens": 2021,
+      "retries": 0
+    },
+    "cost_usd": 0.00225282,
+    "jev": {
+      "calls": 14,
+      "cancelled": 0,
+      "cost_usd": 0.00096969,
+      "input_tokens": 23088,
+      "output_tokens": 3917,
+      "retries": 2
+    },
+    "partial": 0,
+    "seconds": 112.747,
+    "unmetered_upper_usd": 8.715e-05
+  },
+  "family": "issue_links",
+  "grade": {
+    "actual": [
+      "KAFKA-7140",
+      "KAFKA-20282"
+    ],
+    "correct": false,
+    "evidence": [
+      "jira:13638867:change:22965795:0",
+      "jira:13638867:change:22965819:0"
+    ],
+    "expected": [
+      "KAFKA-20282"
+    ]
+  },
+  "image_id": "sha256:a75ed05ffc6eace9ec0ed4705d31b20aa2579267b3e737b4f61017882112ea66",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 4,
+  "prompt_sha256": "19632b7a9e808a0023808da5dd712504bdda483451135eccfb3e073766ce0b9e",
+  "run_index": 13,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-issue_links-ee77a538ef",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 2
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 85687,
+    "cost_usd": 0.016094700000000003,
+    "input_tokens": 87290,
+    "output_tokens": 871
+  },
+  "violations": []
+}

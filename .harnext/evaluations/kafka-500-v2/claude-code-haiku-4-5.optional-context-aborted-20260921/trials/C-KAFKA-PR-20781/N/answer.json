@@ -1,0 +1,3 @@
+{
+  "summary": "Fixed KAFKA-19449 by excluding partitions in a member's pendingRevocation list from the ownership check when determining unreleased partitions. This allows partitions that are pending revocation to be correctly re-assigned when they appear in the new target assignment, preventing the unexpected UNREVOKED_PARTITIONS to UNRELEASED_PARTITIONS transition. All 31 tests pass, including the critical test case testUnrevokedPartitionsToStableWithReturnedPartitionsPendingRevocation."
+}

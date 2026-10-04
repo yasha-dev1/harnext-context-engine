@@ -1,0 +1,49 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "store/kips/KIP-1324/2026-05-05-067a5f19.md (lines 69-72)"
+    ],
+    "value": "yes, retries target a different broker"
+  },
+  "arm": "F2-search",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 34.32101414400677,
+  "family": "design_decision",
+  "grade": {
+    "actual": "yes, retries target a different broker",
+    "correct": true,
+    "evidence": [
+      "store/kips/KIP-1324/2026-05-05-067a5f19.md (lines 69-72)"
+    ],
+    "expected": "yes, retries target a different broker"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "56baad5901031a20c722428fa9c03eca5ca407917bfa479252a6c66207033705",
+  "run_index": 73,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-9ea8cbeccb",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 64243,
+    "cost_usd": 0.0126233,
+    "input_tokens": 65566,
+    "output_tokens": 716
+  },
+  "violations": []
+}

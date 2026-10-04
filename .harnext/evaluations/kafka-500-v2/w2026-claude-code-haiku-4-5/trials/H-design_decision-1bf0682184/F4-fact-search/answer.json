@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "discussions/window-115-kip-discussions.md (lines 30-42)",
+    "KIP-1331: Streams Group Topology Description Plugin discussions"
+  ],
+  "value": "group.streams.topology.description.plugin.class"
+}

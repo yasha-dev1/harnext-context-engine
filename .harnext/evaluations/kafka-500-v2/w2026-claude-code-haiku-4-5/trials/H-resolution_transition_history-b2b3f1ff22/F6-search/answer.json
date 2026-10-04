@@ -1,0 +1,13 @@
+{
+  "evidence": [
+    "store/jira-issues.md",
+    "store/window-50-summary.md"
+  ],
+  "value": [
+    {
+      "at": "2026-03-05T09:40:54.000000Z",
+      "from": null,
+      "to": "Fixed"
+    }
+  ]
+}

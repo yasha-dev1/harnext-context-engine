@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "store/_intake/2026/02/20/mail-0a9bb7f24cac428cae178e83-bda1e11a.md",
+    "store/_intake/2026/02/18/mail-44843036d638b29f0550d70c-74fa20d6.md"
+  ],
+  "value": "Long.MAX_VALUE - sourceProducerId - 1"
+}

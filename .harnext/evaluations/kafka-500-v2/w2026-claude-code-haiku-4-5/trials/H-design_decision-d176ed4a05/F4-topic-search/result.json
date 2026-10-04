@@ -1,0 +1,56 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "KAFKA-20621: Extends StreamsGroup model with StoredTopologyEpoch and LastFailedTopologyEpoch fields",
+      "PR #22393/22413: Per-group StoredTopologyEpoch and LastFailedTopologyEpoch persisted on StreamsGroupMetadataValue",
+      "PR #22397: Wire-format implementation includes TopologyEpoch in StreamsGroupTopologyDescriptionUpdate schema but no separate TopologyDescriptionId UUID",
+      "KIP-1331 discussion: Final design summary emphasizes StoredTopologyEpoch as the state tracking mechanism with no mention of broker-generated UUID identifier"
+    ],
+    "value": "removed entirely, identified by topologyEpoch and group creation timestamp instead"
+  },
+  "arm": "F4-topic-search",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 120.99677962499845,
+  "family": "design_decision",
+  "grade": {
+    "actual": "removed entirely, identified by topologyEpoch and group creation timestamp instead",
+    "correct": true,
+    "evidence": [
+      "KAFKA-20621: Extends StreamsGroup model with StoredTopologyEpoch and LastFailedTopologyEpoch fields",
+      "PR #22393/22413: Per-group StoredTopologyEpoch and LastFailedTopologyEpoch persisted on StreamsGroupMetadataValue",
+      "PR #22397: Wire-format implementation includes TopologyEpoch in StreamsGroupTopologyDescriptionUpdate schema but no separate TopologyDescriptionId UUID",
+      "KIP-1331 discussion: Final design summary emphasizes StoredTopologyEpoch as the state tracking mechanism with no mention of broker-generated UUID identifier"
+    ],
+    "expected": "removed entirely, identified by topologyEpoch and group creation timestamp instead"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 14,
+  "prompt_sha256": "018ac1c4ab53b76ad23ee530b458b852a78cf1d4522c8fee03f7905e1d076ddc",
+  "run_index": 75,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-d176ed4a05",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 11
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 471076,
+    "cost_usd": 0.1322926,
+    "input_tokens": 504536,
+    "output_tokens": 3676
+  },
+  "violations": []
+}

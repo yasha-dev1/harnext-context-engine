@@ -1,0 +1,48 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "The workspace at /workspace is empty. No project files or documentation are available to determine the specific design decision and exact phrase used for rack information recovery in metadata requests."
+    ],
+    "value": null
+  },
+  "arm": "N",
+  "checkpoint": "2026-01",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 9.369560494000325,
+  "family": "design_decision",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "The workspace at /workspace is empty. No project files or documentation are available to determine the specific design decision and exact phrase used for rack information recovery in metadata requests."
+    ],
+    "expected": "encode the rack information in the client ID"
+  },
+  "instructions_sha256": null,
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "5f47b667e81eded2b07da69a4f2fd159886e367bc493d0e65dadeba2e86dd1c2",
+  "run_index": 55,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-5bda924411",
+  "tool_calls": {
+    "Bash": 2,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 59094,
+    "cost_usd": 0.016525399999999996,
+    "input_tokens": 62797,
+    "output_tokens": 647
+  },
+  "violations": []
+}

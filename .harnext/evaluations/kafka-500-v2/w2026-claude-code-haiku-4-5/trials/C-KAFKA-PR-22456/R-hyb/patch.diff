@@ -1,0 +1,132 @@
+diff --git a/core/src/main/scala/kafka/coordinator/transaction/TransactionCoordinator.scala b/core/src/main/scala/kafka/coordinator/transaction/TransactionCoordinator.scala
+index 43455a83e4143ed6cddc6df635d9daadfdbd0856..2474df7048829cbeeeba4bc24cb00a3e16fa1204 100644
+--- a/core/src/main/scala/kafka/coordinator/transaction/TransactionCoordinator.scala
++++ b/core/src/main/scala/kafka/coordinator/transaction/TransactionCoordinator.scala
+@@ -1004,7 +1004,7 @@ class TransactionCoordinator(txnConfig: TransactionConfig,
+     }
+   }
+ 
+-  def transactionTopicConfigs: Properties = txnManager.transactionTopicConfigs
++  def transactionStateTopicConfigs: Properties = txnManager.transactionStateTopicConfigs
+ 
+   def partitionFor(transactionalId: String): Int = txnManager.partitionFor(transactionalId)
+ 
+diff --git a/core/src/main/scala/kafka/coordinator/transaction/TransactionStateManager.scala b/core/src/main/scala/kafka/coordinator/transaction/TransactionStateManager.scala
+index 425789a8263a8c58ec91bba69dab2afce38d6943..a3ca6d217386c09713fa701f9a1079355a3af2a0 100644
+--- a/core/src/main/scala/kafka/coordinator/transaction/TransactionStateManager.scala
++++ b/core/src/main/scala/kafka/coordinator/transaction/TransactionStateManager.scala
+@@ -438,7 +438,7 @@ class TransactionStateManager(brokerId: Int,
+     enableTwoPC || (txnTimeoutMs <= config.transactionMaxTimeoutMs && txnTimeoutMs > 0)
+   }
+ 
+-  def transactionTopicConfigs: Properties = {
++  def transactionStateTopicConfigs: Properties = {
+     val props = new Properties
+ 
+     // enforce disabled unclean leader election, no compression types, and compact cleanup policy
+diff --git a/core/src/main/scala/kafka/server/BrokerServer.scala b/core/src/main/scala/kafka/server/BrokerServer.scala
+index c339a1d595a24329a030cd6ddd49943302705775..8467b285f33f254bedc5871d5f97d1bb073ba809 100644
+--- a/core/src/main/scala/kafka/server/BrokerServer.scala
++++ b/core/src/main/scala/kafka/server/BrokerServer.scala
+@@ -419,7 +419,7 @@ class BrokerServer(
+       autoTopicCreationManager = new DefaultAutoTopicCreationManager(
+         config,
+         () => groupCoordinator.groupMetadataTopicConfigs,
+-        () => transactionCoordinator.transactionTopicConfigs,
++        () => transactionCoordinator.transactionStateTopicConfigs,
+         () => shareCoordinator.shareGroupStateTopicConfigs,
+         new KRaftTopicCreator(clientToControllerChannelManager),
+         time,
+diff --git a/core/src/test/scala/unit/kafka/coordinator/transaction/TransactionStateManagerTest.scala b/core/src/test/scala/unit/kafka/coordinator/transaction/TransactionStateManagerTest.scala
+index 4343987f1a0751e072e6ce9ba5d1c9ca25e9611c..11714a66ab66e54f3bbd380c7073cb9c64a1d941 100644
+--- a/core/src/test/scala/unit/kafka/coordinator/transaction/TransactionStateManagerTest.scala
++++ b/core/src/test/scala/unit/kafka/coordinator/transaction/TransactionStateManagerTest.scala
+@@ -1182,7 +1182,7 @@ class TransactionStateManagerTest {
+       val partitionId = transactionManager.partitionFor(transactionalId1)
+       val topicPartition = new TopicIdPartition(transactionTopicId, partitionId, TRANSACTION_STATE_TOPIC_NAME)
+       val expectedTombstone = new SimpleRecord(time.milliseconds(), TransactionLog.keyToBytes(transactionalId1), null)
+-      val expectedRecords = MemoryRecords.withRecords(TransactionLog.ENFORCED_COMPRESSION, expectedTombstone)
++      val expectedRecords = MemoryRecords.withRecords(Compression.NONE, expectedTombstone)
+       assertEquals(Set(topicPartition), appendedRecords.keySet)
+       assertEquals(Seq(expectedRecords), appendedRecords(topicPartition).toSeq)
+     } else {
+diff --git a/core/src/test/scala/unit/kafka/server/KafkaApisTest.scala b/core/src/test/scala/unit/kafka/server/KafkaApisTest.scala
+index 4239b49a962858b5b507d4e0a0aecfb24a7245b1..4c36833ab73b298d75ffc963229f0cbdc4c1750e 100644
+--- a/core/src/test/scala/unit/kafka/server/KafkaApisTest.scala
++++ b/core/src/test/scala/unit/kafka/server/KafkaApisTest.scala
+@@ -766,7 +766,7 @@ class KafkaApisTest extends Logging {
+         case CoordinatorType.TRANSACTION =>
+           topicConfigOverride.put(TransactionLogConfig.TRANSACTIONS_TOPIC_PARTITIONS_CONFIG, numBrokersNeeded.toString)
+           topicConfigOverride.put(TransactionLogConfig.TRANSACTIONS_TOPIC_REPLICATION_FACTOR_CONFIG, numBrokersNeeded.toString)
+-          when(txnCoordinator.transactionTopicConfigs).thenReturn(new Properties)
++          when(txnCoordinator.transactionStateTopicConfigs).thenReturn(new Properties)
+           authorizeResource(authorizer, AclOperation.DESCRIBE, ResourceType.TRANSACTIONAL_ID,
+             groupId, AuthorizationResult.ALLOWED)
+           Topic.TRANSACTION_STATE_TOPIC_NAME
+@@ -938,7 +938,7 @@ class KafkaApisTest extends Logging {
+         case Topic.TRANSACTION_STATE_TOPIC_NAME =>
+           topicConfigOverride.put(TransactionLogConfig.TRANSACTIONS_TOPIC_PARTITIONS_CONFIG, numBrokersNeeded.toString)
+           topicConfigOverride.put(TransactionLogConfig.TRANSACTIONS_TOPIC_REPLICATION_FACTOR_CONFIG, numBrokersNeeded.toString)
+-          when(txnCoordinator.transactionTopicConfigs).thenReturn(new Properties)
++          when(txnCoordinator.transactionStateTopicConfigs).thenReturn(new Properties)
+           true
+         case _ =>
+           topicConfigOverride.put(ServerLogConfigs.NUM_PARTITIONS_CONFIG, numBrokersNeeded.toString)
+diff --git a/server/src/main/java/org/apache/kafka/server/DefaultAutoTopicCreationManager.java b/server/src/main/java/org/apache/kafka/server/DefaultAutoTopicCreationManager.java
+index 04e754a924e63063a06af321d06f5ca7bd94278d..907225faba12d005fa3d56ee7812212a9108003a 100644
+--- a/server/src/main/java/org/apache/kafka/server/DefaultAutoTopicCreationManager.java
++++ b/server/src/main/java/org/apache/kafka/server/DefaultAutoTopicCreationManager.java
+@@ -63,7 +63,7 @@ public class DefaultAutoTopicCreationManager implements AutoTopicCreationManager
+     private final TopicCreator topicCreator;
+     private final Supplier<Properties> groupCoordinatorConfigsSupplier;
+     private final Supplier<Properties> shareCoordinatorConfigsSupplier;
+-    private final Supplier<Properties> transactionTopicConfigsSupplier;
++    private final Supplier<Properties> transactionStateTopicConfigsSupplier;
+     private final Time time;
+     private final Set<String> inflightTopics = ConcurrentHashMap.newKeySet();
+     private final ExpiringErrorCache topicCreationErrorCache;
+@@ -71,7 +71,7 @@ public class DefaultAutoTopicCreationManager implements AutoTopicCreationManager
+     public DefaultAutoTopicCreationManager(
+             AbstractKafkaConfig config,
+             Supplier<Properties> groupCoordinatorConfigsSupplier,
+-            Supplier<Properties> transactionTopicConfigsSupplier,
++            Supplier<Properties> transactionStateTopicConfigsSupplier,
+             Supplier<Properties> shareCoordinatorConfigsSupplier,
+             TopicCreator topicCreator,
+             Time time
+@@ -79,7 +79,7 @@ public class DefaultAutoTopicCreationManager implements AutoTopicCreationManager
+         this(
+             config,
+             groupCoordinatorConfigsSupplier,
+-            transactionTopicConfigsSupplier,
++            transactionStateTopicConfigsSupplier,
+             shareCoordinatorConfigsSupplier,
+             topicCreator,
+             time,
+@@ -92,7 +92,7 @@ public class DefaultAutoTopicCreationManager implements AutoTopicCreationManager
+     DefaultAutoTopicCreationManager(
+             AbstractKafkaConfig config,
+             Supplier<Properties> groupCoordinatorConfigsSupplier,
+-            Supplier<Properties> transactionTopicConfigsSupplier,
++            Supplier<Properties> transactionStateTopicConfigsSupplier,
+             Supplier<Properties> shareCoordinatorConfigsSupplier,
+             TopicCreator topicCreator,
+             Time time,
+@@ -101,7 +101,7 @@ public class DefaultAutoTopicCreationManager implements AutoTopicCreationManager
+         this.config = config;
+         this.groupCoordinatorConfigsSupplier = groupCoordinatorConfigsSupplier;
+         this.shareCoordinatorConfigsSupplier = shareCoordinatorConfigsSupplier;
+-        this.transactionTopicConfigsSupplier = transactionTopicConfigsSupplier;
++        this.transactionStateTopicConfigsSupplier = transactionStateTopicConfigsSupplier;
+         this.time = time;
+         this.topicCreator = topicCreator;
+         this.topicCreationErrorCache = new ExpiringErrorCache(topicErrorCacheCapacity, time);
+@@ -251,7 +251,7 @@ public class DefaultAutoTopicCreationManager implements AutoTopicCreationManager
+                     .setName(topic)
+                     .setNumPartitions(transactionLogConfig.transactionTopicPartitions())
+                     .setReplicationFactor(transactionLogConfig.transactionTopicReplicationFactor())
+-                    .setConfigs(convertToTopicConfigCollections(transactionTopicConfigsSupplier.get()));
++                    .setConfigs(convertToTopicConfigCollections(transactionStateTopicConfigsSupplier.get()));
+             }
+             case Topic.SHARE_GROUP_STATE_TOPIC_NAME -> {
+                 var shareCoordinatorConfig = new ShareCoordinatorConfig(config);

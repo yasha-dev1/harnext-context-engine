@@ -1,0 +1,3 @@
+{
+  "summary": "Fixed KAFKA-20434 by implementing the fix in GroupMetadataManager.consumerGroupHeartbeat to detect and handle preferred server-side assignor changes. The implementation compares the group's preferred assignor before and after member updates, bumping the group epoch when the preferred (majority) assignor changes. This ensures target assignment is recomputed with the new assignor when static members rejoin with different assignor preferences. Both test cases pass successfully: ConsumerGroupHeartbeatRequestTest.testStaticMembersRejoinWithDifferentServerAssignor() and GroupMetadataManagerTest.testStaticMembersRejoinWithNewServerAssignor()."
+}

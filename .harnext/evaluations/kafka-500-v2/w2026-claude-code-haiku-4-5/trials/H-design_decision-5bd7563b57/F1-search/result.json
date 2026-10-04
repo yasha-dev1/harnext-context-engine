@@ -1,0 +1,54 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "entities/kip/KIP-1249/timeline.md",
+      "entities/issue/KAFKA-20195/OVERVIEW.md",
+      "entities/thread/DA181027-B461-4A45-A56F-68A481F273D7@gmail.com"
+    ],
+    "value": null
+  },
+  "arm": "F1-search",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 190.05636384300306,
+  "family": "design_decision",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "entities/kip/KIP-1249/timeline.md",
+      "entities/issue/KAFKA-20195/OVERVIEW.md",
+      "entities/thread/DA181027-B461-4A45-A56F-68A481F273D7@gmail.com"
+    ],
+    "expected": "GroupCreationTimeUnknownException"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 19,
+  "prompt_sha256": "bdf564cadeab292048cd986f9016c7cc42a654791b8287d8c17f91b0f7696dcb",
+  "run_index": 65,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-5bd7563b57",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 2,
+    "mcp__history__search_context": 14
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 811585,
+    "cost_usd": 0.2061335,
+    "input_tokens": 865551,
+    "output_tokens": 3440
+  },
+  "violations": []
+}

@@ -1,0 +1,9 @@
+{
+  "evidence": [
+    "window-82-summary.md (lines 302-312)",
+    "window-82-summary.md (lines 375-380)",
+    "window-83-summary.md (lines 219-225)",
+    "kips-and-discussions.md (lines 960-971)"
+  ],
+  "value": "KAFKA-20386"
+}

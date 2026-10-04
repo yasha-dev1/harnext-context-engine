@@ -1,0 +1,82 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail:9f2cd16f7bbf9f088c40cada",
+      "mail:117fbf958baed00db554b645",
+      "mail:36b3dd6f3cf0c5181c080be0",
+      "mail:163af85d6d7e2a32eb2df36e"
+    ],
+    "value": "GroupCreationTimeUnknownException"
+  },
+  "arm": "H-engine-b8",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 45.426596175995655,
+  "engine": {
+    "calls": 1,
+    "chat": {
+      "calls": 23,
+      "cancelled": 0,
+      "cost_usd": 0.00477862,
+      "input_tokens": 151847,
+      "output_tokens": 2943,
+      "retries": 0
+    },
+    "cost_usd": 0.00753059,
+    "discarded_attempts": 0,
+    "jev": {
+      "calls": 28,
+      "cancelled": 0,
+      "cost_usd": 0.00275197,
+      "input_tokens": 65523,
+      "output_tokens": 10975,
+      "retries": 0
+    },
+    "partial": 0,
+    "provider_retry_usd": 0,
+    "seconds": 31.149,
+    "unmetered_upper_usd": 0,
+    "waited_s": 0
+  },
+  "family": "design_decision",
+  "grade": {
+    "actual": "GroupCreationTimeUnknownException",
+    "correct": true,
+    "evidence": [
+      "mail:9f2cd16f7bbf9f088c40cada",
+      "mail:117fbf958baed00db554b645",
+      "mail:36b3dd6f3cf0c5181c080be0",
+      "mail:163af85d6d7e2a32eb2df36e"
+    ],
+    "expected": "GroupCreationTimeUnknownException"
+  },
+  "image_id": "sha256:1de715f951a3fc013cabad66407b87028bc2a5af6e58efdea5338b4cf9fb1485",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "aed1a9adfdd2bab8dc7b751095be4ed1d0153793a3a3ff30513deca69c42785b",
+  "run_index": 53,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-5bd7563b57",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 63612,
+    "cost_usd": 0.0128872,
+    "input_tokens": 64906,
+    "output_tokens": 793
+  },
+  "violations": []
+}

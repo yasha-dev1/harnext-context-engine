@@ -1,0 +1,49 @@
+{
+  "agent": "claude-code",
+  "agent_version": "2.1.278 (Claude Code)",
+  "arms": {
+    "N": "66816f4528f39cf69864fd7e529f6670ed2868b26e664ccee7a82aa499f9bd53",
+    "S-tools": "03f6b364c37a793b3739c66781eb86f84c8a451cbebc795d0ebedff9904b78f7"
+  },
+  "benchmark": "kafka-w2026-implicit",
+  "config": {
+    "agent": "claude-code",
+    "effort": "medium",
+    "keep_per_arm": 3,
+    "model": "claude-haiku-4-5-20251001",
+    "protocol": "harnext-e2-v2",
+    "reader": "claude",
+    "run_id": "w2026-implicit-haiku-4-5",
+    "store_hash": "manifest",
+    "timeouts": {
+      "coding": 3600,
+      "grading": 3000,
+      "historical": 900
+    }
+  },
+  "prompt_template_sha256": "5012cc3cc5d76cbb631b5ad340b865071406c5af4fe329818e2ce2d1231f856b",
+  "run_id": "w2026-implicit-haiku-4-5",
+  "stores": {
+    "S-tools/2026-01": "e2c3e717ac47bb8f4c3768fd4e7f13583767777a62c0feb14cc9e715333be0af",
+    "S-tools/2026-02": "d6a671b3728302b2f2f4a2f385a24a92a5b5def765adc67ba761c7b053c671ad",
+    "S-tools/2026-03": "b3402f39683ebc948baa8160102b72ce566ac408fc1e40d3eb3ca2f9e570f8d4",
+    "S-tools/2026-04": "3a7d1907ea4e7c75905645b99088bd35f4931ed63584cc8b3e6b37339c1e6bc3",
+    "S-tools/2026-05": "41dd5ab9cf0b2e4644782fa8aa3e6c11af68843b9ad6d99a9b45e97d1aa8dd11"
+  },
+  "tasks": {
+    "H-implicit_link-2816fc05c3": "ce0475eb9cb6d926980c8276d710c2f08a591dbe5617e2933ab37884dab8038a",
+    "H-implicit_link-343147259e": "4ae5a3663528dc7d19509c52a7c87c34cec16582647b65b4cbf3ab9e2631df6b",
+    "H-implicit_link-394aab4475": "063d04b6fb632a3c30ef69a5d5020686f635f3b2f7974afd30284d2b65bace20",
+    "H-implicit_link-3d50142383": "08843436a90830ba928bdba8ea5832c947572706b34ed64dcf8b135184a66632",
+    "H-implicit_link-5f99ef72d8": "6376b4f4858729e6c70ebfee17d1d9a69480ed9549da6d899e5cbbf8a775cc46",
+    "H-implicit_link-69a9914100": "6a635095a8ebc26be67629b7e4a169d0cd70eb55d657bc380a3715496adf22fc",
+    "H-implicit_link-9b60b63a4c": "089833c1670d1036b53da3f072223392bef718fada76134806b3544e3d2e8a57",
+    "H-implicit_link-9c29b4facc": "cf54957b9a434006f4e3078bf81735d34848b4744395e6ce93c5f5927a73e943",
+    "H-implicit_link-a50314bc94": "44ef63521c95fba2cac3e0700c1bf110ddc3a0b92333036e06738e4eb97144dc",
+    "H-implicit_link-dc560200e7": "64fa1470962c20ad169f3db8b9d2f02ef4ba504ab3361887a9bc364d57d07887",
+    "H-implicit_link-e8c868d609": "708f4f258fa492a92a656d456d272780c6ee7c605c1f4167b10afdc92afe3a53",
+    "H-implicit_link-f6cda24f3f": "d8bbd357878fdb008efd2253edcff65999a836574aa342212292d4044d7668fb",
+    "H-implicit_link-f9d0f12af5": "a727bd95099b0da5c423ced25107e878549d1bc309ac118c837a26745678ccfa",
+    "H-implicit_link-fed6dac2f1": "e6748e8b328a58c4019b73d4f671a971be6d2e19e423e7b4c6f1c350d196c454"
+  }
+}

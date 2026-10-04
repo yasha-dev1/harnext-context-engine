@@ -1,0 +1,51 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "Knowledge cutoff is February 2025; thread is from 2026-02-25 (beyond cutoff)",
+      "No network access available",
+      "No local files provided with this information"
+    ],
+    "value": null
+  },
+  "arm": "N",
+  "checkpoint": "2026-02",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 9.069531861008727,
+  "family": "implicit_link",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "Knowledge cutoff is February 2025; thread is from 2026-02-25 (beyond cutoff)",
+      "No network access available",
+      "No local files provided with this information"
+    ],
+    "expected": "KAFKA-20223"
+  },
+  "instructions_sha256": null,
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 1,
+  "prompt_sha256": "875cca15ede94a311c20ea6e4405a58f2d2d6668107dc1327f9e747bf30d116e",
+  "run_index": 9,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-implicit_link-dc560200e7",
+  "tool_calls": {
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 17497,
+    "cost_usd": 0.011773700000000002,
+    "input_tokens": 20646,
+    "output_tokens": 747
+  },
+  "violations": []
+}

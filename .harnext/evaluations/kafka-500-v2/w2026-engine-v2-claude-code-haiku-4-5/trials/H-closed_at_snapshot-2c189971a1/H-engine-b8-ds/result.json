@@ -1,0 +1,76 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "jira:13641465:change:22943422:0 - Status of KAFKA-20158 was 'In Progress' at the cutoff date 2026-02-28, not 'Closed'"
+    ],
+    "value": false
+  },
+  "arm": "H-engine-b8-ds",
+  "checkpoint": "2026-02",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 64.87824287799594,
+  "engine": {
+    "calls": 1,
+    "chat": {
+      "calls": 4,
+      "cancelled": 0,
+      "cost_usd": 0.00109133,
+      "input_tokens": 18259,
+      "output_tokens": 2498,
+      "retries": 0
+    },
+    "cost_usd": 0.00136126,
+    "discarded_attempts": 0,
+    "jev": {
+      "calls": 5,
+      "cancelled": 0,
+      "cost_usd": 0.00026993,
+      "input_tokens": 6427,
+      "output_tokens": 974,
+      "retries": 0
+    },
+    "partial": 1,
+    "provider_retry_usd": 0,
+    "seconds": 51.739,
+    "unmetered_upper_usd": 0,
+    "waited_s": 0
+  },
+  "family": "closed_at_snapshot",
+  "grade": {
+    "actual": false,
+    "correct": true,
+    "evidence": [
+      "jira:13641465:change:22943422:0 - Status of KAFKA-20158 was 'In Progress' at the cutoff date 2026-02-28, not 'Closed'"
+    ],
+    "expected": false
+  },
+  "image_id": "sha256:1de715f951a3fc013cabad66407b87028bc2a5af6e58efdea5338b4cf9fb1485",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "c5a91bb4f3edde7490657d92782f3d0f92c6febbf78ac7f9f60bc937a385a740",
+  "run_index": 3,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-closed_at_snapshot-2c189971a1",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 42414,
+    "cost_usd": 0.0511654,
+    "input_tokens": 64312,
+    "output_tokens": 631
+  },
+  "violations": []
+}

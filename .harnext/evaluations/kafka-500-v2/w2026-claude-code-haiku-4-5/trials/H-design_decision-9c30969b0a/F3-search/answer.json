@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "_intake/2026/02/22/mail-c4bfde361f38ca346dffd233-ed6480b7.md (Alieh's response on 2026-02-22 confirming the enum name change from DslStoreType to DslStoreFormat)",
+    "_intake/2026/02/24/github-api-apache-kafka-pr-21572-opened-88e84068.md (PR confirmation of DslStoreFormat enum introduction)"
+  ],
+  "value": "DslStoreFormat"
+}

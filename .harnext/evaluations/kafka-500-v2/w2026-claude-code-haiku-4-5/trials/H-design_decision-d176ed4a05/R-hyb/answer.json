@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "mail:bfae351428945364a45fb155 — Lucas Brutschy's response to KIP-1331 feedback (2026-05-11T13:09:31Z): 'I dropped the UUID, as it introduced more complexities than it solved.' and 'Now, the topology description is created using only the topologyEpoch and a group creation timestamp.'"
+  ],
+  "value": "removed entirely, identified by topologyEpoch and group creation timestamp instead"
+}

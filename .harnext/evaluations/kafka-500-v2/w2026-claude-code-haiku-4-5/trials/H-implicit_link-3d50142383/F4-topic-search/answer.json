@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "store/issues.md (lines 3015-3024)",
+    "store/discussions.md (lines 2144-2153)"
+  ],
+  "value": "KAFKA-20386"
+}

@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "mail/2026-04-24-mail-f7476bc5df952b32c1079dd3-158293ff.md (lines 69-107): Viktor's message dated 2026-04-24 stating 'I can expect though that \"list\" can stay eventually consistent as the KIP relies on it for only garbage collection where it is fine if a few segments can be collected only in the next iteration.' This message explicitly states that get and put should be strongly consistent for read-after-write scenarios, while list can remain eventually consistent."
+  ],
+  "value": "list"
+}

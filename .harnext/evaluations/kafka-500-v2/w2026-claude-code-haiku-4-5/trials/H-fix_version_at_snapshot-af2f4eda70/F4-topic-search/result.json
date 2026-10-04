@@ -1,0 +1,58 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "pull-requests.md:5022-5031",
+      "issues.md:1092-1097",
+      "index.md:72",
+      "context_research result - confirmed fix version information not found in stored context"
+    ],
+    "value": []
+  },
+  "arm": "F4-topic-search",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 200.6091610959993,
+  "family": "fix_version_at_snapshot",
+  "grade": {
+    "actual": [],
+    "correct": false,
+    "evidence": [
+      "pull-requests.md:5022-5031",
+      "issues.md:1092-1097",
+      "index.md:72",
+      "context_research result - confirmed fix version information not found in stored context"
+    ],
+    "expected": [
+      "4.3.0"
+    ]
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 14,
+  "prompt_sha256": "6f0019e2bbcb925fd019d61a047cde25c5907aae1c5dfb151e18b62df3363e24",
+  "run_index": 9,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-fix_version_at_snapshot-af2f4eda70",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 2,
+    "mcp__history__search_context": 9
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 520553,
+    "cost_usd": 0.14578129999999997,
+    "input_tokens": 559082,
+    "output_tokens": 3357
+  },
+  "violations": []
+}

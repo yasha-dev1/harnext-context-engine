@@ -1,0 +1,3 @@
+{
+  "summary": "Implemented readOnly(IsolationLevel) method for MeteredKeyValueStore that provides a metered read-only view with serde transformation and metrics recording on all read operations. All 44 tests pass."
+}

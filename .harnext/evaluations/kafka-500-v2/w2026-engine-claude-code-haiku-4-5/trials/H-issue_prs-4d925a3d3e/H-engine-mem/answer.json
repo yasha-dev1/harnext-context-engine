@@ -1,0 +1,46 @@
+{
+  "evidence": [
+    "github:api:apache/kafka:pr-21452-merged",
+    "github:api:apache/kafka:pr-21461-merged",
+    "github:api:apache/kafka:pr-21462-merged",
+    "github:api:apache/kafka:pr-21505-merged",
+    "github:api:apache/kafka:pr-21559-merged",
+    "github:api:apache/kafka:pr-21560-closed",
+    "github:api:apache/kafka:pr-21561-merged",
+    "github:api:apache/kafka:pr-21562-merged"
+  ],
+  "value": [
+    {
+      "pr": 21452,
+      "state": "merged"
+    },
+    {
+      "pr": 21461,
+      "state": "merged"
+    },
+    {
+      "pr": 21462,
+      "state": "merged"
+    },
+    {
+      "pr": 21505,
+      "state": "merged"
+    },
+    {
+      "pr": 21559,
+      "state": "merged"
+    },
+    {
+      "pr": 21560,
+      "state": "closed"
+    },
+    {
+      "pr": 21561,
+      "state": "merged"
+    },
+    {
+      "pr": 21562,
+      "state": "merged"
+    }
+  ]
+}

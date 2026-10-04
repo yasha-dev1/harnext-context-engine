@@ -1,0 +1,3 @@
+{
+  "summary": "Successfully implemented logging recommendation for the Classic consumer rebalance protocol in KAFKA-20282. Added `logConsumerProtocolRecommendation` method to ClassicKafkaConsumer that logs \"The consumer rebalance protocol (KIP-848) is production ready!\" at INFO level when using the classic protocol with a configured group ID. All three test cases pass: no log when CONSUMER protocol is set, log when using default/CLASSIC protocol with group ID, and no log when no group ID is configured."
+}

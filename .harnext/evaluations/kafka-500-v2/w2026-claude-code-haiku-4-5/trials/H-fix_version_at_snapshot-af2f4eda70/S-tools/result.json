@@ -1,0 +1,57 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "jira issue view KAFKA-20336 --history (offline replica, data as of 2026-05-01T00:00:00Z)"
+    ],
+    "value": [
+      "4.3.0"
+    ]
+  },
+  "arm": "S-tools",
+  "checkpoint": "2026-04",
+  "cli_calls": {
+    "jira": 3
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 17.157092844001454,
+  "family": "fix_version_at_snapshot",
+  "grade": {
+    "actual": [
+      "4.3.0"
+    ],
+    "correct": true,
+    "evidence": [
+      "jira issue view KAFKA-20336 --history (offline replica, data as of 2026-05-01T00:00:00Z)"
+    ],
+    "expected": [
+      "4.3.0"
+    ]
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 5,
+  "prompt_sha256": "42732c9d3322199c625832f663e9b508bd62c250b851c28597e5973ad7dda0d0",
+  "run_index": 9,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-fix_version_at_snapshot-af2f4eda70",
+  "tool_calls": {
+    "Bash": 3,
+    "StructuredOutput": 1,
+    "ToolSearch": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 103325,
+    "cost_usd": 0.0285575,
+    "input_tokens": 109408,
+    "output_tokens": 1220
+  },
+  "violations": []
+}

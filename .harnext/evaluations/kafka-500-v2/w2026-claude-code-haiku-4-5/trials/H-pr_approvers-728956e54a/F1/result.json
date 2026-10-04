@@ -1,0 +1,60 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "store/entities/pr/21866/OVERVIEW.md",
+      "store/entities/pr/21866/timeline.md"
+    ],
+    "value": [
+      "AndrewJSchofield",
+      "showuon"
+    ]
+  },
+  "arm": "F1",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 29.73433284500061,
+  "family": "pr_approvers",
+  "grade": {
+    "actual": [
+      "AndrewJSchofield",
+      "showuon"
+    ],
+    "correct": true,
+    "evidence": [
+      "store/entities/pr/21866/OVERVIEW.md",
+      "store/entities/pr/21866/timeline.md"
+    ],
+    "expected": [
+      "AndrewJSchofield",
+      "showuon"
+    ]
+  },
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "e606047da7425dbad88152ce3f2d129c086418073d35729387fbf4e8749ad88f",
+  "run_index": 49,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-pr_approvers-728956e54a",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 63528,
+    "cost_usd": 0.0122468,
+    "input_tokens": 64556,
+    "output_tokens": 773
+  },
+  "violations": []
+}

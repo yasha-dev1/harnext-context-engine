@@ -1,0 +1,3 @@
+{
+  "summary": "Successfully implemented KAFKA-20444: Align TxnOffsetCommit API with OffsetCommit API (KIP-1319). Modified KafkaProducer.sendOffsetsToTransaction() to call awaitTopicMetadata() for all topics in the offset commit, ensuring topic IDs are available in metadata. This enables the producer to negotiate and use TxnOffsetCommit protocol v6 with topic IDs instead of topic names when transaction V2 is enabled and the broker supports it. Both target tests now pass, and all existing tests continue to pass without regressions."
+}

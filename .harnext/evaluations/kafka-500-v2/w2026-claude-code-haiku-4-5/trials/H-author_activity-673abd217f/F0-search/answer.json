@@ -1,0 +1,11 @@
+{
+  "evidence": [
+    "events/2026/03/06/github-api-apache-kafka-pr-21638-merged-4cb0d476.md",
+    "events/2026/03/06/github-api-apache-kafka-pr-21641-merged-31bda900.md",
+    "events/2026/03/10/github-api-apache-kafka-pr-21642-merged-7fa009dc.md",
+    "events/2026/03/10/github-api-apache-kafka-pr-21685-merged-7e520ab9.md",
+    "events/2026/04/28/github-api-apache-kafka-pr-21772-merged-df26183b.md",
+    "events/2026/04/28/github-api-apache-kafka-pr-22067-merged-c06b4c06.md"
+  ],
+  "value": 6
+}

@@ -1,0 +1,53 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "No access to Apache Kafka JIRA instance",
+      "No snapshot data provided",
+      "No network access available",
+      "Task requires specific historical JIRA state from 2026-05-31 cutoff"
+    ],
+    "value": null
+  },
+  "arm": "N",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 8.596433653998247,
+  "family": "resolution_at_snapshot",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "No access to Apache Kafka JIRA instance",
+      "No snapshot data provided",
+      "No network access available",
+      "Task requires specific historical JIRA state from 2026-05-31 cutoff"
+    ],
+    "expected": "Abandoned"
+  },
+  "instructions_sha256": null,
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 1,
+  "prompt_sha256": "5f506edad2f416a53ca41341f5b9f6baad4b8788c3e7db2a964f54b57a1e5e20",
+  "run_index": 25,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-resolution_at_snapshot-449cfc19c6",
+  "tool_calls": {
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 17497,
+    "cost_usd": 0.0113747,
+    "input_tokens": 20609,
+    "output_tokens": 682
+  },
+  "violations": []
+}

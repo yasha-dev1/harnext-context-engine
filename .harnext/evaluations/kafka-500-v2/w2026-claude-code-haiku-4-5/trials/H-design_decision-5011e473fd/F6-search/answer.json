@@ -1,0 +1,11 @@
+{
+  "evidence": [
+    "/store/window-99-summary.md (dated 2026-04-20, Viktor Somogyi-Vass response 2026-04-20T15:14:43Z)",
+    "kips-and-discussions.md",
+    "mailing-list/window-119-kip-discussions.md",
+    "mailing-list/window-116-kip-discussions.md",
+    "window-120-summary.md",
+    "window-103-summary.md"
+  ],
+  "value": "build a new metadata component independent of RLMM"
+}

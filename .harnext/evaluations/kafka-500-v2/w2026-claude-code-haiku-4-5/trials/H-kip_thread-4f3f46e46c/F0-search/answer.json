@@ -1,0 +1,28 @@
+{
+  "evidence": [
+    "events/2026/01/22/mail-550c648f6ddf3a323092287d-4b51bc95.md",
+    "events/2026/01/26/mail-55622c20067f615de99f372a-ca443ae5.md",
+    "events/2026/01/27/mail-4e7099123aab260e25a05d65-1d272361.md",
+    "events/2026/01/27/mail-d6912ccc512d32df7a246110-7ce383ee.md",
+    "events/2026/01/27/mail-30137767042bf7e848f7a807-341c60a7.md",
+    "events/2026/01/27/mail-7a0ea32c35a9c834851850f8-f7a51b61.md",
+    "events/2026/01/22/mail-ce4c9730ee6c37bc81d0cd1e-e3d04b61.md",
+    "events/2026/01/28/mail-263b0239b98e36fe0c99fba8-9c9ec008.md",
+    "events/2026/01/28/mail-627e735177597c7ef8fa2243-e5770be9.md",
+    "events/2026/01/28/mail-7c2559471b2316a3f26da0f7-1c8373a7.md",
+    "events/2026/01/28/mail-c64a83d2563f7ab1569d318f-42001bdb.md",
+    "events/2026/01/28/mail-ab91a8ee1efedccf40d3c5f8-7d91fb8a.md",
+    "events/2026/01/28/mail-2034d686308bfb1f60b2770e-9c74f555.md",
+    "events/2026/02/09/mail-9126a23dffb5dbcec284dce5-0a4c916e.md",
+    "events/2026/02/11/mail-dd3c1f08370863d0873aee43-48fb497f.md",
+    "events/2026/02/13/mail-fd9d85a63c9e86b008ed8da0-1db10cdf.md",
+    "events/2026/02/13/mail-b96c0c41bad0fc9745839b89-22fe5f2c.md",
+    "events/2026/02/14/mail-e437a5f929aa48c75a64ae98-2f7ec638.md",
+    "events/2026/02/14/mail-76ee52d9d68208a0d58e2091-e07a299d.md",
+    "events/2026/02/16/mail-2b8888b66b964eada5234616-b9c0301d.md"
+  ],
+  "value": {
+    "participants": 7,
+    "starter": "Lianet Magrans"
+  }
+}

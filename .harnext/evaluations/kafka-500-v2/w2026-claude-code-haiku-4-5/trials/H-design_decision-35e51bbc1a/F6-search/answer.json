@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "The specific design decision about mirror topic replication factor inheritance is not documented in the available project context up to 2026-04-30. Extensive searches of KIP-1279 discussions, technical reviews, and related pull requests did not yield this information. The answer would need to be found in the actual KIP-1279 design document on the Apache Kafka Confluence wiki."
+  ],
+  "value": null
+}

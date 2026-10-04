@@ -1,0 +1,3 @@
+{
+  "summary": "KAFKA-20623: Wire topology description plugin into GroupCoordinatorService has been successfully implemented. All 28 tests pass. The implementation includes: (1) plugin integration in GroupCoordinatorService, (2) heartbeat post-processing with TopologyDescriptionRequired flag, (3) per-group exponential backoff (30s-1h), (4) StreamsGroupTopologyDescriptionUpdate RPC handler with plugin invocation and metadata record writes, (5) POJO↔wire converters for topology descriptions, (6) deleteGroups integration calling plugin.deleteTopology before tombstoning, and (7) GroupCoordinator interface updates. All components are working correctly per KIP-1331 specifications."
+}

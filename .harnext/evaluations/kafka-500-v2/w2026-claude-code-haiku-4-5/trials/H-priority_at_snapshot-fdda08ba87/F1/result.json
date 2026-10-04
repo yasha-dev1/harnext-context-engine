@@ -1,0 +1,49 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "store/entities/issue/KAFKA-20185/OVERVIEW.md"
+    ],
+    "value": "Blocker"
+  },
+  "arm": "F1",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 21.015280391999113,
+  "family": "priority_at_snapshot",
+  "grade": {
+    "actual": "Blocker",
+    "correct": true,
+    "evidence": [
+      "store/entities/issue/KAFKA-20185/OVERVIEW.md"
+    ],
+    "expected": "Blocker"
+  },
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "019080167fd7afbd012244f778e8fd9130a398818ed61353672f9984a69e1e04",
+  "run_index": 21,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-priority_at_snapshot-fdda08ba87",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 63337,
+    "cost_usd": 0.0104437,
+    "input_tokens": 64118,
+    "output_tokens": 515
+  },
+  "violations": []
+}

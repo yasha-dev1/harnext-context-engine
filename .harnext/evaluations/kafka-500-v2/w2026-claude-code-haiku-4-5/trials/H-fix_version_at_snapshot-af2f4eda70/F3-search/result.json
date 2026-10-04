@@ -1,0 +1,57 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "_intake/2026/04/28/jira-13645437-change-23039645-0-71ebcb36.md",
+      "_intake/2026/03/19/mail-1d0e1a832fbbcb5ee871ddd3-c6d30cbe.md"
+    ],
+    "value": [
+      "4.3.0"
+    ]
+  },
+  "arm": "F3-search",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 31.166547443004674,
+  "family": "fix_version_at_snapshot",
+  "grade": {
+    "actual": [
+      "4.3.0"
+    ],
+    "correct": true,
+    "evidence": [
+      "_intake/2026/04/28/jira-13645437-change-23039645-0-71ebcb36.md",
+      "_intake/2026/03/19/mail-1d0e1a832fbbcb5ee871ddd3-c6d30cbe.md"
+    ],
+    "expected": [
+      "4.3.0"
+    ]
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 4,
+  "prompt_sha256": "6f0019e2bbcb925fd019d61a047cde25c5907aae1c5dfb151e18b62df3363e24",
+  "run_index": 9,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-fix_version_at_snapshot-af2f4eda70",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__search_context": 2
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 88864,
+    "cost_usd": 0.0296794,
+    "input_tokens": 95673,
+    "output_tokens": 1442
+  },
+  "violations": []
+}

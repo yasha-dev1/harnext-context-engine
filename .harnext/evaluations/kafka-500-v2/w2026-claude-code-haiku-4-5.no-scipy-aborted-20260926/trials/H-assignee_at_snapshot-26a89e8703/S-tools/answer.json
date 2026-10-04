@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "jira issue view KAFKA-19701 --history output shows assignee: Muralidhar Basani as of 2026-04-30T21:01:23Z (last update, within cutoff), with assignment history showing Muralidhar Basani became assignee on 2026-04-08T14:25:43Z with no subsequent reassignment"
+  ],
+  "value": "Muralidhar Basani"
+}

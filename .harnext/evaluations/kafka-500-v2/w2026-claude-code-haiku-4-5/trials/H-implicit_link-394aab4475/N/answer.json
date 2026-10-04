@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "Unable to determine: event date (2026-04-01) is after knowledge cutoff (February 2025)",
+    "No network access available",
+    "No local project context provided"
+  ],
+  "value": null
+}

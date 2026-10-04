@@ -1,0 +1,85 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail:550c648f6ddf3a323092287d"
+    ],
+    "value": {
+      "participants": 8,
+      "starter": "Lianet Magrans"
+    }
+  },
+  "arm": "H-engine-b8-ds",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 163.3971844369953,
+  "engine": {
+    "calls": 2,
+    "chat": {
+      "calls": 10,
+      "cancelled": 0,
+      "cost_usd": 0.00339725,
+      "input_tokens": 31375,
+      "output_tokens": 7628,
+      "retries": 0
+    },
+    "cost_usd": 0.00439328,
+    "discarded_attempts": 0,
+    "jev": {
+      "calls": 11,
+      "cancelled": 0,
+      "cost_usd": 0.00099603,
+      "input_tokens": 23715,
+      "output_tokens": 2536,
+      "retries": 0
+    },
+    "partial": 1,
+    "provider_retry_usd": 0,
+    "seconds": 143.635,
+    "unmetered_upper_usd": 0,
+    "waited_s": 0
+  },
+  "family": "kip_thread",
+  "grade": {
+    "actual": {
+      "participants": 8,
+      "starter": "Lianet Magrans"
+    },
+    "correct": true,
+    "evidence": [
+      "mail:550c648f6ddf3a323092287d"
+    ],
+    "expected": {
+      "participants": 8,
+      "starter": "Lianet Magrans"
+    }
+  },
+  "image_id": "sha256:1de715f951a3fc013cabad66407b87028bc2a5af6e58efdea5338b4cf9fb1485",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 4,
+  "prompt_sha256": "137fad190e8509d38fb409f84a41f1baa815856a08c9037fcdceb56f08cc9b46",
+  "run_index": 8,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-kip_thread-4f3f46e46c",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 2
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 85780,
+    "cost_usd": 0.019424999999999998,
+    "input_tokens": 87871,
+    "output_tokens": 1340
+  },
+  "violations": []
+}

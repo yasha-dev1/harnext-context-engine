@@ -1,0 +1,59 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "events/2026/03/09/jira-13638867-change-22965819-0-68f1d9b3.md",
+      "events/2026/03/09/jira-13638867-change-22965795-0-4306c084.md",
+      "events/2026/03/09/jira-13638867-change-22965798-0-288532e1.md"
+    ],
+    "value": [
+      "KAFKA-20282"
+    ]
+  },
+  "arm": "F0-search",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 44.72362778100069,
+  "family": "issue_links",
+  "grade": {
+    "actual": [
+      "KAFKA-20282"
+    ],
+    "correct": true,
+    "evidence": [
+      "events/2026/03/09/jira-13638867-change-22965819-0-68f1d9b3.md",
+      "events/2026/03/09/jira-13638867-change-22965795-0-4306c084.md",
+      "events/2026/03/09/jira-13638867-change-22965798-0-288532e1.md"
+    ],
+    "expected": [
+      "KAFKA-20282"
+    ]
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 8,
+  "prompt_sha256": "5283ee97835b8ed4c068fb16acf62dd00e417f140808ca0c9efbb352355ab5a3",
+  "run_index": 13,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-issue_links-ee77a538ef",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__search_context": 5
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 217281,
+    "cost_usd": 0.0792441,
+    "input_tokens": 239956,
+    "output_tokens": 2447
+  },
+  "violations": []
+}

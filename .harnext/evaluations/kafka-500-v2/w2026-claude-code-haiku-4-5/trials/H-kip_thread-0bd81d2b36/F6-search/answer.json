@@ -1,0 +1,10 @@
+{
+  "evidence": [
+    "kips-and-discussions.md (lines 3689-3698, 341-358, 1193-1205)",
+    "Context research on KIP-1262 mailing list discussion thread"
+  ],
+  "value": {
+    "participants": 3,
+    "starter": "Kevin Wu"
+  }
+}

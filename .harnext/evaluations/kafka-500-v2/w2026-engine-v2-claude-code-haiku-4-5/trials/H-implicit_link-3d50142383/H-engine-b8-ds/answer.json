@@ -1,0 +1,10 @@
+{
+  "evidence": [
+    "jira:13646867:created",
+    "jira:13646867:change:23002903:0",
+    "mail:ae3afc9065b1b455fcfba134",
+    "mail:3a486f07414ee44d7163c381",
+    "mail:762e9120bdb64c23c73d6106"
+  ],
+  "value": "KAFKA-20386"
+}

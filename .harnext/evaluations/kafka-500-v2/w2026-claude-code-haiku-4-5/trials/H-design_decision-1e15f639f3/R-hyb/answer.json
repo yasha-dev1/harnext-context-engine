@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "mail:0a9bb7f24cac428cae178e83 — KIP-1279 discussion, Viquar Khan's feedback dated 2026-02-20T19:39:32Z, section 'VK4 & VK8 - Transactional Integrity & PID Formula Bug (Critical)'"
+  ],
+  "value": "Long.MAX_VALUE - sourceProducerId - 1"
+}

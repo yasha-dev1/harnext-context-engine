@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "ca5590cea750ef8d93ddf7b9 (mail message from Kirk True, 2026-05-05T14:47:53Z, in response to Muralidhar Basani's mb-6 question about RPC retry behavior)"
+  ],
+  "value": "yes, retries target a different broker"
+}

@@ -1,0 +1,13 @@
+{
+  "evidence": [
+    "issues.md (lines 3410-3430): KAFKA-20085 initial fix versions 3.9.2, 4.0.2, 4.1.2, 4.2.0",
+    "issues.md (lines 3095-3110): KAFKA-20085 fix version 4.3.0 added 2026-01-28T17:48:54Z"
+  ],
+  "value": [
+    "3.9.2",
+    "4.0.2",
+    "4.1.2",
+    "4.2.0",
+    "4.3.0"
+  ]
+}

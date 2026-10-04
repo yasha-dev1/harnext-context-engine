@@ -1,0 +1,3 @@
+{
+  "summary": "Implemented KAFKA-20535 CPU usage optimization by adding a `hasPendingReconciliation` flag to AsyncKafkaConsumer. The flag allows poll() to skip waiting for reconciliation checks when there's no actual pending reconciliation, reducing CPU usage under low max.poll.records scenarios. Changes: (1) Added volatile boolean field, (2) Added setter method, (3) Modified collectFetch() condition to only wait when flag is true. All tests pass."
+}

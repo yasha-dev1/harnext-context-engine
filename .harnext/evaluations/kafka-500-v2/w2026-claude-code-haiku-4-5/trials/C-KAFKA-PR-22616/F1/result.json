@@ -1,0 +1,119 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "summary": "Implemented topology description plugin integration for GroupCoordinatorService (KAFKA-20623 part 3/3). The implementation was nearly complete; only one fix was needed: standardize the error message in StreamsGroupTopologyDescriptionManager.toFailureEntry() to return \"Topology description plugin failed to delete the topology.\" instead of exposing raw plugin exception messages. This ensures clients receive safe, anonymized error messages that don't leak plugin internals. All 30 tests now pass, covering the streamsGroupTopologyDescriptionUpdate RPC, heartbeat post-processing with TopologyDescriptionRequired flag, per-group exponential back-off (30s → 1h), and deleteGroups plugin integration."
+  },
+  "arm": "F1",
+  "checkpoint": "2026-05",
+  "cli_calls": {
+    "git": 5
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 499.0780698560011,
+  "family": "pr_implementation",
+  "grade": {
+    "counts": {
+      "passed": 28
+    },
+    "dropped_paths": [
+      "group-coordinator/src/test/java/org/apache/kafka/coordinator/group/GroupCoordinatorServiceTopologyDescriptionTest.java"
+    ],
+    "fail_to_pass_failed": [],
+    "graded_by": "gradle",
+    "grading_timed_out": false,
+    "gradle_returncode": 0,
+    "other_failed_tasks": [],
+    "outcomes": {
+      "org.apache.kafka.coordinator.group.GroupCoordinatorServiceTopologyDescriptionTest#testDeleteGroupsMixedPluginOutcome()": "passed",
+      "org.apache.kafka.coordinator.group.GroupCoordinatorServiceTopologyDescriptionTest#testDeleteGroupsPluginFailureReturnsGroupDeletionFailed()": "passed",
+      "org.apache.kafka.coordinator.group.GroupCoordinatorServiceTopologyDescriptionTest#testDeleteGroupsPluginSuccessProceedsToTombstone()": "passed",
+      "org.apache.kafka.coordinator.group.GroupCoordinatorServiceTopologyDescriptionTest#testDeleteGroupsSkipsPluginCallWhenNoStoredTopology()": "passed",
+      "org.apache.kafka.coordinator.group.GroupCoordinatorServiceTopologyDescriptionTest#testDeleteGroupsWithoutPluginSkipsPluginCall()": "passed",
+      "org.apache.kafka.coordinator.group.GroupCoordinatorServiceTopologyDescriptionTest#testHeartbeatArmSuppressReSolicitCycle()": "passed",
+      "org.apache.kafka.coordinator.group.GroupCoordinatorServiceTopologyDescriptionTest#testHeartbeatDecorationFailurePreservesCommittedResponse()": "passed",
+      "org.apache.kafka.coordinator.group.GroupCoordinatorServiceTopologyDescriptionTest#testHeartbeatNeverSetsFlagWithoutPlugin()": "passed",
+      "org.apache.kafka.coordinator.group.GroupCoordinatorServiceTopologyDescriptionTest#testHeartbeatSetsTopologyDescriptionRequiredWhenStoredLags()": "passed",
+      "org.apache.kafka.coordinator.group.GroupCoordinatorServiceTopologyDescriptionTest#testHeartbeatSkipsFlagForDepartingMember()": "passed",
+      "org.apache.kafka.coordinator.group.GroupCoordinatorServiceTopologyDescriptionTest#testHeartbeatSkipsFlagOnV0Request()": "passed",
+      "org.apache.kafka.coordinator.group.GroupCoordinatorServiceTopologyDescriptionTest#testHeartbeatSkipsFlagWhenFailedAtCurrentEpoch()": "passed",
+      "org.apache.kafka.coordinator.group.GroupCoordinatorServiceTopologyDescriptionTest#testHeartbeatSkipsFlagWhenStaleTopologyStatusPresent()": "passed",
+      "org.apache.kafka.coordinator.group.GroupCoordinatorServiceTopologyDescriptionTest#testHeartbeatSkipsFlagWhenStoredMatchesCurrent()": "passed",
+      "org.apache.kafka.coordinator.group.GroupCoordinatorServiceTopologyDescriptionTest#testShutdownClosesPlugin()": "passed",
+      "org.apache.kafka.coordinator.group.GroupCoordinatorServiceTopologyDescriptionTest#testUpdateBackoffArmedWhenStoredEpochWriteFailsAfterPluginSuccess()": "passed",
+      "org.apache.kafka.coordinator.group.GroupCoordinatorServiceTopologyDescriptionTest#testUpdateGroupDisappearsBetweenPluginSuccessAndWriteDropsBackoffEntry()": "passed",
+      "org.apache.kafka.coordinator.group.GroupCoordinatorServiceTopologyDescriptionTest#testUpdatePermanentFailurePersistsFailedEpoch()": "passed",
+      "org.apache.kafka.coordinator.group.GroupCoordinatorServiceTopologyDescriptionTest#testUpdatePluginFutureWithNullCauseIsTreatedAsTransient()": "passed",
+      "org.apache.kafka.coordinator.group.GroupCoordinatorServiceTopologyDescriptionTest#testUpdatePluginReturnsNullFutureIsTreatedAsPermanentFailure()": "passed",
+      "org.apache.kafka.coordinator.group.GroupCoordinatorServiceTopologyDescriptionTest#testUpdatePostPluginWriteRoutingFailureDoesNotArmBackoff()": "passed",
+      "org.apache.kafka.coordinator.group.GroupCoordinatorServiceTopologyDescriptionTest#testUpdatePreValidationFailureDoesNotArmBackoff()": "passed",
+      "org.apache.kafka.coordinator.group.GroupCoordinatorServiceTopologyDescriptionTest#testUpdateRejectedWhenCoordinatorNotActive()": "passed",
+      "org.apache.kafka.coordinator.group.GroupCoordinatorServiceTopologyDescriptionTest#testUpdateRejectsEmptyGroupId()": "passed",
+      "org.apache.kafka.coordinator.group.GroupCoordinatorServiceTopologyDescriptionTest#testUpdateRejectsEmptyMemberId()": "passed",
+      "org.apache.kafka.coordinator.group.GroupCoordinatorServiceTopologyDescriptionTest#testUpdateReturnsUnsupportedVersionWhenNoPlugin()": "passed",
+      "org.apache.kafka.coordinator.group.GroupCoordinatorServiceTopologyDescriptionTest#testUpdateSuccessPersistsStoredEpoch()": "passed",
+      "org.apache.kafka.coordinator.group.GroupCoordinatorServiceTopologyDescriptionTest#testUpdateTransientFailureWritesNoRecord()": "passed"
+    },
+    "pass_to_pass_failed": [],
+    "patch_bytes": 4607,
+    "patch_empty": false,
+    "resolved": true,
+    "seconds": 128.3,
+    "similarity": {
+      "added_lines": {
+        "f1": 0.0,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      "files": {
+        "agent": 1,
+        "f1": 0.286,
+        "golden": 6,
+        "precision": 1.0,
+        "recall": 0.167,
+        "shared": 1
+      },
+      "location_recall": 0.023,
+      "removed_lines": {
+        "f1": 0.032,
+        "precision": 1.0,
+        "recall": 0.016
+      },
+      "size": {
+        "agent_added": 1,
+        "agent_removed": 3,
+        "golden_added": 195,
+        "golden_removed": 184
+      }
+    },
+    "test_compile_failed": []
+  },
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "coding",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 26,
+  "prompt_sha256": "d5e5c679c750ecd63719cd93a3bf10119ba1942e1cb50f5dde0c4dffaad1d491",
+  "run_index": 10,
+  "status": "completed",
+  "success": true,
+  "task_id": "C-KAFKA-PR-22616",
+  "tool_calls": {
+    "Bash": 14,
+    "Edit": 1,
+    "Read": 7,
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 2
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 1538360,
+    "cost_usd": 0.324904,
+    "input_tokens": 1604552,
+    "output_tokens": 7779
+  },
+  "violations": []
+}

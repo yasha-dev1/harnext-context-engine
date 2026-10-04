@@ -1,0 +1,9 @@
+Context snapshot cutoff (inclusive): 2026-01-31T23:59:59Z.
+
+In this design discussion, what is the final decided cleanup policy configuration that the author settles on for the original (audit) remote log metadata topic once it can be migrated to the new scheme, choosing between keeping 'delete' or moving fully to another policy? Answer with one of: "delete", "compact", "compact,delete" Answer with exactly one of: "delete", "compact", "compact,delete". Give the decision as it stood at the snapshot, not an earlier proposal.
+
+Return JSON {"value": <answer>, "evidence": [<ids or file paths of the sources you relied on>]}. Answer as of the cutoff; do not substitute a later or today's issue state.
+
+The MCP server `history` holds the project's recorded history up to the cutoff. Use its tools (search, read_event) to consult it as you see fit; nothing later than the cutoff is in it and there is no network access.
+
+Reply with one JSON object {"value": ..., "evidence": [...]}: `value` is the answer in the requested type (null if it cannot be determined), `evidence` lists the sources you relied on.

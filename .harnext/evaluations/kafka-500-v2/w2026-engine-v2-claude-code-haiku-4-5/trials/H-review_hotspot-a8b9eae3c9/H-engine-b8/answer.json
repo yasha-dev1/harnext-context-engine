@@ -1,0 +1,13 @@
+{
+  "evidence": [
+    "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86ppdme",
+    "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86psVlJ",
+    "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86p8ow3",
+    "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86pI1Oz",
+    "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86o11In",
+    "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86o1uEQ",
+    "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86o1F0K",
+    "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86o1C0N"
+  ],
+  "value": "core/src/main/scala/kafka/server/DynamicBrokerConfig.scala"
+}

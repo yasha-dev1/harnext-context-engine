@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "mail message 3a486f07414ee44d7163c381 (2026-04-01 mailing list thread by Aditya Kousik: '[DISCUSS] KIP-1307: SerDe and Interceptor Metrics')",
+    "jira issue KAFKA-20386 (created 2026-03-31 by Aditya Kousik with title 'SerDe and Interceptor Metrics' and description linking to KIP-1307)"
+  ],
+  "value": "KAFKA-20386"
+}

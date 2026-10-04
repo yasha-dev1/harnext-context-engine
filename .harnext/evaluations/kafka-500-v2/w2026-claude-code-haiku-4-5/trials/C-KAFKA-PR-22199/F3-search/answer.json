@@ -1,0 +1,3 @@
+{
+  "summary": "Successfully implemented KAFKA-20535: Added hasPendingReconciliation mechanism to AsyncKafkaConsumer to optimize CPU usage in low max.poll.records scenarios. Changes: (1) Added volatile boolean field `hasPendingReconciliation` initialized to true, (2) Added test-visible setter method `setHasPendingReconciliation(boolean)`, (3) Modified `collectFetch()` to check `hasPendingReconciliation` before waiting for reconciliation check to complete. This allows skipping unnecessary waits when there is no pending reconciliation, reducing CPU overhead in frequent poll() calls. All 82 existing AsyncKafkaConsumerTest tests pass.</parameter>\n</invoke>"
+}

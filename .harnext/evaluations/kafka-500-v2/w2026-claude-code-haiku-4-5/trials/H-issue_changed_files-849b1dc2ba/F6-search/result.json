@@ -1,0 +1,83 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "window-70-summary.md: PR #21780 KAFKA-20317 merge details",
+      "pull-requests.md: PR #21780 KAFKA-20317 metadata",
+      "jira-issues.md: KAFKA-20317 issue status",
+      "Merge commit a6fd96c36f1cb24df44b739cbad9fd240d56d353 (2026-03-18T23:37:18Z)"
+    ],
+    "value": [
+      "Unable to determine - the context history records 17 files were changed by PR #21780 (merged 2026-03-18) for KAFKA-20317, but does not store the complete repository-relative file path listing for those files."
+    ]
+  },
+  "arm": "F6-search",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 160.78443114599213,
+  "family": "issue_changed_files",
+  "grade": {
+    "actual": [
+      "Unable to determine - the context history records 17 files were changed by PR #21780 (merged 2026-03-18) for KAFKA-20317, but does not store the complete repository-relative file path listing for those files."
+    ],
+    "correct": false,
+    "evidence": [
+      "window-70-summary.md: PR #21780 KAFKA-20317 merge details",
+      "pull-requests.md: PR #21780 KAFKA-20317 metadata",
+      "jira-issues.md: KAFKA-20317 issue status",
+      "Merge commit a6fd96c36f1cb24df44b739cbad9fd240d56d353 (2026-03-18T23:37:18Z)"
+    ],
+    "expected": [
+      "streams/src/main/java/org/apache/kafka/streams/state/HeadersBytesStore.java",
+      "streams/src/main/java/org/apache/kafka/streams/state/internals/AbstractRocksDBTimeOrderedSegmentedBytesStore.java",
+      "streams/src/main/java/org/apache/kafka/streams/state/internals/RocksDBMigratingWindowStoreWithHeaders.java",
+      "streams/src/main/java/org/apache/kafka/streams/state/internals/RocksDBTimeOrderedKeyValueBytesStore.java",
+      "streams/src/main/java/org/apache/kafka/streams/state/internals/RocksDBTimeOrderedSessionSegmentedBytesStore.java",
+      "streams/src/main/java/org/apache/kafka/streams/state/internals/RocksDBTimeOrderedWindowSegmentedBytesStore.java",
+      "streams/src/main/java/org/apache/kafka/streams/state/internals/RocksDBTimeOrderedWindowStore.java",
+      "streams/src/main/java/org/apache/kafka/streams/state/internals/RocksDBTimeOrderedWindowStoreWithHeaders.java",
+      "streams/src/main/java/org/apache/kafka/streams/state/internals/RocksDbIndexedTimeOrderedWindowBytesStoreSupplier.java",
+      "streams/src/main/java/org/apache/kafka/streams/state/internals/TimestampedWindowStoreWithHeadersBuilder.java",
+      "streams/src/main/java/org/apache/kafka/streams/state/internals/WindowSegmentWithHeaders.java",
+      "streams/src/main/java/org/apache/kafka/streams/state/internals/WindowSegmentsWithHeaders.java",
+      "streams/src/test/java/org/apache/kafka/streams/processor/internals/WindowStoreMaterializerTest.java",
+      "streams/src/test/java/org/apache/kafka/streams/state/internals/AbstractDualSchemaRocksDBSegmentedBytesStoreTest.java",
+      "streams/src/test/java/org/apache/kafka/streams/state/internals/AbstractRocksDBWindowStoreTest.java",
+      "streams/src/test/java/org/apache/kafka/streams/state/internals/RocksDBTimeOrderedWindowStoreWithHeadersTest.java",
+      "streams/src/test/java/org/apache/kafka/streams/state/internals/RocksDBTimeOrderedWindowStoreWithHeadersWithIndexTest.java",
+      "streams/src/test/java/org/apache/kafka/streams/state/internals/RocksDBTimeOrderedWindowStoreWithHeadersWithoutIndexTest.java",
+      "streams/src/test/java/org/apache/kafka/streams/state/internals/RocksDbIndexedTimeOrderedWindowBytesStoreSupplierTest.java",
+      "streams/src/test/java/org/apache/kafka/streams/state/internals/TimeOrderedCachingPersistentWindowStoreTest.java",
+      "streams/src/test/java/org/apache/kafka/streams/state/internals/TimeOrderedWindowStoreTest.java",
+      "streams/src/test/java/org/apache/kafka/streams/state/internals/TimeOrderedWindowStoreUpgradeTest.java"
+    ]
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 14,
+  "prompt_sha256": "0a65cae8d5561d6b1949b114bb9cfcf17ca5d45e269c849c23605337df0a9b7a",
+  "run_index": 11,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-issue_changed_files-849b1dc2ba",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 2,
+    "mcp__history__search_context": 10
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 508410,
+    "cost_usd": 0.15799500000000002,
+    "input_tokens": 554287,
+    "output_tokens": 3103
+  },
+  "violations": []
+}

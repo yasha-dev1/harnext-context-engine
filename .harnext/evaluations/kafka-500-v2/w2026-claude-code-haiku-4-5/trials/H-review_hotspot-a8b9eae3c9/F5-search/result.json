@@ -1,0 +1,51 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "entities/pr/apache__kafka/21273/timeline.md",
+      "entities/pr/apache__kafka__21273/timeline.md"
+    ],
+    "value": "DynamicBrokerConfig.scala"
+  },
+  "arm": "F5-search",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 45.27595041999302,
+  "family": "review_hotspot",
+  "grade": {
+    "actual": "DynamicBrokerConfig.scala",
+    "correct": false,
+    "evidence": [
+      "entities/pr/apache__kafka/21273/timeline.md",
+      "entities/pr/apache__kafka__21273/timeline.md"
+    ],
+    "expected": "core/src/main/scala/kafka/server/DynamicBrokerConfig.scala"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "99e0a4698cda2e47294e2ee9fb480163310ded5a62cc876d5fc3729c8a50693a",
+  "run_index": 46,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-review_hotspot-a8b9eae3c9",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 60286,
+    "cost_usd": 0.0190326,
+    "input_tokens": 65194,
+    "output_tokens": 643
+  },
+  "violations": []
+}

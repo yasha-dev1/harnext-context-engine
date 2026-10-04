@@ -1,0 +1,50 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "KAFKA-1014 (queried via jira issue view KAFKA-1014, data as of 2026-06-01)"
+    ],
+    "value": "Abandoned"
+  },
+  "arm": "S-tools",
+  "checkpoint": "2026-05",
+  "cli_calls": {
+    "jira": 3
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 10.086313608997443,
+  "family": "resolution_at_snapshot",
+  "grade": {
+    "actual": "Abandoned",
+    "correct": true,
+    "evidence": [
+      "KAFKA-1014 (queried via jira issue view KAFKA-1014, data as of 2026-06-01)"
+    ],
+    "expected": "Abandoned"
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 4,
+  "prompt_sha256": "7354f99b0dd08bec70fae34d09aa8e6f7165a4d88a0dfcfb2c683056c4e42cf9",
+  "run_index": 25,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-resolution_at_snapshot-449cfc19c6",
+  "tool_calls": {
+    "Bash": 3,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 81294,
+    "cost_usd": 0.020656400000000002,
+    "input_tokens": 85829,
+    "output_tokens": 698
+  },
+  "violations": []
+}

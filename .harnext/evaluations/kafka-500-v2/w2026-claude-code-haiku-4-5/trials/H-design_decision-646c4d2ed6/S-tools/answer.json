@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "mail:34fa83dae238a6129c835a60 (Kevin Wu, 2026-05-08)",
+    "The KIP-1312 discussion shows that Kevin Wu explicitly mentions supporting a new `UnregisterControllerRecord` metadata record type. In his response to David Arthur's questions about error codes, he states: 'an `UNSUPPORTED_VERSION` error if the cluster's MetadataVersion does not support `UnregisterControllerRecord`'. This indicates the design decision was to introduce a dedicated new metadata record type for controller unregistration rather than reuse an existing record type."
+  ],
+  "value": "new record type"
+}

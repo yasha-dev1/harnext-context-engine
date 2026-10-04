@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "kips-and-discussions.md (lines 601-645: KIP-1279 discussion, but full technical details truncated)",
+    "window-40-summary.md (lines 252-270: KIP-1279 concerns listed including 'Transactional state and PID mapping', but no solution detailed)",
+    "context_research results confirm KIP-1279 was in DISCUSS phase as of 2026-02-24 with technical concerns identified but not resolved solutions documented"
+  ],
+  "value": null
+}

@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "discussions.md (KIP-1274 discussion, Andrew Schofield response 2026-01-28T09:50:37Z)"
+  ],
+  "value": "keep the config but restrict it to the value consumer"
+}

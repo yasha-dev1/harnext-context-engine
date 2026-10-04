@@ -1,0 +1,13 @@
+{
+  "evidence": [
+    "INDEX-WINDOW-4.md lines 148-180 (KIP-1266 participants list)",
+    "INDEX-WINDOW-1.md lines 157-161 (thread initiation details)",
+    "WINDOW-1-2026-01-04-to-2026-01-06.md (discussion start confirmation)",
+    "WINDOW-81-2026-03-30-to-2026-03-31-summary.md lines 60-67 (continued participation by Kamal Chandraprakash)",
+    "issues/KAFKA-20033.md (linked KIP-1266 discussion tracking)"
+  ],
+  "value": {
+    "participants": 3,
+    "starter": "Lijun Tong"
+  }
+}

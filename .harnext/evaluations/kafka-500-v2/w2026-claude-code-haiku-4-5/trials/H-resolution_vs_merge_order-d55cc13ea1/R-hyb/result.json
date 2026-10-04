@@ -1,0 +1,60 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "github:api:apache/kafka:pr-21791-merged (2026-03-17T18:47:50Z)",
+      "jira:13645222:change:22978343:0 (2026-03-17T18:49:34Z)"
+    ],
+    "value": {
+      "days": 0,
+      "first": "merge"
+    }
+  },
+  "arm": "R-hyb",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 33.07044154500181,
+  "family": "resolution_vs_merge_order",
+  "grade": {
+    "actual": {
+      "days": 0,
+      "first": "merge"
+    },
+    "correct": true,
+    "evidence": [
+      "github:api:apache/kafka:pr-21791-merged (2026-03-17T18:47:50Z)",
+      "jira:13645222:change:22978343:0 (2026-03-17T18:49:34Z)"
+    ],
+    "expected": {
+      "days": 0,
+      "first": "merge"
+    }
+  },
+  "instructions_sha256": "dfaa5b284d06c378ef7e4c08b53dc77835c91d7591fca0335bbfa33d3e53eb37",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 4,
+  "prompt_sha256": "3115a1d16dafa8ca1aa2bc9a520ac39ac7efedcf9aa24bc94cb6c32c2e5bd63c",
+  "run_index": 29,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-resolution_vs_merge_order-d55cc13ea1",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__search": 2
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 85476,
+    "cost_usd": 0.0421146,
+    "input_tokens": 98472,
+    "output_tokens": 1522
+  },
+  "violations": []
+}

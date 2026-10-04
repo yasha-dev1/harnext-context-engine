@@ -1,0 +1,50 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "The configuration name cannot be determined from available context. The context_research indicated that KIP-1270 voting and implementation documents with configuration details have not been incorporated into the entity files as of the cutoff (2026-02-28). The INDEX references KIP-1270 threads at 2026-02-24 but the actual thread content with configuration names is not in the stored context."
+    ],
+    "value": null
+  },
+  "arm": "F5-search",
+  "checkpoint": "2026-02",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 156.3680523600051,
+  "family": "design_decision",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "The configuration name cannot be determined from available context. The context_research indicated that KIP-1270 voting and implementation documents with configuration details have not been incorporated into the entity files as of the cutoff (2026-02-28). The INDEX references KIP-1270 threads at 2026-02-24 but the actual thread content with configuration names is not in the stored context."
+    ],
+    "expected": "processing.exception.handler.global.enabled"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 25,
+  "prompt_sha256": "38654c37e63bcd86d7d3991bf450c9a65629501d995a4c7ea9932cdc5c2580dd",
+  "run_index": 52,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-7a87d914a1",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 22
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 1202040,
+    "cost_usd": 0.254029,
+    "input_tokens": 1259064,
+    "output_tokens": 3996
+  },
+  "violations": []
+}

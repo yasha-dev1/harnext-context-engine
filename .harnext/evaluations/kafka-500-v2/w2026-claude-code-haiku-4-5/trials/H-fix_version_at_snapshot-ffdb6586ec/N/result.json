@@ -1,0 +1,50 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [],
+    "value": [
+      "Unable to determine - no local data or network access available"
+    ]
+  },
+  "arm": "N",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 10.294791061998694,
+  "family": "fix_version_at_snapshot",
+  "grade": {
+    "actual": [
+      "Unable to determine - no local data or network access available"
+    ],
+    "correct": false,
+    "evidence": [],
+    "expected": [
+      "4.3.0"
+    ]
+  },
+  "instructions_sha256": null,
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "6377cee33bfe7e7a67f840461f0bd4012ef1fb50f5b8e9908cdcc18f2145ee72",
+  "run_index": 57,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-fix_version_at_snapshot-ffdb6586ec",
+  "tool_calls": {
+    "Bash": 2,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 59105,
+    "cost_usd": 0.017077500000000002,
+    "input_tokens": 62851,
+    "output_tokens": 740
+  },
+  "violations": []
+}

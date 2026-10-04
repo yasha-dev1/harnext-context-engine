@@ -1,0 +1,17 @@
+{
+  "evidence": [
+    "entities/issue/KAFKA-20255/timeline.md"
+  ],
+  "value": [
+    {
+      "at": "2026-03-05T09:40:54.000000Z",
+      "from": null,
+      "to": "Fixed"
+    },
+    {
+      "at": "2026-03-13T07:44:14.000000Z",
+      "from": "Fixed",
+      "to": "Duplicate"
+    }
+  ]
+}

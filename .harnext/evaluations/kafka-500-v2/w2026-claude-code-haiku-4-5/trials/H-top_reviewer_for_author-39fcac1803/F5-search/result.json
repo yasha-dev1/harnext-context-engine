@@ -1,0 +1,63 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "entities/pr/apache__kafka__21623/OVERVIEW.md",
+      "entities/pr/apache__kafka__21623/timeline.md",
+      "entities/pr/apache__kafka__21624/OVERVIEW.md",
+      "entities/pr/apache__kafka__21624/timeline.md",
+      "entities/pr/apache__kafka__21653/OVERVIEW.md",
+      "entities/pr/apache__kafka__21653/timeline.md",
+      "entities/pr/apache__kafka/21748/OVERVIEW.md",
+      "entities/pr/apache__kafka/21748/timeline.md"
+    ],
+    "value": "mjsax"
+  },
+  "arm": "F5-search",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 110.88812589900044,
+  "family": "top_reviewer_for_author",
+  "grade": {
+    "actual": "mjsax",
+    "correct": true,
+    "evidence": [
+      "entities/pr/apache__kafka__21623/OVERVIEW.md",
+      "entities/pr/apache__kafka__21623/timeline.md",
+      "entities/pr/apache__kafka__21624/OVERVIEW.md",
+      "entities/pr/apache__kafka__21624/timeline.md",
+      "entities/pr/apache__kafka__21653/OVERVIEW.md",
+      "entities/pr/apache__kafka__21653/timeline.md",
+      "entities/pr/apache__kafka/21748/OVERVIEW.md",
+      "entities/pr/apache__kafka/21748/timeline.md"
+    ],
+    "expected": "mjsax"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "64ca4c6afd65993cfd2bfeff0514fbda1e6c8966ced33316f16bc9be94a769c5",
+  "run_index": 30,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-top_reviewer_for_author-39fcac1803",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 64165,
+    "cost_usd": 0.0147115,
+    "input_tokens": 66121,
+    "output_tokens": 882
+  },
+  "violations": []
+}

@@ -1,0 +1,57 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "PR #17721 (Topology epochs and topic validation): Explicitly states 'We replace topology ID with topology epoch'",
+      "PR #22413 (KIP-1331 Streams Group Topology Description Plugin POC): Uses StoredTopologyEpoch and LastFailedTopologyEpoch as the identification mechanism, with no separate broker-generated UUID",
+      "JIRA-20621, JIRA-20623, JIRA-20624, JIRA-20620: All describe the topology identification scheme using topologyEpoch fields for heartbeat solicitation and describe gating",
+      "PR #22397 schema definitions: StreamsGroupTopologyDescriptionUpdateRequest/Response contain GroupId, MemberId, TopologyEpoch, TopologyDescription - no separate identifier field"
+    ],
+    "value": "removed entirely, identified by topologyEpoch and group creation timestamp instead"
+  },
+  "arm": "S-tools",
+  "checkpoint": "2026-05",
+  "cli_calls": {
+    "gh": 16,
+    "jira": 12
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 99.44130873600079,
+  "family": "design_decision",
+  "grade": {
+    "actual": "removed entirely, identified by topologyEpoch and group creation timestamp instead",
+    "correct": true,
+    "evidence": [
+      "PR #17721 (Topology epochs and topic validation): Explicitly states 'We replace topology ID with topology epoch'",
+      "PR #22413 (KIP-1331 Streams Group Topology Description Plugin POC): Uses StoredTopologyEpoch and LastFailedTopologyEpoch as the identification mechanism, with no separate broker-generated UUID",
+      "JIRA-20621, JIRA-20623, JIRA-20624, JIRA-20620: All describe the topology identification scheme using topologyEpoch fields for heartbeat solicitation and describe gating",
+      "PR #22397 schema definitions: StreamsGroupTopologyDescriptionUpdateRequest/Response contain GroupId, MemberId, TopologyEpoch, TopologyDescription - no separate identifier field"
+    ],
+    "expected": "removed entirely, identified by topologyEpoch and group creation timestamp instead"
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 29,
+  "prompt_sha256": "3419eba7ad6b3c82ad96c932e6fd04ebbecafdd0c634158d2310ce5495162144",
+  "run_index": 75,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-d176ed4a05",
+  "tool_calls": {
+    "Bash": 28,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 888964,
+    "cost_usd": 0.1641504,
+    "input_tokens": 914520,
+    "output_tokens": 4875
+  },
+  "violations": []
+}

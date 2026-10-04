@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "releases/kafka-4.4.0.md",
+    "kips/KIP-1333.md",
+    "issues/KAFKA-20552.md"
+  ],
+  "value": "KAFKA-20552"
+}

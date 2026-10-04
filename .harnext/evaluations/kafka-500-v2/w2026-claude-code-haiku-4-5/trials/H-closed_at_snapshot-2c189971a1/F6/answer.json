@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "jira-issues.md (line 1710) — KAFKA-20158 status field shows 'Open', not 'Closed'",
+    "Window 44 metadata (2026-02-28T03:41:28Z → 2026-02-28T20:40:52Z) — KAFKA-20158 not listed among resolved issues despite related PRs being merged"
+  ],
+  "value": false
+}

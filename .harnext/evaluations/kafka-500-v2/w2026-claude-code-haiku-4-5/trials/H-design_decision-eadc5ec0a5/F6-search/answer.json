@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "store/kips-and-discussions.md (lines 2584-2588)",
+    "KIP-1262: Proposal to let brokers and observer controllers skip storage formatting before startup"
+  ],
+  "value": "String"
+}

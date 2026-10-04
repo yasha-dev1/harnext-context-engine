@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "kips/KIP-1324/2026-05-05-861ac2bd.md — Kirk True's reply from May 5, 2026 explicitly states: 'I've added the definition for the ConfigTooLargeException which is now the only exception added.'"
+  ],
+  "value": "ConfigTooLargeException"
+}

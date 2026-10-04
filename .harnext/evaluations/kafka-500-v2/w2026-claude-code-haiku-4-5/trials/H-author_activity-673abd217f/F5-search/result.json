@@ -1,0 +1,55 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "PR #21638 (merged 2026-03-06)",
+      "PR #21641 (merged 2026-03-06)",
+      "/store/entities/pr/apache__kafka__21638/OVERVIEW.md",
+      "/store/entities/pr/apache__kafka/21641/OVERVIEW.md"
+    ],
+    "value": 2
+  },
+  "arm": "F5-search",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 64.56599453100353,
+  "family": "author_activity",
+  "grade": {
+    "actual": 2,
+    "correct": false,
+    "evidence": [
+      "PR #21638 (merged 2026-03-06)",
+      "PR #21641 (merged 2026-03-06)",
+      "/store/entities/pr/apache__kafka__21638/OVERVIEW.md",
+      "/store/entities/pr/apache__kafka/21641/OVERVIEW.md"
+    ],
+    "expected": 6
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "b9a21ba2325bef9ca70a4d1a395ccbbc3ae4a94144e83b5ceba55a300f29fc09",
+  "run_index": 5,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-author_activity-673abd217f",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 63938,
+    "cost_usd": 0.012304800000000001,
+    "input_tokens": 65232,
+    "output_tokens": 670
+  },
+  "violations": []
+}

@@ -1,0 +1,49 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "Knowledge cutoff (February 2025) is before the thread date (2026-05-20)",
+      "No network access to Apache Kafka mailing lists or JIRA"
+    ],
+    "value": null
+  },
+  "arm": "N",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 7.569461235005292,
+  "family": "implicit_link",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "Knowledge cutoff (February 2025) is before the thread date (2026-05-20)",
+      "No network access to Apache Kafka mailing lists or JIRA"
+    ],
+    "expected": "KAFKA-20604"
+  },
+  "instructions_sha256": null,
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 1,
+  "prompt_sha256": "d12f273691c9e7a2788cbb21a71effb0550a28199e74ec36b32fc83723551121",
+  "run_index": 0,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-implicit_link-e8c868d609",
+  "tool_calls": {
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 0,
+    "cost_usd": 0.044117,
+    "input_tokens": 20658,
+    "output_tokens": 562
+  },
+  "violations": []
+}

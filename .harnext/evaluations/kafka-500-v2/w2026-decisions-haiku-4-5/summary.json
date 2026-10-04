@@ -1,0 +1,65 @@
+{
+  "arms": {
+    "S-tools": {
+      "agent_seconds": 6700.4,
+      "by_kind": {
+        "historical": {
+          "agent_seconds": 6700.4,
+          "by_family": {
+            "design_decision": {
+              "agent_seconds": 6700.4,
+              "cached_input_tokens": 17130202,
+              "context_bytes": 0,
+              "input_tokens": 17941700,
+              "n": 26,
+              "output_tokens": 111746,
+              "status": {
+                "completed": 24,
+                "timeout": 2
+              },
+              "success": 23,
+              "tool_calls": 772
+            }
+          },
+          "cached_input_tokens": 17130202,
+          "context_bytes": 0,
+          "input_tokens": 17941700,
+          "n": 26,
+          "output_tokens": 111746,
+          "status": {
+            "completed": 24,
+            "timeout": 2
+          },
+          "success": 23,
+          "tool_calls": 772
+        }
+      },
+      "cached_input_tokens": 17130202,
+      "context_bytes": 0,
+      "input_tokens": 17941700,
+      "n": 26,
+      "output_tokens": 111746,
+      "status": {
+        "completed": 24,
+        "timeout": 2
+      },
+      "success": 23,
+      "tool_calls": 772
+    }
+  },
+  "not_recorded": [],
+  "paired_vs_N": {
+    "S-tools": {
+      "both": 0,
+      "harmed": 0,
+      "helped": 0,
+      "neither": 0,
+      "pairs": 0
+    }
+  },
+  "reason": "draining for a config reload",
+  "recorded": 26,
+  "status": "paused",
+  "target": 29,
+  "updated_at_unix": 1790531682.9837606
+}

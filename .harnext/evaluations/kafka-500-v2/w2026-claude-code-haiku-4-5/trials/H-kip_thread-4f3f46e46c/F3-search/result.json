@@ -1,0 +1,86 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "_intake_backup/2026/01/22/mail-550c648f6ddf3a323092287d-4b51bc95.md",
+      "_intake_backup/2026/01/26/mail-55622c20067f615de99f372a-ca443ae5.md",
+      "_intake_backup/2026/01/27/mail-4e7099123aab260e25a05d65-1d272361.md",
+      "_intake_backup/2026/01/27/mail-d6912ccc512d32df7a246110-7ce383ee.md",
+      "_intake_backup/2026/01/28/mail-263b0239b98e36fe0c99fba8-9c9ec008.md",
+      "_intake_backup/2026/02/06/mail-53483f864893b079ae14e077-744d30fd.md",
+      "_intake_backup/2026/02/09/mail-9126a23dffb5dbcec284dce5-0a4c916e.md",
+      "_intake_backup/2026/02/11/mail-dd3c1f08370863d0873aee43-48fb497f.md",
+      "_intake_backup/2026/02/13/mail-b96c0c41bad0fc9745839b89-22fe5f2c.md",
+      "_intake_backup/2026/02/14/mail-76ee52d9d68208a0d58e2091-e07a299d.md",
+      "_intake_backup/2026/02/17/mail-1f5a7b7de3abb2aa0649f004-50f95f6a.md",
+      "_intake_backup/2026/02/23/mail-745ef36c7a7bc568bde226af-492b5d4e.md",
+      "_intake/2026/03/09/mail-0a9034863871a700f7e25c02-86ca0f2a.md",
+      "_intake/2026/03/17/mail-4657e0652f4c1b77f514da44-a4fccb3d.md"
+    ],
+    "value": {
+      "participants": 9,
+      "starter": "Lianet Magrans"
+    }
+  },
+  "arm": "F3-search",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 111.81802534000599,
+  "family": "kip_thread",
+  "grade": {
+    "actual": {
+      "participants": 9,
+      "starter": "Lianet Magrans"
+    },
+    "correct": false,
+    "evidence": [
+      "_intake_backup/2026/01/22/mail-550c648f6ddf3a323092287d-4b51bc95.md",
+      "_intake_backup/2026/01/26/mail-55622c20067f615de99f372a-ca443ae5.md",
+      "_intake_backup/2026/01/27/mail-4e7099123aab260e25a05d65-1d272361.md",
+      "_intake_backup/2026/01/27/mail-d6912ccc512d32df7a246110-7ce383ee.md",
+      "_intake_backup/2026/01/28/mail-263b0239b98e36fe0c99fba8-9c9ec008.md",
+      "_intake_backup/2026/02/06/mail-53483f864893b079ae14e077-744d30fd.md",
+      "_intake_backup/2026/02/09/mail-9126a23dffb5dbcec284dce5-0a4c916e.md",
+      "_intake_backup/2026/02/11/mail-dd3c1f08370863d0873aee43-48fb497f.md",
+      "_intake_backup/2026/02/13/mail-b96c0c41bad0fc9745839b89-22fe5f2c.md",
+      "_intake_backup/2026/02/14/mail-76ee52d9d68208a0d58e2091-e07a299d.md",
+      "_intake_backup/2026/02/17/mail-1f5a7b7de3abb2aa0649f004-50f95f6a.md",
+      "_intake_backup/2026/02/23/mail-745ef36c7a7bc568bde226af-492b5d4e.md",
+      "_intake/2026/03/09/mail-0a9034863871a700f7e25c02-86ca0f2a.md",
+      "_intake/2026/03/17/mail-4657e0652f4c1b77f514da44-a4fccb3d.md"
+    ],
+    "expected": {
+      "participants": 8,
+      "starter": "Lianet Magrans"
+    }
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 5,
+  "prompt_sha256": "a34ab3b9d2317c8dfb9eea0b5cf268403fb991a683527417b6de71a7c3fc1338",
+  "run_index": 17,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-kip_thread-4f3f46e46c",
+  "tool_calls": {
+    "Read": 1,
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 94536,
+    "cost_usd": 0.0776286,
+    "input_tokens": 122305,
+    "output_tokens": 2536
+  },
+  "violations": []
+}

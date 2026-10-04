@@ -1,0 +1,49 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "store/_intake/2026/01/19/mail-4517a25a511ff6f25bb9f2e5-db5cb0e7.md"
+    ],
+    "value": "deprecated and merged into the main proposal"
+  },
+  "arm": "F3-search",
+  "checkpoint": "2026-01",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 52.17436180499499,
+  "family": "design_decision",
+  "grade": {
+    "actual": "deprecated and merged into the main proposal",
+    "correct": true,
+    "evidence": [
+      "store/_intake/2026/01/19/mail-4517a25a511ff6f25bb9f2e5-db5cb0e7.md"
+    ],
+    "expected": "deprecated and merged into the main proposal"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "79257ad1fc4b40fa2668bb37c3a68906f6609229c74d6a6a0a384c2eec2e9881",
+  "run_index": 54,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-32c8b7a253",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 60424,
+    "cost_usd": 0.019469399999999998,
+    "input_tokens": 65551,
+    "output_tokens": 640
+  },
+  "violations": []
+}

@@ -1,0 +1,82 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "store/_intake_backup/2026/01/05/mail-fae59ef23c15af1ca719cef5-f1967464.md",
+      "store/_intake_backup/2026/01/06/mail-25888a786e32c109db6ea259-737a72b0.md",
+      "store/_intake_backup/2026/01/06/mail-3782ab07571adaf410138509-73c2d845.md",
+      "store/_intake_backup/2026/01/06/mail-8ce4b9ae74948f5379a153d9-7d9bdb77.md",
+      "store/_intake_backup/2026/01/08/mail-b489a1b13ef8985cb665d11b-c46c123a.md",
+      "store/_intake_backup/2026/01/12/mail-36edead0219503cbb1eb9f1e-3c39548c.md",
+      "store/_intake_backup/2026/01/14/mail-d0eb8ce129ffef70296f85a7-de7d95c0.md",
+      "store/_intake_backup/2026/01/15/mail-8f86d3e081d42349f4ce90f0-3b80398f.md",
+      "store/_intake_backup/2026/01/15/mail-a917764f5a77659c873b44b3-7e41f0fd.md",
+      "store/_intake_backup/2026/01/15/mail-cf97670bbdc327e681e9529b-9abceaea.md",
+      "store/_intake_backup/2026/01/15/mail-d42ec61c1696ad3122663d8a-ab534859.md",
+      "store/_intake_backup/2026/01/18/mail-8798ead7dd94fed7e7820b5c-422fb6a7.md",
+      "store/_intake_backup/2026/01/20/mail-34fc284fbaae3665c418057e-b3176fec.md"
+    ],
+    "value": {
+      "participants": 4,
+      "starter": "Lijun Tong"
+    }
+  },
+  "arm": "F3",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 46.579278574005,
+  "family": "kip_thread",
+  "grade": {
+    "actual": {
+      "participants": 4,
+      "starter": "Lijun Tong"
+    },
+    "correct": true,
+    "evidence": [
+      "store/_intake_backup/2026/01/05/mail-fae59ef23c15af1ca719cef5-f1967464.md",
+      "store/_intake_backup/2026/01/06/mail-25888a786e32c109db6ea259-737a72b0.md",
+      "store/_intake_backup/2026/01/06/mail-3782ab07571adaf410138509-73c2d845.md",
+      "store/_intake_backup/2026/01/06/mail-8ce4b9ae74948f5379a153d9-7d9bdb77.md",
+      "store/_intake_backup/2026/01/08/mail-b489a1b13ef8985cb665d11b-c46c123a.md",
+      "store/_intake_backup/2026/01/12/mail-36edead0219503cbb1eb9f1e-3c39548c.md",
+      "store/_intake_backup/2026/01/14/mail-d0eb8ce129ffef70296f85a7-de7d95c0.md",
+      "store/_intake_backup/2026/01/15/mail-8f86d3e081d42349f4ce90f0-3b80398f.md",
+      "store/_intake_backup/2026/01/15/mail-a917764f5a77659c873b44b3-7e41f0fd.md",
+      "store/_intake_backup/2026/01/15/mail-cf97670bbdc327e681e9529b-9abceaea.md",
+      "store/_intake_backup/2026/01/15/mail-d42ec61c1696ad3122663d8a-ab534859.md",
+      "store/_intake_backup/2026/01/18/mail-8798ead7dd94fed7e7820b5c-422fb6a7.md",
+      "store/_intake_backup/2026/01/20/mail-34fc284fbaae3665c418057e-b3176fec.md"
+    ],
+    "expected": {
+      "participants": 4,
+      "starter": "Lijun Tong"
+    }
+  },
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "a6e12db89a2523ff155105d6bd78253e0b8b72827a73359293282457cd2cd2e6",
+  "run_index": 63,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-kip_thread-723b6cf85c",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 42540,
+    "cost_usd": 0.055416999999999994,
+    "input_tokens": 65330,
+    "output_tokens": 1122
+  },
+  "violations": []
+}

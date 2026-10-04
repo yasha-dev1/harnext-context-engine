@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "store/discussions.md (Lines 2539-2549, Window 47) - KIP-1262 discussion where Kevin Wu explains that the ClusterIdRecord keeps UUID as String type to support existing clusters with non-UUID cluster IDs during metadata version upgrades"
+  ],
+  "value": "String"
+}

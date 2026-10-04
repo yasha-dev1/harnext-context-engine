@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "issues/kafka-20185-verify-existing-iqv2-methods-for-meteredtimestampedkeyvaluestorewithheaders.md (lines 6-11)"
+  ],
+  "value": "Blocker"
+}

@@ -1,0 +1,3 @@
+{
+  "summary": "Successfully implemented readOnly(IsolationLevel) for CachingWindowStore with custom ReadOnlyView that handles READ_COMMITTED and READ_UNCOMMITTED isolation levels. Also added readOnly implementations to CachingKeyValueStore and MeteredKeyValueStore. All 59 CachingPersistentWindowStoreTest tests pass, along with related MeteredKeyValueStoreTest, MeteredSessionStoreTest, and MeteredWindowStoreTest tests. The implementation allows READ_COMMITTED to bypass cache and read only committed data, while READ_UNCOMMITTED merges cache and store data.</summary>\n</StructuredOutput>"
+}

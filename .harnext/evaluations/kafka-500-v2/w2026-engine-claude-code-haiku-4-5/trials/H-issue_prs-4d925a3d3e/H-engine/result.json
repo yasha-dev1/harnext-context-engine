@@ -1,0 +1,166 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "github:api:apache/kafka:pr-21452-merged",
+      "github:api:apache/kafka:pr-21461-merged",
+      "github:api:apache/kafka:pr-21462-merged",
+      "github:api:apache/kafka:pr-21505-merged",
+      "github:api:apache/kafka:pr-21559-merged",
+      "github:api:apache/kafka:pr-21560-closed"
+    ],
+    "value": [
+      {
+        "pr": 21452,
+        "state": "merged"
+      },
+      {
+        "pr": 21461,
+        "state": "merged"
+      },
+      {
+        "pr": 21462,
+        "state": "merged"
+      },
+      {
+        "pr": 21505,
+        "state": "merged"
+      },
+      {
+        "pr": 21559,
+        "state": "merged"
+      },
+      {
+        "pr": 21560,
+        "state": "closed"
+      }
+    ]
+  },
+  "arm": "H-engine",
+  "checkpoint": "2026-02",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 179.54793429100027,
+  "engine": {
+    "calls": 3,
+    "chat": {
+      "calls": 26,
+      "cancelled": 1,
+      "cost_usd": 0.00264126,
+      "input_tokens": 115130,
+      "output_tokens": 4023,
+      "retries": 0
+    },
+    "cost_usd": 0.00527277,
+    "jev": {
+      "calls": 31,
+      "cancelled": 0,
+      "cost_usd": 0.00263151,
+      "input_tokens": 62655,
+      "output_tokens": 11079,
+      "retries": 0
+    },
+    "partial": 1,
+    "seconds": 158.735,
+    "unmetered_upper_usd": 0.00035937
+  },
+  "family": "issue_prs",
+  "grade": {
+    "actual": [
+      {
+        "pr": 21452,
+        "state": "merged"
+      },
+      {
+        "pr": 21461,
+        "state": "merged"
+      },
+      {
+        "pr": 21462,
+        "state": "merged"
+      },
+      {
+        "pr": 21505,
+        "state": "merged"
+      },
+      {
+        "pr": 21559,
+        "state": "merged"
+      },
+      {
+        "pr": 21560,
+        "state": "closed"
+      }
+    ],
+    "correct": false,
+    "evidence": [
+      "github:api:apache/kafka:pr-21452-merged",
+      "github:api:apache/kafka:pr-21461-merged",
+      "github:api:apache/kafka:pr-21462-merged",
+      "github:api:apache/kafka:pr-21505-merged",
+      "github:api:apache/kafka:pr-21559-merged",
+      "github:api:apache/kafka:pr-21560-closed"
+    ],
+    "expected": [
+      {
+        "pr": 21452,
+        "state": "merged"
+      },
+      {
+        "pr": 21461,
+        "state": "merged"
+      },
+      {
+        "pr": 21462,
+        "state": "merged"
+      },
+      {
+        "pr": 21505,
+        "state": "merged"
+      },
+      {
+        "pr": 21559,
+        "state": "merged"
+      },
+      {
+        "pr": 21560,
+        "state": "closed"
+      },
+      {
+        "pr": 21561,
+        "state": "merged"
+      },
+      {
+        "pr": 21562,
+        "state": "merged"
+      }
+    ]
+  },
+  "image_id": "sha256:a75ed05ffc6eace9ec0ed4705d31b20aa2579267b3e737b4f61017882112ea66",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 5,
+  "prompt_sha256": "54c6b4fa935554bc016be9200896838e12896d782e13630fcb9c7c8b5aee060b",
+  "run_index": 15,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-issue_prs-4d925a3d3e",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 3
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 109177,
+    "cost_usd": 0.0231617,
+    "input_tokens": 111728,
+    "output_tokens": 1437
+  },
+  "violations": []
+}

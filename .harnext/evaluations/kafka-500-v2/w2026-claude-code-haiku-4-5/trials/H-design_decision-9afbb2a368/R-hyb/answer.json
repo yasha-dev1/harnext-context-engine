@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "mail:102620fc9f645288b54b3ffc (2026-01-25T16:50:21Z - Alieh Saeedi KIP update: 'A varint header_size field is introduced')",
+    "mail:5a504d903c34d55e6a9d2add (2026-01-26T13:31:33Z - Chia-Ping Tsai confirmation: 'using a Varint is consistent with Kafka's serialization standards')",
+    "mail:0d16a5e0a2869739fe6f8982 (2026-01-19T12:06:20Z - KIP-1271 vote initiated with this design)"
+  ],
+  "value": "varint"
+}

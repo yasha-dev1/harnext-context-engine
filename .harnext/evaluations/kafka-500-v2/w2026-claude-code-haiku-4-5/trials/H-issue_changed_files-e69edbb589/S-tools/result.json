@@ -1,0 +1,64 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "gh pr view 21785 --json files",
+      "gh pr view 21787 --json state,mergedAt (CLOSED, not merged)",
+      "gh pr view 21793 --json state,mergedAt (OPEN, not merged)"
+    ],
+    "value": [
+      "server-common/src/main/java/org/apache/kafka/server/share/dlq/ShareGroupDLQ.java",
+      "server/src/main/java/org/apache/kafka/server/share/fetch/RecordState.java"
+    ]
+  },
+  "arm": "S-tools",
+  "checkpoint": "2026-03",
+  "cli_calls": {
+    "gh": 4,
+    "jira": 1
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 28.35686116800207,
+  "family": "issue_changed_files",
+  "grade": {
+    "actual": [
+      "server-common/src/main/java/org/apache/kafka/server/share/dlq/ShareGroupDLQ.java",
+      "server/src/main/java/org/apache/kafka/server/share/fetch/RecordState.java"
+    ],
+    "correct": true,
+    "evidence": [
+      "gh pr view 21785 --json files",
+      "gh pr view 21787 --json state,mergedAt (CLOSED, not merged)",
+      "gh pr view 21793 --json state,mergedAt (OPEN, not merged)"
+    ],
+    "expected": [
+      "server-common/src/main/java/org/apache/kafka/server/share/dlq/ShareGroupDLQ.java",
+      "server/src/main/java/org/apache/kafka/server/share/fetch/RecordState.java"
+    ]
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 4,
+  "prompt_sha256": "9cc48d77143161443b600cc79322811c92cb657c07e609add3ac369d89e066cc",
+  "run_index": 59,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-issue_changed_files-e69edbb589",
+  "tool_calls": {
+    "Bash": 5,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 82087,
+    "cost_usd": 0.024686700000000002,
+    "input_tokens": 87140,
+    "output_tokens": 1281
+  },
+  "violations": []
+}

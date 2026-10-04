@@ -1,0 +1,103 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "summary": "Fixed KAFKA-12525 by modifying KafkaStatusBackingStore.readTaskStatus() to ignore stale UNASSIGNED status records from earlier generations when a newer RUNNING status is already cached. This prevents the race condition during fast rebalances where delayed UNASSIGNED records would incorrectly overwrite correct task status. The fix compares generation numbers to filter out stale records. All 15 tests in KafkaStatusBackingStoreTest pass, including the critical test readTaskStateShouldIgnoreStaleStatusesFromOtherWorkers that validates this race condition scenario."
+  },
+  "arm": "S-tools",
+  "checkpoint": "2023-02",
+  "cli_calls": {
+    "git": 6
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 804.9641360240057,
+  "family": "pr_implementation",
+  "grade": {
+    "counts": {
+      "passed": 15
+    },
+    "dropped_paths": [
+      "connect/runtime/src/test/java/org/apache/kafka/connect/storage/KafkaStatusBackingStoreTest.java"
+    ],
+    "fail_to_pass_failed": [],
+    "graded_by": "gradle",
+    "grading_timed_out": false,
+    "gradle_returncode": 0,
+    "other_failed_tasks": [],
+    "outcomes": {
+      "org.apache.kafka.connect.storage.KafkaStatusBackingStoreTest#deleteConnectorState": "passed",
+      "org.apache.kafka.connect.storage.KafkaStatusBackingStoreTest#deleteTaskState": "passed",
+      "org.apache.kafka.connect.storage.KafkaStatusBackingStoreTest#misconfigurationOfStatusBackingStore": "passed",
+      "org.apache.kafka.connect.storage.KafkaStatusBackingStoreTest#putConnectorState": "passed",
+      "org.apache.kafka.connect.storage.KafkaStatusBackingStoreTest#putConnectorStateNonRetriableFailure": "passed",
+      "org.apache.kafka.connect.storage.KafkaStatusBackingStoreTest#putConnectorStateRetriableFailure": "passed",
+      "org.apache.kafka.connect.storage.KafkaStatusBackingStoreTest#putConnectorStateShouldOverride": "passed",
+      "org.apache.kafka.connect.storage.KafkaStatusBackingStoreTest#putSafeConnectorIgnoresStaleStatus": "passed",
+      "org.apache.kafka.connect.storage.KafkaStatusBackingStoreTest#putSafeOverridesValueSetBySameWorker": "passed",
+      "org.apache.kafka.connect.storage.KafkaStatusBackingStoreTest#putSafeWithNoPreviousValueIsPropagated": "passed",
+      "org.apache.kafka.connect.storage.KafkaStatusBackingStoreTest#putTaskState": "passed",
+      "org.apache.kafka.connect.storage.KafkaStatusBackingStoreTest#readConnectorState": "passed",
+      "org.apache.kafka.connect.storage.KafkaStatusBackingStoreTest#readTaskState": "passed",
+      "org.apache.kafka.connect.storage.KafkaStatusBackingStoreTest#readTaskStateShouldIgnoreStaleStatusesFromOtherWorkers": "passed",
+      "org.apache.kafka.connect.storage.KafkaStatusBackingStoreTest#testClientIds": "passed"
+    },
+    "pass_to_pass_failed": [],
+    "patch_bytes": 5256,
+    "patch_empty": false,
+    "resolved": true,
+    "seconds": 303.0,
+    "similarity": {
+      "added_lines": {
+        "f1": 0.067,
+        "precision": 0.071,
+        "recall": 0.062
+      },
+      "files": {
+        "agent": 1,
+        "f1": 1.0,
+        "golden": 1,
+        "precision": 1.0,
+        "recall": 1.0,
+        "shared": 1
+      },
+      "location_recall": 1.0,
+      "removed_lines": {
+        "f1": 0.0,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      "size": {
+        "agent_added": 14,
+        "agent_removed": 0,
+        "golden_added": 16,
+        "golden_removed": 0
+      }
+    },
+    "test_compile_failed": []
+  },
+  "kind": "coding",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 15,
+  "prompt_sha256": "e96093820dbc1d027adc3561de43be562970fd8a79421c9f96bff34328757a0c",
+  "run_index": 2,
+  "status": "completed",
+  "success": true,
+  "task_id": "C-KAFKA-PR-13453",
+  "tool_calls": {
+    "Bash": 9,
+    "Edit": 1,
+    "Read": 3,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 612394,
+    "cost_usd": 0.16955139999999996,
+    "input_tokens": 647359,
+    "output_tokens": 7701
+  },
+  "violations": []
+}

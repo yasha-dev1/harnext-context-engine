@@ -1,0 +1,82 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail:2d2cdd9e66fc4758f70d714c",
+      "mail:b1a402a046d91f2938ac4aab",
+      "mail:1b0d288656e30ec27f44de4f",
+      "mail:83ad205748b8bcc48f38fbfa"
+    ],
+    "value": "String"
+  },
+  "arm": "H-engine-b8-ds",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 243.81027422699844,
+  "engine": {
+    "calls": 2,
+    "chat": {
+      "calls": 27,
+      "cancelled": 0,
+      "cost_usd": 0.0077229,
+      "input_tokens": 231609,
+      "output_tokens": 10174,
+      "retries": 0
+    },
+    "cost_usd": 0.01088386,
+    "discarded_attempts": 0,
+    "jev": {
+      "calls": 32,
+      "cancelled": 0,
+      "cost_usd": 0.00316096,
+      "input_tokens": 75261,
+      "output_tokens": 14723,
+      "retries": 0
+    },
+    "partial": 0,
+    "provider_retry_usd": 0,
+    "seconds": 225.491,
+    "unmetered_upper_usd": 0,
+    "waited_s": 0
+  },
+  "family": "design_decision",
+  "grade": {
+    "actual": "String",
+    "correct": false,
+    "evidence": [
+      "mail:2d2cdd9e66fc4758f70d714c",
+      "mail:b1a402a046d91f2938ac4aab",
+      "mail:1b0d288656e30ec27f44de4f",
+      "mail:83ad205748b8bcc48f38fbfa"
+    ],
+    "expected": "UUID"
+  },
+  "image_id": "sha256:1de715f951a3fc013cabad66407b87028bc2a5af6e58efdea5338b4cf9fb1485",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 4,
+  "prompt_sha256": "be22e3c0c47518348f5282267a728e40d4fb4bab7d2739151dc4fdb93ffc2867",
+  "run_index": 37,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-eadc5ec0a5",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 2
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 82437,
+    "cost_usd": 0.0243777,
+    "input_tokens": 88104,
+    "output_tokens": 967
+  },
+  "violations": []
+}

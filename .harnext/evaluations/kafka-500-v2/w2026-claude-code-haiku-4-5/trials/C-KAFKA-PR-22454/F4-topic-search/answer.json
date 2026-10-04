@@ -1,0 +1,3 @@
+{
+  "summary": "Extended I/O metrics collection by implementing 5 missing metrics (rchar, wchar, syscr, syscw, cancelled_write_bytes) in LinuxIoMetricsCollector.java, and registering them as Yammer metrics in KafkaBroker.scala and ControllerServer.scala. All tests pass successfully."
+}

@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "prs/22393-kafka-20618-kip-1331-topology-description-poc.md",
+    "issues/kafka-20621-topology-epoch-metadata.md",
+    "discussions/kip-1331-streams-topology-description-plugin.md"
+  ],
+  "value": "removed entirely, identified by topologyEpoch and group creation timestamp instead"
+}

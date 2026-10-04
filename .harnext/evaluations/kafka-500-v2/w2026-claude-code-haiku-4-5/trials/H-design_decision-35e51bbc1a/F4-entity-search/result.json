@@ -1,0 +1,54 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "kips/KIP-1279.md - contains overview and discussion points but not detailed specification sections",
+      "KAFKA-20186.md - tracking issue referencing the KIP",
+      "Multiple window summaries (WINDOW-32 through WINDOW-106) documenting discussions but not the decision itself"
+    ],
+    "value": null
+  },
+  "arm": "F4-entity-search",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 208.1791008119908,
+  "family": "design_decision",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "kips/KIP-1279.md - contains overview and discussion points but not detailed specification sections",
+      "KAFKA-20186.md - tracking issue referencing the KIP",
+      "Multiple window summaries (WINDOW-32 through WINDOW-106) documenting discussions but not the decision itself"
+    ],
+    "expected": "destination cluster default replication factor"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 27,
+  "prompt_sha256": "7059419a5fbd1c69f4c973328befcb30a4eb935b4d3465354451298aa4b7d9d5",
+  "run_index": 68,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-35e51bbc1a",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 2,
+    "mcp__history__search_context": 23
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 1056387,
+    "cost_usd": 0.21454270000000006,
+    "input_tokens": 1099561,
+    "output_tokens": 4555
+  },
+  "violations": []
+}

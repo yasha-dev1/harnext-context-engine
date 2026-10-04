@@ -1,0 +1,48 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "Cannot determine without access to KIP documentation or project materials; task references May 5, 2026 decision which is after knowledge cutoff of February 2025"
+    ],
+    "value": null
+  },
+  "arm": "N",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 13.720429467008216,
+  "family": "design_decision",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "Cannot determine without access to KIP documentation or project materials; task references May 5, 2026 decision which is after knowledge cutoff of February 2025"
+    ],
+    "expected": "ConfigTooLargeException"
+  },
+  "instructions_sha256": null,
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "551344bac33a0f0ee48d23929e439c6f96319d54ac3e39d970b0240fca6790c5",
+  "run_index": 72,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-9747f2e7bf",
+  "tool_calls": {
+    "Bash": 2,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 59452,
+    "cost_usd": 0.0201882,
+    "input_tokens": 63476,
+    "output_tokens": 1244
+  },
+  "violations": []
+}

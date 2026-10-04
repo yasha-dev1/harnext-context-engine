@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "events/2026/02/20/mail-0a9bb7f24cac428cae178e83-bda1e11a.md - Vaquar Khan's detailed feedback on KIP-1279 transaction integrity and PID formula bug"
+  ],
+  "value": "Long.MAX_VALUE - sourceProducerId - 1"
+}

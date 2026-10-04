@@ -1,0 +1,3 @@
+{
+  "summary": "Fixed typo in public API: renamed method `maxlifeTimeMs` to `maxLifetimeMs` (capital 'L') in CreateDelegationTokenOptions and updated all usages in DelegationTokenCommand and KafkaAdminClient. Both test suites passed successfully: DelegationTokenRequestsTest and SaslSslAdminIntegrationTest (all 15 tests)."
+}

@@ -1,0 +1,74 @@
+{
+  "agent": "claude-code",
+  "answer": null,
+  "arm": "R-hyb",
+  "checkpoint": "2026-02",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": "no parseable final answer",
+  "effort": "medium",
+  "elapsed_s": 84.95981993000169,
+  "family": "issue_prs",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": null,
+    "expected": [
+      {
+        "pr": 21452,
+        "state": "merged"
+      },
+      {
+        "pr": 21461,
+        "state": "merged"
+      },
+      {
+        "pr": 21462,
+        "state": "merged"
+      },
+      {
+        "pr": 21505,
+        "state": "merged"
+      },
+      {
+        "pr": 21559,
+        "state": "merged"
+      },
+      {
+        "pr": 21560,
+        "state": "closed"
+      },
+      {
+        "pr": 21561,
+        "state": "merged"
+      },
+      {
+        "pr": 21562,
+        "state": "merged"
+      }
+    ]
+  },
+  "instructions_sha256": "dfaa5b284d06c378ef7e4c08b53dc77835c91d7591fca0335bbfa33d3e53eb37",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 11,
+  "prompt_sha256": "044bf21dbe9a4ceb4cd7097dadce50c060e35f1eff090e5111055d1d52f91160",
+  "run_index": 15,
+  "status": "model_failure",
+  "success": false,
+  "task_id": "H-issue_prs-4d925a3d3e",
+  "tool_calls": {
+    "ToolSearch": 1,
+    "mcp__history__search": 8
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 429316,
+    "cost_usd": 0.16721460000000002,
+    "input_tokens": 478034,
+    "output_tokens": 5388
+  },
+  "violations": []
+}

@@ -1,0 +1,80 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail:afac71e1bc95221e93c97bf4",
+      "jira:13650085:comment:18078806",
+      "jira:13650085:change:23050795:0"
+    ],
+    "value": "KAFKA-20552"
+  },
+  "arm": "H-engine",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 127.03799347099994,
+  "engine": {
+    "calls": 1,
+    "chat": {
+      "calls": 19,
+      "cancelled": 1,
+      "cost_usd": 0.00185709,
+      "input_tokens": 81598,
+      "output_tokens": 2296,
+      "retries": 0
+    },
+    "cost_usd": 0.00390236,
+    "discarded_attempts": 0,
+    "jev": {
+      "calls": 23,
+      "cancelled": 0,
+      "cost_usd": 0.00204527,
+      "input_tokens": 48697,
+      "output_tokens": 8338,
+      "retries": 0
+    },
+    "partial": 1,
+    "provider_retry_usd": 0,
+    "seconds": 112.345,
+    "unmetered_upper_usd": 0.00035024,
+    "waited_s": 0
+  },
+  "family": "implicit_link",
+  "grade": {
+    "actual": "KAFKA-20552",
+    "correct": true,
+    "evidence": [
+      "mail:afac71e1bc95221e93c97bf4",
+      "jira:13650085:comment:18078806",
+      "jira:13650085:change:23050795:0"
+    ],
+    "expected": "KAFKA-20552"
+  },
+  "image_id": "sha256:4615b2564319d58319029548af66970c954e128401ee89c8705684861de4bc07",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "09424e24ee9c2adf267a760bede6de9d0bb0b876b6657828d70ccf5188705d23",
+  "run_index": 84,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-implicit_link-69a9914100",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 60063,
+    "cost_usd": 0.0193573,
+    "input_tokens": 64792,
+    "output_tokens": 784
+  },
+  "violations": []
+}

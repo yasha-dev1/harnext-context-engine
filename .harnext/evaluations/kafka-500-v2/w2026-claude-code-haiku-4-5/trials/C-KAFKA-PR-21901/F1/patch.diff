@@ -1,0 +1,256 @@
+diff --git a/streams/src/main/java/org/apache/kafka/streams/processor/internals/ProcessorStateManager.java b/streams/src/main/java/org/apache/kafka/streams/processor/internals/ProcessorStateManager.java
+index 7b3483f8e688f84e8032305889adca31617cd7ec..2b221b471fab007a77e25009a5445336b523284e 100644
+--- a/streams/src/main/java/org/apache/kafka/streams/processor/internals/ProcessorStateManager.java
++++ b/streams/src/main/java/org/apache/kafka/streams/processor/internals/ProcessorStateManager.java
+@@ -157,6 +157,26 @@ public class ProcessorStateManager implements StateManager {
+             return LegacyCheckpointingStateStore.maybeUnwrapStore(this.stateStore);
+         }
+ 
++        long retentionPeriod() {
++            final StateStore unwrappedStore = store();
++            // Try to get retention period from various window store implementations
++            try {
++                final java.lang.reflect.Method method = unwrappedStore.getClass().getMethod("retentionPeriod");
++                final Object result = method.invoke(unwrappedStore);
++                if (result instanceof Long) {
++                    return (Long) result;
++                } else if (result instanceof java.time.Duration) {
++                    return ((java.time.Duration) result).toMillis();
++                }
++            } catch (final java.lang.NoSuchMethodException e) {
++                // Method doesn't exist, continue
++            } catch (final Exception e) {
++                // Other exception, return -1
++                return -1L;
++            }
++            return -1L;
++        }
++
+         void markCorrupted() {
+             this.corrupted = true;
+             LegacyCheckpointingStateStore.maybeMarkCorrupted(this.stateStore);
+diff --git a/streams/src/main/java/org/apache/kafka/streams/processor/internals/StoreChangelogReader.java b/streams/src/main/java/org/apache/kafka/streams/processor/internals/StoreChangelogReader.java
+index eab7da800d882bd784d1cdf24f5d87f42c2386f4..9d0ac32607544145bc49e300762ffc96b510cc57 100644
+--- a/streams/src/main/java/org/apache/kafka/streams/processor/internals/StoreChangelogReader.java
++++ b/streams/src/main/java/org/apache/kafka/streams/processor/internals/StoreChangelogReader.java
+@@ -25,6 +25,7 @@ import org.apache.kafka.clients.consumer.Consumer;
+ import org.apache.kafka.clients.consumer.ConsumerRecord;
+ import org.apache.kafka.clients.consumer.ConsumerRecords;
+ import org.apache.kafka.clients.consumer.InvalidOffsetException;
++import org.apache.kafka.clients.consumer.OffsetAndTimestamp;
+ import org.apache.kafka.common.IsolationLevel;
+ import org.apache.kafka.common.KafkaException;
+ import org.apache.kafka.common.TopicPartition;
+@@ -970,6 +971,7 @@ public class StoreChangelogReader implements ChangelogReader {
+                                    final Set<ChangelogMetadata> newPartitionsToRestore) {
+         // separate those who do not have the current offset loaded from checkpoint
+         final Set<TopicPartition> newPartitionsWithoutStartOffset = new HashSet<>();
++        final Set<TopicPartition> windowedPartitionsWithoutStartOffset = new HashSet<>();
+ 
+         for (final ChangelogMetadata changelogMetadata : newPartitionsToRestore) {
+             final StateStoreMetadata storeMetadata = changelogMetadata.storeMetadata;
+@@ -989,10 +991,20 @@ public class StoreChangelogReader implements ChangelogReader {
+                 log.debug("Start restoring changelog partition {} from the beginning offset to end offset {} " +
+                     "since we cannot find current offset.", partition, recordEndOffset(endOffset));
+ 
+-                newPartitionsWithoutStartOffset.add(partition);
++                // separate windowed stores (retentionPeriod > 0) from non-windowed stores
++                if (storeMetadata.retentionPeriod() > 0) {
++                    windowedPartitionsWithoutStartOffset.add(partition);
++                } else {
++                    newPartitionsWithoutStartOffset.add(partition);
++                }
+             }
+         }
+ 
++        // for windowed stores without checkpoint, seek to the appropriate timestamp to avoid restoring outdated records
++        if (!windowedPartitionsWithoutStartOffset.isEmpty()) {
++            seekWindowedChangelogsByTimestamp(windowedPartitionsWithoutStartOffset);
++        }
++
+         // optimization: batch all seek-to-beginning offsets in a single request
+         //               seek is not a blocking call so there's nothing to capture
+         if (!newPartitionsWithoutStartOffset.isEmpty()) {
+@@ -1039,6 +1051,45 @@ public class StoreChangelogReader implements ChangelogReader {
+         }
+     }
+ 
++    private void seekWindowedChangelogsByTimestamp(final Set<TopicPartition> windowedPartitions) {
++        // build a map of partitions to timestamps for offsetsForTimes call
++        final Map<TopicPartition, Long> timestampsToSearch = new HashMap<>();
++        final Map<TopicPartition, Long> retentionPeriods = new HashMap<>();
++
++        for (final TopicPartition partition : windowedPartitions) {
++            final ChangelogMetadata changelogMetadata = changelogs.get(partition);
++            final StateStoreMetadata storeMetadata = changelogMetadata.storeMetadata;
++            final long retentionPeriod = storeMetadata.retentionPeriod();
++            final long targetTimestamp = time.milliseconds() - retentionPeriod;
++            timestampsToSearch.put(partition, targetTimestamp);
++            retentionPeriods.put(partition, retentionPeriod);
++        }
++
++        // try to find offsets by timestamp
++        final Map<TopicPartition, OffsetAndTimestamp> offsetsForTimes = restoreConsumer.offsetsForTimes(timestampsToSearch);
++
++        final Set<TopicPartition> partitionsToSeekToBeginning = new HashSet<>();
++
++        for (final TopicPartition partition : windowedPartitions) {
++            final OffsetAndTimestamp offsetAndTimestamp = offsetsForTimes.get(partition);
++
++            if (offsetAndTimestamp != null) {
++                // seek to the offset returned by offsetsForTimes
++                restoreConsumer.seek(partition, offsetAndTimestamp.offset());
++                log.debug("Seeked changelog partition {} to offset {} based on timestamp {} for retention period {}",
++                    partition, offsetAndTimestamp.offset(), timestampsToSearch.get(partition), retentionPeriods.get(partition));
++            } else {
++                // if broker returns null for offsetsForTimes, fall back to seekToBeginning
++                partitionsToSeekToBeginning.add(partition);
++                log.debug("Could not find offset by timestamp for changelog partition {}, will seek to beginning", partition);
++            }
++        }
++
++        if (!partitionsToSeekToBeginning.isEmpty()) {
++            restoreConsumer.seekToBeginning(partitionsToSeekToBeginning);
++        }
++    }
++
+     @Override
+     public void unregister(final Collection<TopicPartition> revokedChangelogs) {
+         unregister(revokedChangelogs, StandbyUpdateListener.SuspendReason.MIGRATED);
+diff --git a/streams/src/test/java/org/apache/kafka/streams/processor/internals/StoreChangelogReaderTest.java b/streams/src/test/java/org/apache/kafka/streams/processor/internals/StoreChangelogReaderTest.java
+index 72954175f5b4a7f171d898911ac025bed0a119c4..e24b5c5c3e80142f1b352fa89f3d2619b6a8dac2 100644
+--- a/streams/src/test/java/org/apache/kafka/streams/processor/internals/StoreChangelogReaderTest.java
++++ b/streams/src/test/java/org/apache/kafka/streams/processor/internals/StoreChangelogReaderTest.java
+@@ -27,6 +27,7 @@ import org.apache.kafka.clients.admin.OffsetSpec;
+ import org.apache.kafka.clients.consumer.ConsumerRecord;
+ import org.apache.kafka.clients.consumer.MockConsumer;
+ import org.apache.kafka.clients.consumer.OffsetAndMetadata;
++import org.apache.kafka.clients.consumer.OffsetAndTimestamp;
+ import org.apache.kafka.clients.consumer.internals.AutoOffsetResetStrategy;
+ import org.apache.kafka.common.KafkaException;
+ import org.apache.kafka.common.PartitionInfo;
+@@ -59,6 +60,7 @@ import org.mockito.quality.Strictness;
+ 
+ import java.time.Duration;
+ import java.util.Collections;
++import java.util.HashMap;
+ import java.util.Map;
+ import java.util.Properties;
+ import java.util.Set;
+@@ -1430,6 +1432,116 @@ public class StoreChangelogReaderTest {
+         }
+     }
+ 
++    @Test
++    public void shouldSeekByTimestampForWindowedStoreWithoutCheckpoint() {
++        final long retentionMs = Duration.ofHours(2).toMillis();
++        final long offsetForTimestamp = 42L;
++
++        // Use a MockConsumer subclass that supports offsetsForTimes
++        final MockConsumer<byte[], byte[]> timestampConsumer = new MockConsumer<>(AutoOffsetResetStrategy.EARLIEST.name()) {
++            @Override
++            public synchronized Map<TopicPartition, OffsetAndTimestamp> offsetsForTimes(final Map<TopicPartition, Long> timestampsToSearch) {
++                final Map<TopicPartition, OffsetAndTimestamp> result = new HashMap<>();
++                timestampsToSearch.forEach((key, value) -> result.put(key, new OffsetAndTimestamp(offsetForTimestamp, value)));
++                return result;
++            }
++        };
++
++        // Set up mocks - storeMetadata returns null offset (no checkpoint) and positive retentionPeriod
++        final StateStoreMetadata windowStoreMetadata = mock(StateStoreMetadata.class);
++        final ProcessorStateManager windowStateManager = mock(ProcessorStateManager.class);
++        final StateStore windowStore = mock(StateStore.class);
++        when(windowStoreMetadata.changelogPartition()).thenReturn(tp);
++        when(windowStoreMetadata.store()).thenReturn(windowStore);
++        when(windowStoreMetadata.offset()).thenReturn(null);
++        when(windowStoreMetadata.retentionPeriod()).thenReturn(retentionMs);
++        when(windowStore.name()).thenReturn(storeName);
++        when(windowStateManager.storeMetadata(tp)).thenReturn(windowStoreMetadata);
++        when(windowStateManager.taskType()).thenReturn(ACTIVE);
++
++        final TaskId taskId = new TaskId(0, 0);
++        when(windowStateManager.taskId()).thenReturn(taskId);
++
++        timestampConsumer.updateBeginningOffsets(Collections.singletonMap(tp, 0L));
++        adminClient.updateEndOffsets(Collections.singletonMap(tp, 100L));
++
++        final StoreChangelogReader reader =
++            new StoreChangelogReader(time, config, logContext, adminClient, timestampConsumer, callback, standbyListener);
++
++        reader.register(tp, windowStateManager);
++        reader.restore(Collections.singletonMap(taskId, mock(Task.class)));
++
++        assertEquals(offsetForTimestamp, timestampConsumer.position(tp), "The consumer should be seeked to the offset returned by offsetsForTimes, not to the beginning");
++    }
++
++    @Test
++    public void shouldSeekToBeginningWhenBrokerReturnsNullForOffsetsForTimes() {
++        final long retentionMs = Duration.ofHours(2).toMillis();
++
++        // Use a MockConsumer subclass that returns null for offsetsForTimes
++        final MockConsumer<byte[], byte[]> timestampConsumer = new MockConsumer<>(AutoOffsetResetStrategy.EARLIEST.name()) {
++            @Override
++            public synchronized Map<TopicPartition, OffsetAndTimestamp> offsetsForTimes(final Map<TopicPartition, Long> timestampsToSearch) {
++                final Map<TopicPartition, OffsetAndTimestamp> result = new HashMap<>();
++                timestampsToSearch.forEach((key, value) -> result.put(key, null));
++                return result;
++            }
++        };
++
++        final StateStoreMetadata windowStoreMetadata = mock(StateStoreMetadata.class);
++        final ProcessorStateManager windowStateManager = mock(ProcessorStateManager.class);
++        final StateStore windowStore = mock(StateStore.class);
++        when(windowStoreMetadata.changelogPartition()).thenReturn(tp);
++        when(windowStoreMetadata.store()).thenReturn(windowStore);
++        when(windowStoreMetadata.offset()).thenReturn(null);
++        when(windowStoreMetadata.retentionPeriod()).thenReturn(retentionMs);
++        when(windowStore.name()).thenReturn(storeName);
++        when(windowStateManager.storeMetadata(tp)).thenReturn(windowStoreMetadata);
++        when(windowStateManager.taskType()).thenReturn(ACTIVE);
++
++        final TaskId taskId = new TaskId(0, 0);
++        when(windowStateManager.taskId()).thenReturn(taskId);
++
++        timestampConsumer.updateBeginningOffsets(Collections.singletonMap(tp, 0L));
++        adminClient.updateEndOffsets(Collections.singletonMap(tp, 100L));
++
++        final StoreChangelogReader reader =
++            new StoreChangelogReader(time, config, logContext, adminClient, timestampConsumer, callback, standbyListener);
++
++        reader.register(tp, windowStateManager);
++        reader.restore(Collections.singletonMap(taskId, mock(Task.class)));
++
++        assertEquals(0L, timestampConsumer.position(tp), "When broker returns null, should fall back to seeking to the beginning");
++    }
++
++    @Test
++    public void shouldSeekToBeginningForNonWindowedStoreWithoutCheckpoint() {
++        final StateStoreMetadata kvStoreMetadata = mock(StateStoreMetadata.class);
++        final ProcessorStateManager kvStateManager = mock(ProcessorStateManager.class);
++        final StateStore kvStore = mock(StateStore.class);
++        when(kvStoreMetadata.changelogPartition()).thenReturn(tp);
++        when(kvStoreMetadata.store()).thenReturn(kvStore);
++        when(kvStoreMetadata.offset()).thenReturn(null);
++        when(kvStoreMetadata.retentionPeriod()).thenReturn(-1L);
++        when(kvStore.name()).thenReturn(storeName);
++        when(kvStateManager.storeMetadata(tp)).thenReturn(kvStoreMetadata);
++        when(kvStateManager.taskType()).thenReturn(ACTIVE);
++
++        final TaskId taskId = new TaskId(0, 0);
++        when(kvStateManager.taskId()).thenReturn(taskId);
++
++        consumer.updateBeginningOffsets(Collections.singletonMap(tp, 0L));
++        adminClient.updateEndOffsets(Collections.singletonMap(tp, 100L));
++
++        final StoreChangelogReader reader =
++            new StoreChangelogReader(time, config, logContext, adminClient, consumer, callback, standbyListener);
++
++        reader.register(tp, kvStateManager);
++        reader.restore(Collections.singletonMap(taskId, mock(Task.class)));
++
++        assertEquals(0L, consumer.position(tp), "Non-windowed store should seek to beginning, not by timestamp");
++    }
++
+     private void assignPartition(final long messages,
+                                  final TopicPartition topicPartition) {
+         consumer.updatePartitions(

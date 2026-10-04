@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "store/events/2026/02/26/jira-13609845-change-22954260-1-c8982f75.md",
+    "Comprehensive search of all 8 events for KAFKA-18866 shows only one status transition: Open → Resolved on 2026-02-26, with no transitions to Reopened found"
+  ],
+  "value": 0
+}

@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "mail id: 34fc284fbaae3665c418057e from Lijun Tong (2026-01-20T01:59:54Z) in response to Kamal's concerns about feature gating during rolling upgrades",
+    "The message states: 'The solution I have in mind is this feature is *gated by the metadata version*. The new tombstone semantics and the additional fields (for example in RemoteLogSegmentUpdateRecord) are only enabled once the cluster metadata version is upgraded to the version that introduces this feature.'"
+  ],
+  "value": "metadata version"
+}

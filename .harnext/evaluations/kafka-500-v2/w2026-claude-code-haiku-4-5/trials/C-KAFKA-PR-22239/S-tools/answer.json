@@ -1,0 +1,3 @@
+{
+  "summary": "Added handling for GROUP_ID_NOT_FOUND and STALE_MEMBER_EPOCH errors in TxnOffsetCommit v6+ responses. These new error codes from KIP-1319 are now properly converted to CommitFailedException to abort transactions when consumer group metadata mismatches occur, maintaining behavioral alignment with OffsetCommit API. All 168 TransactionManagerTest tests pass."
+}

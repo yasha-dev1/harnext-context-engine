@@ -1,0 +1,65 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "github:api:apache/kafka:review-PRR_kwDOACG9q87ycGzC",
+      "github:api:apache/kafka:review-PRR_kwDOACG9q87ydMWz",
+      "github:api:apache/kafka:review-PRR_kwDOACG9q87ydMbp"
+    ],
+    "value": [
+      "dajac",
+      "nileshkumar3",
+      "squah-confluent"
+    ]
+  },
+  "arm": "R-hyb",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 22.22021994899842,
+  "family": "pr_approvers",
+  "grade": {
+    "actual": [
+      "dajac",
+      "nileshkumar3",
+      "squah-confluent"
+    ],
+    "correct": true,
+    "evidence": [
+      "github:api:apache/kafka:review-PRR_kwDOACG9q87ycGzC",
+      "github:api:apache/kafka:review-PRR_kwDOACG9q87ydMWz",
+      "github:api:apache/kafka:review-PRR_kwDOACG9q87ydMbp"
+    ],
+    "expected": [
+      "dajac",
+      "nileshkumar3",
+      "squah-confluent"
+    ]
+  },
+  "instructions_sha256": "dfaa5b284d06c378ef7e4c08b53dc77835c91d7591fca0335bbfa33d3e53eb37",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "86e3434875f90efa759a592694c9c94bb1cd76f8da23591dc343a81818a2b6e8",
+  "run_index": 65,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-pr_approvers-a94621c89b",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__search": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 59843,
+    "cost_usd": 0.0293503,
+    "input_tokens": 69322,
+    "output_tokens": 887
+  },
+  "violations": []
+}

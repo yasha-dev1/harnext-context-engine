@@ -1,0 +1,9 @@
+Context snapshot cutoff (inclusive): 2026-03-31T23:59:59Z.
+
+Which files were changed by the pull requests merged for the Apache Kafka JIRA issue titled "Enable time-ordered header window store in DSL" (created in 2026-03) by the snapshot? Return the sorted array of repository-relative file paths (the union over those merged pull requests, each path once); pull requests not merged by the snapshot do not count.
+
+Return JSON {"value": <answer>, "evidence": [<ids or file paths of the sources you relied on>]}. Answer as of the cutoff; do not substitute a later or today's issue state.
+
+The MCP server `history` holds the project's recorded history up to the cutoff. Use its tools (search, read_event) to consult it as you see fit; nothing later than the cutoff is in it and there is no network access.
+
+Reply with one JSON object {"value": ..., "evidence": [...]}: `value` is the answer in the requested type (null if it cannot be determined), `evidence` lists the sources you relied on.

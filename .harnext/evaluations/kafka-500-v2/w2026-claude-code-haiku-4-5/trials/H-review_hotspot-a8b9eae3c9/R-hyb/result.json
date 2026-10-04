@@ -1,0 +1,61 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86jAWFm (FrankYang0529 2026-01-28T04:12:25Z)",
+      "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86oldo9 (chia7712 2026-02-19T15:02:38Z)",
+      "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86o1uEQ (chia7712 2026-02-20T11:03:05Z)",
+      "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86o11In (mimaison 2026-02-20T11:10:10Z)",
+      "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86pI1Oz (chia7712 2026-02-22T11:44:08Z)",
+      "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86p8ow3 (chia7712 2026-02-25T07:01:57Z)",
+      "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86psVlJ (chia7712 2026-02-24T12:57:13Z)"
+    ],
+    "value": "core/src/main/scala/kafka/server/DynamicBrokerConfig.scala"
+  },
+  "arm": "R-hyb",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 106.37953472400113,
+  "family": "review_hotspot",
+  "grade": {
+    "actual": "core/src/main/scala/kafka/server/DynamicBrokerConfig.scala",
+    "correct": true,
+    "evidence": [
+      "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86jAWFm (FrankYang0529 2026-01-28T04:12:25Z)",
+      "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86oldo9 (chia7712 2026-02-19T15:02:38Z)",
+      "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86o1uEQ (chia7712 2026-02-20T11:03:05Z)",
+      "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86o11In (mimaison 2026-02-20T11:10:10Z)",
+      "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86pI1Oz (chia7712 2026-02-22T11:44:08Z)",
+      "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86p8ow3 (chia7712 2026-02-25T07:01:57Z)",
+      "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86psVlJ (chia7712 2026-02-24T12:57:13Z)"
+    ],
+    "expected": "core/src/main/scala/kafka/server/DynamicBrokerConfig.scala"
+  },
+  "instructions_sha256": "dfaa5b284d06c378ef7e4c08b53dc77835c91d7591fca0335bbfa33d3e53eb37",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 13,
+  "prompt_sha256": "599b0c825acfaf3fa99a0d7cf473e64d0c26eecb75b737465485264008b41046",
+  "run_index": 69,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-review_hotspot-a8b9eae3c9",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__search": 10
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 530630,
+    "cost_usd": 0.191411,
+    "input_tokens": 585106,
+    "output_tokens": 5901
+  },
+  "violations": []
+}

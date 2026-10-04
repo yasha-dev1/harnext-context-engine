@@ -1,0 +1,50 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "events/2026/05/14/mail-1cc0144db1cdec902c728e70-70ae981e.md (Kirk True's May 5, 2026 reply: \"I've added the definition for the ConfigTooLargeException which is now the only exception added.\")"
+    ],
+    "value": "ConfigTooLargeException"
+  },
+  "arm": "F0-search",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 98.06281261099502,
+  "family": "design_decision",
+  "grade": {
+    "actual": "ConfigTooLargeException",
+    "correct": true,
+    "evidence": [
+      "events/2026/05/14/mail-1cc0144db1cdec902c728e70-70ae981e.md (Kirk True's May 5, 2026 reply: \"I've added the definition for the ConfigTooLargeException which is now the only exception added.\")"
+    ],
+    "expected": "ConfigTooLargeException"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 5,
+  "prompt_sha256": "6c7d6c42de5e2cdef303dcfc7221678c25f3e7b16714e3ce972bc979b9efc015",
+  "run_index": 72,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-9747f2e7bf",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 2
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 111226,
+    "cost_usd": 0.041885599999999995,
+    "input_tokens": 122554,
+    "output_tokens": 1630
+  },
+  "violations": []
+}

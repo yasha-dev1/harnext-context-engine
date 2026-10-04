@@ -1,0 +1,56 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "jira issue view KAFKA-20066 --history showing Link field changes at 2026-03-09T10:57:55, 2026-03-09T10:58:29, and 2026-03-09T11:03:09"
+    ],
+    "value": [
+      "KAFKA-20282"
+    ]
+  },
+  "arm": "S-tools",
+  "checkpoint": "2026-04",
+  "cli_calls": {
+    "jira": 5
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 21.767653937000432,
+  "family": "issue_links",
+  "grade": {
+    "actual": [
+      "KAFKA-20282"
+    ],
+    "correct": true,
+    "evidence": [
+      "jira issue view KAFKA-20066 --history showing Link field changes at 2026-03-09T10:57:55, 2026-03-09T10:58:29, and 2026-03-09T11:03:09"
+    ],
+    "expected": [
+      "KAFKA-20282"
+    ]
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 6,
+  "prompt_sha256": "25ffbd867d8c5a8206bb8d93d3439fe8c2522929f94e560bd7e22f85b2102341",
+  "run_index": 13,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-issue_links-ee77a538ef",
+  "tool_calls": {
+    "Bash": 5,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 131683,
+    "cost_usd": 0.04525029999999999,
+    "input_tokens": 142881,
+    "output_tokens": 1947
+  },
+  "violations": []
+}

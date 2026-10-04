@@ -1,0 +1,51 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "issues/kafka-20104-inquiry-zookeeper-kraft-migration.md",
+      "WINDOW-18-SUMMARY.md"
+    ],
+    "value": "KAFKA-20104"
+  },
+  "arm": "F4-fact-search",
+  "checkpoint": "2026-01",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 13.62215303099947,
+  "family": "implicit_link",
+  "grade": {
+    "actual": "KAFKA-20104",
+    "correct": true,
+    "evidence": [
+      "issues/kafka-20104-inquiry-zookeeper-kraft-migration.md",
+      "WINDOW-18-SUMMARY.md"
+    ],
+    "expected": "KAFKA-20104"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "057223128171aa6cb2afce4a477ab8a1f9c77a086c23bcb3575f85fbcf9e4178",
+  "run_index": 78,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-implicit_link-f9d0f12af5",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__search_context": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 64146,
+    "cost_usd": 0.0139506,
+    "input_tokens": 66030,
+    "output_tokens": 759
+  },
+  "violations": []
+}

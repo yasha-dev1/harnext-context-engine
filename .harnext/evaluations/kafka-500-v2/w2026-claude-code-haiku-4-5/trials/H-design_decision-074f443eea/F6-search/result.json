@@ -1,0 +1,54 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "pull-requests.md - PR #22087 (KAFKA-20454) reference",
+      "context_research results indicating unavailable documentation",
+      "KIP-1282 discussion about group creation timestamp but for consumer auto.offset.reset policy, not tool option"
+    ],
+    "value": null
+  },
+  "arm": "F6-search",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 107.3100402810087,
+  "family": "design_decision",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "pull-requests.md - PR #22087 (KAFKA-20454) reference",
+      "context_research results indicating unavailable documentation",
+      "KIP-1282 discussion about group creation timestamp but for consumer auto.offset.reset policy, not tool option"
+    ],
+    "expected": "--by-start-time"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 20,
+  "prompt_sha256": "0b7d07b3156688433d0eb4ba9dc65091bfa30193828b7c4143fba0862bc7e1c9",
+  "run_index": 66,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-074f443eea",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 17
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 895610,
+    "cost_usd": 0.216429,
+    "input_tokens": 948943,
+    "output_tokens": 4073
+  },
+  "violations": []
+}

@@ -1,0 +1,3 @@
+{
+  "summary": "KAFKA-20623 implementation is complete with all 29 tests passing. The topology description plugin is fully wired into GroupCoordinatorService with proper heartbeat gating, back-off management, and delete group integration. All required functionality is already implemented: the streamsGroupTopologyDescriptionUpdate RPC handler, heartbeat post-processing to set TopologyDescriptionRequired flag, per-group exponential back-off management, plugin.setTopology invocation on topology pushes, and plugin.deleteTopology invocation before group tombstoning."
+}

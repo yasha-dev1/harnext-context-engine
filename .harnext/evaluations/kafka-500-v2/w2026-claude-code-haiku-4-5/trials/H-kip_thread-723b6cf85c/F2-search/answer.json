@@ -1,0 +1,18 @@
+{
+  "evidence": [
+    "kips/KIP-1266/mail-fae59ef23c15af1ca719cef5-f1967464.md",
+    "kips/KIP-1266/2026-01-12-mail-discuss-remote-log-metadata-3c39548c.md",
+    "kips/KIP-1266/2026-01-14-mail-d0eb8ce129ffef70296f85a7-de7d95c0.md",
+    "kips/KIP-1266/2026-01-15-mail-d42ec61c1696ad3122663d8a-ab534859.md",
+    "kips/KIP-1266/2026-01-18-mail-422fb6a7.md",
+    "kips/KIP-1266/2026-01-20-mail-b3176fec.md",
+    "kips/KIP-1266/2026-03-06-mail-09bc95d778f7d18b9e28a519-a200c8d3.md",
+    "kips/KIP-1266/2026-03-30-mail-0b65a9cc-aed6f035.md",
+    "kips/KIP-1266/2026-03-31-mail-3db35274-9aaad341.md",
+    "kips/KIP-1266/2026-03-31-mail-e268f29a-00bec1dc.md"
+  ],
+  "value": {
+    "participants": 4,
+    "starter": "Lijun Tong"
+  }
+}

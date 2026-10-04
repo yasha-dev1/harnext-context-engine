@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "JIRA issue KAFKA-20085 titled 'Let\\'s replace this verbose instruction with a custom Gradle task' created 2026-01, queried via context_research tool"
+  ],
+  "value": [
+    ""
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail:05dea6cdc4e709f639e41414",
+      "mail:d143b0b41a8baaf69dfb3a1d"
+    ],
+    "value": "destination cluster default replication factor"
+  },
+  "arm": "H-engine-b8-ds",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 155.39442514699476,
+  "engine": {
+    "calls": 1,
+    "chat": {
+      "calls": 7,
+      "cancelled": 0,
+      "cost_usd": 0.00167865,
+      "input_tokens": 29215,
+      "output_tokens": 3334,
+      "retries": 1
+    },
+    "cost_usd": 0.0022643,
+    "discarded_attempts": 0,
+    "jev": {
+      "calls": 7,
+      "cancelled": 0,
+      "cost_usd": 0.00058565,
+      "input_tokens": 13944,
+      "output_tokens": 2660,
+      "retries": 0
+    },
+    "partial": 0,
+    "provider_retry_usd": 0,
+    "seconds": 139.911,
+    "unmetered_upper_usd": 0.00083454,
+    "waited_s": 0
+  },
+  "family": "design_decision",
+  "grade": {
+    "actual": "destination cluster default replication factor",
+    "correct": true,
+    "evidence": [
+      "mail:05dea6cdc4e709f639e41414",
+      "mail:d143b0b41a8baaf69dfb3a1d"
+    ],
+    "expected": "destination cluster default replication factor"
+  },
+  "image_id": "sha256:1de715f951a3fc013cabad66407b87028bc2a5af6e58efdea5338b4cf9fb1485",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 4,
+  "prompt_sha256": "57b6d3683f2ee39d7e853aedbe002491db031bb4f49d46f4f4ea0a39e5214f69",
+  "run_index": 56,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-35e51bbc1a",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 85786,
+    "cost_usd": 0.015714600000000002,
+    "input_tokens": 87185,
+    "output_tokens": 875
+  },
+  "violations": []
+}

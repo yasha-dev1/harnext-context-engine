@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "discussions.md (lines 1121-1136, dated 2026-04-15) — AS27 decision: 'Renamed AddTopicsToMirror/RemoveTopicsFromMirror to StartMirrorTopics/StopMirrorTopics for clarity; Stop for failover, Pause for maintenance'"
+  ],
+  "value": "StartMirrorTopics/StopMirrorTopics"
+}

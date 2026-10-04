@@ -1,0 +1,9 @@
+Context snapshot cutoff (inclusive): 2026-01-31T23:59:59Z.
+
+In the discussion about extending the processing-exception-handler mechanism to GlobalKTable processors, there was debate over whether a new field/parameter would be needed so that a single handler implementation could distinguish whether an error came from the global thread versus a regular stream thread. As of the final resolution, was a new thread-type identifying parameter (e.g. a ThreadType field) added to the error handler context to make this distinction? Answer with one of: "yes", "no" Answer with exactly one of: "yes", "no". Give the decision as it stood at the snapshot, not an earlier proposal.
+
+Return JSON {"value": <answer>, "evidence": [<ids or file paths of the sources you relied on>]}. Answer as of the cutoff; do not substitute a later or today's issue state.
+
+No project-history context is provided for this task. Work from the task statement and your own knowledge; there is no network access.
+
+Reply with one JSON object {"value": ..., "evidence": [...]}: `value` is the answer in the requested type (null if it cannot be determined), `evidence` lists the sources you relied on.

@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "WINDOW-102-SUMMARY.md:77-86",
+    "issues/kafka-20525-client-configuration-observability.md:27-29",
+    "discussions/kip-1324-client-configuration-observability.md:6-12"
+  ],
+  "value": "KAFKA-20525"
+}

@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "dev@kafka.apache.org mailing list - message ID 0a9bb7f24cac428cae178e83 from Vaquar Khan dated 2026-02-20, in the [DISCUSS] KIP-1279: Cluster Mirroring thread"
+  ],
+  "value": "Long.MAX_VALUE - sourceProducerId - 1"
+}

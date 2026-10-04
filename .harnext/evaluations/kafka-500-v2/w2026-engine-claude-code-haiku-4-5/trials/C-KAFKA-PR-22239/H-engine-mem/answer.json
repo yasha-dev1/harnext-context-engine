@@ -1,0 +1,3 @@
+{
+  "summary": "Added handling for GROUP_ID_NOT_FOUND and STALE_MEMBER_EPOCH errors in TxnOffsetCommit response processing. Updated TransactionManager.TxnOffsetCommitHandler.handleResponse() to treat these new errors the same as ILLEGAL_GENERATION and UNKNOWN_MEMBER_ID, triggering an abortable CommitFailedException for consumer group metadata mismatches. This aligns the TxnOffsetCommit API with the OffsetCommit API per KIP-1319. All 150+ TransactionManagerTest tests pass, including the new testGroupMetadataMismatchErrorInTxnOffsetCommit test cases."
+}

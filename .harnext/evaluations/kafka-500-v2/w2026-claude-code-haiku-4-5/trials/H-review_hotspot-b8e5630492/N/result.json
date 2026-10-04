@@ -1,0 +1,53 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "No repository access",
+      "No network access",
+      "No project context provided",
+      "Working directory is not a git repository"
+    ],
+    "value": "null"
+  },
+  "arm": "N",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 7.229870645998744,
+  "family": "review_hotspot",
+  "grade": {
+    "actual": "null",
+    "correct": false,
+    "evidence": [
+      "No repository access",
+      "No network access",
+      "No project context provided",
+      "Working directory is not a git repository"
+    ],
+    "expected": "storage/src/test/java/org/apache/kafka/storage/internals/log/LogManagerTest.java"
+  },
+  "instructions_sha256": null,
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 1,
+  "prompt_sha256": "f628958ffab53a559e20350f4ed43fb6ca2337bc812d707c784161bbd41e14d7",
+  "run_index": 31,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-review_hotspot-b8e5630492",
+  "tool_calls": {
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 17493,
+    "cost_usd": 0.0105273,
+    "input_tokens": 20579,
+    "output_tokens": 523
+  },
+  "violations": []
+}

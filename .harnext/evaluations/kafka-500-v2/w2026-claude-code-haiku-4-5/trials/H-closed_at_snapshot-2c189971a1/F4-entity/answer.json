@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "issues/KAFKA-20158.md"
+  ],
+  "value": false
+}

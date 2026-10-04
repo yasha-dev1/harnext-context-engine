@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "discussions.md (lines 1451-1461, Window 118, 2026-05-14T00:23:32Z): KIP-1322 Key Discussion Resolution states 'Agreement reached - always report metrics across state transitions'",
+    "discussions.md (lines 612-621): KIP-1322 Proposal Details explicitly states 'Metrics always reported (not conditional on state) with counter persisted across EpochState transitions'"
+  ],
+  "value": "always report regardless of state"
+}

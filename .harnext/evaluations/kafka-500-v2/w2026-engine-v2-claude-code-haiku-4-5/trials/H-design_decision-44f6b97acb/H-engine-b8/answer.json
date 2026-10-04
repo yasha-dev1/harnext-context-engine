@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "jira:13642872:change:22958255:0",
+    "mail:23f99b924d7f9230d0545faf"
+  ],
+  "value": "group.coordinator.executor.threads"
+}

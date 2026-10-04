@@ -1,0 +1,109 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "github:api:apache/kafka:pr-22041-opened",
+      "github:api:apache/kafka:pr-22182-opened",
+      "entities/issue/KAFKA-20440/OVERVIEW.md",
+      "entities/issue/KAFKA-20440/timeline.md"
+    ],
+    "value": [
+      {
+        "pr": 22041,
+        "state": "open"
+      },
+      {
+        "pr": 22182,
+        "state": "open"
+      }
+    ]
+  },
+  "arm": "H-engine-mem",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 425.3884044059996,
+  "engine": {
+    "calls": 5,
+    "chat": {
+      "calls": 75,
+      "cancelled": 1,
+      "cost_usd": 0.00592559,
+      "input_tokens": 243608,
+      "output_tokens": 8330,
+      "retries": 0
+    },
+    "cost_usd": 0.01135174,
+    "discarded_attempts": 0,
+    "jev": {
+      "calls": 61,
+      "cancelled": 0,
+      "cost_usd": 0.00542615,
+      "input_tokens": 129194,
+      "output_tokens": 22343,
+      "retries": 0
+    },
+    "partial": 4,
+    "provider_retry_usd": 0,
+    "seconds": 402.241,
+    "unmetered_upper_usd": 0.00025826,
+    "waited_s": 0
+  },
+  "family": "issue_prs",
+  "grade": {
+    "actual": [
+      {
+        "pr": 22041,
+        "state": "open"
+      },
+      {
+        "pr": 22182,
+        "state": "open"
+      }
+    ],
+    "correct": true,
+    "evidence": [
+      "github:api:apache/kafka:pr-22041-opened",
+      "github:api:apache/kafka:pr-22182-opened",
+      "entities/issue/KAFKA-20440/OVERVIEW.md",
+      "entities/issue/KAFKA-20440/timeline.md"
+    ],
+    "expected": [
+      {
+        "pr": 22041,
+        "state": "open"
+      },
+      {
+        "pr": 22182,
+        "state": "open"
+      }
+    ]
+  },
+  "image_id": "sha256:4615b2564319d58319029548af66970c954e128401ee89c8705684861de4bc07",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 7,
+  "prompt_sha256": "d02af8fc5d55fea76ba0669e775cdb20b84e33ae4e41042eefa2fe1d59f52e50",
+  "run_index": 42,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-issue_prs-a6ff7f3ad8",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 5
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 156366,
+    "cost_usd": 0.029164600000000002,
+    "input_tokens": 159762,
+    "output_tokens": 1359
+  },
+  "violations": []
+}

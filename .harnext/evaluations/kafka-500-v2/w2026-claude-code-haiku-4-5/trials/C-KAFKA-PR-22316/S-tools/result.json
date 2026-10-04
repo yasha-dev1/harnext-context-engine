@@ -1,0 +1,132 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "summary": "Implemented readOnly(IsolationLevel) method for MeteredKeyValueStore with a custom ReadOnlyView inner class that applies metering and serdes to all read operations on the underlying isolation-level-aware store view. All tests pass successfully."
+  },
+  "arm": "S-tools",
+  "checkpoint": "2026-04",
+  "cli_calls": {
+    "git": 14,
+    "jira": 2
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 298.5938202099969,
+  "family": "pr_implementation",
+  "grade": {
+    "counts": {
+      "passed": 43
+    },
+    "dropped_paths": [],
+    "fail_to_pass_failed": [],
+    "graded_by": "gradle",
+    "grading_timed_out": false,
+    "gradle_returncode": 0,
+    "other_failed_tasks": [],
+    "outcomes": {
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldDelegateInit()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldDeleteFromInnerStoreAndRecordDeleteMetric()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldFlushInnerWhenCommitTimeRecords()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldGetAllFromInnerStoreAndRecordAllMetric()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldGetBytesFromInnerStoreAndReturnGetMetric()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldGetRangeFromInnerStoreAndRecordRangeMetric()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldGetRecordsWithPrefixKey()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldNotSetFlushListenerOnWrappedNoneCachingStore()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldNotThrowNullPointerExceptionIfGetReturnsNull()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldPassChangelogTopicNameToStateStoreSerde()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldPassDefaultChangelogTopicNameToStateStoreSerdeIfLoggingDisabled()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldPassReadCommittedThroughToInner()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldPassRecordHeadersToValueDeserializerWhenFlushListenerIsSet()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldPutAllToInnerStoreAndRecordPutAllMetric()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldPutIfAbsentAndRecordPutIfAbsentMetric()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldReadOnlyViewAllApplySerdesAndRecordAllMetric()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldReadOnlyViewApproximateNumEntriesDelegatesToUnderlying()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldReadOnlyViewGetApplySerdesAndRecordGetMetric()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldReadOnlyViewPrefixScanApplySerdesAndRecordPrefixScanMetric()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldReadOnlyViewRangeApplySerdesAndRecordRangeMetric()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldReadOnlyViewReverseAllApplySerdesAndRecordAllMetric()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldReadOnlyViewReverseRangeApplySerdesAndRecordRangeMetric()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldRecordRestoreLatencyOnRecordRestoreTime()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldRemoveMetricsEvenIfWrappedStoreThrowsOnClose()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldRemoveMetricsOnClose()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldSetFlushListenerOnWrappedCachingStore()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldThrowNpeOnNullIsolationLevel()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldThrowNullPointerOnDeleteIfKeyIsNull()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldThrowNullPointerOnGetIfKeyIsNull()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldThrowNullPointerOnPrefixScanIfPrefixIsNull()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldThrowNullPointerOnPutAllIfAnyKeyIsNull()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldThrowNullPointerOnPutIfAbsentIfKeyIsNull()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldThrowNullPointerOnPutIfKeyIsNull()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldThrowNullPointerOnRangeIfFromIsNull()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldThrowNullPointerOnRangeIfToIsNull()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldThrowNullPointerOnReverseRangeIfFromIsNull()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldThrowNullPointerOnReverseRangeIfToIsNull()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldTimeIteratorDuration()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldTrackNumKeysMetric()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldTrackOldestOpenIteratorTimestamp()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldTrackOpenIteratorsMetric()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#shouldWriteBytesToInnerStoreAndRecordPutMetric()": "passed",
+      "org.apache.kafka.streams.state.internals.MeteredKeyValueStoreTest#testMetrics()": "passed"
+    },
+    "pass_to_pass_failed": [],
+    "patch_bytes": 4121,
+    "patch_empty": false,
+    "resolved": true,
+    "seconds": 205.3,
+    "similarity": {
+      "added_lines": {
+        "f1": 0.32,
+        "precision": 0.683,
+        "recall": 0.209
+      },
+      "files": {
+        "agent": 1,
+        "f1": 0.667,
+        "golden": 2,
+        "precision": 1.0,
+        "recall": 0.5,
+        "shared": 1
+      },
+      "location_recall": 0.118,
+      "removed_lines": {
+        "f1": 0.0,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      "size": {
+        "agent_added": 41,
+        "agent_removed": 0,
+        "golden_added": 134,
+        "golden_removed": 31
+      }
+    },
+    "test_compile_failed": []
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "coding",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 40,
+  "prompt_sha256": "82552212cb67fcc4b6298874074577b5e418aba73c3c2532c9aea797a3f431cc",
+  "run_index": 2,
+  "status": "completed",
+  "success": true,
+  "task_id": "C-KAFKA-PR-22316",
+  "tool_calls": {
+    "Bash": 27,
+    "Edit": 3,
+    "Read": 7,
+    "StructuredOutput": 1,
+    "ToolSearch": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 2144152,
+    "cost_usd": 0.3854832000000001,
+    "input_tokens": 2200186,
+    "output_tokens": 11865
+  },
+  "violations": []
+}

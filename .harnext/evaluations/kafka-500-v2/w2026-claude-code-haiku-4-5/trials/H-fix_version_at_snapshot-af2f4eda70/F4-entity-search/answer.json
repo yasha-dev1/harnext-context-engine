@@ -1,0 +1,9 @@
+{
+  "evidence": [
+    "issues/KAFKA-20336.md",
+    "WINDOW-104-2026-04-27-28-summary.md (lines 303-308)"
+  ],
+  "value": [
+    "4.3.0"
+  ]
+}

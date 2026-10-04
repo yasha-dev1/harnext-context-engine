@@ -1,0 +1,4093 @@
+{
+  "arms": {
+    "F0-search": {
+      "agent_seconds": 11052.3,
+      "by_kind": {
+        "coding": {
+          "agent_seconds": 7186.2,
+          "by_family": {
+            "pr_implementation": {
+              "agent_seconds": 7186.2,
+              "cached_input_tokens": 27357892,
+              "context_bytes": 0,
+              "input_tokens": 28044630,
+              "n": 12,
+              "output_tokens": 120997,
+              "status": {
+                "completed": 12
+              },
+              "success": 9,
+              "tool_calls": 443
+            }
+          },
+          "cached_input_tokens": 27357892,
+          "context_bytes": 0,
+          "input_tokens": 28044630,
+          "n": 12,
+          "output_tokens": 120997,
+          "status": {
+            "completed": 12
+          },
+          "success": 9,
+          "tool_calls": 443
+        },
+        "historical": {
+          "agent_seconds": 3866.1,
+          "by_family": {
+            "assignee_at_snapshot": {
+              "agent_seconds": 33.2,
+              "cached_input_tokens": 92470,
+              "context_bytes": 0,
+              "input_tokens": 120666,
+              "n": 1,
+              "output_tokens": 1088,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 5
+            },
+            "assignment_history": {
+              "agent_seconds": 38.8,
+              "cached_input_tokens": 98568,
+              "context_bytes": 0,
+              "input_tokens": 133248,
+              "n": 1,
+              "output_tokens": 2004,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 5
+            },
+            "author_activity": {
+              "agent_seconds": 77.7,
+              "cached_input_tokens": 43082,
+              "context_bytes": 0,
+              "input_tokens": 65780,
+              "n": 1,
+              "output_tokens": 1025,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 3
+            },
+            "closed_at_snapshot": {
+              "agent_seconds": 67.7,
+              "cached_input_tokens": 115322,
+              "context_bytes": 0,
+              "input_tokens": 122580,
+              "n": 1,
+              "output_tokens": 1244,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 5
+            },
+            "design_decision": {
+              "agent_seconds": 1694.3,
+              "cached_input_tokens": 2838056,
+              "context_bytes": 0,
+              "input_tokens": 3042195,
+              "n": 29,
+              "output_tokens": 32057,
+              "status": {
+                "completed": 29
+              },
+              "success": 26,
+              "tool_calls": 114
+            },
+            "fix_version_at_snapshot": {
+              "agent_seconds": 160.1,
+              "cached_input_tokens": 404596,
+              "context_bytes": 0,
+              "input_tokens": 461322,
+              "n": 3,
+              "output_tokens": 6633,
+              "status": {
+                "completed": 3
+              },
+              "success": 3,
+              "tool_calls": 18
+            },
+            "implicit_link": {
+              "agent_seconds": 399.6,
+              "cached_input_tokens": 883398,
+              "context_bytes": 0,
+              "input_tokens": 932626,
+              "n": 14,
+              "output_tokens": 12974,
+              "status": {
+                "completed": 14
+              },
+              "success": 14,
+              "tool_calls": 42
+            },
+            "issue_changed_files": {
+              "agent_seconds": 281.4,
+              "cached_input_tokens": 185375,
+              "context_bytes": 0,
+              "input_tokens": 198684,
+              "n": 3,
+              "output_tokens": 18383,
+              "status": {
+                "completed": 3
+              },
+              "success": 2,
+              "tool_calls": 9
+            },
+            "issue_links": {
+              "agent_seconds": 85.4,
+              "cached_input_tokens": 281316,
+              "context_bytes": 0,
+              "input_tokens": 305587,
+              "n": 2,
+              "output_tokens": 3224,
+              "status": {
+                "completed": 2
+              },
+              "success": 1,
+              "tool_calls": 10
+            },
+            "issue_prs": {
+              "agent_seconds": 109.9,
+              "cached_input_tokens": 366207,
+              "context_bytes": 0,
+              "input_tokens": 421162,
+              "n": 3,
+              "output_tokens": 5694,
+              "status": {
+                "completed": 3
+              },
+              "success": 1,
+              "tool_calls": 15
+            },
+            "kip_thread": {
+              "agent_seconds": 146.1,
+              "cached_input_tokens": 213729,
+              "context_bytes": 0,
+              "input_tokens": 229986,
+              "n": 3,
+              "output_tokens": 5521,
+              "status": {
+                "completed": 3
+              },
+              "success": 2,
+              "tool_calls": 10
+            },
+            "pr_approvers": {
+              "agent_seconds": 72.6,
+              "cached_input_tokens": 184548,
+              "context_bytes": 0,
+              "input_tokens": 199711,
+              "n": 3,
+              "output_tokens": 2941,
+              "status": {
+                "completed": 3
+              },
+              "success": 3,
+              "tool_calls": 9
+            },
+            "priority_at_snapshot": {
+              "agent_seconds": 30.9,
+              "cached_input_tokens": 60549,
+              "context_bytes": 0,
+              "input_tokens": 67070,
+              "n": 1,
+              "output_tokens": 937,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 3
+            },
+            "reopen_count": {
+              "agent_seconds": 85.7,
+              "cached_input_tokens": 145984,
+              "context_bytes": 0,
+              "input_tokens": 162910,
+              "n": 2,
+              "output_tokens": 2695,
+              "status": {
+                "completed": 2
+              },
+              "success": 2,
+              "tool_calls": 7
+            },
+            "resolution_at_snapshot": {
+              "agent_seconds": 24.9,
+              "cached_input_tokens": 64419,
+              "context_bytes": 0,
+              "input_tokens": 67923,
+              "n": 1,
+              "output_tokens": 978,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 3
+            },
+            "resolution_transition_history": {
+              "agent_seconds": 24.8,
+              "cached_input_tokens": 60883,
+              "context_bytes": 0,
+              "input_tokens": 69431,
+              "n": 1,
+              "output_tokens": 1125,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 3
+            },
+            "resolution_vs_merge_order": {
+              "agent_seconds": 121.4,
+              "cached_input_tokens": 190331,
+              "context_bytes": 0,
+              "input_tokens": 222288,
+              "n": 3,
+              "output_tokens": 3080,
+              "status": {
+                "completed": 3
+              },
+              "success": 3,
+              "tool_calls": 10
+            },
+            "review_hotspot": {
+              "agent_seconds": 165.7,
+              "cached_input_tokens": 191273,
+              "context_bytes": 0,
+              "input_tokens": 224629,
+              "n": 3,
+              "output_tokens": 2927,
+              "status": {
+                "completed": 3
+              },
+              "success": 2,
+              "tool_calls": 10
+            },
+            "status_at_snapshot": {
+              "agent_seconds": 36.1,
+              "cached_input_tokens": 176400,
+              "context_bytes": 0,
+              "input_tokens": 196747,
+              "n": 1,
+              "output_tokens": 1932,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 7
+            },
+            "status_transition_history": {
+              "agent_seconds": 72.8,
+              "cached_input_tokens": 144160,
+              "context_bytes": 0,
+              "input_tokens": 153166,
+              "n": 1,
+              "output_tokens": 3206,
+              "status": {
+                "completed": 1
+              },
+              "success": 0,
+              "tool_calls": 6
+            },
+            "top_reviewer_for_author": {
+              "agent_seconds": 137.2,
+              "cached_input_tokens": 177162,
+              "context_bytes": 0,
+              "input_tokens": 198883,
+              "n": 1,
+              "output_tokens": 4743,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 7
+            }
+          },
+          "cached_input_tokens": 6917828,
+          "context_bytes": 0,
+          "input_tokens": 7596594,
+          "n": 78,
+          "output_tokens": 114411,
+          "status": {
+            "completed": 78
+          },
+          "success": 68,
+          "tool_calls": 301
+        }
+      },
+      "cached_input_tokens": 34275720,
+      "context_bytes": 0,
+      "input_tokens": 35641224,
+      "n": 90,
+      "output_tokens": 235408,
+      "status": {
+        "completed": 90
+      },
+      "success": 77,
+      "tool_calls": 744
+    },
+    "F1-search": {
+      "agent_seconds": 14425.7,
+      "by_kind": {
+        "coding": {
+          "agent_seconds": 7029.8,
+          "by_family": {
+            "pr_implementation": {
+              "agent_seconds": 7029.8,
+              "cached_input_tokens": 31878701,
+              "context_bytes": 0,
+              "input_tokens": 32632346,
+              "n": 12,
+              "output_tokens": 143708,
+              "status": {
+                "completed": 12
+              },
+              "success": 9,
+              "tool_calls": 463
+            }
+          },
+          "cached_input_tokens": 31878701,
+          "context_bytes": 0,
+          "input_tokens": 32632346,
+          "n": 12,
+          "output_tokens": 143708,
+          "status": {
+            "completed": 12
+          },
+          "success": 9,
+          "tool_calls": 463
+        },
+        "historical": {
+          "agent_seconds": 7395.9,
+          "by_family": {
+            "assignee_at_snapshot": {
+              "agent_seconds": 25.8,
+              "cached_input_tokens": 64321,
+              "context_bytes": 0,
+              "input_tokens": 69005,
+              "n": 1,
+              "output_tokens": 907,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 3
+            },
+            "assignment_history": {
+              "agent_seconds": 29.8,
+              "cached_input_tokens": 122561,
+              "context_bytes": 0,
+              "input_tokens": 139056,
+              "n": 1,
+              "output_tokens": 2021,
+              "status": {
+                "completed": 1
+              },
+              "success": 0,
+              "tool_calls": 5
+            },
+            "author_activity": {
+              "agent_seconds": 112.1,
+              "cached_input_tokens": 64430,
+              "context_bytes": 0,
+              "input_tokens": 66014,
+              "n": 1,
+              "output_tokens": 951,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 3
+            },
+            "closed_at_snapshot": {
+              "agent_seconds": 16.6,
+              "cached_input_tokens": 42940,
+              "context_bytes": 0,
+              "input_tokens": 67493,
+              "n": 1,
+              "output_tokens": 816,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 3
+            },
+            "design_decision": {
+              "agent_seconds": 5154.4,
+              "cached_input_tokens": 27188148,
+              "context_bytes": 0,
+              "input_tokens": 28968824,
+              "n": 29,
+              "output_tokens": 104263,
+              "status": {
+                "completed": 28,
+                "model_failure": 1
+              },
+              "success": 1,
+              "tool_calls": 539
+            },
+            "fix_version_at_snapshot": {
+              "agent_seconds": 127.0,
+              "cached_input_tokens": 290884,
+              "context_bytes": 0,
+              "input_tokens": 312136,
+              "n": 3,
+              "output_tokens": 6065,
+              "status": {
+                "completed": 3
+              },
+              "success": 3,
+              "tool_calls": 13
+            },
+            "implicit_link": {
+              "agent_seconds": 417.7,
+              "cached_input_tokens": 1089771,
+              "context_bytes": 0,
+              "input_tokens": 1146000,
+              "n": 14,
+              "output_tokens": 13613,
+              "status": {
+                "completed": 14
+              },
+              "success": 14,
+              "tool_calls": 50
+            },
+            "issue_changed_files": {
+              "agent_seconds": 200.9,
+              "cached_input_tokens": 451828,
+              "context_bytes": 0,
+              "input_tokens": 487732,
+              "n": 3,
+              "output_tokens": 5198,
+              "status": {
+                "completed": 3
+              },
+              "success": 0,
+              "tool_calls": 15
+            },
+            "issue_links": {
+              "agent_seconds": 317.9,
+              "cached_input_tokens": 1242418,
+              "context_bytes": 0,
+              "input_tokens": 1336719,
+              "n": 2,
+              "output_tokens": 7812,
+              "status": {
+                "completed": 2
+              },
+              "success": 0,
+              "tool_calls": 31
+            },
+            "issue_prs": {
+              "agent_seconds": 102.5,
+              "cached_input_tokens": 218129,
+              "context_bytes": 0,
+              "input_tokens": 225734,
+              "n": 3,
+              "output_tokens": 3047,
+              "status": {
+                "completed": 3
+              },
+              "success": 3,
+              "tool_calls": 10
+            },
+            "kip_thread": {
+              "agent_seconds": 145.6,
+              "cached_input_tokens": 242490,
+              "context_bytes": 0,
+              "input_tokens": 256453,
+              "n": 3,
+              "output_tokens": 5430,
+              "status": {
+                "completed": 3
+              },
+              "success": 2,
+              "tool_calls": 10
+            },
+            "pr_approvers": {
+              "agent_seconds": 55.6,
+              "cached_input_tokens": 248976,
+              "context_bytes": 0,
+              "input_tokens": 268301,
+              "n": 3,
+              "output_tokens": 3777,
+              "status": {
+                "completed": 3
+              },
+              "success": 3,
+              "tool_calls": 9
+            },
+            "priority_at_snapshot": {
+              "agent_seconds": 14.7,
+              "cached_input_tokens": 64220,
+              "context_bytes": 0,
+              "input_tokens": 67535,
+              "n": 1,
+              "output_tokens": 695,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 3
+            },
+            "reopen_count": {
+              "agent_seconds": 63.0,
+              "cached_input_tokens": 186761,
+              "context_bytes": 0,
+              "input_tokens": 199637,
+              "n": 2,
+              "output_tokens": 2004,
+              "status": {
+                "completed": 2
+              },
+              "success": 2,
+              "tool_calls": 8
+            },
+            "resolution_at_snapshot": {
+              "agent_seconds": 27.0,
+              "cached_input_tokens": 60672,
+              "context_bytes": 0,
+              "input_tokens": 65578,
+              "n": 1,
+              "output_tokens": 689,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 3
+            },
+            "resolution_transition_history": {
+              "agent_seconds": 39.5,
+              "cached_input_tokens": 87241,
+              "context_bytes": 0,
+              "input_tokens": 92098,
+              "n": 1,
+              "output_tokens": 1360,
+              "status": {
+                "completed": 1
+              },
+              "success": 0,
+              "tool_calls": 4
+            },
+            "resolution_vs_merge_order": {
+              "agent_seconds": 75.4,
+              "cached_input_tokens": 192942,
+              "context_bytes": 0,
+              "input_tokens": 196346,
+              "n": 3,
+              "output_tokens": 2501,
+              "status": {
+                "completed": 3
+              },
+              "success": 3,
+              "tool_calls": 9
+            },
+            "review_hotspot": {
+              "agent_seconds": 106.8,
+              "cached_input_tokens": 219544,
+              "context_bytes": 0,
+              "input_tokens": 229171,
+              "n": 3,
+              "output_tokens": 2532,
+              "status": {
+                "completed": 3
+              },
+              "success": 3,
+              "tool_calls": 10
+            },
+            "status_at_snapshot": {
+              "agent_seconds": 25.8,
+              "cached_input_tokens": 64385,
+              "context_bytes": 0,
+              "input_tokens": 65520,
+              "n": 1,
+              "output_tokens": 670,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 3
+            },
+            "status_transition_history": {
+              "agent_seconds": 40.4,
+              "cached_input_tokens": 125906,
+              "context_bytes": 0,
+              "input_tokens": 138860,
+              "n": 1,
+              "output_tokens": 2452,
+              "status": {
+                "completed": 1
+              },
+              "success": 0,
+              "tool_calls": 5
+            },
+            "top_reviewer_for_author": {
+              "agent_seconds": 297.3,
+              "cached_input_tokens": 375134,
+              "context_bytes": 0,
+              "input_tokens": 406038,
+              "n": 1,
+              "output_tokens": 3382,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 15
+            }
+          },
+          "cached_input_tokens": 32643701,
+          "context_bytes": 0,
+          "input_tokens": 34804250,
+          "n": 78,
+          "output_tokens": 170185,
+          "status": {
+            "completed": 77,
+            "model_failure": 1
+          },
+          "success": 41,
+          "tool_calls": 751
+        }
+      },
+      "cached_input_tokens": 64522402,
+      "context_bytes": 0,
+      "input_tokens": 67436596,
+      "n": 90,
+      "output_tokens": 313893,
+      "status": {
+        "completed": 89,
+        "model_failure": 1
+      },
+      "success": 50,
+      "tool_calls": 1214
+    },
+    "F2-search": {
+      "agent_seconds": 12781.0,
+      "by_kind": {
+        "coding": {
+          "agent_seconds": 8939.1,
+          "by_family": {
+            "pr_implementation": {
+              "agent_seconds": 8939.1,
+              "cached_input_tokens": 42664043,
+              "context_bytes": 0,
+              "input_tokens": 43519987,
+              "n": 12,
+              "output_tokens": 160076,
+              "status": {
+                "completed": 12
+              },
+              "success": 9,
+              "tool_calls": 576
+            }
+          },
+          "cached_input_tokens": 42664043,
+          "context_bytes": 0,
+          "input_tokens": 43519987,
+          "n": 12,
+          "output_tokens": 160076,
+          "status": {
+            "completed": 12
+          },
+          "success": 9,
+          "tool_calls": 576
+        },
+        "historical": {
+          "agent_seconds": 3841.9,
+          "by_family": {
+            "assignee_at_snapshot": {
+              "agent_seconds": 26.2,
+              "cached_input_tokens": 84106,
+              "context_bytes": 0,
+              "input_tokens": 94406,
+              "n": 1,
+              "output_tokens": 1511,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 4
+            },
+            "assignment_history": {
+              "agent_seconds": 44.9,
+              "cached_input_tokens": 60693,
+              "context_bytes": 0,
+              "input_tokens": 65978,
+              "n": 1,
+              "output_tokens": 1247,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 3
+            },
+            "author_activity": {
+              "agent_seconds": 119.3,
+              "cached_input_tokens": 60369,
+              "context_bytes": 0,
+              "input_tokens": 65997,
+              "n": 1,
+              "output_tokens": 1064,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 3
+            },
+            "closed_at_snapshot": {
+              "agent_seconds": 56.9,
+              "cached_input_tokens": 178299,
+              "context_bytes": 0,
+              "input_tokens": 192264,
+              "n": 1,
+              "output_tokens": 1561,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 7
+            },
+            "design_decision": {
+              "agent_seconds": 1612.1,
+              "cached_input_tokens": 2986967,
+              "context_bytes": 0,
+              "input_tokens": 3122422,
+              "n": 29,
+              "output_tokens": 29954,
+              "status": {
+                "completed": 28,
+                "model_failure": 1
+              },
+              "success": 25,
+              "tool_calls": 112
+            },
+            "fix_version_at_snapshot": {
+              "agent_seconds": 198.8,
+              "cached_input_tokens": 458825,
+              "context_bytes": 0,
+              "input_tokens": 497359,
+              "n": 3,
+              "output_tokens": 10750,
+              "status": {
+                "completed": 3
+              },
+              "success": 2,
+              "tool_calls": 19
+            },
+            "implicit_link": {
+              "agent_seconds": 345.1,
+              "cached_input_tokens": 941890,
+              "context_bytes": 0,
+              "input_tokens": 991393,
+              "n": 14,
+              "output_tokens": 13677,
+              "status": {
+                "completed": 14
+              },
+              "success": 14,
+              "tool_calls": 44
+            },
+            "issue_changed_files": {
+              "agent_seconds": 251.0,
+              "cached_input_tokens": 848165,
+              "context_bytes": 0,
+              "input_tokens": 899789,
+              "n": 3,
+              "output_tokens": 11571,
+              "status": {
+                "completed": 3
+              },
+              "success": 3,
+              "tool_calls": 24
+            },
+            "issue_links": {
+              "agent_seconds": 100.1,
+              "cached_input_tokens": 204356,
+              "context_bytes": 0,
+              "input_tokens": 218193,
+              "n": 2,
+              "output_tokens": 2728,
+              "status": {
+                "completed": 2
+              },
+              "success": 1,
+              "tool_calls": 9
+            },
+            "issue_prs": {
+              "agent_seconds": 170.4,
+              "cached_input_tokens": 259650,
+              "context_bytes": 0,
+              "input_tokens": 300816,
+              "n": 3,
+              "output_tokens": 4350,
+              "status": {
+                "completed": 3
+              },
+              "success": 2,
+              "tool_calls": 12
+            },
+            "kip_thread": {
+              "agent_seconds": 238.2,
+              "cached_input_tokens": 270710,
+              "context_bytes": 0,
+              "input_tokens": 309622,
+              "n": 3,
+              "output_tokens": 7812,
+              "status": {
+                "completed": 3
+              },
+              "success": 2,
+              "tool_calls": 12
+            },
+            "pr_approvers": {
+              "agent_seconds": 58.4,
+              "cached_input_tokens": 191808,
+              "context_bytes": 0,
+              "input_tokens": 200070,
+              "n": 3,
+              "output_tokens": 3310,
+              "status": {
+                "completed": 3
+              },
+              "success": 3,
+              "tool_calls": 9
+            },
+            "priority_at_snapshot": {
+              "agent_seconds": 18.6,
+              "cached_input_tokens": 63731,
+              "context_bytes": 0,
+              "input_tokens": 65510,
+              "n": 1,
+              "output_tokens": 966,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 3
+            },
+            "reopen_count": {
+              "agent_seconds": 68.5,
+              "cached_input_tokens": 149297,
+              "context_bytes": 0,
+              "input_tokens": 163239,
+              "n": 2,
+              "output_tokens": 2334,
+              "status": {
+                "completed": 2
+              },
+              "success": 2,
+              "tool_calls": 7
+            },
+            "resolution_at_snapshot": {
+              "agent_seconds": 38.1,
+              "cached_input_tokens": 60396,
+              "context_bytes": 0,
+              "input_tokens": 65319,
+              "n": 1,
+              "output_tokens": 826,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 3
+            },
+            "resolution_transition_history": {
+              "agent_seconds": 21.9,
+              "cached_input_tokens": 60633,
+              "context_bytes": 0,
+              "input_tokens": 69088,
+              "n": 1,
+              "output_tokens": 1090,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 3
+            },
+            "resolution_vs_merge_order": {
+              "agent_seconds": 83.9,
+              "cached_input_tokens": 195118,
+              "context_bytes": 0,
+              "input_tokens": 223558,
+              "n": 3,
+              "output_tokens": 2856,
+              "status": {
+                "completed": 3
+              },
+              "success": 3,
+              "tool_calls": 10
+            },
+            "review_hotspot": {
+              "agent_seconds": 152.8,
+              "cached_input_tokens": 194686,
+              "context_bytes": 0,
+              "input_tokens": 222992,
+              "n": 3,
+              "output_tokens": 2821,
+              "status": {
+                "completed": 3
+              },
+              "success": 3,
+              "tool_calls": 10
+            },
+            "status_at_snapshot": {
+              "agent_seconds": 28.5,
+              "cached_input_tokens": 110026,
+              "context_bytes": 0,
+              "input_tokens": 120898,
+              "n": 1,
+              "output_tokens": 1733,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 5
+            },
+            "status_transition_history": {
+              "agent_seconds": 63.7,
+              "cached_input_tokens": 60653,
+              "context_bytes": 0,
+              "input_tokens": 66410,
+              "n": 1,
+              "output_tokens": 1140,
+              "status": {
+                "completed": 1
+              },
+              "success": 0,
+              "tool_calls": 3
+            },
+            "top_reviewer_for_author": {
+              "agent_seconds": 144.5,
+              "cached_input_tokens": 526605,
+              "context_bytes": 0,
+              "input_tokens": 569249,
+              "n": 1,
+              "output_tokens": 5300,
+              "status": {
+                "model_failure": 1
+              },
+              "success": 0,
+              "tool_calls": 12
+            }
+          },
+          "cached_input_tokens": 7966983,
+          "context_bytes": 0,
+          "input_tokens": 8524572,
+          "n": 78,
+          "output_tokens": 108601,
+          "status": {
+            "completed": 76,
+            "model_failure": 2
+          },
+          "success": 68,
+          "tool_calls": 314
+        }
+      },
+      "cached_input_tokens": 50631026,
+      "context_bytes": 0,
+      "input_tokens": 52044559,
+      "n": 90,
+      "output_tokens": 268677,
+      "status": {
+        "completed": 88,
+        "model_failure": 2
+      },
+      "success": 77,
+      "tool_calls": 890
+    },
+    "F3-search": {
+      "agent_seconds": 12561.4,
+      "by_kind": {
+        "coding": {
+          "agent_seconds": 8680.6,
+          "by_family": {
+            "pr_implementation": {
+              "agent_seconds": 8680.6,
+              "cached_input_tokens": 36940309,
+              "context_bytes": 0,
+              "input_tokens": 37737027,
+              "n": 12,
+              "output_tokens": 175718,
+              "status": {
+                "completed": 12
+              },
+              "success": 10,
+              "tool_calls": 543
+            }
+          },
+          "cached_input_tokens": 36940309,
+          "context_bytes": 0,
+          "input_tokens": 37737027,
+          "n": 12,
+          "output_tokens": 175718,
+          "status": {
+            "completed": 12
+          },
+          "success": 10,
+          "tool_calls": 543
+        },
+        "historical": {
+          "agent_seconds": 3880.8,
+          "by_family": {
+            "assignee_at_snapshot": {
+              "agent_seconds": 31.7,
+              "cached_input_tokens": 113870,
+              "context_bytes": 0,
+              "input_tokens": 121673,
+              "n": 1,
+              "output_tokens": 1289,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 5
+            },
+            "assignment_history": {
+              "agent_seconds": 36.3,
+              "cached_input_tokens": 64730,
+              "context_bytes": 0,
+              "input_tokens": 68797,
+              "n": 1,
+              "output_tokens": 2268,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 3
+            },
+            "author_activity": {
+              "agent_seconds": 80.0,
+              "cached_input_tokens": 64432,
+              "context_bytes": 0,
+              "input_tokens": 65990,
+              "n": 1,
+              "output_tokens": 1102,
+              "status": {
+                "completed": 1
+              },
+              "success": 0,
+              "tool_calls": 3
+            },
+            "closed_at_snapshot": {
+              "agent_seconds": 31.4,
+              "cached_input_tokens": 191906,
+              "context_bytes": 0,
+              "input_tokens": 208412,
+              "n": 1,
+              "output_tokens": 1912,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 8
+            },
+            "design_decision": {
+              "agent_seconds": 1533.9,
+              "cached_input_tokens": 2158120,
+              "context_bytes": 0,
+              "input_tokens": 2258901,
+              "n": 29,
+              "output_tokens": 25613,
+              "status": {
+                "completed": 29
+              },
+              "success": 26,
+              "tool_calls": 98
+            },
+            "fix_version_at_snapshot": {
+              "agent_seconds": 171.4,
+              "cached_input_tokens": 291506,
+              "context_bytes": 0,
+              "input_tokens": 308085,
+              "n": 3,
+              "output_tokens": 4135,
+              "status": {
+                "completed": 3
+              },
+              "success": 3,
+              "tool_calls": 12
+            },
+            "implicit_link": {
+              "agent_seconds": 372.3,
+              "cached_input_tokens": 894257,
+              "context_bytes": 0,
+              "input_tokens": 931046,
+              "n": 14,
+              "output_tokens": 13078,
+              "status": {
+                "completed": 14
+              },
+              "success": 14,
+              "tool_calls": 42
+            },
+            "issue_changed_files": {
+              "agent_seconds": 250.3,
+              "cached_input_tokens": 306073,
+              "context_bytes": 0,
+              "input_tokens": 325376,
+              "n": 3,
+              "output_tokens": 14644,
+              "status": {
+                "completed": 3
+              },
+              "success": 2,
+              "tool_calls": 13
+            },
+            "issue_links": {
+              "agent_seconds": 204.0,
+              "cached_input_tokens": 328089,
+              "context_bytes": 0,
+              "input_tokens": 354664,
+              "n": 2,
+              "output_tokens": 9257,
+              "status": {
+                "completed": 2
+              },
+              "success": 1,
+              "tool_calls": 12
+            },
+            "issue_prs": {
+              "agent_seconds": 155.2,
+              "cached_input_tokens": 240131,
+              "context_bytes": 0,
+              "input_tokens": 262284,
+              "n": 3,
+              "output_tokens": 4121,
+              "status": {
+                "completed": 3
+              },
+              "success": 2,
+              "tool_calls": 11
+            },
+            "kip_thread": {
+              "agent_seconds": 195.8,
+              "cached_input_tokens": 250077,
+              "context_bytes": 0,
+              "input_tokens": 292338,
+              "n": 3,
+              "output_tokens": 7389,
+              "status": {
+                "completed": 3
+              },
+              "success": 2,
+              "tool_calls": 12
+            },
+            "pr_approvers": {
+              "agent_seconds": 79.5,
+              "cached_input_tokens": 192007,
+              "context_bytes": 0,
+              "input_tokens": 198593,
+              "n": 3,
+              "output_tokens": 2917,
+              "status": {
+                "completed": 3
+              },
+              "success": 3,
+              "tool_calls": 9
+            },
+            "priority_at_snapshot": {
+              "agent_seconds": 25.9,
+              "cached_input_tokens": 64306,
+              "context_bytes": 0,
+              "input_tokens": 66322,
+              "n": 1,
+              "output_tokens": 922,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 3
+            },
+            "reopen_count": {
+              "agent_seconds": 82.9,
+              "cached_input_tokens": 128363,
+              "context_bytes": 0,
+              "input_tokens": 133733,
+              "n": 2,
+              "output_tokens": 2176,
+              "status": {
+                "completed": 2
+              },
+              "success": 2,
+              "tool_calls": 6
+            },
+            "resolution_at_snapshot": {
+              "agent_seconds": 23.4,
+              "cached_input_tokens": 64411,
+              "context_bytes": 0,
+              "input_tokens": 66461,
+              "n": 1,
+              "output_tokens": 814,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 3
+            },
+            "resolution_transition_history": {
+              "agent_seconds": 36.3,
+              "cached_input_tokens": 64689,
+              "context_bytes": 0,
+              "input_tokens": 66270,
+              "n": 1,
+              "output_tokens": 898,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 3
+            },
+            "resolution_vs_merge_order": {
+              "agent_seconds": 117.8,
+              "cached_input_tokens": 243360,
+              "context_bytes": 0,
+              "input_tokens": 253345,
+              "n": 3,
+              "output_tokens": 2665,
+              "status": {
+                "completed": 3
+              },
+              "success": 3,
+              "tool_calls": 11
+            },
+            "review_hotspot": {
+              "agent_seconds": 151.3,
+              "cached_input_tokens": 469522,
+              "context_bytes": 0,
+              "input_tokens": 513191,
+              "n": 3,
+              "output_tokens": 7154,
+              "status": {
+                "completed": 3
+              },
+              "success": 3,
+              "tool_calls": 16
+            },
+            "status_at_snapshot": {
+              "agent_seconds": 35.6,
+              "cached_input_tokens": 64394,
+              "context_bytes": 0,
+              "input_tokens": 65721,
+              "n": 1,
+              "output_tokens": 804,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 3
+            },
+            "status_transition_history": {
+              "agent_seconds": 71.7,
+              "cached_input_tokens": 60862,
+              "context_bytes": 0,
+              "input_tokens": 66764,
+              "n": 1,
+              "output_tokens": 1722,
+              "status": {
+                "completed": 1
+              },
+              "success": 0,
+              "tool_calls": 3
+            },
+            "top_reviewer_for_author": {
+              "agent_seconds": 194.2,
+              "cached_input_tokens": 405187,
+              "context_bytes": 0,
+              "input_tokens": 443845,
+              "n": 1,
+              "output_tokens": 6190,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 12
+            }
+          },
+          "cached_input_tokens": 6660292,
+          "context_bytes": 0,
+          "input_tokens": 7071811,
+          "n": 78,
+          "output_tokens": 111070,
+          "status": {
+            "completed": 78
+          },
+          "success": 69,
+          "tool_calls": 288
+        }
+      },
+      "cached_input_tokens": 43600601,
+      "context_bytes": 0,
+      "input_tokens": 44808838,
+      "n": 90,
+      "output_tokens": 286788,
+      "status": {
+        "completed": 90
+      },
+      "success": 79,
+      "tool_calls": 831
+    },
+    "F4-entity-search": {
+      "agent_seconds": 15740.0,
+      "by_kind": {
+        "coding": {
+          "agent_seconds": 8265.8,
+          "by_family": {
+            "pr_implementation": {
+              "agent_seconds": 8265.8,
+              "cached_input_tokens": 30384518,
+              "context_bytes": 0,
+              "input_tokens": 31152322,
+              "n": 12,
+              "output_tokens": 156840,
+              "status": {
+                "completed": 12
+              },
+              "success": 10,
+              "tool_calls": 488
+            }
+          },
+          "cached_input_tokens": 30384518,
+          "context_bytes": 0,
+          "input_tokens": 31152322,
+          "n": 12,
+          "output_tokens": 156840,
+          "status": {
+            "completed": 12
+          },
+          "success": 10,
+          "tool_calls": 488
+        },
+        "historical": {
+          "agent_seconds": 7474.2,
+          "by_family": {
+            "assignee_at_snapshot": {
+              "agent_seconds": 15.3,
+              "cached_input_tokens": 63922,
+              "context_bytes": 0,
+              "input_tokens": 66322,
+              "n": 1,
+              "output_tokens": 768,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 3
+            },
+            "assignment_history": {
+              "agent_seconds": 97.8,
+              "cached_input_tokens": 564632,
+              "context_bytes": 0,
+              "input_tokens": 589118,
+              "n": 1,
+              "output_tokens": 3787,
+              "status": {
+                "completed": 1
+              },
+              "success": 0,
+              "tool_calls": 18
+            },
+            "author_activity": {
+              "agent_seconds": 109.7,
+              "cached_input_tokens": 64023,
+              "context_bytes": 0,
+              "input_tokens": 65569,
+              "n": 1,
+              "output_tokens": 835,
+              "status": {
+                "completed": 1
+              },
+              "success": 0,
+              "tool_calls": 3
+            },
+            "closed_at_snapshot": {
+              "agent_seconds": 26.7,
+              "cached_input_tokens": 86842,
+              "context_bytes": 0,
+              "input_tokens": 89243,
+              "n": 1,
+              "output_tokens": 856,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 4
+            },
+            "design_decision": {
+              "agent_seconds": 4642.4,
+              "cached_input_tokens": 27091467,
+              "context_bytes": 0,
+              "input_tokens": 28197208,
+              "n": 29,
+              "output_tokens": 117825,
+              "status": {
+                "completed": 29
+              },
+              "success": 5,
+              "tool_calls": 641
+            },
+            "fix_version_at_snapshot": {
+              "agent_seconds": 109.8,
+              "cached_input_tokens": 364218,
+              "context_bytes": 0,
+              "input_tokens": 381649,
+              "n": 3,
+              "output_tokens": 3586,
+              "status": {
+                "completed": 3
+              },
+              "success": 1,
+              "tool_calls": 16
+            },
+            "implicit_link": {
+              "agent_seconds": 318.7,
+              "cached_input_tokens": 966002,
+              "context_bytes": 0,
+              "input_tokens": 1002587,
+              "n": 14,
+              "output_tokens": 13250,
+              "status": {
+                "completed": 14
+              },
+              "success": 14,
+              "tool_calls": 45
+            },
+            "issue_changed_files": {
+              "agent_seconds": 429.9,
+              "cached_input_tokens": 2163502,
+              "context_bytes": 0,
+              "input_tokens": 2309945,
+              "n": 3,
+              "output_tokens": 10575,
+              "status": {
+                "completed": 3
+              },
+              "success": 0,
+              "tool_calls": 54
+            },
+            "issue_links": {
+              "agent_seconds": 198.5,
+              "cached_input_tokens": 1710773,
+              "context_bytes": 0,
+              "input_tokens": 1777881,
+              "n": 2,
+              "output_tokens": 7418,
+              "status": {
+                "completed": 2
+              },
+              "success": 0,
+              "tool_calls": 40
+            },
+            "issue_prs": {
+              "agent_seconds": 214.4,
+              "cached_input_tokens": 238828,
+              "context_bytes": 0,
+              "input_tokens": 245830,
+              "n": 3,
+              "output_tokens": 3868,
+              "status": {
+                "completed": 3
+              },
+              "success": 2,
+              "tool_calls": 12
+            },
+            "kip_thread": {
+              "agent_seconds": 439.9,
+              "cached_input_tokens": 1871081,
+              "context_bytes": 0,
+              "input_tokens": 1957736,
+              "n": 3,
+              "output_tokens": 10189,
+              "status": {
+                "completed": 3
+              },
+              "success": 0,
+              "tool_calls": 42
+            },
+            "pr_approvers": {
+              "agent_seconds": 65.2,
+              "cached_input_tokens": 259371,
+              "context_bytes": 0,
+              "input_tokens": 273409,
+              "n": 3,
+              "output_tokens": 2997,
+              "status": {
+                "completed": 3
+              },
+              "success": 1,
+              "tool_calls": 12
+            },
+            "priority_at_snapshot": {
+              "agent_seconds": 14.1,
+              "cached_input_tokens": 63855,
+              "context_bytes": 0,
+              "input_tokens": 65492,
+              "n": 1,
+              "output_tokens": 593,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 3
+            },
+            "reopen_count": {
+              "agent_seconds": 72.3,
+              "cached_input_tokens": 174817,
+              "context_bytes": 0,
+              "input_tokens": 180689,
+              "n": 2,
+              "output_tokens": 1701,
+              "status": {
+                "completed": 2
+              },
+              "success": 2,
+              "tool_calls": 8
+            },
+            "resolution_at_snapshot": {
+              "agent_seconds": 22.3,
+              "cached_input_tokens": 87807,
+              "context_bytes": 0,
+              "input_tokens": 92966,
+              "n": 1,
+              "output_tokens": 1163,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 4
+            },
+            "resolution_transition_history": {
+              "agent_seconds": 71.8,
+              "cached_input_tokens": 256975,
+              "context_bytes": 0,
+              "input_tokens": 279539,
+              "n": 1,
+              "output_tokens": 2129,
+              "status": {
+                "completed": 1
+              },
+              "success": 0,
+              "tool_calls": 9
+            },
+            "resolution_vs_merge_order": {
+              "agent_seconds": 90.1,
+              "cached_input_tokens": 263414,
+              "context_bytes": 0,
+              "input_tokens": 271582,
+              "n": 3,
+              "output_tokens": 3114,
+              "status": {
+                "completed": 3
+              },
+              "success": 3,
+              "tool_calls": 12
+            },
+            "review_hotspot": {
+              "agent_seconds": 276.9,
+              "cached_input_tokens": 495193,
+              "context_bytes": 0,
+              "input_tokens": 523406,
+              "n": 3,
+              "output_tokens": 4447,
+              "status": {
+                "completed": 3
+              },
+              "success": 1,
+              "tool_calls": 20
+            },
+            "status_at_snapshot": {
+              "agent_seconds": 38.3,
+              "cached_input_tokens": 205304,
+              "context_bytes": 0,
+              "input_tokens": 208956,
+              "n": 1,
+              "output_tokens": 1370,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 9
+            },
+            "status_transition_history": {
+              "agent_seconds": 66.3,
+              "cached_input_tokens": 317959,
+              "context_bytes": 0,
+              "input_tokens": 340850,
+              "n": 1,
+              "output_tokens": 2689,
+              "status": {
+                "completed": 1
+              },
+              "success": 0,
+              "tool_calls": 11
+            },
+            "top_reviewer_for_author": {
+              "agent_seconds": 153.8,
+              "cached_input_tokens": 304646,
+              "context_bytes": 0,
+              "input_tokens": 334697,
+              "n": 1,
+              "output_tokens": 5681,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 10
+            }
+          },
+          "cached_input_tokens": 37614631,
+          "context_bytes": 0,
+          "input_tokens": 39254674,
+          "n": 78,
+          "output_tokens": 198841,
+          "status": {
+            "completed": 78
+          },
+          "success": 35,
+          "tool_calls": 976
+        }
+      },
+      "cached_input_tokens": 67999149,
+      "context_bytes": 0,
+      "input_tokens": 70406996,
+      "n": 90,
+      "output_tokens": 355681,
+      "status": {
+        "completed": 90
+      },
+      "success": 45,
+      "tool_calls": 1464
+    },
+    "F4-fact-search": {
+      "agent_seconds": 14395.3,
+      "by_kind": {
+        "coding": {
+          "agent_seconds": 8298.9,
+          "by_family": {
+            "pr_implementation": {
+              "agent_seconds": 8298.9,
+              "cached_input_tokens": 31618193,
+              "context_bytes": 0,
+              "input_tokens": 32308333,
+              "n": 12,
+              "output_tokens": 160207,
+              "status": {
+                "completed": 12
+              },
+              "success": 10,
+              "tool_calls": 524
+            }
+          },
+          "cached_input_tokens": 31618193,
+          "context_bytes": 0,
+          "input_tokens": 32308333,
+          "n": 12,
+          "output_tokens": 160207,
+          "status": {
+            "completed": 12
+          },
+          "success": 10,
+          "tool_calls": 524
+        },
+        "historical": {
+          "agent_seconds": 6096.4,
+          "by_family": {
+            "assignee_at_snapshot": {
+              "agent_seconds": 14.4,
+              "cached_input_tokens": 60258,
+              "context_bytes": 0,
+              "input_tokens": 66117,
+              "n": 1,
+              "output_tokens": 721,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 3
+            },
+            "assignment_history": {
+              "agent_seconds": 131.2,
+              "cached_input_tokens": 473519,
+              "context_bytes": 0,
+              "input_tokens": 499460,
+              "n": 1,
+              "output_tokens": 3980,
+              "status": {
+                "completed": 1
+              },
+              "success": 0,
+              "tool_calls": 15
+            },
+            "author_activity": {
+              "agent_seconds": 226.9,
+              "cached_input_tokens": 591458,
+              "context_bytes": 0,
+              "input_tokens": 642768,
+              "n": 1,
+              "output_tokens": 6041,
+              "status": {
+                "completed": 1
+              },
+              "success": 0,
+              "tool_calls": 15
+            },
+            "closed_at_snapshot": {
+              "agent_seconds": 49.8,
+              "cached_input_tokens": 87680,
+              "context_bytes": 0,
+              "input_tokens": 91140,
+              "n": 1,
+              "output_tokens": 892,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 4
+            },
+            "design_decision": {
+              "agent_seconds": 2719.2,
+              "cached_input_tokens": 14181275,
+              "context_bytes": 0,
+              "input_tokens": 14738996,
+              "n": 29,
+              "output_tokens": 72536,
+              "status": {
+                "completed": 28,
+                "model_failure": 1
+              },
+              "success": 13,
+              "tool_calls": 350
+            },
+            "fix_version_at_snapshot": {
+              "agent_seconds": 192.2,
+              "cached_input_tokens": 955560,
+              "context_bytes": 0,
+              "input_tokens": 999902,
+              "n": 3,
+              "output_tokens": 6330,
+              "status": {
+                "completed": 3
+              },
+              "success": 1,
+              "tool_calls": 30
+            },
+            "implicit_link": {
+              "agent_seconds": 353.0,
+              "cached_input_tokens": 1016193,
+              "context_bytes": 0,
+              "input_tokens": 1048322,
+              "n": 14,
+              "output_tokens": 11730,
+              "status": {
+                "completed": 14
+              },
+              "success": 14,
+              "tool_calls": 47
+            },
+            "issue_changed_files": {
+              "agent_seconds": 424.8,
+              "cached_input_tokens": 1996824,
+              "context_bytes": 0,
+              "input_tokens": 2122731,
+              "n": 3,
+              "output_tokens": 11598,
+              "status": {
+                "completed": 3
+              },
+              "success": 0,
+              "tool_calls": 50
+            },
+            "issue_links": {
+              "agent_seconds": 190.3,
+              "cached_input_tokens": 932955,
+              "context_bytes": 0,
+              "input_tokens": 992500,
+              "n": 2,
+              "output_tokens": 6794,
+              "status": {
+                "completed": 2
+              },
+              "success": 0,
+              "tool_calls": 25
+            },
+            "issue_prs": {
+              "agent_seconds": 98.5,
+              "cached_input_tokens": 192586,
+              "context_bytes": 0,
+              "input_tokens": 197201,
+              "n": 3,
+              "output_tokens": 2790,
+              "status": {
+                "completed": 3
+              },
+              "success": 1,
+              "tool_calls": 9
+            },
+            "kip_thread": {
+              "agent_seconds": 437.4,
+              "cached_input_tokens": 1723730,
+              "context_bytes": 0,
+              "input_tokens": 1830830,
+              "n": 3,
+              "output_tokens": 16603,
+              "status": {
+                "completed": 3
+              },
+              "success": 1,
+              "tool_calls": 44
+            },
+            "pr_approvers": {
+              "agent_seconds": 244.9,
+              "cached_input_tokens": 1361748,
+              "context_bytes": 0,
+              "input_tokens": 1431389,
+              "n": 3,
+              "output_tokens": 11649,
+              "status": {
+                "completed": 2,
+                "model_failure": 1
+              },
+              "success": 2,
+              "tool_calls": 43
+            },
+            "priority_at_snapshot": {
+              "agent_seconds": 16.8,
+              "cached_input_tokens": 63901,
+              "context_bytes": 0,
+              "input_tokens": 66028,
+              "n": 1,
+              "output_tokens": 932,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 3
+            },
+            "reopen_count": {
+              "agent_seconds": 91.2,
+              "cached_input_tokens": 151947,
+              "context_bytes": 0,
+              "input_tokens": 156617,
+              "n": 2,
+              "output_tokens": 1721,
+              "status": {
+                "completed": 2
+              },
+              "success": 2,
+              "tool_calls": 7
+            },
+            "resolution_at_snapshot": {
+              "agent_seconds": 52.7,
+              "cached_input_tokens": 111414,
+              "context_bytes": 0,
+              "input_tokens": 115251,
+              "n": 1,
+              "output_tokens": 1052,
+              "status": {
+                "completed": 1
+              },
+              "success": 0,
+              "tool_calls": 5
+            },
+            "resolution_transition_history": {
+              "agent_seconds": 53.9,
+              "cached_input_tokens": 271883,
+              "context_bytes": 0,
+              "input_tokens": 286747,
+              "n": 1,
+              "output_tokens": 2398,
+              "status": {
+                "completed": 1
+              },
+              "success": 0,
+              "tool_calls": 9
+            },
+            "resolution_vs_merge_order": {
+              "agent_seconds": 85.9,
+              "cached_input_tokens": 192657,
+              "context_bytes": 0,
+              "input_tokens": 196371,
+              "n": 3,
+              "output_tokens": 2723,
+              "status": {
+                "completed": 3
+              },
+              "success": 3,
+              "tool_calls": 9
+            },
+            "review_hotspot": {
+              "agent_seconds": 402.8,
+              "cached_input_tokens": 2791985,
+              "context_bytes": 0,
+              "input_tokens": 2940240,
+              "n": 3,
+              "output_tokens": 10221,
+              "status": {
+                "completed": 3
+              },
+              "success": 1,
+              "tool_calls": 53
+            },
+            "status_at_snapshot": {
+              "agent_seconds": 23.9,
+              "cached_input_tokens": 63934,
+              "context_bytes": 0,
+              "input_tokens": 65046,
+              "n": 1,
+              "output_tokens": 624,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 3
+            },
+            "status_transition_history": {
+              "agent_seconds": 85.9,
+              "cached_input_tokens": 655109,
+              "context_bytes": 0,
+              "input_tokens": 698104,
+              "n": 1,
+              "output_tokens": 4151,
+              "status": {
+                "completed": 1
+              },
+              "success": 0,
+              "tool_calls": 17
+            },
+            "top_reviewer_for_author": {
+              "agent_seconds": 200.6,
+              "cached_input_tokens": 1261978,
+              "context_bytes": 0,
+              "input_tokens": 1341594,
+              "n": 1,
+              "output_tokens": 8395,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 23
+            }
+          },
+          "cached_input_tokens": 29138594,
+          "context_bytes": 0,
+          "input_tokens": 30527354,
+          "n": 78,
+          "output_tokens": 183881,
+          "status": {
+            "completed": 76,
+            "model_failure": 2
+          },
+          "success": 43,
+          "tool_calls": 764
+        }
+      },
+      "cached_input_tokens": 60756787,
+      "context_bytes": 0,
+      "input_tokens": 62835687,
+      "n": 90,
+      "output_tokens": 344088,
+      "status": {
+        "completed": 88,
+        "model_failure": 2
+      },
+      "success": 53,
+      "tool_calls": 1288
+    },
+    "F4-topic-search": {
+      "agent_seconds": 14633.5,
+      "by_kind": {
+        "coding": {
+          "agent_seconds": 7573.7,
+          "by_family": {
+            "pr_implementation": {
+              "agent_seconds": 7573.7,
+              "cached_input_tokens": 22110989,
+              "context_bytes": 0,
+              "input_tokens": 22709392,
+              "n": 12,
+              "output_tokens": 125370,
+              "status": {
+                "completed": 11,
+                "turn_limit": 1
+              },
+              "success": 10,
+              "tool_calls": 488
+            }
+          },
+          "cached_input_tokens": 22110989,
+          "context_bytes": 0,
+          "input_tokens": 22709392,
+          "n": 12,
+          "output_tokens": 125370,
+          "status": {
+            "completed": 11,
+            "turn_limit": 1
+          },
+          "success": 10,
+          "tool_calls": 488
+        },
+        "historical": {
+          "agent_seconds": 7059.8,
+          "by_family": {
+            "assignee_at_snapshot": {
+              "agent_seconds": 93.9,
+              "cached_input_tokens": 200143,
+              "context_bytes": 0,
+              "input_tokens": 210833,
+              "n": 1,
+              "output_tokens": 1582,
+              "status": {
+                "completed": 1
+              },
+              "success": 0,
+              "tool_calls": 8
+            },
+            "assignment_history": {
+              "agent_seconds": 62.5,
+              "cached_input_tokens": 148301,
+              "context_bytes": 0,
+              "input_tokens": 163778,
+              "n": 1,
+              "output_tokens": 3296,
+              "status": {
+                "completed": 1
+              },
+              "success": 0,
+              "tool_calls": 6
+            },
+            "author_activity": {
+              "agent_seconds": 104.0,
+              "cached_input_tokens": 694970,
+              "context_bytes": 0,
+              "input_tokens": 750114,
+              "n": 1,
+              "output_tokens": 6997,
+              "status": {
+                "completed": 1
+              },
+              "success": 0,
+              "tool_calls": 15
+            },
+            "closed_at_snapshot": {
+              "agent_seconds": 83.5,
+              "cached_input_tokens": 88157,
+              "context_bytes": 0,
+              "input_tokens": 91565,
+              "n": 1,
+              "output_tokens": 1019,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 4
+            },
+            "design_decision": {
+              "agent_seconds": 3306.8,
+              "cached_input_tokens": 13320145,
+              "context_bytes": 0,
+              "input_tokens": 14128469,
+              "n": 29,
+              "output_tokens": 76546,
+              "status": {
+                "completed": 28,
+                "model_failure": 1
+              },
+              "success": 14,
+              "tool_calls": 328
+            },
+            "fix_version_at_snapshot": {
+              "agent_seconds": 258.9,
+              "cached_input_tokens": 648698,
+              "context_bytes": 0,
+              "input_tokens": 695858,
+              "n": 3,
+              "output_tokens": 8099,
+              "status": {
+                "completed": 3
+              },
+              "success": 0,
+              "tool_calls": 19
+            },
+            "implicit_link": {
+              "agent_seconds": 423.5,
+              "cached_input_tokens": 946088,
+              "context_bytes": 0,
+              "input_tokens": 981711,
+              "n": 14,
+              "output_tokens": 12321,
+              "status": {
+                "completed": 14
+              },
+              "success": 14,
+              "tool_calls": 44
+            },
+            "issue_changed_files": {
+              "agent_seconds": 481.7,
+              "cached_input_tokens": 2153951,
+              "context_bytes": 0,
+              "input_tokens": 2311414,
+              "n": 3,
+              "output_tokens": 12229,
+              "status": {
+                "completed": 3
+              },
+              "success": 0,
+              "tool_calls": 48
+            },
+            "issue_links": {
+              "agent_seconds": 202.6,
+              "cached_input_tokens": 497156,
+              "context_bytes": 0,
+              "input_tokens": 539874,
+              "n": 2,
+              "output_tokens": 4241,
+              "status": {
+                "completed": 2
+              },
+              "success": 0,
+              "tool_calls": 18
+            },
+            "issue_prs": {
+              "agent_seconds": 143.0,
+              "cached_input_tokens": 192679,
+              "context_bytes": 0,
+              "input_tokens": 197343,
+              "n": 3,
+              "output_tokens": 2747,
+              "status": {
+                "completed": 3
+              },
+              "success": 2,
+              "tool_calls": 9
+            },
+            "kip_thread": {
+              "agent_seconds": 527.1,
+              "cached_input_tokens": 602541,
+              "context_bytes": 0,
+              "input_tokens": 651534,
+              "n": 3,
+              "output_tokens": 10382,
+              "status": {
+                "completed": 3
+              },
+              "success": 0,
+              "tool_calls": 20
+            },
+            "pr_approvers": {
+              "agent_seconds": 140.1,
+              "cached_input_tokens": 354931,
+              "context_bytes": 0,
+              "input_tokens": 379091,
+              "n": 3,
+              "output_tokens": 4771,
+              "status": {
+                "completed": 3
+              },
+              "success": 0,
+              "tool_calls": 14
+            },
+            "priority_at_snapshot": {
+              "agent_seconds": 15.2,
+              "cached_input_tokens": 60293,
+              "context_bytes": 0,
+              "input_tokens": 66235,
+              "n": 1,
+              "output_tokens": 749,
+              "status": {
+                "completed": 1
+              },
+              "success": 0,
+              "tool_calls": 3
+            },
+            "reopen_count": {
+              "agent_seconds": 68.6,
+              "cached_input_tokens": 152265,
+              "context_bytes": 0,
+              "input_tokens": 160410,
+              "n": 2,
+              "output_tokens": 2260,
+              "status": {
+                "completed": 2
+              },
+              "success": 2,
+              "tool_calls": 7
+            },
+            "resolution_at_snapshot": {
+              "agent_seconds": 103.9,
+              "cached_input_tokens": 235167,
+              "context_bytes": 0,
+              "input_tokens": 251174,
+              "n": 1,
+              "output_tokens": 2237,
+              "status": {
+                "completed": 1
+              },
+              "success": 0,
+              "tool_calls": 9
+            },
+            "resolution_transition_history": {
+              "agent_seconds": 44.3,
+              "cached_input_tokens": 86883,
+              "context_bytes": 0,
+              "input_tokens": 92157,
+              "n": 1,
+              "output_tokens": 1346,
+              "status": {
+                "completed": 1
+              },
+              "success": 0,
+              "tool_calls": 4
+            },
+            "resolution_vs_merge_order": {
+              "agent_seconds": 326.6,
+              "cached_input_tokens": 708936,
+              "context_bytes": 0,
+              "input_tokens": 747668,
+              "n": 3,
+              "output_tokens": 8465,
+              "status": {
+                "completed": 3
+              },
+              "success": 3,
+              "tool_calls": 23
+            },
+            "review_hotspot": {
+              "agent_seconds": 381.1,
+              "cached_input_tokens": 1029494,
+              "context_bytes": 0,
+              "input_tokens": 1126102,
+              "n": 3,
+              "output_tokens": 6985,
+              "status": {
+                "completed": 3
+              },
+              "success": 0,
+              "tool_calls": 32
+            },
+            "status_at_snapshot": {
+              "agent_seconds": 84.6,
+              "cached_input_tokens": 115706,
+              "context_bytes": 0,
+              "input_tokens": 123073,
+              "n": 1,
+              "output_tokens": 1437,
+              "status": {
+                "completed": 1
+              },
+              "success": 0,
+              "tool_calls": 5
+            },
+            "status_transition_history": {
+              "agent_seconds": 66.2,
+              "cached_input_tokens": 270823,
+              "context_bytes": 0,
+              "input_tokens": 301072,
+              "n": 1,
+              "output_tokens": 2813,
+              "status": {
+                "completed": 1
+              },
+              "success": 0,
+              "tool_calls": 9
+            },
+            "top_reviewer_for_author": {
+              "agent_seconds": 141.5,
+              "cached_input_tokens": 64194,
+              "context_bytes": 0,
+              "input_tokens": 66510,
+              "n": 1,
+              "output_tokens": 3776,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 3
+            }
+          },
+          "cached_input_tokens": 22571521,
+          "context_bytes": 0,
+          "input_tokens": 24035985,
+          "n": 78,
+          "output_tokens": 174298,
+          "status": {
+            "completed": 77,
+            "model_failure": 1
+          },
+          "success": 37,
+          "tool_calls": 628
+        }
+      },
+      "cached_input_tokens": 44682510,
+      "context_bytes": 0,
+      "input_tokens": 46745377,
+      "n": 90,
+      "output_tokens": 299668,
+      "status": {
+        "completed": 88,
+        "model_failure": 1,
+        "turn_limit": 1
+      },
+      "success": 47,
+      "tool_calls": 1116
+    },
+    "F5-search": {
+      "agent_seconds": 16673.2,
+      "by_kind": {
+        "coding": {
+          "agent_seconds": 8064.7,
+          "by_family": {
+            "pr_implementation": {
+              "agent_seconds": 8064.7,
+              "cached_input_tokens": 35845078,
+              "context_bytes": 0,
+              "input_tokens": 36571671,
+              "n": 12,
+              "output_tokens": 153068,
+              "status": {
+                "completed": 12
+              },
+              "success": 8,
+              "tool_calls": 543
+            }
+          },
+          "cached_input_tokens": 35845078,
+          "context_bytes": 0,
+          "input_tokens": 36571671,
+          "n": 12,
+          "output_tokens": 153068,
+          "status": {
+            "completed": 12
+          },
+          "success": 8,
+          "tool_calls": 543
+        },
+        "historical": {
+          "agent_seconds": 8608.6,
+          "by_family": {
+            "assignee_at_snapshot": {
+              "agent_seconds": 46.1,
+              "cached_input_tokens": 114242,
+              "context_bytes": 0,
+              "input_tokens": 120665,
+              "n": 1,
+              "output_tokens": 1148,
+              "status": {
+                "completed": 1
+              },
+              "success": 0,
+              "tool_calls": 5
+            },
+            "assignment_history": {
+              "agent_seconds": 47.4,
+              "cached_input_tokens": 113748,
+              "context_bytes": 0,
+              "input_tokens": 118275,
+              "n": 1,
+              "output_tokens": 1802,
+              "status": {
+                "completed": 1
+              },
+              "success": 0,
+              "tool_calls": 5
+            },
+            "author_activity": {
+              "agent_seconds": 64.6,
+              "cached_input_tokens": 63938,
+              "context_bytes": 0,
+              "input_tokens": 65232,
+              "n": 1,
+              "output_tokens": 670,
+              "status": {
+                "completed": 1
+              },
+              "success": 0,
+              "tool_calls": 3
+            },
+            "closed_at_snapshot": {
+              "agent_seconds": 32.2,
+              "cached_input_tokens": 86855,
+              "context_bytes": 0,
+              "input_tokens": 89607,
+              "n": 1,
+              "output_tokens": 1070,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 4
+            },
+            "design_decision": {
+              "agent_seconds": 4955.1,
+              "cached_input_tokens": 25411915,
+              "context_bytes": 0,
+              "input_tokens": 26706372,
+              "n": 29,
+              "output_tokens": 111123,
+              "status": {
+                "completed": 29
+              },
+              "success": 2,
+              "tool_calls": 615
+            },
+            "fix_version_at_snapshot": {
+              "agent_seconds": 108.9,
+              "cached_input_tokens": 455352,
+              "context_bytes": 0,
+              "input_tokens": 469700,
+              "n": 3,
+              "output_tokens": 4177,
+              "status": {
+                "completed": 3
+              },
+              "success": 1,
+              "tool_calls": 20
+            },
+            "implicit_link": {
+              "agent_seconds": 780.2,
+              "cached_input_tokens": 1041083,
+              "context_bytes": 0,
+              "input_tokens": 1076438,
+              "n": 14,
+              "output_tokens": 12994,
+              "status": {
+                "completed": 14
+              },
+              "success": 14,
+              "tool_calls": 48
+            },
+            "issue_changed_files": {
+              "agent_seconds": 288.0,
+              "cached_input_tokens": 686965,
+              "context_bytes": 0,
+              "input_tokens": 722025,
+              "n": 3,
+              "output_tokens": 6229,
+              "status": {
+                "completed": 3
+              },
+              "success": 0,
+              "tool_calls": 23
+            },
+            "issue_links": {
+              "agent_seconds": 389.8,
+              "cached_input_tokens": 1084168,
+              "context_bytes": 0,
+              "input_tokens": 1139815,
+              "n": 2,
+              "output_tokens": 6894,
+              "status": {
+                "completed": 2
+              },
+              "success": 0,
+              "tool_calls": 32
+            },
+            "issue_prs": {
+              "agent_seconds": 359.7,
+              "cached_input_tokens": 948238,
+              "context_bytes": 0,
+              "input_tokens": 1004008,
+              "n": 3,
+              "output_tokens": 14112,
+              "status": {
+                "completed": 2,
+                "model_failure": 1
+              },
+              "success": 1,
+              "tool_calls": 31
+            },
+            "kip_thread": {
+              "agent_seconds": 652.8,
+              "cached_input_tokens": 3347571,
+              "context_bytes": 0,
+              "input_tokens": 3503829,
+              "n": 3,
+              "output_tokens": 20609,
+              "status": {
+                "completed": 3
+              },
+              "success": 0,
+              "tool_calls": 74
+            },
+            "pr_approvers": {
+              "agent_seconds": 137.2,
+              "cached_input_tokens": 682609,
+              "context_bytes": 0,
+              "input_tokens": 721244,
+              "n": 3,
+              "output_tokens": 5048,
+              "status": {
+                "completed": 3
+              },
+              "success": 1,
+              "tool_calls": 25
+            },
+            "priority_at_snapshot": {
+              "agent_seconds": 40.8,
+              "cached_input_tokens": 83497,
+              "context_bytes": 0,
+              "input_tokens": 89649,
+              "n": 1,
+              "output_tokens": 690,
+              "status": {
+                "completed": 1
+              },
+              "success": 0,
+              "tool_calls": 4
+            },
+            "reopen_count": {
+              "agent_seconds": 138.0,
+              "cached_input_tokens": 507009,
+              "context_bytes": 0,
+              "input_tokens": 534035,
+              "n": 2,
+              "output_tokens": 4266,
+              "status": {
+                "completed": 2
+              },
+              "success": 1,
+              "tool_calls": 19
+            },
+            "resolution_at_snapshot": {
+              "agent_seconds": 44.0,
+              "cached_input_tokens": 63976,
+              "context_bytes": 0,
+              "input_tokens": 65210,
+              "n": 1,
+              "output_tokens": 831,
+              "status": {
+                "completed": 1
+              },
+              "success": 0,
+              "tool_calls": 3
+            },
+            "resolution_transition_history": {
+              "agent_seconds": 42.4,
+              "cached_input_tokens": 86816,
+              "context_bytes": 0,
+              "input_tokens": 90660,
+              "n": 1,
+              "output_tokens": 2381,
+              "status": {
+                "completed": 1
+              },
+              "success": 0,
+              "tool_calls": 4
+            },
+            "resolution_vs_merge_order": {
+              "agent_seconds": 81.7,
+              "cached_input_tokens": 192507,
+              "context_bytes": 0,
+              "input_tokens": 197269,
+              "n": 3,
+              "output_tokens": 2946,
+              "status": {
+                "completed": 3
+              },
+              "success": 3,
+              "tool_calls": 9
+            },
+            "review_hotspot": {
+              "agent_seconds": 171.1,
+              "cached_input_tokens": 648318,
+              "context_bytes": 0,
+              "input_tokens": 691865,
+              "n": 3,
+              "output_tokens": 4820,
+              "status": {
+                "completed": 3
+              },
+              "success": 0,
+              "tool_calls": 24
+            },
+            "status_at_snapshot": {
+              "agent_seconds": 85.2,
+              "cached_input_tokens": 87528,
+              "context_bytes": 0,
+              "input_tokens": 91218,
+              "n": 1,
+              "output_tokens": 1024,
+              "status": {
+                "completed": 1
+              },
+              "success": 0,
+              "tool_calls": 4
+            },
+            "status_transition_history": {
+              "agent_seconds": 32.5,
+              "cached_input_tokens": 86756,
+              "context_bytes": 0,
+              "input_tokens": 89943,
+              "n": 1,
+              "output_tokens": 996,
+              "status": {
+                "completed": 1
+              },
+              "success": 0,
+              "tool_calls": 4
+            },
+            "top_reviewer_for_author": {
+              "agent_seconds": 110.9,
+              "cached_input_tokens": 64165,
+              "context_bytes": 0,
+              "input_tokens": 66121,
+              "n": 1,
+              "output_tokens": 882,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 3
+            }
+          },
+          "cached_input_tokens": 35857256,
+          "context_bytes": 0,
+          "input_tokens": 37653180,
+          "n": 78,
+          "output_tokens": 204712,
+          "status": {
+            "completed": 77,
+            "model_failure": 1
+          },
+          "success": 25,
+          "tool_calls": 959
+        }
+      },
+      "cached_input_tokens": 71702334,
+      "context_bytes": 0,
+      "input_tokens": 74224851,
+      "n": 90,
+      "output_tokens": 357780,
+      "status": {
+        "completed": 89,
+        "model_failure": 1
+      },
+      "success": 33,
+      "tool_calls": 1502
+    },
+    "F6-search": {
+      "agent_seconds": 13164.3,
+      "by_kind": {
+        "coding": {
+          "agent_seconds": 5605.8,
+          "by_family": {
+            "pr_implementation": {
+              "agent_seconds": 5605.8,
+              "cached_input_tokens": 32731309,
+              "context_bytes": 0,
+              "input_tokens": 33495134,
+              "n": 12,
+              "output_tokens": 168534,
+              "status": {
+                "completed": 12
+              },
+              "success": 9,
+              "tool_calls": 474
+            }
+          },
+          "cached_input_tokens": 32731309,
+          "context_bytes": 0,
+          "input_tokens": 33495134,
+          "n": 12,
+          "output_tokens": 168534,
+          "status": {
+            "completed": 12
+          },
+          "success": 9,
+          "tool_calls": 474
+        },
+        "historical": {
+          "agent_seconds": 7558.5,
+          "by_family": {
+            "assignee_at_snapshot": {
+              "agent_seconds": 211.0,
+              "cached_input_tokens": 652040,
+              "context_bytes": 0,
+              "input_tokens": 677751,
+              "n": 1,
+              "output_tokens": 3818,
+              "status": {
+                "completed": 1
+              },
+              "success": 0,
+              "tool_calls": 20
+            },
+            "assignment_history": {
+              "agent_seconds": 66.3,
+              "cached_input_tokens": 256300,
+              "context_bytes": 0,
+              "input_tokens": 270439,
+              "n": 1,
+              "output_tokens": 2846,
+              "status": {
+                "completed": 1
+              },
+              "success": 0,
+              "tool_calls": 10
+            },
+            "author_activity": {
+              "agent_seconds": 71.4,
+              "cached_input_tokens": 64037,
+              "context_bytes": 0,
+              "input_tokens": 65466,
+              "n": 1,
+              "output_tokens": 1019,
+              "status": {
+                "completed": 1
+              },
+              "success": 0,
+              "tool_calls": 3
+            },
+            "closed_at_snapshot": {
+              "agent_seconds": 91.6,
+              "cached_input_tokens": 88184,
+              "context_bytes": 0,
+              "input_tokens": 92126,
+              "n": 1,
+              "output_tokens": 871,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 4
+            },
+            "design_decision": {
+              "agent_seconds": 3479.7,
+              "cached_input_tokens": 11928433,
+              "context_bytes": 0,
+              "input_tokens": 12557318,
+              "n": 29,
+              "output_tokens": 64673,
+              "status": {
+                "completed": 29
+              },
+              "success": 13,
+              "tool_calls": 370
+            },
+            "fix_version_at_snapshot": {
+              "agent_seconds": 141.8,
+              "cached_input_tokens": 341277,
+              "context_bytes": 0,
+              "input_tokens": 358149,
+              "n": 3,
+              "output_tokens": 4895,
+              "status": {
+                "completed": 3
+              },
+              "success": 0,
+              "tool_calls": 15
+            },
+            "implicit_link": {
+              "agent_seconds": 440.0,
+              "cached_input_tokens": 916784,
+              "context_bytes": 0,
+              "input_tokens": 950553,
+              "n": 14,
+              "output_tokens": 11894,
+              "status": {
+                "completed": 14
+              },
+              "success": 14,
+              "tool_calls": 44
+            },
+            "issue_changed_files": {
+              "agent_seconds": 383.7,
+              "cached_input_tokens": 1387480,
+              "context_bytes": 0,
+              "input_tokens": 1504828,
+              "n": 3,
+              "output_tokens": 9811,
+              "status": {
+                "completed": 3
+              },
+              "success": 0,
+              "tool_calls": 40
+            },
+            "issue_links": {
+              "agent_seconds": 365.6,
+              "cached_input_tokens": 1199163,
+              "context_bytes": 0,
+              "input_tokens": 1271229,
+              "n": 2,
+              "output_tokens": 6475,
+              "status": {
+                "completed": 2
+              },
+              "success": 0,
+              "tool_calls": 31
+            },
+            "issue_prs": {
+              "agent_seconds": 227.0,
+              "cached_input_tokens": 909919,
+              "context_bytes": 0,
+              "input_tokens": 971151,
+              "n": 3,
+              "output_tokens": 9520,
+              "status": {
+                "completed": 3
+              },
+              "success": 3,
+              "tool_calls": 34
+            },
+            "kip_thread": {
+              "agent_seconds": 227.2,
+              "cached_input_tokens": 283912,
+              "context_bytes": 0,
+              "input_tokens": 300924,
+              "n": 3,
+              "output_tokens": 3670,
+              "status": {
+                "completed": 3
+              },
+              "success": 2,
+              "tool_calls": 13
+            },
+            "pr_approvers": {
+              "agent_seconds": 333.4,
+              "cached_input_tokens": 1257336,
+              "context_bytes": 0,
+              "input_tokens": 1332801,
+              "n": 3,
+              "output_tokens": 9681,
+              "status": {
+                "completed": 3
+              },
+              "success": 1,
+              "tool_calls": 34
+            },
+            "priority_at_snapshot": {
+              "agent_seconds": 13.6,
+              "cached_input_tokens": 63871,
+              "context_bytes": 0,
+              "input_tokens": 66105,
+              "n": 1,
+              "output_tokens": 755,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 3
+            },
+            "reopen_count": {
+              "agent_seconds": 54.9,
+              "cached_input_tokens": 124568,
+              "context_bytes": 0,
+              "input_tokens": 133104,
+              "n": 2,
+              "output_tokens": 1701,
+              "status": {
+                "completed": 2
+              },
+              "success": 2,
+              "tool_calls": 6
+            },
+            "resolution_at_snapshot": {
+              "agent_seconds": 31.3,
+              "cached_input_tokens": 87791,
+              "context_bytes": 0,
+              "input_tokens": 91105,
+              "n": 1,
+              "output_tokens": 949,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 4
+            },
+            "resolution_transition_history": {
+              "agent_seconds": 56.1,
+              "cached_input_tokens": 64270,
+              "context_bytes": 0,
+              "input_tokens": 65572,
+              "n": 1,
+              "output_tokens": 779,
+              "status": {
+                "completed": 1
+              },
+              "success": 0,
+              "tool_calls": 3
+            },
+            "resolution_vs_merge_order": {
+              "agent_seconds": 467.5,
+              "cached_input_tokens": 734878,
+              "context_bytes": 0,
+              "input_tokens": 775031,
+              "n": 3,
+              "output_tokens": 7741,
+              "status": {
+                "completed": 3
+              },
+              "success": 3,
+              "tool_calls": 23
+            },
+            "review_hotspot": {
+              "agent_seconds": 424.8,
+              "cached_input_tokens": 1147506,
+              "context_bytes": 0,
+              "input_tokens": 1245462,
+              "n": 3,
+              "output_tokens": 11555,
+              "status": {
+                "completed": 3
+              },
+              "success": 0,
+              "tool_calls": 35
+            },
+            "status_at_snapshot": {
+              "agent_seconds": 74.4,
+              "cached_input_tokens": 110930,
+              "context_bytes": 0,
+              "input_tokens": 114382,
+              "n": 1,
+              "output_tokens": 1393,
+              "status": {
+                "completed": 1
+              },
+              "success": 0,
+              "tool_calls": 5
+            },
+            "status_transition_history": {
+              "agent_seconds": 225.8,
+              "cached_input_tokens": 642161,
+              "context_bytes": 0,
+              "input_tokens": 682999,
+              "n": 1,
+              "output_tokens": 4097,
+              "status": {
+                "completed": 1
+              },
+              "success": 0,
+              "tool_calls": 16
+            },
+            "top_reviewer_for_author": {
+              "agent_seconds": 171.4,
+              "cached_input_tokens": 1027508,
+              "context_bytes": 0,
+              "input_tokens": 1092669,
+              "n": 1,
+              "output_tokens": 5815,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 19
+            }
+          },
+          "cached_input_tokens": 23288348,
+          "context_bytes": 0,
+          "input_tokens": 24619164,
+          "n": 78,
+          "output_tokens": 163958,
+          "status": {
+            "completed": 78
+          },
+          "success": 42,
+          "tool_calls": 732
+        }
+      },
+      "cached_input_tokens": 56019657,
+      "context_bytes": 0,
+      "input_tokens": 58114298,
+      "n": 90,
+      "output_tokens": 332492,
+      "status": {
+        "completed": 90
+      },
+      "success": 51,
+      "tool_calls": 1206
+    },
+    "N": {
+      "agent_seconds": 7414.7,
+      "by_kind": {
+        "coding": {
+          "agent_seconds": 6511.6,
+          "by_family": {
+            "pr_implementation": {
+              "agent_seconds": 6511.6,
+              "cached_input_tokens": 29488188,
+              "context_bytes": 0,
+              "input_tokens": 30254652,
+              "n": 12,
+              "output_tokens": 132850,
+              "status": {
+                "completed": 12
+              },
+              "success": 9,
+              "tool_calls": 456
+            }
+          },
+          "cached_input_tokens": 29488188,
+          "context_bytes": 0,
+          "input_tokens": 30254652,
+          "n": 12,
+          "output_tokens": 132850,
+          "status": {
+            "completed": 12
+          },
+          "success": 9,
+          "tool_calls": 456
+        },
+        "historical": {
+          "agent_seconds": 903.1,
+          "by_family": {
+            "assignee_at_snapshot": {
+              "agent_seconds": 10.3,
+              "cached_input_tokens": 17497,
+              "context_bytes": 0,
+              "input_tokens": 20588,
+              "n": 1,
+              "output_tokens": 819,
+              "status": {
+                "completed": 1
+              },
+              "success": 0,
+              "tool_calls": 1
+            },
+            "assignment_history": {
+              "agent_seconds": 12.0,
+              "cached_input_tokens": 59881,
+              "context_bytes": 0,
+              "input_tokens": 64255,
+              "n": 1,
+              "output_tokens": 1163,
+              "status": {
+                "completed": 1
+              },
+              "success": 0,
+              "tool_calls": 3
+            },
+            "author_activity": {
+              "agent_seconds": 10.3,
+              "cached_input_tokens": 20595,
+              "context_bytes": 0,
+              "input_tokens": 41782,
+              "n": 1,
+              "output_tokens": 731,
+              "status": {
+                "completed": 1
+              },
+              "success": 0,
+              "tool_calls": 2
+            },
+            "closed_at_snapshot": {
+              "agent_seconds": 8.4,
+              "cached_input_tokens": 38200,
+              "context_bytes": 0,
+              "input_tokens": 41954,
+              "n": 1,
+              "output_tokens": 636,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 2
+            },
+            "design_decision": {
+              "agent_seconds": 329.8,
+              "cached_input_tokens": 1280808,
+              "context_bytes": 0,
+              "input_tokens": 1386655,
+              "n": 29,
+              "output_tokens": 27145,
+              "status": {
+                "completed": 29
+              },
+              "success": 0,
+              "tool_calls": 73
+            },
+            "fix_version_at_snapshot": {
+              "agent_seconds": 36.1,
+              "cached_input_tokens": 156682,
+              "context_bytes": 0,
+              "input_tokens": 168341,
+              "n": 3,
+              "output_tokens": 2762,
+              "status": {
+                "completed": 3
+              },
+              "success": 0,
+              "tool_calls": 7
+            },
+            "implicit_link": {
+              "agent_seconds": 114.5,
+              "cached_input_tokens": 244958,
+              "context_bytes": 0,
+              "input_tokens": 289058,
+              "n": 14,
+              "output_tokens": 9658,
+              "status": {
+                "completed": 14
+              },
+              "success": 0,
+              "tool_calls": 14
+            },
+            "issue_changed_files": {
+              "agent_seconds": 28.4,
+              "cached_input_tokens": 93873,
+              "context_bytes": 0,
+              "input_tokens": 104692,
+              "n": 3,
+              "output_tokens": 2345,
+              "status": {
+                "completed": 3
+              },
+              "success": 0,
+              "tool_calls": 3
+            },
+            "issue_links": {
+              "agent_seconds": 23.5,
+              "cached_input_tokens": 77023,
+              "context_bytes": 0,
+              "input_tokens": 84343,
+              "n": 2,
+              "output_tokens": 1788,
+              "status": {
+                "completed": 2
+              },
+              "success": 0,
+              "tool_calls": 3
+            },
+            "issue_prs": {
+              "agent_seconds": 35.2,
+              "cached_input_tokens": 136073,
+              "context_bytes": 0,
+              "input_tokens": 148045,
+              "n": 3,
+              "output_tokens": 2729,
+              "status": {
+                "completed": 3
+              },
+              "success": 0,
+              "tool_calls": 7
+            },
+            "kip_thread": {
+              "agent_seconds": 65.8,
+              "cached_input_tokens": 353185,
+              "context_bytes": 0,
+              "input_tokens": 367892,
+              "n": 3,
+              "output_tokens": 5391,
+              "status": {
+                "completed": 3
+              },
+              "success": 0,
+              "tool_calls": 15
+            },
+            "pr_approvers": {
+              "agent_seconds": 23.5,
+              "cached_input_tokens": 94055,
+              "context_bytes": 0,
+              "input_tokens": 104072,
+              "n": 3,
+              "output_tokens": 1726,
+              "status": {
+                "completed": 3
+              },
+              "success": 0,
+              "tool_calls": 5
+            },
+            "priority_at_snapshot": {
+              "agent_seconds": 7.3,
+              "cached_input_tokens": 17497,
+              "context_bytes": 0,
+              "input_tokens": 20576,
+              "n": 1,
+              "output_tokens": 552,
+              "status": {
+                "completed": 1
+              },
+              "success": 0,
+              "tool_calls": 1
+            },
+            "reopen_count": {
+              "agent_seconds": 22.0,
+              "cached_input_tokens": 76163,
+              "context_bytes": 0,
+              "input_tokens": 83804,
+              "n": 2,
+              "output_tokens": 1699,
+              "status": {
+                "completed": 2
+              },
+              "success": 1,
+              "tool_calls": 4
+            },
+            "resolution_at_snapshot": {
+              "agent_seconds": 8.6,
+              "cached_input_tokens": 17497,
+              "context_bytes": 0,
+              "input_tokens": 20609,
+              "n": 1,
+              "output_tokens": 682,
+              "status": {
+                "completed": 1
+              },
+              "success": 0,
+              "tool_calls": 1
+            },
+            "resolution_transition_history": {
+              "agent_seconds": 15.0,
+              "cached_input_tokens": 81050,
+              "context_bytes": 0,
+              "input_tokens": 85595,
+              "n": 1,
+              "output_tokens": 1161,
+              "status": {
+                "completed": 1
+              },
+              "success": 0,
+              "tool_calls": 5
+            },
+            "resolution_vs_merge_order": {
+              "agent_seconds": 98.0,
+              "cached_input_tokens": 313779,
+              "context_bytes": 0,
+              "input_tokens": 330092,
+              "n": 3,
+              "output_tokens": 8364,
+              "status": {
+                "completed": 1,
+                "model_failure": 2
+              },
+              "success": 1,
+              "tool_calls": 10
+            },
+            "review_hotspot": {
+              "agent_seconds": 25.2,
+              "cached_input_tokens": 52479,
+              "context_bytes": 0,
+              "input_tokens": 61775,
+              "n": 3,
+              "output_tokens": 1985,
+              "status": {
+                "completed": 3
+              },
+              "success": 0,
+              "tool_calls": 3
+            },
+            "status_at_snapshot": {
+              "agent_seconds": 7.9,
+              "cached_input_tokens": 17497,
+              "context_bytes": 0,
+              "input_tokens": 20599,
+              "n": 1,
+              "output_tokens": 554,
+              "status": {
+                "completed": 1
+              },
+              "success": 0,
+              "tool_calls": 1
+            },
+            "status_transition_history": {
+              "agent_seconds": 12.5,
+              "cached_input_tokens": 38262,
+              "context_bytes": 0,
+              "input_tokens": 42280,
+              "n": 1,
+              "output_tokens": 953,
+              "status": {
+                "completed": 1
+              },
+              "success": 0,
+              "tool_calls": 2
+            },
+            "top_reviewer_for_author": {
+              "agent_seconds": 8.5,
+              "cached_input_tokens": 17493,
+              "context_bytes": 0,
+              "input_tokens": 20636,
+              "n": 1,
+              "output_tokens": 681,
+              "status": {
+                "completed": 1
+              },
+              "success": 0,
+              "tool_calls": 1
+            }
+          },
+          "cached_input_tokens": 3204547,
+          "context_bytes": 0,
+          "input_tokens": 3507643,
+          "n": 78,
+          "output_tokens": 73524,
+          "status": {
+            "completed": 76,
+            "model_failure": 2
+          },
+          "success": 3,
+          "tool_calls": 163
+        }
+      },
+      "cached_input_tokens": 32692735,
+      "context_bytes": 0,
+      "input_tokens": 33762295,
+      "n": 90,
+      "output_tokens": 206374,
+      "status": {
+        "completed": 88,
+        "model_failure": 2
+      },
+      "success": 12,
+      "tool_calls": 619
+    },
+    "R-hyb": {
+      "agent_seconds": 9694.7,
+      "by_kind": {
+        "coding": {
+          "agent_seconds": 5827.9,
+          "by_family": {
+            "pr_implementation": {
+              "agent_seconds": 5827.9,
+              "cached_input_tokens": 29708490,
+              "context_bytes": 0,
+              "input_tokens": 30490328,
+              "n": 12,
+              "output_tokens": 130780,
+              "status": {
+                "completed": 12
+              },
+              "success": 8,
+              "tool_calls": 467
+            }
+          },
+          "cached_input_tokens": 29708490,
+          "context_bytes": 0,
+          "input_tokens": 30490328,
+          "n": 12,
+          "output_tokens": 130780,
+          "status": {
+            "completed": 12
+          },
+          "success": 8,
+          "tool_calls": 467
+        },
+        "historical": {
+          "agent_seconds": 3866.8,
+          "by_family": {
+            "assignee_at_snapshot": {
+              "agent_seconds": 41.9,
+              "cached_input_tokens": 175342,
+              "context_bytes": 0,
+              "input_tokens": 191880,
+              "n": 1,
+              "output_tokens": 1623,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 7
+            },
+            "assignment_history": {
+              "agent_seconds": 41.3,
+              "cached_input_tokens": 145828,
+              "context_bytes": 0,
+              "input_tokens": 162208,
+              "n": 1,
+              "output_tokens": 2342,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 9
+            },
+            "author_activity": {
+              "agent_seconds": 75.9,
+              "cached_input_tokens": 329731,
+              "context_bytes": 0,
+              "input_tokens": 365156,
+              "n": 1,
+              "output_tokens": 3719,
+              "status": {
+                "completed": 1
+              },
+              "success": 0,
+              "tool_calls": 10
+            },
+            "closed_at_snapshot": {
+              "agent_seconds": 51.9,
+              "cached_input_tokens": 238816,
+              "context_bytes": 0,
+              "input_tokens": 283221,
+              "n": 1,
+              "output_tokens": 2085,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 9
+            },
+            "design_decision": {
+              "agent_seconds": 1446.6,
+              "cached_input_tokens": 6836447,
+              "context_bytes": 0,
+              "input_tokens": 7599772,
+              "n": 29,
+              "output_tokens": 60051,
+              "status": {
+                "completed": 29
+              },
+              "success": 28,
+              "tool_calls": 211
+            },
+            "fix_version_at_snapshot": {
+              "agent_seconds": 123.1,
+              "cached_input_tokens": 490657,
+              "context_bytes": 0,
+              "input_tokens": 542788,
+              "n": 3,
+              "output_tokens": 5409,
+              "status": {
+                "completed": 3
+              },
+              "success": 3,
+              "tool_calls": 20
+            },
+            "implicit_link": {
+              "agent_seconds": 315.7,
+              "cached_input_tokens": 924806,
+              "context_bytes": 0,
+              "input_tokens": 1059499,
+              "n": 14,
+              "output_tokens": 13987,
+              "status": {
+                "completed": 14
+              },
+              "success": 14,
+              "tool_calls": 45
+            },
+            "issue_changed_files": {
+              "agent_seconds": 291.2,
+              "cached_input_tokens": 1093030,
+              "context_bytes": 0,
+              "input_tokens": 1202434,
+              "n": 3,
+              "output_tokens": 21064,
+              "status": {
+                "completed": 2,
+                "model_failure": 1
+              },
+              "success": 2,
+              "tool_calls": 27
+            },
+            "issue_links": {
+              "agent_seconds": 99.3,
+              "cached_input_tokens": 469068,
+              "context_bytes": 0,
+              "input_tokens": 523543,
+              "n": 2,
+              "output_tokens": 4872,
+              "status": {
+                "completed": 2
+              },
+              "success": 1,
+              "tool_calls": 17
+            },
+            "issue_prs": {
+              "agent_seconds": 222.4,
+              "cached_input_tokens": 1139344,
+              "context_bytes": 0,
+              "input_tokens": 1254838,
+              "n": 3,
+              "output_tokens": 10019,
+              "status": {
+                "completed": 2,
+                "model_failure": 1
+              },
+              "success": 1,
+              "tool_calls": 29
+            },
+            "kip_thread": {
+              "agent_seconds": 320.3,
+              "cached_input_tokens": 1822986,
+              "context_bytes": 0,
+              "input_tokens": 2022222,
+              "n": 3,
+              "output_tokens": 15638,
+              "status": {
+                "completed": 3
+              },
+              "success": 1,
+              "tool_calls": 50
+            },
+            "pr_approvers": {
+              "agent_seconds": 80.2,
+              "cached_input_tokens": 205128,
+              "context_bytes": 0,
+              "input_tokens": 233006,
+              "n": 3,
+              "output_tokens": 3459,
+              "status": {
+                "completed": 3
+              },
+              "success": 3,
+              "tool_calls": 10
+            },
+            "priority_at_snapshot": {
+              "agent_seconds": 19.7,
+              "cached_input_tokens": 84486,
+              "context_bytes": 0,
+              "input_tokens": 92182,
+              "n": 1,
+              "output_tokens": 859,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 4
+            },
+            "reopen_count": {
+              "agent_seconds": 90.7,
+              "cached_input_tokens": 305094,
+              "context_bytes": 0,
+              "input_tokens": 348014,
+              "n": 2,
+              "output_tokens": 3539,
+              "status": {
+                "completed": 2
+              },
+              "success": 2,
+              "tool_calls": 12
+            },
+            "resolution_at_snapshot": {
+              "agent_seconds": 25.2,
+              "cached_input_tokens": 86292,
+              "context_bytes": 0,
+              "input_tokens": 95781,
+              "n": 1,
+              "output_tokens": 991,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 4
+            },
+            "resolution_transition_history": {
+              "agent_seconds": 23.4,
+              "cached_input_tokens": 87210,
+              "context_bytes": 0,
+              "input_tokens": 97506,
+              "n": 1,
+              "output_tokens": 1051,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 5
+            },
+            "resolution_vs_merge_order": {
+              "agent_seconds": 90.9,
+              "cached_input_tokens": 259774,
+              "context_bytes": 0,
+              "input_tokens": 298290,
+              "n": 3,
+              "output_tokens": 4389,
+              "status": {
+                "completed": 3
+              },
+              "success": 3,
+              "tool_calls": 13
+            },
+            "review_hotspot": {
+              "agent_seconds": 255.6,
+              "cached_input_tokens": 1319476,
+              "context_bytes": 0,
+              "input_tokens": 1455758,
+              "n": 3,
+              "output_tokens": 13688,
+              "status": {
+                "completed": 3
+              },
+              "success": 3,
+              "tool_calls": 36
+            },
+            "status_at_snapshot": {
+              "agent_seconds": 56.9,
+              "cached_input_tokens": 300986,
+              "context_bytes": 0,
+              "input_tokens": 330886,
+              "n": 1,
+              "output_tokens": 2285,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 10
+            },
+            "status_transition_history": {
+              "agent_seconds": 40.8,
+              "cached_input_tokens": 149931,
+              "context_bytes": 0,
+              "input_tokens": 172296,
+              "n": 1,
+              "output_tokens": 2065,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 9
+            },
+            "top_reviewer_for_author": {
+              "agent_seconds": 153.7,
+              "cached_input_tokens": 1071346,
+              "context_bytes": 0,
+              "input_tokens": 1157465,
+              "n": 1,
+              "output_tokens": 8953,
+              "status": {
+                "completed": 1
+              },
+              "success": 0,
+              "tool_calls": 23
+            }
+          },
+          "cached_input_tokens": 17535778,
+          "context_bytes": 0,
+          "input_tokens": 19488745,
+          "n": 78,
+          "output_tokens": 182088,
+          "status": {
+            "completed": 76,
+            "model_failure": 2
+          },
+          "success": 69,
+          "tool_calls": 560
+        }
+      },
+      "cached_input_tokens": 47244268,
+      "context_bytes": 0,
+      "input_tokens": 49979073,
+      "n": 90,
+      "output_tokens": 312868,
+      "status": {
+        "completed": 88,
+        "model_failure": 2
+      },
+      "success": 77,
+      "tool_calls": 1027
+    },
+    "S-tools": {
+      "agent_seconds": 14885.1,
+      "by_kind": {
+        "coding": {
+          "agent_seconds": 5933.9,
+          "by_family": {
+            "pr_implementation": {
+              "agent_seconds": 5933.9,
+              "cached_input_tokens": 28086874,
+              "context_bytes": 0,
+              "input_tokens": 28901081,
+              "n": 12,
+              "output_tokens": 149794,
+              "status": {
+                "completed": 12
+              },
+              "success": 10,
+              "tool_calls": 513
+            }
+          },
+          "cached_input_tokens": 28086874,
+          "context_bytes": 0,
+          "input_tokens": 28901081,
+          "n": 12,
+          "output_tokens": 149794,
+          "status": {
+            "completed": 12
+          },
+          "success": 10,
+          "tool_calls": 513
+        },
+        "historical": {
+          "agent_seconds": 8951.2,
+          "by_family": {
+            "assignee_at_snapshot": {
+              "agent_seconds": 7.2,
+              "cached_input_tokens": 41760,
+              "context_bytes": 0,
+              "input_tokens": 42346,
+              "n": 1,
+              "output_tokens": 489,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 2
+            },
+            "assignment_history": {
+              "agent_seconds": 19.1,
+              "cached_input_tokens": 127230,
+              "context_bytes": 0,
+              "input_tokens": 134633,
+              "n": 1,
+              "output_tokens": 1823,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 6
+            },
+            "author_activity": {
+              "agent_seconds": 46.9,
+              "cached_input_tokens": 59702,
+              "context_bytes": 0,
+              "input_tokens": 76175,
+              "n": 1,
+              "output_tokens": 2090,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 3
+            },
+            "closed_at_snapshot": {
+              "agent_seconds": 11.6,
+              "cached_input_tokens": 59902,
+              "context_bytes": 0,
+              "input_tokens": 67352,
+              "n": 1,
+              "output_tokens": 904,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 3
+            },
+            "design_decision": {
+              "agent_seconds": 6496.9,
+              "cached_input_tokens": 25250551,
+              "context_bytes": 0,
+              "input_tokens": 26252994,
+              "n": 29,
+              "output_tokens": 143833,
+              "status": {
+                "completed": 27,
+                "model_failure": 1,
+                "timeout": 1
+              },
+              "success": 25,
+              "tool_calls": 910
+            },
+            "fix_version_at_snapshot": {
+              "agent_seconds": 36.1,
+              "cached_input_tokens": 223149,
+              "context_bytes": 0,
+              "input_tokens": 237903,
+              "n": 3,
+              "output_tokens": 2615,
+              "status": {
+                "completed": 3
+              },
+              "success": 3,
+              "tool_calls": 11
+            },
+            "implicit_link": {
+              "agent_seconds": 1372.5,
+              "cached_input_tokens": 2337888,
+              "context_bytes": 0,
+              "input_tokens": 2441873,
+              "n": 14,
+              "output_tokens": 25260,
+              "status": {
+                "completed": 14
+              },
+              "success": 14,
+              "tool_calls": 111
+            },
+            "issue_changed_files": {
+              "agent_seconds": 103.4,
+              "cached_input_tokens": 406654,
+              "context_bytes": 0,
+              "input_tokens": 425467,
+              "n": 3,
+              "output_tokens": 7823,
+              "status": {
+                "completed": 3
+              },
+              "success": 3,
+              "tool_calls": 22
+            },
+            "issue_links": {
+              "agent_seconds": 36.0,
+              "cached_input_tokens": 213087,
+              "context_bytes": 0,
+              "input_tokens": 228977,
+              "n": 2,
+              "output_tokens": 2962,
+              "status": {
+                "completed": 2
+              },
+              "success": 2,
+              "tool_calls": 10
+            },
+            "issue_prs": {
+              "agent_seconds": 75.0,
+              "cached_input_tokens": 389746,
+              "context_bytes": 0,
+              "input_tokens": 412512,
+              "n": 3,
+              "output_tokens": 5129,
+              "status": {
+                "completed": 3
+              },
+              "success": 3,
+              "tool_calls": 21
+            },
+            "kip_thread": {
+              "agent_seconds": 385.0,
+              "cached_input_tokens": 338091,
+              "context_bytes": 0,
+              "input_tokens": 361878,
+              "n": 3,
+              "output_tokens": 8337,
+              "status": {
+                "completed": 3
+              },
+              "success": 2,
+              "tool_calls": 16
+            },
+            "pr_approvers": {
+              "agent_seconds": 50.2,
+              "cached_input_tokens": 205784,
+              "context_bytes": 0,
+              "input_tokens": 237112,
+              "n": 3,
+              "output_tokens": 2817,
+              "status": {
+                "completed": 3
+              },
+              "success": 3,
+              "tool_calls": 11
+            },
+            "priority_at_snapshot": {
+              "agent_seconds": 8.4,
+              "cached_input_tokens": 59607,
+              "context_bytes": 0,
+              "input_tokens": 63800,
+              "n": 1,
+              "output_tokens": 552,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 3
+            },
+            "reopen_count": {
+              "agent_seconds": 29.5,
+              "cached_input_tokens": 141592,
+              "context_bytes": 0,
+              "input_tokens": 153857,
+              "n": 2,
+              "output_tokens": 2375,
+              "status": {
+                "completed": 2
+              },
+              "success": 2,
+              "tool_calls": 7
+            },
+            "resolution_at_snapshot": {
+              "agent_seconds": 10.1,
+              "cached_input_tokens": 81294,
+              "context_bytes": 0,
+              "input_tokens": 85829,
+              "n": 1,
+              "output_tokens": 698,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 4
+            },
+            "resolution_transition_history": {
+              "agent_seconds": 11.2,
+              "cached_input_tokens": 60288,
+              "context_bytes": 0,
+              "input_tokens": 65258,
+              "n": 1,
+              "output_tokens": 955,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 4
+            },
+            "resolution_vs_merge_order": {
+              "agent_seconds": 71.3,
+              "cached_input_tokens": 324732,
+              "context_bytes": 0,
+              "input_tokens": 360711,
+              "n": 3,
+              "output_tokens": 4751,
+              "status": {
+                "completed": 3
+              },
+              "success": 3,
+              "tool_calls": 19
+            },
+            "review_hotspot": {
+              "agent_seconds": 121.9,
+              "cached_input_tokens": 441126,
+              "context_bytes": 0,
+              "input_tokens": 492922,
+              "n": 3,
+              "output_tokens": 12520,
+              "status": {
+                "completed": 3
+              },
+              "success": 3,
+              "tool_calls": 19
+            },
+            "status_at_snapshot": {
+              "agent_seconds": 14.4,
+              "cached_input_tokens": 103016,
+              "context_bytes": 0,
+              "input_tokens": 107863,
+              "n": 1,
+              "output_tokens": 1041,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 5
+            },
+            "status_transition_history": {
+              "agent_seconds": 18.3,
+              "cached_input_tokens": 60196,
+              "context_bytes": 0,
+              "input_tokens": 65302,
+              "n": 1,
+              "output_tokens": 1592,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 3
+            },
+            "top_reviewer_for_author": {
+              "agent_seconds": 26.2,
+              "cached_input_tokens": 213629,
+              "context_bytes": 0,
+              "input_tokens": 249021,
+              "n": 1,
+              "output_tokens": 2911,
+              "status": {
+                "completed": 1
+              },
+              "success": 1,
+              "tool_calls": 6
+            }
+          },
+          "cached_input_tokens": 31139024,
+          "context_bytes": 0,
+          "input_tokens": 32563785,
+          "n": 78,
+          "output_tokens": 231477,
+          "status": {
+            "completed": 76,
+            "model_failure": 1,
+            "timeout": 1
+          },
+          "success": 73,
+          "tool_calls": 1196
+        }
+      },
+      "cached_input_tokens": 59225898,
+      "context_bytes": 0,
+      "input_tokens": 61464866,
+      "n": 90,
+      "output_tokens": 381271,
+      "status": {
+        "completed": 88,
+        "model_failure": 1,
+        "timeout": 1
+      },
+      "success": 83,
+      "tool_calls": 1709
+    }
+  },
+  "not_recorded": [],
+  "paired_vs_N": {
+    "F0-search": {
+      "both": 11,
+      "harmed": 1,
+      "helped": 66,
+      "neither": 12,
+      "pairs": 90
+    },
+    "F1-search": {
+      "both": 11,
+      "harmed": 1,
+      "helped": 39,
+      "neither": 39,
+      "pairs": 90
+    },
+    "F2-search": {
+      "both": 11,
+      "harmed": 1,
+      "helped": 66,
+      "neither": 12,
+      "pairs": 90
+    },
+    "F3-search": {
+      "both": 12,
+      "harmed": 0,
+      "helped": 67,
+      "neither": 11,
+      "pairs": 90
+    },
+    "F4-entity-search": {
+      "both": 11,
+      "harmed": 1,
+      "helped": 34,
+      "neither": 44,
+      "pairs": 90
+    },
+    "F4-fact-search": {
+      "both": 12,
+      "harmed": 0,
+      "helped": 41,
+      "neither": 37,
+      "pairs": 90
+    },
+    "F4-topic-search": {
+      "both": 11,
+      "harmed": 1,
+      "helped": 36,
+      "neither": 42,
+      "pairs": 90
+    },
+    "F5-search": {
+      "both": 11,
+      "harmed": 1,
+      "helped": 22,
+      "neither": 56,
+      "pairs": 90
+    },
+    "F6-search": {
+      "both": 11,
+      "harmed": 1,
+      "helped": 40,
+      "neither": 38,
+      "pairs": 90
+    },
+    "R-hyb": {
+      "both": 11,
+      "harmed": 1,
+      "helped": 66,
+      "neither": 12,
+      "pairs": 90
+    },
+    "S-tools": {
+      "both": 11,
+      "harmed": 1,
+      "helped": 72,
+      "neither": 6,
+      "pairs": 90
+    }
+  },
+  "reason": null,
+  "recorded": 1080,
+  "status": "complete",
+  "target": 1080,
+  "updated_at_unix": 1790539002.4578593
+}

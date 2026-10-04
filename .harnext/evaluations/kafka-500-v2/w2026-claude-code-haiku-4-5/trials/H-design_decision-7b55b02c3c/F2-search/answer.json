@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "store/kips/KIP-1279/2026-04-15-discuss-cluster-mirroring-d1515ee7.md",
+    "store/kips/KIP-1279/2026-04-30-mail-d143b0b41a8baaf69dfb3a1d-b13eb2ca.md"
+  ],
+  "value": "StartMirrorTopics/StopMirrorTopics"
+}

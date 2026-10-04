@@ -1,0 +1,3 @@
+{
+  "summary": "Implemented readOnly(IsolationLevel) method for MeteredKeyValueStore with a custom ReadOnlyView inner class that applies metering and serdes to all read operations on the underlying isolation-level-aware store view. All tests pass successfully."
+}

@@ -1,0 +1,13 @@
+diff --git a/group-coordinator/src/main/java/org/apache/kafka/coordinator/group/streams/StreamsGroupTopologyDescriptionManager.java b/group-coordinator/src/main/java/org/apache/kafka/coordinator/group/streams/StreamsGroupTopologyDescriptionManager.java
+index 9b52a1506d3137398fccdf223440828d3d6314d4..6c2fbe957b38f12b12325a1ca2c845eb0108212d 100644
+--- a/group-coordinator/src/main/java/org/apache/kafka/coordinator/group/streams/StreamsGroupTopologyDescriptionManager.java
++++ b/group-coordinator/src/main/java/org/apache/kafka/coordinator/group/streams/StreamsGroupTopologyDescriptionManager.java
+@@ -255,7 +255,7 @@ public class StreamsGroupTopologyDescriptionManager implements AutoCloseable {
+             return null;
+         }
+         Throwable cause = Errors.maybeUnwrapException(throwable);
+-        String message = cause != null ? cause.getMessage() : "Plugin failure (no cause).";
++        String message = cause != null ? cause.getMessage() : null;
+         return Map.entry(groupId, new ApiError(Errors.GROUP_DELETION_FAILED, message));
+     }
+ 

@@ -1,0 +1,10 @@
+{
+  "evidence": [
+    "store/entities/issue/KAFKA-20565/timeline.md - PR merge timestamp",
+    "store/entities/issue/KAFKA-20565/OVERVIEW.md - Resolution timestamp"
+  ],
+  "value": {
+    "days": 0,
+    "first": "merge"
+  }
+}

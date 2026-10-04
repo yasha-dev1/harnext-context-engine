@@ -1,0 +1,11 @@
+{
+  "evidence": [
+    "No local Kafka repository available to query",
+    "No network access to Apache Kafka JIRA or GitHub",
+    "Knowledge cutoff February 2025 is before the 2026-03 creation date",
+    "No project history context provided"
+  ],
+  "value": [
+    "null"
+  ]
+}

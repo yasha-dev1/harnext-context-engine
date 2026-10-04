@@ -1,0 +1,12 @@
+{
+  "files_sha256": {
+    "agent.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "gradle.log.gz": "e0465f1b9af81274fa5e6d6227bf9b1acc32ca9ccb78e39d031fe29d16d32d6f",
+    "launch.json": "88d78ef760ab414fe508a1a3e5f211e3822fec6c3185cdd46ee1350288686e2d",
+    "mcp-receipts.jsonl": "651fd6b12f2d4e8a5ed2d6380cd73a8ea1fc6993305d1b95d6eb2956f01ed06a",
+    "patch.diff": "790623cbc85785b031c8850d8a292f280395d560d5237fc526b166dd57d26903",
+    "prompt.txt": "ed32509c913c8cc1b5db3318bfada392d3381adb0a7d36f03a4dfba0876e9e01",
+    "result.json": "24a8a7a769bbfb0d7bfb2042796a0731b7d718afb55ad35b79ced75d9f932283",
+    "trace.jsonl.gz": "8e69e1538e7740507d02ffce70a49884b177f4ae72f068ffbba19daf284e9deb"
+  }
+}

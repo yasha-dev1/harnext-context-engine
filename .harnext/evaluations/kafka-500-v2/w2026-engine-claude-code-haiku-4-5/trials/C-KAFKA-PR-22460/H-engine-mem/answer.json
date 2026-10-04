@@ -1,0 +1,3 @@
+{
+  "summary": "Implemented KAFKA-20444 (KIP-1319) to align TxnOffsetCommit API with OffsetCommit API by adding metadata refresh in KafkaProducer.sendOffsetsToTransaction() to ensure topic IDs are available before building v6+ TxnOffsetCommit requests. All tests passing."
+}

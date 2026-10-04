@@ -1,0 +1,54 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "discussions/kip-1305-per-record-context-processing-consumers.md — KIP-1305 discussion started by Aditya Kousik on 2026-04-01",
+      "prs/22077-per-record-context-test.md — PR #22077 associated with KAFKA-20384, implementing unit test for KIP-1305",
+      "WINDOW-97-INTEGRATION-NOTES.md — Integration notes referencing KIP-1305 with PR #22077"
+    ],
+    "value": "KAFKA-20384"
+  },
+  "arm": "F4-fact-search",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 34.373431819010875,
+  "family": "implicit_link",
+  "grade": {
+    "actual": "KAFKA-20384",
+    "correct": true,
+    "evidence": [
+      "discussions/kip-1305-per-record-context-processing-consumers.md — KIP-1305 discussion started by Aditya Kousik on 2026-04-01",
+      "prs/22077-per-record-context-test.md — PR #22077 associated with KAFKA-20384, implementing unit test for KIP-1305",
+      "WINDOW-97-INTEGRATION-NOTES.md — Integration notes referencing KIP-1305 with PR #22077"
+    ],
+    "expected": "KAFKA-20384"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 5,
+  "prompt_sha256": "4a709b7cf9e7ee3e7cdd49bddb447c145b2c46de36aab87d012b470471ea90d0",
+  "run_index": 83,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-implicit_link-f6cda24f3f",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 2
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 112205,
+    "cost_usd": 0.0266575,
+    "input_tokens": 116450,
+    "output_tokens": 1398
+  },
+  "violations": []
+}

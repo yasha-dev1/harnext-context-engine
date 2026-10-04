@@ -1,0 +1,57 @@
+diff --git a/clients/src/main/java/org/apache/kafka/clients/consumer/internals/AsyncKafkaConsumer.java b/clients/src/main/java/org/apache/kafka/clients/consumer/internals/AsyncKafkaConsumer.java
+index 8adc71b904b7dfe44280931540fb6e236dd23347..ae4f74774932beaf6c7a7c0bf9fd16f660618dcb 100644
+--- a/clients/src/main/java/org/apache/kafka/clients/consumer/internals/AsyncKafkaConsumer.java
++++ b/clients/src/main/java/org/apache/kafka/clients/consumer/internals/AsyncKafkaConsumer.java
+@@ -2031,7 +2031,14 @@ public class AsyncKafkaConsumer<K, V> implements ConsumerDelegate<K, V> {
+             long timeoutMs = inflightPoll.deadlineMs() - time.milliseconds();
+             if (timeoutMs > 0) {
+                 try {
+-                    ConsumerUtils.getResult(inflightPoll.reconciliationCheckFuture(), timeoutMs);
++                    final CompletableFuture<Void> futureToAwait = new CompletableFuture<>();
++                    inflightPoll.reconciliationCheckFuture().whenComplete((v, t) -> futureToAwait.complete(null));
++                    wakeupTrigger.setActiveTask(futureToAwait);
++                    try {
++                        ConsumerUtils.getResult(futureToAwait, timeoutMs);
++                    } finally {
++                        wakeupTrigger.clearTask();
++                    }
+                 } catch (TimeoutException e) {
+                     return Fetch.empty();
+                 }
+diff --git a/clients/src/test/java/org/apache/kafka/clients/consumer/internals/AsyncKafkaConsumerTest.java b/clients/src/test/java/org/apache/kafka/clients/consumer/internals/AsyncKafkaConsumerTest.java
+index 327f1b25afc1d280bee49309901b5d850ccad469..61b5b7cfef442f940e11d1f6b4d4ecd8932c8089 100644
+--- a/clients/src/test/java/org/apache/kafka/clients/consumer/internals/AsyncKafkaConsumerTest.java
++++ b/clients/src/test/java/org/apache/kafka/clients/consumer/internals/AsyncKafkaConsumerTest.java
+@@ -479,6 +479,32 @@ public class AsyncKafkaConsumerTest {
+         assertThrows(WakeupException.class, () -> consumer.poll(Duration.ZERO));
+     }
+ 
++    @Test
++    public void testWakeupWhileWaitingOnReconciliationCheck() {
++        FetchBuffer fetchBuffer = mock(FetchBuffer.class);
++        SubscriptionState subscriptions = new SubscriptionState(new LogContext(), AutoOffsetResetStrategy.NONE);
++        consumer = newConsumer(fetchBuffer, mock(ConsumerInterceptors.class),
++            mock(ConsumerRebalanceListenerInvoker.class), subscriptions);
++
++        final TopicPartition tp = new TopicPartition("topic1", 0);
++        subscriptions.assignFromUser(singleton(tp));
++        subscriptions.seek(tp, 0);
++
++        // Do not complete the AsyncPollEvent and call wakeup().
++        // The call to poll should throw WakeupException without blocking for the full timeout.
++        doAnswer(invocation -> {
++            consumer.wakeup();
++            return null;
++        }).when(applicationEventHandler).add(ArgumentMatchers.isA(AsyncPollEvent.class));
++        doReturn(Fetch.empty()).when(fetchCollector).collectFetch(any(FetchBuffer.class));
++
++        long startTime = System.currentTimeMillis();
++        assertThrows(WakeupException.class, () -> consumer.poll(Duration.ofMillis(1500)));
++        long elapsed = System.currentTimeMillis() - startTime;
++
++        assertTrue(elapsed < 500, "Wakeup should interrupt promptly, took " + elapsed + "ms");
++    }
++
+     @Test
+     public void testCommitInRebalanceCallback() {
+         consumer = newConsumer();

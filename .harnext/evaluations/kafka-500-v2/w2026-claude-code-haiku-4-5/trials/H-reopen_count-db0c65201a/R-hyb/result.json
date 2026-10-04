@@ -1,0 +1,50 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "jira:13609845:change:22954260:1 — KAFKA-18866 status: Open → Resolved (2026-02-26T21:19:08Z)"
+    ],
+    "value": 0
+  },
+  "arm": "R-hyb",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 49.76804477599944,
+  "family": "reopen_count",
+  "grade": {
+    "actual": 0,
+    "correct": true,
+    "evidence": [
+      "jira:13609845:change:22954260:1 — KAFKA-18866 status: Open → Resolved (2026-02-26T21:19:08Z)"
+    ],
+    "expected": 0
+  },
+  "instructions_sha256": "dfaa5b284d06c378ef7e4c08b53dc77835c91d7591fca0335bbfa33d3e53eb37",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 7,
+  "prompt_sha256": "d2febd371e536956f8eadd3837d82b56623e181a9025422ffd898cf33d489b5e",
+  "run_index": 51,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-reopen_count-db0c65201a",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__read_event": 1,
+    "mcp__history__search": 4
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 187283,
+    "cost_usd": 0.0737453,
+    "input_tokens": 210331,
+    "output_tokens": 1796
+  },
+  "violations": []
+}

@@ -1,0 +1,57 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail search results for 'KIP-1308' showing KAFKA-20387 creation notification",
+      "mail read of JIRA notification (b60c8a7d55a78e0c4db474df) confirming KAFKA-20387 was created for 'Extend RecordHeader API for Common Value Types' on 2026-03-31",
+      "mail read of initial thread message (8a3a21f2b90819312447f34e) confirming Aditya Kousik's discussion of KIP-1308 on 2026-04-01",
+      "jira issue view KAFKA-20387 confirming it tracks 'Extend RecordHeader API for Common Value Types' and references KIP-1308"
+    ],
+    "value": "KAFKA-20387"
+  },
+  "arm": "S-tools",
+  "checkpoint": "2026-04",
+  "cli_calls": {
+    "jira": 2,
+    "mail": 4
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 62.176526773997466,
+  "family": "implicit_link",
+  "grade": {
+    "actual": "KAFKA-20387",
+    "correct": true,
+    "evidence": [
+      "mail search results for 'KIP-1308' showing KAFKA-20387 creation notification",
+      "mail read of JIRA notification (b60c8a7d55a78e0c4db474df) confirming KAFKA-20387 was created for 'Extend RecordHeader API for Common Value Types' on 2026-03-31",
+      "mail read of initial thread message (8a3a21f2b90819312447f34e) confirming Aditya Kousik's discussion of KIP-1308 on 2026-04-01",
+      "jira issue view KAFKA-20387 confirming it tracks 'Extend RecordHeader API for Common Value Types' and references KIP-1308"
+    ],
+    "expected": "KAFKA-20387"
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 6,
+  "prompt_sha256": "3149f1bfefdd6355727940f7a526e862be0f8bea771dc7de5064d264140283f9",
+  "run_index": 82,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-implicit_link-394aab4475",
+  "tool_calls": {
+    "Bash": 6,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 128515,
+    "cost_usd": 0.0334695,
+    "input_tokens": 135006,
+    "output_tokens": 1537
+  },
+  "violations": []
+}

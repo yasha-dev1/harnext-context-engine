@@ -1,0 +1,3 @@
+{
+  "summary": "Successfully implemented KIP-1319 to align TxnOffsetCommit API with OffsetCommit API. Key changes: (1) Fixed TxnOffsetCommitRequest.Builder.forTopicIdsOrNames() in clients/src/main/java/org/apache/kafka/common/requests/TxnOffsetCommitRequest.java to enable v6 negotiation when topic IDs are available regardless of transaction V2 status; (2) Enhanced KafkaProducer.sendOffsetsToTransaction() in clients/src/main/java/org/apache/kafka/clients/producer/KafkaProducer.java to refresh metadata for topics to enable topic ID resolution and v6 negotiation. All 100 KafkaProducerTest tests pass, including testSendOffsetsToTransactionNegotiatesV6WhenMetadataKnowsTopicId and testSendOffsetsToTransactionTriggersMetadataRefreshThenNegotiatesV6."
+}

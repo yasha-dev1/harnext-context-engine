@@ -1,0 +1,79 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "github:api:apache/kafka:pr-21685-merged",
+      "github:api:apache/kafka:pr-21642-merged",
+      "github:api:apache/kafka:pr-21772-merged",
+      "github:api:apache/kafka:pr-22067-merged"
+    ],
+    "value": 4
+  },
+  "arm": "H-engine",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 67.52992769699995,
+  "engine": {
+    "calls": 1,
+    "chat": {
+      "calls": 6,
+      "cancelled": 0,
+      "cost_usd": 0.0006605,
+      "input_tokens": 19002,
+      "output_tokens": 1482,
+      "retries": 0
+    },
+    "cost_usd": 0.00111838,
+    "jev": {
+      "calls": 6,
+      "cancelled": 0,
+      "cost_usd": 0.00045788,
+      "input_tokens": 10902,
+      "output_tokens": 1310,
+      "retries": 0
+    },
+    "partial": 1,
+    "seconds": 54.965,
+    "unmetered_upper_usd": 0
+  },
+  "family": "author_activity",
+  "grade": {
+    "actual": 4,
+    "correct": false,
+    "evidence": [
+      "github:api:apache/kafka:pr-21685-merged",
+      "github:api:apache/kafka:pr-21642-merged",
+      "github:api:apache/kafka:pr-21772-merged",
+      "github:api:apache/kafka:pr-22067-merged"
+    ],
+    "expected": 6
+  },
+  "image_id": "sha256:a75ed05ffc6eace9ec0ed4705d31b20aa2579267b3e737b4f61017882112ea66",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "75524fc83386b85ec2dfed95393e1265ce15be20277cf181c32228a8c8888b36",
+  "run_index": 5,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-author_activity-673abd217f",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 63503,
+    "cost_usd": 0.012842300000000001,
+    "input_tokens": 64840,
+    "output_tokens": 769
+  },
+  "violations": []
+}

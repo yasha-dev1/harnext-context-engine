@@ -1,0 +1,55 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "store/_intake/2026/03/31/github-api-apache-kafka-review-comment-PRRC_kwDOACG9q86zt69y-bdc19826.md",
+      "store/_intake/2026/03/31/github-api-apache-kafka-review-comment-PRRC_kwDOACG9q86zuDQF-d4947719.md",
+      "store/_intake/2026/03/31/github-api-apache-kafka-review-comment-PRRC_kwDOACG9q86zvq-7-86f70da3.md",
+      "store/_intake/2026/03/31/github-api-apache-kafka-review-comment-PRRC_kwDOACG9q86zvqsz-4f3a4638.md"
+    ],
+    "value": "server-common/src/main/java/org/apache/kafka/server/util/timer/SystemTimerReaper.java"
+  },
+  "arm": "F3-search",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 50.57453845800774,
+  "family": "review_hotspot",
+  "grade": {
+    "actual": "server-common/src/main/java/org/apache/kafka/server/util/timer/SystemTimerReaper.java",
+    "correct": true,
+    "evidence": [
+      "store/_intake/2026/03/31/github-api-apache-kafka-review-comment-PRRC_kwDOACG9q86zt69y-bdc19826.md",
+      "store/_intake/2026/03/31/github-api-apache-kafka-review-comment-PRRC_kwDOACG9q86zuDQF-d4947719.md",
+      "store/_intake/2026/03/31/github-api-apache-kafka-review-comment-PRRC_kwDOACG9q86zvq-7-86f70da3.md",
+      "store/_intake/2026/03/31/github-api-apache-kafka-review-comment-PRRC_kwDOACG9q86zvqsz-4f3a4638.md"
+    ],
+    "expected": "server-common/src/main/java/org/apache/kafka/server/util/timer/SystemTimerReaper.java"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "f6cf721bf1b74adb72e6bd47620d9c050d5fa0e69a053234225525479fb8ac63",
+  "run_index": 39,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-review_hotspot-a93e7da04e",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 63989,
+    "cost_usd": 0.0136149,
+    "input_tokens": 65668,
+    "output_tokens": 777
+  },
+  "violations": []
+}

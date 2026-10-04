@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "WINDOW-125-2026-05-22-to-2026-05-25.md (lines 62-68): Lists KAFKA-20604 as '(KIP-1348): Built-in exception handler symmetry'",
+    "kips/KIP-1348.md: Documentation of the KIP initiated by Ankur Sinha on 2026-05-20T19:52:33Z"
+  ],
+  "value": "KAFKA-20604"
+}

@@ -1,0 +1,78 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "github:api:apache/kafka:pr-21522-opened",
+      "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86pLPJA"
+    ],
+    "value": "WARN"
+  },
+  "arm": "H-engine-mem",
+  "checkpoint": "2026-02",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 120.23566360599943,
+  "engine": {
+    "calls": 1,
+    "chat": {
+      "calls": 22,
+      "cancelled": 1,
+      "cost_usd": 0.00144128,
+      "input_tokens": 67015,
+      "output_tokens": 1947,
+      "retries": 0
+    },
+    "cost_usd": 0.00386145,
+    "discarded_attempts": 0,
+    "jev": {
+      "calls": 27,
+      "cancelled": 0,
+      "cost_usd": 0.00242017,
+      "input_tokens": 57623,
+      "output_tokens": 10166,
+      "retries": 0
+    },
+    "partial": 1,
+    "provider_retry_usd": 0,
+    "seconds": 106.532,
+    "unmetered_upper_usd": 0.00033923,
+    "waited_s": 0
+  },
+  "family": "design_decision",
+  "grade": {
+    "actual": "WARN",
+    "correct": false,
+    "evidence": [
+      "github:api:apache/kafka:pr-21522-opened",
+      "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86pLPJA"
+    ],
+    "expected": "INFO"
+  },
+  "image_id": "sha256:4615b2564319d58319029548af66970c954e128401ee89c8705684861de4bc07",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "9c351b4efe69c7c7abfa7ea3baee804ea48291c439a85f425cd48753edd4629f",
+  "run_index": 59,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-ae3c3045c4",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 60053,
+    "cost_usd": 0.018632299999999997,
+    "input_tokens": 64660,
+    "output_tokens": 688
+  },
+  "violations": []
+}

@@ -1,0 +1,56 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "prs/21842-shared-reaper-thread.md",
+      "issues/kafka-19937-reaper-thread-persister.md",
+      "issues/kafka-19937-timer-reaper-fix.md",
+      "WINDOW-81-SUMMARY.md"
+    ],
+    "value": "null"
+  },
+  "arm": "F4-fact-search",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 189.30796899300185,
+  "family": "review_hotspot",
+  "grade": {
+    "actual": "null",
+    "correct": false,
+    "evidence": [
+      "prs/21842-shared-reaper-thread.md",
+      "issues/kafka-19937-reaper-thread-persister.md",
+      "issues/kafka-19937-timer-reaper-fix.md",
+      "WINDOW-81-SUMMARY.md"
+    ],
+    "expected": "server-common/src/main/java/org/apache/kafka/server/util/timer/SystemTimerReaper.java"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 25,
+  "prompt_sha256": "f6cf721bf1b74adb72e6bd47620d9c050d5fa0e69a053234225525479fb8ac63",
+  "run_index": 39,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-review_hotspot-a93e7da04e",
+  "tool_calls": {
+    "StructuredOutput": 2,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 20
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 1266229,
+    "cost_usd": 0.29128390000000004,
+    "input_tokens": 1336087,
+    "output_tokens": 5030
+  },
+  "violations": []
+}

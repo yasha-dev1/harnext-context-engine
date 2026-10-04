@@ -1,0 +1,47 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [],
+    "value": null
+  },
+  "arm": "F6-search",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 520.868637328007,
+  "family": "design_decision",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [],
+    "expected": "yes, retries target a different broker"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 58,
+  "prompt_sha256": "56baad5901031a20c722428fa9c03eca5ca407917bfa479252a6c66207033705",
+  "run_index": 73,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-9ea8cbeccb",
+  "tool_calls": {
+    "Agent": 4,
+    "StructuredOutput": 1,
+    "ToolSearch": 4,
+    "mcp__history__context_research": 8,
+    "mcp__history__search_context": 45
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 112400,
+    "cost_usd": 0.40629464999999987,
+    "input_tokens": 116451,
+    "output_tokens": 1759
+  },
+  "violations": []
+}

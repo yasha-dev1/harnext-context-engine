@@ -1,0 +1,3 @@
+{
+  "summary": "Successfully implemented KAFKA-20444: Align TxnOffsetCommit API with OffsetCommit API (KIP-1319). Added `awaitTopicMetadata()` method to KafkaProducer that ensures fresh metadata for topics before sending transaction offset commits, enabling the use of TxnOffsetCommit v6+ with topic IDs when available. All 100 tests now pass."
+}

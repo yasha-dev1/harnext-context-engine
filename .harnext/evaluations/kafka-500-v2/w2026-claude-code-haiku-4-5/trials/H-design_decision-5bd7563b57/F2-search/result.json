@@ -1,0 +1,50 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "kips/KIP-1282/2026-04-02-discuss-partition-expansion-35455401.md"
+    ],
+    "value": "GroupCreationTimeUnknownException"
+  },
+  "arm": "F2-search",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 114.2398712340073,
+  "family": "design_decision",
+  "grade": {
+    "actual": "GroupCreationTimeUnknownException",
+    "correct": true,
+    "evidence": [
+      "kips/KIP-1282/2026-04-02-discuss-partition-expansion-35455401.md"
+    ],
+    "expected": "GroupCreationTimeUnknownException"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 4,
+  "prompt_sha256": "bdf564cadeab292048cd986f9016c7cc42a654791b8287d8c17f91b0f7696dcb",
+  "run_index": 65,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-5bd7563b57",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 83405,
+    "cost_usd": 0.0331845,
+    "input_tokens": 93187,
+    "output_tokens": 1063
+  },
+  "violations": []
+}

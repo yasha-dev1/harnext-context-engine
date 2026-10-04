@@ -1,0 +1,50 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "Unable to determine - context store contains only metadata for KIP-1312 (OVERVIEW.md, timeline.md) but not the actual discussion content or specification details needed to find the specific error code name. The KIP, issue KAFKA-20395, thread entities, and PR #22191 are referenced but their content details are not available in the searchable context."
+    ],
+    "value": null
+  },
+  "arm": "F1-search",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 207.81007578900608,
+  "family": "design_decision",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "Unable to determine - context store contains only metadata for KIP-1312 (OVERVIEW.md, timeline.md) but not the actual discussion content or specification details needed to find the specific error code name. The KIP, issue KAFKA-20395, thread entities, and PR #22191 are referenced but their content details are not available in the searchable context."
+    ],
+    "expected": "CONTROLER_ID_NOT_REGISTERED"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 14,
+  "prompt_sha256": "0f5c9c4e40ba7212dce9ab88320c6d559672b20fc32e26fd75c03f155074eea9",
+  "run_index": 69,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-430f454dd8",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 2,
+    "mcp__history__search_context": 10
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 558962,
+    "cost_usd": 0.1635312,
+    "input_tokens": 606362,
+    "output_tokens": 2590
+  },
+  "violations": []
+}

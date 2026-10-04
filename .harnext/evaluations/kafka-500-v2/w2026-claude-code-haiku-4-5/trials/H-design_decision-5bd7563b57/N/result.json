@@ -1,0 +1,47 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "Cannot determine - knowledge cutoff is February 2025 (before April 2026), no project files available, no network access"
+    ],
+    "value": null
+  },
+  "arm": "N",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 10.418109758000355,
+  "family": "design_decision",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "Cannot determine - knowledge cutoff is February 2025 (before April 2026), no project files available, no network access"
+    ],
+    "expected": "GroupCreationTimeUnknownException"
+  },
+  "instructions_sha256": null,
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 1,
+  "prompt_sha256": "6e158223fef458352002a166ddc2a762164b0b1154bdab53f128eb743098fe4e",
+  "run_index": 65,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-5bd7563b57",
+  "tool_calls": {
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 17497,
+    "cost_usd": 0.0122827,
+    "input_tokens": 20648,
+    "output_tokens": 848
+  },
+  "violations": []
+}

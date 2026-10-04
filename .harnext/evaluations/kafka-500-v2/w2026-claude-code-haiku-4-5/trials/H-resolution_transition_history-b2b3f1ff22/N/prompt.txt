@@ -1,0 +1,9 @@
+Context snapshot cutoff (inclusive): 2026-04-30T23:59:59Z.
+
+List every recorded resolution change for KAFKA-20255 through the snapshot in chronological order. Return an array of objects with at, from, and to. Give `at` as the recorded UTC timestamp with microseconds (e.g. 2023-03-14T20:05:37.287000Z). Preserve null values and repeated states; break equal-time ties by numeric changelog history ID and item index.
+
+Return JSON {"value": <answer>, "evidence": [<ids or file paths of the sources you relied on>]}. Answer as of the cutoff; do not substitute a later or today's issue state.
+
+No project-history context is provided for this task. Work from the task statement and your own knowledge; there is no network access.
+
+Reply with one JSON object {"value": ..., "evidence": [...]}: `value` is the answer in the requested type (null if it cannot be determined), `evidence` lists the sources you relied on.

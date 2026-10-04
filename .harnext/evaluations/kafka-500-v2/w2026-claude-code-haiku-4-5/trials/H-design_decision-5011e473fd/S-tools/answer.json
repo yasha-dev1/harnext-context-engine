@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "dev@kafka.apache.org thread [DISCUSS] KIP-1163: Diskless Core - Jun Rao message 2026-05-12 section JR11 (id: 620fcc0982fad00dc9a0bd54)",
+    "dev@kafka.apache.org thread [DISCUSS] KIP-1163: Diskless Core - Satish Duggana message 2026-05-13 with explicit +1 support (id: 51a25dcd9861c2e258ab8f04)"
+  ],
+  "value": "build a new metadata component independent of RLMM"
+}

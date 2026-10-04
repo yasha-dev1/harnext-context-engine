@@ -1,0 +1,42 @@
+{
+  "evidence": [
+    "entities/issue/KAFKA-20134/OVERVIEW.md",
+    "entities/pr/21465/OVERVIEW.md",
+    "entities/pr/21474/OVERVIEW.md",
+    "entities/pr/21478/OVERVIEW.md",
+    "entities/pr/21486/OVERVIEW.md",
+    "entities/pr/21493/OVERVIEW.md",
+    "entities/pr/21497/OVERVIEW.md",
+    "entities/pr/21581/OVERVIEW.md"
+  ],
+  "value": [
+    {
+      "pr": 21465,
+      "state": "merged"
+    },
+    {
+      "pr": 21474,
+      "state": "closed"
+    },
+    {
+      "pr": 21478,
+      "state": "merged"
+    },
+    {
+      "pr": 21486,
+      "state": "merged"
+    },
+    {
+      "pr": 21493,
+      "state": "merged"
+    },
+    {
+      "pr": 21497,
+      "state": "open"
+    },
+    {
+      "pr": 21581,
+      "state": "open"
+    }
+  ]
+}

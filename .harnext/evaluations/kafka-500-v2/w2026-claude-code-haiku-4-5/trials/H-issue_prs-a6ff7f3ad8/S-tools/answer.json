@@ -1,0 +1,17 @@
+{
+  "evidence": [
+    "jira issue view KAFKA-20440 (shows pull requests #22041, #22182)",
+    "gh pr view 22041 (state: OPEN, createdAt: 2026-04-13T21:10:29Z, mergedAt: null, closedAt: null)",
+    "gh pr view 22182 (state: OPEN, createdAt: 2026-04-29T07:48:48Z, mergedAt: null, closedAt: null)"
+  ],
+  "value": [
+    {
+      "pr": 22041,
+      "state": "open"
+    },
+    {
+      "pr": 22182,
+      "state": "open"
+    }
+  ]
+}

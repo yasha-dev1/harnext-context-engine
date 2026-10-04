@@ -1,0 +1,53 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail:db399df8a2e4d63cd49faeb4#0",
+      "mail:0f2639ff8155c501d54c3ee4#1",
+      "mail:0261f4d39d4805d180071daa#2"
+    ],
+    "value": "always report regardless of state"
+  },
+  "arm": "R-hyb",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 47.377694284004974,
+  "family": "design_decision",
+  "grade": {
+    "actual": "always report regardless of state",
+    "correct": true,
+    "evidence": [
+      "mail:db399df8a2e4d63cd49faeb4#0",
+      "mail:0f2639ff8155c501d54c3ee4#1",
+      "mail:0261f4d39d4805d180071daa#2"
+    ],
+    "expected": "always report regardless of state"
+  },
+  "instructions_sha256": "dfaa5b284d06c378ef7e4c08b53dc77835c91d7591fca0335bbfa33d3e53eb37",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 5,
+  "prompt_sha256": "05b68c839e4ca8e7e45cce59cbdcf259788442918a7d0ca3c22553904ea16b96",
+  "run_index": 71,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-7169fd1b2b",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__search": 3
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 118960,
+    "cost_usd": 0.059026,
+    "input_tokens": 137924,
+    "output_tokens": 1849
+  },
+  "violations": []
+}

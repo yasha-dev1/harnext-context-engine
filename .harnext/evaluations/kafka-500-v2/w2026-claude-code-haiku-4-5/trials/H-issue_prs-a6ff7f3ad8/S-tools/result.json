@@ -1,0 +1,82 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "jira issue view KAFKA-20440 (shows pull requests #22041, #22182)",
+      "gh pr view 22041 (state: OPEN, createdAt: 2026-04-13T21:10:29Z, mergedAt: null, closedAt: null)",
+      "gh pr view 22182 (state: OPEN, createdAt: 2026-04-29T07:48:48Z, mergedAt: null, closedAt: null)"
+    ],
+    "value": [
+      {
+        "pr": 22041,
+        "state": "open"
+      },
+      {
+        "pr": 22182,
+        "state": "open"
+      }
+    ]
+  },
+  "arm": "S-tools",
+  "checkpoint": "2026-04",
+  "cli_calls": {
+    "gh": 3,
+    "jira": 1
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 32.748274479999964,
+  "family": "issue_prs",
+  "grade": {
+    "actual": [
+      {
+        "pr": 22041,
+        "state": "open"
+      },
+      {
+        "pr": 22182,
+        "state": "open"
+      }
+    ],
+    "correct": true,
+    "evidence": [
+      "jira issue view KAFKA-20440 (shows pull requests #22041, #22182)",
+      "gh pr view 22041 (state: OPEN, createdAt: 2026-04-13T21:10:29Z, mergedAt: null, closedAt: null)",
+      "gh pr view 22182 (state: OPEN, createdAt: 2026-04-29T07:48:48Z, mergedAt: null, closedAt: null)"
+    ],
+    "expected": [
+      {
+        "pr": 22041,
+        "state": "open"
+      },
+      {
+        "pr": 22182,
+        "state": "open"
+      }
+    ]
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "a98e31d74097d4a32586f9f06257af12d641418ea37f587700e0dc2c7802b5e0",
+  "run_index": 61,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-issue_prs-a6ff7f3ad8",
+  "tool_calls": {
+    "Bash": 5,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 60207,
+    "cost_usd": 0.0228157,
+    "input_tokens": 65402,
+    "output_tokens": 1286
+  },
+  "violations": []
+}

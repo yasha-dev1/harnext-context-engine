@@ -1,0 +1,53 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "events/2026/02/20/mail-59c5fd3092adaf090832eeba-08518722.md (Lucas Brutschy's suggestion)",
+      "events/2026/02/20/mail-d0ea5a94789da80c21eb21d1-6f0bfda8.md (Arpit Goyal's acceptance)",
+      "events/2026/02/22/mail-29c82027835a2e9497c104ed-e7a8ec27.md (Matthias J. Sax confirmation)"
+    ],
+    "value": "processing.exception.handler.global.enabled"
+  },
+  "arm": "F0-search",
+  "checkpoint": "2026-02",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 37.82570554599806,
+  "family": "design_decision",
+  "grade": {
+    "actual": "processing.exception.handler.global.enabled",
+    "correct": true,
+    "evidence": [
+      "events/2026/02/20/mail-59c5fd3092adaf090832eeba-08518722.md (Lucas Brutschy's suggestion)",
+      "events/2026/02/20/mail-d0ea5a94789da80c21eb21d1-6f0bfda8.md (Arpit Goyal's acceptance)",
+      "events/2026/02/22/mail-29c82027835a2e9497c104ed-e7a8ec27.md (Matthias J. Sax confirmation)"
+    ],
+    "expected": "processing.exception.handler.global.enabled"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "38654c37e63bcd86d7d3991bf450c9a65629501d995a4c7ea9932cdc5c2580dd",
+  "run_index": 52,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-7a87d914a1",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 64158,
+    "cost_usd": 0.0133408,
+    "input_tokens": 65669,
+    "output_tokens": 786
+  },
+  "violations": []
+}

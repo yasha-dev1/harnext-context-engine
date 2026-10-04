@@ -1,0 +1,11 @@
+{
+  "evidence": [
+    "window-70-summary.md: PR #21780 KAFKA-20317 merge details",
+    "pull-requests.md: PR #21780 KAFKA-20317 metadata",
+    "jira-issues.md: KAFKA-20317 issue status",
+    "Merge commit a6fd96c36f1cb24df44b739cbad9fd240d56d353 (2026-03-18T23:37:18Z)"
+  ],
+  "value": [
+    "Unable to determine - the context history records 17 files were changed by PR #21780 (merged 2026-03-18) for KAFKA-20317, but does not store the complete repository-relative file path listing for those files."
+  ]
+}

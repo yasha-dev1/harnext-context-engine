@@ -1,0 +1,10 @@
+{
+  "evidence": [
+    "mail message 1b0d288656e30ec27f44de4f (2026-03-03) - Kevin Wu's detailed explanation of keeping cluster ID as String type",
+    "mail message e6baebf7893a296ce25659df (2026-03-04) - KIP-1262 vote call",
+    "mail message b537315c702a3bf1c99a0711 (2026-03-05) - Jun Rao approval (+1)",
+    "mail message 8af79c876aaf760bcd042da4 (2026-03-16) - Luke Chen approval (+1)",
+    "mail message 4b8f97cc14a703b93ee5c0e4 (2026-03-19) - Final approval confirmation by Kevin Wu"
+  ],
+  "value": "String"
+}

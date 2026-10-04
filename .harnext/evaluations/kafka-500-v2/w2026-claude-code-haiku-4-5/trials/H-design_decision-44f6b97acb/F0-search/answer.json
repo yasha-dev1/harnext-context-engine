@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "events/2026/02/23/github-api-apache-kafka-pr-21555-opened-92a8cbec.md",
+    "events/2026/02/24/github-api-apache-kafka-review-comment-PRRC_kwDOACG9q86plOY3-bf4ab17a.md",
+    "events/2026/03/01/mail-4f7fd3d7ae5bfb5b7fd2a661-eccd0f4d.md"
+  ],
+  "value": "group.coordinator.background.threads"
+}

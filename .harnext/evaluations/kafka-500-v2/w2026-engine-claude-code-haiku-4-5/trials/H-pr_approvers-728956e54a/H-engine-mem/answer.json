@@ -1,0 +1,11 @@
+{
+  "evidence": [
+    "github:api:apache/kafka:pr-21866-opened",
+    "github:api:apache/kafka:review-PRR_kwDOACG9q87ut0NT",
+    "github:api:apache/kafka:review-PRR_kwDOACG9q87wkbjc"
+  ],
+  "value": [
+    "AndrewJSchofield",
+    "showuon"
+  ]
+}

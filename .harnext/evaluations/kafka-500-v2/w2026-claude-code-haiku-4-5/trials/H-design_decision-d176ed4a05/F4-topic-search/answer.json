@@ -1,0 +1,9 @@
+{
+  "evidence": [
+    "KAFKA-20621: Extends StreamsGroup model with StoredTopologyEpoch and LastFailedTopologyEpoch fields",
+    "PR #22393/22413: Per-group StoredTopologyEpoch and LastFailedTopologyEpoch persisted on StreamsGroupMetadataValue",
+    "PR #22397: Wire-format implementation includes TopologyEpoch in StreamsGroupTopologyDescriptionUpdate schema but no separate TopologyDescriptionId UUID",
+    "KIP-1331 discussion: Final design summary emphasizes StoredTopologyEpoch as the state tracking mechanism with no mention of broker-generated UUID identifier"
+  ],
+  "value": "removed entirely, identified by topologyEpoch and group creation timestamp instead"
+}

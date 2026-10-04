@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "mail:4f7fd3d7ae5bfb5b7fd2a661 (2026-03-01 announcement by Sean Quah)",
+    "github:api:apache/kafka:pr-21555-opened (2026-02-23 PR title)",
+    "github:api:apache/kafka:pr-21555-merged (2026-03-03 PR merge confirmation)"
+  ],
+  "value": "group.coordinator.background.threads"
+}

@@ -1,0 +1,60 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "jira-issues.md",
+      "window-51-summary.md",
+      "context_research — confirmed blocking relationship details not comprehensively documented in context filesystem"
+    ],
+    "value": [
+      "null"
+    ]
+  },
+  "arm": "F6-search",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 216.1619976850052,
+  "family": "issue_links",
+  "grade": {
+    "actual": [
+      "null"
+    ],
+    "correct": false,
+    "evidence": [
+      "jira-issues.md",
+      "window-51-summary.md",
+      "context_research — confirmed blocking relationship details not comprehensively documented in context filesystem"
+    ],
+    "expected": [
+      "KAFKA-20282"
+    ]
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 20,
+  "prompt_sha256": "5283ee97835b8ed4c068fb16acf62dd00e417f140808ca0c9efbb352355ab5a3",
+  "run_index": 13,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-issue_links-ee77a538ef",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 2,
+    "mcp__history__search_context": 15
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 839785,
+    "cost_usd": 0.19603450000000003,
+    "input_tokens": 887098,
+    "output_tokens": 3519
+  },
+  "violations": []
+}

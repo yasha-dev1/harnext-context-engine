@@ -1,0 +1,49 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "issues/kafka-20231-rack-aware-minimum-isr.md"
+    ],
+    "value": "KAFKA-20231"
+  },
+  "arm": "F4-fact-search",
+  "checkpoint": "2026-02",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 21.873503224996966,
+  "family": "implicit_link",
+  "grade": {
+    "actual": "KAFKA-20231",
+    "correct": true,
+    "evidence": [
+      "issues/kafka-20231-rack-aware-minimum-isr.md"
+    ],
+    "expected": "KAFKA-20231"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "6f1bfedf52fa6d77343d8a308b9f8d78ad31963506c70bb164219039c98468f9",
+  "run_index": 77,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-implicit_link-9c29b4facc",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 64165,
+    "cost_usd": 0.0121245,
+    "input_tokens": 65355,
+    "output_tokens": 671
+  },
+  "violations": []
+}

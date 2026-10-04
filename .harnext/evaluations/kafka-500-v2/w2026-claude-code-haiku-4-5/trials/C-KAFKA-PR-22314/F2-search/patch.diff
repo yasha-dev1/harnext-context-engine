@@ -1,0 +1,545 @@
+diff --git a/streams/src/main/java/org/apache/kafka/streams/state/internals/CachingKeyValueStore.java b/streams/src/main/java/org/apache/kafka/streams/state/internals/CachingKeyValueStore.java
+index 8ef68e0d06c129cb5cf441b674ee654b1610bc51..2dd86c99dd5c20a01d50171bb5f8913a89dcc73c 100644
+--- a/streams/src/main/java/org/apache/kafka/streams/state/internals/CachingKeyValueStore.java
++++ b/streams/src/main/java/org/apache/kafka/streams/state/internals/CachingKeyValueStore.java
+@@ -16,6 +16,7 @@
+  */
+ package org.apache.kafka.streams.state.internals;
+ 
++import org.apache.kafka.common.IsolationLevel;
+ import org.apache.kafka.common.TopicPartition;
+ import org.apache.kafka.common.serialization.Serializer;
+ import org.apache.kafka.common.utils.Bytes;
+@@ -35,6 +36,7 @@ import org.apache.kafka.streams.query.QueryConfig;
+ import org.apache.kafka.streams.query.QueryResult;
+ import org.apache.kafka.streams.state.KeyValueIterator;
+ import org.apache.kafka.streams.state.KeyValueStore;
++import org.apache.kafka.streams.state.ReadOnlyKeyValueStore;
+ 
+ import org.slf4j.Logger;
+ import org.slf4j.LoggerFactory;
+@@ -489,6 +491,16 @@ public class CachingKeyValueStore
+         }
+     }
+ 
++    @Override
++    public ReadOnlyKeyValueStore<Bytes, byte[]> readOnly(final IsolationLevel isolationLevel) {
++        Objects.requireNonNull(isolationLevel, "isolationLevel");
++        if (isolationLevel == IsolationLevel.READ_COMMITTED) {
++            return wrapped().readOnly(isolationLevel);
++        } else {
++            return this;
++        }
++    }
++
+     @Override
+     public void close() {
+         lock.writeLock().lock();
+diff --git a/streams/src/main/java/org/apache/kafka/streams/state/internals/CachingWindowStore.java b/streams/src/main/java/org/apache/kafka/streams/state/internals/CachingWindowStore.java
+index 5d68349eeb1560106437f6022da9e7585cfc8937..cdc32621f0fbfe2fa025b17ac9a81797a31a9db4 100644
+--- a/streams/src/main/java/org/apache/kafka/streams/state/internals/CachingWindowStore.java
++++ b/streams/src/main/java/org/apache/kafka/streams/state/internals/CachingWindowStore.java
+@@ -16,10 +16,12 @@
+  */
+ package org.apache.kafka.streams.state.internals;
+ 
++import org.apache.kafka.common.IsolationLevel;
+ import org.apache.kafka.common.TopicPartition;
+ import org.apache.kafka.common.serialization.Serdes;
+ import org.apache.kafka.common.utils.Bytes;
+ import org.apache.kafka.streams.KeyValue;
++import org.apache.kafka.streams.internals.ApiUtils;
+ import org.apache.kafka.streams.kstream.Windowed;
+ import org.apache.kafka.streams.kstream.internals.Change;
+ import org.apache.kafka.streams.processor.StateStore;
+@@ -30,6 +32,7 @@ import org.apache.kafka.streams.processor.internals.ProcessorContextUtils;
+ import org.apache.kafka.streams.processor.internals.ProcessorRecordContext;
+ import org.apache.kafka.streams.processor.internals.RecordQueue;
+ import org.apache.kafka.streams.state.KeyValueIterator;
++import org.apache.kafka.streams.state.ReadOnlyWindowStore;
+ import org.apache.kafka.streams.state.StateSerdes;
+ import org.apache.kafka.streams.state.WindowStore;
+ import org.apache.kafka.streams.state.WindowStoreIterator;
+@@ -37,11 +40,14 @@ import org.apache.kafka.streams.state.WindowStoreIterator;
+ import org.slf4j.Logger;
+ import org.slf4j.LoggerFactory;
+ 
++import java.time.Instant;
+ import java.util.LinkedList;
+ import java.util.Map;
+ import java.util.NoSuchElementException;
++import java.util.Objects;
+ import java.util.concurrent.atomic.AtomicLong;
+ 
++import static org.apache.kafka.streams.internals.ApiUtils.prepareMillisCheckFailMsgPrefix;
+ import static org.apache.kafka.streams.processor.internals.ProcessorContextUtils.asInternalProcessorContext;
+ import static org.apache.kafka.streams.state.internals.ExceptionUtils.executeAll;
+ import static org.apache.kafka.streams.state.internals.ExceptionUtils.throwSuppressed;
+@@ -294,7 +300,8 @@ public class CachingWindowStore
+                                                                    final long timeTo) {
+         if (keyFrom != null && keyTo != null && keyFrom.compareTo(keyTo) > 0) {
+             LOG.warn("Returning empty iterator for fetch with invalid key range: from > to. "
+-                + "This may be due to serdes that don't preserve ordering when lexicographically comparing the serialized bytes. " +
++                + "This may be due to range arguments set in the wrong order, "
++                + "or serdes that don't preserve ordering when lexicographically comparing the serialized bytes. " +
+                 "Note that the built-in numerical serdes do not follow this for negative numbers");
+             return KeyValueIterators.emptyIterator();
+         }
+@@ -424,6 +431,12 @@ public class CachingWindowStore
+         internalContext.cache().clear(cacheName);
+     }
+ 
++    @Override
++    public ReadOnlyWindowStore<Bytes, byte[]> readOnly(final IsolationLevel isolationLevel) {
++        Objects.requireNonNull(isolationLevel, "isolationLevel");
++        return new CachingWindowStoreReadOnlyView(isolationLevel);
++    }
++
+     @Override
+     public synchronized void close() {
+         final LinkedList<RuntimeException> suppressed = executeAll(
+@@ -438,6 +451,141 @@ public class CachingWindowStore
+     }
+ 
+ 
++    private class CachingWindowStoreReadOnlyView implements ReadOnlyWindowStore<Bytes, byte[]> {
++
++        private final IsolationLevel isolationLevel;
++
++        CachingWindowStoreReadOnlyView(final IsolationLevel isolationLevel) {
++            this.isolationLevel = isolationLevel;
++        }
++
++        @Override
++        public byte[] fetch(final Bytes key, final long time) {
++            validateStoreOpen();
++            if (isolationLevel == IsolationLevel.READ_COMMITTED) {
++                return wrapped().fetch(key, time);
++            } else {
++                return CachingWindowStore.this.fetch(key, time);
++            }
++        }
++
++        @Override
++        public WindowStoreIterator<byte[]> fetch(final Bytes key, final Instant timeFrom, final Instant timeTo)
++            throws IllegalArgumentException {
++            validateStoreOpen();
++            Objects.requireNonNull(timeFrom, "timeFrom");
++            Objects.requireNonNull(timeTo, "timeTo");
++
++            final long from = ApiUtils.validateMillisecondInstant(timeFrom, prepareMillisCheckFailMsgPrefix(timeFrom, "timeFrom"));
++            final long to = ApiUtils.validateMillisecondInstant(timeTo, prepareMillisCheckFailMsgPrefix(timeTo, "timeTo"));
++
++            if (isolationLevel == IsolationLevel.READ_COMMITTED) {
++                return wrapped().fetch(key, from, to);
++            } else {
++                return CachingWindowStore.this.fetch(key, from, to);
++            }
++        }
++
++        @Override
++        public WindowStoreIterator<byte[]> backwardFetch(final Bytes key, final Instant timeFrom, final Instant timeTo)
++            throws IllegalArgumentException {
++            validateStoreOpen();
++            Objects.requireNonNull(timeFrom, "timeFrom");
++            Objects.requireNonNull(timeTo, "timeTo");
++
++            final long from = ApiUtils.validateMillisecondInstant(timeFrom, prepareMillisCheckFailMsgPrefix(timeFrom, "timeFrom"));
++            final long to = ApiUtils.validateMillisecondInstant(timeTo, prepareMillisCheckFailMsgPrefix(timeTo, "timeTo"));
++
++            if (isolationLevel == IsolationLevel.READ_COMMITTED) {
++                return wrapped().backwardFetch(key, from, to);
++            } else {
++                return CachingWindowStore.this.backwardFetch(key, from, to);
++            }
++        }
++
++        @Override
++        public KeyValueIterator<Windowed<Bytes>, byte[]> fetch(final Bytes keyFrom, final Bytes keyTo,
++                                                               final Instant timeFrom, final Instant timeTo)
++            throws IllegalArgumentException {
++            validateStoreOpen();
++
++            final long from = ApiUtils.validateMillisecondInstant(timeFrom, prepareMillisCheckFailMsgPrefix(timeFrom, "timeFrom"));
++            final long to = ApiUtils.validateMillisecondInstant(timeTo, prepareMillisCheckFailMsgPrefix(timeTo, "timeTo"));
++
++            if (isolationLevel == IsolationLevel.READ_COMMITTED) {
++                return wrapped().fetch(keyFrom, keyTo, from, to);
++            } else {
++                return CachingWindowStore.this.fetch(keyFrom, keyTo, from, to);
++            }
++        }
++
++        @Override
++        public KeyValueIterator<Windowed<Bytes>, byte[]> backwardFetch(final Bytes keyFrom, final Bytes keyTo,
++                                                                       final Instant timeFrom, final Instant timeTo)
++            throws IllegalArgumentException {
++            validateStoreOpen();
++
++            final long from = ApiUtils.validateMillisecondInstant(timeFrom, prepareMillisCheckFailMsgPrefix(timeFrom, "timeFrom"));
++            final long to = ApiUtils.validateMillisecondInstant(timeTo, prepareMillisCheckFailMsgPrefix(timeTo, "timeTo"));
++
++            if (isolationLevel == IsolationLevel.READ_COMMITTED) {
++                return wrapped().backwardFetch(keyFrom, keyTo, from, to);
++            } else {
++                return CachingWindowStore.this.backwardFetch(keyFrom, keyTo, from, to);
++            }
++        }
++
++        @Override
++        public KeyValueIterator<Windowed<Bytes>, byte[]> all() {
++            validateStoreOpen();
++            if (isolationLevel == IsolationLevel.READ_COMMITTED) {
++                return wrapped().all();
++            } else {
++                return CachingWindowStore.this.all();
++            }
++        }
++
++        @Override
++        public KeyValueIterator<Windowed<Bytes>, byte[]> backwardAll() {
++            validateStoreOpen();
++            if (isolationLevel == IsolationLevel.READ_COMMITTED) {
++                return wrapped().backwardAll();
++            } else {
++                return CachingWindowStore.this.backwardAll();
++            }
++        }
++
++        @Override
++        public KeyValueIterator<Windowed<Bytes>, byte[]> fetchAll(final Instant timeFrom, final Instant timeTo)
++            throws IllegalArgumentException {
++            validateStoreOpen();
++
++            final long from = ApiUtils.validateMillisecondInstant(timeFrom, prepareMillisCheckFailMsgPrefix(timeFrom, "timeFrom"));
++            final long to = ApiUtils.validateMillisecondInstant(timeTo, prepareMillisCheckFailMsgPrefix(timeTo, "timeTo"));
++
++            if (isolationLevel == IsolationLevel.READ_COMMITTED) {
++                return wrapped().fetchAll(from, to);
++            } else {
++                return CachingWindowStore.this.fetchAll(from, to);
++            }
++        }
++
++        @Override
++        public KeyValueIterator<Windowed<Bytes>, byte[]> backwardFetchAll(final Instant timeFrom, final Instant timeTo)
++            throws IllegalArgumentException {
++            validateStoreOpen();
++
++            final long from = ApiUtils.validateMillisecondInstant(timeFrom, prepareMillisCheckFailMsgPrefix(timeFrom, "timeFrom"));
++            final long to = ApiUtils.validateMillisecondInstant(timeTo, prepareMillisCheckFailMsgPrefix(timeTo, "timeTo"));
++
++            if (isolationLevel == IsolationLevel.READ_COMMITTED) {
++                return wrapped().backwardFetchAll(from, to);
++            } else {
++                return CachingWindowStore.this.backwardFetchAll(from, to);
++            }
++        }
++    }
++
+     private class CacheIteratorWrapper implements PeekingKeyValueIterator<Bytes, LRUCacheEntry> {
+ 
+         private final long segmentInterval;
+diff --git a/streams/src/main/java/org/apache/kafka/streams/state/internals/MeteredKeyValueStore.java b/streams/src/main/java/org/apache/kafka/streams/state/internals/MeteredKeyValueStore.java
+index 673f887779ce64cfe89e14f46c3a17685a8450d2..1995bd813dc00b0a8aedcf9a830fcbcf41aa0a26 100644
+--- a/streams/src/main/java/org/apache/kafka/streams/state/internals/MeteredKeyValueStore.java
++++ b/streams/src/main/java/org/apache/kafka/streams/state/internals/MeteredKeyValueStore.java
+@@ -16,6 +16,7 @@
+  */
+ package org.apache.kafka.streams.state.internals;
+ 
++import org.apache.kafka.common.IsolationLevel;
+ import org.apache.kafka.common.TopicPartition;
+ import org.apache.kafka.common.metrics.Sensor;
+ import org.apache.kafka.common.serialization.Serde;
+@@ -44,6 +45,7 @@ import org.apache.kafka.streams.query.ResultOrder;
+ import org.apache.kafka.streams.query.internals.InternalQueryResultUtil;
+ import org.apache.kafka.streams.state.KeyValueIterator;
+ import org.apache.kafka.streams.state.KeyValueStore;
++import org.apache.kafka.streams.state.ReadOnlyKeyValueStore;
+ import org.apache.kafka.streams.state.StateSerdes;
+ import org.apache.kafka.streams.state.internals.StoreQueryUtils.QueryHandler;
+ import org.apache.kafka.streams.state.internals.metrics.StateStoreMetrics;
+@@ -433,6 +435,12 @@ public class MeteredKeyValueStore<K, V>
+         return wrapped().approximateNumEntries();
+     }
+ 
++    @Override
++    public ReadOnlyKeyValueStore<K, V> readOnly(final IsolationLevel isolationLevel) {
++        Objects.requireNonNull(isolationLevel, "isolationLevel cannot be null");
++        return new ReadOnlyView(wrapped().readOnly(isolationLevel));
++    }
++
+     @Override
+     public void close() {
+         try {
+@@ -474,6 +482,61 @@ public class MeteredKeyValueStore<K, V>
+         }
+     }
+ 
++    private class ReadOnlyView implements ReadOnlyKeyValueStore<K, V> {
++
++        private final ReadOnlyKeyValueStore<Bytes, byte[]> underlying;
++
++        ReadOnlyView(final ReadOnlyKeyValueStore<Bytes, byte[]> underlying) {
++            this.underlying = underlying;
++        }
++
++        @Override
++        public V get(final K key) {
++            Objects.requireNonNull(key, "key cannot be null");
++            return maybeMeasureLatency(
++                () -> deserializeValue(underlying.get(serializeKey(key))),
++                time,
++                getSensor
++            );
++        }
++
++        @Override
++        public KeyValueIterator<K, V> range(final K from, final K to) {
++            return new MeteredKeyValueStoreIterator(
++                underlying.range(from == null ? null : serializeKey(from), to == null ? null : serializeKey(to)),
++                iteratorDurationSensor
++            );
++        }
++
++        @Override
++        public KeyValueIterator<K, V> reverseRange(final K from, final K to) {
++            return new MeteredKeyValueStoreIterator(
++                underlying.reverseRange(from == null ? null : serializeKey(from), to == null ? null : serializeKey(to)),
++                iteratorDurationSensor
++            );
++        }
++
++        @Override
++        public KeyValueIterator<K, V> all() {
++            return new MeteredKeyValueStoreIterator(underlying.all(), iteratorDurationSensor);
++        }
++
++        @Override
++        public KeyValueIterator<K, V> reverseAll() {
++            return new MeteredKeyValueStoreIterator(underlying.reverseAll(), iteratorDurationSensor);
++        }
++
++        @Override
++        public <PS extends Serializer<P>, P> KeyValueIterator<K, V> prefixScan(final P prefix, final PS prefixKeySerializer) {
++            return new MeteredKeyValueStoreIterator(underlying.prefixScan(prefix, prefixKeySerializer), iteratorDurationSensor);
++        }
++
++        @Override
++        public long approximateNumEntries() {
++            return underlying.approximateNumEntries();
++        }
++    }
++
+     private class MeteredKeyValueStoreIterator implements KeyValueIterator<K, V>, MeteredIterator {
+ 
+         private final KeyValueIterator<Bytes, byte[]> iter;
+diff --git a/streams/src/test/java/org/apache/kafka/streams/state/internals/CachingPersistentWindowStoreTest.java b/streams/src/test/java/org/apache/kafka/streams/state/internals/CachingPersistentWindowStoreTest.java
+index 4d0bb1bc44449dbb044c2f9056b798855347f8e2..aa643a7b78e1437bb770226bf2cfbb99b52b1bfd 100644
+--- a/streams/src/test/java/org/apache/kafka/streams/state/internals/CachingPersistentWindowStoreTest.java
++++ b/streams/src/test/java/org/apache/kafka/streams/state/internals/CachingPersistentWindowStoreTest.java
+@@ -17,6 +17,7 @@
+ package org.apache.kafka.streams.state.internals;
+ 
+ import org.apache.kafka.clients.consumer.ConsumerConfig;
++import org.apache.kafka.common.IsolationLevel;
+ import org.apache.kafka.common.header.internals.RecordHeaders;
+ import org.apache.kafka.common.metrics.Metrics;
+ import org.apache.kafka.common.serialization.IntegerSerializer;
+@@ -43,6 +44,7 @@ import org.apache.kafka.streams.processor.internals.MockStreamsMetrics;
+ import org.apache.kafka.streams.processor.internals.ProcessorRecordContext;
+ import org.apache.kafka.streams.query.Position;
+ import org.apache.kafka.streams.state.KeyValueIterator;
++import org.apache.kafka.streams.state.ReadOnlyWindowStore;
+ import org.apache.kafka.streams.state.StoreBuilder;
+ import org.apache.kafka.streams.state.Stores;
+ import org.apache.kafka.streams.state.WindowStore;
+@@ -1031,7 +1033,8 @@ public class CachingPersistentWindowStoreTest {
+             assertThat(
+                 messages,
+                 hasItem("Returning empty iterator for fetch with invalid key range: from > to." +
+-                    " This may be due to serdes that don't preserve ordering when lexicographically comparing the serialized bytes." +
++                    " This may be due to range arguments set in the wrong order, " +
++                    "or serdes that don't preserve ordering when lexicographically comparing the serialized bytes." +
+                     " Note that the built-in numerical serdes do not follow this for negative numbers")
+             );
+         }
+@@ -1070,6 +1073,177 @@ public class CachingPersistentWindowStoreTest {
+         inOrder.verify(cache).close(CACHE_NAMESPACE);
+     }
+ 
++    @Test
++    public void shouldReadCommittedBypassesCache() {
++        cachingStore.put(bytesKey("a"), bytesValue("a"), DEFAULT_TIMESTAMP);
++
++        // cache-only entry invisible under READ_COMMITTED
++        try (final WindowStoreIterator<byte[]> it =
++                 cachingStore.readOnly(IsolationLevel.READ_COMMITTED)
++                     .fetch(bytesKey("a"), ofEpochMilli(DEFAULT_TIMESTAMP), ofEpochMilli(DEFAULT_TIMESTAMP))) {
++            assertFalse(it.hasNext());
++        }
++
++        cachingStore.commit(Map.of());
++
++        // after flush to store it is visible
++        try (final WindowStoreIterator<byte[]> it =
++                 cachingStore.readOnly(IsolationLevel.READ_COMMITTED)
++                     .fetch(bytesKey("a"), ofEpochMilli(DEFAULT_TIMESTAMP), ofEpochMilli(DEFAULT_TIMESTAMP))) {
++            assertTrue(it.hasNext());
++        }
++    }
++
++    @Test
++    public void shouldReadUncommittedViewFetchPointInTime() {
++        // keyA in store, keyB in cache
++        cachingStore.put(bytesKey("a"), bytesValue("store"), DEFAULT_TIMESTAMP);
++        cachingStore.commit(Map.of());
++        cachingStore.put(bytesKey("b"), bytesValue("cache"), DEFAULT_TIMESTAMP);
++
++        final ReadOnlyWindowStore<Bytes, byte[]> view = cachingStore.readOnly(IsolationLevel.READ_UNCOMMITTED);
++        assertArrayEquals(bytesValue("store"), view.fetch(bytesKey("a"), DEFAULT_TIMESTAMP));
++        assertArrayEquals(bytesValue("cache"), view.fetch(bytesKey("b"), DEFAULT_TIMESTAMP));
++    }
++
++    @Test
++    public void shouldReadUncommittedViewFetchSingleKeyMergesCacheAndStore() {
++        // keyA at two timestamps: DEFAULT in store, DEFAULT+20 in cache
++        cachingStore.put(bytesKey("a"), bytesValue("1"), DEFAULT_TIMESTAMP);
++        cachingStore.commit(Map.of());
++        cachingStore.put(bytesKey("a"), bytesValue("2"), DEFAULT_TIMESTAMP + 20);
++
++        final ReadOnlyWindowStore<Bytes, byte[]> view = cachingStore.readOnly(IsolationLevel.READ_UNCOMMITTED);
++        try (final WindowStoreIterator<byte[]> it =
++                 view.fetch(bytesKey("a"), ofEpochMilli(DEFAULT_TIMESTAMP), ofEpochMilli(DEFAULT_TIMESTAMP + 20))) {
++            verifyKeyValue(it.next(), DEFAULT_TIMESTAMP, "1");
++            verifyKeyValue(it.next(), DEFAULT_TIMESTAMP + 20, "2");
++            assertFalse(it.hasNext());
++        }
++    }
++
++    @Test
++    public void shouldReadUncommittedViewBackwardFetchSingleKeyMergesCacheAndStore() {
++        cachingStore.put(bytesKey("a"), bytesValue("1"), DEFAULT_TIMESTAMP);
++        cachingStore.commit(Map.of());
++        cachingStore.put(bytesKey("a"), bytesValue("2"), DEFAULT_TIMESTAMP + 20);
++
++        final ReadOnlyWindowStore<Bytes, byte[]> view = cachingStore.readOnly(IsolationLevel.READ_UNCOMMITTED);
++        try (final WindowStoreIterator<byte[]> it =
++                 view.backwardFetch(bytesKey("a"), ofEpochMilli(DEFAULT_TIMESTAMP), ofEpochMilli(DEFAULT_TIMESTAMP + 20))) {
++            verifyKeyValue(it.next(), DEFAULT_TIMESTAMP + 20, "2");
++            verifyKeyValue(it.next(), DEFAULT_TIMESTAMP, "1");
++            assertFalse(it.hasNext());
++        }
++    }
++
++    @Test
++    public void shouldReadUncommittedViewFetchRangeMergesCacheAndStore() {
++        // keyA in store, keyB in cache, both at DEFAULT_TIMESTAMP
++        cachingStore.put(bytesKey("a"), bytesValue("1"), DEFAULT_TIMESTAMP);
++        cachingStore.commit(Map.of());
++        cachingStore.put(bytesKey("b"), bytesValue("2"), DEFAULT_TIMESTAMP);
++
++        final ReadOnlyWindowStore<Bytes, byte[]> view = cachingStore.readOnly(IsolationLevel.READ_UNCOMMITTED);
++        final List<KeyValue<Windowed<Bytes>, byte[]>> results = toListAndCloseIterator(
++            view.fetch(bytesKey("a"), bytesKey("b"), ofEpochMilli(DEFAULT_TIMESTAMP), ofEpochMilli(DEFAULT_TIMESTAMP)));
++        assertEquals(2, results.size());
++        assertEquals(bytesKey("a"), results.get(0).key.key());
++        assertEquals(bytesKey("b"), results.get(1).key.key());
++    }
++
++    @Test
++    public void shouldReadUncommittedViewBackwardFetchRangeMergesCacheAndStore() {
++        cachingStore.put(bytesKey("a"), bytesValue("1"), DEFAULT_TIMESTAMP);
++        cachingStore.commit(Map.of());
++        cachingStore.put(bytesKey("b"), bytesValue("2"), DEFAULT_TIMESTAMP);
++
++        final ReadOnlyWindowStore<Bytes, byte[]> view = cachingStore.readOnly(IsolationLevel.READ_UNCOMMITTED);
++        final List<KeyValue<Windowed<Bytes>, byte[]>> results = toListAndCloseIterator(
++            view.backwardFetch(bytesKey("a"), bytesKey("b"), ofEpochMilli(DEFAULT_TIMESTAMP), ofEpochMilli(DEFAULT_TIMESTAMP)));
++        assertEquals(2, results.size());
++        assertEquals(bytesKey("b"), results.get(0).key.key());
++        assertEquals(bytesKey("a"), results.get(1).key.key());
++    }
++
++    @Test
++    public void shouldReadUncommittedViewFetchAllMergesCacheAndStore() {
++        cachingStore.put(bytesKey("a"), bytesValue("1"), DEFAULT_TIMESTAMP);
++        cachingStore.commit(Map.of());
++        cachingStore.put(bytesKey("b"), bytesValue("2"), DEFAULT_TIMESTAMP);
++
++        final ReadOnlyWindowStore<Bytes, byte[]> view = cachingStore.readOnly(IsolationLevel.READ_UNCOMMITTED);
++        final List<KeyValue<Windowed<Bytes>, byte[]>> results = toListAndCloseIterator(
++            view.fetchAll(ofEpochMilli(DEFAULT_TIMESTAMP), ofEpochMilli(DEFAULT_TIMESTAMP)));
++        assertEquals(2, results.size());
++    }
++
++    @Test
++    public void shouldReadUncommittedViewBackwardFetchAllMergesCacheAndStore() {
++        cachingStore.put(bytesKey("a"), bytesValue("1"), DEFAULT_TIMESTAMP);
++        cachingStore.commit(Map.of());
++        cachingStore.put(bytesKey("b"), bytesValue("2"), DEFAULT_TIMESTAMP);
++
++        final ReadOnlyWindowStore<Bytes, byte[]> view = cachingStore.readOnly(IsolationLevel.READ_UNCOMMITTED);
++        final List<KeyValue<Windowed<Bytes>, byte[]>> results = toListAndCloseIterator(
++            view.backwardFetchAll(ofEpochMilli(DEFAULT_TIMESTAMP), ofEpochMilli(DEFAULT_TIMESTAMP)));
++        assertEquals(2, results.size());
++    }
++
++    @Test
++    public void shouldReadUncommittedViewAllMergesCacheAndStore() {
++        cachingStore.put(bytesKey("a"), bytesValue("1"), DEFAULT_TIMESTAMP);
++        cachingStore.commit(Map.of());
++        cachingStore.put(bytesKey("b"), bytesValue("2"), DEFAULT_TIMESTAMP);
++
++        final ReadOnlyWindowStore<Bytes, byte[]> view = cachingStore.readOnly(IsolationLevel.READ_UNCOMMITTED);
++        final List<KeyValue<Windowed<Bytes>, byte[]>> results = toListAndCloseIterator(view.all());
++        assertEquals(2, results.size());
++    }
++
++    @Test
++    public void shouldReadUncommittedViewBackwardAllMergesCacheAndStore() {
++        cachingStore.put(bytesKey("a"), bytesValue("1"), DEFAULT_TIMESTAMP);
++        cachingStore.commit(Map.of());
++        cachingStore.put(bytesKey("b"), bytesValue("2"), DEFAULT_TIMESTAMP);
++
++        final ReadOnlyWindowStore<Bytes, byte[]> view = cachingStore.readOnly(IsolationLevel.READ_UNCOMMITTED);
++        final List<KeyValue<Windowed<Bytes>, byte[]>> results = toListAndCloseIterator(view.backwardAll());
++        assertEquals(2, results.size());
++        assertEquals(bytesKey("b"), results.get(0).key.key());
++        assertEquals(bytesKey("a"), results.get(1).key.key());
++    }
++
++    @Test
++    public void shouldThrowNpeOnNullIsolationLevel() {
++        assertThrows(NullPointerException.class, () -> cachingStore.readOnly(null));
++    }
++
++    @Test
++    public void shouldThrowNpeOnNullInstantInViewFetch() {
++        final ReadOnlyWindowStore<Bytes, byte[]> view = cachingStore.readOnly(IsolationLevel.READ_UNCOMMITTED);
++        assertThrows(NullPointerException.class, () -> view.fetch(bytesKey("a"), null, ofEpochMilli(0)));
++    }
++
++    @Test
++    public void shouldReadUncommittedViewOnNonPersistentUnderlying() {
++        final WindowStore<Bytes, byte[]> inMemoryUnderlying = new InMemoryWindowStore(
++            "in-memory-store", 100L, WINDOW_SIZE, false, "metrics-scope");
++        final CachingWindowStore nonPersistentCachingStore = new CachingWindowStore(
++            inMemoryUnderlying, WINDOW_SIZE, SEGMENT_INTERVAL);
++        nonPersistentCachingStore.init(context, nonPersistentCachingStore);
++
++        nonPersistentCachingStore.put(bytesKey("a"), bytesValue("1"), DEFAULT_TIMESTAMP);
++        nonPersistentCachingStore.commit(Map.of());
++        nonPersistentCachingStore.put(bytesKey("b"), bytesValue("2"), DEFAULT_TIMESTAMP);
++
++        final ReadOnlyWindowStore<Bytes, byte[]> view = nonPersistentCachingStore.readOnly(IsolationLevel.READ_UNCOMMITTED);
++        final List<KeyValue<Windowed<Bytes>, byte[]>> results = toListAndCloseIterator(view.all());
++        assertEquals(2, results.size());
++
++        nonPersistentCachingStore.close();
++    }
++
+     @SuppressWarnings("unchecked")
+     private void setUpCloseTests() {
+         underlyingStore = mock(WindowStore.class);

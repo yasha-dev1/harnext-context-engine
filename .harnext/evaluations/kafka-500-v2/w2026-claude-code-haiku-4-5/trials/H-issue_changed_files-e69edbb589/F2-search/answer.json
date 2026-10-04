@@ -1,0 +1,11 @@
+{
+  "evidence": [
+    "prs/21785/2026-03-17-github-api-apache-kafka-pr-21785-merged-8cd730f8.md",
+    "prs/21785/2026-03-17-opened-2389b462.md",
+    "issues/KAFKA-20245/2026-03-17-change-c3d4522a.md"
+  ],
+  "value": [
+    "server-common/src/main/java/org/apache/kafka/server/share/dlq/ShareGroupDLQ.java",
+    "server/src/main/java/org/apache/kafka/server/share/fetch/RecordState.java"
+  ]
+}

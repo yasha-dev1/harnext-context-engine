@@ -1,0 +1,90 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail:1a3f3691f5f66b0140de7cb2",
+      "mail:de13bee9f8bb79338315e881",
+      "mail:f6b22d1fd37806fcb2175ac0",
+      "mail:fe09c09ac5ddd78f3011c191",
+      "mail:aa4a89deddc8b16336616ab2",
+      "mail:db399df8a2e4d63cd49faeb4",
+      "mail:8ea2d404f2c259c3934f9386",
+      "mail:0f2639ff8155c501d54c3ee4"
+    ],
+    "value": "always report regardless of state"
+  },
+  "arm": "H-engine-b8-ds",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 77.73289451599703,
+  "engine": {
+    "calls": 1,
+    "chat": {
+      "calls": 11,
+      "cancelled": 0,
+      "cost_usd": 0.00304503,
+      "input_tokens": 61305,
+      "output_tokens": 6208,
+      "retries": 0
+    },
+    "cost_usd": 0.00451625,
+    "discarded_attempts": 0,
+    "jev": {
+      "calls": 14,
+      "cancelled": 0,
+      "cost_usd": 0.00147122,
+      "input_tokens": 35029,
+      "output_tokens": 7255,
+      "retries": 0
+    },
+    "partial": 0,
+    "provider_retry_usd": 0,
+    "seconds": 62.336,
+    "unmetered_upper_usd": 0,
+    "waited_s": 0
+  },
+  "family": "design_decision",
+  "grade": {
+    "actual": "always report regardless of state",
+    "correct": true,
+    "evidence": [
+      "mail:1a3f3691f5f66b0140de7cb2",
+      "mail:de13bee9f8bb79338315e881",
+      "mail:f6b22d1fd37806fcb2175ac0",
+      "mail:fe09c09ac5ddd78f3011c191",
+      "mail:aa4a89deddc8b16336616ab2",
+      "mail:db399df8a2e4d63cd49faeb4",
+      "mail:8ea2d404f2c259c3934f9386",
+      "mail:0f2639ff8155c501d54c3ee4"
+    ],
+    "expected": "always report regardless of state"
+  },
+  "image_id": "sha256:1de715f951a3fc013cabad66407b87028bc2a5af6e58efdea5338b4cf9fb1485",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "409d6fe6f222b510f7a9a1a283562021a9368faf46b96ccf1f8ecbccdbc8c8d7",
+  "run_index": 59,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-7169fd1b2b",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 60040,
+    "cost_usd": 0.020758,
+    "input_tokens": 65048,
+    "output_tokens": 953
+  },
+  "violations": []
+}

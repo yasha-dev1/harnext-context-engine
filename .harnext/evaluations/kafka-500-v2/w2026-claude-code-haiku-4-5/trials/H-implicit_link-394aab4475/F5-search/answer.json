@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "entities/issue/KAFKA-20387/OVERVIEW.md",
+    "entities/issue/KAFKA-20387/timeline.md",
+    "entities/issue/KAFKA-20387/facts.md"
+  ],
+  "value": "KAFKA-20387"
+}

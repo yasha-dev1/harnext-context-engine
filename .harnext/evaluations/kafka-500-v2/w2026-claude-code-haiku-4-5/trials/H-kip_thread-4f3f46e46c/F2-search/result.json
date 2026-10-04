@@ -1,0 +1,113 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "kips/KIP-1274/2026-01-22-mail-discuss-classic-rebalance-4b51bc95.md",
+      "kips/KIP-1274/2026-01-22-mail-discuss-classic-rebalance-e3d04b61.md",
+      "kips/KIP-1274/2026-01-26-mail-55622c20067f615de99f372a-ca443ae5.md",
+      "kips/KIP-1274/2026-01-27-mail-discuss-classic-rebalance-deprecation-1a3c8f5d.md",
+      "kips/KIP-1274/2026-01-27-mail-discuss-classic-rebalance-deprecation-1f3d8c4b.md",
+      "kips/KIP-1274/2026-01-27-mail-discuss-classic-rebalance-deprecation-2c7e5a1b.md",
+      "kips/KIP-1274/2026-01-27-mail-discuss-classic-rebalance-deprecation-3c1f8a9e.md",
+      "kips/KIP-1274/2026-01-27-mail-discuss-classic-rebalance-deprecation-4c3f8d7a.md",
+      "kips/KIP-1274/2026-01-27-mail-discuss-classic-rebalance-deprecation-7e3c5f1a.md",
+      "kips/KIP-1274/2026-01-27-mail-discuss-classic-rebalance-deprecation-9d4f2b8e.md",
+      "kips/KIP-1274/2026-01-28-discuss-deprecate-classic-rebalance-1651984e.md",
+      "kips/KIP-1274/2026-01-28-discuss-deprecate-classic-rebalance-1c8373a7.md",
+      "kips/KIP-1274/2026-01-28-discuss-deprecate-classic-rebalance-42001bdb.md",
+      "kips/KIP-1274/2026-01-28-discuss-deprecate-classic-rebalance-9c74f555.md",
+      "kips/KIP-1274/2026-01-28-discuss-deprecate-classic-rebalance-9c9ec008.md",
+      "kips/KIP-1274/2026-02-06-discuss-744d30fd.md",
+      "kips/KIP-1274/2026-02-11-mail-discuss-kip-1274-48fb497f.md",
+      "kips/KIP-1274/2026-02-14-mail-76ee52d9d68208a0d58e2091-e07a299d.md",
+      "kips/KIP-1274/2026-02-14-mail-e437a5f929aa48c75a64ae98-2f7ec638.md",
+      "kips/KIP-1274/2026-02-16-mail-2b8888b66b964eada5234616-b9c0301d.md",
+      "kips/KIP-1274/2026-02-18-mail-ddaeb1d1a8af6cba784f5c93-6eefb441.md",
+      "kips/KIP-1274/2026-02-17-mail-dad59cdbd929abbba46ad137-33c70eae.md",
+      "kips/KIP-1274/2026-02-17-mail-a88894d3009e987c699f0974-bf4dacbb.md",
+      "kips/KIP-1274/2026-02-23-vote-KIP-1274-deprecate-classic-rebalance-492b5d4e.md",
+      "kips/KIP-1274/2026-02-17-mail-1f5a7b7de3abb2aa0649f004-50f95f6a.md",
+      "kips/KIP-1274/2026-02-17-mail-ca0301cb8bd3a2cb9ca6b30a-6bf84285.md",
+      "kips/KIP-1274/2026-01-28-mail-discuss-classic-rebalance-deprecation-5c3d8f2a.md",
+      "kips/KIP-1274/2026-01-28-discuss-deprecate-classic-rebalance-e5770be9.md"
+    ],
+    "value": {
+      "participants": 9,
+      "starter": "Lianet Magrans"
+    }
+  },
+  "arm": "F2-search",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 125.8917176949908,
+  "family": "kip_thread",
+  "grade": {
+    "actual": {
+      "participants": 9,
+      "starter": "Lianet Magrans"
+    },
+    "correct": false,
+    "evidence": [
+      "kips/KIP-1274/2026-01-22-mail-discuss-classic-rebalance-4b51bc95.md",
+      "kips/KIP-1274/2026-01-22-mail-discuss-classic-rebalance-e3d04b61.md",
+      "kips/KIP-1274/2026-01-26-mail-55622c20067f615de99f372a-ca443ae5.md",
+      "kips/KIP-1274/2026-01-27-mail-discuss-classic-rebalance-deprecation-1a3c8f5d.md",
+      "kips/KIP-1274/2026-01-27-mail-discuss-classic-rebalance-deprecation-1f3d8c4b.md",
+      "kips/KIP-1274/2026-01-27-mail-discuss-classic-rebalance-deprecation-2c7e5a1b.md",
+      "kips/KIP-1274/2026-01-27-mail-discuss-classic-rebalance-deprecation-3c1f8a9e.md",
+      "kips/KIP-1274/2026-01-27-mail-discuss-classic-rebalance-deprecation-4c3f8d7a.md",
+      "kips/KIP-1274/2026-01-27-mail-discuss-classic-rebalance-deprecation-7e3c5f1a.md",
+      "kips/KIP-1274/2026-01-27-mail-discuss-classic-rebalance-deprecation-9d4f2b8e.md",
+      "kips/KIP-1274/2026-01-28-discuss-deprecate-classic-rebalance-1651984e.md",
+      "kips/KIP-1274/2026-01-28-discuss-deprecate-classic-rebalance-1c8373a7.md",
+      "kips/KIP-1274/2026-01-28-discuss-deprecate-classic-rebalance-42001bdb.md",
+      "kips/KIP-1274/2026-01-28-discuss-deprecate-classic-rebalance-9c74f555.md",
+      "kips/KIP-1274/2026-01-28-discuss-deprecate-classic-rebalance-9c9ec008.md",
+      "kips/KIP-1274/2026-02-06-discuss-744d30fd.md",
+      "kips/KIP-1274/2026-02-11-mail-discuss-kip-1274-48fb497f.md",
+      "kips/KIP-1274/2026-02-14-mail-76ee52d9d68208a0d58e2091-e07a299d.md",
+      "kips/KIP-1274/2026-02-14-mail-e437a5f929aa48c75a64ae98-2f7ec638.md",
+      "kips/KIP-1274/2026-02-16-mail-2b8888b66b964eada5234616-b9c0301d.md",
+      "kips/KIP-1274/2026-02-18-mail-ddaeb1d1a8af6cba784f5c93-6eefb441.md",
+      "kips/KIP-1274/2026-02-17-mail-dad59cdbd929abbba46ad137-33c70eae.md",
+      "kips/KIP-1274/2026-02-17-mail-a88894d3009e987c699f0974-bf4dacbb.md",
+      "kips/KIP-1274/2026-02-23-vote-KIP-1274-deprecate-classic-rebalance-492b5d4e.md",
+      "kips/KIP-1274/2026-02-17-mail-1f5a7b7de3abb2aa0649f004-50f95f6a.md",
+      "kips/KIP-1274/2026-02-17-mail-ca0301cb8bd3a2cb9ca6b30a-6bf84285.md",
+      "kips/KIP-1274/2026-01-28-mail-discuss-classic-rebalance-deprecation-5c3d8f2a.md",
+      "kips/KIP-1274/2026-01-28-discuss-deprecate-classic-rebalance-e5770be9.md"
+    ],
+    "expected": {
+      "participants": 8,
+      "starter": "Lianet Magrans"
+    }
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 4,
+  "prompt_sha256": "a34ab3b9d2317c8dfb9eea0b5cf268403fb991a683527417b6de71a7c3fc1338",
+  "run_index": 17,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-kip_thread-4f3f46e46c",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 67386,
+    "cost_usd": 0.0784766,
+    "input_tokens": 94935,
+    "output_tokens": 3335
+  },
+  "violations": []
+}

@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "issues/kafka-20239-document-connect-acl-requirements.md",
+    "issues/kafka-20239-document-kafka-acls-connect.md"
+  ],
+  "value": "KAFKA-20239"
+}

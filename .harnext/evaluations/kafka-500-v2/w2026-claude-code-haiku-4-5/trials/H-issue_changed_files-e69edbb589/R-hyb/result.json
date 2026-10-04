@@ -1,0 +1,45 @@
+{
+  "agent": "claude-code",
+  "answer": null,
+  "arm": "R-hyb",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": "no parseable final answer",
+  "effort": "medium",
+  "elapsed_s": 105.86973016900447,
+  "family": "issue_changed_files",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": null,
+    "expected": [
+      "server-common/src/main/java/org/apache/kafka/server/share/dlq/ShareGroupDLQ.java",
+      "server/src/main/java/org/apache/kafka/server/share/fetch/RecordState.java"
+    ]
+  },
+  "instructions_sha256": "dfaa5b284d06c378ef7e4c08b53dc77835c91d7591fca0335bbfa33d3e53eb37",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 16,
+  "prompt_sha256": "b79caa4f99d41437318582e551173d5e87e67b3404862d2cb795d42e1dab4df1",
+  "run_index": 59,
+  "status": "model_failure",
+  "success": false,
+  "task_id": "H-issue_changed_files-e69edbb589",
+  "tool_calls": {
+    "ToolSearch": 1,
+    "mcp__history__read_event": 1,
+    "mcp__history__search": 12
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 747259,
+    "cost_usd": 0.22331890000000004,
+    "input_tokens": 811962,
+    "output_tokens": 3864
+  },
+  "violations": []
+}

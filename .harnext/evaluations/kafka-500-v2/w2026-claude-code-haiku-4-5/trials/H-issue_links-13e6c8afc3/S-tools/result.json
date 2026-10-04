@@ -1,0 +1,56 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "jira issue view KAFKA-20421 --history"
+    ],
+    "value": [
+      "KAFKA-20420"
+    ]
+  },
+  "arm": "S-tools",
+  "checkpoint": "2026-04",
+  "cli_calls": {
+    "jira": 3
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 14.199211225997715,
+  "family": "issue_links",
+  "grade": {
+    "actual": [
+      "KAFKA-20420"
+    ],
+    "correct": true,
+    "evidence": [
+      "jira issue view KAFKA-20421 --history"
+    ],
+    "expected": [
+      "KAFKA-20420"
+    ]
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 4,
+  "prompt_sha256": "d356ccaf3942f3c170611f9e2763503116bb2c01fe3313cdd97f960a37eb2d5f",
+  "run_index": 43,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-issue_links-13e6c8afc3",
+  "tool_calls": {
+    "Bash": 3,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 81404,
+    "cost_usd": 0.0225664,
+    "input_tokens": 86096,
+    "output_tokens": 1015
+  },
+  "violations": []
+}

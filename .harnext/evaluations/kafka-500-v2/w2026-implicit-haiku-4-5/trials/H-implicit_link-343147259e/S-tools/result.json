@@ -1,0 +1,44 @@
+{
+  "agent": "claude-code",
+  "answer": null,
+  "arm": "S-tools",
+  "checkpoint": "2026-03",
+  "cli_calls": {
+    "jira": 2,
+    "mail": 6
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": "no parseable final answer",
+  "effort": "medium",
+  "elapsed_s": 211.55293956199603,
+  "family": "implicit_link",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": null,
+    "expected": "KAFKA-20239"
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 11,
+  "prompt_sha256": "acdffd5179c7cd7a244dfb757ad58a47e89c5f0a35c827062b9cc8ed63a4264a",
+  "run_index": 3,
+  "status": "model_failure",
+  "success": false,
+  "task_id": "H-implicit_link-343147259e",
+  "tool_calls": {
+    "Bash": 8,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 50666,
+    "cost_usd": 0.0522282,
+    "input_tokens": 51583,
+    "output_tokens": 528
+  },
+  "violations": []
+}

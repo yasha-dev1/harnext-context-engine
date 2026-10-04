@@ -1,0 +1,11 @@
+{
+  "evidence": [
+    "jira:13609845:change:22954260:1 - Status change from Open to Resolved (only status transition recorded)",
+    "jira:13609845:change:22954257:0",
+    "jira:13609845:change:22954257:1",
+    "jira:13609845:change:22954257:2",
+    "jira:13609845:change:22954257:3",
+    "jira:13609845:change:22954260:0"
+  ],
+  "value": 0
+}

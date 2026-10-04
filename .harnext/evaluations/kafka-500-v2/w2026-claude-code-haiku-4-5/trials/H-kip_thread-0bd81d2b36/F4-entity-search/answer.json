@@ -1,0 +1,11 @@
+{
+  "evidence": [
+    "INDEX-WINDOW-2.md:189-191 - Thread posted on 2026-01-06T13:18:38Z",
+    "WINDOW-29-2026-02-11-to-2026-02-12-summary.md:117-127 - Lists Kevin Wu as discussing KIP-1262",
+    "INDEX-WINDOW-34.md:146-156 - Mentions Jun Rao feedback and Kevin Wu response"
+  ],
+  "value": {
+    "participants": 2,
+    "starter": "Kevin Wu"
+  }
+}

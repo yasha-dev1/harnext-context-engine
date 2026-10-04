@@ -1,0 +1,3 @@
+{
+  "summary": "Implemented readOnly(IsolationLevel) method in MeteredKeyValueStore with a wrapper class that applies serdes and metrics to read-only store operations. All 44 tests pass."
+}

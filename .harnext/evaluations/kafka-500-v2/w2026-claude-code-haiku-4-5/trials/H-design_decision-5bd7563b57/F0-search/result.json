@@ -1,0 +1,51 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "events/2026/04/03/mail-c1bd1d1b17bcb11c88e6c373-54f6da60.md",
+      "events/2026/03/16/mail-d45b8e40119fc0588b0210ef-aae266e1.md"
+    ],
+    "value": "GroupCreationTimeNotAvailableException"
+  },
+  "arm": "F0-search",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 107.23501817398937,
+  "family": "design_decision",
+  "grade": {
+    "actual": "GroupCreationTimeNotAvailableException",
+    "correct": false,
+    "evidence": [
+      "events/2026/04/03/mail-c1bd1d1b17bcb11c88e6c373-54f6da60.md",
+      "events/2026/03/16/mail-d45b8e40119fc0588b0210ef-aae266e1.md"
+    ],
+    "expected": "GroupCreationTimeUnknownException"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "bdf564cadeab292048cd986f9016c7cc42a654791b8287d8c17f91b0f7696dcb",
+  "run_index": 65,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-5bd7563b57",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 64170,
+    "cost_usd": 0.016275,
+    "input_tokens": 66220,
+    "output_tokens": 1157
+  },
+  "violations": []
+}

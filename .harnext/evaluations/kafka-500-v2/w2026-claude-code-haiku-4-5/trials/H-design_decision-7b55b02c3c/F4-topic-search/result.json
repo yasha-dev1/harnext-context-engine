@@ -1,0 +1,50 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "discussions.md (lines 1121-1136, dated 2026-04-15) — AS27 decision: 'Renamed AddTopicsToMirror/RemoveTopicsFromMirror to StartMirrorTopics/StopMirrorTopics for clarity; Stop for failover, Pause for maintenance'"
+    ],
+    "value": "StartMirrorTopics/StopMirrorTopics"
+  },
+  "arm": "F4-topic-search",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 26.071628252000664,
+  "family": "design_decision",
+  "grade": {
+    "actual": "StartMirrorTopics/StopMirrorTopics",
+    "correct": true,
+    "evidence": [
+      "discussions.md (lines 1121-1136, dated 2026-04-15) — AS27 decision: 'Renamed AddTopicsToMirror/RemoveTopicsFromMirror to StartMirrorTopics/StopMirrorTopics for clarity; Stop for failover, Pause for maintenance'"
+    ],
+    "expected": "StartMirrorTopics/StopMirrorTopics"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 4,
+  "prompt_sha256": "4dd7fe72b08bbc5f2701de83c0b385c0ebed3e812f33126cf5faa4bbdf51ee9a",
+  "run_index": 67,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-7b55b02c3c",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 86312,
+    "cost_usd": 0.0190352,
+    "input_tokens": 89024,
+    "output_tokens": 1003
+  },
+  "violations": []
+}

@@ -1,0 +1,25 @@
+Context snapshot cutoff (inclusive): 2025-12-03T12:21:35Z.
+
+The workspace is the apache/kafka repository at commit 5bb44d63dd9027f7f9b5fc00dacad53f7bb6f32d.
+
+Issue KAFKA-19012: Messages ending up on the wrong topic
+
+We're experiencing messages very occasionally ending up on a different topic than what they were published to. That is, we publish a message to topicA and consumers of topicB see it and fail to parse it because the message contents are meant for topicA. This has happened for various topics. 
+
+We've begun adding a header with the intended topic (which we get just by reading the topic from the record that we're about to pass to the OSS client) right before we call producer.send, this header shows the correct topic (which also matches up with the message contents itself). Similarly we're able to use this header and compare it to the actual topic to prevent consuming these misrouted messages, but this is still concerning.
+
+Some details:
+ - This happens rarely: it happened approximately once per 10 trillion messages for a few months, though there was a period of a week or so where it happened more frequently (once per 1 trillion messages or so)
+ - It often happens in a small burst, eg 2 or 3 messages very close in time (but from different hosts) will be misrouted
+ - It often but not always coincides with some sort of event in the cluster (a broker restarting or being replaced, network issues causing errors, etc). Also these cluster events happen quite often with no misrouted messages
+ - We run many clusters, it has happened for several of them
+ - There is no pattern between intended and actual topic, other than the intended topic tends to be higher volume ones (but I'd attribute that to there being more messages published -> more occurrences affecting it rather than it being more likely per-message)
+ - It only occurs with clients that are using a non-zero linger
+ - Once it happened with two sequential messages, both were intended for topicA but both ended up on topicB, published by the same host (presumably within the same linger batch)
+ - Most of our clients are 3.2.3 and it has only affected those, most of our brokers are 3.2.3 but it has also happened with a cluster that's running 3.8.1 (but I suspect a client rather than broker problem because of it never happening with clients that use 0 linger)
+
+Implement the change this issue asks for by editing the workspace. The tests written for this change have already been added to the workspace (uncommitted; see `git status`): `clients/src/test/java/org/apache/kafka/clients/producer/internals/RecordAccumulatorTest.java`, `clients/src/test/java/org/apache/kafka/clients/producer/internals/SenderTest.java`. They fail or do not compile until the change is implemented. Make them pass with `./gradlew :clients:test --tests org.apache.kafka.clients.producer.internals.RecordAccumulatorTest --offline` ; `./gradlew :clients:test --tests org.apache.kafka.clients.producer.internals.SenderTest --offline`. Do not edit those test files: grading restores them to their original content and runs them against your other changes. Keep the change focused and do not substitute knowledge of how the project evolved after the cutoff.
+
+No project-history context is provided for this task. Work from the task statement, the repository and your own knowledge; there is no network access.
+
+The repository is checked out at /workspace. The workspace is a git repository whose history ends at the base commit; `git log`, `git blame` and `git show` work offline. Make the change by editing source files there; the tests named above, restored to their original content, decide whether the issue is resolved. Gradle works offline only (`./gradlew :module:test --tests X --offline`). Finish with one JSON object {"summary": "..."}.

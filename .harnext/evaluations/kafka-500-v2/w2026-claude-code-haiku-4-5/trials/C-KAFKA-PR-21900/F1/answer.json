@@ -1,0 +1,3 @@
+{
+  "summary": "Implemented KAFKA-20282: Added a log recommendation when KafkaConsumer starts using the Classic rebalance protocol. The implementation logs an INFO-level message recommending users to adopt the new KIP-848 consumer rebalance protocol when a group.id is configured. Changes made to ClassicKafkaConsumer.java in both the main and test constructors to log the recommendation message only when a group.id is present. All four test cases pass successfully."
+}

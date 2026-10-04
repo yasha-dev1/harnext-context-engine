@@ -1,0 +1,50 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail:34fc284fbaae3665c418057e — Lijun Tong's response on 2026-01-20T01:59:54Z to [DISCUSS] KIP-1266 Bounding The Number Of RemoteLogMetadata Messages via Compacted RemoteLogMetadata Topic, where he states: 'The solution I have in mind is this feature is *gated by the metadata version*.'"
+    ],
+    "value": "metadata version"
+  },
+  "arm": "R-hyb",
+  "checkpoint": "2026-01",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 53.28666227699432,
+  "family": "design_decision",
+  "grade": {
+    "actual": "metadata version",
+    "correct": true,
+    "evidence": [
+      "mail:34fc284fbaae3665c418057e — Lijun Tong's response on 2026-01-20T01:59:54Z to [DISCUSS] KIP-1266 Bounding The Number Of RemoteLogMetadata Messages via Compacted RemoteLogMetadata Topic, where he states: 'The solution I have in mind is this feature is *gated by the metadata version*.'"
+    ],
+    "expected": "metadata version"
+  },
+  "instructions_sha256": "dfaa5b284d06c378ef7e4c08b53dc77835c91d7591fca0335bbfa33d3e53eb37",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 7,
+  "prompt_sha256": "1f7ad296ce42f8fd44353a6b5a4b1ba8c9cee93765c9632b75390029f83bcb2e",
+  "run_index": 47,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-c6538d5496",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__read_event": 1,
+    "mcp__history__search": 4
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 187614,
+    "cost_usd": 0.0773694,
+    "input_tokens": 211905,
+    "output_tokens": 2017
+  },
+  "violations": []
+}

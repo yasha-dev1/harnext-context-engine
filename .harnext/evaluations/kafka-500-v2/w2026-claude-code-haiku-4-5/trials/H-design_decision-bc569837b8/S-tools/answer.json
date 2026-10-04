@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "KIP-1262 discussion thread: CACvVgwGtqLAOzTb2ffjWecS+NvJGZH4Fuupg9xXAyUj9_ocUHg@mail.gmail.com",
+    "Jun Rao's message (2026-03-27): 'It\\'s a bit weird for the new code to write in V1 format. Could it write in V2 format?'",
+    "Kevin Wu's response (2026-03-30): 'RE JR11: Yeah, I think it is fine to write V2.'"
+  ],
+  "value": "V2"
+}

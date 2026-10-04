@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "mail id: c4bfde361f38ca346dffd233 (Alieh Saeedi, 2026-02-22T14:16:29Z)",
+    "mail id: 6ea3402c8bc00ae4fb37dcf5 (Matthias J. Sax endorsement, 2026-02-22T19:51:59Z)",
+    "GitHub PR 21572: KAFKA-20220 (merged 2026-02-27, implements KIP-1285)"
+  ],
+  "value": "dsl.store.format"
+}

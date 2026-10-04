@@ -1,0 +1,13 @@
+{
+  "evidence": [
+    "github:api:apache/kafka:pr-21511-merged",
+    "github:api:apache/kafka:pr-21527-merged",
+    "github:api:apache/kafka:pr-21567-merged",
+    "github:api:apache/kafka:pr-21571-merged",
+    "github:api:apache/kafka:review-PRR_kwDOACG9q87lJFZ_",
+    "github:api:apache/kafka:review-PRR_kwDOACG9q87kc9Ln",
+    "github:api:apache/kafka:review-PRR_kwDOACG9q87ltuB1",
+    "github:api:apache/kafka:review-PRR_kwDOACG9q87mb73W"
+  ],
+  "value": "frankvicky"
+}

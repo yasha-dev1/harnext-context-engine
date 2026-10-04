@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "KIP-1271 mailing list discussion: https://www.mail-archive.com/dev@kafka.apache.org/ (Alieh Saeedi, 2026-01-16 17:00:39Z - 'A varint header_size field is introduced to enable lazy deserialization')",
+    "KAFKA-20056 JIRA issue: Allow to Store Record Headers in State Stores (references KIP-1271)",
+    "KIP-1271 discussion thread: Chia-Ping Tsai (2026-01-15) and Alieh Saeedi (2026-01-29) confirmations of varint encoding"
+  ],
+  "value": "varint"
+}

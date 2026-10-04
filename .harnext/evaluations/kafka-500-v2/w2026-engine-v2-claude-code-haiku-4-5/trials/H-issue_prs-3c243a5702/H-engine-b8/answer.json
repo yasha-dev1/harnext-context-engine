@@ -1,0 +1,53 @@
+{
+  "evidence": [
+    "github:api:apache/kafka:pr-21465-opened",
+    "github:api:apache/kafka:pr-21465-merged",
+    "github:api:apache/kafka:pr-21474-opened",
+    "github:api:apache/kafka:pr-21474-closed",
+    "github:api:apache/kafka:pr-21478-opened",
+    "github:api:apache/kafka:pr-21478-merged",
+    "github:api:apache/kafka:pr-21486-opened",
+    "github:api:apache/kafka:pr-21486-merged",
+    "github:api:apache/kafka:pr-21493-opened",
+    "github:api:apache/kafka:pr-21493-merged",
+    "github:api:apache/kafka:pr-21497-opened",
+    "github:api:apache/kafka:pr-21581-opened",
+    "jira:13641166:change:22917282:0",
+    "jira:13641166:change:22919703:0",
+    "jira:13641166:change:22920156:0",
+    "jira:13641166:change:22939835:0",
+    "jira:13641166:change:22941058:0",
+    "jira:13641166:change:22941286:0",
+    "jira:13641166:change:22953163:0"
+  ],
+  "value": [
+    {
+      "pr": 21465,
+      "state": "merged"
+    },
+    {
+      "pr": 21474,
+      "state": "closed"
+    },
+    {
+      "pr": 21478,
+      "state": "merged"
+    },
+    {
+      "pr": 21486,
+      "state": "merged"
+    },
+    {
+      "pr": 21493,
+      "state": "merged"
+    },
+    {
+      "pr": 21497,
+      "state": "open"
+    },
+    {
+      "pr": 21581,
+      "state": "open"
+    }
+  ]
+}

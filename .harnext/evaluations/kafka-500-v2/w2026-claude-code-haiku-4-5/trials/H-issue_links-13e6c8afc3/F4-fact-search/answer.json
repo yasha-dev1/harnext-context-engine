@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "issues/kafka-20421-headers-state-stores-followup.md"
+  ],
+  "value": [
+    "KAFKA-20056"
+  ]
+}

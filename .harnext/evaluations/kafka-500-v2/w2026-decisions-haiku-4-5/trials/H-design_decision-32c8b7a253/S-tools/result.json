@@ -1,0 +1,57 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "Mail message from Ivan Yurchenko (id: a45e65f0a43099e7e8f15e06, dated 2026-01-22T09:01:53Z) explicitly stating: 'We have deprecated KIP-1181 as it's now incorporated into KIP-1163.' in response to Jun Rao's question about KIP-1181 status",
+      "KAFKA-19257: Issue tracking KIP-1181 (Metadata Rack Awareness for Diskless Topics) as a sub-KIP of KIP-1150",
+      "KIP-1163 represents the coordinator-less core design that superseded the original coordinator-based approach and incorporated the metadata changes from KIP-1181"
+    ],
+    "value": "deprecated and merged into the main proposal"
+  },
+  "arm": "S-tools",
+  "checkpoint": "2026-01",
+  "cli_calls": {
+    "gh": 6,
+    "jira": 4,
+    "mail": 10
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 378.0417921629996,
+  "family": "design_decision",
+  "grade": {
+    "actual": "deprecated and merged into the main proposal",
+    "correct": true,
+    "evidence": [
+      "Mail message from Ivan Yurchenko (id: a45e65f0a43099e7e8f15e06, dated 2026-01-22T09:01:53Z) explicitly stating: 'We have deprecated KIP-1181 as it's now incorporated into KIP-1163.' in response to Jun Rao's question about KIP-1181 status",
+      "KAFKA-19257: Issue tracking KIP-1181 (Metadata Rack Awareness for Diskless Topics) as a sub-KIP of KIP-1150",
+      "KIP-1163 represents the coordinator-less core design that superseded the original coordinator-based approach and incorporated the metadata changes from KIP-1181"
+    ],
+    "expected": "deprecated and merged into the main proposal"
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 23,
+  "prompt_sha256": "0bb2837e272d4094fad1ac7f9fa1104e601c9b72827a1a03389eefe08b371534",
+  "run_index": 7,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-32c8b7a253",
+  "tool_calls": {
+    "Bash": 21,
+    "Read": 1,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 781743,
+    "cost_usd": 0.2066343,
+    "input_tokens": 835908,
+    "output_tokens": 4063
+  },
+  "violations": []
+}

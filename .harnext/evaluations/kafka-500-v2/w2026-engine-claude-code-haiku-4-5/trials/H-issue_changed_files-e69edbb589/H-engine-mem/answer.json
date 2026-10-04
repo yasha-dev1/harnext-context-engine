@@ -1,0 +1,10 @@
+{
+  "evidence": [
+    "github:api:apache/kafka:pr-21785-merged",
+    "PR #21785 was the only merged PR for KAFKA-20245 by cutoff 2026-03-31"
+  ],
+  "value": [
+    "server-common/src/main/java/org/apache/kafka/server/share/dlq/ShareGroupDLQ.java",
+    "server/src/main/java/org/apache/kafka/server/share/fetch/RecordState.java"
+  ]
+}

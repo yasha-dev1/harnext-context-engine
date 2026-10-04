@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "mail:69ba0fb5a3d546f683a8b186 (2026-04-02) - Consumer throws GroupCreationTimeNotAvailableException when classic group upgraded to modern group cannot use by_start_time because group creation timestamp was not recorded",
+    "mail:36b3dd6f3cf0c5181c080be0 (2026-04-02) - Andrew Schofield discusses GroupCreationTimeNotAvailableException as candidate exception name"
+  ],
+  "value": "GroupCreationTimeNotAvailableException"
+}

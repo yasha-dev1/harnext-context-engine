@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "issues/KAFKA-20033.md - Dual-Topic Approach section",
+    "issues/KAFKA-20033.md - Migration Strategy section",
+    "issues/KAFKA-20033.md - Benefits section indicating 'Existing topic preserved for audit trail'"
+  ],
+  "value": null
+}

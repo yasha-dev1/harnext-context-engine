@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "kips/KIP-1331/2026-05-13-mail-154b667449f3621f5f52519e-9d9d548d.md",
+    "kips/KIP-1331/2026-05-11-mail-bfae351428945364a45fb155-856deba8.md"
+  ],
+  "value": "removed entirely, identified by topologyEpoch and group creation timestamp instead"
+}

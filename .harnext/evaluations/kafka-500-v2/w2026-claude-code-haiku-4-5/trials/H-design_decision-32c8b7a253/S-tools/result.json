@@ -1,0 +1,59 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "Message ID: 5f2811d100330e528ddb32e3 (Jun Rao, 2026-01-22 21:24:32Z, DISCUSS thread)",
+      "Message ID: dd72e188e244a14eeb227fa2 (Ivan Yurchenko, 2026-01-23 12:01:44Z, responding to Jun Rao's earlier Jan 12 message)",
+      "Explicit statement: 'We have deprecated KIP-1181 as it's now incorporated into KIP-1163.'",
+      "KAFKA-19257 JIRA issue describes KIP-1181 as sub-KIP of KIP-1150"
+    ],
+    "value": "deprecated and merged into the main proposal"
+  },
+  "arm": "S-tools",
+  "checkpoint": "2026-01",
+  "cli_calls": {
+    "jira": 5,
+    "mail": 16
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 398.5889964060043,
+  "family": "design_decision",
+  "grade": {
+    "actual": "deprecated and merged into the main proposal",
+    "correct": true,
+    "evidence": [
+      "Message ID: 5f2811d100330e528ddb32e3 (Jun Rao, 2026-01-22 21:24:32Z, DISCUSS thread)",
+      "Message ID: dd72e188e244a14eeb227fa2 (Ivan Yurchenko, 2026-01-23 12:01:44Z, responding to Jun Rao's earlier Jan 12 message)",
+      "Explicit statement: 'We have deprecated KIP-1181 as it's now incorporated into KIP-1163.'",
+      "KAFKA-19257 JIRA issue describes KIP-1181 as sub-KIP of KIP-1150"
+    ],
+    "expected": "deprecated and merged into the main proposal"
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 26,
+  "prompt_sha256": "0bb2837e272d4094fad1ac7f9fa1104e601c9b72827a1a03389eefe08b371534",
+  "run_index": 54,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-32c8b7a253",
+  "tool_calls": {
+    "Bash": 21,
+    "Read": 3,
+    "StructuredOutput": 1,
+    "ToolSearch": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 875970,
+    "cost_usd": 0.187463,
+    "input_tokens": 913021,
+    "output_tokens": 5195
+  },
+  "violations": []
+}

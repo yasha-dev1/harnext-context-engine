@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "store/kips/KIP-1322.md",
+    "store/issues/KAFKA-20513.md"
+  ],
+  "value": "always report regardless of state"
+}

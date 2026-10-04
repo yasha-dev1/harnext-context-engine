@@ -1,0 +1,73 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "entities/pr/21528/timeline.md",
+      "entities/pr/21600/timeline.md",
+      "entities/pr/21623/timeline.md",
+      "entities/pr/21624/timeline.md",
+      "entities/pr/21653/timeline.md",
+      "entities/pr/21670/timeline.md",
+      "entities/pr/21680/timeline.md",
+      "entities/pr/21734/timeline.md",
+      "entities/pr/21748/timeline.md",
+      "entities/pr/21749/timeline.md",
+      "entities/pr/21998/timeline.md",
+      "entities/pr/21999/timeline.md",
+      "entities/pr/22085/timeline.md"
+    ],
+    "value": "mjsax"
+  },
+  "arm": "F1",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 104.33274905099825,
+  "family": "top_reviewer_for_author",
+  "grade": {
+    "actual": "mjsax",
+    "correct": true,
+    "evidence": [
+      "entities/pr/21528/timeline.md",
+      "entities/pr/21600/timeline.md",
+      "entities/pr/21623/timeline.md",
+      "entities/pr/21624/timeline.md",
+      "entities/pr/21653/timeline.md",
+      "entities/pr/21670/timeline.md",
+      "entities/pr/21680/timeline.md",
+      "entities/pr/21734/timeline.md",
+      "entities/pr/21748/timeline.md",
+      "entities/pr/21749/timeline.md",
+      "entities/pr/21998/timeline.md",
+      "entities/pr/21999/timeline.md",
+      "entities/pr/22085/timeline.md"
+    ],
+    "expected": "mjsax"
+  },
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "164fab2ecb8959097853e91fa78f5e788da553eac5121301f7b1c49c6a96a49c",
+  "run_index": 37,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-top_reviewer_for_author-39fcac1803",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 63537,
+    "cost_usd": 0.0133527,
+    "input_tokens": 65150,
+    "output_tokens": 760
+  },
+  "violations": []
+}

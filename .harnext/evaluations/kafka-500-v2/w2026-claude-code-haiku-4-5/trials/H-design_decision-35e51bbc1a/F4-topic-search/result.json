@@ -1,0 +1,53 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "store/discussions.md (lines 1121-1134)",
+      "Window 96 discussion dated 2026-04-15T08:31:19Z",
+      "KIP-1279 design decision AS25: 'Decided against inheriting source replication factor; use destination cluster default'"
+    ],
+    "value": "destination cluster default replication factor"
+  },
+  "arm": "F4-topic-search",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 41.174559163002414,
+  "family": "design_decision",
+  "grade": {
+    "actual": "destination cluster default replication factor",
+    "correct": true,
+    "evidence": [
+      "store/discussions.md (lines 1121-1134)",
+      "Window 96 discussion dated 2026-04-15T08:31:19Z",
+      "KIP-1279 design decision AS25: 'Decided against inheriting source replication factor; use destination cluster default'"
+    ],
+    "expected": "destination cluster default replication factor"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "7059419a5fbd1c69f4c973328befcb30a4eb935b4d3465354451298aa4b7d9d5",
+  "run_index": 68,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-35e51bbc1a",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 64080,
+    "cost_usd": 0.011858,
+    "input_tokens": 65191,
+    "output_tokens": 651
+  },
+  "violations": []
+}

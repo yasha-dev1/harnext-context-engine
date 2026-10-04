@@ -1,0 +1,62 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "gh pr view 22256 (merged: 2026-05-20T01:17:58Z)",
+      "jira issue view KAFKA-20565 (updated/resolution set: 2026-05-20T06:05:31Z)"
+    ],
+    "value": {
+      "days": 0,
+      "first": "merge"
+    }
+  },
+  "arm": "S-tools",
+  "checkpoint": "2026-05",
+  "cli_calls": {
+    "gh": 2,
+    "jira": 1
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 15.550868429003458,
+  "family": "resolution_vs_merge_order",
+  "grade": {
+    "actual": {
+      "days": 0,
+      "first": "merge"
+    },
+    "correct": true,
+    "evidence": [
+      "gh pr view 22256 (merged: 2026-05-20T01:17:58Z)",
+      "jira issue view KAFKA-20565 (updated/resolution set: 2026-05-20T06:05:31Z)"
+    ],
+    "expected": {
+      "days": 0,
+      "first": "merge"
+    }
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "bf870c1256ee1e338feb9c07c6b89ce46985689b1c972fca26890a1892a0085f",
+  "run_index": 53,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-resolution_vs_merge_order-accbf2b370",
+  "tool_calls": {
+    "Bash": 3,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 60333,
+    "cost_usd": 0.0217763,
+    "input_tokens": 65162,
+    "output_tokens": 1222
+  },
+  "violations": []
+}

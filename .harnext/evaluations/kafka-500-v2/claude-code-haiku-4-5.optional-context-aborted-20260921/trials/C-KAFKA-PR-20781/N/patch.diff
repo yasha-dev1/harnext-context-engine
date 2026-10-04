@@ -1,0 +1,110 @@
+diff --git a/group-coordinator/src/main/java/org/apache/kafka/coordinator/group/modern/consumer/CurrentAssignmentBuilder.java b/group-coordinator/src/main/java/org/apache/kafka/coordinator/group/modern/consumer/CurrentAssignmentBuilder.java
+index 63d61a3b923cbf43ff68051e8fc3b3763959ca4b..33f689187be31459b6c77c2e6bfd34052c861e76 100644
+--- a/group-coordinator/src/main/java/org/apache/kafka/coordinator/group/modern/consumer/CurrentAssignmentBuilder.java
++++ b/group-coordinator/src/main/java/org/apache/kafka/coordinator/group/modern/consumer/CurrentAssignmentBuilder.java
+@@ -393,9 +393,16 @@ public class CurrentAssignmentBuilder {
+             // Partitions Pending Assignment = Target - New Assigned Partitions - Unreleased Partitions
+             Set<Integer> partitionsPendingAssignment = new HashSet<>(target);
+             partitionsPendingAssignment.removeAll(assignedPartitions);
+-            hasUnreleasedPartitions = partitionsPendingAssignment.removeIf(partitionId ->
+-                currentPartitionEpoch.apply(topicId, partitionId) != -1
+-            ) || hasUnreleasedPartitions;
++            Set<Integer> existingPendingRevocation = member.partitionsPendingRevocation()
++                .getOrDefault(topicId, Set.of());
++            hasUnreleasedPartitions = partitionsPendingAssignment.removeIf(partitionId -> {
++                // Don't consider a partition unreleased if it's in the member's pending revocation list.
++                // The member already owns this partition and is just waiting to revoke it.
++                if (existingPendingRevocation.contains(partitionId)) {
++                    return false;
++                }
++                return currentPartitionEpoch.apply(topicId, partitionId) != -1;
++            }) || hasUnreleasedPartitions;
+ 
+             if (!assignedPartitions.isEmpty()) {
+                 newAssignedPartitions.put(topicId, assignedPartitions);
+diff --git a/group-coordinator/src/test/java/org/apache/kafka/coordinator/group/modern/consumer/CurrentAssignmentBuilderTest.java b/group-coordinator/src/test/java/org/apache/kafka/coordinator/group/modern/consumer/CurrentAssignmentBuilderTest.java
+index 48441780689ea5bb32472a2a424eb61d3c1a8a49..20f8e9dfd97903a9c47d4d2777e096bae1ac5ace 100644
+--- a/group-coordinator/src/test/java/org/apache/kafka/coordinator/group/modern/consumer/CurrentAssignmentBuilderTest.java
++++ b/group-coordinator/src/test/java/org/apache/kafka/coordinator/group/modern/consumer/CurrentAssignmentBuilderTest.java
+@@ -498,6 +498,81 @@ public class CurrentAssignmentBuilderTest {
+         );
+     }
+ 
++    @Test
++    public void testUnrevokedPartitionsToStableWithReturnedPartitionsPendingRevocation() {
++        String topic1 = "topic1";
++        String topic2 = "topic2";
++        Uuid topicId1 = Uuid.randomUuid();
++        Uuid topicId2 = Uuid.randomUuid();
++
++        CoordinatorMetadataImage metadataImage = new MetadataImageBuilder()
++            .addTopic(topicId1, topic1, 10)
++            .addTopic(topicId2, topic2, 10)
++            .buildCoordinatorMetadataImage();
++
++        ConsumerGroupMember member = new ConsumerGroupMember.Builder("member")
++            .setState(MemberState.UNREVOKED_PARTITIONS)
++            .setMemberEpoch(10)
++            .setPreviousMemberEpoch(10)
++            .setSubscribedTopicNames(List.of(topic1, topic2))
++            .setAssignedPartitions(mkAssignment(
++                mkTopicAssignment(topicId1, 2, 3),
++                mkTopicAssignment(topicId2, 5, 6)))
++            .setPartitionsPendingRevocation(mkAssignment(
++                // Partition 4 is pending revocation by the member but is back in the latest target
++                // assignment.
++                mkTopicAssignment(topicId1, 4)))
++            .build();
++
++        ConsumerGroupMember updatedMember = new CurrentAssignmentBuilder(member)
++            .withMetadataImage(metadataImage)
++            .withTargetAssignment(12, new Assignment(mkAssignment(
++                mkTopicAssignment(topicId1, 2, 3, 4),
++                mkTopicAssignment(topicId2, 5, 6, 7))))
++            .withCurrentPartitionEpoch((topicId, partitionId) -> {
++                if (topicId.equals(topicId1)) {
++                    // Partitions 2 and 3 are in the member's current assignment.
++                    // Partition 4 is pending revocation by the member.
++                    switch (partitionId) {
++                        case 2:
++                        case 3:
++                        case 4:
++                            return 10;
++                    }
++                } else if (topicId.equals(topicId2)) {
++                    // Partitions 5 and 6 are in the member's current assignment.
++                    switch (partitionId) {
++                        case 5:
++                        case 6:
++                            return 10;
++                    }
++                }
++                return -1;
++            })
++            .withOwnedTopicPartitions(Arrays.asList(
++                new ConsumerGroupHeartbeatRequestData.TopicPartitions()
++                    .setTopicId(topicId1)
++                    .setPartitions(Arrays.asList(2, 3)),
++                new ConsumerGroupHeartbeatRequestData.TopicPartitions()
++                    .setTopicId(topicId2)
++                    .setPartitions(Arrays.asList(5, 6))))
++            .build();
++
++        assertEquals(
++            new ConsumerGroupMember.Builder("member")
++                .setState(MemberState.STABLE)
++                .setMemberEpoch(12)
++                .setPreviousMemberEpoch(10)
++                .setSubscribedTopicNames(List.of(topic1, topic2))
++                .setAssignedPartitions(mkAssignment(
++                    mkTopicAssignment(topicId1, 2, 3, 4),
++                    mkTopicAssignment(topicId2, 5, 6, 7)))
++                .setPartitionsPendingRevocation(Map.of())
++                .build(),
++            updatedMember
++        );
++    }
++
+     @Test
+     public void testUnreleasedPartitionsToStable() {
+         String topic1 = "topic1";

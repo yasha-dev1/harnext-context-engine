@@ -1,0 +1,60 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "prs/21710-kafka-20261-window-store-upgrade.md (approved 2026-03-13T05:47:43Z)",
+      "prs/21511-kafka-20158-aggregation-with-headers.md (frankvicky also has 2 approvals: 21511, 21513)",
+      "prs/21513-kafka-20158-session-store-headers.md",
+      "issues/kafka-20301-session-store-upgrade-tests.md (PR #21748 approved by mjsax)",
+      "prs/21791-kafka-20327-add-overrides-abstract-decorators.md (clolov: 1 approval)",
+      "WINDOW-71-SUMMARY.md showing mjsax extensive review activity on streams PRs"
+    ],
+    "value": "mjsax"
+  },
+  "arm": "F4-fact-search",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 200.55606530500518,
+  "family": "top_reviewer_for_author",
+  "grade": {
+    "actual": "mjsax",
+    "correct": true,
+    "evidence": [
+      "prs/21710-kafka-20261-window-store-upgrade.md (approved 2026-03-13T05:47:43Z)",
+      "prs/21511-kafka-20158-aggregation-with-headers.md (frankvicky also has 2 approvals: 21511, 21513)",
+      "prs/21513-kafka-20158-session-store-headers.md",
+      "issues/kafka-20301-session-store-upgrade-tests.md (PR #21748 approved by mjsax)",
+      "prs/21791-kafka-20327-add-overrides-abstract-decorators.md (clolov: 1 approval)",
+      "WINDOW-71-SUMMARY.md showing mjsax extensive review activity on streams PRs"
+    ],
+    "expected": "mjsax"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 23,
+  "prompt_sha256": "64ca4c6afd65993cfd2bfeff0514fbda1e6c8966ced33316f16bc9be94a769c5",
+  "run_index": 30,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-top_reviewer_for_author-39fcac1803",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 20
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 1261978,
+    "cost_usd": 0.3272178,
+    "input_tokens": 1341594,
+    "output_tokens": 8395
+  },
+  "violations": []
+}

@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "entities/thread/CAMeNjWJqFj3g-Vz3WODknBwjDMGMxotyXSTk_CnoRwa20vGvGA_mail.gmail.com/OVERVIEW.md - indicates the discussion was moved to a new KIP-1279 thread, but that thread is not indexed in the context",
+    "_meta/build-summary-2026-03-20.md - references KIP-1279 discussions on mailing lists but does not contain the specific RPC naming details"
+  ],
+  "value": null
+}

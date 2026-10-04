@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "discussions/kip-1285-dsl-header-aware-stores.md (lines 67-71, 57-64)",
+    "KIP-1285 discussion shows initial name was `dsl.store.type`, changed to `dsl.store.format` based on 2026-02-20 reviewer feedback from Lucas Brutschy about ambiguity with existing `dsl.store.suppliers.class` property"
+  ],
+  "value": "dsl.store.format"
+}

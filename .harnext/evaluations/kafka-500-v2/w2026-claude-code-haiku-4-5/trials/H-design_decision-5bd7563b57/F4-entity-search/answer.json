@@ -1,0 +1,9 @@
+{
+  "evidence": [
+    "kips/KIP-1282.md - discusses version bump distinction between broker too old vs group has no creation time",
+    "pull-requests/21952.md - implementation PR for KIP-1282/KAFKA-20035 opened 2026-04-03",
+    "WINDOW-85-2026-04-02-to-2026-04-04-summary.md - references KIP-1282 discussion on partition expansion",
+    "INDEX-WINDOW-84.md - mentions addition of groupCreationTimeMs to ConsumerGroupDescription"
+  ],
+  "value": null
+}

@@ -1,0 +1,10 @@
+{
+  "evidence": [
+    "store/events/2026/01/13/jira-13638867-created-faa17b81.md",
+    "store/events/2026/03/09/jira-13638867-change-22965819-0-68f1d9b3.md",
+    "store/events/2026/03/09/jira-13638867-change-22965795-0-4306c084.md"
+  ],
+  "value": [
+    "KAFKA-20282"
+  ]
+}

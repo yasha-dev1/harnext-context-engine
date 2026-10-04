@@ -1,0 +1,52 @@
+{
+  "agent": "claude-code",
+  "agent_version": "2.1.278 (Claude Code)",
+  "arms": {
+    "F0-search": "44ea82bf3f1d20b3cf63be6b7ce412fedc78517dd17c01b73769176a88db42b0",
+    "F1-search": "0f6cb3867a93001b7bf9d1cea5b392daee77bb66a2598024d6da9d70ccefb3a1",
+    "F2-search": "b3332d3b55c23281517c7522d414de33c1aa5279ae7c6fe74946d72f5edfc234",
+    "F3-search": "10b718003fad75fe05f804da8e9c2b32b9049003394aaea73113f59eb30c2425",
+    "F4-entity-search": "1cdb0b910f04fc860df0cd9e6c6641035bfb89960db252ebab994d38c84a6ba1",
+    "F4-fact-search": "41ac41ba05dbb8ad36ef6196d0d6b5d74d710dfdc0030a4ae757c1d4740b5826",
+    "F4-topic-search": "59cfbb9d3f353b92f4e355175e9294f8edc1f6ff9cffd3f040e3d6fafcc01275",
+    "F5-search": "7bfe8d7f58a86e34d5e038edf0570425b8a733616bcb1475ab77938d4d6e0d9b",
+    "F6-search": "4e37ad46c9157ad795a25c7ca7c166560ec51a59db46fb11e6ba7f997756b677",
+    "N": "66816f4528f39cf69864fd7e529f6670ed2868b26e664ccee7a82aa499f9bd53",
+    "R-hyb": "c15b0f4605f8045cc764b443e0c8b276db695aed27c7c33e985aea6f761bfdae",
+    "S-tools": "03f6b364c37a793b3739c66781eb86f84c8a451cbebc795d0ebedff9904b78f7"
+  },
+  "benchmark": "kafka-w2026-clean-smoke",
+  "config": {
+    "agent": "claude-code",
+    "effort": "medium",
+    "keep_per_arm": 3,
+    "model": "claude-haiku-4-5-20251001",
+    "protocol": "harnext-e2-v2",
+    "reader": "claude",
+    "run_id": "w2026-clean-smoke-haiku-4-5",
+    "store_hash": "manifest",
+    "timeouts": {
+      "coding": 3600,
+      "grading": 3000,
+      "historical": 900
+    }
+  },
+  "prompt_template_sha256": "5012cc3cc5d76cbb631b5ad340b865071406c5af4fe329818e2ce2d1231f856b",
+  "run_id": "w2026-clean-smoke-haiku-4-5",
+  "stores": {
+    "F0/2026-04": "10f08e702b582f26596a47e8271849c00115f351",
+    "F1/2026-04": "3b6bf69c6f910dee5498a7fb94b11b4755133114",
+    "F2/2026-04": "afe9a8ccfec372aa9e5a84827e942f4f30bb02bf",
+    "F3/2026-04": "5d2b067e16ce4a51733e5f0b240b4e56dc1f026f",
+    "F4-entity/2026-04": "7779048e031379ba6fd82d7a496f08a321477c67",
+    "F4-fact/2026-04": "2671e1f783106497cd69b286a3dc1b639e83bfa7",
+    "F4-topic/2026-04": "f4d6a008567b519158755a79190a4dd2d066cc52",
+    "F5/2026-04": "3f6e5030c86496782cb7b87b44471c11046c55dd",
+    "F6/2026-04": "c2ef075f037a630294e9c4a29962317a7ca51340",
+    "R-hyb/2026-04": "fd32eb8953cdeb5956355566bc53b6235742dbc1673da833c4d6b630ba620010",
+    "S-tools/2026-04": "3a7d1907ea4e7c75905645b99088bd35f4931ed63584cc8b3e6b37339c1e6bc3"
+  },
+  "tasks": {
+    "C-KAFKA-PR-22316-clean": "2a145f411a35309c813169c7ae73ccbd0284bcb5e9bf1489b73429fd28ee246c"
+  }
+}

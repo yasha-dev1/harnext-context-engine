@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "discussions/kip-1305-per-record-context-processing-consumers.md — KIP-1305 discussion started by Aditya Kousik on 2026-04-01",
+    "prs/22077-per-record-context-test.md — PR #22077 associated with KAFKA-20384, implementing unit test for KIP-1305",
+    "WINDOW-97-INTEGRATION-NOTES.md — Integration notes referencing KIP-1305 with PR #22077"
+  ],
+  "value": "KAFKA-20384"
+}

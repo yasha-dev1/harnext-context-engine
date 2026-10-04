@@ -1,0 +1,27 @@
+{
+  "evidence": [
+    "store/entities/issue/KAFKA-20258/timeline.md"
+  ],
+  "value": [
+    {
+      "at": "2026-03-13T07:42:33.000000Z",
+      "from": null,
+      "to": "Resolved"
+    },
+    {
+      "at": "2026-03-13T07:43:10.000000Z",
+      "from": "Resolved",
+      "to": "Reopened"
+    },
+    {
+      "at": "2026-03-17T03:21:37.000000Z",
+      "from": "Reopened",
+      "to": "Patch Available"
+    },
+    {
+      "at": "2026-03-18T19:20:28.000000Z",
+      "from": "Patch Available",
+      "to": "Resolved"
+    }
+  ]
+}

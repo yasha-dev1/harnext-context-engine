@@ -1,0 +1,52 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "discussions/kip-1285-dsl-header-aware-stores.md (lines 67-71, 57-64)",
+      "KIP-1285 discussion shows initial name was `dsl.store.type`, changed to `dsl.store.format` based on 2026-02-20 reviewer feedback from Lucas Brutschy about ambiguity with existing `dsl.store.suppliers.class` property"
+    ],
+    "value": "dsl.store.format"
+  },
+  "arm": "F4-fact-search",
+  "checkpoint": "2026-02",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 60.77860768800019,
+  "family": "design_decision",
+  "grade": {
+    "actual": "dsl.store.format",
+    "correct": true,
+    "evidence": [
+      "discussions/kip-1285-dsl-header-aware-stores.md (lines 67-71, 57-64)",
+      "KIP-1285 discussion shows initial name was `dsl.store.type`, changed to `dsl.store.format` based on 2026-02-20 reviewer feedback from Lucas Brutschy about ambiguity with existing `dsl.store.suppliers.class` property"
+    ],
+    "expected": "dsl.store.format"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 4,
+  "prompt_sha256": "12362acbeac4650641f23f915847095c05c0de562fa552edc949e2d66f9135ad",
+  "run_index": 61,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-38b42b5169",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 86993,
+    "cost_usd": 0.0201923,
+    "input_tokens": 89782,
+    "output_tokens": 1190
+  },
+  "violations": []
+}

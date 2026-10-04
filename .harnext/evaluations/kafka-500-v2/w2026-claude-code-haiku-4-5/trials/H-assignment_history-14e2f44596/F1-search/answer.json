@@ -1,0 +1,28 @@
+{
+  "evidence": [
+    "entities/issue/KAFKA-20592/timeline.md",
+    "entities/component/docs/timeline.md"
+  ],
+  "value": [
+    {
+      "at": "2026-05-15T10:37:01.000000Z",
+      "from": null,
+      "to": "Sanskar Jhajharia"
+    },
+    {
+      "at": "2026-05-15T12:25:20.000000Z",
+      "from": "Sanskar Jhajharia",
+      "to": null
+    },
+    {
+      "at": "2026-05-16T06:04:22.000000Z",
+      "from": null,
+      "to": "Akhil Sabu"
+    },
+    {
+      "at": "2026-05-19T09:52:14.000000Z",
+      "from": "Akhil Sabu",
+      "to": "Akhil Sabu"
+    }
+  ]
+}

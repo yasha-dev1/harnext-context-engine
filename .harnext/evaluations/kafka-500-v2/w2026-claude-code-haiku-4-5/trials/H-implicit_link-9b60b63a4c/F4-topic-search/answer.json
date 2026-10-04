@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "issues.md (lines 534-540) - KAFKA-20524 issue record showing creation on 2026-04-23T17:22:44Z with KIP-1323 reference",
+    "discussions.md (lines 521-532) - KIP-1323 mailing list discussion initiated 2026-04-23T17:18:30Z by Andrew Schofield"
+  ],
+  "value": "KAFKA-20524"
+}

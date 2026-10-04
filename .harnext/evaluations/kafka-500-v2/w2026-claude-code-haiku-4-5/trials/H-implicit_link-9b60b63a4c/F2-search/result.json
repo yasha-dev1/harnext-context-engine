@@ -1,0 +1,53 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail/2026-04-23-mail-41e52c2250e38bfcd2b525f1-499e381a.md",
+      "mail/2026-04-23-mail-f8aa74e0b411a6b720fcf072-9e4dde95.md",
+      "issues/KAFKA-20524/2026-04-23-jira-created-d39e1244.md"
+    ],
+    "value": "KAFKA-20524"
+  },
+  "arm": "F2-search",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 18.36951150900859,
+  "family": "implicit_link",
+  "grade": {
+    "actual": "KAFKA-20524",
+    "correct": true,
+    "evidence": [
+      "mail/2026-04-23-mail-41e52c2250e38bfcd2b525f1-499e381a.md",
+      "mail/2026-04-23-mail-f8aa74e0b411a6b720fcf072-9e4dde95.md",
+      "issues/KAFKA-20524/2026-04-23-jira-created-d39e1244.md"
+    ],
+    "expected": "KAFKA-20524"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "d00fb2a21690c55fccf173d5736db4157911169adc7fa1146eab4cf224d1c509",
+  "run_index": 81,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-implicit_link-9b60b63a4c",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__search_context": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 64210,
+    "cost_usd": 0.020756,
+    "input_tokens": 68411,
+    "output_tokens": 1192
+  },
+  "violations": []
+}

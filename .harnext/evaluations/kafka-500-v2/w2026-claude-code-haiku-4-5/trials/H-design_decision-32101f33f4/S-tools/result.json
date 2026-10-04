@@ -1,0 +1,61 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail thread CACg5BjtpWBWAztaotY8RBv5bDdH2cAwHmnO1tU5bnAZtRAztwQ@mail.gmail.com (KIP-1270 discussion, 2026-01-27)",
+      "Email from Matthias J. Sax (2026-01-27T06:12:42Z): decision to NOT introduce ThreadType parameter",
+      "Email from Arpit Goyal (2026-01-27T08:40:34Z): confirmation that no ThreadType parameter needed",
+      "Email from Lucas Brutschy (2026-01-27T09:29:23Z): acceptance of the decision",
+      "JIRA issue KAFKA-19930"
+    ],
+    "value": "no"
+  },
+  "arm": "S-tools",
+  "checkpoint": "2026-01",
+  "cli_calls": {
+    "gh": 4,
+    "git": 1,
+    "jira": 9,
+    "mail": 18
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 351.65924844199617,
+  "family": "design_decision",
+  "grade": {
+    "actual": "no",
+    "correct": true,
+    "evidence": [
+      "mail thread CACg5BjtpWBWAztaotY8RBv5bDdH2cAwHmnO1tU5bnAZtRAztwQ@mail.gmail.com (KIP-1270 discussion, 2026-01-27)",
+      "Email from Matthias J. Sax (2026-01-27T06:12:42Z): decision to NOT introduce ThreadType parameter",
+      "Email from Arpit Goyal (2026-01-27T08:40:34Z): confirmation that no ThreadType parameter needed",
+      "Email from Lucas Brutschy (2026-01-27T09:29:23Z): acceptance of the decision",
+      "JIRA issue KAFKA-19930"
+    ],
+    "expected": "no"
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 30,
+  "prompt_sha256": "df2a24bd89eecb94c04b51c819c4cd7002e3117ab3282edfe1b1b9b92ee0a97c",
+  "run_index": 53,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-32101f33f4",
+  "tool_calls": {
+    "Bash": 29,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 1045992,
+    "cost_usd": 0.2344312,
+    "input_tokens": 1098576,
+    "output_tokens": 4981
+  },
+  "violations": []
+}

@@ -1,0 +1,53 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "Cannot access JIRA API (no network access)",
+      "No project history context provided",
+      "No local files containing issue transition data available in /workspace",
+      "Knowledge cutoff is February 2025, predating the query date of 2026-05-31"
+    ],
+    "value": 0
+  },
+  "arm": "N",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 9.69111335400521,
+  "family": "reopen_count",
+  "grade": {
+    "actual": 0,
+    "correct": true,
+    "evidence": [
+      "Cannot access JIRA API (no network access)",
+      "No project history context provided",
+      "No local files containing issue transition data available in /workspace",
+      "Knowledge cutoff is February 2025, predating the query date of 2026-05-31"
+    ],
+    "expected": 0
+  },
+  "instructions_sha256": null,
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 2,
+  "prompt_sha256": "bf5f7524ac31c2bb171f5d5dfd6fcb2a1dabdd9c313593fb01ac16495f5c02b8",
+  "run_index": 51,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-reopen_count-db0c65201a",
+  "tool_calls": {
+    "StructuredOutput": 2
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 38067,
+    "cost_usd": 0.015197700000000001,
+    "input_tokens": 41836,
+    "output_tokens": 774
+  },
+  "violations": []
+}

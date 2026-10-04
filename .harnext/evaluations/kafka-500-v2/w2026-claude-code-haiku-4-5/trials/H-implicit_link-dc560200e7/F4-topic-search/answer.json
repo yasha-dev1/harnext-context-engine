@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "issues.md lines 5080-5089",
+    "discussions.md lines 4122-4132"
+  ],
+  "value": "KAFKA-20223"
+}

@@ -1,0 +1,59 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "prs/21638/2026-03-06-gh-pr-merged-4cb0d476.md",
+      "prs/21641/2026-03-06-github-api-apache-kafka-pr-21641-merged-31bda900.md",
+      "prs/21642/github-api-apache-kafka-pr-21642-merged-7fa009dc.md",
+      "prs/21685/github-api-apache-kafka-pr-21685-merged-7e520ab9.md",
+      "prs/21772/2026-04-28-gh-pr-merged-df26183b.md",
+      "prs/22067/2026-04-28-gh-pr-merged-c06b4c06.md"
+    ],
+    "value": 6
+  },
+  "arm": "F2-search",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 119.29345448499953,
+  "family": "author_activity",
+  "grade": {
+    "actual": 6,
+    "correct": true,
+    "evidence": [
+      "prs/21638/2026-03-06-gh-pr-merged-4cb0d476.md",
+      "prs/21641/2026-03-06-github-api-apache-kafka-pr-21641-merged-31bda900.md",
+      "prs/21642/github-api-apache-kafka-pr-21642-merged-7fa009dc.md",
+      "prs/21685/github-api-apache-kafka-pr-21685-merged-7e520ab9.md",
+      "prs/21772/2026-04-28-gh-pr-merged-df26183b.md",
+      "prs/22067/2026-04-28-gh-pr-merged-c06b4c06.md"
+    ],
+    "expected": 6
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "b9a21ba2325bef9ca70a4d1a395ccbbc3ae4a94144e83b5ceba55a300f29fc09",
+  "run_index": 5,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-author_activity-673abd217f",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 60369,
+    "cost_usd": 0.0225859,
+    "input_tokens": 65997,
+    "output_tokens": 1064
+  },
+  "violations": []
+}

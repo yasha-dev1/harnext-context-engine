@@ -1,0 +1,80 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "entities/pr/apache__kafka__21555/OVERVIEW.md",
+      "github:api:apache/kafka:pr-21627-merged",
+      "mail:deafa8cbb9672c74162f0364"
+    ],
+    "value": "group.coordinator.background.threads"
+  },
+  "arm": "H-engine-mem",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 255.41133632599667,
+  "engine": {
+    "calls": 2,
+    "chat": {
+      "calls": 41,
+      "cancelled": 2,
+      "cost_usd": 0.00351825,
+      "input_tokens": 136948,
+      "output_tokens": 3933,
+      "retries": 0
+    },
+    "cost_usd": 0.00774484,
+    "discarded_attempts": 0,
+    "jev": {
+      "calls": 47,
+      "cancelled": 0,
+      "cost_usd": 0.00422659,
+      "input_tokens": 100633,
+      "output_tokens": 16681,
+      "retries": 0
+    },
+    "partial": 2,
+    "provider_retry_usd": 0,
+    "seconds": 235.967,
+    "unmetered_upper_usd": 0.00074437,
+    "waited_s": 0
+  },
+  "family": "design_decision",
+  "grade": {
+    "actual": "group.coordinator.background.threads",
+    "correct": true,
+    "evidence": [
+      "entities/pr/apache__kafka__21555/OVERVIEW.md",
+      "github:api:apache/kafka:pr-21627-merged",
+      "mail:deafa8cbb9672c74162f0364"
+    ],
+    "expected": "group.coordinator.background.threads"
+  },
+  "image_id": "sha256:4615b2564319d58319029548af66970c954e128401ee89c8705684861de4bc07",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 4,
+  "prompt_sha256": "d150598880703e4cecead6fe7163c25e47d9749430db01446ef14b50a608fdc7",
+  "run_index": 51,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-44f6b97acb",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 2
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 82276,
+    "cost_usd": 0.025601600000000002,
+    "input_tokens": 87893,
+    "output_tokens": 1235
+  },
+  "violations": []
+}

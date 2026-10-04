@@ -1,0 +1,3 @@
+{
+  "summary": "Successfully implemented async consumer CPU usage improvement for KAFKA-20535 by adding a hasPendingReconciliation flag to AsyncKafkaConsumer. The optimization allows poll() to skip unnecessary reconciliation checks when there's no actual rebalancing work to do, reducing CPU overhead in low max.poll.records scenarios. Changes: (1) Added private boolean hasPendingReconciliation = true field, (2) Added setHasPendingReconciliation(boolean) package-private setter, (3) Modified collectFetch() to check hasPendingReconciliation before waiting for reconciliation checks. All tests pass, including testPollWaitsForReconciliationCheckComplete and testPollDoesNotWaitForReconciliationCheckIfNoPendingReconciliation."
+}

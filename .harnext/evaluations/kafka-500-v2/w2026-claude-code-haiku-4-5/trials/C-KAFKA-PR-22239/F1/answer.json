@@ -1,0 +1,3 @@
+{
+  "summary": "Successfully implemented KAFKA-20444 (KIP-1319) by adding error handling for GROUP_ID_NOT_FOUND and STALE_MEMBER_EPOCH errors in the TxnOffsetCommitHandler class within TransactionManager.java. These two new error codes introduced in TxnOffsetCommit v6+ are now properly treated as consumer group metadata mismatches and converted to CommitFailedException, aligning the TxnOffsetCommit API with the OffsetCommit API. The change is minimal and focused: added two error conditions to the existing error handling logic in the handleResponse method (lines 1944-1945). All 168 tests in TransactionManagerTest now pass, including the two previously failing tests for GROUP_ID_NOT_FOUND and STALE_MEMBER_EPOCH.</parameter>\n</invoke>"
+}

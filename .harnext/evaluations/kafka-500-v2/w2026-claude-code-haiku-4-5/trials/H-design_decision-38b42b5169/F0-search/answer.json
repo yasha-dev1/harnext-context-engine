@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "events/2026/02/22/mail-c4bfde361f38ca346dffd233-ed6480b7.md - Alieh Saeedi's response on 2026-02-22 confirming the property name change from dsl.store.type to dsl.store.format",
+    "events/2026/02/23/mail-847911d68e3b8fae10b2806b-3d75e6d4.md - Lucas Brutschy's LB1 feedback explaining the ambiguity concern with dsl.store.suppliers.class and proposing dsl.store.format as clearer naming"
+  ],
+  "value": "dsl.store.format"
+}

@@ -1,0 +1,51 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "jira:13648987:created - KAFKA-20524 created: Initialization of share group offsets from a specific offset or a file",
+      "mail:41e52c2250e38bfcd2b525f1 - [DISCUSS] KIP-1323 thread started by Andrew Schofield on 2026-04-23"
+    ],
+    "value": "KAFKA-20524"
+  },
+  "arm": "R-hyb",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 22.721932011991157,
+  "family": "implicit_link",
+  "grade": {
+    "actual": "KAFKA-20524",
+    "correct": true,
+    "evidence": [
+      "jira:13648987:created - KAFKA-20524 created: Initialization of share group offsets from a specific offset or a file",
+      "mail:41e52c2250e38bfcd2b525f1 - [DISCUSS] KIP-1323 thread started by Andrew Schofield on 2026-04-23"
+    ],
+    "expected": "KAFKA-20524"
+  },
+  "instructions_sha256": "dfaa5b284d06c378ef7e4c08b53dc77835c91d7591fca0335bbfa33d3e53eb37",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "aef9995f4b33786ff51e7cd34d996316a4e7df75c93dacf04e8138eb6549540c",
+  "run_index": 81,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-implicit_link-9b60b63a4c",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__search": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 60051,
+    "cost_usd": 0.0290231,
+    "input_tokens": 69241,
+    "output_tokens": 933
+  },
+  "violations": []
+}

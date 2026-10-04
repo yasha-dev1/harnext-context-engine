@@ -1,0 +1,52 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail id: a1a76025a895e9029a8c8b94 (Kirk True, 2026-05-05T15:09:46Z, Re: [DISCUSS] KIP-1324: Support client configuration observability)"
+    ],
+    "value": "ConfigTooLargeException"
+  },
+  "arm": "S-tools",
+  "checkpoint": "2026-05",
+  "cli_calls": {
+    "gh": 1,
+    "jira": 1,
+    "mail": 4
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 64.97957367400522,
+  "family": "design_decision",
+  "grade": {
+    "actual": "ConfigTooLargeException",
+    "correct": true,
+    "evidence": [
+      "mail id: a1a76025a895e9029a8c8b94 (Kirk True, 2026-05-05T15:09:46Z, Re: [DISCUSS] KIP-1324: Support client configuration observability)"
+    ],
+    "expected": "ConfigTooLargeException"
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 7,
+  "prompt_sha256": "4ae087d216d1321e633c63959c1fd4875ed34c89ed7013115ac79ab084fdb6a4",
+  "run_index": 72,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-9747f2e7bf",
+  "tool_calls": {
+    "Bash": 6,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 148602,
+    "cost_usd": 0.0399372,
+    "input_tokens": 157854,
+    "output_tokens": 1326
+  },
+  "violations": []
+}

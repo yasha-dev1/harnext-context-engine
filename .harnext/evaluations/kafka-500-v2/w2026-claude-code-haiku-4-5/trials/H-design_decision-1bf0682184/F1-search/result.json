@@ -1,0 +1,50 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "Unable to retrieve full message content from mailing list discussions. The MCP history search tool returns only index/timeline metadata, not message bodies. The configuration property name would be specified in the KIP-1331 discussion messages (2026-05-04 through 2026-05-29) or implementation PRs #22393/#22413."
+    ],
+    "value": null
+  },
+  "arm": "F1-search",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 145.40795224400063,
+  "family": "design_decision",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "Unable to retrieve full message content from mailing list discussions. The MCP history search tool returns only index/timeline metadata, not message bodies. The configuration property name would be specified in the KIP-1331 discussion messages (2026-05-04 through 2026-05-29) or implementation PRs #22393/#22413."
+    ],
+    "expected": "group.streams.topology.description.plugin.class"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 25,
+  "prompt_sha256": "af1946c771b8f6518012408f97b041b0b61ff905af6a8e040695b76d2f21d7f9",
+  "run_index": 74,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-1bf0682184",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 21
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 1513110,
+    "cost_usd": 0.353798,
+    "input_tokens": 1601021,
+    "output_tokens": 5374
+  },
+  "violations": []
+}

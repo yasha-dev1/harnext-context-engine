@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "pull-requests/21547.md - PR #21547 KAFKA-20176: Add MetaProperties V2",
+    "issues/KAFKA-20176.md - KAFKA-20176: Add MetaProperties V2",
+    "kips/KIP-1262 (referenced in WINDOW-65-2026-03-15-to-2026-03-16-summary.md) - approved by Jun Rao and Luke Chen by 2026-03-16"
+  ],
+  "value": "V1"
+}

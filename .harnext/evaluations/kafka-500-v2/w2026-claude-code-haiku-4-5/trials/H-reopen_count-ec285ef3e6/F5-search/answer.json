@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "INDEX.md (line 461: 'KAFKA-20516 - close(REMAIN_IN_GROUP) for async consumer (Resolved as Won't Fix)')"
+  ],
+  "value": 0
+}

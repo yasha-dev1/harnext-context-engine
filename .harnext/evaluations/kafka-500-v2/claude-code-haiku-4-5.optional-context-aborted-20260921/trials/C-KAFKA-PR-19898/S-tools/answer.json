@@ -1,0 +1,3 @@
+{
+  "summary": "Implemented fix for KAFKA-19347 by adding deduplication logic to AclControlManager.createAcls() method. Added a local Set<StandardAcl> to track ACLs created within a single request, preventing duplicate record generation for the same ACL binding while maintaining proper state management through the replay method. The change ensures that timeline data structures are only updated during replay, not during request processing, preventing uncommitted state from being exposed to callers."
+}

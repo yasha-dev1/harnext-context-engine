@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "issues/KAFKA-20185/2026-03-05-jira-change-13642029-22961847-0-e9c3a373.md",
+    "issues/KAFKA-20185/2026-02-13-jira-created-ee2b18a0.md"
+  ],
+  "value": "Blocker"
+}

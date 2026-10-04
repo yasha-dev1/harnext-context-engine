@@ -1,0 +1,78 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail:bfae351428945364a45fb155",
+      "mail:54b7a95c4e0a9850e6218625"
+    ],
+    "value": "group.streams.topology.description.plugin.class"
+  },
+  "arm": "H-engine",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 302.16604794999876,
+  "engine": {
+    "calls": 3,
+    "chat": {
+      "calls": 45,
+      "cancelled": 2,
+      "cost_usd": 0.00436895,
+      "input_tokens": 209252,
+      "output_tokens": 4345,
+      "retries": 0
+    },
+    "cost_usd": 0.00913426,
+    "discarded_attempts": 0,
+    "jev": {
+      "calls": 61,
+      "cancelled": 0,
+      "cost_usd": 0.00476531,
+      "input_tokens": 113460,
+      "output_tokens": 20275,
+      "retries": 0
+    },
+    "partial": 3,
+    "provider_retry_usd": 0,
+    "seconds": 284.136,
+    "unmetered_upper_usd": 0.00073041,
+    "waited_s": 0
+  },
+  "family": "design_decision",
+  "grade": {
+    "actual": "group.streams.topology.description.plugin.class",
+    "correct": true,
+    "evidence": [
+      "mail:bfae351428945364a45fb155",
+      "mail:54b7a95c4e0a9850e6218625"
+    ],
+    "expected": "group.streams.topology.description.plugin.class"
+  },
+  "image_id": "sha256:4615b2564319d58319029548af66970c954e128401ee89c8705684861de4bc07",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 5,
+  "prompt_sha256": "81055a8525f3459d7e988f3088b7220ab30471c8979e6ad556fe887d57157204",
+  "run_index": 74,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-1bf0682184",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 3
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 104683,
+    "cost_usd": 0.0271393,
+    "input_tokens": 110350,
+    "output_tokens": 1076
+  },
+  "violations": []
+}

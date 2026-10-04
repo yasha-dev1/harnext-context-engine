@@ -1,0 +1,3 @@
+{
+  "summary": "Successfully implemented readOnly(IsolationLevel) for MeteredKeyValueStore. Added a ReadOnlyView inner class that wraps the underlying read-only store and applies metering to all read operations (get, range, reverseRange, all, reverseAll, prefixScan) while delegating approximateNumEntries directly. The implementation applies serdes transformations and records metrics using existing sensors. All 37 MeteredKeyValueStoreTest tests pass, including 9 new read-only view tests."
+}

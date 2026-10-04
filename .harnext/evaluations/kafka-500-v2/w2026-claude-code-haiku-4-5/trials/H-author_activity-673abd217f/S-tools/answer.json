@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "gh pr list query for author:lucasbru state:merged showing 6 PRs with mergedAt dates between 2026-03-03 and 2026-05-31: PR#22067 (2026-04-28), PR#21772 (2026-04-28), PR#21685 (2026-03-10), PR#21642 (2026-03-10), PR#21641 (2026-03-06), PR#21638 (2026-03-06)"
+  ],
+  "value": 6
+}

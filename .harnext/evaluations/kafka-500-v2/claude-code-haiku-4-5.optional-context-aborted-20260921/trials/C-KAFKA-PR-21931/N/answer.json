@@ -1,0 +1,3 @@
+{
+  "summary": "Successfully implemented KAFKA-20368 by replacing HashMap with MetricsUtils.getTags() to ensure deterministic metric tags ordering (topic first, then partition) in RLMExpirationTask. Changed metricTags initialization in the constructor to use MetricsUtils.getTags(\"topic\", ..., \"partition\", ...) which returns a LinkedHashMap that maintains insertion order. All 90 RemoteLogManagerTest tests pass successfully."
+}

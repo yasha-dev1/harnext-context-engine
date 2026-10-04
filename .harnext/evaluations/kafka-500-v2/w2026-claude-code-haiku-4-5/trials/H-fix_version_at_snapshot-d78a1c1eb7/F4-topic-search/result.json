@@ -1,0 +1,65 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "issues.md (lines 3410-3430): KAFKA-20085 initial fix versions 3.9.2, 4.0.2, 4.1.2, 4.2.0",
+      "issues.md (lines 3095-3110): KAFKA-20085 fix version 4.3.0 added 2026-01-28T17:48:54Z"
+    ],
+    "value": [
+      "3.9.2",
+      "4.0.2",
+      "4.1.2",
+      "4.2.0",
+      "4.3.0"
+    ]
+  },
+  "arm": "F4-topic-search",
+  "checkpoint": "2026-02",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 42.42560254500131,
+  "family": "fix_version_at_snapshot",
+  "grade": {
+    "actual": [
+      "3.9.2",
+      "4.0.2",
+      "4.1.2",
+      "4.2.0",
+      "4.3.0"
+    ],
+    "correct": false,
+    "evidence": [
+      "issues.md (lines 3410-3430): KAFKA-20085 initial fix versions 3.9.2, 4.0.2, 4.1.2, 4.2.0",
+      "issues.md (lines 3095-3110): KAFKA-20085 fix version 4.3.0 added 2026-01-28T17:48:54Z"
+    ],
+    "expected": [
+      "4.3.0"
+    ]
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "ae82705acce34cd6c4dd2c849303bde9990d8b98b86f2e0460c7aec170c018de",
+  "run_index": 31,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-fix_version_at_snapshot-d78a1c1eb7",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__search_context": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 64112,
+    "cost_usd": 0.0354742,
+    "input_tokens": 69092,
+    "output_tokens": 3826
+  },
+  "violations": []
+}

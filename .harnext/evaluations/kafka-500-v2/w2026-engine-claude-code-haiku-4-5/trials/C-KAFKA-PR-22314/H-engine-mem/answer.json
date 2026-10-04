@@ -1,0 +1,3 @@
+{
+  "summary": "Successfully implemented ReadOnlyView implementations for CachingWindowStore as specified in KAFKA-20497. The implementation provides custom ReadOnlyWindowStore instances that properly handle two isolation levels: READ_COMMITTED (bypassing cache for committed data only) and READ_UNCOMMITTED (merging both cache and store data). All 60 tests in CachingPersistentWindowStoreTest pass, validating correct behavior for single-point fetches, range queries, backward iteration, and all other WindowStore operations."
+}

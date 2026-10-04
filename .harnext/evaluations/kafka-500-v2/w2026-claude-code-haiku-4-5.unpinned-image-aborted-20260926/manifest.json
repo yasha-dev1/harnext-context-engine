@@ -1,0 +1,69 @@
+{
+  "agent": "claude-code",
+  "agent_version": "2.1.278 (Claude Code)",
+  "arms": {
+    "F0": "64acba5d7347cc26f95cf6ecf0e536514a6c0e1f4e477a2137a5ac899c386c09",
+    "F1": "3f5b8dc1c7cc07b9b58a4f75e545459d9378532c8e8e024e1e00f33ef98b0283",
+    "N": "66816f4528f39cf69864fd7e529f6670ed2868b26e664ccee7a82aa499f9bd53",
+    "R-hyb": "c15b0f4605f8045cc764b443e0c8b276db695aed27c7c33e985aea6f761bfdae",
+    "S-tools": "03f6b364c37a793b3739c66781eb86f84c8a451cbebc795d0ebedff9904b78f7"
+  },
+  "benchmark": "kafka-50-w2026",
+  "config": {
+    "agent": "claude-code",
+    "effort": "medium",
+    "keep_per_arm": 3,
+    "model": "claude-haiku-4-5-20251001",
+    "protocol": "harnext-e2-v2",
+    "reader": "claude",
+    "run_id": "w2026-claude-code-haiku-4-5",
+    "store_hash": "manifest",
+    "timeouts": {
+      "coding": 3600,
+      "grading": 3000,
+      "historical": 900
+    }
+  },
+  "prompt_template_sha256": "5012cc3cc5d76cbb631b5ad340b865071406c5af4fe329818e2ce2d1231f856b",
+  "run_id": "w2026-claude-code-haiku-4-5",
+  "stores": {
+    "F0/2026-02": "d5b2c22bc500b21e0b112d07fff1b40ed507430a",
+    "F0/2026-03": "459e2b74ff7536fdfa47f7d6d63d85da81b9a106",
+    "F0/2026-04": "10f08e702b582f26596a47e8271849c00115f351",
+    "F0/2026-05": "a87170b4f7230b27d4d683cdbaaa63552d0febcc",
+    "F1/2026-02": "592119fa951086317b5b3b2cc3b4d454de4f71a0",
+    "F1/2026-03": "c7e03cb1e8143bdb1d63699ba4450d418e183627",
+    "F1/2026-04": "3b6bf69c6f910dee5498a7fb94b11b4755133114",
+    "F1/2026-05": "15597e3381fee0b772f465d28bde303430720262",
+    "R-hyb/2026-02": "5e01736051fe04c3fde538ae2288b52fae0f68cdd698dfee5f18e3a871bae75f",
+    "R-hyb/2026-03": "e4f345d43948c7b218deaa45d00ed3ba36e437675acfdeadaf78e38e44c39abd",
+    "R-hyb/2026-04": "fd32eb8953cdeb5956355566bc53b6235742dbc1673da833c4d6b630ba620010",
+    "R-hyb/2026-05": "092e4d7975ee4521c48bf443cd7d53719b77537dbbb2edbe1c6ebd296dab2a7f",
+    "S-tools/2026-02": "d6a671b3728302b2f2f4a2f385a24a92a5b5def765adc67ba761c7b053c671ad",
+    "S-tools/2026-03": "b3402f39683ebc948baa8160102b72ce566ac408fc1e40d3eb3ca2f9e570f8d4",
+    "S-tools/2026-04": "3a7d1907ea4e7c75905645b99088bd35f4931ed63584cc8b3e6b37339c1e6bc3",
+    "S-tools/2026-05": "41dd5ab9cf0b2e4644782fa8aa3e6c11af68843b9ad6d99a9b45e97d1aa8dd11"
+  },
+  "tasks": {
+    "C-KAFKA-PR-21813": "31b0efbbb6c728989401ddbc75455d6e56beb353feb8a8dbf4c6d6811c37b118",
+    "C-KAFKA-PR-21901": "ac3a7f7519efd3db0ea0ed22bb437cd5c89b0fdc9cf772ece828f4686896607c",
+    "C-KAFKA-PR-21931": "ee3441a69b37b3152bccd66fd0570330eacd298e9ee40bd3bd74ede33c07f0b5",
+    "C-KAFKA-PR-21997": "49370c5dfcc2500453d15671a57c46a7663cf4e095aa008b7c3301fab1f0d0a7",
+    "C-KAFKA-PR-22316": "2242f9cfd8b7871fbf7d0262a7db63af3399890fbf756cfa71bd99bba105e998",
+    "C-KAFKA-PR-22454": "f56dd087a575cc68b99f053a186755585741d939c3eaa0b4fb44d8a9640b1dd4",
+    "H-assignee_at_snapshot-26a89e8703": "be789e9a8916778c92ec4d71b46a9c31a644fadf444996d2ddd0e34733d1ec37",
+    "H-assignment_history-14e2f44596": "462620244003c860cdcab0c0c6d301d8c25aab3d09174c09c9e3231816287cf3",
+    "H-author_activity-673abd217f": "95b4c022d30ec38477792434d30ac1264cfeb165c7712da7c9868a25d1edb30a",
+    "H-closed_at_snapshot-2c189971a1": "c09f75b95afbb38edf666afec18c74dd8767ce94f2c414de5e08ba2b62b9cff7",
+    "H-fix_version_at_snapshot-af2f4eda70": "c251fb21c64c2fbf2bd9ef913c31c976a7ea9e3cec37aaff3e60f6ad4b76742b",
+    "H-issue_changed_files-849b1dc2ba": "02ffa2e2ec0e5252431b36573b6bad73ade8417e4565b5de81f681a670e15a19",
+    "H-issue_links-ee77a538ef": "67de2a17d3e6e5bafcac394b7814d7fb46d78d02b8baf2e4304313b5998d6e2f",
+    "H-issue_prs-4d925a3d3e": "5ad1f3cd7e565a946b105548f02a8fe760379a371ad008a16f25f4959a6141dc",
+    "H-kip_thread-4f3f46e46c": "6ec547bde54fe6b7d684a7faaf60a6fea0bd2e1a28c73ebf7246f2f45b02aa79",
+    "H-pr_approvers-78f6a3cea2": "71e7b95a60f3a3864c784e55d55aaa9f1be14e3985c727a035cacaca37cb1c57",
+    "H-priority_at_snapshot-fdda08ba87": "5f6d24a9767fa77d545eb1244ba295afaf7b5d821d5657fe79dbcf1ffa8bf25c",
+    "H-reopen_count-ec285ef3e6": "02797d06e1d37eee43d7dadeb48dbb8336d65f9c3d8be49b1a8bda93d0f5e46d",
+    "H-resolution_at_snapshot-449cfc19c6": "cb9f7abcec0d18c05d7fdf1b449eeee95968289a5c5bb96f04cd52714063cfcd",
+    "H-resolution_transition_history-b2b3f1ff22": "84766c926fa8aed109407d09109bc2ff98fc3503141185b850de3d3fb55cedb1"
+  }
+}

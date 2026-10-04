@@ -1,0 +1,113 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "KAFKA-20592 issue history from JIRA"
+    ],
+    "value": [
+      {
+        "at": "2026-05-15T10:37:01.689000Z",
+        "from": null,
+        "to": "Sanskar Jhajharia"
+      },
+      {
+        "at": "2026-05-15T12:25:20.315000Z",
+        "from": "Sanskar Jhajharia",
+        "to": null
+      },
+      {
+        "at": "2026-05-16T06:04:22.320000Z",
+        "from": null,
+        "to": "Akhil Sabu"
+      },
+      {
+        "at": "2026-05-19T09:52:14.030000Z",
+        "from": "Akhil Sabu",
+        "to": "Akhil Sabu"
+      }
+    ]
+  },
+  "arm": "S-tools",
+  "checkpoint": "2026-05",
+  "cli_calls": {
+    "jira": 5
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 19.10861633099921,
+  "family": "assignment_history",
+  "grade": {
+    "actual": [
+      {
+        "at": "2026-05-15T10:37:01.689000Z",
+        "from": null,
+        "to": "Sanskar Jhajharia"
+      },
+      {
+        "at": "2026-05-15T12:25:20.315000Z",
+        "from": "Sanskar Jhajharia",
+        "to": null
+      },
+      {
+        "at": "2026-05-16T06:04:22.320000Z",
+        "from": null,
+        "to": "Akhil Sabu"
+      },
+      {
+        "at": "2026-05-19T09:52:14.030000Z",
+        "from": "Akhil Sabu",
+        "to": "Akhil Sabu"
+      }
+    ],
+    "correct": true,
+    "evidence": [
+      "KAFKA-20592 issue history from JIRA"
+    ],
+    "expected": [
+      {
+        "at": "2026-05-15T10:37:01.689000Z",
+        "from": null,
+        "to": "Sanskar Jhajharia"
+      },
+      {
+        "at": "2026-05-15T12:25:20.315000Z",
+        "from": "Sanskar Jhajharia",
+        "to": null
+      },
+      {
+        "at": "2026-05-16T06:04:22.320000Z",
+        "from": null,
+        "to": "Akhil Sabu"
+      },
+      {
+        "at": "2026-05-19T09:52:14.030000Z",
+        "from": "Akhil Sabu",
+        "to": "Akhil Sabu"
+      }
+    ]
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 6,
+  "prompt_sha256": "19c8c72f747c06ead49fdcbb6cbd1309a97c742a39939be664dcbf07496fdd7e",
+  "run_index": 3,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-assignment_history-14e2f44596",
+  "tool_calls": {
+    "Bash": 5,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 127230,
+    "cost_usd": 0.036595,
+    "input_tokens": 134633,
+    "output_tokens": 1823
+  },
+  "violations": []
+}

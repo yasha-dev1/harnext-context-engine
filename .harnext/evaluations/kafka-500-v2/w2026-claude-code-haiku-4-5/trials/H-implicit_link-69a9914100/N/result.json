@@ -1,0 +1,47 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "Unable to determine: no network access, no local files provided, question references 2026-05-05 (after February 2025 knowledge cutoff)"
+    ],
+    "value": null
+  },
+  "arm": "N",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 7.670060595992254,
+  "family": "implicit_link",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "Unable to determine: no network access, no local files provided, question references 2026-05-05 (after February 2025 knowledge cutoff)"
+    ],
+    "expected": "KAFKA-20552"
+  },
+  "instructions_sha256": null,
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 1,
+  "prompt_sha256": "60a1fa1dc0e2a435cf25430512328744b62daeff6bf8ab55d5b8f9180219462c",
+  "run_index": 84,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-implicit_link-69a9914100",
+  "tool_calls": {
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 17497,
+    "cost_usd": 0.0116387,
+    "input_tokens": 20646,
+    "output_tokens": 720
+  },
+  "violations": []
+}

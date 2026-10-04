@@ -1,0 +1,3 @@
+{
+  "summary": "Successfully implemented readOnly() method for MeteredWindowStore class in KAFKA-20497. Added a custom ReadOnlyWindowStore implementation (MeteredReadOnlyWindowStore inner class) that wraps the inner store's read-only view and applies metering and serdes to all read operations. The implementation includes proper serialization/deserialization of keys and values, metrics recording via fetchSensor, and iterator tracking. All 41 tests in MeteredWindowStoreTest pass, including 12 new tests specifically for the readOnly functionality covering fetch, backwardFetch, fetchAll, backwardFetchAll, all, and backwardAll operations with proper serde application and metric verification."
+}

@@ -1,0 +1,153 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "entities/issue/KAFKA-20168/OVERVIEW.md",
+      "entities/issue/KAFKA-20168/timeline.md",
+      "entities/pr/apache__kafka__21452/OVERVIEW.md",
+      "entities/pr/apache__kafka__21559/OVERVIEW.md",
+      "entities/pr/apache__kafka__21561/OVERVIEW.md",
+      "entities/pr/apache__kafka__21562/OVERVIEW.md",
+      "INDEX.md"
+    ],
+    "value": [
+      {
+        "pr": 21452,
+        "state": "merged"
+      },
+      {
+        "pr": 21461,
+        "state": "merged"
+      },
+      {
+        "pr": 21462,
+        "state": "merged"
+      },
+      {
+        "pr": 21559,
+        "state": "merged"
+      },
+      {
+        "pr": 21560,
+        "state": "open"
+      },
+      {
+        "pr": 21561,
+        "state": "merged"
+      },
+      {
+        "pr": 21562,
+        "state": "merged"
+      }
+    ]
+  },
+  "arm": "F5-search",
+  "checkpoint": "2026-02",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 126.84216594998725,
+  "family": "issue_prs",
+  "grade": {
+    "actual": [
+      {
+        "pr": 21452,
+        "state": "merged"
+      },
+      {
+        "pr": 21461,
+        "state": "merged"
+      },
+      {
+        "pr": 21462,
+        "state": "merged"
+      },
+      {
+        "pr": 21559,
+        "state": "merged"
+      },
+      {
+        "pr": 21560,
+        "state": "open"
+      },
+      {
+        "pr": 21561,
+        "state": "merged"
+      },
+      {
+        "pr": 21562,
+        "state": "merged"
+      }
+    ],
+    "correct": false,
+    "evidence": [
+      "entities/issue/KAFKA-20168/OVERVIEW.md",
+      "entities/issue/KAFKA-20168/timeline.md",
+      "entities/pr/apache__kafka__21452/OVERVIEW.md",
+      "entities/pr/apache__kafka__21559/OVERVIEW.md",
+      "entities/pr/apache__kafka__21561/OVERVIEW.md",
+      "entities/pr/apache__kafka__21562/OVERVIEW.md",
+      "INDEX.md"
+    ],
+    "expected": [
+      {
+        "pr": 21452,
+        "state": "merged"
+      },
+      {
+        "pr": 21461,
+        "state": "merged"
+      },
+      {
+        "pr": 21462,
+        "state": "merged"
+      },
+      {
+        "pr": 21505,
+        "state": "merged"
+      },
+      {
+        "pr": 21559,
+        "state": "merged"
+      },
+      {
+        "pr": 21560,
+        "state": "closed"
+      },
+      {
+        "pr": 21561,
+        "state": "merged"
+      },
+      {
+        "pr": 21562,
+        "state": "merged"
+      }
+    ]
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 11,
+  "prompt_sha256": "f333de43f6bc5d74afda09178197ac1038aa090a84ca12634f5ba7f2d72a090d",
+  "run_index": 15,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-issue_prs-4d925a3d3e",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 8
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 292442,
+    "cost_usd": 0.09365419999999999,
+    "input_tokens": 307585,
+    "output_tokens": 6843
+  },
+  "violations": []
+}

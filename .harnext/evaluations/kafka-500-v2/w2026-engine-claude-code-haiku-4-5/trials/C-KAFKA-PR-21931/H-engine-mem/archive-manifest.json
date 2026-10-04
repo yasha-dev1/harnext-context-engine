@@ -1,0 +1,14 @@
+{
+  "files_sha256": {
+    "agent.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "answer.json": "f0e0a01d2bbfd43a58879743a240322af42be6d06760f31bc4c5bb3bed20e0e5",
+    "gradle.log.gz": "1cfd7d484cd4dea968da57d8fe362cbe7e4d892aeda639a4b20a0ae1f6e39fa7",
+    "launch.json": "d540ea2865ba08e4e4f6c80fa359df7e86f78401cda7b885ddab52e0657e53f1",
+    "mcp-engine-trace.jsonl.gz": "4cb4be8c3e6d7ceec5d37a57bb07fa47a69abd1241d6e9ef64ca774efad3dc42",
+    "mcp-receipts.jsonl": "4d1710ec4ee4e55a57700542883ed3e9193665e96bb3b5aaf4e4bdd80fee43d7",
+    "patch.diff": "b62314b38af1c7814523777f2c81c2ea7c55d6a675bdb80cf792ce9bd0874498",
+    "prompt.txt": "b6dbd0dc30597535a8987517b19f52cca0b4463990072f93705f0b76cfd34b66",
+    "result.json": "3af612cc3b6fa560c80284f14a52a0f04266df4cb1607a9e0ad309c535f1ff7a",
+    "trace.jsonl.gz": "1e76f67b9f7fe96ac5c3010a0d283b18582953b99540e52dd64edf8e478ab0bc"
+  }
+}

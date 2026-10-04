@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "store/discussions/kip-1279-cluster-mirroring.md",
+    "store/issues/kafka-20186-cluster-mirroring.md"
+  ],
+  "value": "KAFKA-20186"
+}

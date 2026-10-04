@@ -1,0 +1,58 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "issues/kafka-20336-headers-aware-state-stores-dsl.md",
+      "issues/kafka-20336-documentation-dsl-headers-aware-state-stores.md",
+      "issues/kafka-20336-update-docs.md",
+      "context_research result confirming no fix versions set"
+    ],
+    "value": []
+  },
+  "arm": "F4-fact-search",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 72.11861745800707,
+  "family": "fix_version_at_snapshot",
+  "grade": {
+    "actual": [],
+    "correct": false,
+    "evidence": [
+      "issues/kafka-20336-headers-aware-state-stores-dsl.md",
+      "issues/kafka-20336-documentation-dsl-headers-aware-state-stores.md",
+      "issues/kafka-20336-update-docs.md",
+      "context_research result confirming no fix versions set"
+    ],
+    "expected": [
+      "4.3.0"
+    ]
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 7,
+  "prompt_sha256": "6f0019e2bbcb925fd019d61a047cde25c5907aae1c5dfb151e18b62df3363e24",
+  "run_index": 9,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-fix_version_at_snapshot-af2f4eda70",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 4
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 164557,
+    "cost_usd": 0.04211170000000001,
+    "input_tokens": 173592,
+    "output_tokens": 1529
+  },
+  "violations": []
+}

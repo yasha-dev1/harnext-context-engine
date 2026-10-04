@@ -1,0 +1,3 @@
+{
+  "summary": "Implemented KAFKA-19012 fix for messages ending up on wrong topics by adding proper batch buffer lifecycle management. Added inflight tracking, buffer deallocation tracking, and buffer reuse prevention for expired batches. Changes ensure buffers from expired in-flight batches are not reused, preventing them from carrying messages to incorrect topic partitions. Modified ProducerBatch to track state, updated Sender to mark batches at key lifecycle points, and changed RecordAccumulator to prevent reusing buffers from expired batches."
+}

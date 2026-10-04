@@ -1,0 +1,17 @@
+Context snapshot cutoff (inclusive): 2026-04-08T13:31:21Z.
+
+The workspace is the apache/kafka repository at commit 53629a28ac6b7d13d2096a0c0b753af736919ff5.
+
+Issue KAFKA-20332: Ensure app thread not collecting records for partitions being revoked
+
+With the changes to not fully wait on a PollEvent on the asyncConsumer app thread (4.2), there could be a race if records are buffered for a partition and the partition gets revoked, with the app thread potentially collecting records from the buffer while the partition is being revoked (ending with records being returned to the app after commit/revocation)
+
+This sequence: hb received revoking partitions, reconciliation identified but not triggered in background needing commit, app thread sends AsyncPoll that triggers the reconciliation with commit, but moves on to collect records from the buffer (fetchable if the pending reconciliation to revoke hasn't made it to the mark to stop fetching yet). So this could lead to records loaded into memory on the app thread, background then completing the revocation, app thread returning records for a revoked partition. 
+
+I expect this only affects 4.2 due to the change to not fully wait on the poll event (we used to wait before, so would never make it to collect when there was a reconciliation attempt, ensuring we hit the mark to stop fetching before proceeding in the app thread).
+
+Implement the change this issue asks for by editing the workspace. The tests written for this change have already been added to the workspace (uncommitted; see `git status`): `clients/src/test/java/org/apache/kafka/clients/consumer/internals/AsyncKafkaConsumerTest.java`. They fail or do not compile until the change is implemented. Make them pass with `./gradlew :clients:test --tests org.apache.kafka.clients.consumer.internals.AsyncKafkaConsumerTest --offline`. Do not edit those test files: grading restores them to their original content and runs them against your other changes. Keep the change focused and do not substitute knowledge of how the project evolved after the cutoff.
+
+No project-history context is provided for this task. Work from the task statement, the repository and your own knowledge; there is no network access.
+
+The repository is checked out at /workspace. The workspace is a git repository whose history ends at the base commit; `git log`, `git blame` and `git show` work offline. Make the change by editing source files there; the tests named above, restored to their original content, decide whether the issue is resolved. Gradle works offline only (`./gradlew :module:test --tests X --offline`). Finish with one JSON object {"summary": "..."}.

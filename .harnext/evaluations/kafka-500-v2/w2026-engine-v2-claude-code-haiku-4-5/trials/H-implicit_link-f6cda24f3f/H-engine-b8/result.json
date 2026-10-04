@@ -1,0 +1,84 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail:40031bc0941c4eeec10f5c3a",
+      "jira:13646857:change:23002828:0",
+      "jira:13646857:change:23002829:0",
+      "jira:13646857:change:23002830:0",
+      "jira:13646857:change:23003887:0"
+    ],
+    "value": "KAFKA-20384"
+  },
+  "arm": "H-engine-b8",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 55.979488734010374,
+  "engine": {
+    "calls": 1,
+    "chat": {
+      "calls": 17,
+      "cancelled": 0,
+      "cost_usd": 0.00191083,
+      "input_tokens": 75958,
+      "output_tokens": 2175,
+      "retries": 0
+    },
+    "cost_usd": 0.00370335,
+    "discarded_attempts": 0,
+    "jev": {
+      "calls": 20,
+      "cancelled": 0,
+      "cost_usd": 0.00179252,
+      "input_tokens": 42679,
+      "output_tokens": 7566,
+      "retries": 0
+    },
+    "partial": 0,
+    "provider_retry_usd": 0,
+    "seconds": 42.681,
+    "unmetered_upper_usd": 0,
+    "waited_s": 0
+  },
+  "family": "implicit_link",
+  "grade": {
+    "actual": "KAFKA-20384",
+    "correct": true,
+    "evidence": [
+      "mail:40031bc0941c4eeec10f5c3a",
+      "jira:13646857:change:23002828:0",
+      "jira:13646857:change:23002829:0",
+      "jira:13646857:change:23002830:0",
+      "jira:13646857:change:23003887:0"
+    ],
+    "expected": "KAFKA-20384"
+  },
+  "image_id": "sha256:1de715f951a3fc013cabad66407b87028bc2a5af6e58efdea5338b4cf9fb1485",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "fc14a0e9e448f2451ecddeda1a9038c5355742fe4106e17fefedaf4967d9e20d",
+  "run_index": 71,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-implicit_link-f6cda24f3f",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 63593,
+    "cost_usd": 0.0122243,
+    "input_tokens": 64794,
+    "output_tokens": 698
+  },
+  "violations": []
+}

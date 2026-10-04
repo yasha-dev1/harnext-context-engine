@@ -1,0 +1,3 @@
+{
+  "summary": "Successfully implemented KAFKA-20444 (KIP-1319) to align the TxnOffsetCommit API with OffsetCommit API by adding topic ID support to version 6 of the protocol. Key changes: (1) TxnOffsetCommitRequest - updated error response methods to include topicId; (2) TxnOffsetCommitResponse - added newBuilder(boolean useTopicIds) method, created TopicIdBuilder class for topic ID tracking, and updated all builder methods to accept topicId parameter. All 46 tests pass (32 for TxnOffsetCommitRequestTest, 14 for TxnOffsetCommitResponseTest)."
+}

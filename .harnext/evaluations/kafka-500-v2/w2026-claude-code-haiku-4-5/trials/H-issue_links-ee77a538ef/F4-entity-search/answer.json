@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "issues/KAFKA-20066.md — No 'Blocks' or outbound 'blocks' links section found",
+    "issues/KAFKA-20282.md — Shows 'Related Issues' linking to KAFKA-20066, not blocks relationship",
+    "INDEX-WINDOW-31.md, INDEX-WINDOW-55.md — Document related and dependency relationships but no explicit blocks links"
+  ],
+  "value": []
+}

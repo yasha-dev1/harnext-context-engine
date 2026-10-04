@@ -1,0 +1,12 @@
+{
+  "evidence": [
+    "No KIP-1262 mailing list data found in workspace",
+    "Filesystem search found no mbox or mailing list archive files",
+    "No network access available to query external sources",
+    "Knowledge cutoff (February 2025) is before snapshot date (February 28, 2026)"
+  ],
+  "value": {
+    "participants": 0,
+    "starter": "unknown"
+  }
+}

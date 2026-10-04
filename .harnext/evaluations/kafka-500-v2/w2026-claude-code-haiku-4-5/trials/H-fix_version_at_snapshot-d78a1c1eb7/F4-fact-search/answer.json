@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "issues/kafka-20085-replace-version-instructions-gradle-task.md (lines 6-20, showing fixVersions: 4.3.0 updated 2026-01-28T17:48:54Z)"
+  ],
+  "value": [
+    "4.3.0"
+  ]
+}

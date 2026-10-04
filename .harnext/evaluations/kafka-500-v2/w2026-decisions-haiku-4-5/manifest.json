@@ -1,0 +1,64 @@
+{
+  "agent": "claude-code",
+  "agent_version": "2.1.278 (Claude Code)",
+  "arms": {
+    "N": "66816f4528f39cf69864fd7e529f6670ed2868b26e664ccee7a82aa499f9bd53",
+    "S-tools": "03f6b364c37a793b3739c66781eb86f84c8a451cbebc795d0ebedff9904b78f7"
+  },
+  "benchmark": "kafka-w2026-decisions",
+  "config": {
+    "agent": "claude-code",
+    "effort": "medium",
+    "keep_per_arm": 3,
+    "model": "claude-haiku-4-5-20251001",
+    "protocol": "harnext-e2-v2",
+    "reader": "claude",
+    "run_id": "w2026-decisions-haiku-4-5",
+    "store_hash": "manifest",
+    "timeouts": {
+      "coding": 3600,
+      "grading": 3000,
+      "historical": 900
+    }
+  },
+  "prompt_template_sha256": "5012cc3cc5d76cbb631b5ad340b865071406c5af4fe329818e2ce2d1231f856b",
+  "run_id": "w2026-decisions-haiku-4-5",
+  "stores": {
+    "S-tools/2026-01": "e2c3e717ac47bb8f4c3768fd4e7f13583767777a62c0feb14cc9e715333be0af",
+    "S-tools/2026-02": "d6a671b3728302b2f2f4a2f385a24a92a5b5def765adc67ba761c7b053c671ad",
+    "S-tools/2026-03": "b3402f39683ebc948baa8160102b72ce566ac408fc1e40d3eb3ca2f9e570f8d4",
+    "S-tools/2026-04": "3a7d1907ea4e7c75905645b99088bd35f4931ed63584cc8b3e6b37339c1e6bc3",
+    "S-tools/2026-05": "41dd5ab9cf0b2e4644782fa8aa3e6c11af68843b9ad6d99a9b45e97d1aa8dd11"
+  },
+  "tasks": {
+    "H-design_decision-074f443eea": "5c571bc6c591a4b9d6d8a0cd41356ce455391fd92288e33b4bac60827312e507",
+    "H-design_decision-1bf0682184": "53b9a5043b693246f49694444c0aeb42dd55a52eaf1bd0efc97c320bc2ab40aa",
+    "H-design_decision-1e15f639f3": "bcdf44eb847946e741a0060d9cb527605c62d781eae86015babff2a908ebc75e",
+    "H-design_decision-32101f33f4": "dc4e12667628fed4ee64c319bf4ae87acb3f098cb07879921c59ca9440e727da",
+    "H-design_decision-32c8b7a253": "fd53b56e116d01aa0e4b74a7630357c7b14c1e797a53003918f84f5de210064d",
+    "H-design_decision-35e51bbc1a": "db363e7d9c05c2160d5d028e8d33486346f47abaadc15009fdf84369b3cf0eda",
+    "H-design_decision-371c422cfa": "fabf2c93b05a2a9c74779aa5bdfc4c9bcd0cb5e3af871f68e1d64c45fc7dc224",
+    "H-design_decision-38b42b5169": "065d6ae66b5e98daac79bb8a4d331007f6b123edb1b5b435ced13ff6fe6dcb55",
+    "H-design_decision-430f454dd8": "bf3acba16bfdb24683e897f0c79280829d677b2a0cc1f43cee6f6e2af0393c05",
+    "H-design_decision-44f6b97acb": "0a63fa6aa849b2e6504136cbe0810b850c4905caa1ec914ce46ad676a43ab5bd",
+    "H-design_decision-5011e473fd": "4877d3933656fd3dd2fc43e2cd0718c435079860fd67309c01a28510bec74ee1",
+    "H-design_decision-55f2719029": "7b93462549b6baa80ca80cef5978b0269a586d8ea42b0e5034fcfbcc2333d824",
+    "H-design_decision-5bd7563b57": "1facbc5f18352ca467eb43ee59db904e49a12b7f7239408913c70ccf563a165f",
+    "H-design_decision-5bda924411": "a171b7188166de0f768cbfaba3aacaaf5dd12ef0aced6bb15a28752ba587e6ac",
+    "H-design_decision-646c4d2ed6": "afe278fd84fcf9553e7719a1e6a5b0213a126b22570d7730942981b0e083d09a",
+    "H-design_decision-7169fd1b2b": "e55ec4fb6b8eb05aff9c79cf1c82c2bb00ac2a9721664ca2447a7d2ba141bfc3",
+    "H-design_decision-73c3dfd4d4": "7be791057f0b1b6869557ce8a958b328b04a37067abb2189b18937030921ba58",
+    "H-design_decision-7a87d914a1": "3562fd26d69ff68505ddaf74fcf371be876616edb96318be861154f76ca82e2b",
+    "H-design_decision-7b55b02c3c": "3f0adad952669695db2f223c0c5928528652617bed81e4dad558f8396b5fe1ed",
+    "H-design_decision-9747f2e7bf": "c65b2e15338c6ce21edb13cf2d07e804721cb0fd51b540ca5be5eb38d724ab86",
+    "H-design_decision-9afbb2a368": "2cadb4fbc2102471dd2a1d7eb0765ddf23fc1e31858e8c1f3127101c5a96be17",
+    "H-design_decision-9c30969b0a": "e6d9ea588c301c9ed8529651d67cc260f8c78e443b1aa36528fcbe42a4b35aec",
+    "H-design_decision-9ea8cbeccb": "22e2cf18121b57c5e222ff0d15c15f4389e23dd3ad3421fb4c2b37486699cf99",
+    "H-design_decision-ae3c3045c4": "765efbd8fcff97db2c1f4f6dd541fb5f6d25ac097f82c6760f457a59f13d5b28",
+    "H-design_decision-bc569837b8": "d7e700403cb05b1665f824d85ba8185e1f86b3975fb19177df54482f38f3d463",
+    "H-design_decision-c6538d5496": "54cd7825f5195ff04b454fc8a6c9b820aa1425057252b1b938fcb59dafc67315",
+    "H-design_decision-d176ed4a05": "07906a2f3e5a674821a3c0de245d77d8aec947a9e3e4c72a2b7384aef39b1957",
+    "H-design_decision-d9ee20bce2": "990bd0911e4ee1ad5d9685bf5c7cd8ed45881db92494122e036e8133c796f506",
+    "H-design_decision-eadc5ec0a5": "0c74ed5afdffe7606734ce01d44dc218f639683f5c040c2d7dd9386d90e3ba22"
+  }
+}

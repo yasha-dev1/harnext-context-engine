@@ -1,0 +1,9 @@
+{
+  "evidence": [
+    "kips/KIP-1279.md",
+    "issues/KAFKA-20186.md",
+    "WINDOW-32-2026-02-14-to-2026-02-16-summary.md",
+    "WINDOW-33-2026-02-17-to-2026-02-18-summary.md"
+  ],
+  "value": null
+}

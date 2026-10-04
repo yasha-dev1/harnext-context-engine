@@ -1,0 +1,3 @@
+{
+  "summary": "Implemented KAFKA-20623: Wire topology description plugin into GroupCoordinatorService. The implementation wires the plugin into the group coordinator with proper handling of topology description updates, heartbeat gating, and deleteGroups integration. The key fix was sanitizing error messages in StreamsGroupTopologyDescriptionManager.toFailureEntry() to return a generic message (\"Topology description plugin failed to delete the topology.\") instead of forwarding raw plugin error details to clients. This prevents leaking plugin internals to clients. All 30 tests in GroupCoordinatorServiceTopologyDescriptionTest pass successfully."
+}

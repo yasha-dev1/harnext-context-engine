@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "discussions.md:388-400 - Reference to Ivan Yurchenko's 2026-01-23T12:01:44Z response clarifying rack ID handling",
+    "discussions.md:447-460 - Reference to Andrew Schofield's 2026-01-22T10:58:33Z questions about rack ID inclusion in MetadataRequest"
+  ],
+  "value": null
+}

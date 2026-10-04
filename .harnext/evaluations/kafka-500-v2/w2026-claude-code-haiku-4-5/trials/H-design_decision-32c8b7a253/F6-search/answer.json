@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "window-15-summary.md lines 157-185: Shows KIP-1150 as Motivational KIP with KIP-1163 as the implementation path, discussing metadata handling as integrated topics",
+    "window-14-summary.md lines 73-88: Documents KIP-1150 extensive mailing list debate on coordinator approaches with metadata response format questions",
+    "kips-and-discussions.md lines 347-361: Confirms KIP-1150 and KIP-1163 as related but separate KIPs with metadata handling as key discussion topic"
+  ],
+  "value": "kept as an independent proposal"
+}

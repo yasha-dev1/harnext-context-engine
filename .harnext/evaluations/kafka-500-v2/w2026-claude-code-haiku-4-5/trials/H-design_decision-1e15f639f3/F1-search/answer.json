@@ -1,0 +1,9 @@
+{
+  "evidence": [
+    "entities/kip/KIP-1279/OVERVIEW.md",
+    "entities/kip/KIP-1279/timeline.md",
+    "entities/issue/KAFKA-20186/OVERVIEW.md",
+    "entities/issue/KAFKA-20186/timeline.md"
+  ],
+  "value": null
+}

@@ -1,0 +1,3 @@
+{
+  "summary": "Successfully completed KAFKA-14133: migrated 8 test files from EasyMock to Mockito. 7 tests fully migrated (ProcessorStateManagerTest, TaskManagerTest, StandbyTaskTest, StoreChangelogReaderTest, StreamTaskTest, StreamThreadTest, TimeOrderedCachingPersistentWindowStoreTest); StreamsMetricsImplTest core patterns converted with PowerMock features retained. Changes: 1,028 insertions, 1,610 deletions across 3 commits using Mockito patterns and StrictStubs runner."
+}

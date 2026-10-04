@@ -1,0 +1,54 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail thread CAGBzCV03-eQaUKsY-vJt93xD0X9+Kir+Dz8xAUa+PRK=vsfzmw@mail.gmail.com (DISCUSS KIP-1331), message from Lucas Brutschy on 2026-05-13T13:26:38Z",
+      "PR #22413 KAFKA-20618: KIP-1331 Streams Group Topology Description Plugin (POC)"
+    ],
+    "value": "group.streams.topology.description.plugin.class"
+  },
+  "arm": "S-tools",
+  "checkpoint": "2026-05",
+  "cli_calls": {
+    "gh": 12,
+    "jira": 2,
+    "mail": 9
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 165.90120190000744,
+  "family": "design_decision",
+  "grade": {
+    "actual": "group.streams.topology.description.plugin.class",
+    "correct": true,
+    "evidence": [
+      "mail thread CAGBzCV03-eQaUKsY-vJt93xD0X9+Kir+Dz8xAUa+PRK=vsfzmw@mail.gmail.com (DISCUSS KIP-1331), message from Lucas Brutschy on 2026-05-13T13:26:38Z",
+      "PR #22413 KAFKA-20618: KIP-1331 Streams Group Topology Description Plugin (POC)"
+    ],
+    "expected": "group.streams.topology.description.plugin.class"
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 21,
+  "prompt_sha256": "a88d6ba28034ad8cae4fe61e33cfbfabc6e3bea18c7229e4e6044b60eabbbaad",
+  "run_index": 74,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-1bf0682184",
+  "tool_calls": {
+    "Bash": 23,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 552561,
+    "cost_usd": 0.1131611,
+    "input_tokens": 573713,
+    "output_tokens": 3154
+  },
+  "violations": []
+}

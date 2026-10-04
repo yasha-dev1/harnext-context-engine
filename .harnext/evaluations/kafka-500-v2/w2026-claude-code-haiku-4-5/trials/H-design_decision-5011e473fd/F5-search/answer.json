@@ -1,0 +1,9 @@
+{
+  "evidence": [
+    "entities/thread/CAOJ18G5_jt9Ef4JECOxvrefnxn2dXqMfOs948B_b4Vuus1YNZg_mail.gmail.com/OVERVIEW.md - KIP-1150 discussion thread reference (2026-01-21 to 2026-01-22)",
+    "INDEX.md - References to KIP-1163 (Diskless Core) discussion thread",
+    "_meta/build-summary-2026-03-20.md - Notes KIP-1163 mailing list discussions occurred",
+    "Context research findings - Thread content itself not captured in searchable entity files"
+  ],
+  "value": null
+}

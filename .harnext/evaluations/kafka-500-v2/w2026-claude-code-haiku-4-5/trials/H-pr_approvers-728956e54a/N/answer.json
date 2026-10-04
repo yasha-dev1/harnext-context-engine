@@ -1,0 +1,10 @@
+{
+  "evidence": [
+    "No access to GitHub API (network disabled)",
+    "Knowledge cutoff: February 2025 (PR opened March 2026)",
+    "No local project-history context provided"
+  ],
+  "value": [
+    "null"
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "kips/KIP-1279/2026-04-15-discuss-cluster-mirroring-d1515ee7.md",
+    "mail/2026-04-03-mail-3da03c7762b02a3dc6d931ae-3cd2d5a4.md",
+    "kips/KIP-1279/2026-04-07-mail-9733e74f5415b581f89213be-756d0d01.md"
+  ],
+  "value": "destination cluster default replication factor"
+}

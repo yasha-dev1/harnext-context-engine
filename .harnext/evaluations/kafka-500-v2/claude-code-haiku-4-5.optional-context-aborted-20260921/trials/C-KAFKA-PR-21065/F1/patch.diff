@@ -1,0 +1,274 @@
+diff --git a/clients/src/main/java/org/apache/kafka/clients/producer/internals/ProducerBatch.java b/clients/src/main/java/org/apache/kafka/clients/producer/internals/ProducerBatch.java
+index c4f9c0f7f08d387304923ba9183cbf232c186d55..537242c741a5d399aeb153322940a9569b4dfbe5 100644
+--- a/clients/src/main/java/org/apache/kafka/clients/producer/internals/ProducerBatch.java
++++ b/clients/src/main/java/org/apache/kafka/clients/producer/internals/ProducerBatch.java
+@@ -80,6 +80,9 @@ public final class ProducerBatch {
+     private long drainedMs;
+     private boolean retry;
+     private boolean reopened;
++    private boolean inflight = false;
++    private boolean bufferDeallocated = false;
++    private boolean bufferCanBeReused = true;
+ 
+     // Tracks the current-leader's epoch to which this batch would be sent, in the current to produce the batch.
+     private OptionalInt currentLeaderEpoch;
+@@ -590,4 +593,32 @@ public final class ProducerBatch {
+     int attemptsWhenLeaderLastChanged() {
+         return attemptsWhenLeaderLastChanged;
+     }
++
++    boolean isInflight() {
++        return inflight;
++    }
++
++    void markInflight() {
++        inflight = true;
++    }
++
++    void markNotInflight() {
++        inflight = false;
++    }
++
++    boolean isBufferDeallocated() {
++        return bufferDeallocated;
++    }
++
++    void markBufferDeallocated() {
++        bufferDeallocated = true;
++    }
++
++    boolean canBufferBeReused() {
++        return bufferCanBeReused;
++    }
++
++    void markBufferCannotBeReused() {
++        bufferCanBeReused = false;
++    }
+ }
+diff --git a/clients/src/main/java/org/apache/kafka/clients/producer/internals/RecordAccumulator.java b/clients/src/main/java/org/apache/kafka/clients/producer/internals/RecordAccumulator.java
+index d3c774cb6f5a8792ee19b5cd9d074e613af174d0..df9620376ea2e490a2019de5c54373572d9fa058 100644
+--- a/clients/src/main/java/org/apache/kafka/clients/producer/internals/RecordAccumulator.java
++++ b/clients/src/main/java/org/apache/kafka/clients/producer/internals/RecordAccumulator.java
+@@ -1032,11 +1032,18 @@ public class RecordAccumulator {
+     public void deallocate(ProducerBatch batch) {
+         incomplete.remove(batch);
+         // Only deallocate the batch if it is not a split batch because split batch are allocated outside the
+-        // buffer pool.
+-        if (!batch.isSplitBatch())
++        // buffer pool. Only return the buffer to the pool if it can be reused. Batches that expired while
++        // in-flight are marked as unable to be reused to prevent buffer reuse issues that could lead to
++        // messages ending up on the wrong topic.
++        if (!batch.isSplitBatch() && batch.canBufferBeReused())
+             free.deallocate(batch.buffer(), batch.initialCapacity());
+     }
+ 
++    public void completeAndDeallocateBatch(ProducerBatch batch) {
++        batch.complete(0L, 0L);
++        deallocate(batch);
++    }
++
+     /**
+      * Package private for unit test. Get the buffer pool remaining size in bytes.
+      */
+diff --git a/clients/src/main/java/org/apache/kafka/clients/producer/internals/Sender.java b/clients/src/main/java/org/apache/kafka/clients/producer/internals/Sender.java
+index f9ac810ca1c1937fb6934ef8756e2ab01b14fcb3..7079453e342f4573400df94e59d3762cf1cb86d4 100644
+--- a/clients/src/main/java/org/apache/kafka/clients/producer/internals/Sender.java
++++ b/clients/src/main/java/org/apache/kafka/clients/producer/internals/Sender.java
+@@ -162,7 +162,9 @@ public class Sender implements Runnable {
+     private void maybeRemoveFromInflightBatches(ProducerBatch batch) {
+         List<ProducerBatch> batches = inFlightBatches.get(batch.topicPartition);
+         if (batches != null) {
+-            batches.remove(batch);
++            if (batches.remove(batch)) {
++                batch.markNotInflight();
++            }
+             if (batches.isEmpty()) {
+                 inFlightBatches.remove(batch.topicPartition);
+             }
+@@ -171,6 +173,7 @@ public class Sender implements Runnable {
+ 
+     private void maybeRemoveAndDeallocateBatch(ProducerBatch batch) {
+         maybeRemoveFromInflightBatches(batch);
++        batch.markBufferDeallocated();
+         this.accumulator.deallocate(batch);
+     }
+ 
+@@ -189,6 +192,8 @@ public class Sender implements Runnable {
+                     ProducerBatch batch = iter.next();
+                     if (batch.hasReachedDeliveryTimeout(accumulator.getDeliveryTimeoutMs(), now)) {
+                         iter.remove();
++                        batch.markNotInflight();
++                        batch.markBufferCannotBeReused();
+                         // expireBatches is called in Sender.sendProducerData, before client.poll.
+                         // The !batch.isDone() invariant should always hold. An IllegalStateException
+                         // exception will be thrown if the invariant is violated.
+@@ -216,6 +221,7 @@ public class Sender implements Runnable {
+             List<ProducerBatch> inflightBatchList = inFlightBatches.computeIfAbsent(batch.topicPartition,
+                 k -> new ArrayList<>());
+             inflightBatchList.add(batch);
++            batch.markInflight();
+         }
+     }
+ 
+diff --git a/clients/src/test/java/org/apache/kafka/clients/producer/internals/RecordAccumulatorTest.java b/clients/src/test/java/org/apache/kafka/clients/producer/internals/RecordAccumulatorTest.java
+index d6ac75a37a0e62ff6b2de8efa3a569f29d73d504..5d1fa387b969b366cd46b04ec9f4c65656a3d30a 100644
+--- a/clients/src/test/java/org/apache/kafka/clients/producer/internals/RecordAccumulatorTest.java
++++ b/clients/src/test/java/org/apache/kafka/clients/producer/internals/RecordAccumulatorTest.java
+@@ -405,7 +405,7 @@ public class RecordAccumulatorTest {
+                 for (ProducerBatch batch : batches) {
+                     for (@SuppressWarnings("UnusedLocalVariable") Record ignored : batch.records().records())
+                         read++;
+-                    accum.deallocate(batch);
++                    accum.completeAndDeallocateBatch(batch);
+                 }
+             }
+         }
+@@ -669,7 +669,7 @@ public class RecordAccumulatorTest {
+ 
+         for (List<ProducerBatch> batches: results.values())
+             for (ProducerBatch batch: batches)
+-                accum.deallocate(batch);
++                accum.completeAndDeallocateBatch(batch);
+ 
+         // should be complete with no unsent records.
+         accum.awaitFlushCompletion();
+@@ -1575,7 +1575,7 @@ public class RecordAccumulatorTest {
+         assertEquals(1, batches.values().iterator().next().size());
+         ProducerBatch batch = batches.values().iterator().next().get(0);
+         int numSplitBatches = accum.splitAndReenqueue(batch);
+-        accum.deallocate(batch);
++        accum.completeAndDeallocateBatch(batch);
+ 
+         return numSplitBatches;
+     }
+@@ -1599,7 +1599,7 @@ public class RecordAccumulatorTest {
+                     } else {
+                         batch.complete(0L, 0L);
+                     }
+-                    accum.deallocate(batch);
++                    accum.completeAndDeallocateBatch(batch);
+                 }
+             }
+         } while (batchDrained);
+diff --git a/clients/src/test/java/org/apache/kafka/clients/producer/internals/SenderTest.java b/clients/src/test/java/org/apache/kafka/clients/producer/internals/SenderTest.java
+index a7ff3249615164fbbd1b184f6939e551dfee8372..efd0a85d6216a300879b8ca1be12a8d35258e088 100644
+--- a/clients/src/test/java/org/apache/kafka/clients/producer/internals/SenderTest.java
++++ b/clients/src/test/java/org/apache/kafka/clients/producer/internals/SenderTest.java
+@@ -126,6 +126,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
+ import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+ import static org.junit.jupiter.api.Assertions.assertNotEquals;
+ import static org.junit.jupiter.api.Assertions.assertNotNull;
++import static org.junit.jupiter.api.Assertions.assertNotSame;
+ import static org.junit.jupiter.api.Assertions.assertNull;
+ import static org.junit.jupiter.api.Assertions.assertSame;
+ import static org.junit.jupiter.api.Assertions.assertThrows;
+@@ -2183,7 +2184,10 @@ public class SenderTest {
+     public void testCancelInFlightRequestAfterFatalError() throws Exception {
+         final long producerId = 343434L;
+         TransactionManager transactionManager = createTransactionManager();
+-        setupWithTransactionState(transactionManager);
++        long totalSize = 1024 * 1024;
++        String metricGrpName = "producer-custom-metrics";
++        MatchingBufferPool pool = new MatchingBufferPool(totalSize, batchSize, metrics, time, metricGrpName);
++        setupWithTransactionState(transactionManager, false, pool);
+ 
+         prepareAndReceiveInitProducerId(producerId, Errors.NONE);
+         assertTrue(transactionManager.hasProducerId());
+@@ -2195,6 +2199,8 @@ public class SenderTest {
+         Future<RecordMetadata> future2 = appendToAccumulator(tp1);
+         sender.runOnce();
+ 
++        assertFalse(pool.allMatch());
++
+         client.respond(
+             body -> body instanceof ProduceRequest && RequestTestUtils.hasIdempotentRecords((ProduceRequest) body),
+             produceResponse(tp0, -1, Errors.CLUSTER_AUTHORIZATION_FAILED, 0));
+@@ -2205,12 +2211,14 @@ public class SenderTest {
+ 
+         sender.runOnce();
+         assertFutureFailure(future2, ClusterAuthorizationException.class);
++        assertFalse(pool.allMatch(), "Batch should not be deallocated before the response is received");
+ 
+         // Should be fine if the second response eventually returns
+         client.respond(
+             body -> body instanceof ProduceRequest && RequestTestUtils.hasIdempotentRecords((ProduceRequest) body),
+             produceResponse(tp1, 0, Errors.NONE, 0));
+         sender.runOnce();
++        assertTrue(pool.allMatch(), "The batch should have been de-allocated");
+     }
+ 
+     @Test
+@@ -2436,12 +2444,15 @@ public class SenderTest {
+             assertEquals(ApiKeys.PRODUCE, client.requests().peek().requestBuilder().apiKey());
+             Node node = new Node(Integer.parseInt(id), "localhost", 0);
+             assertEquals(1, client.inFlightRequestCount());
++            ProducerBatch inflightBatch = sender.inFlightBatches(tpId.topicPartition()).get(0);
++            assertTrue(inflightBatch.isInflight(), "Batch should be marked inflight after being sent");
+             assertTrue(client.isReady(node, time.milliseconds()), "Client ready status should be true");
+ 
+             Map<TopicIdPartition, ProduceResponse.PartitionResponse> responseMap = new HashMap<>();
+             responseMap.put(tpId, new ProduceResponse.PartitionResponse(Errors.MESSAGE_TOO_LARGE));
+             client.respond(new ProduceResponse(responseMap));
+             sender.runOnce(); // split and reenqueue
++            assertFalse(inflightBatch.isInflight(), "Batch should be marked as not inflight after being split and re-enqueued");
+             assertEquals(2, txnManager.sequenceNumber(tpId.topicPartition()), "The next sequence should be 2");
+             // The compression ratio should have been improved once.
+             assertEquals(CompressionType.GZIP.rate - CompressionRatioEstimator.COMPRESSION_RATIO_IMPROVING_STEP,
+@@ -2499,14 +2510,16 @@ public class SenderTest {
+         sender.runOnce();  // send request
+         assertEquals(1, client.inFlightRequestCount());
+         assertEquals(1, sender.inFlightBatches(tp0).size());
++        assertFalse(sender.inFlightBatches(tp0).get(0).isBufferDeallocated(), "Buffer not deallocated yet");
++        ProducerBatch inflightBatch = sender.inFlightBatches(tp0).get(0);
+ 
+         time.sleep(REQUEST_TIMEOUT);
+         assertFalse(pool.allMatch());
+ 
+-        sender.runOnce();  // expire the batch
++        sender.runOnce();  // times out the request
+         assertTrue(request1.isDone());
++        assertTrue(inflightBatch.isBufferDeallocated(), "Buffer should be deallocated after request timeout");
+         assertTrue(pool.allMatch(), "The batch should have been de-allocated");
+-        assertTrue(pool.allMatch());
+ 
+         sender.runOnce();
+         assertTrue(pool.allMatch(), "The batch should have been de-allocated");
+@@ -3591,6 +3604,38 @@ public class SenderTest {
+         }
+     }
+ 
++    @Test
++    public void testNoBufferReuseWhenBatchExpires() throws Exception {
++        long totalSize = 1024 * 1024;
++        try (Metrics m = new Metrics()) {
++            BufferPool pool = new BufferPool(totalSize, batchSize, m, time, "producer-internal-metrics");
++
++            // Allocate and store a poolable buffer, then return it to the pool so the Sender can pick it up
++            ByteBuffer buffer = pool.allocate(batchSize, 0);
++            pool.deallocate(buffer);
++
++            setupWithTransactionState(null, false, pool);
++            appendToAccumulator(tp0, 0L, "key", "value");
++            sender.runOnce();  // connect
++            sender.runOnce();  // send produce request
++
++            assertEquals(1, client.inFlightRequestCount());
++            assertEquals(1, sender.inFlightBatches(tp0).size());
++
++            ProducerBatch batch = sender.inFlightBatches(tp0).get(0);
++            // Validate the backing array of the buffer is the same as the pooled one from the start
++            assertSame(buffer.array(), batch.records().buffer().array(), "Sender should have allocated the same buffer we created");
++
++            time.sleep(DELIVERY_TIMEOUT_MS + 100);
++            sender.runOnce();
++
++            ByteBuffer newBuffer = pool.allocate(batchSize, 0);
++
++            // TEST buffer should not be reused
++            assertNotSame(buffer.array(), newBuffer.array(), "Buffer should not be reused");
++        }
++    }
++
+ 
+     private void verifyErrorMessage(ProduceResponse response, String expectedMessage) throws Exception {
+         Future<RecordMetadata> future = appendToAccumulator(tp0, 0L, "key", "value");

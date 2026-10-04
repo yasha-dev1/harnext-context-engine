@@ -1,0 +1,3 @@
+{
+  "summary": "Implemented KIP-1319 by adding error handling for GROUP_ID_NOT_FOUND and STALE_MEMBER_EPOCH errors in TxnOffsetCommit responses. These errors now properly abort the transaction with CommitFailedException, aligning TxnOffsetCommit with OffsetCommit API behavior. All 168 tests pass."
+}

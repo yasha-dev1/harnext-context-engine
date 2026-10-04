@@ -1,0 +1,11 @@
+{
+  "evidence": [
+    "pull-requests.md: PR #21758 merged at 2026-03-17T07:04:07Z",
+    "window-67-summary.md: KAFKA-20288 events [evt:0050, 0171-0175] showing merge (evt:0171) before status resolution (evt:0174)",
+    "jira-issues.md: KAFKA-20288 linked PR #21758 with status Resolved and fixVersion 4.3.0"
+  ],
+  "value": {
+    "days": 0,
+    "first": "merge"
+  }
+}

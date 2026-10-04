@@ -1,0 +1,62 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "gh pr view 22177 --json reviews"
+    ],
+    "value": [
+      "m1a2st",
+      "muralibasani",
+      "pratyakshsharma"
+    ]
+  },
+  "arm": "S-tools",
+  "checkpoint": "2026-04",
+  "cli_calls": {
+    "gh": 3
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 16.423665239999536,
+  "family": "pr_approvers",
+  "grade": {
+    "actual": [
+      "m1a2st",
+      "muralibasani",
+      "pratyakshsharma"
+    ],
+    "correct": true,
+    "evidence": [
+      "gh pr view 22177 --json reviews"
+    ],
+    "expected": [
+      "m1a2st",
+      "muralibasani",
+      "pratyakshsharma"
+    ]
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 4,
+  "prompt_sha256": "1f97288e6df323d5051d42f7b3506c2b854f5deed9a912895a50c596e495eb57",
+  "run_index": 19,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-pr_approvers-78f6a3cea2",
+  "tool_calls": {
+    "Bash": 3,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 64225,
+    "cost_usd": 0.0570315,
+    "input_tokens": 86746,
+    "output_tokens": 1120
+  },
+  "violations": []
+}

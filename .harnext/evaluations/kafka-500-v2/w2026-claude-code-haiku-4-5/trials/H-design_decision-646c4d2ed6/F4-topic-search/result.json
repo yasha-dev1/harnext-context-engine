@@ -1,0 +1,51 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "pull-requests.md (lines 4706-4722)",
+      "PR #22191 for KIP-1312: UnregisterControllerRecord metadata record schema + new MetadataVersion IBP_4_4_IV2"
+    ],
+    "value": "new record type"
+  },
+  "arm": "F4-topic-search",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 89.98294257099042,
+  "family": "design_decision",
+  "grade": {
+    "actual": "new record type",
+    "correct": true,
+    "evidence": [
+      "pull-requests.md (lines 4706-4722)",
+      "PR #22191 for KIP-1312: UnregisterControllerRecord metadata record schema + new MetadataVersion IBP_4_4_IV2"
+    ],
+    "expected": "new record type"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "59b7a972c6da97d37ae4e063d0a9d8c78457c6fe723cacd39e2d78a89c8b3001",
+  "run_index": 70,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-646c4d2ed6",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 64081,
+    "cost_usd": 0.0119941,
+    "input_tokens": 65330,
+    "output_tokens": 623
+  },
+  "violations": []
+}

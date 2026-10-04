@@ -1,0 +1,10 @@
+{
+  "evidence": [
+    "entities/issue/KAFKA-20288/timeline.md",
+    "entities/issue/KAFKA-20288/OVERVIEW.md"
+  ],
+  "value": {
+    "days": 0,
+    "first": "merge"
+  }
+}

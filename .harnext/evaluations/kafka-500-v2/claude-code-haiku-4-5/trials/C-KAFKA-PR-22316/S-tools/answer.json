@@ -1,0 +1,3 @@
+{
+  "summary": "Implemented ReadOnlyView for MeteredKeyValueStore (KAFKA-20497) with proper serde application and metrics recording for all read operations. All tests pass."
+}

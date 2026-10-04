@@ -1,0 +1,63 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "store/entities/pr/21978/OVERVIEW.md",
+      "store/entities/pr/21978/timeline.md"
+    ],
+    "value": [
+      "dajac",
+      "nileshkumar3",
+      "squah-confluent"
+    ]
+  },
+  "arm": "F1",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 28.790789329999825,
+  "family": "pr_approvers",
+  "grade": {
+    "actual": [
+      "dajac",
+      "nileshkumar3",
+      "squah-confluent"
+    ],
+    "correct": true,
+    "evidence": [
+      "store/entities/pr/21978/OVERVIEW.md",
+      "store/entities/pr/21978/timeline.md"
+    ],
+    "expected": [
+      "dajac",
+      "nileshkumar3",
+      "squah-confluent"
+    ]
+  },
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "ebfb3036be6a9e5e9554aef24fb35e80416afca9f3f094f47b3b04e15f61aadf",
+  "run_index": 65,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-pr_approvers-a94621c89b",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 63351,
+    "cost_usd": 0.011472099999999999,
+    "input_tokens": 64198,
+    "output_tokens": 694
+  },
+  "violations": []
+}

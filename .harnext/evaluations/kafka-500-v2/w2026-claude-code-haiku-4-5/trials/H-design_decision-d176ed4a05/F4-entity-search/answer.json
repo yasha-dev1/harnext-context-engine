@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "pull-requests/22413.md - PR description states: 'Per-group StoredTopologyEpoch and LastFailedTopologyEpoch persisted as tagged fields on StreamsGroupMetadataValue'",
+    "issues/KAFKA-20621.md - Sub-task titled 'Add StoredTopologyEpoch and LastFailedTopologyEpoch to StreamsGroup model and metadata record'",
+    "WINDOW-128-2026-05-27-to-2026-05-28.md - KIP-1331 milestone documentation confirming StoredTopologyEpoch and LastFailedTopologyEpoch fields in StreamsGroup"
+  ],
+  "value": "removed entirely, identified by topologyEpoch and group creation timestamp instead"
+}

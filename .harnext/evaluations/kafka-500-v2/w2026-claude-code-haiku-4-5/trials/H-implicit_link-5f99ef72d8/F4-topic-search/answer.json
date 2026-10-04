@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "issues.md (lines 587-597): KAFKA-20614 created on 2026-05-26T10:37:14Z for KIP-1351: Add --cancel-all to kafka-reassign-partitions",
+    "discussions.md (lines 525-535): KIP-1351 discussion initiated 2026-05-26T10:35:08Z by Manan Gupta, with JIRA KAFKA-20614 created 2026-05-26T10:37:14Z"
+  ],
+  "value": "KAFKA-20614"
+}

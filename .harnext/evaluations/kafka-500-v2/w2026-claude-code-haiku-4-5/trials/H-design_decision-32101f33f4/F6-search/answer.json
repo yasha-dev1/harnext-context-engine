@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "kips-and-discussions.md (lines 1118-1128): Arpit Goyal's key clarification response (evt:0140, 2026-01-12T10:29:14Z) explicitly states 'User Experience: Single handler for all processors, consistent Result.RESUME/FAIL behavior' indicating no new parameters to distinguish thread types",
+    "kips-and-discussions.md (lines 1118-1128): Implementation uses same ProcessorNode.process() code path for both regular and GlobalKTable processors",
+    "kips-and-discussions.md (lines 273-282): KIP-1270 vote opened 2026-01-28 with the clarified approach of single handler"
+  ],
+  "value": "no"
+}

@@ -1,0 +1,10 @@
+{
+  "evidence": [
+    "entities/issue/KAFKA-20421/OVERVIEW.md — lists linked issues but without relation type details",
+    "entities/issue/KAFKA-20421/timeline.md — shows link events occurred but not their types",
+    "search_context results — consistently show KAFKA-20056 and KAFKA-20420 are linked to KAFKA-20421, but relation types are not included in the search results"
+  ],
+  "value": [
+    "Unable to determine - the relation type information is not available in the indexed context"
+  ]
+}

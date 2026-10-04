@@ -1,0 +1,3 @@
+{
+  "summary": "Successfully implemented KAFKA-20332 fix to ensure app thread does not collect records for partitions being revoked. Modified AsyncKafkaConsumer.collectFetch() to check for reconciliation check completion in a non-blocking manner, preventing records from being returned for revoked partitions while ensuring wakeups are checked promptly. All tests pass including two new tests: testPollWaitsForReconciliationCheckComplete and testWakeupWhileWaitingOnReconciliationCheck."
+}

@@ -1,0 +1,54 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "issues.md (lines 1995-2003)",
+      "issues.md (lines 1933-1941)"
+    ],
+    "value": []
+  },
+  "arm": "F4-topic-search",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 98.34233594199759,
+  "family": "issue_links",
+  "grade": {
+    "actual": [],
+    "correct": false,
+    "evidence": [
+      "issues.md (lines 1995-2003)",
+      "issues.md (lines 1933-1941)"
+    ],
+    "expected": [
+      "KAFKA-20420"
+    ]
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 8,
+  "prompt_sha256": "65a3fff4c67f025bb3eadd21b03305f70d37de66781039184051a2927af60864",
+  "run_index": 33,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-issue_links-13e6c8afc3",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 2,
+    "mcp__history__search_context": 4
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 195706,
+    "cost_usd": 0.0587786,
+    "input_tokens": 211361,
+    "output_tokens": 1593
+  },
+  "violations": []
+}

@@ -1,0 +1,52 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "The exact final broker config property name (*.class property) for KIP-1331's Streams Group Topology Description Plugin could not be determined from the available search results. While extensive searches found references to the KIP-1331 discussion (initiated 2026-05-04), feedback from Andrew Schofield noting config name ambiguity (2026-05-08), and the vote passing (2026-05-27), the truncated summaries did not reveal the final resolved configuration property name.",
+      "The search results consistently showed: KIP-1331 discussion threads, KAFKA-20622 (Define StreamsGroupTopologyDescriptionPlugin SPI), POC PR #22413, but the complete discussion text addressing the config name ambiguity feedback was truncated in all results."
+    ],
+    "value": null
+  },
+  "arm": "F4-topic-search",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 152.40925362300186,
+  "family": "design_decision",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "The exact final broker config property name (*.class property) for KIP-1331's Streams Group Topology Description Plugin could not be determined from the available search results. While extensive searches found references to the KIP-1331 discussion (initiated 2026-05-04), feedback from Andrew Schofield noting config name ambiguity (2026-05-08), and the vote passing (2026-05-27), the truncated summaries did not reveal the final resolved configuration property name.",
+      "The search results consistently showed: KIP-1331 discussion threads, KAFKA-20622 (Define StreamsGroupTopologyDescriptionPlugin SPI), POC PR #22413, but the complete discussion text addressing the config name ambiguity feedback was truncated in all results."
+    ],
+    "expected": "group.streams.topology.description.plugin.class"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 23,
+  "prompt_sha256": "af1946c771b8f6518012408f97b041b0b61ff905af6a8e040695b76d2f21d7f9",
+  "run_index": 74,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-1bf0682184",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 20
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 1159322,
+    "cost_usd": 0.27822920000000007,
+    "input_tokens": 1229689,
+    "output_tokens": 4350
+  },
+  "violations": []
+}

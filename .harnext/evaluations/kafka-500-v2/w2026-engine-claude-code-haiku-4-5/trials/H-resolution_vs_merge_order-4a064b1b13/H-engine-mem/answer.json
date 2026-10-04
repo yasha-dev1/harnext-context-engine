@@ -1,0 +1,10 @@
+{
+  "evidence": [
+    "entities/issue/KAFKA-20288/OVERVIEW.md",
+    "github:api:apache/kafka:pr-21758-opened"
+  ],
+  "value": {
+    "days": 0,
+    "first": "merge"
+  }
+}

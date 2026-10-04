@@ -1,0 +1,10 @@
+{
+  "evidence": [
+    "prs/21785-kafka-20245-sharegroup-dlq-throwables-1-n.md - PR metadata showing merge date 2026-03-17T16:02:46Z and commit c48bc49a8fdf8a3decb43f23ea3288e0bb3e0ef9",
+    "WINDOW-68-SUMMARY.md - Confirms PR #21785 merged and describes changes but lacks file paths",
+    "Harnext context store - searched extensively but detailed file modifications not documented for this PR"
+  ],
+  "value": [
+    "Unable to determine - files changed list not available in context"
+  ]
+}

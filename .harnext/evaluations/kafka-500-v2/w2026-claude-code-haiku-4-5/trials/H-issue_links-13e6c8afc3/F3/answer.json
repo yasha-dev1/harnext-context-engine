@@ -1,0 +1,12 @@
+{
+  "evidence": [
+    "_intake/2026/04/08/jira-13638629-change-23013020-0-3e7d1c3e.md",
+    "_intake/2026/04/08/jira-13647518-change-23013021-0-f882ef4d.md",
+    "_intake/2026/04/08/jira-13647519-change-23013022-0-f9e11ec6.md",
+    "_intake/2026/04/08/jira-13647519-change-23013019-0-cb52d79e.md"
+  ],
+  "value": [
+    "KAFKA-20056",
+    "KAFKA-20420"
+  ]
+}

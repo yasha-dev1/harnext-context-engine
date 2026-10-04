@@ -1,0 +1,3 @@
+{
+  "summary": "Successfully implemented readOnly(IsolationLevel) method for CachingWindowStore that provides READ_COMMITTED (cache-bypassing) and READ_UNCOMMITTED (cache-merging) views of the window store. All 61 tests in CachingPersistentWindowStoreTest pass."
+}

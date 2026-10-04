@@ -1,0 +1,3 @@
+{
+  "summary": "Implemented ReadOnlyView for MeteredKeyValueStore (KAFKA-20497). Added a readOnly() method that returns a MeteredReadOnlyKeyValueStore wrapper which applies metering and serdes transformation to all read operations (get, range, reverseRange, all, reverseAll, prefixScan) on the wrapped inner read-only store. All tests pass successfully."
+}

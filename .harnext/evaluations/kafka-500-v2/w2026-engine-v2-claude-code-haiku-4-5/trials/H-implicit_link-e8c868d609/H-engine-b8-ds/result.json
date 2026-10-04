@@ -1,0 +1,80 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail:6cd700a13d988e1df4186856 (mailing list thread from 2026-05-20 by Ankur Sinha)",
+      "jira:13652155:created (JIRA issue KAFKA-20604 created 2026-05-24 as tracking issue for KIP-1348)",
+      "mail:8b09146c3e228474deabacb7 (JIRA-created notification message naming KAFKA-20604)"
+    ],
+    "value": "KAFKA-20604"
+  },
+  "arm": "H-engine-b8-ds",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 126.83825640600116,
+  "engine": {
+    "calls": 1,
+    "chat": {
+      "calls": 15,
+      "cancelled": 0,
+      "cost_usd": 0.00328844,
+      "input_tokens": 94229,
+      "output_tokens": 5021,
+      "retries": 0
+    },
+    "cost_usd": 0.00510204,
+    "discarded_attempts": 0,
+    "jev": {
+      "calls": 18,
+      "cancelled": 0,
+      "cost_usd": 0.0018136,
+      "input_tokens": 43181,
+      "output_tokens": 7714,
+      "retries": 0
+    },
+    "partial": 0,
+    "provider_retry_usd": 0,
+    "seconds": 111.549,
+    "unmetered_upper_usd": 0,
+    "waited_s": 0
+  },
+  "family": "implicit_link",
+  "grade": {
+    "actual": "KAFKA-20604",
+    "correct": true,
+    "evidence": [
+      "mail:6cd700a13d988e1df4186856 (mailing list thread from 2026-05-20 by Ankur Sinha)",
+      "jira:13652155:created (JIRA issue KAFKA-20604 created 2026-05-24 as tracking issue for KIP-1348)",
+      "mail:8b09146c3e228474deabacb7 (JIRA-created notification message naming KAFKA-20604)"
+    ],
+    "expected": "KAFKA-20604"
+  },
+  "image_id": "sha256:1de715f951a3fc013cabad66407b87028bc2a5af6e58efdea5338b4cf9fb1485",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "f5958c7f233ca385e4a3c48bc3d24dcfa8b8a78081c2d65d399969afc26c38e7",
+  "run_index": 64,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-implicit_link-e8c868d609",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 63634,
+    "cost_usd": 0.0136884,
+    "input_tokens": 64970,
+    "output_tokens": 936
+  },
+  "violations": []
+}

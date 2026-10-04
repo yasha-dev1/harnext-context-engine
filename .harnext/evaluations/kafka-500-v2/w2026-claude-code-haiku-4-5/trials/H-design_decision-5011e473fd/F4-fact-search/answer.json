@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "discussions/kip-1163-diskless-core.md (lines 146-152): Key Ongoing Discussion Points explicitly lists 'Metadata Management Complexity: Whether to have separate diskless coordinator metadata vs integrated RLMM' as unresolved",
+    "discussions/kip-1163-diskless-core.md (lines 130-145): May 15-16, 2026 discussion shows ongoing debate with no final consensus — Viktor Somogyi-Vass favored reuse, Jun Rao and Satish Duggana raised concerns about RLMM approach, but no decision was documented"
+  ],
+  "value": null
+}

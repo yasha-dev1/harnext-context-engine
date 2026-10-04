@@ -1,0 +1,17 @@
+Context snapshot cutoff (inclusive): 2026-06-02T14:35:12Z.
+
+The workspace is the apache/kafka repository at commit 32d24f93a36ed2a154495a3395f1f4bb2c75c50d.
+
+Issue KAFKA-20223: Extended I/O Metrics Collection
+
+Extend the existing I/O metrics collection with the 5 missing metrics (rchar, wchar, syscr, syscw, and cancelled_write_bytes) that are essential for diagnosing performance issues and optimising Kafka deployments.
+
+Details in the KIP below
+
+https://cwiki.apache.org/confluence/x/co48G
+
+Implement the change this issue asks for by editing the workspace. The tests written for this change have already been added to the workspace (uncommitted; see `git status`): `core/src/test/scala/unit/kafka/metrics/MetricsTest.scala`, `server/src/test/java/org/apache/kafka/server/metrics/LinuxIoMetricsCollectorTest.java`. They fail or do not compile until the change is implemented. Make them pass with `./gradlew :core:test --tests kafka.metrics.MetricsTest --offline` ; `./gradlew :server:test --tests org.apache.kafka.server.metrics.LinuxIoMetricsCollectorTest --offline`. Do not edit those test files: grading restores them to their original content and runs them against your other changes. Keep the change focused and do not substitute knowledge of how the project evolved after the cutoff.
+
+The MCP server `history` holds the project's recorded history up to the cutoff. Use its tools (search, read_event) to consult it as you see fit; nothing later than the cutoff is in it and there is no network access.
+
+The repository is checked out at /workspace. The workspace is a git repository whose history ends at the base commit; `git log`, `git blame` and `git show` work offline. Make the change by editing source files there; the tests named above, restored to their original content, decide whether the issue is resolved. Gradle works offline only (`./gradlew :module:test --tests X --offline`). Finish with one JSON object {"summary": "..."}.

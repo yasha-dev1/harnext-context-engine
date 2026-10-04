@@ -1,0 +1,3 @@
+{
+  "summary": "Implemented KAFKA-20282 by adding a log message recommendation when KafkaConsumer uses the classic rebalance protocol with a group ID. The change logs \"The consumer rebalance protocol (KIP-848) is production ready!\" in ClassicKafkaConsumer constructor (line 221) when both classic protocol and group ID are configured. All four related tests pass successfully."
+}

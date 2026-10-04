@@ -1,0 +1,53 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "store/window-86-summary.md (lines 289-290) - shows KAFKA-19701 with comment activity but no assignee information",
+      "store/window-90-summary.md (lines 162-164) - KAFKA-19701 linked to PR #22000, no assignment indicated",
+      "store/window-106-summary.md (line 302) - last activity on KAFKA-19701 on 2026-04-30T21:01:19Z with no assignment indicated"
+    ],
+    "value": null
+  },
+  "arm": "F6",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 84.28297882199695,
+  "family": "assignee_at_snapshot",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "store/window-86-summary.md (lines 289-290) - shows KAFKA-19701 with comment activity but no assignee information",
+      "store/window-90-summary.md (lines 162-164) - KAFKA-19701 linked to PR #22000, no assignment indicated",
+      "store/window-106-summary.md (line 302) - last activity on KAFKA-19701 on 2026-04-30T21:01:19Z with no assignment indicated"
+    ],
+    "expected": "Muralidhar Basani"
+  },
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "c4fd98262eac334a96d847fce5585d98a589d6891dc87fbd11640a72be58e309",
+  "run_index": 1,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-assignee_at_snapshot-26a89e8703",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 63384,
+    "cost_usd": 0.012208399999999998,
+    "input_tokens": 64610,
+    "output_tokens": 689
+  },
+  "violations": []
+}

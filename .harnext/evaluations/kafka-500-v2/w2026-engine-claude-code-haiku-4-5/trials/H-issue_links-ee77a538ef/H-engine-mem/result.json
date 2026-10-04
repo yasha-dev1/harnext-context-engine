@@ -1,0 +1,75 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "context_research query for JIRA issues blocked by KAFKA-20066 (KIP-1251 issue) returned 0 results"
+    ],
+    "value": []
+  },
+  "arm": "H-engine-mem",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 51.92785780200029,
+  "engine": {
+    "calls": 1,
+    "chat": {
+      "calls": 6,
+      "cancelled": 0,
+      "cost_usd": 0.0004774,
+      "input_tokens": 19021,
+      "output_tokens": 1111,
+      "retries": 0
+    },
+    "cost_usd": 0.00100316,
+    "jev": {
+      "calls": 6,
+      "cancelled": 0,
+      "cost_usd": 0.00052576,
+      "input_tokens": 12518,
+      "output_tokens": 2222,
+      "retries": 0
+    },
+    "partial": 1,
+    "seconds": 38.287,
+    "unmetered_upper_usd": 0
+  },
+  "family": "issue_links",
+  "grade": {
+    "actual": [],
+    "correct": false,
+    "evidence": [
+      "context_research query for JIRA issues blocked by KAFKA-20066 (KIP-1251 issue) returned 0 results"
+    ],
+    "expected": [
+      "KAFKA-20282"
+    ]
+  },
+  "image_id": "sha256:a75ed05ffc6eace9ec0ed4705d31b20aa2579267b3e737b4f61017882112ea66",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "19632b7a9e808a0023808da5dd712504bdda483451135eccfb3e073766ce0b9e",
+  "run_index": 13,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-issue_links-ee77a538ef",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 60031,
+    "cost_usd": 0.0179611,
+    "input_tokens": 64476,
+    "output_tokens": 619
+  },
+  "violations": []
+}

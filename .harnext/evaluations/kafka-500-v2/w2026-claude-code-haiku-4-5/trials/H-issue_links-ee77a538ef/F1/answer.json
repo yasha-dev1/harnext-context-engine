@@ -1,0 +1,10 @@
+{
+  "evidence": [
+    "entities/issue/KAFKA-20066/OVERVIEW.md - contains linked issues but no relationship types",
+    "entities/issue/KAFKA-20066/timeline.md - records link events but not relationship types",
+    "context_research queries confirmed no JSON/API response data with issuelinks relationship types is available in the context filesystem"
+  ],
+  "value": [
+    "Unable to determine - the context filesystem does not contain link relationship type metadata"
+  ]
+}

@@ -1,0 +1,3 @@
+{
+  "summary": "Successfully implemented KAFKA-20223: Extended I/O Metrics Collection. Added 5 missing Linux I/O metrics (rchar, wchar, syscr, syscw, cancelled_write_bytes) to LinuxIoMetricsCollector and registered them as JMX metrics in both KafkaBroker and ControllerServer. All tests passing: LinuxIoMetricsCollectorTest (3 tests) and MetricsTest.testLinuxIoMetrics()."
+}

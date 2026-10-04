@@ -1,0 +1,51 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "store/events/2026/05/04/jira-13649909-created-2b4ec445.md",
+      "store/events/2026/05/12/jira-13649909-change-23057202-0-c173337d.md"
+    ],
+    "value": "In Progress"
+  },
+  "arm": "F0",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 82.7254754789974,
+  "family": "status_at_snapshot",
+  "grade": {
+    "actual": "In Progress",
+    "correct": true,
+    "evidence": [
+      "store/events/2026/05/04/jira-13649909-created-2b4ec445.md",
+      "store/events/2026/05/12/jira-13649909-change-23057202-0-c173337d.md"
+    ],
+    "expected": "In Progress"
+  },
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "e0406b141b65bdbeb54c42d1b98148dfa7efd3e232f9581644fabb888c529da7",
+  "run_index": 33,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-status_at_snapshot-a1d0868d65",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 59934,
+    "cost_usd": 0.021943400000000002,
+    "input_tokens": 66070,
+    "output_tokens": 741
+  },
+  "violations": []
+}

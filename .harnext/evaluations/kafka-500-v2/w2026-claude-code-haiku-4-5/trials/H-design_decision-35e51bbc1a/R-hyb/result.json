@@ -1,0 +1,50 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail:eb6c1df0388d4f4c9d485a37 (2026-04-15T08:31:19Z): Federico Valeri's response to AS25 in KIP-1279 discussion thread: 'we decided to remove the --replication-factor flag to always honor the destination cluster default'"
+    ],
+    "value": "destination cluster default replication factor"
+  },
+  "arm": "R-hyb",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 79.26660443199216,
+  "family": "design_decision",
+  "grade": {
+    "actual": "destination cluster default replication factor",
+    "correct": true,
+    "evidence": [
+      "mail:eb6c1df0388d4f4c9d485a37 (2026-04-15T08:31:19Z): Federico Valeri's response to AS25 in KIP-1279 discussion thread: 'we decided to remove the --replication-factor flag to always honor the destination cluster default'"
+    ],
+    "expected": "destination cluster default replication factor"
+  },
+  "instructions_sha256": "dfaa5b284d06c378ef7e4c08b53dc77835c91d7591fca0335bbfa33d3e53eb37",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 14,
+  "prompt_sha256": "2908fca0d875f3c96c6fd5cba5c5b44587f49676c7a3f96b797ae29ca8da2712",
+  "run_index": 68,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-35e51bbc1a",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__read_event": 4,
+    "mcp__history__search": 8
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 504601,
+    "cost_usd": 0.1561641,
+    "input_tokens": 551088,
+    "output_tokens": 2569
+  },
+  "violations": []
+}

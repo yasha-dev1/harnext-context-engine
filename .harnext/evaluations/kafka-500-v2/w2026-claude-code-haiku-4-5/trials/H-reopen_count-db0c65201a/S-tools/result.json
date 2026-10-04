@@ -1,0 +1,50 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "jira issue view KAFKA-18866 --history - shows only one status transition: Open → Resolved on 2026-02-26, with no transitions to Reopened status prior to snapshot cutoff 2026-05-31"
+    ],
+    "value": 0
+  },
+  "arm": "S-tools",
+  "checkpoint": "2026-05",
+  "cli_calls": {
+    "jira": 2
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 14.659571005002363,
+  "family": "reopen_count",
+  "grade": {
+    "actual": 0,
+    "correct": true,
+    "evidence": [
+      "jira issue view KAFKA-18866 --history - shows only one status transition: Open → Resolved on 2026-02-26, with no transitions to Reopened status prior to snapshot cutoff 2026-05-31"
+    ],
+    "expected": 0
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "25b084f4c716301ee7fbc33ad4411892fc9c701cbbb75e41a00fa8edd98d4711",
+  "run_index": 51,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-reopen_count-db0c65201a",
+  "tool_calls": {
+    "Bash": 2,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 59883,
+    "cost_usd": 0.0236453,
+    "input_tokens": 66029,
+    "output_tokens": 1078
+  },
+  "violations": []
+}

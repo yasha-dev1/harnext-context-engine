@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "The history context system contains only metadata about KIP-1279 discussions (timelines, thread references), not the actual message content where the RPC naming decision would be documented.",
+    "context_research agent response indicated: 'The context filesystem appears to only contain metadata about discussions—including titles, timestamps, and linking relationships between issues, threads, and pull requests—but does not include the actual message content or discussion body text.'"
+  ],
+  "value": null
+}

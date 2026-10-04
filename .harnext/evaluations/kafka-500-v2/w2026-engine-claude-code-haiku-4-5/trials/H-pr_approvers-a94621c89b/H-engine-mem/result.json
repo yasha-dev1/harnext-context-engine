@@ -1,0 +1,92 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "github:api:apache/kafka:review-PRR_kwDOACG9q87ycGzC",
+      "github:api:apache/kafka:review-PRR_kwDOACG9q87ydMWz",
+      "github:api:apache/kafka:review-PRR_kwDOACG9q87ydMbp"
+    ],
+    "value": [
+      "dajac",
+      "nileshkumar3",
+      "squah-confluent"
+    ]
+  },
+  "arm": "H-engine-mem",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 68.277211523,
+  "engine": {
+    "calls": 1,
+    "chat": {
+      "calls": 8,
+      "cancelled": 0,
+      "cost_usd": 0.00073023,
+      "input_tokens": 30802,
+      "output_tokens": 893,
+      "retries": 0
+    },
+    "cost_usd": 0.00105153,
+    "discarded_attempts": 0,
+    "jev": {
+      "calls": 4,
+      "cancelled": 0,
+      "cost_usd": 0.0003213,
+      "input_tokens": 7650,
+      "output_tokens": 1131,
+      "retries": 0
+    },
+    "partial": 0,
+    "provider_retry_usd": 0,
+    "seconds": 54.166,
+    "unmetered_upper_usd": 0,
+    "waited_s": 0
+  },
+  "family": "pr_approvers",
+  "grade": {
+    "actual": [
+      "dajac",
+      "nileshkumar3",
+      "squah-confluent"
+    ],
+    "correct": true,
+    "evidence": [
+      "github:api:apache/kafka:review-PRR_kwDOACG9q87ycGzC",
+      "github:api:apache/kafka:review-PRR_kwDOACG9q87ydMWz",
+      "github:api:apache/kafka:review-PRR_kwDOACG9q87ydMbp"
+    ],
+    "expected": [
+      "dajac",
+      "nileshkumar3",
+      "squah-confluent"
+    ]
+  },
+  "image_id": "sha256:4615b2564319d58319029548af66970c954e128401ee89c8705684861de4bc07",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "ebfb3036be6a9e5e9554aef24fb35e80416afca9f3f094f47b3b04e15f61aadf",
+  "run_index": 44,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-pr_approvers-a94621c89b",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 63410,
+    "cost_usd": 0.01227,
+    "input_tokens": 64473,
+    "output_tokens": 766
+  },
+  "violations": []
+}

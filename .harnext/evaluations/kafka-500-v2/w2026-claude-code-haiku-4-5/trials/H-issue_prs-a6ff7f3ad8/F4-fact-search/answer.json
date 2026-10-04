@@ -1,0 +1,18 @@
+{
+  "evidence": [
+    "store/issues/kafka-20440-pem-certificate-pkcs12.md",
+    "store/prs/22182-pem-certificate-pkcs12-dependency.md",
+    "store/WINDOW-105-SUMMARY.md",
+    "store/WINDOW-94-SUMMARY.md"
+  ],
+  "value": [
+    {
+      "pr": 22041,
+      "state": "open"
+    },
+    {
+      "pr": 22182,
+      "state": "open"
+    }
+  ]
+}

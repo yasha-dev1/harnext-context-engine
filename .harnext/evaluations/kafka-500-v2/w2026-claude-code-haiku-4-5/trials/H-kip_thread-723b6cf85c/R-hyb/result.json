@@ -1,0 +1,63 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail:fae59ef23c15af1ca719cef5",
+      "mail:462a27048cea9c26a70066ee",
+      "mail:3db3527474898e5167efac95"
+    ],
+    "value": {
+      "participants": 2,
+      "starter": "Lijun Tong"
+    }
+  },
+  "arm": "R-hyb",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 128.90575317799812,
+  "family": "kip_thread",
+  "grade": {
+    "actual": {
+      "participants": 2,
+      "starter": "Lijun Tong"
+    },
+    "correct": false,
+    "evidence": [
+      "mail:fae59ef23c15af1ca719cef5",
+      "mail:462a27048cea9c26a70066ee",
+      "mail:3db3527474898e5167efac95"
+    ],
+    "expected": {
+      "participants": 4,
+      "starter": "Lijun Tong"
+    }
+  },
+  "instructions_sha256": "dfaa5b284d06c378ef7e4c08b53dc77835c91d7591fca0335bbfa33d3e53eb37",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 13,
+  "prompt_sha256": "34411f9d24abd6bb13729b62e9cb4a46d997815688a87bbabcb9422e62c72cf9",
+  "run_index": 63,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-kip_thread-723b6cf85c",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__read_event": 11,
+    "mcp__history__search": 7
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 654764,
+    "cost_usd": 0.2670714,
+    "input_tokens": 741190,
+    "output_tokens": 5770
+  },
+  "violations": []
+}

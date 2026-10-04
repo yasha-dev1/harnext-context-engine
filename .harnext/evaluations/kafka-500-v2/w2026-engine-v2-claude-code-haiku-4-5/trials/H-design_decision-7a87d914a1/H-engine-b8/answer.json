@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "mail:59c5fd3092adaf090832eeba",
+    "mail:d0ea5a94789da80c21eb21d1"
+  ],
+  "value": "processing.exception.handler.global.enabled"
+}

@@ -1,0 +1,3 @@
+{
+  "summary": "Successfully implemented readOnly(IsolationLevel) method and ReadOnlyView inner class for MeteredKeyValueStore (KAFKA-20497). The implementation wraps the inner store's read-only view, applies serdes for type conversion, and records metrics for all read operations. All 43 MeteredKeyValueStoreTest tests pass."
+}

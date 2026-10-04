@@ -1,0 +1,97 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail:550c648f6ddf3a323092287d",
+      "mail:ce4c9730ee6c37bc81d0cd1e",
+      "mail:8379690aa2bf96c5b418ae3e",
+      "mail:30137767042bf7e848f7a807",
+      "mail:d6912ccc512d32df7a246110",
+      "mail:8cafe5c1265af9d7eb31faa7",
+      "mail:263b0239b98e36fe0c99fba8"
+    ],
+    "value": {
+      "participants": 7,
+      "starter": "Lianet Magrans"
+    }
+  },
+  "arm": "H-engine-b8",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 101.18609301598917,
+  "engine": {
+    "calls": 1,
+    "chat": {
+      "calls": 9,
+      "cancelled": 0,
+      "cost_usd": 0.00210939,
+      "input_tokens": 66865,
+      "output_tokens": 2744,
+      "retries": 0
+    },
+    "cost_usd": 0.00288836,
+    "discarded_attempts": 0,
+    "jev": {
+      "calls": 9,
+      "cancelled": 0,
+      "cost_usd": 0.00077897,
+      "input_tokens": 18547,
+      "output_tokens": 2311,
+      "retries": 0
+    },
+    "partial": 1,
+    "provider_retry_usd": 0,
+    "seconds": 78.875,
+    "unmetered_upper_usd": 0,
+    "waited_s": 0
+  },
+  "family": "kip_thread",
+  "grade": {
+    "actual": {
+      "participants": 7,
+      "starter": "Lianet Magrans"
+    },
+    "correct": false,
+    "evidence": [
+      "mail:550c648f6ddf3a323092287d",
+      "mail:ce4c9730ee6c37bc81d0cd1e",
+      "mail:8379690aa2bf96c5b418ae3e",
+      "mail:30137767042bf7e848f7a807",
+      "mail:d6912ccc512d32df7a246110",
+      "mail:8cafe5c1265af9d7eb31faa7",
+      "mail:263b0239b98e36fe0c99fba8"
+    ],
+    "expected": {
+      "participants": 8,
+      "starter": "Lianet Magrans"
+    }
+  },
+  "image_id": "sha256:1de715f951a3fc013cabad66407b87028bc2a5af6e58efdea5338b4cf9fb1485",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "137fad190e8509d38fb409f84a41f1baa815856a08c9037fcdceb56f08cc9b46",
+  "run_index": 8,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-kip_thread-4f3f46e46c",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 42585,
+    "cost_usd": 0.0570575,
+    "input_tokens": 65168,
+    "output_tokens": 1532
+  },
+  "violations": []
+}

@@ -1,0 +1,9 @@
+{
+  "evidence": [
+    "KAFKA-20056 issue status as of 2026-01-20 shows implementation in progress",
+    "PR #21345 WIP-PoC opened 2026-01-22",
+    "KIP-1271 discussion threads referenced but content not indexed",
+    "Cutoff date 2026-01-31 shows voting still ongoing, not finalized"
+  ],
+  "value": null
+}

@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "entities/pr/apache__kafka__21555/OVERVIEW.md",
+    "github:api:apache/kafka:pr-21627-merged",
+    "mail:deafa8cbb9672c74162f0364"
+  ],
+  "value": "group.coordinator.background.threads"
+}

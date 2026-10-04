@@ -1,0 +1,108 @@
+{
+  "agent": "claude-code",
+  "answer": null,
+  "arm": "S-tools",
+  "checkpoint": "2024-10",
+  "cli_calls": {
+    "git": 2,
+    "jira": 1
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 634.8372596070001,
+  "family": "pr_implementation",
+  "grade": {
+    "counts": {},
+    "dropped_paths": [
+      "clients/src/test/java/org/apache/kafka/clients/admin/MockAdminClient.java",
+      "core/src/test/scala/integration/kafka/api/SaslSslAdminIntegrationTest.scala",
+      "core/src/test/scala/unit/kafka/server/DelegationTokenRequestsTest.scala"
+    ],
+    "fail_to_pass_failed": [
+      "kafka.api.SaslSslAdminIntegrationTest#\"testAclAuthorizationDenied(String).quorum=kraft\"",
+      "kafka.api.SaslSslAdminIntegrationTest#\"testAclDelete(String).quorum=kraft\"",
+      "kafka.api.SaslSslAdminIntegrationTest#\"testAclDescribe(String).quorum=kraft\"",
+      "kafka.api.SaslSslAdminIntegrationTest#\"testAclOperations(String).quorum=kraft\"",
+      "kafka.api.SaslSslAdminIntegrationTest#\"testAclOperations2(String).quorum=kraft\"",
+      "kafka.api.SaslSslAdminIntegrationTest#\"testAclOperationsWithOptionTimeoutMs(String).quorum=kraft\"",
+      "kafka.api.SaslSslAdminIntegrationTest#\"testAttemptToCreateInvalidAcls(String).quorum=kraft\"",
+      "kafka.api.SaslSslAdminIntegrationTest#\"testAuthorizedOperations(String).quorum=kraft\"",
+      "kafka.api.SaslSslAdminIntegrationTest#\"testCreateDelegationTokenWithSmallerTimeout(String).quorum=kraft\"",
+      "kafka.api.SaslSslAdminIntegrationTest#\"testCreateDeleteTopics(String).quorum=kraft\"",
+      "kafka.api.SaslSslAdminIntegrationTest#\"testCreateTokenWithOverflowTimestamp(String).quorum=kraft\"",
+      "kafka.api.SaslSslAdminIntegrationTest#\"testCreateTopicsResponseMetadataAndConfig(String).quorum=kraft\"",
+      "kafka.api.SaslSslAdminIntegrationTest#\"testDeleteAclsWithOptionTimeoutMs(String).quorum=kraft\"",
+      "kafka.api.SaslSslAdminIntegrationTest#\"testExpireDelegationToken(String).quorum=kraft\"",
+      "kafka.api.SaslSslAdminIntegrationTest#\"testExpireDelegationTokenWithOptionExpireTimePeriodMs(String).quorum=kraft\"",
+      "kafka.api.SaslSslAdminIntegrationTest#\"testExpireTokenWithOverflowTimestamp(String).quorum=kraft\"",
+      "kafka.api.SaslSslAdminIntegrationTest#\"testExpiredTimeStampLargerThanMaxLifeStamp(String).quorum=kraft\"",
+      "kafka.api.SaslSslAdminIntegrationTest#\"testLegacyAclOpsNeverAffectOrReturnPrefixed(String).quorum=kraft\"",
+      "kafka.server.DelegationTokenRequestsTest#\"testDelegationTokenRequests(String).quorum=kraft\""
+    ],
+    "graded_by": "gradle",
+    "grading_timed_out": false,
+    "gradle_returncode": 1,
+    "other_failed_tasks": [
+      ":core:javadoc"
+    ],
+    "outcomes": {},
+    "pass_to_pass_failed": [],
+    "patch_bytes": 9765,
+    "patch_empty": false,
+    "resolved": false,
+    "seconds": 358.3,
+    "similarity": {
+      "added_lines": {
+        "f1": 0.261,
+        "precision": 0.75,
+        "recall": 0.158
+      },
+      "files": {
+        "agent": 3,
+        "f1": 1.0,
+        "golden": 3,
+        "precision": 1.0,
+        "recall": 1.0,
+        "shared": 3
+      },
+      "location_recall": 0.788,
+      "removed_lines": {
+        "f1": 0.6,
+        "precision": 0.75,
+        "recall": 0.5
+      },
+      "size": {
+        "agent_added": 4,
+        "agent_removed": 4,
+        "golden_added": 19,
+        "golden_removed": 6
+      }
+    },
+    "test_compile_failed": []
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "coding",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 27,
+  "prompt_sha256": "52fb3546c5e86628a3b023e6ca39992782b068cbb91fa584208da6b7dc175959",
+  "run_index": 3,
+  "status": "completed",
+  "success": false,
+  "task_id": "C-KAFKA-PR-17749",
+  "tool_calls": {
+    "Bash": 17,
+    "Edit": 6,
+    "Read": 6
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 1353274,
+    "cost_usd": 0.2731964,
+    "input_tokens": 1401668,
+    "output_tokens": 8260
+  },
+  "violations": []
+}

@@ -1,0 +1,80 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86qoXgU (PR #21572, 2026-02-27, reviewer mjsax)",
+      "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86qobYY (PR #21572, 2026-02-27, reviewer mjsax)",
+      "KIP-1285 DSL Opt-in Support for Header-Aware State Stores"
+    ],
+    "value": "StreamsConfig.DSL_STORE_FORMAT_HEADERS"
+  },
+  "arm": "H-engine-mem",
+  "checkpoint": "2026-02",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 136.08880691300146,
+  "engine": {
+    "calls": 1,
+    "chat": {
+      "calls": 20,
+      "cancelled": 2,
+      "cost_usd": 0.00172701,
+      "input_tokens": 89170,
+      "output_tokens": 1355,
+      "retries": 0
+    },
+    "cost_usd": 0.00375763,
+    "discarded_attempts": 0,
+    "jev": {
+      "calls": 22,
+      "cancelled": 0,
+      "cost_usd": 0.00203062,
+      "input_tokens": 48348,
+      "output_tokens": 8458,
+      "retries": 0
+    },
+    "partial": 1,
+    "provider_retry_usd": 0,
+    "seconds": 120.003,
+    "unmetered_upper_usd": 0.00053159,
+    "waited_s": 0
+  },
+  "family": "design_decision",
+  "grade": {
+    "actual": "StreamsConfig.DSL_STORE_FORMAT_HEADERS",
+    "correct": false,
+    "evidence": [
+      "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86qoXgU (PR #21572, 2026-02-27, reviewer mjsax)",
+      "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86qobYY (PR #21572, 2026-02-27, reviewer mjsax)",
+      "KIP-1285 DSL Opt-in Support for Header-Aware State Stores"
+    ],
+    "expected": "dsl.store.format"
+  },
+  "image_id": "sha256:4615b2564319d58319029548af66970c954e128401ee89c8705684861de4bc07",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "c83c8ed629329ee9990ef8e81f02f4bd996d33c6b2dcf0a9387b51da4f9d0ea1",
+  "run_index": 61,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-38b42b5169",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 60063,
+    "cost_usd": 0.024313299999999996,
+    "input_tokens": 66820,
+    "output_tokens": 964
+  },
+  "violations": []
+}

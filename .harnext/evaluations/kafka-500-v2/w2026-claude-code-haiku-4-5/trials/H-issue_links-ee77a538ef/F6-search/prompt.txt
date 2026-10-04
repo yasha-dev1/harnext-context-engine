@@ -1,0 +1,9 @@
+Context snapshot cutoff (inclusive): 2026-04-30T23:59:59Z.
+
+Which issues was the Apache Kafka JIRA issue titled "Implement KIP-1251: Assignment epochs for consumer groups" (created in 2026-01) linked to with the issue-link relation "blocks" (as JIRA words it: "This issue blocks <KEY>") at the snapshot? Return the sorted array of issue keys; a link removed before the snapshot does not count.
+
+Return JSON {"value": <answer>, "evidence": [<ids or file paths of the sources you relied on>]}. Answer as of the cutoff; do not substitute a later or today's issue state.
+
+The MCP server `history` holds the project's recorded history up to the cutoff. It has two tools: `context_research(question)` asks Harnext's research agent, which reads the stored context and returns a cited report; `search_context(query, k)` returns the best-matching stored passages with their file paths, for you to read yourself. Nothing later than the cutoff is in it and there is no network access.
+
+Reply with one JSON object {"value": ..., "evidence": [...]}: `value` is the answer in the requested type (null if it cannot be determined), `evidence` lists the sources you relied on.

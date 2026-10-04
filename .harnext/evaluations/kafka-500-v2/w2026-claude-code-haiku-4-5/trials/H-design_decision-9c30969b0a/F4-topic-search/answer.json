@@ -1,0 +1,9 @@
+{
+  "evidence": [
+    "pull-requests.md (line 211)",
+    "discussions.md (line 240)",
+    "discussions.md (line 514)",
+    "PR #21572 (KAFKA-20220) - merged 2026-02-27"
+  ],
+  "value": "DslStoreFormat"
+}

@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "kips-and-discussions.md (lines 525-532)",
+    "jira-issues.md (lines 350-358)",
+    "window-41-summary.md (lines 162-167, 253-258)"
+  ],
+  "value": "KAFKA-20223"
+}

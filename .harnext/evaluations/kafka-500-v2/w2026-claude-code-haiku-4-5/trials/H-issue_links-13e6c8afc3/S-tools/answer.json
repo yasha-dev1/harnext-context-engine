@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "jira issue view KAFKA-20421 --history"
+  ],
+  "value": [
+    "KAFKA-20420"
+  ]
+}

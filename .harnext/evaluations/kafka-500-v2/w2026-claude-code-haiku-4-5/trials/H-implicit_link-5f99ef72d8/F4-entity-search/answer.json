@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "issues/KAFKA-20614.md",
+    "WINDOW-126-2026-05-25-to-2026-05-26.md"
+  ],
+  "value": "KAFKA-20614"
+}

@@ -1,0 +1,19 @@
+{
+  "evidence": [
+    "issues/KAFKA-20255.md",
+    "WINDOW-61-2026-03-12-to-2026-03-13-summary.md",
+    "WINDOW-50-2026-03-05-summary.md"
+  ],
+  "value": [
+    {
+      "at": "2026-03-05T09:40:54Z",
+      "from": null,
+      "to": "Fixed"
+    },
+    {
+      "at": "2026-03-13T07:44:14Z",
+      "from": "Fixed",
+      "to": "Duplicate"
+    }
+  ]
+}

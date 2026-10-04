@@ -1,0 +1,149 @@
+diff --git a/clients/src/main/java/org/apache/kafka/clients/admin/CreateDelegationTokenOptions.java b/clients/src/main/java/org/apache/kafka/clients/admin/CreateDelegationTokenOptions.java
+index 13540b0299cfc8bb3fdc680e6634ea23c2b18039..c74f074a10740308930294b3d38d969103b9e673 100644
+--- a/clients/src/main/java/org/apache/kafka/clients/admin/CreateDelegationTokenOptions.java
++++ b/clients/src/main/java/org/apache/kafka/clients/admin/CreateDelegationTokenOptions.java
+@@ -31,7 +31,7 @@ import java.util.Optional;
+  */
+ @InterfaceStability.Evolving
+ public class CreateDelegationTokenOptions extends AbstractOptions<CreateDelegationTokenOptions> {
+-    private long maxLifeTimeMs = -1;
++    private long maxLifetimeMs = -1;
+     private List<KafkaPrincipal> renewers =  new LinkedList<>();
+     private KafkaPrincipal owner = null;
+ 
+@@ -53,12 +53,12 @@ public class CreateDelegationTokenOptions extends AbstractOptions<CreateDelegati
+         return Optional.ofNullable(owner);
+     }
+ 
+-    public CreateDelegationTokenOptions maxlifeTimeMs(long maxLifeTimeMs) {
+-        this.maxLifeTimeMs = maxLifeTimeMs;
++    public CreateDelegationTokenOptions maxLifetimeMs(long maxLifetimeMs) {
++        this.maxLifetimeMs = maxLifetimeMs;
+         return this;
+     }
+ 
+-    public long maxlifeTimeMs() {
+-        return maxLifeTimeMs;
++    public long maxLifetimeMs() {
++        return maxLifetimeMs;
+     }
+ }
+diff --git a/clients/src/main/java/org/apache/kafka/clients/admin/KafkaAdminClient.java b/clients/src/main/java/org/apache/kafka/clients/admin/KafkaAdminClient.java
+index ef46b49db6efc068b42aba598ba4d1b28d5b3e70..d9d8ce58460f00266c809158c4a1b96ed2e97797 100644
+--- a/clients/src/main/java/org/apache/kafka/clients/admin/KafkaAdminClient.java
++++ b/clients/src/main/java/org/apache/kafka/clients/admin/KafkaAdminClient.java
+@@ -3371,7 +3371,7 @@ public class KafkaAdminClient extends AdminClient {
+             CreateDelegationTokenRequest.Builder createRequest(int timeoutMs) {
+                 CreateDelegationTokenRequestData data = new CreateDelegationTokenRequestData()
+                     .setRenewers(renewers)
+-                    .setMaxLifetimeMs(options.maxlifeTimeMs());
++                    .setMaxLifetimeMs(options.maxLifetimeMs());
+                 if (options.owner().isPresent()) {
+                     data.setOwnerPrincipalName(options.owner().get().getName());
+                     data.setOwnerPrincipalType(options.owner().get().getPrincipalType());
+diff --git a/clients/src/test/java/org/apache/kafka/clients/admin/MockAdminClient.java b/clients/src/test/java/org/apache/kafka/clients/admin/MockAdminClient.java
+index 482240e57779de76ed89ad9e4144bf4f45a4ae5b..dc6835980264444b3480072a6e19bc3e78f45af9 100644
+--- a/clients/src/test/java/org/apache/kafka/clients/admin/MockAdminClient.java
++++ b/clients/src/test/java/org/apache/kafka/clients/admin/MockAdminClient.java
+@@ -646,7 +646,7 @@ public class MockAdminClient extends AdminClient {
+         }
+ 
+         String tokenId = Uuid.randomUuid().toString();
+-        TokenInformation tokenInfo = new TokenInformation(tokenId, options.renewers().get(0), options.renewers(), System.currentTimeMillis(), options.maxlifeTimeMs(), -1);
++        TokenInformation tokenInfo = new TokenInformation(tokenId, options.renewers().get(0), options.renewers(), System.currentTimeMillis(), options.maxLifetimeMs(), -1);
+         DelegationToken token = new DelegationToken(tokenInfo, tokenId.getBytes());
+         allTokens.add(token);
+         future.complete(token);
+diff --git a/core/src/test/scala/integration/kafka/api/SaslSslAdminIntegrationTest.scala b/core/src/test/scala/integration/kafka/api/SaslSslAdminIntegrationTest.scala
+index 6a71032240b45b69195d8f7d66bde3ce4811a23f..14d8bbdcaac4457be21d6dd061671b2538e7b718 100644
+--- a/core/src/test/scala/integration/kafka/api/SaslSslAdminIntegrationTest.scala
++++ b/core/src/test/scala/integration/kafka/api/SaslSslAdminIntegrationTest.scala
+@@ -173,7 +173,7 @@ class SaslSslAdminIntegrationTest extends BaseAdminIntegrationTest with SaslSetu
+     val renewer = List(SecurityUtils.parseKafkaPrincipal("User:renewer"))
+ 
+     def generateTokenResult(maxLifeTimeMs: Int, expiryTimePeriodMs: Int, expectedTokenNum: Int): (CreateDelegationTokenResult, ExpireDelegationTokenResult) = {
+-      val createResult = client.createDelegationToken(new CreateDelegationTokenOptions().renewers(renewer.asJava).maxlifeTimeMs(maxLifeTimeMs))
++      val createResult = client.createDelegationToken(new CreateDelegationTokenOptions().renewers(renewer.asJava).maxLifetimeMs(maxLifeTimeMs))
+       val tokenCreated = createResult.delegationToken.get
+       TestUtils.waitUntilTrue(() => brokers.forall(server => server.tokenCache.tokens().size() == expectedTokenNum),
+             "Timed out waiting for token to propagate to all servers")
+@@ -413,7 +413,7 @@ class SaslSslAdminIntegrationTest extends BaseAdminIntegrationTest with SaslSetu
+     client = createAdminClient
+     val timeout = 5000
+ 
+-    val options = new CreateDelegationTokenOptions().maxlifeTimeMs(timeout)
++    val options = new CreateDelegationTokenOptions().maxLifetimeMs(timeout)
+     val tokenInfo = client.createDelegationToken(options).delegationToken.get.tokenInfo
+ 
+     assertEquals(timeout, tokenInfo.maxTimestamp - tokenInfo.issueTimestamp)
+@@ -426,7 +426,7 @@ class SaslSslAdminIntegrationTest extends BaseAdminIntegrationTest with SaslSetu
+     client = createAdminClient
+     val timeout = 5000
+ 
+-    val createOptions = new CreateDelegationTokenOptions().maxlifeTimeMs(timeout)
++    val createOptions = new CreateDelegationTokenOptions().maxLifetimeMs(timeout)
+     val token = client.createDelegationToken(createOptions).delegationToken.get
+     val tokenInfo = token.tokenInfo
+ 
+@@ -634,7 +634,7 @@ class SaslSslAdminIntegrationTest extends BaseAdminIntegrationTest with SaslSetu
+   @ValueSource(strings = Array("kraft"))
+   def testExpireDelegationToken(quorum: String): Unit = {
+     client = createAdminClient
+-    val createDelegationTokenOptions = new CreateDelegationTokenOptions().maxlifeTimeMs(5000)
++    val createDelegationTokenOptions = new CreateDelegationTokenOptions().maxLifetimeMs(5000)
+ 
+     // Test expiration for non-exists token
+     TestUtils.assertFutureExceptionTypeEquals(
+@@ -647,7 +647,7 @@ class SaslSslAdminIntegrationTest extends BaseAdminIntegrationTest with SaslSetu
+     TestUtils.retry(maxWaitMs = 1000) { assertTrue(expireTokenOrFailWithAssert(token1, -1) < System.currentTimeMillis()) }
+ 
+     // Test expiring the expired token
+-    val token2 = client.createDelegationToken(createDelegationTokenOptions.maxlifeTimeMs(1000)).delegationToken().get()
++    val token2 = client.createDelegationToken(createDelegationTokenOptions.maxLifetimeMs(1000)).delegationToken().get()
+     // Ensure current time > maxLifeTimeMs of token
+     Thread.sleep(1000)
+     TestUtils.assertFutureExceptionTypeEquals(
+@@ -667,7 +667,7 @@ class SaslSslAdminIntegrationTest extends BaseAdminIntegrationTest with SaslSetu
+   @ValueSource(strings = Array("kraft"))
+   def testCreateTokenWithOverflowTimestamp(quorum: String): Unit = {
+     client = createAdminClient
+-    val token = client.createDelegationToken(new CreateDelegationTokenOptions().maxlifeTimeMs(Long.MaxValue)).delegationToken().get()
++    val token = client.createDelegationToken(new CreateDelegationTokenOptions().maxLifetimeMs(Long.MaxValue)).delegationToken().get()
+     assertEquals(Long.MaxValue, token.tokenInfo().expiryTimestamp())
+   }
+ 
+@@ -675,7 +675,7 @@ class SaslSslAdminIntegrationTest extends BaseAdminIntegrationTest with SaslSetu
+   @ValueSource(strings = Array("kraft"))
+   def testExpireTokenWithOverflowTimestamp(quorum: String): Unit = {
+     client = createAdminClient
+-    val token = client.createDelegationToken(new CreateDelegationTokenOptions().maxlifeTimeMs(Long.MaxValue)).delegationToken().get()
++    val token = client.createDelegationToken(new CreateDelegationTokenOptions().maxLifetimeMs(Long.MaxValue)).delegationToken().get()
+     TestUtils.retry(1000) { assertTrue(expireTokenOrFailWithAssert(token, Long.MaxValue) == Long.MaxValue) }
+   }
+ 
+diff --git a/core/src/test/scala/unit/kafka/server/DelegationTokenRequestsTest.scala b/core/src/test/scala/unit/kafka/server/DelegationTokenRequestsTest.scala
+index 75d77a01460f7ffaebbc5cc049559146f52333a9..7e9571db435ab7d8e04cd635b4a48cad770c6bc6 100644
+--- a/core/src/test/scala/unit/kafka/server/DelegationTokenRequestsTest.scala
++++ b/core/src/test/scala/unit/kafka/server/DelegationTokenRequestsTest.scala
+@@ -151,7 +151,7 @@ class DelegationTokenRequestsTest extends IntegrationTestHarness with SaslSetup
+     // Create a DelegationToken with a short lifetime to validate the expire code
+     val createResult5 = adminClient.createDelegationToken(new CreateDelegationTokenOptions()
+       .renewers(renewer1)
+-      .maxlifeTimeMs(1 * 1000))
++      .maxLifetimeMs(1 * 1000))
+     val token5 = createResult5.delegationToken().get()
+ 
+     TestUtils.waitUntilTrue(() => brokers.forall(server => server.tokenCache.tokens().size() == 1),
+diff --git a/tools/src/main/java/org/apache/kafka/tools/DelegationTokenCommand.java b/tools/src/main/java/org/apache/kafka/tools/DelegationTokenCommand.java
+index 333a665b09c272e6eb48256ebb1ef4a297824ada..cb0a6e76182fed8c3b56e50e36a67578f5b7b908 100644
+--- a/tools/src/main/java/org/apache/kafka/tools/DelegationTokenCommand.java
++++ b/tools/src/main/java/org/apache/kafka/tools/DelegationTokenCommand.java
+@@ -97,7 +97,7 @@ public class DelegationTokenCommand {
+         Long maxLifeTimeMs = opts.maxLifeTime();
+ 
+         System.out.println("Calling create token operation with renewers :" + renewerPrincipals + " , max-life-time-period :" + maxLifeTimeMs);
+-        CreateDelegationTokenOptions createDelegationTokenOptions = new CreateDelegationTokenOptions().maxlifeTimeMs(maxLifeTimeMs).renewers(renewerPrincipals);
++        CreateDelegationTokenOptions createDelegationTokenOptions = new CreateDelegationTokenOptions().maxLifetimeMs(maxLifeTimeMs).renewers(renewerPrincipals);
+ 
+         List<KafkaPrincipal> ownerPrincipals = getPrincipals(opts, opts.ownerPrincipalsOpt);
+         if (!ownerPrincipals.isEmpty()) {

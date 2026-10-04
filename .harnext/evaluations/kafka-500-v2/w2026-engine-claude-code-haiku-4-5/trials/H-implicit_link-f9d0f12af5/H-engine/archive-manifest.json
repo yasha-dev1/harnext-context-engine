@@ -1,0 +1,12 @@
+{
+  "files_sha256": {
+    "agent.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "answer.json": "debe34b6d5e067f126adad4f3d0c7746ffa227735a11c4e6bf851ed70f4ed56a",
+    "launch.json": "f9a054d517a5134ab6fce152111082dd452382d61eee5e29c18574226dcfbdff",
+    "mcp-engine-trace.jsonl.gz": "a756cf1b59e8a72386334a984ab010af78688c3d763a3f68940376404fb5e49d",
+    "mcp-receipts.jsonl": "a998a779c11bb8d431c1a0ca05afad7608d84bb6668a5379b786b271b72d5684",
+    "prompt.txt": "0cc60b88c134731f18efaa2141b3e8005c2da4d6c53976836ccdba7d2db79ffb",
+    "result.json": "cb5e5f94daed8335e9493006fd297d6731025db2ec6323751fec4768824948b8",
+    "trace.jsonl": "31f670b64c63a923e95c9bb3810262794e4b4eaaaf96f4cd0b16458c1a23d8de"
+  }
+}

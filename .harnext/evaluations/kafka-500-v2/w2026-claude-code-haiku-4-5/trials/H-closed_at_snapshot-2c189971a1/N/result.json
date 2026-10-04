@@ -1,0 +1,51 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "No project history provided",
+      "No network access available",
+      "Cannot determine KAFKA-20158 status as of 2026-02-28"
+    ],
+    "value": false
+  },
+  "arm": "N",
+  "checkpoint": "2026-02",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 8.437031010998908,
+  "family": "closed_at_snapshot",
+  "grade": {
+    "actual": false,
+    "correct": true,
+    "evidence": [
+      "No project history provided",
+      "No network access available",
+      "Cannot determine KAFKA-20158 status as of 2026-02-28"
+    ],
+    "expected": false
+  },
+  "instructions_sha256": null,
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 2,
+  "prompt_sha256": "eee2f7c97d16e0899010ffd5ec57e020e6f132ec491bcc1e58522e1c6fbb9651",
+  "run_index": 7,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-closed_at_snapshot-2c189971a1",
+  "tool_calls": {
+    "StructuredOutput": 2
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 38200,
+    "cost_usd": 0.014491,
+    "input_tokens": 41954,
+    "output_tokens": 636
+  },
+  "violations": []
+}

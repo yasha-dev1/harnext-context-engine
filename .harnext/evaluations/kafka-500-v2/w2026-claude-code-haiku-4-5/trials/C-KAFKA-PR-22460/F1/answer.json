@@ -1,0 +1,3 @@
+{
+  "summary": "Successfully implemented KIP-1319 changes to align TxnOffsetCommit API with OffsetCommit API. Modified KafkaProducer.sendOffsetsToTransaction() to ensure metadata is up-to-date for all topics before sending offset commits to transactions. This enables topic ID resolution, allowing TxnOffsetCommit v6+ to be negotiated when topic IDs are available. The implementation calls waitOnMetadata() for each topic in the offsets map, ensuring the metadata cache has current topic information including topic IDs. All 78 KafkaProducerTest tests pass, including the two new KIP-1319 tests: testSendOffsetsToTransactionNegotiatesV6WhenMetadataKnowsTopicId and testSendOffsetsToTransactionTriggersMetadataRefreshThenNegotiatesV6.</parameter>\n</invoke>"
+}

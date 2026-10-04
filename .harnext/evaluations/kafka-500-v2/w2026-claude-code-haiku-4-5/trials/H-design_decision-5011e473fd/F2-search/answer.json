@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "store/kips/KIP-1163/2026-05-12-mail-620fcc0982fad00dc9a0bd54-63a54ab3.md",
+    "store/kips/KIP-1163/2026-05-14-mail-discuss-3e3a9a34.md"
+  ],
+  "value": "build a new metadata component independent of RLMM"
+}

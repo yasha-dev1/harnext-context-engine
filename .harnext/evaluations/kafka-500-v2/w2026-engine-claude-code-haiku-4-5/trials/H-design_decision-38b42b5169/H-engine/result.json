@@ -1,0 +1,82 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail:7f9935b74d780f9d89947fe1",
+      "mail:c4bfde361f38ca346dffd233",
+      "mail:6ea3402c8bc00ae4fb37dcf5",
+      "mail:250325edcc057c80123ff462"
+    ],
+    "value": "dsl.store.format"
+  },
+  "arm": "H-engine",
+  "checkpoint": "2026-02",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 121.93916488299874,
+  "engine": {
+    "calls": 1,
+    "chat": {
+      "calls": 25,
+      "cancelled": 0,
+      "cost_usd": 0.00257357,
+      "input_tokens": 117900,
+      "output_tokens": 2846,
+      "retries": 0
+    },
+    "cost_usd": 0.00557544,
+    "discarded_attempts": 0,
+    "jev": {
+      "calls": 35,
+      "cancelled": 0,
+      "cost_usd": 0.00300187,
+      "input_tokens": 71473,
+      "output_tokens": 12990,
+      "retries": 0
+    },
+    "partial": 1,
+    "provider_retry_usd": 0,
+    "seconds": 108.318,
+    "unmetered_upper_usd": 0,
+    "waited_s": 0
+  },
+  "family": "design_decision",
+  "grade": {
+    "actual": "dsl.store.format",
+    "correct": true,
+    "evidence": [
+      "mail:7f9935b74d780f9d89947fe1",
+      "mail:c4bfde361f38ca346dffd233",
+      "mail:6ea3402c8bc00ae4fb37dcf5",
+      "mail:250325edcc057c80123ff462"
+    ],
+    "expected": "dsl.store.format"
+  },
+  "image_id": "sha256:4615b2564319d58319029548af66970c954e128401ee89c8705684861de4bc07",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "c83c8ed629329ee9990ef8e81f02f4bd996d33c6b2dcf0a9387b51da4f9d0ea1",
+  "run_index": 61,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-38b42b5169",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 63552,
+    "cost_usd": 0.0127992,
+    "input_tokens": 65075,
+    "output_tokens": 685
+  },
+  "violations": []
+}

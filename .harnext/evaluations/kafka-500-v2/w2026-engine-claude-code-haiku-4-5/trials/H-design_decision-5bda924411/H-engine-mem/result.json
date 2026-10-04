@@ -1,0 +1,76 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "context_research queries for metadata request rack recovery, same-rack replica routing, and client version compatibility handling returned no matching records in the project history up to 2026-01-31 cutoff"
+    ],
+    "value": null
+  },
+  "arm": "H-engine-mem",
+  "checkpoint": "2026-01",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 290.1656006279991,
+  "engine": {
+    "calls": 4,
+    "chat": {
+      "calls": 60,
+      "cancelled": 2,
+      "cost_usd": 0.00316468,
+      "input_tokens": 149664,
+      "output_tokens": 4091,
+      "retries": 0
+    },
+    "cost_usd": 0.00860733,
+    "discarded_attempts": 0,
+    "jev": {
+      "calls": 62,
+      "cancelled": 0,
+      "cost_usd": 0.00544265,
+      "input_tokens": 129587,
+      "output_tokens": 20761,
+      "retries": 0
+    },
+    "partial": 2,
+    "provider_retry_usd": 0,
+    "seconds": 266.985,
+    "unmetered_upper_usd": 0.00075046,
+    "waited_s": 0
+  },
+  "family": "design_decision",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "context_research queries for metadata request rack recovery, same-rack replica routing, and client version compatibility handling returned no matching records in the project history up to 2026-01-31 cutoff"
+    ],
+    "expected": "encode the rack information in the client ID"
+  },
+  "image_id": "sha256:4615b2564319d58319029548af66970c954e128401ee89c8705684861de4bc07",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 7,
+  "prompt_sha256": "581654f06606c955f84068fab95016597572e8fe8405f23bcfeeacd1e5c40081",
+  "run_index": 55,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-5bda924411",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 4
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 149458,
+    "cost_usd": 0.032988800000000006,
+    "input_tokens": 155150,
+    "output_tokens": 1344
+  },
+  "violations": []
+}

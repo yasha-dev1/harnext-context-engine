@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "discussions.md (lines 2055-2068, 1831-1842): References to KIP-1312 discussion mentioning 'DA3: Error codes for these cases' but specific error code names not included in indexed summaries",
+    "pull-requests.md (lines 4706-4724): PR #22191 implements UnregisterControllerRequest/Response but error code names not specified in summary",
+    "discussions.md (lines 1363-1374): Vote approval on 2026-05-15 but decision details on specific error codes not in index"
+  ],
+  "value": null
+}

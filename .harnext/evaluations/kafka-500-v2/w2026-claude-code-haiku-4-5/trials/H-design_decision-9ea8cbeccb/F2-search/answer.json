@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "store/kips/KIP-1324/2026-05-05-067a5f19.md (lines 69-72)"
+  ],
+  "value": "yes, retries target a different broker"
+}

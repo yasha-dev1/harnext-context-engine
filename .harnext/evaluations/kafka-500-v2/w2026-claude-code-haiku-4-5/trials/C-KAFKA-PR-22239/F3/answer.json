@@ -1,0 +1,3 @@
+{
+  "summary": "Successfully implemented KAFKA-20444 [5/N] by adding error handling for GROUP_ID_NOT_FOUND and STALE_MEMBER_EPOCH errors in TxnOffsetCommit responses. These errors are now converted to CommitFailedException and treated as abortable errors, aligning the TxnOffsetCommit API with the OffsetCommit API per KIP-1319. All 168 tests pass."
+}

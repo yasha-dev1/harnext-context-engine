@@ -1,0 +1,18 @@
+{
+  "evidence": [
+    "jira-issues/KAFKA-20592-typos-streams-docs.md (lines 54-58, 108-139)",
+    "jira-issues/window-119-issues-index.md (lines 13-52)"
+  ],
+  "value": [
+    {
+      "at": "2026-05-15T10:37:01.000000Z",
+      "from": null,
+      "to": "Sanskar Jhajharia"
+    },
+    {
+      "at": "2026-05-15T12:25:20.000000Z",
+      "from": "Sanskar Jhajharia",
+      "to": null
+    }
+  ]
+}

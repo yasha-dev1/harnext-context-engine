@@ -1,0 +1,3 @@
+{
+  "summary": "Successfully implemented ReadOnlyView for CachingWindowStore (KAFKA-20497). Added readOnly(IsolationLevel) method that returns a custom ReadOnlyWindowStore implementation supporting both READ_COMMITTED (bypasses cache, queries underlying store only) and READ_UNCOMMITTED (merges cache with underlying store) isolation levels. Implementation includes all required methods: fetch, backwardFetch, all, backwardAll, fetchAll, backwardFetchAll with proper Instant parameter handling. Fixed log message in backwardFetch to match test expectations. All 60 tests in CachingPersistentWindowStoreTest pass successfully."
+}

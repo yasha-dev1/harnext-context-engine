@@ -1,0 +1,53 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "Constraints: no network access, no local data files, knowledge cutoff Feb 2025 (before issue creation 2026-01)"
+    ],
+    "value": [
+      "No answer available"
+    ]
+  },
+  "arm": "N",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 9.986347377001948,
+  "family": "issue_links",
+  "grade": {
+    "actual": [
+      "No answer available"
+    ],
+    "correct": false,
+    "evidence": [
+      "Constraints: no network access, no local data files, knowledge cutoff Feb 2025 (before issue creation 2026-01)"
+    ],
+    "expected": [
+      "KAFKA-20282"
+    ]
+  },
+  "instructions_sha256": null,
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 1,
+  "prompt_sha256": "f1a1b07ff391f70eb9d5a3a92229d530def62f3255e32abd40df7cd0af139cb7",
+  "run_index": 13,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-issue_links-ee77a538ef",
+  "tool_calls": {
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 17503,
+    "cost_usd": 0.011938299999999999,
+    "input_tokens": 20684,
+    "output_tokens": 767
+  },
+  "violations": []
+}

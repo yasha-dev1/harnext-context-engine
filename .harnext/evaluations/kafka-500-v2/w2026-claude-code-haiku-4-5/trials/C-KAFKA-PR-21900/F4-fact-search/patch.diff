@@ -1,0 +1,12 @@
+diff --git a/clients/src/main/java/org/apache/kafka/clients/consumer/internals/ClassicKafkaConsumer.java b/clients/src/main/java/org/apache/kafka/clients/consumer/internals/ClassicKafkaConsumer.java
+index b8e181743a25084b2db81084ca71145f9dc308a4..3a43909fc529295881421ffc6a2a5099e51f0b4f 100644
+--- a/clients/src/main/java/org/apache/kafka/clients/consumer/internals/ClassicKafkaConsumer.java
++++ b/clients/src/main/java/org/apache/kafka/clients/consumer/internals/ClassicKafkaConsumer.java
+@@ -218,6 +218,7 @@ public class ClassicKafkaConsumer<K, V> implements ConsumerDelegate<K, V> {
+                 config.ignore(THROW_ON_FETCH_STABLE_OFFSET_UNSUPPORTED);
+                 this.coordinator = null;
+             } else {
++                log.info("The consumer rebalance protocol (KIP-848) is production ready!");
+                 this.coordinator = new ConsumerCoordinator(groupRebalanceConfig,
+                         logContext,
+                         this.client,

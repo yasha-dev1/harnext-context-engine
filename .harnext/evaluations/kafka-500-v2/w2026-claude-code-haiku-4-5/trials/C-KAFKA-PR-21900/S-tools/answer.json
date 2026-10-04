@@ -1,0 +1,3 @@
+{
+  "summary": "Successfully implemented KAFKA-20282 by adding INFO-level logging in ClassicKafkaConsumer that recommends the new Consumer rebalance protocol (KIP-848) when a KafkaConsumer is created using the Classic protocol with a configured group ID. All four required tests pass."
+}

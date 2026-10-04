@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "issues.md — KAFKA-20549 issue record with status history showing change to 'In Progress' on 2026-05-12T08:53:44Z (evt:jira-13649909-change-23057202-0-c173337d)",
+    "pull-requests.md — Related PR merge records confirming ongoing multi-part implementation through 2026-05-27"
+  ],
+  "value": "IN PROGRESS"
+}

@@ -1,0 +1,9 @@
+Context snapshot cutoff (inclusive): 2026-05-31T23:59:59Z.
+
+In the same design for pushing and storing a streams group's topology layout, was a dedicated broker-generated identifier (separate from the topology epoch) ultimately kept to identify a given topology description, or was it dropped in favor of identifying a topology purely by its topology epoch (plus group creation timestamp)? Answer with one of: "kept as a broker-generated UUID", "removed entirely, identified by topologyEpoch and group creation timestamp instead". Answer with exactly one of: "kept as a broker-generated UUID", "removed entirely, identified by topologyEpoch and group creation timestamp instead". Give the decision as it stood at the snapshot, not an earlier proposal.
+
+Return JSON {"value": <answer>, "evidence": [<ids or file paths of the sources you relied on>]}. Answer as of the cutoff; do not substitute a later or today's issue state.
+
+No pre-built project memory is provided. You can query time-frozen offline replicas of the project's systems of record as of the cutoff with the usual command-line tools: `gh` (pull requests, reviews, commits), `jira` (issues, comments, change history), `mail` (mailing lists). Run `<tool> --help` for the supported commands. The live internet is not reachable.
+
+Reply with one JSON object {"value": ..., "evidence": [...]}: `value` is the answer in the requested type (null if it cannot be determined), `evidence` lists the sources you relied on.

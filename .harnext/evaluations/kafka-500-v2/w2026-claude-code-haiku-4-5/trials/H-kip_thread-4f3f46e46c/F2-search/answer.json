@@ -1,0 +1,36 @@
+{
+  "evidence": [
+    "kips/KIP-1274/2026-01-22-mail-discuss-classic-rebalance-4b51bc95.md",
+    "kips/KIP-1274/2026-01-22-mail-discuss-classic-rebalance-e3d04b61.md",
+    "kips/KIP-1274/2026-01-26-mail-55622c20067f615de99f372a-ca443ae5.md",
+    "kips/KIP-1274/2026-01-27-mail-discuss-classic-rebalance-deprecation-1a3c8f5d.md",
+    "kips/KIP-1274/2026-01-27-mail-discuss-classic-rebalance-deprecation-1f3d8c4b.md",
+    "kips/KIP-1274/2026-01-27-mail-discuss-classic-rebalance-deprecation-2c7e5a1b.md",
+    "kips/KIP-1274/2026-01-27-mail-discuss-classic-rebalance-deprecation-3c1f8a9e.md",
+    "kips/KIP-1274/2026-01-27-mail-discuss-classic-rebalance-deprecation-4c3f8d7a.md",
+    "kips/KIP-1274/2026-01-27-mail-discuss-classic-rebalance-deprecation-7e3c5f1a.md",
+    "kips/KIP-1274/2026-01-27-mail-discuss-classic-rebalance-deprecation-9d4f2b8e.md",
+    "kips/KIP-1274/2026-01-28-discuss-deprecate-classic-rebalance-1651984e.md",
+    "kips/KIP-1274/2026-01-28-discuss-deprecate-classic-rebalance-1c8373a7.md",
+    "kips/KIP-1274/2026-01-28-discuss-deprecate-classic-rebalance-42001bdb.md",
+    "kips/KIP-1274/2026-01-28-discuss-deprecate-classic-rebalance-9c74f555.md",
+    "kips/KIP-1274/2026-01-28-discuss-deprecate-classic-rebalance-9c9ec008.md",
+    "kips/KIP-1274/2026-02-06-discuss-744d30fd.md",
+    "kips/KIP-1274/2026-02-11-mail-discuss-kip-1274-48fb497f.md",
+    "kips/KIP-1274/2026-02-14-mail-76ee52d9d68208a0d58e2091-e07a299d.md",
+    "kips/KIP-1274/2026-02-14-mail-e437a5f929aa48c75a64ae98-2f7ec638.md",
+    "kips/KIP-1274/2026-02-16-mail-2b8888b66b964eada5234616-b9c0301d.md",
+    "kips/KIP-1274/2026-02-18-mail-ddaeb1d1a8af6cba784f5c93-6eefb441.md",
+    "kips/KIP-1274/2026-02-17-mail-dad59cdbd929abbba46ad137-33c70eae.md",
+    "kips/KIP-1274/2026-02-17-mail-a88894d3009e987c699f0974-bf4dacbb.md",
+    "kips/KIP-1274/2026-02-23-vote-KIP-1274-deprecate-classic-rebalance-492b5d4e.md",
+    "kips/KIP-1274/2026-02-17-mail-1f5a7b7de3abb2aa0649f004-50f95f6a.md",
+    "kips/KIP-1274/2026-02-17-mail-ca0301cb8bd3a2cb9ca6b30a-6bf84285.md",
+    "kips/KIP-1274/2026-01-28-mail-discuss-classic-rebalance-deprecation-5c3d8f2a.md",
+    "kips/KIP-1274/2026-01-28-discuss-deprecate-classic-rebalance-e5770be9.md"
+  ],
+  "value": {
+    "participants": 9,
+    "starter": "Lianet Magrans"
+  }
+}

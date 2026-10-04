@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "entities/issue/KAFKA-20207/OVERVIEW.md",
+    "entities/pr/apache__kafka__21632/OVERVIEW.md"
+  ],
+  "value": "UUID"
+}

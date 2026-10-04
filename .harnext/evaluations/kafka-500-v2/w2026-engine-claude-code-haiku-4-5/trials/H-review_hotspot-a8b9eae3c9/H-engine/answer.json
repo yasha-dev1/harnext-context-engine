@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "PR #21273 review comment records: PRRC_kwDOACG9q86l4rsf, PRRC_kwDOACG9q86oScOM, PRRC_kwDOACG9q86oSf8u, PRRC_kwDOACG9q86oldo9, PRRC_kwDOACG9q86olrSz, PRRC_kwDOACG9q86ol1c_, PRRC_kwDOACG9q86o1F0K, PRRC_kwDOACG9q86o1uEQ (8 total inline comments)"
+  ],
+  "value": "core/src/main/scala/kafka/server/DynamicBrokerConfig.scala"
+}

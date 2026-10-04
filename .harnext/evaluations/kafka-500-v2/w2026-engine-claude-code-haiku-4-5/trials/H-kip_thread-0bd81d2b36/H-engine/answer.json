@@ -1,0 +1,15 @@
+{
+  "evidence": [
+    "mail:8e958fd66bd3b2546376c7fe",
+    "mail:93f1f11638c35c67e2a5bd2d",
+    "mail:2d2cdd9e66fc4758f70d714c",
+    "mail:7e3fc0f2797ee6e2a63766ef",
+    "mail:114ea15d5f65819265676872",
+    "mail:fc43d61fdfdfa544476d4f34",
+    "mail:979d019b1a7020acae3fdd3c"
+  ],
+  "value": {
+    "participants": 3,
+    "starter": "Kevin Wu"
+  }
+}

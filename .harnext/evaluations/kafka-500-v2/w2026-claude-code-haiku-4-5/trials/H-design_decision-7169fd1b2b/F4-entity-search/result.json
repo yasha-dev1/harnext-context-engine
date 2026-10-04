@@ -1,0 +1,51 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "store/kips/KIP-1322.md",
+      "store/issues/KAFKA-20513.md"
+    ],
+    "value": "always report regardless of state"
+  },
+  "arm": "F4-entity-search",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 31.423296068009222,
+  "family": "design_decision",
+  "grade": {
+    "actual": "always report regardless of state",
+    "correct": true,
+    "evidence": [
+      "store/kips/KIP-1322.md",
+      "store/issues/KAFKA-20513.md"
+    ],
+    "expected": "always report regardless of state"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "0e8b77ed01121ea41a8f956a496278f4ae1195ef8a3d54f9bf3e26c3e8ad2cdc",
+  "run_index": 71,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-7169fd1b2b",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 64191,
+    "cost_usd": 0.0122871,
+    "input_tokens": 65481,
+    "output_tokens": 663
+  },
+  "violations": []
+}

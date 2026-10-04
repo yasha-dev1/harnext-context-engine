@@ -1,0 +1,56 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "KIP-1262 discussion thread: CACvVgwGtqLAOzTb2ffjWecS+NvJGZH4Fuupg9xXAyUj9_ocUHg@mail.gmail.com",
+      "Jun Rao's message (2026-03-27): 'It\\'s a bit weird for the new code to write in V1 format. Could it write in V2 format?'",
+      "Kevin Wu's response (2026-03-30): 'RE JR11: Yeah, I think it is fine to write V2.'"
+    ],
+    "value": "V2"
+  },
+  "arm": "S-tools",
+  "checkpoint": "2026-03",
+  "cli_calls": {
+    "gh": 23,
+    "jira": 20,
+    "mail": 8
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 202.56903043399507,
+  "family": "design_decision",
+  "grade": {
+    "actual": "V2",
+    "correct": true,
+    "evidence": [
+      "KIP-1262 discussion thread: CACvVgwGtqLAOzTb2ffjWecS+NvJGZH4Fuupg9xXAyUj9_ocUHg@mail.gmail.com",
+      "Jun Rao's message (2026-03-27): 'It\\'s a bit weird for the new code to write in V1 format. Could it write in V2 format?'",
+      "Kevin Wu's response (2026-03-30): 'RE JR11: Yeah, I think it is fine to write V2.'"
+    ],
+    "expected": "V2"
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 52,
+  "prompt_sha256": "d0c0e59c77d69db2d64dba53aca37c3f7136f1529721a69698f89f57683b0771",
+  "run_index": 50,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-bc569837b8",
+  "tool_calls": {
+    "Bash": 51,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 2066091,
+    "cost_usd": 0.3819991000000001,
+    "input_tokens": 2128502,
+    "output_tokens": 10197
+  },
+  "violations": []
+}

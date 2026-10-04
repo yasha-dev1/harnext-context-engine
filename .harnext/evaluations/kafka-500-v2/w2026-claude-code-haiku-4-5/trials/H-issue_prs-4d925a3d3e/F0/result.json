@@ -1,0 +1,164 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "events/2026/02/11/jira-13641711-created-dc2a4354.md",
+      "events/2026/02/12/github-api-apache-kafka-pr-21452-merged-95b68bdc.md",
+      "events/2026/02/12/github-api-apache-kafka-pr-21461-merged-0c67e9a0.md",
+      "events/2026/02/12/github-api-apache-kafka-pr-21462-merged-92e441fb.md",
+      "events/2026/02/18/github-api-apache-kafka-pr-21505-merged-a24ab2e8.md",
+      "events/2026/02/25/github-api-apache-kafka-pr-21559-merged-cd925935.md",
+      "events/2026/02/25/github-api-apache-kafka-pr-21560-closed-4385f1a3.md",
+      "events/2026/02/24/github-api-apache-kafka-pr-21561-merged-dfc61901.md",
+      "events/2026/02/24/github-api-apache-kafka-pr-21562-merged-9a035742.md"
+    ],
+    "value": [
+      {
+        "pr": 21452,
+        "state": "merged"
+      },
+      {
+        "pr": 21461,
+        "state": "merged"
+      },
+      {
+        "pr": 21462,
+        "state": "merged"
+      },
+      {
+        "pr": 21505,
+        "state": "merged"
+      },
+      {
+        "pr": 21559,
+        "state": "merged"
+      },
+      {
+        "pr": 21560,
+        "state": "closed"
+      },
+      {
+        "pr": 21561,
+        "state": "merged"
+      },
+      {
+        "pr": 21562,
+        "state": "merged"
+      }
+    ]
+  },
+  "arm": "F0",
+  "checkpoint": "2026-02",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 66.41731275500206,
+  "family": "issue_prs",
+  "grade": {
+    "actual": [
+      {
+        "pr": 21452,
+        "state": "merged"
+      },
+      {
+        "pr": 21461,
+        "state": "merged"
+      },
+      {
+        "pr": 21462,
+        "state": "merged"
+      },
+      {
+        "pr": 21505,
+        "state": "merged"
+      },
+      {
+        "pr": 21559,
+        "state": "merged"
+      },
+      {
+        "pr": 21560,
+        "state": "closed"
+      },
+      {
+        "pr": 21561,
+        "state": "merged"
+      },
+      {
+        "pr": 21562,
+        "state": "merged"
+      }
+    ],
+    "correct": true,
+    "evidence": [
+      "events/2026/02/11/jira-13641711-created-dc2a4354.md",
+      "events/2026/02/12/github-api-apache-kafka-pr-21452-merged-95b68bdc.md",
+      "events/2026/02/12/github-api-apache-kafka-pr-21461-merged-0c67e9a0.md",
+      "events/2026/02/12/github-api-apache-kafka-pr-21462-merged-92e441fb.md",
+      "events/2026/02/18/github-api-apache-kafka-pr-21505-merged-a24ab2e8.md",
+      "events/2026/02/25/github-api-apache-kafka-pr-21559-merged-cd925935.md",
+      "events/2026/02/25/github-api-apache-kafka-pr-21560-closed-4385f1a3.md",
+      "events/2026/02/24/github-api-apache-kafka-pr-21561-merged-dfc61901.md",
+      "events/2026/02/24/github-api-apache-kafka-pr-21562-merged-9a035742.md"
+    ],
+    "expected": [
+      {
+        "pr": 21452,
+        "state": "merged"
+      },
+      {
+        "pr": 21461,
+        "state": "merged"
+      },
+      {
+        "pr": 21462,
+        "state": "merged"
+      },
+      {
+        "pr": 21505,
+        "state": "merged"
+      },
+      {
+        "pr": 21559,
+        "state": "merged"
+      },
+      {
+        "pr": 21560,
+        "state": "closed"
+      },
+      {
+        "pr": 21561,
+        "state": "merged"
+      },
+      {
+        "pr": 21562,
+        "state": "merged"
+      }
+    ]
+  },
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 4,
+  "prompt_sha256": "54c6b4fa935554bc016be9200896838e12896d782e13630fcb9c7c8b5aee060b",
+  "run_index": 15,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-issue_prs-4d925a3d3e",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 2
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 65762,
+    "cost_usd": 0.0617042,
+    "input_tokens": 90111,
+    "output_tokens": 1293
+  },
+  "violations": []
+}

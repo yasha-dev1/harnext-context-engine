@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "Knowledge cutoff is February 2025; issue created January 2026 (after training data cutoff)",
+    "No network access to query Apache Kafka JIRA",
+    "No local project history or cached JIRA data in /workspace"
+  ],
+  "value": []
+}

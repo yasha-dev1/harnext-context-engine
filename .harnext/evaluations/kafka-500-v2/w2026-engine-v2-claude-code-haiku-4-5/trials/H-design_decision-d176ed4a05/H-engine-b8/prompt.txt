@@ -1,0 +1,9 @@
+Context snapshot cutoff (inclusive): 2026-05-31T23:59:59Z.
+
+In the same design for pushing and storing a streams group's topology layout, was a dedicated broker-generated identifier (separate from the topology epoch) ultimately kept to identify a given topology description, or was it dropped in favor of identifying a topology purely by its topology epoch (plus group creation timestamp)? Answer with one of: "kept as a broker-generated UUID", "removed entirely, identified by topologyEpoch and group creation timestamp instead". Answer with exactly one of: "kept as a broker-generated UUID", "removed entirely, identified by topologyEpoch and group creation timestamp instead". Give the decision as it stood at the snapshot, not an earlier proposal.
+
+Return JSON {"value": <answer>, "evidence": [<ids or file paths of the sources you relied on>]}. Answer as of the cutoff; do not substitute a later or today's issue state.
+
+The MCP server `history` holds the project's recorded history up to the cutoff. Its tool `context_research(question)` asks Harnext's research agent, which reads the stored context and returns a cited answer; ask as many focused questions as you need. Nothing later than the cutoff is in it and there is no network access.
+
+Reply with one JSON object {"value": ..., "evidence": [...]}: `value` is the answer in the requested type (null if it cannot be determined), `evidence` lists the sources you relied on.

@@ -1,0 +1,12 @@
+{
+  "evidence": [
+    "PR #21785 merged 2026-03-17T16:02:46Z (commit c48bc49a8fdf8a3decb43f23ea3288e0bb3e0ef9)",
+    "Component: share",
+    "File mentioned in review: ShareGroupDLQ.java",
+    "Related PR #21640 shows similar files in server-common/src/main/java/org/apache/kafka/server/share/dlq/ directory",
+    "Source: pull-requests.md, lines 2453-2464 and 2716-2725"
+  ],
+  "value": [
+    "Unable to determine complete file list - detailed file changes for PR #21785 not documented in available context"
+  ]
+}

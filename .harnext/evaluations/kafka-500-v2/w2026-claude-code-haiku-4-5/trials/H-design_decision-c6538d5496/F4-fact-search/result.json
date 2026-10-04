@@ -1,0 +1,52 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "WINDOW-11-SUMMARY.md (lines 210-217)",
+      "discussions/kip-1266-remote-log-metadata-bounding.md"
+    ],
+    "value": "metadata version gating"
+  },
+  "arm": "F4-fact-search",
+  "checkpoint": "2026-01",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 58.879261067995685,
+  "family": "design_decision",
+  "grade": {
+    "actual": "metadata version gating",
+    "correct": false,
+    "evidence": [
+      "WINDOW-11-SUMMARY.md (lines 210-217)",
+      "discussions/kip-1266-remote-log-metadata-bounding.md"
+    ],
+    "expected": "metadata version"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 6,
+  "prompt_sha256": "eba8d64483c7c9fcfa389c0127aef40402227469e36a4f4c107a52bec8271bf6",
+  "run_index": 47,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-c6538d5496",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 3
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 136012,
+    "cost_usd": 0.033829200000000004,
+    "input_tokens": 141829,
+    "output_tokens": 1729
+  },
+  "violations": []
+}

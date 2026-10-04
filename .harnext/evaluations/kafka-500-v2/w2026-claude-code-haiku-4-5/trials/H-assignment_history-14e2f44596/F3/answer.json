@@ -1,0 +1,31 @@
+{
+  "evidence": [
+    "store/_intake/2026/05/15/jira-13651234-created-74da2d0d.md",
+    "store/_intake/2026/05/15/jira-13651234-change-23062139-0-47a526e9.md",
+    "store/_intake/2026/05/15/jira-13651234-change-23062278-0-b7874978.md",
+    "store/_intake/2026/05/16/jira-13651234-change-23063464-0-1424ff34.md",
+    "store/_intake/2026/05/19/jira-13651234-change-23066757-0-f1b52b6f.md"
+  ],
+  "value": [
+    {
+      "at": "2026-05-15T10:37:01.000000Z",
+      "from": null,
+      "to": "Sanskar Jhajharia"
+    },
+    {
+      "at": "2026-05-15T12:25:20.000000Z",
+      "from": "Sanskar Jhajharia",
+      "to": null
+    },
+    {
+      "at": "2026-05-16T06:04:22.000000Z",
+      "from": null,
+      "to": "Akhil Sabu"
+    },
+    {
+      "at": "2026-05-19T09:52:14.000000Z",
+      "from": "Akhil Sabu",
+      "to": "Akhil Sabu"
+    }
+  ]
+}

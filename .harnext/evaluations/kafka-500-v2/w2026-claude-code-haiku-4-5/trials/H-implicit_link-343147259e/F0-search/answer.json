@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "events/2026/03/01/mail-d41fcd228a23be83811257ae-cc9bea9f.md (original mailing list thread by Dale Lane)",
+    "events/2026/03/02/jira-13643618-created-cc773358.md (JIRA issue creation)",
+    "events/2026/03/02/mail-80583385757ab899e85f29fa-49016f99.md (JIRA notification with issue details)"
+  ],
+  "value": "KAFKA-20239"
+}

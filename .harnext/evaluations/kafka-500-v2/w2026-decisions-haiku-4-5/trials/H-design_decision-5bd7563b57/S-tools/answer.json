@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "mail message 9f2cd16f7bbf9f088c40cada (2026-04-01T11:59:46Z from 黃竣陽): response to Chia-Ping Tsai's question chia_11 about which exception will be thrown when the group creation time is unknown, in the KIP-1282 discussion thread"
+  ],
+  "value": "GroupCreationTimeUnknownException"
+}

@@ -1,0 +1,9 @@
+Context snapshot cutoff (inclusive): 2026-05-31T23:59:59Z.
+
+In the KRaft timeout-metrics design discussion, as of 2026-05-14, should the new fetch/election timeout count metrics always report a value regardless of the node's current epoch state, or should they be registered/unregistered depending on whether the corresponding timer exists in that state? Answer with one of: "always report regardless of state", "register/unregister based on state". Answer with exactly one of: "always report regardless of state", "register/unregister based on state". Give the decision as it stood at the snapshot, not an earlier proposal.
+
+Return JSON {"value": <answer>, "evidence": [<ids or file paths of the sources you relied on>]}. Answer as of the cutoff; do not substitute a later or today's issue state.
+
+The MCP server `history` holds the project's recorded history up to the cutoff. It has two tools: `context_research(question)` asks Harnext's research agent, which reads the stored context and returns a cited report; `search_context(query, k)` returns the best-matching stored passages with their file paths, for you to read yourself. Nothing later than the cutoff is in it and there is no network access.
+
+Reply with one JSON object {"value": ..., "evidence": [...]}: `value` is the answer in the requested type (null if it cannot be determined), `evidence` lists the sources you relied on.

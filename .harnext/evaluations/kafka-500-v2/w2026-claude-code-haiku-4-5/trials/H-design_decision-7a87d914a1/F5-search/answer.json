@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "The configuration name cannot be determined from available context. The context_research indicated that KIP-1270 voting and implementation documents with configuration details have not been incorporated into the entity files as of the cutoff (2026-02-28). The INDEX references KIP-1270 threads at 2026-02-24 but the actual thread content with configuration names is not in the stored context."
+  ],
+  "value": null
+}

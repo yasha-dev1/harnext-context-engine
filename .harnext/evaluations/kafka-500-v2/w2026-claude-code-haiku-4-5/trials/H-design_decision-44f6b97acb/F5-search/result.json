@@ -1,0 +1,56 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "entities/issue/KAFKA-20210/facts.md",
+      "entities/issue/KAFKA-20210/OVERVIEW.md",
+      "entities/pr/apache__kafka__21555/OVERVIEW.md",
+      "entities/pr/apache__kafka/21555/facts.md"
+    ],
+    "value": "group.coordinator.background.threads"
+  },
+  "arm": "F5-search",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 46.37582213299174,
+  "family": "design_decision",
+  "grade": {
+    "actual": "group.coordinator.background.threads",
+    "correct": true,
+    "evidence": [
+      "entities/issue/KAFKA-20210/facts.md",
+      "entities/issue/KAFKA-20210/OVERVIEW.md",
+      "entities/pr/apache__kafka__21555/OVERVIEW.md",
+      "entities/pr/apache__kafka/21555/facts.md"
+    ],
+    "expected": "group.coordinator.background.threads"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 5,
+  "prompt_sha256": "b205f0bb27a3e114953daf338bceea7b187b3a561abc6ca59f2491d9daeaf311",
+  "run_index": 51,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-44f6b97acb",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 110904,
+    "cost_usd": 0.0230744,
+    "input_tokens": 113996,
+    "output_tokens": 1169
+  },
+  "violations": []
+}

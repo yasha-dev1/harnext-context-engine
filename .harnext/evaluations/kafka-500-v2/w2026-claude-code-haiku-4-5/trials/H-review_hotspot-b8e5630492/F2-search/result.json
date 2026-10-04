@@ -1,0 +1,59 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "prs/22139/2026-04-24-gh-review-comment-PRRC_kwDOACG9q867BWQE-9421c745.md",
+      "prs/22139/2026-04-24-gh-review-comment-PRRC_kwDOACG9q867CKY6-fa1342a1.md",
+      "prs/22139/2026-04-28-gh-review-comment-PRRC_kwDOACG9q868HCAH-9a22d560.md",
+      "prs/22139/2026-04-28-gh-review-comment-PRRC_kwDOACG9q868HN_H-177fd010.md",
+      "prs/22139/2026-04-29-gh-review-comment-PRRC_kwDOACG9q868XsDp-2cbdd421.md",
+      "prs/22139/2026-04-29-gh-review-comment-PRRC_kwDOACG9q868XwmX-25d12624.md"
+    ],
+    "value": "storage/src/test/java/org/apache/kafka/storage/internals/log/LogManagerTest.java"
+  },
+  "arm": "F2-search",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 48.37311444400984,
+  "family": "review_hotspot",
+  "grade": {
+    "actual": "storage/src/test/java/org/apache/kafka/storage/internals/log/LogManagerTest.java",
+    "correct": true,
+    "evidence": [
+      "prs/22139/2026-04-24-gh-review-comment-PRRC_kwDOACG9q867BWQE-9421c745.md",
+      "prs/22139/2026-04-24-gh-review-comment-PRRC_kwDOACG9q867CKY6-fa1342a1.md",
+      "prs/22139/2026-04-28-gh-review-comment-PRRC_kwDOACG9q868HCAH-9a22d560.md",
+      "prs/22139/2026-04-28-gh-review-comment-PRRC_kwDOACG9q868HN_H-177fd010.md",
+      "prs/22139/2026-04-29-gh-review-comment-PRRC_kwDOACG9q868XsDp-2cbdd421.md",
+      "prs/22139/2026-04-29-gh-review-comment-PRRC_kwDOACG9q868XwmX-25d12624.md"
+    ],
+    "expected": "storage/src/test/java/org/apache/kafka/storage/internals/log/LogManagerTest.java"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "261b85dae1cf0752624695ed533fc6341b0ca000c5bfd551c8cfb9a06b07b1d6",
+  "run_index": 27,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-review_hotspot-b8e5630492",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 42830,
+    "cost_usd": 0.054396,
+    "input_tokens": 65685,
+    "output_tokens": 886
+  },
+  "violations": []
+}

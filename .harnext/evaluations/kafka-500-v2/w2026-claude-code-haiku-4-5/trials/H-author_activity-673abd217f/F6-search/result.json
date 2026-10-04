@@ -1,0 +1,51 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "pull-requests.md - documented merged PRs by lucasbru through 2026-04-22",
+      "Note: Data covers 2026-01-01 to 2026-04-22 only; period 2026-04-22 to 2026-05-31 not covered in available history"
+    ],
+    "value": 4
+  },
+  "arm": "F6-search",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 71.43554386399046,
+  "family": "author_activity",
+  "grade": {
+    "actual": 4,
+    "correct": false,
+    "evidence": [
+      "pull-requests.md - documented merged PRs by lucasbru through 2026-04-22",
+      "Note: Data covers 2026-01-01 to 2026-04-22 only; period 2026-04-22 to 2026-05-31 not covered in available history"
+    ],
+    "expected": 6
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "b9a21ba2325bef9ca70a4d1a395ccbbc3ae4a94144e83b5ceba55a300f29fc09",
+  "run_index": 5,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-author_activity-673abd217f",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 64037,
+    "cost_usd": 0.0143297,
+    "input_tokens": 65466,
+    "output_tokens": 1019
+  },
+  "violations": []
+}

@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "pull-requests/21842.md - PR file does not contain Review Comments section with file-level inline comment counts",
+    "context_research result - confirmed that file-level review comment data is not available in the stored context for this PR"
+  ],
+  "value": "null"
+}

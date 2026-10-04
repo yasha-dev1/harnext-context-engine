@@ -1,0 +1,17 @@
+Context snapshot cutoff (inclusive): 2026-04-13T09:52:13Z.
+
+The workspace is the apache/kafka repository at commit e30f771d3689dec880e5bdbacb0a84bd7c24bd97.
+
+Issue KAFKA-20434: Consumer group does not recompute assignment when static members rejoin with a different server-side assignor
+
+When all static members of a consumer group using the consumer protocol (KIP-848) leave and rejoin with a different server-side assignor (e.g., from uniform to range), the group does not recompute the target assignment. The old assignment is silently returned instead.
+
+The root cause is in GroupMetadataManager.consumerGroupHeartbeat. The bumpGroupEpoch flag only considers changes to subscribed topic names and subscribed topic regex. It does not check whether the group's preferred server-side assignor has changed as a result of the member update. Since the group epoch is never bumped, the condition groupEpoch > group.assignmentEpoch() remains false and updateTargetAssignment is never called.
+
+The fix should compare the group's preferred assignor before and after the member update. The group epoch should be bumped when the preferred (majority) assignor changes — not when an individual member's preference changes.
+
+Implement the change this issue asks for by editing the workspace. The tests written for this change have already been added to the workspace (uncommitted; see `git status`): `core/src/test/scala/unit/kafka/server/ConsumerGroupHeartbeatRequestTest.scala`, `group-coordinator/src/test/java/org/apache/kafka/coordinator/group/GroupMetadataManagerTest.java`. They fail or do not compile until the change is implemented. Make them pass with `./gradlew :core:test --tests kafka.server.ConsumerGroupHeartbeatRequestTest --offline` ; `./gradlew :group-coordinator:test --tests org.apache.kafka.coordinator.group.GroupMetadataManagerTest --offline`. Do not edit those test files: grading restores them to their original content and runs them against your other changes. Keep the change focused and do not substitute knowledge of how the project evolved after the cutoff.
+
+No project-history context is provided for this task. Work from the task statement, the repository and your own knowledge; there is no network access.
+
+The repository is checked out at /workspace. The workspace is a git repository whose history ends at the base commit; `git log`, `git blame` and `git show` work offline. Make the change by editing source files there; the tests named above, restored to their original content, decide whether the issue is resolved. Gradle works offline only (`./gradlew :module:test --tests X --offline`). Finish with one JSON object {"summary": "..."}.

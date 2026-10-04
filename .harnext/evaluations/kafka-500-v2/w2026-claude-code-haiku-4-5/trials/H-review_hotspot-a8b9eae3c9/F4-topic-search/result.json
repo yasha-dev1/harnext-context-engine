@@ -1,0 +1,52 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "pull-requests.md (lines 8320-8332 and 14052-14064)",
+      "The history context contains only summary information: PR #21273 was merged on 2026-02-19 with 45 files changed across multiple modules, reviewed by Christo Lolov and PoAn Yang. However, the detailed file-by-file inline review comment counts are not available in the context store."
+    ],
+    "value": "null"
+  },
+  "arm": "F4-topic-search",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 150.15120080299675,
+  "family": "review_hotspot",
+  "grade": {
+    "actual": "null",
+    "correct": false,
+    "evidence": [
+      "pull-requests.md (lines 8320-8332 and 14052-14064)",
+      "The history context contains only summary information: PR #21273 was merged on 2026-02-19 with 45 files changed across multiple modules, reviewed by Christo Lolov and PoAn Yang. However, the detailed file-by-file inline review comment counts are not available in the context store."
+    ],
+    "expected": "core/src/main/scala/kafka/server/DynamicBrokerConfig.scala"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 11,
+  "prompt_sha256": "99e0a4698cda2e47294e2ee9fb480163310ded5a62cc876d5fc3729c8a50693a",
+  "run_index": 46,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-review_hotspot-a8b9eae3c9",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 2,
+    "mcp__history__search_context": 7
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 334206,
+    "cost_usd": 0.10082960000000002,
+    "input_tokens": 362486,
+    "output_tokens": 2188
+  },
+  "violations": []
+}

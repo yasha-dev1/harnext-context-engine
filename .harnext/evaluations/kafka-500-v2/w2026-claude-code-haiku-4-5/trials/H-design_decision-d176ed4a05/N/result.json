@@ -1,0 +1,47 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "Unable to determine: knowledge cutoff (Feb 2025) predates snapshot date (May 31, 2026); specific implementation detail not found in training data"
+    ],
+    "value": null
+  },
+  "arm": "N",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 9.31898889799777,
+  "family": "design_decision",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "Unable to determine: knowledge cutoff (Feb 2025) predates snapshot date (May 31, 2026); specific implementation detail not found in training data"
+    ],
+    "expected": "removed entirely, identified by topologyEpoch and group creation timestamp instead"
+  },
+  "instructions_sha256": null,
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 1,
+  "prompt_sha256": "f40ccfc6bcc4232850b3259207a32367f52d4280d0503d0590b8bac49f03c027",
+  "run_index": 75,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-d176ed4a05",
+  "tool_calls": {
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 17497,
+    "cost_usd": 0.0120657,
+    "input_tokens": 20692,
+    "output_tokens": 787
+  },
+  "violations": []
+}

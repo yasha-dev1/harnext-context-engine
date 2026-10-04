@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "mail:e437a5f929aa48c75a64ae98 (Lianet Magrans, 2026-02-14T13:31:47Z: 'The intention is indeed to deprecate the public-facing group.protocol config in 5.0 and remove in 6.0')",
+    "mail:8e1a8d86c4f1e5741f91cb54 (Andrew Schofield, 2026-01-28T17:01:04Z: 'If phase 2 does indeed warn for use of `group.protocol` config, then removal in phase 3 works for me')",
+    "mail:2034d686308bfb1f60b2770e (Matthias J. Sax, 2026-01-28T16:53:06Z: 'About removing the config `group.protocol` with 6.0. I would advocate to do the removal, as originally proposed. If the config serves not purpose any longer (ie, has only one value), there seems to be no reason to keep it')"
+  ],
+  "value": "remove the config entirely"
+}

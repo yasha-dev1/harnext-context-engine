@@ -1,0 +1,9 @@
+{
+  "evidence": [
+    "issues/kafka-20336-headers-aware-state-stores-dsl.md",
+    "issues/kafka-20336-documentation-dsl-headers-aware-state-stores.md",
+    "issues/kafka-20336-update-docs.md",
+    "context_research result confirming no fix versions set"
+  ],
+  "value": []
+}

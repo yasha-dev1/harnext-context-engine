@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "events/2026/04/30/mail-d143b0b41a8baaf69dfb3a1d-b13eb2ca.md (lines 142-166)",
+    "events/2026/04/07/mail-9733e74f5415b581f89213be-756d0d01.md (lines 77-84)",
+    "events/2026/04/03/mail-3da03c7762b02a3dc6d931ae-3cd2d5a4.md (lines 65-70)"
+  ],
+  "value": "destination cluster default replication factor"
+}

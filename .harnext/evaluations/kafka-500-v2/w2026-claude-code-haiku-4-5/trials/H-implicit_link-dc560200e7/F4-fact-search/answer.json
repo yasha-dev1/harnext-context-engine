@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "store/discussions/kip-1291-extended-io-metrics.md",
+    "store/issues/kafka-20223-extended-io-metrics.md"
+  ],
+  "value": "KAFKA-20223"
+}

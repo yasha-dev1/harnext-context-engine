@@ -1,0 +1,40 @@
+{
+  "agent": "claude-code",
+  "answer": null,
+  "arm": "S-tools",
+  "checkpoint": "2026-04",
+  "cli_calls": {
+    "gh": 17,
+    "jira": 15,
+    "mail": 22
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": "wall-clock limit reached",
+  "effort": "medium",
+  "elapsed_s": 900.4606570350006,
+  "family": "design_decision",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": null,
+    "expected": "--by-start-time"
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 58,
+  "prompt_sha256": "17055b7826121874fa9ea63af241d7d6f65b73a3a34168031695554b1e7b9cc6",
+  "run_index": 66,
+  "status": "timeout",
+  "success": false,
+  "task_id": "H-design_decision-074f443eea",
+  "tool_calls": {
+    "Bash": 57,
+    "Read": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {},
+  "violations": []
+}

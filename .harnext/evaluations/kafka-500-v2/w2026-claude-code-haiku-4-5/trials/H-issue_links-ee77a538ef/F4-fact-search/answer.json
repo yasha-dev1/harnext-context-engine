@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "issues/kafka-20066-assignment-epochs-consumer-groups.md — Timeline shows KAFKA-20066 was linked to KAFKA-19235 and KAFKA-19233 on 2026-01-13T12:36:14Z, but these appear under 'Related Issues' section, not 'Blocks:' section",
+    "issues/KAFKA-20066/overview.md — Overview file contains limited issue link information",
+    "Search results consistently showed 'Related Issues' designation rather than explicit 'Blocks:' relationships for KAFKA-20066"
+  ],
+  "value": []
+}

@@ -1,0 +1,10 @@
+{
+  "evidence": [
+    "No network access available to query Apache Kafka repository or Jira",
+    "Knowledge cutoff February 2025 is before snapshot cutoff 2026-03-31",
+    "No local project history context provided"
+  ],
+  "value": [
+    "Unable to determine - see evidence"
+  ]
+}

@@ -1,0 +1,114 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "summary": "Fixed KAFKA-19449 by excluding partitions in a member's pendingRevocation list from the ownership check when determining unreleased partitions. This allows partitions that are pending revocation to be correctly re-assigned when they appear in the new target assignment, preventing the unexpected UNREVOKED_PARTITIONS to UNRELEASED_PARTITIONS transition. All 31 tests pass, including the critical test case testUnrevokedPartitionsToStableWithReturnedPartitionsPendingRevocation."
+  },
+  "arm": "N",
+  "checkpoint": "2025-09",
+  "cli_calls": {
+    "git": 7
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 320.12315402703825,
+  "family": "pr_implementation",
+  "grade": {
+    "counts": {
+      "passed": 26
+    },
+    "dropped_paths": [
+      "group-coordinator/src/test/java/org/apache/kafka/coordinator/group/modern/consumer/CurrentAssignmentBuilderTest.java"
+    ],
+    "fail_to_pass_failed": [],
+    "graded_by": "gradle",
+    "grading_timed_out": false,
+    "gradle_returncode": 0,
+    "other_failed_tasks": [],
+    "outcomes": {
+      "org.apache.kafka.coordinator.group.modern.consumer.CurrentAssignmentBuilderTest#\"testStableToStableWithAssignmentTopicsNoLongerInSubscription(int, int, int, boolean).memberEpoch=10, targetAssignmentEpoch=10, expectedMemberEpoch=10, hasSubscriptionChanged=true\"": "passed",
+      "org.apache.kafka.coordinator.group.modern.consumer.CurrentAssignmentBuilderTest#\"testStableToStableWithAssignmentTopicsNoLongerInSubscription(int, int, int, boolean).memberEpoch=10, targetAssignmentEpoch=11, expectedMemberEpoch=11, hasSubscriptionChanged=false\"": "passed",
+      "org.apache.kafka.coordinator.group.modern.consumer.CurrentAssignmentBuilderTest#\"testStableToStableWithAssignmentTopicsNoLongerInSubscription(int, int, int, boolean).memberEpoch=10, targetAssignmentEpoch=11, expectedMemberEpoch=11, hasSubscriptionChanged=true\"": "passed",
+      "org.apache.kafka.coordinator.group.modern.consumer.CurrentAssignmentBuilderTest#\"testStableToUnrevokedPartitionsWithAssignmentTopicsNoLongerInSubscription(int, int, int, boolean).memberEpoch=10, targetAssignmentEpoch=10, expectedMemberEpoch=10, hasSubscriptionChanged=true\"": "passed",
+      "org.apache.kafka.coordinator.group.modern.consumer.CurrentAssignmentBuilderTest#\"testStableToUnrevokedPartitionsWithAssignmentTopicsNoLongerInSubscription(int, int, int, boolean).memberEpoch=10, targetAssignmentEpoch=11, expectedMemberEpoch=10, hasSubscriptionChanged=false\"": "passed",
+      "org.apache.kafka.coordinator.group.modern.consumer.CurrentAssignmentBuilderTest#\"testStableToUnrevokedPartitionsWithAssignmentTopicsNoLongerInSubscription(int, int, int, boolean).memberEpoch=10, targetAssignmentEpoch=11, expectedMemberEpoch=10, hasSubscriptionChanged=true\"": "passed",
+      "org.apache.kafka.coordinator.group.modern.consumer.CurrentAssignmentBuilderTest#\"testUnrevokedPartitionsToUnrevokedPartitions(int, int, int).memberEpoch=10, targetAssignmentEpoch=10, expectedMemberEpoch=10\"": "passed",
+      "org.apache.kafka.coordinator.group.modern.consumer.CurrentAssignmentBuilderTest#\"testUnrevokedPartitionsToUnrevokedPartitions(int, int, int).memberEpoch=10, targetAssignmentEpoch=12, expectedMemberEpoch=11\"": "passed",
+      "org.apache.kafka.coordinator.group.modern.consumer.CurrentAssignmentBuilderTest#testRemainsInUnrevokedPartitions()": "passed",
+      "org.apache.kafka.coordinator.group.modern.consumer.CurrentAssignmentBuilderTest#testRemainsInUnrevokedPartitionsWithAssignmentTopicsNoLongerInSubscription()": "passed",
+      "org.apache.kafka.coordinator.group.modern.consumer.CurrentAssignmentBuilderTest#testStableToStable()": "passed",
+      "org.apache.kafka.coordinator.group.modern.consumer.CurrentAssignmentBuilderTest#testStableToStableWithNewPartitions()": "passed",
+      "org.apache.kafka.coordinator.group.modern.consumer.CurrentAssignmentBuilderTest#testStableToUnreleasedPartitions()": "passed",
+      "org.apache.kafka.coordinator.group.modern.consumer.CurrentAssignmentBuilderTest#testStableToUnreleasedPartitionsWithOwnedPartitionsNotHavingRevokedPartitions()": "passed",
+      "org.apache.kafka.coordinator.group.modern.consumer.CurrentAssignmentBuilderTest#testStableToUnrevokedPartitions()": "passed",
+      "org.apache.kafka.coordinator.group.modern.consumer.CurrentAssignmentBuilderTest#testSubscribedTopicNameAndResolvedRegularExpression()": "passed",
+      "org.apache.kafka.coordinator.group.modern.consumer.CurrentAssignmentBuilderTest#testSubscribedTopicNameAndUnresolvedRegularExpression()": "passed",
+      "org.apache.kafka.coordinator.group.modern.consumer.CurrentAssignmentBuilderTest#testUnknownState()": "passed",
+      "org.apache.kafka.coordinator.group.modern.consumer.CurrentAssignmentBuilderTest#testUnreleasedPartitionsToStable()": "passed",
+      "org.apache.kafka.coordinator.group.modern.consumer.CurrentAssignmentBuilderTest#testUnreleasedPartitionsToStableWithNewPartitions()": "passed",
+      "org.apache.kafka.coordinator.group.modern.consumer.CurrentAssignmentBuilderTest#testUnreleasedPartitionsToUnreleasedPartitions()": "passed",
+      "org.apache.kafka.coordinator.group.modern.consumer.CurrentAssignmentBuilderTest#testUnreleasedPartitionsToUnrevokedPartitions()": "passed",
+      "org.apache.kafka.coordinator.group.modern.consumer.CurrentAssignmentBuilderTest#testUnresolvedRegularExpression()": "passed",
+      "org.apache.kafka.coordinator.group.modern.consumer.CurrentAssignmentBuilderTest#testUnrevokedPartitionsToStable()": "passed",
+      "org.apache.kafka.coordinator.group.modern.consumer.CurrentAssignmentBuilderTest#testUnrevokedPartitionsToStableWithReturnedPartitionsPendingRevocation()": "passed",
+      "org.apache.kafka.coordinator.group.modern.consumer.CurrentAssignmentBuilderTest#testUnrevokedPartitionsToUnreleasedPartitions()": "passed"
+    },
+    "pass_to_pass_failed": [],
+    "patch_bytes": 6034,
+    "patch_empty": false,
+    "resolved": true,
+    "seconds": 177.1,
+    "similarity": {
+      "added_lines": {
+        "f1": 0.0,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      "files": {
+        "agent": 1,
+        "f1": 1.0,
+        "golden": 1,
+        "precision": 1.0,
+        "recall": 1.0,
+        "shared": 1
+      },
+      "location_recall": 1.0,
+      "removed_lines": {
+        "f1": 0.5,
+        "precision": 0.333,
+        "recall": 1.0
+      },
+      "size": {
+        "agent_added": 9,
+        "agent_removed": 3,
+        "golden_added": 5,
+        "golden_removed": 1
+      }
+    },
+    "test_compile_failed": []
+  },
+  "kind": "coding",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 15,
+  "prompt_sha256": "effa47bcc9aefac3331f71b7d14ecb20a5783df8f5b66fe737bbcbdda58c8790",
+  "run_index": 8,
+  "status": "completed",
+  "success": true,
+  "task_id": "C-KAFKA-PR-20781",
+  "tool_calls": {
+    "Bash": 9,
+    "Edit": 1,
+    "Read": 3,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 724575,
+    "cost_usd": 0.2002305,
+    "input_tokens": 770158,
+    "output_tokens": 7346
+  },
+  "violations": []
+}

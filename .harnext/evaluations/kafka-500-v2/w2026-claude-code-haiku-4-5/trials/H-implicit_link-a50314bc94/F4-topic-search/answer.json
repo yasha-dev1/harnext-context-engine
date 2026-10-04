@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "discussions.md (lines 533-545): KIP-1324 discussion record with Related Issue: KAFKA-20525",
+    "issues.md (lines 541-551): KAFKA-20525 issue details confirming it tracks 'Support client configuration observability' related to KIP-1324"
+  ],
+  "value": "KAFKA-20525"
+}

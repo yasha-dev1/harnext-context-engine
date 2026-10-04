@@ -1,0 +1,3 @@
+{
+  "summary": "Successfully implemented KAFKA-20368: Changed metricTags from HashMap to LinkedHashMap in RLMExpirationTask to ensure deterministic metric tags order. Added LinkedHashMap import and modified line 1145 in RemoteLogManager.java. All tests pass."
+}

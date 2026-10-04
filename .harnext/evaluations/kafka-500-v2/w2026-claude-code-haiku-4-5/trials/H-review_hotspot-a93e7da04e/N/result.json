@@ -1,0 +1,47 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "Unable to determine: no network access, knowledge cutoff is February 2025 (before the March 2026 PR), and no local repository context is available"
+    ],
+    "value": "null"
+  },
+  "arm": "N",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 8.492909379994671,
+  "family": "review_hotspot",
+  "grade": {
+    "actual": "null",
+    "correct": false,
+    "evidence": [
+      "Unable to determine: no network access, knowledge cutoff is February 2025 (before the March 2026 PR), and no local repository context is available"
+    ],
+    "expected": "server-common/src/main/java/org/apache/kafka/server/util/timer/SystemTimerReaper.java"
+  },
+  "instructions_sha256": null,
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 1,
+  "prompt_sha256": "21c2b9369c4c1ad2588c360a07615d75bad96670e2b7ef99870b477142c3f53b",
+  "run_index": 55,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-review_hotspot-a93e7da04e",
+  "tool_calls": {
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 17493,
+    "cost_usd": 0.0116783,
+    "input_tokens": 20617,
+    "output_tokens": 738
+  },
+  "violations": []
+}

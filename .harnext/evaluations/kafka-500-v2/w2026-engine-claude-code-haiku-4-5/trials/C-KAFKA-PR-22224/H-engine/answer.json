@@ -1,0 +1,3 @@
+{
+  "summary": "Successfully implemented KIP-1319 to align TxnOffsetCommit API with OffsetCommit API by adding topic ID support. Updated TxnOffsetCommitResponse with TopicIdBuilder and TopicNameBuilder subclasses that support both topic ID-based and topic name-based responses via newBuilder(boolean useTopicIds). Modified TxnOffsetCommitRequest error response methods to preserve topic IDs. All 34 tests pass (18 TxnOffsetCommitRequestTest + 16 TxnOffsetCommitResponseTest)."
+}

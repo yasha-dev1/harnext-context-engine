@@ -1,0 +1,511 @@
+diff --git a/storage/src/main/java/org/apache/kafka/server/log/remote/storage/RemoteLogManager.java b/storage/src/main/java/org/apache/kafka/server/log/remote/storage/RemoteLogManager.java
+index cb2764f142bb5df1ab3460744b1a82c9abb72ec2..6976bbf96d2dd59b3061ce19c846d633ae671776 100644
+--- a/storage/src/main/java/org/apache/kafka/server/log/remote/storage/RemoteLogManager.java
++++ b/storage/src/main/java/org/apache/kafka/server/log/remote/storage/RemoteLogManager.java
+@@ -30,6 +30,7 @@ import org.apache.kafka.common.message.FetchResponseData;
+ import org.apache.kafka.common.metrics.Metrics;
+ import org.apache.kafka.common.metrics.Quota;
+ import org.apache.kafka.common.metrics.Sensor;
++import org.apache.kafka.common.metrics.internals.MetricsUtils;
+ import org.apache.kafka.common.record.internal.FileRecords;
+ import org.apache.kafka.common.record.internal.MemoryRecords;
+ import org.apache.kafka.common.record.internal.Record;
+@@ -1142,7 +1143,7 @@ public class RemoteLogManager implements Closeable, AsyncOffsetReader {
+         private final Logger logger;
+         private volatile boolean isAllSegmentsValid = false;
+         private volatile boolean metricsRegistered = false;
+-        private final Map<String, String> metricTags = new HashMap<>();
++        private final Map<String, String> metricTags;
+         private final AtomicInteger retentionSizeInPercentValue = new AtomicInteger(0);
+         private final AtomicInteger localRetentionSizeInPercentValue = new AtomicInteger(0);
+ 
+@@ -1157,8 +1158,8 @@ public class RemoteLogManager implements Closeable, AsyncOffsetReader {
+         public RLMExpirationTask(TopicIdPartition topicIdPartition) {
+             super(topicIdPartition);
+             this.logger = getLogContext().logger(RLMExpirationTask.class);
+-            metricTags.put("topic", topicIdPartition.topic());
+-            metricTags.put("partition", Integer.toString(topicIdPartition.partition()));
++            metricTags = MetricsUtils.getTags("topic", topicIdPartition.topic(),
++                    "partition", Integer.toString(topicIdPartition.partition()));
+         }
+ 
+         // Visible for testing
+diff --git a/storage/src/test/java/org/apache/kafka/server/log/remote/storage/RemoteLogManagerTest.java b/storage/src/test/java/org/apache/kafka/server/log/remote/storage/RemoteLogManagerTest.java
+index 234bb0f06f4efa586c0610e8bc2d87e71ee8db0e..b1c5090625e9ced29fb43de1ca78ef8a4acd939f 100644
+--- a/storage/src/test/java/org/apache/kafka/server/log/remote/storage/RemoteLogManagerTest.java
++++ b/storage/src/test/java/org/apache/kafka/server/log/remote/storage/RemoteLogManagerTest.java
+@@ -2274,8 +2274,8 @@ public class RemoteLogManagerTest {
+         // Register metrics to expose them via JMX
+         expirationTask.registerMetrics();
+ 
+-        String retentionMetricName = "name=RetentionSizeInPercent,partition=" + leaderTopicIdPartition.partition() + ",topic=" + leaderTopicIdPartition.topic();
+-        String localRetentionMetricName = "name=LocalRetentionSizeInPercent,partition=" + leaderTopicIdPartition.partition() + ",topic=" + leaderTopicIdPartition.topic();
++        String retentionMetricName = "name=RetentionSizeInPercent,topic=" + leaderTopicIdPartition.topic() + ",partition=" + leaderTopicIdPartition.partition();
++        String localRetentionMetricName = "name=LocalRetentionSizeInPercent,topic=" + leaderTopicIdPartition.topic() + ",partition=" + leaderTopicIdPartition.partition();
+ 
+         // Test case 1: Testing RetentionSizeInPercent metric (standard retention scenario)
+         // retentionSize = 12288, onlyLocalLogSegmentsSize = 100, localLogSegmentsSize = 100
+@@ -2339,8 +2339,8 @@ public class RemoteLogManagerTest {
+         // Register metrics to expose them via JMX
+         expirationTask.registerMetrics();
+ 
+-        String retentionMetricName = "name=RetentionSizeInPercent,partition=" + leaderTopicIdPartition.partition() + ",topic=" + leaderTopicIdPartition.topic();
+-        String localRetentionMetricName = "name=LocalRetentionSizeInPercent,partition=" + leaderTopicIdPartition.partition() + ",topic=" + leaderTopicIdPartition.topic();
++        String retentionMetricName = "name=RetentionSizeInPercent,topic=" + leaderTopicIdPartition.topic() + ",partition=" + leaderTopicIdPartition.partition();
++        String localRetentionMetricName = "name=LocalRetentionSizeInPercent,topic=" + leaderTopicIdPartition.topic() + ",partition=" + leaderTopicIdPartition.partition();
+ 
+         // RetentionSizeInPercent = ((100 + 10240) * 100) / 12288 = 84%
+         // LocalRetentionSizeInPercent = (100 * 100) / 6144 = 1%
+@@ -2356,6 +2356,10 @@ public class RemoteLogManagerTest {
+         // Verify metrics are reset to 0 on cancellation (check via accessor since JMX metrics are deregistered)
+         assertEquals(0, expirationTask.retentionSizeInPercent());
+         assertEquals(0, expirationTask.localRetentionSizeInPercent());
++
++        // Verify JMX metrics are actually deregistered from the Yammer registry after cancellation
++        assertThrows(NoSuchElementException.class, () -> yammerMetricValue(retentionMetricName));
++        assertThrows(NoSuchElementException.class, () -> yammerMetricValue(localRetentionMetricName));
+     }
+ 
+     @Test
+@@ -2379,8 +2383,8 @@ public class RemoteLogManagerTest {
+         // Register metrics to expose them via JMX
+         expirationTask.registerMetrics();
+ 
+-        String retentionMetricName = "name=RetentionSizeInPercent,partition=" + leaderTopicIdPartition.partition() + ",topic=" + leaderTopicIdPartition.topic();
+-        String localRetentionMetricName = "name=LocalRetentionSizeInPercent,partition=" + leaderTopicIdPartition.partition() + ",topic=" + leaderTopicIdPartition.topic();
++        String retentionMetricName = "name=RetentionSizeInPercent,topic=" + leaderTopicIdPartition.topic() + ",partition=" + leaderTopicIdPartition.partition();
++        String localRetentionMetricName = "name=LocalRetentionSizeInPercent,topic=" + leaderTopicIdPartition.topic() + ",partition=" + leaderTopicIdPartition.partition();
+ 
+         expirationTask.buildRetentionSizeData(0, 100, 100, 1000, epochEntries, 0, Long.MAX_VALUE);
+ 
+diff --git a/test_output.log b/test_output.log
+new file mode 100644
+index 0000000000000000000000000000000000000000..5e5c4e8807889cb1ff53d7fd8a1dcf96f8a01594
+--- /dev/null
++++ b/test_output.log
+@@ -0,0 +1,425 @@
++
++Welcome to Gradle 9.2.1!
++
++Here are the highlights of this release:
++ - Windows ARM support
++ - Improved publishing APIs
++ - Better guidance for dependency verification failures
++
++For more details see https://docs.gradle.org/9.2.1/release-notes.html
++
++Starting a Gradle Daemon (subsequent builds will be faster)
++Shared read-only dependency cache is an incubating feature.
++
++> Configure project :
++Starting build with version 4.4.0-SNAPSHOT (commit id 55a7c2fa) using Gradle 9.2.1, Java 17 and Scala 2.13.18
++Build properties: ignoreFailures=false, maxParallelForks=4, maxScalacThreads=4, maxTestRetries=0
++
++> Task :storage:processResources
++> Task :storage:createVersionFile
++> Task :clients:processResources
++> Task :coordinator-common:processResources NO-SOURCE
++> Task :clients:createVersionFile
++> Task :core:processResources NO-SOURCE
++> Task :server-common:processResources NO-SOURCE
++> Task :clients:processTestResources
++> Task :server-common:processTestResources
++> Task :coordinator-common:processTestResources
++> Task :metadata:processResources
++> Task :raft:processResources
++> Task :group-coordinator:processResources
++> Task :raft:processTestResources
++> Task :group-coordinator:processTestResources
++> Task :metadata:processTestResources
++> Task :server:processResources NO-SOURCE
++> Task :storage:storage-api:processResources NO-SOURCE
++> Task :server:processTestResources
++> Task :storage:storage-api:processTestResources
++> Task :raft:createVersionFile
++> Task :share-coordinator:processResources
++> Task :server:createVersionFile
++> Task :share-coordinator:processTestResources
++> Task :server-common:createVersionFile
++> Task :transaction-coordinator:processResources
++> Task :group-coordinator:group-coordinator-api:processResources NO-SOURCE
++> Task :storage:storage-api:createVersionFile
++> Task :group-coordinator:group-coordinator-api:createVersionFile
++> Task :tools:tools-api:processResources NO-SOURCE
++> Task :core:processTestResources
++> Task :tools:tools-api:createVersionFile
++> Task :storage:processTestResources
++> Task :test-common:test-common-internal-api:processResources NO-SOURCE
++> Task :test-common:test-common-runtime:processResources
++> Task :test-common:test-common-util:compileJava
++> Task :test-common:test-common-util:processResources
++> Task :test-common:test-common-util:classes
++> Task :test-common:test-common-util:jar
++> Task :generator:compileJava
++> Task :generator:processResources NO-SOURCE
++> Task :generator:classes
++> Task :generator:jar
++
++> Task :raft:processMessages
++MessageGenerator: processed 1 Kafka message JSON file(s).
++
++> Task :storage:processMessages
++MessageGenerator: processed 5 Kafka message JSON file(s).
++
++> Task :metadata:processMessages
++MessageGenerator: processed 26 Kafka message JSON file(s).
++
++> Task :transaction-coordinator:processMessages
++MessageGenerator: processed 2 Kafka message JSON file(s).
++
++> Task :share-coordinator:processMessages
++MessageGenerator: processed 4 Kafka message JSON file(s).
++
++> Task :clients:processMessages
++MessageGenerator: processed 199 Kafka message JSON file(s).
++
++> Task :group-coordinator:processMessages
++MessageGenerator: processed 44 Kafka message JSON file(s).
++
++> Task :streams:processMessages
++MessageGenerator: processed 1 Kafka message JSON file(s).
++
++> Task :clients:compileJava
++> Task :clients:classes
++
++> Task :clients:processTestMessages
++MessageGenerator: processed 5 Kafka message JSON file(s).
++
++> Task :tools:tools-api:compileJava
++> Task :group-coordinator:group-coordinator-api:compileJava
++> Task :tools:tools-api:classes
++> Task :group-coordinator:group-coordinator-api:classes
++> Task :tools:tools-api:jar
++> Task :group-coordinator:group-coordinator-api:jar
++> Task :server-common:compileJava
++> Task :server-common:classes
++> Task :server-common:jar
++> Task :test-common:test-common-internal-api:compileJava
++> Task :test-common:test-common-internal-api:classes
++> Task :test-common:test-common-internal-api:jar
++> Task :storage:storage-api:compileJava
++> Task :storage:storage-api:classes
++> Task :storage:storage-api:jar
++> Task :storage:compileJava
++> Task :storage:classes
++> Task :storage:jar
++> Task :raft:compileJava
++> Task :metadata:compileJava
++> Task :coordinator-common:compileJava
++> Task :coordinator-common:classes
++> Task :coordinator-common:jar
++> Task :group-coordinator:compileJava
++> Task :share-coordinator:compileJava
++> Task :transaction-coordinator:compileJava
++> Task :clients:compileTestJava
++> Task :storage:checkstyleMain
++> Task :storage:spotbugsMain
++> Task :group-coordinator:classes
++> Task :metadata:classes
++> Task :raft:classes
++> Task :share-coordinator:classes
++> Task :server:compileJava
++> Task :core:compileJava NO-SOURCE
++> Task :group-coordinator:jar
++> Task :server:classes
++> Task :metadata:jar
++> Task :raft:jar
++> Task :server:jar
++> Task :share-coordinator:jar
++> Task :transaction-coordinator:classes
++> Task :transaction-coordinator:jar
++
++> Task :clients:compileTestJava
++Note: Some input files use or override a deprecated API.
++Note: Recompile with -Xlint:deprecation for details.
++
++> Task :core:compileScala
++> Task :clients:shadowJar
++> Task :clients:jar SKIPPED
++> Task :clients:testClasses
++> Task :storage:storage-api:compileTestJava
++> Task :storage:storage-api:testClasses
++> Task :server-common:compileTestJava
++> Task :server-common:testClasses
++> Task :coordinator-common:compileTestJava
++> Task :coordinator-common:testClasses
++> Task :raft:compileTestJava
++> Task :raft:testClasses
++> Task :streams:compileJava
++> Task :share-coordinator:compileTestJava
++> Task :share-coordinator:testClasses
++> Task :metadata:compileTestJava
++> Task :metadata:testClasses
++> Task :group-coordinator:compileTestJava
++> Task :group-coordinator:testClasses
++> Task :core:classes
++> Task :core:copyDependantLibs
++> Task :core:jar
++> Task :test-common:test-common-runtime:compileJava
++> Task :test-common:test-common-runtime:classes
++> Task :test-common:test-common-runtime:jar
++> Task :server:compileTestJava
++> Task :server:testClasses
++> Task :core:compileTestJava NO-SOURCE
++> Task :core:compileTestScala
++> Task :core:testClasses
++
++> Task :storage:compileTestJava
++/workspace/storage/src/test/java/org/apache/kafka/storage/internals/log/LogCleanerIntegrationTest.java:577: warning: [removal] LOG_CLEANER_ENABLE_PROP in CleanerConfig has been deprecated and marked for removal
++        oldConfigMap.put(CleanerConfig.LOG_CLEANER_ENABLE_PROP, currentConfig.enableCleaner);
++                                      ^
++Note: Some input files use unchecked or unsafe operations.
++Note: Recompile with -Xlint:unchecked for details.
++1 warning
++
++> Task :storage:testClasses
++> Task :storage:checkstyleTest
++OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
++
++> Task :storage:test
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testTierLagResetsToZeroOnBecomingFollower() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testCopyQuota(boolean) > "testCopyQuota(boolean).quotaExceeded=false" PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testCopyQuota(boolean) > "testCopyQuota(boolean).quotaExceeded=true" PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testRemoteDeleteLagsOnRetentionBreachedSegments(long, long) > testRemoteDeleteLagsOnRetentionBreachedSegments retentionSize=0 retentionMs=-1 PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testRemoteDeleteLagsOnRetentionBreachedSegments(long, long) > testRemoteDeleteLagsOnRetentionBreachedSegments retentionSize=-1 retentionMs=0 PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testCopyLogSegmentToRemoteForStaleTopic() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testFindLogStartOffset() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testBuildFilteredLeaderEpochMap() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testRemoteLogMetadataManagerWithEndpointConfig() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testRetentionSizeInPercentMetricsTaskCancellation() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testRemoteLogManagerRemoteMetrics() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testCopyThrottling() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testDeletionOnRetentionBreachedSegments(long, long, boolean) > testDeletionOnRetentionBreachedSegments retentionSize=0 retentionMs=-1 expectDeletion=true PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testDeletionOnRetentionBreachedSegments(long, long, boolean) > testDeletionOnRetentionBreachedSegments retentionSize=-1 retentionMs=0 expectDeletion=true PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testDeletionOnRetentionBreachedSegments(long, long, boolean) > testDeletionOnRetentionBreachedSegments retentionSize=-1 retentionMs=0 expectDeletion=false PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testTopicIdCacheUpdates() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testRemoteReadFetchDataInfo() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testRemoteSizeData() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testRemoteSizeTime() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testFindOffsetByTimestampWithSegmentNotReady() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testRetentionSizeInPercentMetricsWithZeroRetention() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testUpdateRemoteStorageFollowerThreads() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testFetchOffsetByTimestampWithTieredStorageDoesNotFetchIndexWhenExistsLocally() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testCopyLagMetricsAfterLeaderChangeWithHigherRemoteOffset() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testReadForFirstBatchInLogCompaction() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testDeleteLogSegmentDueToRetentionSizeBreach(int, int) > testDeleteLogSegmentDueToRetentionSizeBreach segmentCount=50 deletableSegmentCount=0 PASSED
++WARNING: unexpectedly got output for a test [org.apache.kafka.server.log.remote.storage.RemoteLogManagerTest.testDeleteLogSegmentDueToRetentionSizeBreach(int, int)] that we didn't previously see in the beforeTest hook. Message for debugging: [[2026-09-26 14:23:55,395] WARN [RemoteLogManager=0 partition=gUSReH0PTjmcaYYF02N7Vg:Leader-0] Current task for partition gUSReH0PTjmcaYYF02N7Vg:Leader-0 received error but it will be scheduled (org.apache.kafka.server.log.remote.storage.RemoteLogManager$RLMTask:852)
++].
++WARNING: unexpectedly got output for a test [org.apache.kafka.server.log.remote.storage.RemoteLogManagerTest.testDeleteLogSegmentDueToRetentionSizeBreach(int, int)] that we didn't previously see in the beforeTest hook. Message for debugging: [java.lang.NullPointerException: Cannot invoke "String.equals(Object)" because the return value of "org.apache.kafka.storage.internals.log.UnifiedLog.parentDir()" is null
++].
++WARNING: unexpectedly got output for a test [org.apache.kafka.server.log.remote.storage.RemoteLogManagerTest.testDeleteLogSegmentDueToRetentionSizeBreach(int, int)] that we didn't previously see in the beforeTest hook. Message for debugging: [	at org.apache.kafka.server.log.remote.storage.RemoteLogManager$RLMCopyTask.execute(RemoteLogManager.java:883)
++].
++WARNING: unexpectedly got output for a test [org.apache.kafka.server.log.remote.storage.RemoteLogManagerTest.testDeleteLogSegmentDueToRetentionSizeBreach(int, int)] that we didn't previously see in the beforeTest hook. Message for debugging: [	at org.apache.kafka.server.log.remote.storage.RemoteLogManager$RLMTask.run(RemoteLogManager.java:843)
++].
++WARNING: unexpectedly got output for a test [org.apache.kafka.server.log.remote.storage.RemoteLogManagerTest.testDeleteLogSegmentDueToRetentionSizeBreach(int, int)] that we didn't previously see in the beforeTest hook. Message for debugging: [	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
++].
++WARNING: unexpectedly got output for a test [org.apache.kafka.server.log.remote.storage.RemoteLogManagerTest.testDeleteLogSegmentDueToRetentionSizeBreach(int, int)] that we didn't previously see in the beforeTest hook. Message for debugging: [	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:305)
++].
++WARNING: unexpectedly got output for a test [org.apache.kafka.server.log.remote.storage.RemoteLogManagerTest.testDeleteLogSegmentDueToRetentionSizeBreach(int, int)] that we didn't previously see in the beforeTest hook. Message for debugging: [	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:305)
++].
++WARNING: unexpectedly got output for a test [org.apache.kafka.server.log.remote.storage.RemoteLogManagerTest.testDeleteLogSegmentDueToRetentionSizeBreach(int, int)] that we didn't previously see in the beforeTest hook. Message for debugging: [	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
++].
++WARNING: unexpectedly got output for a test [org.apache.kafka.server.log.remote.storage.RemoteLogManagerTest.testDeleteLogSegmentDueToRetentionSizeBreach(int, int)] that we didn't previously see in the beforeTest hook. Message for debugging: [	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
++].
++WARNING: unexpectedly got output for a test [org.apache.kafka.server.log.remote.storage.RemoteLogManagerTest.testDeleteLogSegmentDueToRetentionSizeBreach(int, int)] that we didn't previously see in the beforeTest hook. Message for debugging: [	at java.base/java.lang.Thread.run(Thread.java:840)
++].
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testDeleteLogSegmentDueToRetentionSizeBreach(int, int) > testDeleteLogSegmentDueToRetentionSizeBreach segmentCount=50 deletableSegmentCount=1 PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testDeleteLogSegmentDueToRetentionSizeBreach(int, int) > testDeleteLogSegmentDueToRetentionSizeBreach segmentCount=50 deletableSegmentCount=23 PASSED
++WARNING: unexpectedly got output for a test [org.apache.kafka.server.log.remote.storage.RemoteLogManagerTest.testDeleteLogSegmentDueToRetentionSizeBreach(int, int)] that we didn't previously see in the beforeTest hook. Message for debugging: [[2026-09-26 14:23:57,517] WARN [RemoteLogManager=0 partition=gUSReH0PTjmcaYYF02N7Vg:Leader-0] Current task for partition gUSReH0PTjmcaYYF02N7Vg:Leader-0 received error but it will be scheduled (org.apache.kafka.server.log.remote.storage.RemoteLogManager$RLMTask:852)
++].
++WARNING: unexpectedly got output for a test [org.apache.kafka.server.log.remote.storage.RemoteLogManagerTest.testDeleteLogSegmentDueToRetentionSizeBreach(int, int)] that we didn't previously see in the beforeTest hook. Message for debugging: [java.lang.NullPointerException: Cannot invoke "String.equals(Object)" because the return value of "org.apache.kafka.storage.internals.log.UnifiedLog.parentDir()" is null
++].
++WARNING: unexpectedly got output for a test [org.apache.kafka.server.log.remote.storage.RemoteLogManagerTest.testDeleteLogSegmentDueToRetentionSizeBreach(int, int)] that we didn't previously see in the beforeTest hook. Message for debugging: [	at org.apache.kafka.server.log.remote.storage.RemoteLogManager$RLMCopyTask.execute(RemoteLogManager.java:883)
++].
++WARNING: unexpectedly got output for a test [org.apache.kafka.server.log.remote.storage.RemoteLogManagerTest.testDeleteLogSegmentDueToRetentionSizeBreach(int, int)] that we didn't previously see in the beforeTest hook. Message for debugging: [	at org.apache.kafka.server.log.remote.storage.RemoteLogManager$RLMTask.run(RemoteLogManager.java:843)
++].
++WARNING: unexpectedly got output for a test [org.apache.kafka.server.log.remote.storage.RemoteLogManagerTest.testDeleteLogSegmentDueToRetentionSizeBreach(int, int)] that we didn't previously see in the beforeTest hook. Message for debugging: [	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
++].
++WARNING: unexpectedly got output for a test [org.apache.kafka.server.log.remote.storage.RemoteLogManagerTest.testDeleteLogSegmentDueToRetentionSizeBreach(int, int)] that we didn't previously see in the beforeTest hook. Message for debugging: [	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:305)
++].
++WARNING: unexpectedly got output for a test [org.apache.kafka.server.log.remote.storage.RemoteLogManagerTest.testDeleteLogSegmentDueToRetentionSizeBreach(int, int)] that we didn't previously see in the beforeTest hook. Message for debugging: [	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:305)
++].
++WARNING: unexpectedly got output for a test [org.apache.kafka.server.log.remote.storage.RemoteLogManagerTest.testDeleteLogSegmentDueToRetentionSizeBreach(int, int)] that we didn't previously see in the beforeTest hook. Message for debugging: [	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
++].
++WARNING: unexpectedly got output for a test [org.apache.kafka.server.log.remote.storage.RemoteLogManagerTest.testDeleteLogSegmentDueToRetentionSizeBreach(int, int)] that we didn't previously see in the beforeTest hook. Message for debugging: [	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
++].
++WARNING: unexpectedly got output for a test [org.apache.kafka.server.log.remote.storage.RemoteLogManagerTest.testDeleteLogSegmentDueToRetentionSizeBreach(int, int)] that we didn't previously see in the beforeTest hook. Message for debugging: [	at java.base/java.lang.Thread.run(Thread.java:840)
++].
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testDeleteLogSegmentDueToRetentionSizeBreach(int, int) > testDeleteLogSegmentDueToRetentionSizeBreach segmentCount=50 deletableSegmentCount=50 PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testRemoteLogManagerTasksAvgIdlePercentAndMetadataCountMetrics() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testFindHighestRemoteOffsetOnEmptyRemoteStorage() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testFailedCopyShouldDeleteTheDanglingSegment() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testRemoteLogMetadataManagerWithUserDefinedConfigs() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testStopPartitionsWithDeletion() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testMonitorableRemoteLogStorageManager() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testOnLeadershipChangeWillInvokeHandleLeaderOrFollowerPartitions() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testRLMTaskDoesNotUploadSegmentsWhenRemoteLogMetadataManagerIsNotInitialized() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testFindHighestRemoteOffsetWithUncleanLeaderElection() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testFindLogStartOffsetFallbackToLocalLogStartOffsetWhenRemoteIsEmpty() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testFetchNextSegmentWithTxnIndex() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testFailedCopyWithRetriableExceptionShouldNotDeleteTheDanglingSegment() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testDeleteRetentionMsBeingCancelledBeforeSecondDelete() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testRetentionSizeInPercentMetrics() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testRemoteSegmentWithinLeaderEpochsForOverlappingSegments() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testGetClassLoaderAwareRemoteStorageManager() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testCopyLagMetricsWithMultipleSegments() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testGetLeaderEpochCheckpoint() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testMetricsUpdateOnCopyLogSegmentsFailure() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testConfigure() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testRemoteSegmentWithinLeaderEpochs() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testRemoteStorageManagerWithUserDefinedConfigs() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testRLMOpsWhenMetadataIsNotReady() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testRemoteLogTaskUpdateRemoteLogSegmentMetadataAfterLogDirChanged() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testDeletionSkippedForSegmentsBeingCopied() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testCopyQuotaManagerConfig() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testDeleteSegmentFailureWithRetriableExceptionShouldNotUpdateMetrics(long, long) > testDeleteSegmentFailureWithRetriableExceptionShouldNotUpdateMetrics retentionSize=0 retentionMs=-1 PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testDeleteSegmentFailureWithRetriableExceptionShouldNotUpdateMetrics(long, long) > testDeleteSegmentFailureWithRetriableExceptionShouldNotUpdateMetrics retentionSize=-1 retentionMs=0 PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testCandidateLogSegmentsSkipsActiveSegment() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testStopPartitionsWithoutDeletion() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testRemoteLogSizeRetentionShouldFilterOutCopySegmentStartState() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testCustomMetadataSizeExceedsLimit() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testRemoveMetricsOnClose() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testFindOffsetByTimestamp() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testIsPartitionReady() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testIdempotentClose() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testUpdateRemoteStorageReaderThreads() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testFindHighestRemoteOffset() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testFindNextSegmentWithTxnIndex() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testDeletionOnOverlappingRetentionBreachedSegments(long, long) > testDeletionOnOverlappingRetentionBreachedSegments retentionSize=0 retentionMs=-1 PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testDeletionOnOverlappingRetentionBreachedSegments(long, long) > testDeletionOnOverlappingRetentionBreachedSegments retentionSize=-1 retentionMs=0 PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testFailedDeleteExpiredSegments(long, long) > testFailedDeleteExpiredSegments retentionSize=0 retentionMs=-1 PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testFailedDeleteExpiredSegments(long, long) > testFailedDeleteExpiredSegments retentionSize=-1 retentionMs=0 PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testCopyLogSegmentsToRemoteShouldCopyExpectedLogSegment() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testRLMShutdownDuringQuotaExceededScenario() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testCandidateLogSegmentsSkipsSegmentsAfterLastStableOffset() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testRemoteLogMetadataManagerWithEndpointConfigOverridden() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testDeleteRetentionMsOnExpiredSegment() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testFindNextSegmentWithTxnIndexTraversesNextEpoch() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testFindOffsetByTimestampWithInvalidEpochSegments() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testReadForFirstBatchMoreThanMaxFetchBytes(boolean) > "testReadForFirstBatchMoreThanMaxFetchBytes(boolean).minOneMessage=true" PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testReadForFirstBatchMoreThanMaxFetchBytes(boolean) > "testReadForFirstBatchMoreThanMaxFetchBytes(boolean).minOneMessage=false" PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testCopyLagMetricsWithOnlyActiveSegment() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testReadForMissingFirstBatchInRemote() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testRetentionSizeInPercentMetricsWithNegativeRetention() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testBuildRetentionSizeData() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testFetchRemoteLogSegmentMetadata() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testDeleteLogSegmentDueToRetentionTimeBreach(int, int) > testDeleteLogSegmentDueToRetentionTimeBreach segmentCount=50 deletableSegmentCount=0 PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testDeleteLogSegmentDueToRetentionTimeBreach(int, int) > testDeleteLogSegmentDueToRetentionTimeBreach segmentCount=50 deletableSegmentCount=1 PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testDeleteLogSegmentDueToRetentionTimeBreach(int, int) > testDeleteLogSegmentDueToRetentionTimeBreach segmentCount=50 deletableSegmentCount=23 PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testDeleteLogSegmentDueToRetentionTimeBreach(int, int) > testDeleteLogSegmentDueToRetentionTimeBreach segmentCount=50 deletableSegmentCount=50 PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testEpochEntriesAsByteBuffer() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testLogStartOffsetUpdatedOnStartup() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testDeleteRetentionMsBiggerThanTimeMs() PASSED
++
++Gradle Test Run :storage:test > Gradle Test Executor 4 > RemoteLogManagerTest > testFetchQuotaManagerConfig() PASSED
++
++> Task :storage:copyTestXml SKIPPED
++
++[Incubating] Problems report is available at: file:///workspace/build/reports/problems/problems-report.html
++
++Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
++
++You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
++
++For more on this, please refer to https://docs.gradle.org/9.2.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
++
++BUILD SUCCESSFUL in 5m 53s
++90 actionable tasks: 90 executed
++The build is running offline. A build scan will not be published at this time, but it can be published if you run the 'buildScanPublishPrevious' task in the next build.

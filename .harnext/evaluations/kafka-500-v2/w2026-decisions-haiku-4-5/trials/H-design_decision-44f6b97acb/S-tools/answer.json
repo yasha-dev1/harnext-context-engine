@@ -1,0 +1,9 @@
+{
+  "evidence": [
+    "KAFKA-20210",
+    "gh pr view 21555 - title: KAFKA-20210: Add group.coordinator.background.threads config",
+    "Merged 2026-03-03",
+    "gh search prs results showing: 21555 KAFKA-20210: Add group.coordinator.background.threads config"
+  ],
+  "value": "group.coordinator.background.threads"
+}

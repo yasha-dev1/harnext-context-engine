@@ -1,0 +1,78 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "jira:13643141:change:22952599:0",
+      "mail:2cc3dbf3d225151be41d4a9e"
+    ],
+    "value": "KAFKA-20223"
+  },
+  "arm": "H-engine-mem",
+  "checkpoint": "2026-02",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 107.73750379500052,
+  "engine": {
+    "calls": 1,
+    "chat": {
+      "calls": 15,
+      "cancelled": 0,
+      "cost_usd": 0.00112353,
+      "input_tokens": 50114,
+      "output_tokens": 2021,
+      "retries": 0
+    },
+    "cost_usd": 0.0023614,
+    "discarded_attempts": 0,
+    "jev": {
+      "calls": 11,
+      "cancelled": 0,
+      "cost_usd": 0.00123787,
+      "input_tokens": 29473,
+      "output_tokens": 4427,
+      "retries": 0
+    },
+    "partial": 1,
+    "provider_retry_usd": 0,
+    "seconds": 95.816,
+    "unmetered_upper_usd": 0,
+    "waited_s": 0
+  },
+  "family": "implicit_link",
+  "grade": {
+    "actual": "KAFKA-20223",
+    "correct": true,
+    "evidence": [
+      "jira:13643141:change:22952599:0",
+      "mail:2cc3dbf3d225151be41d4a9e"
+    ],
+    "expected": "KAFKA-20223"
+  },
+  "image_id": "sha256:4615b2564319d58319029548af66970c954e128401ee89c8705684861de4bc07",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "6e93898b3d583f0e6b0f4b273e17ccf639b38a3f31dc7f1274ebfe9b9262c53f",
+  "run_index": 85,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-implicit_link-dc560200e7",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 59982,
+    "cost_usd": 0.0189152,
+    "input_tokens": 64719,
+    "output_tokens": 694
+  },
+  "violations": []
+}

@@ -1,0 +1,57 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "issues/kafka-20421-headers-state-stores-followup.md"
+    ],
+    "value": [
+      "KAFKA-20056"
+    ]
+  },
+  "arm": "F4-fact-search",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 26.7712097580079,
+  "family": "issue_links",
+  "grade": {
+    "actual": [
+      "KAFKA-20056"
+    ],
+    "correct": false,
+    "evidence": [
+      "issues/kafka-20421-headers-state-stores-followup.md"
+    ],
+    "expected": [
+      "KAFKA-20420"
+    ]
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 5,
+  "prompt_sha256": "65a3fff4c67f025bb3eadd21b03305f70d37de66781039184051a2927af60864",
+  "run_index": 33,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-issue_links-13e6c8afc3",
+  "tool_calls": {
+    "Read": 1,
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 113476,
+    "cost_usd": 0.0258246,
+    "input_tokens": 117871,
+    "output_tokens": 1146
+  },
+  "violations": []
+}

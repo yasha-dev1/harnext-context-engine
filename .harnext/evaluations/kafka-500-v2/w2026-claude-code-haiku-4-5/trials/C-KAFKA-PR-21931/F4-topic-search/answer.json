@@ -1,0 +1,3 @@
+{
+  "summary": "Successfully implemented KAFKA-20368: Use LinkedHashMap for deterministic metric tags order in RLMExpirationTask. Added MetricsUtils import and refactored metricTags initialization to use MetricsUtils.getTags() which internally uses LinkedHashMap. This ensures metric tags are always in deterministic order (topic, then partition). All 90 RemoteLogManagerTest tests pass."
+}

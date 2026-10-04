@@ -1,0 +1,9 @@
+{
+  "evidence": [
+    "mail search results for 'KIP-1308' showing KAFKA-20387 creation notification",
+    "mail read of JIRA notification (b60c8a7d55a78e0c4db474df) confirming KAFKA-20387 was created for 'Extend RecordHeader API for Common Value Types' on 2026-03-31",
+    "mail read of initial thread message (8a3a21f2b90819312447f34e) confirming Aditya Kousik's discussion of KIP-1308 on 2026-04-01",
+    "jira issue view KAFKA-20387 confirming it tracks 'Extend RecordHeader API for Common Value Types' and references KIP-1308"
+  ],
+  "value": "KAFKA-20387"
+}

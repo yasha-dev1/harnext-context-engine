@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "mail:51a25dcd9861c2e258ab8f04 - Satish Duggana noted support for reusing existing RLMM for diskless topics",
+    "mail:e4a05c90c512657787366663 - Viktor Somogyi-Vass discussion continuing with RLMM consideration",
+    "mail:a192cc3ce6018a685014966e - Jun Rao confirmed RLMM could be used for metadata optimization"
+  ],
+  "value": "reuse the existing RLMM for diskless metadata"
+}

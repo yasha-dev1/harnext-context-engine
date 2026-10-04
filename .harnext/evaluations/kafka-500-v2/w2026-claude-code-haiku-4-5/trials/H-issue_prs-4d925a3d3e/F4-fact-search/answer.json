@@ -1,0 +1,24 @@
+{
+  "evidence": [
+    "issues/kafka-20168-upgrade-jetty-cve.md",
+    "issues/kafka-20168-jetty-cve-upgrade.md"
+  ],
+  "value": [
+    {
+      "pr": 21452,
+      "state": "merged"
+    },
+    {
+      "pr": 21461,
+      "state": "merged"
+    },
+    {
+      "pr": 21462,
+      "state": "merged"
+    },
+    {
+      "pr": 21505,
+      "state": "merged"
+    }
+  ]
+}

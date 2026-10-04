@@ -1,0 +1,30 @@
+{
+  "evidence": [
+    "_intake/2026/02/11/github-api-apache-kafka-pr-21452-opened-2030bd91.md",
+    "_intake/2026/02/12/github-api-apache-kafka-pr-21452-merged-95b68bdc.md",
+    "_intake/2026/02/12/github-api-apache-kafka-pr-21461-opened-7c4a625e.md",
+    "_intake/2026/02/12/github-api-apache-kafka-pr-21461-merged-0c67e9a0.md",
+    "_intake/2026/02/12/github-api-apache-kafka-pr-21462-opened-f1ab9b3b.md",
+    "_intake/2026/02/12/github-api-apache-kafka-pr-21462-merged-92e441fb.md",
+    "_intake/2026/02/18/github-api-apache-kafka-pr-21505-opened-fe03920d.md",
+    "_intake/2026/02/18/github-api-apache-kafka-pr-21505-merged-a24ab2e8.md"
+  ],
+  "value": [
+    {
+      "pr": 21452,
+      "state": "merged"
+    },
+    {
+      "pr": 21461,
+      "state": "merged"
+    },
+    {
+      "pr": 21462,
+      "state": "merged"
+    },
+    {
+      "pr": 21505,
+      "state": "merged"
+    }
+  ]
+}

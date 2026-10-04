@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "mail:6cd700a13d988e1df4186856 (mailing list thread from 2026-05-20 by Ankur Sinha)",
+    "jira:13652155:created (JIRA issue KAFKA-20604 created 2026-05-24 as tracking issue for KIP-1348)",
+    "mail:8b09146c3e228474deabacb7 (JIRA-created notification message naming KAFKA-20604)"
+  ],
+  "value": "KAFKA-20604"
+}

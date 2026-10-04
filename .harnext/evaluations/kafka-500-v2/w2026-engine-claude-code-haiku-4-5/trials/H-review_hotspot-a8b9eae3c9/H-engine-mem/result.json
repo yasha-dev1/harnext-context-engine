@@ -1,0 +1,78 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "PR #21273 review comments",
+      "8 inline comments on DynamicBrokerConfig.scala"
+    ],
+    "value": "core/src/main/scala/kafka/server/DynamicBrokerConfig.scala"
+  },
+  "arm": "H-engine-mem",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 45.92651978199865,
+  "engine": {
+    "calls": 1,
+    "chat": {
+      "calls": 5,
+      "cancelled": 0,
+      "cost_usd": 0.00033972,
+      "input_tokens": 16531,
+      "output_tokens": 440,
+      "retries": 0
+    },
+    "cost_usd": 0.00057761,
+    "discarded_attempts": 0,
+    "jev": {
+      "calls": 4,
+      "cancelled": 0,
+      "cost_usd": 0.00023789,
+      "input_tokens": 5664,
+      "output_tokens": 921,
+      "retries": 0
+    },
+    "partial": 0,
+    "provider_retry_usd": 0,
+    "seconds": 34.404,
+    "unmetered_upper_usd": 0,
+    "waited_s": 0
+  },
+  "family": "review_hotspot",
+  "grade": {
+    "actual": "core/src/main/scala/kafka/server/DynamicBrokerConfig.scala",
+    "correct": true,
+    "evidence": [
+      "PR #21273 review comments",
+      "8 inline comments on DynamicBrokerConfig.scala"
+    ],
+    "expected": "core/src/main/scala/kafka/server/DynamicBrokerConfig.scala"
+  },
+  "image_id": "sha256:4615b2564319d58319029548af66970c954e128401ee89c8705684861de4bc07",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "5dd1287cf8c7e61f19e37f57369e101aee755ff962b182b19e4854089b127bf6",
+  "run_index": 46,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-review_hotspot-a8b9eae3c9",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 63314,
+    "cost_usd": 0.0104084,
+    "input_tokens": 64091,
+    "output_tokens": 510
+  },
+  "violations": []
+}

@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "discussions.md — KIP-1308 discussion initiated 2026-04-01T15:35:47Z by Aditya Kousik",
+    "issues.md — KAFKA-20387 Extend RecordHeader API for Common Value Types (In Progress, assigned to Axel Dovskog)"
+  ],
+  "value": "KAFKA-20387"
+}

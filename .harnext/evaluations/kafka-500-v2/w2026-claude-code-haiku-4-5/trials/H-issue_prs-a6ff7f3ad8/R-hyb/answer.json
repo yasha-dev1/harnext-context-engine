@@ -1,0 +1,19 @@
+{
+  "evidence": [
+    "github:api:apache/kafka:pr-22041-opened (2026-04-13T21:10:29Z)",
+    "github:api:apache/kafka:pr-22182-opened (2026-04-29T07:48:48Z)",
+    "jira:13647972:change:23020074:0 (KAFKA-20440 linked to PR #22041)",
+    "jira:13647972:change:23040726:0 (KAFKA-20440 linked to PR #22182)",
+    "Absence of gh.pr_merged or gh.pr_closed events for PR #22041 or PR #22182 up to cutoff"
+  ],
+  "value": [
+    {
+      "pr": 22041,
+      "state": "open"
+    },
+    {
+      "pr": 22182,
+      "state": "open"
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "kips-and-discussions.md (lines 1087-1101, 1271-1299)",
+      "window-6-summary.md (lines 333-354)",
+      "Configuration parameter `streams.store.headers.max.bytes` documented in Matthias J. Sax feedback dated 2026-01-12"
+    ],
+    "value": "yes"
+  },
+  "arm": "F6-search",
+  "checkpoint": "2026-01",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 44.5859726510098,
+  "family": "design_decision",
+  "grade": {
+    "actual": "yes",
+    "correct": false,
+    "evidence": [
+      "kips-and-discussions.md (lines 1087-1101, 1271-1299)",
+      "window-6-summary.md (lines 333-354)",
+      "Configuration parameter `streams.store.headers.max.bytes` documented in Matthias J. Sax feedback dated 2026-01-12"
+    ],
+    "expected": "no"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "23bc4b6a2b2b413c20a36b01b48442ee2781c27ce9700a95268ee35ff641db43",
+  "run_index": 57,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-73c3dfd4d4",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 64065,
+    "cost_usd": 0.012930500000000001,
+    "input_tokens": 65503,
+    "output_tokens": 735
+  },
+  "violations": []
+}

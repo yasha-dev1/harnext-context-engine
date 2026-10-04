@@ -1,0 +1,9 @@
+{
+  "evidence": [
+    "discussions/kip-1249-offset-reset-consumer-rebalance.md",
+    "discussions/kip-1249-better-offset-reset.md",
+    "WINDOW-91-SUMMARY.md",
+    "issues/kafka-20195-better-offset-reset-consumer-rebalance.md"
+  ],
+  "value": null
+}

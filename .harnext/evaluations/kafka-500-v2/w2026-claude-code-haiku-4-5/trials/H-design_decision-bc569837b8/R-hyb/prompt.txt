@@ -1,0 +1,9 @@
+Context snapshot cutoff (inclusive): 2026-03-31T23:59:59Z.
+
+In this proposal to let brokers and observer controllers skip storage formatting before startup, as of the final agreement, when the `--cluster-id` flag is used with the storage formatting tool, which meta.properties version does the formatter write? Answer with exactly one of: "V1", "V2". Give the decision as it stood at the snapshot, not an earlier proposal.
+
+Return JSON {"value": <answer>, "evidence": [<ids or file paths of the sources you relied on>]}. Answer as of the cutoff; do not substitute a later or today's issue state.
+
+The MCP server `history` holds the project's recorded history up to the cutoff. Use its tools (search, read_event) to consult it as you see fit; nothing later than the cutoff is in it and there is no network access.
+
+Reply with one JSON object {"value": ..., "evidence": [...]}: `value` is the answer in the requested type (null if it cannot be determined), `evidence` lists the sources you relied on.

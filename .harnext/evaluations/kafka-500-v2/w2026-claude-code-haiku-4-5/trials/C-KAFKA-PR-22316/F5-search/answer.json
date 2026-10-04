@@ -1,0 +1,3 @@
+{
+  "summary": "Implemented readOnly(IsolationLevel) method for MeteredKeyValueStore that returns a metered ReadOnlyKeyValueStore view. The implementation applies serialization/deserialization and records metrics for all read operations on the underlying read-only view of the wrapped store. All 43 tests pass successfully, including tests for get, range, reverseRange, all, reverseAll, prefixScan operations and proper null validation."
+}

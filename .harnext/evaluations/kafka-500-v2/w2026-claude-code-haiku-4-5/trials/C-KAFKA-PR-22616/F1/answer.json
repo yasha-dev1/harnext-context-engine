@@ -1,0 +1,3 @@
+{
+  "summary": "Implemented topology description plugin integration for GroupCoordinatorService (KAFKA-20623 part 3/3). The implementation was nearly complete; only one fix was needed: standardize the error message in StreamsGroupTopologyDescriptionManager.toFailureEntry() to return \"Topology description plugin failed to delete the topology.\" instead of exposing raw plugin exception messages. This ensures clients receive safe, anonymized error messages that don't leak plugin internals. All 30 tests now pass, covering the streamsGroupTopologyDescriptionUpdate RPC, heartbeat post-processing with TopologyDescriptionRequired flag, per-group exponential back-off (30s → 1h), and deleteGroups plugin integration."
+}

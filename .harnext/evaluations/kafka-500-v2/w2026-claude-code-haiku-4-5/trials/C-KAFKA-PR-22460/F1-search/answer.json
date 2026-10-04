@@ -1,0 +1,3 @@
+{
+  "summary": "Implemented KAFKA-20444 (KIP-1319) by adding metadata refresh capability to KafkaProducer.sendOffsetsToTransaction(). Added a new awaitTopicMetadata() method that ensures topicIds are available in metadata before building TxnOffsetCommit requests, enabling v6+ negotiation when topic IDs are present. This aligns TxnOffsetCommit API with OffsetCommit API for topic ID support."
+}

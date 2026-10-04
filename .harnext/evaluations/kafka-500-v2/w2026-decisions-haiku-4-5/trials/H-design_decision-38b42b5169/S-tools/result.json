@@ -1,0 +1,57 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail id: c4bfde361f38ca346dffd233 (Alieh Saeedi, 2026-02-22T14:16:29Z)",
+      "mail id: 6ea3402c8bc00ae4fb37dcf5 (Matthias J. Sax endorsement, 2026-02-22T19:51:59Z)",
+      "GitHub PR 21572: KAFKA-20220 (merged 2026-02-27, implements KIP-1285)"
+    ],
+    "value": "dsl.store.format"
+  },
+  "arm": "S-tools",
+  "checkpoint": "2026-02",
+  "cli_calls": {
+    "gh": 9,
+    "git": 1,
+    "jira": 3,
+    "mail": 5
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 110.39055169399944,
+  "family": "design_decision",
+  "grade": {
+    "actual": "dsl.store.format",
+    "correct": true,
+    "evidence": [
+      "mail id: c4bfde361f38ca346dffd233 (Alieh Saeedi, 2026-02-22T14:16:29Z)",
+      "mail id: 6ea3402c8bc00ae4fb37dcf5 (Matthias J. Sax endorsement, 2026-02-22T19:51:59Z)",
+      "GitHub PR 21572: KAFKA-20220 (merged 2026-02-27, implements KIP-1285)"
+    ],
+    "expected": "dsl.store.format"
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 17,
+  "prompt_sha256": "0d9537728e741f725459eda5f763a567830a7f4e1a943d7198e8ca7e30153710",
+  "run_index": 14,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-38b42b5169",
+  "tool_calls": {
+    "Bash": 18,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 417321,
+    "cost_usd": 0.0972951,
+    "input_tokens": 435626,
+    "output_tokens": 3818
+  },
+  "violations": []
+}

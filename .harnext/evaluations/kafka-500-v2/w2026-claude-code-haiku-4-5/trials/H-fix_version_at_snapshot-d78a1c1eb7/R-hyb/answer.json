@@ -1,0 +1,9 @@
+{
+  "evidence": [
+    "jira:13639570:change:22897189:0 (2026-01-28T17:48:54Z: fixVersion (none) → 4.3.0)",
+    "mail:6626c1ad4685db345c666e0e (resolved notification showing 'Fix For: 4.3.0')"
+  ],
+  "value": [
+    "4.3.0"
+  ]
+}

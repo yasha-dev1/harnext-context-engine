@@ -1,0 +1,10 @@
+{
+  "evidence": [
+    "pull-requests.md: PR #21780 merged 2026-03-18T23:37:18Z for KAFKA-20317",
+    "issues.md: KAFKA-20317 created 2026-03-16, related PR #21780 mentioned with RocksDBMigratingWindowStoreWithHeaders",
+    "Harnext context_research confirmed no file listing details in stored records"
+  ],
+  "value": [
+    "Cannot determine - detailed file listings not available in context store"
+  ]
+}

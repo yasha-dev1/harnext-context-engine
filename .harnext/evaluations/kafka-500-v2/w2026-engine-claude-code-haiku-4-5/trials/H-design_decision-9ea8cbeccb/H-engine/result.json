@@ -1,0 +1,76 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail:e642854b70621211dd0154f1"
+    ],
+    "value": "yes, retries target a different broker"
+  },
+  "arm": "H-engine",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 718.6351276210007,
+  "engine": {
+    "calls": 7,
+    "chat": {
+      "calls": 129,
+      "cancelled": 6,
+      "cost_usd": 0.01295711,
+      "input_tokens": 653052,
+      "output_tokens": 10617,
+      "retries": 0
+    },
+    "cost_usd": 0.03082356,
+    "discarded_attempts": 0,
+    "jev": {
+      "calls": 207,
+      "cancelled": 0,
+      "cost_usd": 0.01786645,
+      "input_tokens": 425392,
+      "output_tokens": 77526,
+      "retries": 0
+    },
+    "partial": 6,
+    "provider_retry_usd": 0,
+    "seconds": 696.233,
+    "unmetered_upper_usd": 0.00204176,
+    "waited_s": 0
+  },
+  "family": "design_decision",
+  "grade": {
+    "actual": "yes, retries target a different broker",
+    "correct": true,
+    "evidence": [
+      "mail:e642854b70621211dd0154f1"
+    ],
+    "expected": "yes, retries target a different broker"
+  },
+  "image_id": "sha256:4615b2564319d58319029548af66970c954e128401ee89c8705684861de4bc07",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 9,
+  "prompt_sha256": "e370cd654aeac275133c4f87927046570a0ca9dbb7dccb47e44e4e4a9259e738",
+  "run_index": 73,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-9ea8cbeccb",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 7
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 204734,
+    "cost_usd": 0.0381674,
+    "input_tokens": 210236,
+    "output_tokens": 1353
+  },
+  "violations": []
+}

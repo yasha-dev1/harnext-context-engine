@@ -1,0 +1,63 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "pull-requests.md: PR #21758 merged at 2026-03-17T07:04:07Z",
+      "window-67-summary.md: KAFKA-20288 events [evt:0050, 0171-0175] showing merge (evt:0171) before status resolution (evt:0174)",
+      "jira-issues.md: KAFKA-20288 linked PR #21758 with status Resolved and fixVersion 4.3.0"
+    ],
+    "value": {
+      "days": 0,
+      "first": "merge"
+    }
+  },
+  "arm": "F6-search",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 403.39172461099224,
+  "family": "resolution_vs_merge_order",
+  "grade": {
+    "actual": {
+      "days": 0,
+      "first": "merge"
+    },
+    "correct": true,
+    "evidence": [
+      "pull-requests.md: PR #21758 merged at 2026-03-17T07:04:07Z",
+      "window-67-summary.md: KAFKA-20288 events [evt:0050, 0171-0175] showing merge (evt:0171) before status resolution (evt:0174)",
+      "jira-issues.md: KAFKA-20288 linked PR #21758 with status Resolved and fixVersion 4.3.0"
+    ],
+    "expected": {
+      "days": 0,
+      "first": "merge"
+    }
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 17,
+  "prompt_sha256": "f5ce82186ff968496e4b0645ee7c2c1879da5a8f5e3abb3939e4e02db7b3a7e7",
+  "run_index": 45,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-resolution_vs_merge_order-4a064b1b13",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 5,
+    "mcp__history__search_context": 10
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 606551,
+    "cost_usd": 0.16737309999999997,
+    "input_tokens": 644157,
+    "output_tokens": 6329
+  },
+  "violations": []
+}

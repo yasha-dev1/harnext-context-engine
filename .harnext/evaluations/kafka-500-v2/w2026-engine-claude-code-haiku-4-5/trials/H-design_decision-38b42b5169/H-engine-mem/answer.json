@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86qoXgU (PR #21572, 2026-02-27, reviewer mjsax)",
+    "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86qobYY (PR #21572, 2026-02-27, reviewer mjsax)",
+    "KIP-1285 DSL Opt-in Support for Header-Aware State Stores"
+  ],
+  "value": "StreamsConfig.DSL_STORE_FORMAT_HEADERS"
+}

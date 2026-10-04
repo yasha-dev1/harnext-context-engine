@@ -1,0 +1,9 @@
+{
+  "evidence": [
+    "Empty workspace (/workspace directory)",
+    "No project files found on filesystem",
+    "No network access to retrieve external resources",
+    "Knowledge cutoff (February 2025) predates requested snapshot date (January 31, 2026)"
+  ],
+  "value": null
+}

@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "pull-requests.md (lines 4706-4722)",
+    "PR #22191 for KIP-1312: UnregisterControllerRecord metadata record schema + new MetadataVersion IBP_4_4_IV2"
+  ],
+  "value": "new record type"
+}

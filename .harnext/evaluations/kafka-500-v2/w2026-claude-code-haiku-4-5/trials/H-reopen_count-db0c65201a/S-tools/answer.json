@@ -1,0 +1,6 @@
+{
+  "evidence": [
+    "jira issue view KAFKA-18866 --history - shows only one status transition: Open → Resolved on 2026-02-26, with no transitions to Reopened status prior to snapshot cutoff 2026-05-31"
+  ],
+  "value": 0
+}

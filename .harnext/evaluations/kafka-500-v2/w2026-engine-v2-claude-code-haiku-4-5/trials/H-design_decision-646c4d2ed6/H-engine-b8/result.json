@@ -1,0 +1,94 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail:5bf246535561f045598ad4c1",
+      "mail:08dcd0d5ccdb8dc863bd8b83",
+      "mail:14603fe178a2918193dba4b3",
+      "mail:12165bf3fba14415eca7bb84",
+      "mail:69b893b090957b459769c8b7",
+      "mail:6def42f5e2853864e7eeaa1a",
+      "mail:6fb537325fe351ea68514fbf",
+      "mail:8460c052a66c8b38c9db756e",
+      "mail:d439955a9bb9a77c5a677e1e",
+      "mail:dbb9ad0ba90f7a1a862c5d37"
+    ],
+    "value": null
+  },
+  "arm": "H-engine-b8",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 71.98199776200636,
+  "engine": {
+    "calls": 1,
+    "chat": {
+      "calls": 19,
+      "cancelled": 0,
+      "cost_usd": 0.00424876,
+      "input_tokens": 137864,
+      "output_tokens": 2080,
+      "retries": 0
+    },
+    "cost_usd": 0.00600281,
+    "discarded_attempts": 0,
+    "jev": {
+      "calls": 19,
+      "cancelled": 0,
+      "cost_usd": 0.00175405,
+      "input_tokens": 41763,
+      "output_tokens": 6111,
+      "retries": 0
+    },
+    "partial": 0,
+    "provider_retry_usd": 0,
+    "seconds": 58.505,
+    "unmetered_upper_usd": 0,
+    "waited_s": 0
+  },
+  "family": "design_decision",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "mail:5bf246535561f045598ad4c1",
+      "mail:08dcd0d5ccdb8dc863bd8b83",
+      "mail:14603fe178a2918193dba4b3",
+      "mail:12165bf3fba14415eca7bb84",
+      "mail:69b893b090957b459769c8b7",
+      "mail:6def42f5e2853864e7eeaa1a",
+      "mail:6fb537325fe351ea68514fbf",
+      "mail:8460c052a66c8b38c9db756e",
+      "mail:d439955a9bb9a77c5a677e1e",
+      "mail:dbb9ad0ba90f7a1a862c5d37"
+    ],
+    "expected": "new record type"
+  },
+  "image_id": "sha256:1de715f951a3fc013cabad66407b87028bc2a5af6e58efdea5338b4cf9fb1485",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "275264602d63c3a33fdf183192095b9d385c2205f054f7e1c707f5214cc8cd70",
+  "run_index": 58,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-646c4d2ed6",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 59996,
+    "cost_usd": 0.0191506,
+    "input_tokens": 64755,
+    "output_tokens": 732
+  },
+  "violations": []
+}

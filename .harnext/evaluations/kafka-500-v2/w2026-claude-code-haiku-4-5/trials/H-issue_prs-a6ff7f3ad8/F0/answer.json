@@ -1,0 +1,18 @@
+{
+  "evidence": [
+    "store/events/2026/04/13/github-api-apache-kafka-pr-22041-opened-ecf243c4.md",
+    "store/events/2026/04/29/github-api-apache-kafka-pr-22182-opened-675f3bb2.md",
+    "store/events/2026/04/21/github-api-apache-kafka-comment-IC_kwDOACG9q87_tjY7-d44cc9d5.md",
+    "store/events/2026/04/21/jira-13647972-change-23031350-0-bb755345.md"
+  ],
+  "value": [
+    {
+      "pr": 22041,
+      "state": "open"
+    },
+    {
+      "pr": 22182,
+      "state": "open"
+    }
+  ]
+}

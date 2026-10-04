@@ -1,0 +1,53 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail message 6cd700a13d988e1df4186856 (Ankur Sinha's discussion thread on 2026-05-20)",
+      "JIRA issue KAFKA-20604 (created 2026-05-24, tracks KIP-1348 implementation)"
+    ],
+    "value": "KAFKA-20604"
+  },
+  "arm": "S-tools",
+  "checkpoint": "2026-05",
+  "cli_calls": {
+    "jira": 2,
+    "mail": 3
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 99.08868626700132,
+  "family": "implicit_link",
+  "grade": {
+    "actual": "KAFKA-20604",
+    "correct": true,
+    "evidence": [
+      "mail message 6cd700a13d988e1df4186856 (Ankur Sinha's discussion thread on 2026-05-20)",
+      "JIRA issue KAFKA-20604 (created 2026-05-24, tracks KIP-1348 implementation)"
+    ],
+    "expected": "KAFKA-20604"
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 6,
+  "prompt_sha256": "f865c6dabe78d441663adbe199f38eca5747c58c55fdd1f7ba0f939bbf2e647c",
+  "run_index": 0,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-implicit_link-e8c868d609",
+  "tool_calls": {
+    "Bash": 5,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 127054,
+    "cost_usd": 0.0337364,
+    "input_tokens": 134039,
+    "output_tokens": 1422
+  },
+  "violations": []
+}

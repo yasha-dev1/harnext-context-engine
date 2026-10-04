@@ -1,0 +1,3 @@
+{
+  "summary": "Implemented client-side support for GROUP_ID_NOT_FOUND and STALE_MEMBER_EPOCH error codes in TxnOffsetCommit responses. These new error codes are part of KIP-1319 alignment of TxnOffsetCommit with OffsetCommit API. Added handling in TransactionManager.TxnOffsetCommitHandler.handleResponse() to convert these errors to CommitFailedException with appropriate error messages, matching the behavior for UNKNOWN_MEMBER_ID and ILLEGAL_GENERATION errors. All 168 TransactionManagerTest tests now pass."
+}

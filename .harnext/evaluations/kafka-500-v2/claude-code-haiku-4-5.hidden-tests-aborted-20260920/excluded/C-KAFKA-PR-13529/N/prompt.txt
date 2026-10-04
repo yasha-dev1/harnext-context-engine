@@ -1,0 +1,68 @@
+Context snapshot cutoff (inclusive): 2023-04-08T08:54:15Z.
+
+The workspace is the apache/kafka repository at commit 21af1918eafa30812a955c3c0295b9e968841cd3.
+
+Issue KAFKA-14133: Remaining EasyMock to Mockito tests
+
+{color:#de350b}There are tests which use both PowerMock and EasyMock. I have put those in https://issues.apache.org/jira/browse/KAFKA-14132. Tests here rely solely on EasyMock.{color}
+
+Unless stated in brackets the tests are in the streams module.
+
+A list of tests which still require to be moved from EasyMock to Mockito as of 2nd of August 2022 which do not have a Jira issue and do not have pull requests I am aware of which are opened:
+
+{color:#ff8b00}In Review{color}
+{color:#00875a}Merged{color}
+ # {color:#00875a}WorkerConnectorTest{color} (connect) (owner: [~yash.mayya] )
+ # {color:#00875a}WorkerCoordinatorTest{color} (connect) (owner: [~yash.mayya] )
+ # {color:#00875a}RootResourceTest{color} (connect) (owner: [~yash.mayya] )
+ # {color:#00875a}ByteArrayProducerRecordEquals{color} (connect) (owner: [~yash.mayya] )
+ # {color:#00875a}KStreamFlatTransformTest{color} (owner: Christo)
+ # {color:#00875a}KStreamFlatTransformValuesTest{color} (owner: Christo)
+ # {color:#00875a}KStreamPrintTest{color} (owner: Christo)
+ # {color:#00875a}KStreamRepartitionTest{color} (owner: Christo)
+ # {color:#00875a}MaterializedInternalTest{color} (owner: Christo)
+ # {color:#00875a}TransformerSupplierAdapterTest{color} (owner: Christo)
+ # {color:#00875a}KTableSuppressProcessorMetricsTest{color} (owner: Christo)
+ # {color:#00875a}ClientUtilsTest{color} (owner: Christo)
+ # {color:#00875a}HighAvailabilityStreamsPartitionAssignorTest{color} (owner: Christo)
+ # {color:#00875a}TopologyTest{color} (owner: Christo)
+ # {color:#00875a}KTableSuppressProcessorTest{color} (owner: Christo)
+ # {color:#00875a}ChangeLoggingSessionBytesStoreTest{color} (owner: Christo)
+ # {color:#00875a}ChangeLoggingTimestampedWindowBytesStoreTest{color} (owner: Christo)
+ # {color:#00875a}ChangeLoggingWindowBytesStoreTest{color} (owner: Christo)
+ # {color:#00875a}MeteredTimestampedWindowStoreTest{color} (owner: Christo)
+ # {color:#00875a}StreamsRebalanceListenerTest{color} (owner: Christo)
+ # {color:#00875a}TimestampedKeyValueStoreMaterializerTest{color} (owner: Christo)
+ # {color:#00875a}CachingInMemoryKeyValueStoreTest{color} (owner: Christo)
+ # {color:#00875a}CachingInMemorySessionStoreTest{color} (owner: Christo)
+ # {color:#00875a}CachingPersistentSessionStoreTest{color} (owner: Christo)
+ # {color:#00875a}CachingPersistentWindowStoreTest{color} (owner: Christo)
+ # {color:#00875a}ChangeLoggingKeyValueBytesStoreTest{color} (owner: Christo)
+ # {color:#00875a}ChangeLoggingTimestampedKeyValueBytesStoreTest{color} (owner: Christo)
+ # {color:#00875a}CompositeReadOnlyWindowStoreTest{color} (owner: Christo)
+ # {color:#00875a}KeyValueStoreBuilderTest{color} (owner: Christo)
+ # {color:#00875a}RocksDBStoreTest{color} (owner: Christo)
+ # {color:#00875a}StreamThreadStateStoreProviderTest{color} (owner: Christo)
+ # {color:#ff8b00}TaskManagerTest{color} (owner: Christo)
+ # {color:#00875a}InternalTopicManagerTest{color} (owner: Christo)
+ # {color:#00875a}ProcessorContextImplTest{color} (owner: Christo)
+ # {color:#00875a}WriteConsistencyVectorTest{color} (owner: Christo)
+ # {color:#00875a}StreamsAssignmentScaleTest{color} (owner: Christo)
+ # {color:#00875a}StreamsPartitionAssignorTest{color} (owner: Christo)
+ # {color:#00875a}AssignmentTestUtils{color} (owner: Christo)
+ # {color:#ff8b00}ProcessorStateManagerTest{color} (owner: Matthew)
+ # {color:#ff8b00}StandbyTaskTest{color} (owner: Matthew)
+ # {color:#ff8b00}StoreChangelogReaderTest{color} (owner: Matthew)
+ # {color:#ff8b00}StreamTaskTest{color} (owner: Matthew)
+ # {color:#ff8b00}StreamThreadTest{color} (owner: Matthew)
+ # {color:#ff8b00}StreamsMetricsImplTest{color} (owner: Dalibor) (Captured in https://issues.apache.org/jira/browse/KAFKA-12947)
+ # {color:#ff8b00}TimeOrderedCachingPersistentWindowStoreTest{color} (owner: [~shekharrajak]) [https://github.com/apache/kafka/pull/12739] 
+ # {color:#00875a}TimeOrderedWindowStoreTest{color} (owners: [~shekharrajak]) [https://github.com/apache/kafka/pull/12777] 
+
+*The coverage report for the above tests after the change should be >= to what the coverage is now.*
+
+Implement the change this issue asks for by editing the workspace so that the project's tests pass. Hidden tests written for this change will be run against your workspace when you finish; they are not part of the workspace. Keep the change focused and do not substitute knowledge of how the project evolved after the cutoff.
+
+No project-history context is provided for this task. Work from the task statement, the repository and your own knowledge; there is no network access.
+
+The repository is checked out at /workspace. The workspace is a git repository whose history ends at the base commit; `git log`, `git blame` and `git show` work offline. Make the change by editing source files there; hidden tests decide whether the issue is resolved. Gradle works offline only (`./gradlew :module:test --tests X --offline`). Finish with one JSON object {"summary": "..."}.

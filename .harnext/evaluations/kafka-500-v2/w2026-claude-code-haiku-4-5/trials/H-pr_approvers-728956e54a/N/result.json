@@ -1,0 +1,58 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "No access to GitHub API (network disabled)",
+      "Knowledge cutoff: February 2025 (PR opened March 2026)",
+      "No local project-history context provided"
+    ],
+    "value": [
+      "null"
+    ]
+  },
+  "arm": "N",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 6.739074094002717,
+  "family": "pr_approvers",
+  "grade": {
+    "actual": [
+      "null"
+    ],
+    "correct": false,
+    "evidence": [
+      "No access to GitHub API (network disabled)",
+      "Knowledge cutoff: February 2025 (PR opened March 2026)",
+      "No local project-history context provided"
+    ],
+    "expected": [
+      "AndrewJSchofield",
+      "showuon"
+    ]
+  },
+  "instructions_sha256": null,
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 1,
+  "prompt_sha256": "3ed54c84d43d24be7101956f4b8c844a477fd9f3e3d422f9763b4b5d4292394d",
+  "run_index": 49,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-pr_approvers-728956e54a",
+  "tool_calls": {
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 17503,
+    "cost_usd": 0.0108783,
+    "input_tokens": 20614,
+    "output_tokens": 583
+  },
+  "violations": []
+}

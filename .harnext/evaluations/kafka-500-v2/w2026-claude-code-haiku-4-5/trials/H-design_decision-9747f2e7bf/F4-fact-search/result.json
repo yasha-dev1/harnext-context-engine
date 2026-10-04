@@ -1,0 +1,51 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "discussions/kip-1324-client-configuration-observability.md (lines 55-63: Responses to Apoorv Mittal Questions, AM4)",
+      "WINDOW-119-SUMMARY.md (May 15, 2026 discussion update)"
+    ],
+    "value": "ClientConfigTooLargeException"
+  },
+  "arm": "F4-fact-search",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 171.17786101601087,
+  "family": "design_decision",
+  "grade": {
+    "actual": "ClientConfigTooLargeException",
+    "correct": false,
+    "evidence": [
+      "discussions/kip-1324-client-configuration-observability.md (lines 55-63: Responses to Apoorv Mittal Questions, AM4)",
+      "WINDOW-119-SUMMARY.md (May 15, 2026 discussion update)"
+    ],
+    "expected": "ConfigTooLargeException"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 28,
+  "prompt_sha256": "6c7d6c42de5e2cdef303dcfc7221678c25f3e7b16714e3ce972bc979b9efc015",
+  "run_index": 72,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-9747f2e7bf",
+  "tool_calls": {
+    "ToolSearch": 1,
+    "mcp__history__context_research": 3,
+    "mcp__history__search_context": 22
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 1076309,
+    "cost_usd": 0.21601690000000004,
+    "input_tokens": 1113809,
+    "output_tokens": 6723
+  },
+  "violations": []
+}

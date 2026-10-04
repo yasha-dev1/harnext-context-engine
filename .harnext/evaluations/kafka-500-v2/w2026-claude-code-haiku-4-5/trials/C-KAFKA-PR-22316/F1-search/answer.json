@@ -1,0 +1,3 @@
+{
+  "summary": "Successfully implemented KAFKA-20497 by adding a custom ReadOnlyView implementation to MeteredKeyValueStore. The readOnly(IsolationLevel) method returns a ReadOnlyView that wraps the inner store's isolation-level-aware view while applying metrics and serdes to all read operations. All 45 MeteredKeyValueStoreTest tests pass."
+}

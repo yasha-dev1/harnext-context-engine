@@ -1,0 +1,9 @@
+{
+  "evidence": [
+    "kips/KIP-1331.md",
+    "kips/KIP-1331-streams-group-topology-description.md",
+    "kips-discussions.md",
+    "jira-issues.md"
+  ],
+  "value": null
+}

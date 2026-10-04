@@ -1,0 +1,90 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86ppdme",
+      "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86psVlJ",
+      "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86p8ow3",
+      "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86pI1Oz",
+      "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86o11In",
+      "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86o1uEQ",
+      "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86o1F0K",
+      "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86o1C0N"
+    ],
+    "value": "core/src/main/scala/kafka/server/DynamicBrokerConfig.scala"
+  },
+  "arm": "H-engine-b8",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 50.04281073600578,
+  "engine": {
+    "calls": 1,
+    "chat": {
+      "calls": 6,
+      "cancelled": 0,
+      "cost_usd": 0.00126289,
+      "input_tokens": 29620,
+      "output_tokens": 2991,
+      "retries": 0
+    },
+    "cost_usd": 0.00161157,
+    "discarded_attempts": 0,
+    "jev": {
+      "calls": 4,
+      "cancelled": 0,
+      "cost_usd": 0.00034868,
+      "input_tokens": 8302,
+      "output_tokens": 905,
+      "retries": 0
+    },
+    "partial": 0,
+    "provider_retry_usd": 0,
+    "seconds": 34.357,
+    "unmetered_upper_usd": 0,
+    "waited_s": 0
+  },
+  "family": "review_hotspot",
+  "grade": {
+    "actual": "core/src/main/scala/kafka/server/DynamicBrokerConfig.scala",
+    "correct": true,
+    "evidence": [
+      "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86ppdme",
+      "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86psVlJ",
+      "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86p8ow3",
+      "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86pI1Oz",
+      "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86o11In",
+      "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86o1uEQ",
+      "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86o1F0K",
+      "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86o1C0N"
+    ],
+    "expected": "core/src/main/scala/kafka/server/DynamicBrokerConfig.scala"
+  },
+  "image_id": "sha256:1de715f951a3fc013cabad66407b87028bc2a5af6e58efdea5338b4cf9fb1485",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "5dd1287cf8c7e61f19e37f57369e101aee755ff962b182b19e4854089b127bf6",
+  "run_index": 34,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-review_hotspot-a8b9eae3c9",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 59825,
+    "cost_usd": 0.0215925,
+    "input_tokens": 65676,
+    "output_tokens": 787
+  },
+  "violations": []
+}

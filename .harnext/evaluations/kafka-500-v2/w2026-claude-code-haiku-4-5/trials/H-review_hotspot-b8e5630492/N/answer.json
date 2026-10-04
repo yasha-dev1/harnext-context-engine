@@ -1,0 +1,9 @@
+{
+  "evidence": [
+    "No repository access",
+    "No network access",
+    "No project context provided",
+    "Working directory is not a git repository"
+  ],
+  "value": "null"
+}

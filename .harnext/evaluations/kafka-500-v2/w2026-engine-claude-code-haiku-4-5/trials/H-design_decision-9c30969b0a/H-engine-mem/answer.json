@@ -1,0 +1,11 @@
+{
+  "evidence": [
+    "mail:98c74ce0cc524d41899cb8ac - KIP-1285 creation (2026-02-18)",
+    "mail:2369f96bca60829ee377e605 - Initial enum proposal (2026-02-19)",
+    "mail:c4bfde361f38ca346dffd233 - Confirmation of DslStoreFormat name as of 2026-02-22",
+    "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86qoWyK - PR review showing DslStoreFormat usage (2026-02-27)",
+    "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86qoXgU - PR review confirming DslStoreFormat usage (2026-02-27)",
+    "github:api:apache/kafka:review-comment-PRRC_kwDOACG9q86qodJ7 - Code snippet demonstrating DslStoreFormat in DslKeyValueParams (2026-02-27)"
+  ],
+  "value": "DslStoreFormat"
+}

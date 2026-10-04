@@ -1,0 +1,53 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "entities/issue/KAFKA-1014/OVERVIEW.md",
+      "entities/thread/JIRA.12664433.1376941777000-Atlassian.JIRA-f5c96da9/OVERVIEW.md",
+      "entities/issue/KAFKA-1014/timeline.md"
+    ],
+    "value": "Abandoned"
+  },
+  "arm": "F1",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 27.024047863000305,
+  "family": "resolution_at_snapshot",
+  "grade": {
+    "actual": "Abandoned",
+    "correct": true,
+    "evidence": [
+      "entities/issue/KAFKA-1014/OVERVIEW.md",
+      "entities/thread/JIRA.12664433.1376941777000-Atlassian.JIRA-f5c96da9/OVERVIEW.md",
+      "entities/issue/KAFKA-1014/timeline.md"
+    ],
+    "expected": "Abandoned"
+  },
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "0a72105a3e0bef5edbb0ad94bc6d44cf35e2a6ed8133aa98b54a4a79020ca38f",
+  "run_index": 25,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-resolution_at_snapshot-449cfc19c6",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 63425,
+    "cost_usd": 0.011432499999999998,
+    "input_tokens": 64356,
+    "output_tokens": 651
+  },
+  "violations": []
+}

@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "Cannot verify: knowledge cutoff (February 2025) is before issue creation date (April 2026)",
+    "No project-history context provided",
+    "No network access to query Apache Kafka JIRA instance"
+  ],
+  "value": 0
+}

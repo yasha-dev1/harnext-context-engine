@@ -1,0 +1,54 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "entities/kip/KIP-1262/timeline.md - KIP-1262 final discussion on 2026-03-31",
+      "entities/issue/KAFKA-20208/OVERVIEW.md - Related issue about meta.properties updates with ClusterIdRecord",
+      "entities/thread/CACvVgwGtqLAOzTb2ffjWecS-NvJGZH4Fuupg9xXAyUj9_ocUHg-mail.gmail.com-8e958fd6/timeline.md - Final discussion thread through March 31, 2026"
+    ],
+    "value": null
+  },
+  "arm": "F1-search",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 226.8716027269984,
+  "family": "design_decision",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "entities/kip/KIP-1262/timeline.md - KIP-1262 final discussion on 2026-03-31",
+      "entities/issue/KAFKA-20208/OVERVIEW.md - Related issue about meta.properties updates with ClusterIdRecord",
+      "entities/thread/CACvVgwGtqLAOzTb2ffjWecS-NvJGZH4Fuupg9xXAyUj9_ocUHg-mail.gmail.com-8e958fd6/timeline.md - Final discussion thread through March 31, 2026"
+    ],
+    "expected": "V2"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 25,
+  "prompt_sha256": "0d33695245530d943854f5c46c098fc99cb088887ae1509f459d3321657a6b74",
+  "run_index": 50,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-bc569837b8",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 2,
+    "mcp__history__search_context": 21
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 1288837,
+    "cost_usd": 0.2839657,
+    "input_tokens": 1355157,
+    "output_tokens": 4529
+  },
+  "violations": []
+}

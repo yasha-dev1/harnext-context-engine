@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "mail search result: 808bc6785589a2f7f1be1aa5 - JIRA notification from Kirk True (Jira) dated 2026-04-23T17:54:00Z showing creation of KAFKA-20525 with summary 'Support client configuration observability'",
+    "This JIRA issue was created on the same date as Kirk True's mailing list thread '[DISCUSS] KIP-1324: Support client configuration observability' and describes the implementation of KIP-1324"
+  ],
+  "value": "KAFKA-20525"
+}

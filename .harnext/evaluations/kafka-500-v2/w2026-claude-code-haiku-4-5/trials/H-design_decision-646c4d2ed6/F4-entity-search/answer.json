@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "store/pull-requests/22191.md",
+    "store/WINDOW-108-2026-05-01-to-2026-05-02-summary.md",
+    "store/kips/KIP-1312.md"
+  ],
+  "value": "new record type"
+}

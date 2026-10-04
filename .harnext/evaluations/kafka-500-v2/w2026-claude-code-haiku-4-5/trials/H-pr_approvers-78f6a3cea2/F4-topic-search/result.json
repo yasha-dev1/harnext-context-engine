@@ -1,0 +1,59 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "/store/pull-requests.md (lines 448-456)"
+    ],
+    "value": [
+      "muralibasani",
+      "pratyakshsharma"
+    ]
+  },
+  "arm": "F4-topic-search",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 26.03941840599873,
+  "family": "pr_approvers",
+  "grade": {
+    "actual": [
+      "muralibasani",
+      "pratyakshsharma"
+    ],
+    "correct": false,
+    "evidence": [
+      "/store/pull-requests.md (lines 448-456)"
+    ],
+    "expected": [
+      "m1a2st",
+      "muralibasani",
+      "pratyakshsharma"
+    ]
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "f1d2b3c6e891ad691e878b570d2a39b788b8c1117bc323f2f3d88c07c6388106",
+  "run_index": 19,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-pr_approvers-78f6a3cea2",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 64065,
+    "cost_usd": 0.0124585,
+    "input_tokens": 65277,
+    "output_tokens": 731
+  },
+  "violations": []
+}

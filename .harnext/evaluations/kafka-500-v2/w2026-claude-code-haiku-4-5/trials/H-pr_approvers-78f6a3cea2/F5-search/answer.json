@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "INDEX.md — PR #22177 listed in 'Entities Processed (Extended)' as under active review, but no detailed entity directory with approval information exists",
+    "context_research result — confirmed that no dedicated entity directory (entities/pr/apache__kafka__22177/) with OVERVIEW.md, timeline.md, or facts.md files containing review and approval details has been incorporated into the context filesystem"
+  ],
+  "value": []
+}

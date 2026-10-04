@@ -1,0 +1,52 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "discussions/window-115-kip-discussions.md (lines 30-42)",
+      "KIP-1331: Streams Group Topology Description Plugin discussions"
+    ],
+    "value": "group.streams.topology.description.plugin.class"
+  },
+  "arm": "F4-fact-search",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 71.129885775008,
+  "family": "design_decision",
+  "grade": {
+    "actual": "group.streams.topology.description.plugin.class",
+    "correct": true,
+    "evidence": [
+      "discussions/window-115-kip-discussions.md (lines 30-42)",
+      "KIP-1331: Streams Group Topology Description Plugin discussions"
+    ],
+    "expected": "group.streams.topology.description.plugin.class"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 4,
+  "prompt_sha256": "af1946c771b8f6518012408f97b041b0b61ff905af6a8e040695b76d2f21d7f9",
+  "run_index": 74,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-1bf0682184",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 86369,
+    "cost_usd": 0.0167719,
+    "input_tokens": 88384,
+    "output_tokens": 828
+  },
+  "violations": []
+}

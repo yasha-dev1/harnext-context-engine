@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "mail:c4bfde361f38ca346dffd233 (Alieh Saeedi, 2026-02-22T14:16:29Z) - confirms property renamed to dsl.store.format",
+    "mail:6ea3402c8bc00ae4fb37dcf5 (Matthias J. Sax, 2026-02-22T19:51:59Z) - confirms approval of format naming",
+    "KIP-1285: DSL Opt-in Support for Header-Aware State Stores discussion thread"
+  ],
+  "value": "dsl.store.format"
+}

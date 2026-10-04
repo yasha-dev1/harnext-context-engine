@@ -1,0 +1,57 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "store/entities/issue/KAFKA-20336/timeline.md",
+      "store/entities/issue/KAFKA-20336/OVERVIEW.md"
+    ],
+    "value": [
+      "4.3.0"
+    ]
+  },
+  "arm": "F1",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 25.87982416900195,
+  "family": "fix_version_at_snapshot",
+  "grade": {
+    "actual": [
+      "4.3.0"
+    ],
+    "correct": true,
+    "evidence": [
+      "store/entities/issue/KAFKA-20336/timeline.md",
+      "store/entities/issue/KAFKA-20336/OVERVIEW.md"
+    ],
+    "expected": [
+      "4.3.0"
+    ]
+  },
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "64f5711949b784c5e0e3390009fb7abd6165aacab7a0efcf054f90fa06472003",
+  "run_index": 9,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-fix_version_at_snapshot-af2f4eda70",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 42672,
+    "cost_usd": 0.0515582,
+    "input_tokens": 64706,
+    "output_tokens": 650
+  },
+  "violations": []
+}

@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "kips/KIP-1312.md",
+    "pull-requests/22191.md",
+    "issues/KAFKA-20395.md"
+  ],
+  "value": null
+}

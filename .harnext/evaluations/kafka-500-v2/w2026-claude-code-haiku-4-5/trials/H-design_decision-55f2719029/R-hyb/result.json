@@ -1,0 +1,52 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail:f7476bc5df952b32c1079dd3 — Viktor Somogyi-Vass response on 2026-04-24T13:46:02Z in KIP-1163 discussion thread",
+      "thread:e11380ca-ac68-40e7-900f-03c7f7054ed8@app.fastmail.com — KIP-1163: Diskless Core discussion"
+    ],
+    "value": "list"
+  },
+  "arm": "R-hyb",
+  "checkpoint": "2026-04",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 64.12954877600714,
+  "family": "design_decision",
+  "grade": {
+    "actual": "list",
+    "correct": true,
+    "evidence": [
+      "mail:f7476bc5df952b32c1079dd3 — Viktor Somogyi-Vass response on 2026-04-24T13:46:02Z in KIP-1163 discussion thread",
+      "thread:e11380ca-ac68-40e7-900f-03c7f7054ed8@app.fastmail.com — KIP-1163: Diskless Core discussion"
+    ],
+    "expected": "list"
+  },
+  "instructions_sha256": "dfaa5b284d06c378ef7e4c08b53dc77835c91d7591fca0335bbfa33d3e53eb37",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 8,
+  "prompt_sha256": "74b315e6f05da2b7026490b5176f04115b7d7438cb3064af656ed712758e873a",
+  "run_index": 64,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-55f2719029",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__read_event": 2,
+    "mcp__history__search": 4
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 236915,
+    "cost_usd": 0.10149449999999999,
+    "input_tokens": 268345,
+    "output_tokens": 3002
+  },
+  "violations": []
+}

@@ -1,0 +1,71 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail:550c648f6ddf3a323092287d",
+      "mail:ce4c9730ee6c37bc81d0cd1e",
+      "mail:7a0ea32c35a9c834851850f8",
+      "mail:30137767042bf7e848f7a807",
+      "mail:d6912ccc512d32df7a246110",
+      "mail:263b0239b98e36fe0c99fba8",
+      "mail:76ee52d9d68208a0d58e2091"
+    ],
+    "value": {
+      "participants": 7,
+      "starter": "Lianet Magrans"
+    }
+  },
+  "arm": "R-hyb",
+  "checkpoint": "2026-03",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 135.68361522800114,
+  "family": "kip_thread",
+  "grade": {
+    "actual": {
+      "participants": 7,
+      "starter": "Lianet Magrans"
+    },
+    "correct": false,
+    "evidence": [
+      "mail:550c648f6ddf3a323092287d",
+      "mail:ce4c9730ee6c37bc81d0cd1e",
+      "mail:7a0ea32c35a9c834851850f8",
+      "mail:30137767042bf7e848f7a807",
+      "mail:d6912ccc512d32df7a246110",
+      "mail:263b0239b98e36fe0c99fba8",
+      "mail:76ee52d9d68208a0d58e2091"
+    ],
+    "expected": {
+      "participants": 8,
+      "starter": "Lianet Magrans"
+    }
+  },
+  "instructions_sha256": "dfaa5b284d06c378ef7e4c08b53dc77835c91d7591fca0335bbfa33d3e53eb37",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 18,
+  "prompt_sha256": "1979823d48a5cd0b16faaa24ba379702156522aac74b380fa8b7036eda1f94a3",
+  "run_index": 17,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-kip_thread-4f3f46e46c",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__read_event": 11,
+    "mcp__history__search": 10
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 981383,
+    "cost_usd": 0.3059123,
+    "input_tokens": 1067607,
+    "output_tokens": 7095
+  },
+  "violations": []
+}

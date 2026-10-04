@@ -1,0 +1,47 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "Unable to determine - requires access to Apache Kafka repository state as of 2026-01-31, beyond knowledge cutoff of February 2025, no network access, no local project provided"
+    ],
+    "value": null
+  },
+  "arm": "N",
+  "checkpoint": "2026-01",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 10.318029504996957,
+  "family": "design_decision",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "Unable to determine - requires access to Apache Kafka repository state as of 2026-01-31, beyond knowledge cutoff of February 2025, no network access, no local project provided"
+    ],
+    "expected": "varint"
+  },
+  "instructions_sha256": null,
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 1,
+  "prompt_sha256": "620f9737df8772fda83e05e55ff30e1e2a6fede6624f14b1ef29d16dbb20341f",
+  "run_index": 56,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-9afbb2a368",
+  "tool_calls": {
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 17497,
+    "cost_usd": 0.0127437,
+    "input_tokens": 20636,
+    "output_tokens": 945
+  },
+  "violations": []
+}

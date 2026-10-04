@@ -1,0 +1,50 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail:dd72e188e244a14eeb227fa2"
+    ],
+    "value": "encode the rack information in the client ID"
+  },
+  "arm": "R-hyb",
+  "checkpoint": "2026-01",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 26.122140123989084,
+  "family": "design_decision",
+  "grade": {
+    "actual": "encode the rack information in the client ID",
+    "correct": true,
+    "evidence": [
+      "mail:dd72e188e244a14eeb227fa2"
+    ],
+    "expected": "encode the rack information in the client ID"
+  },
+  "instructions_sha256": "dfaa5b284d06c378ef7e4c08b53dc77835c91d7591fca0335bbfa33d3e53eb37",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 4,
+  "prompt_sha256": "0a601721b08d66a6933d9a8cf6d89b05fee8ae197f6ccdfc1eb4c9af31e4f5a0",
+  "run_index": 55,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-5bda924411",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__read_event": 1,
+    "mcp__history__search": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 86065,
+    "cost_usd": 0.0391765,
+    "input_tokens": 99005,
+    "output_tokens": 945
+  },
+  "violations": []
+}

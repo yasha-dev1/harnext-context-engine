@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "mail search result showing 'f8aa74e0b411a6b720fcf072 2026-04-23T17:23:00Z Andrew Schofield (Jira) [jira] [Created] (KAFKA-20524) Initialization of share group offsets from a specific offset or a file'",
+    "mail read output confirming JIRA issue KAFKA-20524 was created with summary 'Initialization of share group offsets from a specific offset or a file' explicitly implementing 'KIP-1323'"
+  ],
+  "value": "KAFKA-20524"
+}

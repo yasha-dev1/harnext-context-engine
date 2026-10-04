@@ -1,0 +1,31 @@
+{
+  "evidence": [
+    "events/2026/02/20/github-api-apache-kafka-pr-21465-merged-54020690.md",
+    "events/2026/02/13/github-api-apache-kafka-pr-21474-closed-d36a47de.md",
+    "events/2026/02/20/github-api-apache-kafka-pr-21478-merged-324eaf61.md",
+    "events/2026/02/24/github-api-apache-kafka-pr-21486-merged-507fe403.md",
+    "events/2026/02/25/github-api-apache-kafka-pr-21493-merged-8f226eef.md"
+  ],
+  "value": [
+    {
+      "pr": 21465,
+      "state": "merged"
+    },
+    {
+      "pr": 21474,
+      "state": "closed"
+    },
+    {
+      "pr": 21478,
+      "state": "merged"
+    },
+    {
+      "pr": 21486,
+      "state": "merged"
+    },
+    {
+      "pr": 21493,
+      "state": "merged"
+    }
+  ]
+}

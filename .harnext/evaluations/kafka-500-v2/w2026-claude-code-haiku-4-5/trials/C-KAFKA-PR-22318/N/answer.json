@@ -1,0 +1,3 @@
+{
+  "summary": "Successfully implemented ReadOnlyWindowStore for MeteredWindowStore. Added a `readOnly(IsolationLevel)` method that returns a custom MeteredWindowStoreReadOnlyView implementation. This inner class wraps the read-only view from the inner store and applies metering (metrics recording) and serdes (key serialization/value deserialization) to all read operations. All 9 readonly-specific tests pass along with all other existing tests."
+}

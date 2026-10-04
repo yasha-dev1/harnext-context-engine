@@ -1,0 +1,54 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "kips/KIP-1324.md - Unable to retrieve detailed content section containing exception class specification from May 5, 2026 decision",
+      "issues/KAFKA-20525.md - Related tracking issue created 2026-04-23T17:53:42Z",
+      "WINDOW-111-2026-05-05-06 context snapshot - Confirms Kirk True's response at 2026-05-05T14:47:53Z but detailed content not accessible via search"
+    ],
+    "value": null
+  },
+  "arm": "F4-entity-search",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 157.25496202000068,
+  "family": "design_decision",
+  "grade": {
+    "actual": null,
+    "correct": false,
+    "evidence": [
+      "kips/KIP-1324.md - Unable to retrieve detailed content section containing exception class specification from May 5, 2026 decision",
+      "issues/KAFKA-20525.md - Related tracking issue created 2026-04-23T17:53:42Z",
+      "WINDOW-111-2026-05-05-06 context snapshot - Confirms Kirk True's response at 2026-05-05T14:47:53Z but detailed content not accessible via search"
+    ],
+    "expected": "ConfigTooLargeException"
+  },
+  "instructions_sha256": "596cc83d5c6d0995712c303e1dc30df1baeb112a63f9fc4743ff62ff9e03398e",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 25,
+  "prompt_sha256": "6c7d6c42de5e2cdef303dcfc7221678c25f3e7b16714e3ce972bc979b9efc015",
+  "run_index": 72,
+  "status": "completed",
+  "success": false,
+  "task_id": "H-design_decision-9747f2e7bf",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1,
+    "mcp__history__search_context": 22
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 1042179,
+    "cost_usd": 0.22395690000000001,
+    "input_tokens": 1091155,
+    "output_tokens": 4398
+  },
+  "violations": []
+}

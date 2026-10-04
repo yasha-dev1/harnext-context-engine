@@ -1,0 +1,9 @@
+{
+  "evidence": [
+    "pull-requests.md (lines 1418-1428): PR #21866 status showing 'Approved on 2026-03-25T08:44:22Z by showuon'",
+    "issues.md (lines 1081-1093): KAFKA-20354 related PR status confirming approval by showuon on 2026-03-25T08:44:22Z"
+  ],
+  "value": [
+    "showuon"
+  ]
+}

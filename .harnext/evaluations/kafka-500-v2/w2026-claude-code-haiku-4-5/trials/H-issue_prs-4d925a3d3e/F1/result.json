@@ -1,0 +1,166 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "store/entities/issue/KAFKA-20168/OVERVIEW.md",
+      "store/entities/issue/KAFKA-20168/timeline.md",
+      "store/entities/pr/21452/OVERVIEW.md",
+      "store/entities/pr/21461/OVERVIEW.md",
+      "store/entities/pr/21462/OVERVIEW.md",
+      "store/entities/pr/21505/OVERVIEW.md",
+      "store/entities/pr/21559/OVERVIEW.md",
+      "store/entities/pr/21560/OVERVIEW.md",
+      "store/entities/pr/21561/OVERVIEW.md",
+      "store/entities/pr/21562/OVERVIEW.md"
+    ],
+    "value": [
+      {
+        "pr": 21452,
+        "state": "merged"
+      },
+      {
+        "pr": 21461,
+        "state": "merged"
+      },
+      {
+        "pr": 21462,
+        "state": "merged"
+      },
+      {
+        "pr": 21505,
+        "state": "merged"
+      },
+      {
+        "pr": 21559,
+        "state": "merged"
+      },
+      {
+        "pr": 21560,
+        "state": "closed"
+      },
+      {
+        "pr": 21561,
+        "state": "merged"
+      },
+      {
+        "pr": 21562,
+        "state": "merged"
+      }
+    ]
+  },
+  "arm": "F1",
+  "checkpoint": "2026-02",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 55.693955721006205,
+  "family": "issue_prs",
+  "grade": {
+    "actual": [
+      {
+        "pr": 21452,
+        "state": "merged"
+      },
+      {
+        "pr": 21461,
+        "state": "merged"
+      },
+      {
+        "pr": 21462,
+        "state": "merged"
+      },
+      {
+        "pr": 21505,
+        "state": "merged"
+      },
+      {
+        "pr": 21559,
+        "state": "merged"
+      },
+      {
+        "pr": 21560,
+        "state": "closed"
+      },
+      {
+        "pr": 21561,
+        "state": "merged"
+      },
+      {
+        "pr": 21562,
+        "state": "merged"
+      }
+    ],
+    "correct": true,
+    "evidence": [
+      "store/entities/issue/KAFKA-20168/OVERVIEW.md",
+      "store/entities/issue/KAFKA-20168/timeline.md",
+      "store/entities/pr/21452/OVERVIEW.md",
+      "store/entities/pr/21461/OVERVIEW.md",
+      "store/entities/pr/21462/OVERVIEW.md",
+      "store/entities/pr/21505/OVERVIEW.md",
+      "store/entities/pr/21559/OVERVIEW.md",
+      "store/entities/pr/21560/OVERVIEW.md",
+      "store/entities/pr/21561/OVERVIEW.md",
+      "store/entities/pr/21562/OVERVIEW.md"
+    ],
+    "expected": [
+      {
+        "pr": 21452,
+        "state": "merged"
+      },
+      {
+        "pr": 21461,
+        "state": "merged"
+      },
+      {
+        "pr": 21462,
+        "state": "merged"
+      },
+      {
+        "pr": 21505,
+        "state": "merged"
+      },
+      {
+        "pr": 21559,
+        "state": "merged"
+      },
+      {
+        "pr": 21560,
+        "state": "closed"
+      },
+      {
+        "pr": 21561,
+        "state": "merged"
+      },
+      {
+        "pr": 21562,
+        "state": "merged"
+      }
+    ]
+  },
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": null,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 4,
+  "prompt_sha256": "54c6b4fa935554bc016be9200896838e12896d782e13630fcb9c7c8b5aee060b",
+  "run_index": 15,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-issue_prs-4d925a3d3e",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 2
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 86349,
+    "cost_usd": 0.019886900000000002,
+    "input_tokens": 88665,
+    "output_tokens": 1331
+  },
+  "violations": []
+}

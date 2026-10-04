@@ -1,0 +1,3 @@
+{
+  "summary": "Fixed KAFKA-20332 race condition in AsyncKafkaConsumer by making the reconciliation check wait interruptible by wakeup calls. Modified collectFetch() to register the reconciliation check future with wakeupTrigger.setActiveTask() so that wakeup() calls can interrupt the wait. This ensures the app thread doesn't collect records for partitions being revoked and properly responds to wakeup requests."
+}

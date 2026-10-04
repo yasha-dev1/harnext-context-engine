@@ -1,0 +1,54 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "d143b0b41a8baaf69dfb3a1d (Ivan Yurchenko email, 2026-04-30)",
+      "05dea6cdc4e709f639e41414 (Andrew Schofield email, 2026-04-21)"
+    ],
+    "value": "destination cluster default replication factor"
+  },
+  "arm": "S-tools",
+  "checkpoint": "2026-04",
+  "cli_calls": {
+    "gh": 8,
+    "jira": 15,
+    "mail": 6
+  },
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 107.49378799999249,
+  "family": "design_decision",
+  "grade": {
+    "actual": "destination cluster default replication factor",
+    "correct": true,
+    "evidence": [
+      "d143b0b41a8baaf69dfb3a1d (Ivan Yurchenko email, 2026-04-30)",
+      "05dea6cdc4e709f639e41414 (Andrew Schofield email, 2026-04-21)"
+    ],
+    "expected": "destination cluster default replication factor"
+  },
+  "instructions_sha256": "317e3aba94e353ecc117f6c791930280765d5124632e0625b3d639c109e9d70b",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 31,
+  "prompt_sha256": "2cf54d5ba4c4b2867e751f263aa11d3b96afe0cffc334d12bf3e1313a55bfe67",
+  "run_index": 21,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-design_decision-35e51bbc1a",
+  "tool_calls": {
+    "Bash": 30,
+    "StructuredOutput": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 1026989,
+    "cost_usd": 0.1924159,
+    "input_tokens": 1061042,
+    "output_tokens": 4372
+  },
+  "violations": []
+}

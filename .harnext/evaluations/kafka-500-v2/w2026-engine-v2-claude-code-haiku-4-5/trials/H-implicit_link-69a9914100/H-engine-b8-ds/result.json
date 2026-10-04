@@ -1,0 +1,78 @@
+{
+  "agent": "claude-code",
+  "answer": {
+    "evidence": [
+      "mail:afac71e1bc95221e93c97bf4 (JIRA creation notification for KAFKA-20552 on 2026-05-05)",
+      "mail:112a535ad8c4fa1e9928d615 (Mailing list discussion by Haifeng Chen on 2026-05-05 referencing KIP-1333)"
+    ],
+    "value": "KAFKA-20552"
+  },
+  "arm": "H-engine-b8-ds",
+  "checkpoint": "2026-05",
+  "cli_calls": {},
+  "context_output_bytes": 0,
+  "context_paths": [],
+  "detail": null,
+  "effort": "medium",
+  "elapsed_s": 63.83017294500314,
+  "engine": {
+    "calls": 1,
+    "chat": {
+      "calls": 3,
+      "cancelled": 0,
+      "cost_usd": 0.00078865,
+      "input_tokens": 11033,
+      "output_tokens": 1605,
+      "retries": 0
+    },
+    "cost_usd": 0.00138555,
+    "discarded_attempts": 0,
+    "jev": {
+      "calls": 7,
+      "cancelled": 0,
+      "cost_usd": 0.0005969,
+      "input_tokens": 14212,
+      "output_tokens": 2758,
+      "retries": 0
+    },
+    "partial": 0,
+    "provider_retry_usd": 0,
+    "seconds": 47.768,
+    "unmetered_upper_usd": 0,
+    "waited_s": 0
+  },
+  "family": "implicit_link",
+  "grade": {
+    "actual": "KAFKA-20552",
+    "correct": true,
+    "evidence": [
+      "mail:afac71e1bc95221e93c97bf4 (JIRA creation notification for KAFKA-20552 on 2026-05-05)",
+      "mail:112a535ad8c4fa1e9928d615 (Mailing list discussion by Haifeng Chen on 2026-05-05 referencing KIP-1333)"
+    ],
+    "expected": "KAFKA-20552"
+  },
+  "image_id": "sha256:1de715f951a3fc013cabad66407b87028bc2a5af6e58efdea5338b4cf9fb1485",
+  "instructions_sha256": "e1889c9ffb5e31016d62d44c8c38e0a88920e290af94d4834c40cb83a838512d",
+  "kind": "historical",
+  "max_turns": 100,
+  "model": "claude-haiku-4-5-20251001",
+  "model_turns": 3,
+  "prompt_sha256": "09424e24ee9c2adf267a760bede6de9d0bb0b876b6657828d70ccf5188705d23",
+  "run_index": 72,
+  "status": "completed",
+  "success": true,
+  "task_id": "H-implicit_link-69a9914100",
+  "tool_calls": {
+    "StructuredOutput": 1,
+    "ToolSearch": 1,
+    "mcp__history__context_research": 1
+  },
+  "trace": "trace.jsonl",
+  "usage": {
+    "cached_input_tokens": 63643,
+    "cost_usd": 0.013387300000000001,
+    "input_tokens": 64863,
+    "output_tokens": 922
+  },
+  "violations": []
+}

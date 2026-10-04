@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    "context_research result: 'The context filesystem contains data primarily from 2026 (from files like `/store/issues.md`, `/store/index.md`, `/store/components.md`, `/store/pull-requests.md`, and others). While I found references to many KAFKA issues, including older ones like KAFKA-560 (mentioned as being from \"~2010 era\") and issues in the KAFKA-10000-KAFKA-13000 range, there is no data covering the 2013 timeframe in the available files.'",
+    "search_context queries attempted: 'Junits system tests inbuilt offset management 2013', 'offset management 2013-08 KAFKA Junits 2013', 'inbuilt offset', 'KAFKA-14 KAFKA-15 2013 Junits tests', 'system tests offset 2013-08', 'KAFKA-50 KAFKA-100 KAFKA-150 KAFKA-200 created 2013' — all returned no results matching a 2013-08 offset management issue",
+    "Harnext context snapshot cutoff: 2026-05-31T23:59:59Z"
+  ],
+  "value": null
+}

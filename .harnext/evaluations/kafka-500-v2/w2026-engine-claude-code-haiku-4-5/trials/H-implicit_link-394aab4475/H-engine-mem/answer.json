@@ -1,0 +1,7 @@
+{
+  "evidence": [
+    "mail:b60c8a7d55a78e0c4db474df - JIRA issue KAFKA-20387 titled 'Extend RecordHeader API for Common Value Types' created by Aditya Kousik on 2026-03-31",
+    "mail:8a3a21f2b90819312447f34e - Mailing list thread '[DISCUSS] KIP-1308: Extend RecordHeader API for Common Value Types' posted by Aditya Kousik on 2026-04-01"
+  ],
+  "value": "KAFKA-20387"
+}
