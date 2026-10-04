@@ -4,6 +4,27 @@ Read this first when resuming on another machine. Branch: `eval-framework`. Ever
 committed; `apps/eval/out/` (raw corpus, replay, run outputs) is git-ignored and lives only on the
 laptop that produced it.
 
+## 0b. Run 5 / 5b (2026-10-04, desktop) — Jev routing arms
+
+Branch `eval/e1-jev`. New arms: **R14** Jev software-engineering category router (11 categories;
+fast lane = regression/outage, security, build break, release risk; score = P(fast categories))
+and **R15** Jev direct fast-lane probability; one Jev call per event (`typesafe/jev-1.13`, prompt
+`se-triage-v2` sha `5d4d9014…`, `apps/eval/src/harnext_eval/e1/jev.py`). Jev sees the gold-stripped
+event with JIRA summary/description/labels rebuilt as of the event, identifiers removed, roles
+person/automation. Prompt checked on 2021-10..12 (outside the window), not tuned; registered in
+`PREREG-run5.md` before any window event was scored. 394,741 decisions, 0 failures, $18.09
+(`apps/eval/out/e1-jev/se-triage-v2/scores.jsonl`). Run 5 (all arms) was stopped; **run 5b**
+(`PREREG-run5b.md`, arms R0 R1 R2 R7 R14 R15; other arms from run 4, R2 identical across runs)
+`20261004T115316Z-e1-kafka-jev-only`. Report: `apps/eval/reports/e1-kafka-run5/results_summary.md`.
+
+recall@2 % rule-negative (839 positives): R0 0.020 · R2 0.089 · R11 0.072 · **R14 0.139** ·
+**R15 0.155**; at 10 %: R2 0.166, R14 0.433, R15 0.440. R14−R2 = +0.050 [+0.015, +0.095]
+(months [+0.003, +0.099]); R15−R2 = +0.066 [+0.033, +0.106]; R14−R15 tied. Jev is the first arm
+with signal on GitHub (R15 0.232) and dev@ (R14 0.284). No sign of memorisation by year (2022
+R15 0.145 … 2026 0.327, n = 55). Unbudgeted: argmax-fast routes 5.1 % of events, recall 0.27,
+precision 1.2 % (5.4× prevalence). Jev gates pass; the remaining failed gates are the run-4 ones
+(random-VUS geometry, rule-floor infeasible months, Flink preflight, human sample unannotated).
+
 ## 0a. Run 4 (2026-09-07, desktop) — scorer bake-off
 
 Registered `PREREG-run4.md` @ cad3718 (same replay/config as run 3; R8/R9 removed; R10 per-source
