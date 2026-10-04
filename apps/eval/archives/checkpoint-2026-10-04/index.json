@@ -1,0 +1,48 @@
+{
+  "release": "https://github.com/yasha-dev1/harnext-context-engine/releases/tag/eval-checkpoint-2026-10-04",
+  "data_commit": "47dffb0b",
+  "assets": [
+    {
+      "asset": "e1-jev-decisions.tar.gz",
+      "bytes": 31200859,
+      "sha256": "e769d8b21fd74c95aa3e21642edc8c9dec32a34d930f50c47a9b9c2c27b14c25",
+      "files": 36,
+      "manifest": "e1-jev-decisions.manifest.json.gz"
+    },
+    {
+      "asset": "e1-kafka-corpus.tar.gz",
+      "bytes": 859773437,
+      "sha256": "70375bf5897b5f4cb91c38886ab17a7e74e2b677ee83ee9b219a824d4de95488",
+      "files": 21340,
+      "manifest": "e1-kafka-corpus.manifest.json.gz"
+    },
+    {
+      "asset": "e1-run4.tar.gz",
+      "bytes": 867510418,
+      "sha256": "2fce61268b07212384b14b4e0699661afb5f5857eb33fbcd0637a09aaeba98cc",
+      "files": 23,
+      "manifest": "e1-run4.manifest.json.gz"
+    },
+    {
+      "asset": "e1-run5b.tar.gz",
+      "bytes": 174695649,
+      "sha256": "1d3094e29213e0bfa4169df24de5eaeef4317536b232870fd5437b0bd0e35923",
+      "files": 23,
+      "manifest": "e1-run5b.manifest.json.gz"
+    },
+    {
+      "asset": "e2-stores-w2026.tar.gz",
+      "bytes": 1858729630,
+      "sha256": "5bee4683c5cca6072be6675d7a81bcdf30cceccd9462b2dddf1e4a02acd1f878",
+      "files": 135174,
+      "manifest": "e2-stores-w2026.manifest.json.gz"
+    },
+    {
+      "asset": "e2-stream-w2026.tar.gz",
+      "bytes": 10835944,
+      "sha256": "b0168922a3ee6a6160c64fb6f91bf381331b2124b50cceb53131a058c9617a3a",
+      "files": 3,
+      "manifest": "e2-stream-w2026.manifest.json.gz"
+    }
+  ]
+}
