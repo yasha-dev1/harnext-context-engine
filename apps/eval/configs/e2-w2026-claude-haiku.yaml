@@ -1,0 +1,32 @@
+# E2 scoped benchmark (Yasha, 2026-09-26): stores ingest Jan-May 2026 only; 50 tasks
+# (35 historical + 15 coding) whose evidence lies inside that window. Agent 1: Claude Code Haiku.
+# Chunk 1 (26 Sep, Yasha: "run the ones we already have the store for, fully") = all 50 tasks
+# under the arms whose window stores are finished. Arms join as their stores finish; recorded trials are never rerun.
+protocol: harnext-e2-v2
+run_id: w2026-claude-code-haiku-4-5
+benchmark: ../benchmarks/kafka-50-w2026
+# 27 Sep (Yasha: "merge them ... in prod also we should be having search + context research"):
+# the Harnext read interface is now context_research + search_context, so every file arm runs
+# only as its two-tool `-search` variant. The research-only F0-F6 arms are retired: their
+# recorded trials stay in the results as an ablation, no new ones are scheduled.
+arms_file: ../benchmarks/kafka-500-v2/arms.yaml
+arms: [N, S-tools, R-hyb, F0-search, F1-search, F2-search, F3-search, F4-fact-search, F4-entity-search, F4-topic-search, F5-search, F6-search]
+agent: claude-code
+model: claude-haiku-4-5-20251001
+effort: medium
+stores: ../out/kafka-500-v2/stores-w2026
+checkouts: ../out/kafka-500-v2/checkouts-w2026
+workers: 8
+coding_workers: 1
+timeouts: {historical: 900, coding: 3600, grading: 3000}
+commit_every: 0
+min_free_gib: 12
+# 27 Sep 14:00 (Yasha: "let's do 12"): first 12 coding tasks of the run order, to finish today; the other
+# 42 stay in the benchmark and can join later (recorded trials are never rerun).
+max_coding: 12
+# 27 Sep evening (Yasha: "add those as new category ... eval all arms"): + design_decision (29) and
+# implicit_link (14), appended at the end of the run order.
+max_historical: 78
+# Turn cap (Yasha, 2026-09-27): safety net only. Over the first 408 trials no solved trial used more than
+# 86 turns (history max 20), so 100 changes no recorded result; tighter caps cost solved coding tasks.
+max_turns: 100

@@ -1,0 +1,47 @@
+protocol: harnext-e2-v2
+run_id: smoke-offline
+benchmark: ../benchmarks/kafka-500-v2-smoke
+arms_file: ../benchmarks/kafka-500-v2/arms.yaml
+arms:
+- N
+- R-hyb
+- F0
+- F1
+- F2
+- F3
+- F4-fact
+- F4-entity
+- F4-topic
+- F5
+- F6
+agent: fake
+model: fake
+reader: fake  # research kind offline: no model calls
+stores: ../out/kafka-500-v2/stores-smoke
+results: ../out/kafka-500-v2/runs/smoke-offline/results
+workers: 2
+commit_every: 0
+min_free_gib: 5
+store_hash: tree
+fake:
+  answers:
+    H-assignee_at_snapshot-f650eaa47e: Alexandre Dupriez
+    H-assignment_history-af798e33b2:
+    - at: '2023-01-15T15:14:39.051000Z'
+      from: null
+      to: Federico Valeri
+    - at: '2023-01-20T13:29:09.712000Z'
+      from: Federico Valeri
+      to: null
+    - at: '2023-01-25T14:08:30.207000Z'
+      from: null
+      to: Omnia Ibrahim
+    - at: '2023-02-03T12:20:25.194000Z'
+      from: Omnia Ibrahim
+      to: null
+    - at: '2023-02-07T16:00:34.181000Z'
+      from: null
+      to: Alexandre Dupriez
+    H-closed_at_snapshot-2dfffefd50: false
+    H-priority_at_snapshot-b39812e343: Blocker
+  infra_at: 7

@@ -73,12 +73,10 @@ def _blocks_to_turns(content, turns: list[TranscriptTurn]) -> None:
 class ClaudeCodeHarness:
     name = "claude_code"
 
-    async def run(self, req: HarnessRequest) -> ConversationTranscript:
+    def options(self, req: HarnessRequest) -> ClaudeAgentOptions:
+        """The SDK options of one run; a subclass may extend them (e.g. in-process tools)."""
         effort = req.reasoning_effort
-        if effort == "xhigh":
-            return ConversationTranscript(harness=self.name, model=req.model, stop_reason="error",
-                                          error="Claude SDK effort does not support xhigh")
-        options = ClaudeAgentOptions(
+        return ClaudeAgentOptions(
             cwd=req.working_dir,
             system_prompt=req.system_prompt,
             effort=effort,
@@ -97,6 +95,11 @@ class ClaudeCodeHarness:
             setting_sources=["project"],  # auto-load ./CLAUDE.md from the mount
         )
 
+    async def run(self, req: HarnessRequest) -> ConversationTranscript:
+        if req.reasoning_effort == "xhigh":
+            return ConversationTranscript(harness=self.name, model=req.model, stop_reason="error",
+                                          error="Claude SDK effort does not support xhigh")
+        options = self.options(req)
         turns: list[TranscriptTurn] = []
         usage: dict = {}
         model = req.model

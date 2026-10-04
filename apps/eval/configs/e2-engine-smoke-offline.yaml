@@ -1,0 +1,44 @@
+# Offline plumbing smoke of the engine arms (E2-ENGINE-DESIGN.md "Stage 3"): fake agent, fake engine
+# models (`reader: fake` -> the engine MCP server runs with --clients fake), the smoke benchmark and
+# the smoke stores (RAW export + F5 notes). No network. The fake agent asks every MCP arm one
+# `context_research` question through the real stdio server, so receipts, engine traces, pins and
+# archives are the real ones. Pause/resume: run e2-engine-smoke-offline-pause.yaml first (same run_id).
+protocol: harnext-e2-v2
+run_id: engine-smoke-offline
+benchmark: ../benchmarks/kafka-500-v2-smoke
+arms_file: ../benchmarks/kafka-500-v2/arms.yaml
+arms: [N, S-tools, H-engine, H-engine-mem]
+agent: fake
+model: fake
+reader: fake
+stores: ../out/kafka-500-v2/stores-smoke
+checkouts: ../out/kafka-500-v2/runs/engine-smoke-offline/checkouts
+results: ../out/kafka-500-v2/runs/engine-smoke-offline/results
+workspaces: ../out/kafka-500-v2/runs/engine-smoke-offline/workspaces
+workers: 2
+commit_every: 0
+min_free_gib: 5
+store_hash: tree
+max_coding: 1
+max_historical: 4
+fake:
+  answers:
+    H-assignee_at_snapshot-cd7df73b39|H-engine: Terry Beard
+    H-assignment_history-af798e33b2|H-engine-mem:
+    - at: '2023-01-15T15:14:39.051000Z'
+      from: null
+      to: Federico Valeri
+    - at: '2023-01-20T13:29:09.712000Z'
+      from: Federico Valeri
+      to: null
+    - at: '2023-01-25T14:08:30.207000Z'
+      from: null
+      to: Omnia Ibrahim
+    - at: '2023-02-03T12:20:25.194000Z'
+      from: Omnia Ibrahim
+      to: null
+    - at: '2023-02-07T16:00:34.181000Z'
+      from: null
+      to: Alexandre Dupriez
+    H-author_activity-d9b8fd9b12: 3
+    H-closed_at_snapshot-2dfffefd50|S-tools: false

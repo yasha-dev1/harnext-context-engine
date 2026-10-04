@@ -1,0 +1,18 @@
+# E2 v2, Codex arm sweep: 500 tasks x 13 arms (every Harnext arm over MCP).
+#   python -m harnext_eval.e2.v2.runner --config apps/eval/configs/e2-v2-codex.yaml --dry-run
+#   ... --check-resume      validate hashes/stores/images, print recorded vs remaining
+#   ... --live              run or resume; exit code 75 = paused (quota/infra), rerun to resume
+protocol: harnext-e2-v2
+run_id: codex-luna-medium-r1
+benchmark: ../benchmarks/kafka-500-v2
+agent: codex
+model: gpt-5.6-luna
+effort: medium
+stores: ../out/kafka-500-v2/stores
+results: ../../../.harnext/evaluations/kafka-500-v2/codex-luna-medium-r1
+workers: 2
+coding_workers: 2
+timeouts: {historical: 600, coding: 3600, grading: 3000}
+commit_every: 50
+min_free_gib: 15
+store_hash: manifest

@@ -1,0 +1,61 @@
+# E2 v2 arms (E2-V2-DESIGN.md "Arms"). access: how the coding agent reaches the store.
+#   none  - closed book          files - store export mounted read-only at /context (unused)
+#   sources - no store, no MCP: the checkpoint's sources.sqlite mounted read-only at /sources and
+#           queried with the time-frozen `gh` / `jira` / `mail` CLIs (the genuine baseline)
+#   mcp   - store export at /store, served by harnext_eval.e2.v2.mcp_server --kind <mcp_kind>
+# Every Harnext store arm is reached over MCP (decided 2026-09-20): the arms differ only in
+# how the context engine is configured, never in how the agent reaches it. Every file arm
+# (F0-F6) is served through Harnext's PRODUCTION read interface, mcp_kind `research`: the one
+# tool `context_research(question)` runs the product's research agent over the arm's checkpoint
+# and returns a cited answer. F5 read this way IS the Harnext system arm. There are no plain
+# file tools (list/read/grep) for any arm. R-hyb and G-graphiti keep their own kinds.
+# The mcp access paragraph is one template per kind (runner.py ACCESS); the rag/graphiti one
+# lists the tools from v2/mcp_server.py KINDS[mcp_kind], the research one names its single tool.
+mcp_server:
+  name: history
+# G-graphiti was dropped on 2026-09-20: the official graphiti-core pipeline needs ~3 LLM calls per
+# event; over the complete 629,458-event stream that is 3-6 months on the local GPU (or ~$9k by API).
+# The adapter stays in v2/stores/graphiti.py; fidelity/G-graphiti.md records the measurements.
+arms:
+  - {id: N,          access: none}
+  - {id: S-tools,    access: sources, store: S-tools}
+  - {id: R-hyb,      access: mcp,   mcp_kind: rag,      store: R-hyb}
+  - {id: F0,         access: mcp,   mcp_kind: research, store: F0}
+  - {id: F1,         access: mcp,   mcp_kind: research, store: F1}
+  - {id: F2,         access: mcp,   mcp_kind: research, store: F2}
+  - {id: F3,         access: mcp,   mcp_kind: research, store: F3}
+  - {id: F4-fact,    access: mcp,   mcp_kind: research, store: F4-fact}
+  - {id: F4-entity,  access: mcp,   mcp_kind: research, store: F4-entity}
+  - {id: F4-topic,   access: mcp,   mcp_kind: research, store: F4-topic}
+  - {id: F5,         access: mcp,   mcp_kind: research, store: F5}
+  - {id: F6,         access: mcp,   mcp_kind: research, store: F6}
+# RETIRED 2026-09-27: the research-only F0-F6 above no longer get new trials (Yasha: "in prod also we
+# should be having search + context research"); their recorded trials are an ablation.
+# Two-tool variants (Yasha, 2026-09-27): the same file stores, served by the Harnext MCP with
+# `context_research` (full reports) AND the product's `search_context` (lightweight lookups the
+# agent does itself), to cut the research agent's cost. Standing instructions: runner.py
+# GATHER_FIRST_EXTRA["research_search"]. The research-only arms above stay unchanged.
+  - {id: F0-search,        access: mcp, mcp_kind: research_search, store: F0}
+  - {id: F1-search,        access: mcp, mcp_kind: research_search, store: F1}
+  - {id: F2-search,        access: mcp, mcp_kind: research_search, store: F2}
+  - {id: F3-search,        access: mcp, mcp_kind: research_search, store: F3}
+  - {id: F4-fact-search,   access: mcp, mcp_kind: research_search, store: F4-fact}
+  - {id: F4-entity-search, access: mcp, mcp_kind: research_search, store: F4-entity}
+  - {id: F4-topic-search,  access: mcp, mcp_kind: research_search, store: F4-topic}
+  - {id: F5-search,        access: mcp, mcp_kind: research_search, store: F5}
+  - {id: F6-search,        access: mcp, mcp_kind: research_search, store: F6}
+# Query-time engine over the RAW store (E2-ENGINE-DESIGN.md stage 3, 2026-09-28): every source kept
+# raw in ClickHouse (chdb) + a file catalog; mcp_kind `engine` serves the SAME `context_research(question)`
+# tool, access paragraph and standing instructions as kind research, answered by Jev 1.13 (routing,
+# slots, judging) + gpt-oss-20b (per-source agents, report). engine.preset = chat endpoint:
+# openrouter (API) | ollama (local, the host must listen on the docker gateway); a run can override it
+# (config `engine_preset`). memory_store: a file store whose checkpoint is mounted read-only at /memory
+# and read as notes beside the raw sources.
+  - {id: H-engine,     access: mcp, mcp_kind: engine, store: RAW, engine: {preset: openrouter}}
+  - {id: H-engine-mem, access: mcp, mcp_kind: engine, store: RAW, memory_store: F5, engine: {preset: openrouter}}
+# Engine v2 (29 Sep, second engine experiment; E2-ENGINE-DESIGN.md "Engine v2: tool-call budget feedback
+# and DeepSeek preset"): the same RAW store, tool and texts as H-engine; every branch agent sees
+# "Tool call budget: m/n" (n = 8) after each tool result, research deadline 240 s. Chat model: gpt-oss-20b
+# (openrouter-b8) or DeepSeek V4 Flash (deepseek-flash-b8). No memory-store variants.
+  - {id: H-engine-b8,    access: mcp, mcp_kind: engine, store: RAW, engine: {preset: openrouter-b8}}
+  - {id: H-engine-b8-ds, access: mcp, mcp_kind: engine, store: RAW, engine: {preset: deepseek-flash-b8}}

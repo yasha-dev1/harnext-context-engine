@@ -1,0 +1,18 @@
+# One-trial check that the agent CLI obeys the gather-context-first instruction file.
+protocol: harnext-e2-v2
+run_id: gather-check-claude-code
+benchmark: ../benchmarks/kafka-500-v2-smoke
+arms_file: ../benchmarks/kafka-500-v2/arms.yaml
+arms: [F5]
+agent: claude-code
+model: claude-haiku-4-5-20251001
+effort: medium
+stores: ../out/kafka-500-v2/stores-smoke
+checkouts: ../out/kafka-500-v2/checkouts-smoke
+results: ../out/kafka-500-v2/runs/gather-check-claude-code/results
+workers: 1
+timeouts: {historical: 900, coding: 1800, grading: 3000}
+min_free_gib: 8
+store_hash: tree
+max_coding: 0
+max_historical: 1

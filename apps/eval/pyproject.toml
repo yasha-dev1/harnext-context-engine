@@ -24,6 +24,20 @@ dependencies = [
     "aiokafka>=0.11",
 ]
 
+[project.optional-dependencies]
+# Arm G-graphiti (E2 v2): the official Zep/Graphiti package, pinned, embedded Kuzu backend,
+# plus the MCP library used by e2/v2/mcp_server.py (same one apps/mcp depends on).
+graphiti = [
+    "graphiti-core[anthropic,kuzu]==0.30.2",
+    "kuzu==0.11.3",
+    "fastmcp>=2.0",
+]
+# Arm RAW (E2 engine, e2/v2/stores/raw): embedded ClickHouse for the per-source raw tables.
+# A production ClickHouse server is reached with clickhouse-connect instead (not needed here).
+raw = [
+    "chdb==4.4.0",
+]
+
 [project.scripts]
 harnext-eval = "harnext_eval.cli:main"
 

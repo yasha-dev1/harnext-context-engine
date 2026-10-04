@@ -1,0 +1,18 @@
+# Implicit-link benchmark (Yasha, 2026-09-27: "create a benchmark from that 14 and test N + S-Tool only"):
+# 14 mail thread -> JIRA issue pairs with no cross-reference, mined deterministically (detector A).
+protocol: harnext-e2-v2
+run_id: w2026-implicit-haiku-4-5
+benchmark: ../benchmarks/kafka-w2026-implicit
+arms_file: ../benchmarks/kafka-500-v2/arms.yaml
+arms: [N, S-tools]
+agent: claude-code
+model: claude-haiku-4-5-20251001
+effort: medium
+stores: ../out/kafka-500-v2/stores-w2026
+checkouts: ../out/kafka-500-v2/checkouts-w2026-smoke
+workers: 2
+coding_workers: 1
+timeouts: {historical: 900, coding: 3600, grading: 3000}
+commit_every: 0
+min_free_gib: 12
+max_turns: 100

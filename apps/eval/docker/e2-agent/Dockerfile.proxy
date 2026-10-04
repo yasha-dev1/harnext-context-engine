@@ -1,0 +1,9 @@
+# harnext-e2-proxy: the only way out of the trial network. Default-deny CONNECT filter.
+#   docker build -f apps/eval/docker/e2-agent/Dockerfile.proxy -t harnext-e2-proxy apps/eval/docker/e2-agent
+FROM alpine:3.20
+RUN apk add --no-cache tinyproxy
+COPY tinyproxy.conf /etc/tinyproxy/tinyproxy.conf
+COPY allowlist.filter /etc/tinyproxy/allowlist.filter
+USER tinyproxy
+EXPOSE 8888
+CMD ["tinyproxy", "-d", "-c", "/etc/tinyproxy/tinyproxy.conf"]

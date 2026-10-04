@@ -1,0 +1,10 @@
+{
+ "benchmark": "kafka-w2026-clean-smoke",
+ "scope": "w2026",
+ "public_sha256": "d4c3fcf1d592a50bb88f1ac14ea56091b822746d92b286fd70edc327a6ccdd48",
+ "private_sha256": "4335096458d564f4383f49331bc3b248dfeb3ace7fcb065f2ae8ef5d2c896786",
+ "run_order": [
+  "C-KAFKA-PR-22316-clean"
+ ],
+ "note": "Smoke (Yasha, 2026-09-27): C-KAFKA-PR-22316 rebased on trunk at PR creation (98ed67e73e) instead of the merge parent (1d9c3ab8b4): no post-cutoff commit (sibling PRs #22314/#22317/#22318) is in the workspace. Compare with C-KAFKA-PR-22316 in w2026-claude-code-haiku-4-5."
+}

@@ -1,0 +1,1 @@
+{"base_failure":{"test_compile":65,"test_failure":68},"checked":153,"seconds":81508,"status":{"admitted":133,"environment_error":2,"rejected_no_fail_to_pass":3,"rejected_passes_on_base":11,"rejected_reference_does_not_build":2,"rejected_reference_fails_or_flaky":2}}

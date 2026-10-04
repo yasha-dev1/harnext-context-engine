@@ -1,0 +1,21 @@
+# E2 v2 — REAL RUN, agent 1 of 3: Claude Code, claude-haiku-4-5.
+# Run in chunks: raise max_coding / max_historical and add arms as their stores are frozen, then
+# rerun the same command. Recorded trials are never rerun; tasks and stores are pinned on first use.
+protocol: harnext-e2-v2
+run_id: claude-code-haiku-4-5
+benchmark: ../benchmarks/kafka-500-v2
+arms_file: ../benchmarks/kafka-500-v2/arms.yaml
+# Arms whose stores exist today. To add when built: R-hyb, G-graphiti, F2, F3, F4-fact, F4-entity, F4-topic, F5, F6.
+arms: [N, S-tools, F0, F1]
+agent: claude-code
+model: claude-haiku-4-5-20251001
+effort: medium
+stores: ../out/kafka-500-v2/stores
+workers: 2
+coding_workers: 2
+timeouts: {historical: 900, coding: 3600, grading: 3000}
+commit_every: 0
+min_free_gib: 12
+# Chunk 1: the first 30 coding tasks of the frozen order.
+max_coding: 30
+max_historical: 0

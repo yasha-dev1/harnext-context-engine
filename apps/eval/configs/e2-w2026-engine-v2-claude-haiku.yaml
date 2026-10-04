@@ -1,0 +1,26 @@
+# Second engine experiment (29 Sep; E2-ENGINE-DESIGN.md "Engine v2" and "Engine v2 in the benchmark"):
+# engine v2 (tool-call budget feedback 8, research deadline 240 s) with gpt-oss-20b and with DeepSeek V4
+# Flash, on the w2026 benchmark. NEW run id; the finished runs w2026-claude-code-haiku-4-5 and
+# w2026-engine-claude-code-haiku-4-5 are never resumed. Same benchmark, agent, model, turn cap and stores
+# as w2026-engine-claude-code-haiku-4-5; own checkouts. Stage 1: the 78 historical tasks; stage 2 adds the
+# 12 coding tasks to this same run by raising max_coding to 12 (a cap change, no new arms, so the
+# finished-run guard does not apply).
+protocol: harnext-e2-v2
+run_id: w2026-engine-v2-claude-code-haiku-4-5
+benchmark: ../benchmarks/kafka-50-w2026
+arms_file: ../benchmarks/kafka-500-v2/arms.yaml
+arms: [H-engine-b8, H-engine-b8-ds]
+agent: claude-code
+model: claude-haiku-4-5-20251001
+effort: medium
+stores: ../out/kafka-500-v2/stores-w2026
+checkouts: ../out/kafka-500-v2/checkouts-w2026-engine-v2
+workers: 3
+coding_workers: 1
+timeouts: {historical: 900, coding: 3600, grading: 3000}
+commit_every: 0
+min_free_gib: 12
+# 29 Sep 19:00 (Yasha: "now is fine. continue"): stage 2, the 12 coding tasks per arm, one at a time.
+max_coding: 12
+max_historical: 78
+max_turns: 100

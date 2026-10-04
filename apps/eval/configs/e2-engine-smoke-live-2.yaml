@@ -1,0 +1,25 @@
+# Second half of the engine live smoke (28 Sep): the smoke RAW export was rebuilt (11:14) while run
+# engine-smoke-live was in flight (the runner refused the changed pin) and the engine code moved, so
+# the image was rebuilt and the engine arms rerun here on the same 4 historical tasks. S-tools does not
+# read RAW: its trials in engine-smoke-live are the baseline for these. One trial container at a time.
+protocol: harnext-e2-v2
+run_id: engine-smoke-live-2
+benchmark: ../benchmarks/kafka-500-v2-smoke
+arms_file: ../benchmarks/kafka-500-v2/arms.yaml
+arms: [H-engine, H-engine-mem]
+agent: claude-code
+model: claude-haiku-4-5-20251001
+effort: medium
+stores: ../out/kafka-500-v2/stores-smoke
+checkouts: ../out/kafka-500-v2/runs/engine-smoke-live/checkouts
+results: ../out/kafka-500-v2/runs/engine-smoke-live-2/results
+workspaces: ../out/kafka-500-v2/runs/engine-smoke-live/workspaces
+workers: 1
+coding_workers: 1
+timeouts: {historical: 900, coding: 3600, grading: 3000}
+commit_every: 0
+min_free_gib: 12
+store_hash: tree
+max_coding: 0
+max_historical: 4
+max_turns: 100

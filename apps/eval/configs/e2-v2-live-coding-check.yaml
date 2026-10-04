@@ -1,0 +1,18 @@
+# Groundwork check: the first two tasks of the frozen run order (one coding, one historical)
+# under the genuine baseline arm, Codex luna, full stores. Results kept out of the versioned tree.
+protocol: harnext-e2-v2
+run_id: live-coding-check
+benchmark: ../benchmarks/kafka-500-v2
+arms_file: ../benchmarks/kafka-500-v2/arms.yaml
+arms: [S-tools]
+agent: codex
+model: gpt-5.6-luna
+effort: medium
+stores: ../out/kafka-500-v2/stores
+results: ../out/kafka-500-v2/runs/live-coding-check/results
+workers: 1
+coding_workers: 1
+timeouts: {historical: 600, coding: 3600, grading: 3000}
+commit_every: 0
+min_free_gib: 10
+limit_tasks: 2

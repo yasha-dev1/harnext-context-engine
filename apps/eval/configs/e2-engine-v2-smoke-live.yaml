@@ -1,0 +1,24 @@
+# Live check of the engine v2 arms before the full run (29 Sep): SMOKE benchmark only (the w2026 tasks
+# are the test set), the first 2 historical tasks under H-engine-b8 and H-engine-b8-ds = 4 trials. Checks
+# the image, the chat/Jev health gate, provider-reported DeepSeek cost and the redo accounting.
+protocol: harnext-e2-v2
+run_id: engine-v2-smoke-live
+benchmark: ../benchmarks/kafka-500-v2-smoke
+arms_file: ../benchmarks/kafka-500-v2/arms.yaml
+arms: [H-engine-b8, H-engine-b8-ds]
+agent: claude-code
+model: claude-haiku-4-5-20251001
+effort: medium
+stores: ../out/kafka-500-v2/stores-smoke
+checkouts: ../out/kafka-500-v2/runs/engine-v2-smoke-live/checkouts
+results: ../out/kafka-500-v2/runs/engine-v2-smoke-live/results
+workspaces: ../out/kafka-500-v2/runs/engine-v2-smoke-live/workspaces
+workers: 2
+coding_workers: 1
+timeouts: {historical: 900, coding: 3600, grading: 3000}
+commit_every: 0
+min_free_gib: 12
+store_hash: tree
+max_coding: 0
+max_historical: 2
+max_turns: 100

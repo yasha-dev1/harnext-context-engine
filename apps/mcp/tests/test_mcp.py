@@ -94,3 +94,31 @@ async def test_research_no_context(tmp_path):
         assert "No context" in res["answer"]
     finally:
         await engine.dispose()
+
+
+async def test_search_context_finds_stored_passages(tmp_path):
+    """search_context: keyword retrieval over the latest snapshot, no LLM; hits carry path + lines."""
+    from harnext_mcp.search import search
+
+    settings, sm, store, br, engine = await _setup(tmp_path)
+    try:
+        out = await br.run_update("acme", "Note: the auth module was refactored.", uuid.uuid4().hex)
+        assert out.status is BuildStatus.SUCCESS
+        res = await search(store, "acme", "CLAUDE", 5)
+        assert res["snapshot_id"] is not None and res["hits"]
+        assert {"path", "lines", "score", "text"} <= set(res["hits"][0])
+        assert (await search(store, "nobody", "x"))["hits"] == []
+    finally:
+        await engine.dispose()
+
+
+def test_both_read_tools_are_served():
+    import ast
+    from pathlib import Path
+
+    import harnext_mcp.main as main
+
+    tree = ast.parse(Path(main.__file__).read_text())
+    tools = {n.name for n in ast.walk(tree) if isinstance(n, ast.AsyncFunctionDef)
+             and any(getattr(d, "attr", None) == "tool" for d in n.decorator_list)}  # fmt: skip
+    assert {"context_research", "search_context"} <= tools

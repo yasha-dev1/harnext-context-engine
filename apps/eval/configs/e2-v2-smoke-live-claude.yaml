@@ -1,0 +1,18 @@
+# Live plumbing smoke: 2 historical tasks x {closed book, two deterministic file stores} with Claude Code.
+protocol: harnext-e2-v2
+run_id: smoke-live-claude
+benchmark: ../benchmarks/kafka-500-v2-smoke
+arms_file: ../benchmarks/kafka-500-v2/arms.yaml
+arms: [N, F0, F1]
+agent: claude-code
+model: claude-haiku-4-5-20251001
+effort: medium
+stores: ../out/kafka-500-v2/stores-smoke
+results: ../out/kafka-500-v2/runs/smoke-live-claude/results
+workers: 1
+coding_workers: 1
+timeouts: {historical: 300, coding: 1800, grading: 3000}
+commit_every: 0
+min_free_gib: 10
+store_hash: tree
+limit_tasks: 2

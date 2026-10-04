@@ -1,0 +1,97 @@
+protocol: harnext-e2-v2
+run_id: smoke-offline-mcp
+benchmark: ../benchmarks/kafka-500-v2-smoke
+arms_file: ../benchmarks/kafka-500-v2/arms.yaml
+arms:
+- N
+- R-hyb
+- F0
+- F1
+- F2
+- F3
+- F4-fact
+- F4-entity
+- F4-topic
+- F5
+- F6
+agent: fake
+model: fake
+reader: fake  # research kind offline: no model calls
+stores: ../out/kafka-500-v2/stores-smoke
+results: ../out/kafka-500-v2/runs/smoke-offline-mcp/results
+workers: 2
+commit_every: 0
+min_free_gib: 5
+store_hash: tree
+fake:
+  answers:
+    H-assignee_at_snapshot-cd7df73b39: Terry Beard
+    H-assignment_history-af798e33b2:
+    - at: '2023-01-15T15:14:39.051000Z'
+      from: null
+      to: Federico Valeri
+    - at: '2023-01-20T13:29:09.712000Z'
+      from: Federico Valeri
+      to: null
+    - at: '2023-01-25T14:08:30.207000Z'
+      from: null
+      to: Omnia Ibrahim
+    - at: '2023-02-03T12:20:25.194000Z'
+      from: Omnia Ibrahim
+      to: null
+    - at: '2023-02-07T16:00:34.181000Z'
+      from: null
+      to: Alexandre Dupriez
+    H-author_activity-d9b8fd9b12: 3
+    H-closed_at_snapshot-2dfffefd50: false
+    H-fix_version_at_snapshot-15e6b3c0d5:
+    - 3.3.3
+    - 3.4.0
+    H-issue_changed_files-f650eaa47e:
+    - core/src/main/scala/kafka/log/LogLoader.scala
+    - storage/src/main/java/org/apache/kafka/server/log/internals/LoadedLogOffsets.java
+    H-issue_links-ca8d5d943e:
+    - KAFKA-14482
+    H-issue_prs-811d2cd88c:
+    - pr: 13110
+      state: closed
+    - pr: 13112
+      state: merged
+    H-kip_thread-511452e9a4:
+      participants: 7
+      starter: Gantigmaa Selenge
+    H-pr_approvers-4214c1515e:
+    - fvaleri
+    - mimaison
+    H-priority_at_snapshot-b39812e343: Blocker
+    H-reopen_count-c669c632ce: 0
+    H-resolution_at_snapshot-60d1ba77d4: Duplicate
+    H-resolution_transition_history-4246b4a186:
+    - at: '2023-01-31T07:40:58.708000Z'
+      from: null
+      to: Fixed
+    - at: '2023-02-03T00:06:13.654000Z'
+      from: Fixed
+      to: null
+    - at: '2023-02-04T08:49:11.318000Z'
+      from: null
+      to: Fixed
+    H-resolution_vs_merge_order-f77fa328bf:
+      days: 0
+      first: merge
+    H-review_hotspot-9fc22b9b07: streams/src/main/java/org/apache/kafka/streams/state/internals/RocksDBVersionedStore.java
+    H-status_at_snapshot-7bc2bfd0e4: Patch Available
+    H-status_transition_history-38085cd98b:
+    - at: '2023-02-07T15:53:30.493000Z'
+      from: Open
+      to: In Progress
+    - at: '2023-02-07T15:59:04.278000Z'
+      from: In Progress
+      to: Open
+    - at: '2023-02-07T15:59:10.945000Z'
+      from: Open
+      to: In Progress
+    - at: '2023-02-07T16:00:01.991000Z'
+      from: In Progress
+      to: Patch Available
+    H-top_reviewer_for_author-90c4daa8dd: ijuma

@@ -1,0 +1,25 @@
+# Live smoke of the engine arms (E2-ENGINE-DESIGN.md "Stage 3"): the SMOKE benchmark and smoke stores
+# only (the w2026 tasks are the held-out test set). Agent as in e2-w2026-claude-haiku.yaml; engine
+# models on OpenRouter (arm preset). First coding task + first 4 historical tasks of the run order
+# under S-tools (baseline), H-engine (RAW) and H-engine-mem (RAW + F5 notes): 15 trials.
+protocol: harnext-e2-v2
+run_id: engine-smoke-live
+benchmark: ../benchmarks/kafka-500-v2-smoke
+arms_file: ../benchmarks/kafka-500-v2/arms.yaml
+arms: [S-tools]  # 28 Sep: RAW rebuilt mid-run; the engine arms continue in e2-engine-smoke-live-2.yaml (was [S-tools, H-engine, H-engine-mem])
+agent: claude-code
+model: claude-haiku-4-5-20251001
+effort: medium
+stores: ../out/kafka-500-v2/stores-smoke
+checkouts: ../out/kafka-500-v2/runs/engine-smoke-live/checkouts
+results: ../out/kafka-500-v2/runs/engine-smoke-live/results
+workspaces: ../out/kafka-500-v2/runs/engine-smoke-live/workspaces
+workers: 1  # 28 Sep: memory pressure (swap full) -> one trial container at a time
+coding_workers: 1
+timeouts: {historical: 900, coding: 3600, grading: 3000}
+commit_every: 0
+min_free_gib: 12
+store_hash: tree
+max_coding: 0  # 28 Sep: memory pressure -> only the one coding trial already in flight (S-tools); no engine coding trials
+max_historical: 4
+max_turns: 100

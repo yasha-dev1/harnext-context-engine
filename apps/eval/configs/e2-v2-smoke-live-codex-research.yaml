@@ -1,0 +1,19 @@
+# Live check of the Harnext read interface: 2 historical tasks, F5 over `context_research`
+# (Codex asks, the production research agent on Haiku 4.5 answers inside the container).
+protocol: harnext-e2-v2
+run_id: smoke-live-codex-research
+benchmark: ../benchmarks/kafka-500-v2-smoke
+arms_file: ../benchmarks/kafka-500-v2/arms.yaml
+arms: [F5]
+agent: codex
+model: gpt-5.6-luna
+effort: medium
+stores: ../out/kafka-500-v2/stores-smoke
+results: ../out/kafka-500-v2/runs/smoke-live-codex-research/results
+workers: 1
+coding_workers: 1
+timeouts: {historical: 900, coding: 1800, grading: 3000}  # each context_research call may take 180 s
+commit_every: 0
+min_free_gib: 10
+store_hash: tree
+limit_tasks: 2

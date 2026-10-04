@@ -1,0 +1,18 @@
+# Smoke: the -smoke benchmark (a handful of tasks), closed book + one file arm + the MCP
+# control, results kept out of the versioned tree. Tiny stores, so exports are tree-hashed.
+protocol: harnext-e2-v2
+run_id: smoke-codex
+benchmark: ../benchmarks/kafka-500-v2-smoke
+arms_file: ../benchmarks/kafka-500-v2/arms.yaml
+arms: [N, F1, F5]
+agent: codex
+model: gpt-5.6-luna
+effort: medium
+stores: ../out/kafka-500-v2/stores
+results: ../out/kafka-500-v2/runs/smoke-codex/results
+workers: 1
+coding_workers: 1
+timeouts: {historical: 300, coding: 1800, grading: 3000}
+commit_every: 0
+min_free_gib: 10
+store_hash: tree

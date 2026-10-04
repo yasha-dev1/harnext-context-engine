@@ -1,0 +1,152 @@
+{
+  "benchmark": "kafka-500-v2-smoke",
+  "arm": "S-tools",
+  "tasks": 21,
+  "pass": 19,
+  "families": {
+    "assignee_at_snapshot": {
+      "tasks": 1,
+      "pass": 1,
+      "keyless": 1,
+      "keyless_pass": 1
+    },
+    "assignment_history": {
+      "tasks": 1,
+      "pass": 1,
+      "keyless": 0,
+      "keyless_pass": 0
+    },
+    "author_activity": {
+      "tasks": 1,
+      "pass": 1,
+      "keyless": 0,
+      "keyless_pass": 0
+    },
+    "closed_at_snapshot": {
+      "tasks": 1,
+      "pass": 1,
+      "keyless": 0,
+      "keyless_pass": 0
+    },
+    "fix_version_at_snapshot": {
+      "tasks": 1,
+      "pass": 1,
+      "keyless": 1,
+      "keyless_pass": 1
+    },
+    "issue_changed_files": {
+      "tasks": 1,
+      "pass": 1,
+      "keyless": 0,
+      "keyless_pass": 0
+    },
+    "issue_links": {
+      "tasks": 1,
+      "pass": 1,
+      "keyless": 1,
+      "keyless_pass": 1
+    },
+    "issue_prs": {
+      "tasks": 1,
+      "pass": 1,
+      "keyless": 1,
+      "keyless_pass": 1
+    },
+    "kip_thread": {
+      "tasks": 1,
+      "pass": 1,
+      "keyless": 0,
+      "keyless_pass": 0
+    },
+    "pr_approvers": {
+      "tasks": 1,
+      "pass": 1,
+      "keyless": 1,
+      "keyless_pass": 1
+    },
+    "pr_implementation": {
+      "tasks": 2,
+      "pass": 0,
+      "keyless": 0,
+      "keyless_pass": 0
+    },
+    "priority_at_snapshot": {
+      "tasks": 1,
+      "pass": 1,
+      "keyless": 1,
+      "keyless_pass": 1
+    },
+    "reopen_count": {
+      "tasks": 1,
+      "pass": 1,
+      "keyless": 0,
+      "keyless_pass": 0
+    },
+    "resolution_at_snapshot": {
+      "tasks": 1,
+      "pass": 1,
+      "keyless": 0,
+      "keyless_pass": 0
+    },
+    "resolution_transition_history": {
+      "tasks": 1,
+      "pass": 1,
+      "keyless": 1,
+      "keyless_pass": 1
+    },
+    "resolution_vs_merge_order": {
+      "tasks": 1,
+      "pass": 1,
+      "keyless": 1,
+      "keyless_pass": 1
+    },
+    "review_hotspot": {
+      "tasks": 1,
+      "pass": 1,
+      "keyless": 1,
+      "keyless_pass": 1
+    },
+    "status_at_snapshot": {
+      "tasks": 1,
+      "pass": 1,
+      "keyless": 0,
+      "keyless_pass": 0
+    },
+    "status_transition_history": {
+      "tasks": 1,
+      "pass": 1,
+      "keyless": 1,
+      "keyless_pass": 1
+    },
+    "top_reviewer_for_author": {
+      "tasks": 1,
+      "pass": 1,
+      "keyless": 0,
+      "keyless_pass": 0
+    }
+  },
+  "defects": [
+    {
+      "task": "C-KAFKA-PR-13295",
+      "family": "pr_implementation",
+      "checkpoint": "2023-02",
+      "keyless": false,
+      "reason": "the issue is not viewable with `jira issue view`"
+    },
+    {
+      "task": "C-KAFKA-PR-13938",
+      "family": "pr_implementation",
+      "checkpoint": "2023-02",
+      "keyless": false,
+      "reason": "the issue is not viewable with `jira issue view`"
+    }
+  ],
+  "checkpoints_scanned": 1,
+  "instants_at_or_after_boundary": {},
+  "coding_files": {
+    "touched": 2,
+    "reachable": 2,
+    "tasks_with_any": 2
+  },
+  "oracle": "scripted; reads the public prompt and calls only the offline CLIs (`jira issue list`, `jira issue view --history --raw`, `gh pr list/view/diff`, `mail search/thread`), graded by grade.grade_historical"
+}

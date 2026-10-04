@@ -1,0 +1,23 @@
+# Coding half of e2-engine-smoke-live-3.yaml (same run id): the first coding task of the smoke run order
+# (C-KAFKA-PR-13453) under H-engine only, alone (one container). Start only with >= 14 GB available.
+protocol: harnext-e2-v2
+run_id: engine-smoke-live-3
+benchmark: ../benchmarks/kafka-500-v2-smoke
+arms_file: ../benchmarks/kafka-500-v2/arms.yaml
+arms: [H-engine]
+agent: claude-code
+model: claude-haiku-4-5-20251001
+effort: medium
+stores: ../out/kafka-500-v2/stores-smoke
+checkouts: ../out/kafka-500-v2/runs/engine-smoke-live-3/checkouts
+results: ../out/kafka-500-v2/runs/engine-smoke-live-3/results
+workspaces: ../out/kafka-500-v2/runs/engine-smoke-live-3/workspaces
+workers: 1
+coding_workers: 1
+timeouts: {historical: 900, coding: 3600, grading: 3000}
+commit_every: 0
+min_free_gib: 12
+store_hash: tree
+max_coding: 1
+max_historical: 0
+max_turns: 100

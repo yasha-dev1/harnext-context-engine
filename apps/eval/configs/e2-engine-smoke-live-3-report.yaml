@@ -1,0 +1,23 @@
+# REPORT VIEW of run engine-smoke-live-3 (18 historical + the one H-engine coding trial). For e2_report.py /
+# e2_charts.py only: do NOT run it with --live (it would schedule coding trials for S-tools and H-engine-mem).
+protocol: harnext-e2-v2
+run_id: engine-smoke-live-3
+benchmark: ../benchmarks/kafka-500-v2-smoke
+arms_file: ../benchmarks/kafka-500-v2/arms.yaml
+arms: [S-tools, H-engine, H-engine-mem]
+agent: claude-code
+model: claude-haiku-4-5-20251001
+effort: medium
+stores: ../out/kafka-500-v2/stores-smoke
+checkouts: ../out/kafka-500-v2/runs/engine-smoke-live-3/checkouts
+results: ../out/kafka-500-v2/runs/engine-smoke-live-3/results
+workspaces: ../out/kafka-500-v2/runs/engine-smoke-live-3/workspaces
+workers: 2
+coding_workers: 2  # no coding task in this half: one pool of two historical workers
+timeouts: {historical: 900, coding: 3600, grading: 3000}
+commit_every: 0
+min_free_gib: 12
+store_hash: tree
+max_coding: 1
+max_historical: 6
+max_turns: 100

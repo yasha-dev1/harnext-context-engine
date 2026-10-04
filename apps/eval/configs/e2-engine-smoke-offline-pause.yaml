@@ -1,0 +1,43 @@
+# Pause half of e2-engine-smoke-offline.yaml (same run_id): the engine provider "fails" on the third
+# agent call (FakeAgent reader_infra_at): the runner must pause, record nothing for that trial,
+# and the plain config must then resume and finish.
+protocol: harnext-e2-v2
+run_id: engine-smoke-offline
+benchmark: ../benchmarks/kafka-500-v2-smoke
+arms_file: ../benchmarks/kafka-500-v2/arms.yaml
+arms: [N, S-tools, H-engine, H-engine-mem]
+agent: fake
+model: fake
+reader: fake
+stores: ../out/kafka-500-v2/stores-smoke
+checkouts: ../out/kafka-500-v2/runs/engine-smoke-offline/checkouts
+results: ../out/kafka-500-v2/runs/engine-smoke-offline/results
+workspaces: ../out/kafka-500-v2/runs/engine-smoke-offline/workspaces
+workers: 1  # deterministic call order: the 3rd agent call is H-engine on the first task
+commit_every: 0
+min_free_gib: 5
+store_hash: tree
+max_coding: 1
+max_historical: 4
+fake:
+  reader_infra_at: 3
+  answers:
+    H-assignee_at_snapshot-cd7df73b39|H-engine: Terry Beard
+    H-assignment_history-af798e33b2|H-engine-mem:
+    - at: '2023-01-15T15:14:39.051000Z'
+      from: null
+      to: Federico Valeri
+    - at: '2023-01-20T13:29:09.712000Z'
+      from: Federico Valeri
+      to: null
+    - at: '2023-01-25T14:08:30.207000Z'
+      from: null
+      to: Omnia Ibrahim
+    - at: '2023-02-03T12:20:25.194000Z'
+      from: Omnia Ibrahim
+      to: null
+    - at: '2023-02-07T16:00:34.181000Z'
+      from: null
+      to: Alexandre Dupriez
+    H-author_activity-d9b8fd9b12: 3
+    H-closed_at_snapshot-2dfffefd50|S-tools: false

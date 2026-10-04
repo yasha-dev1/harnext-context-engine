@@ -1,0 +1,18 @@
+# Live S-tools smoke: 2 historical tasks, Codex, time-frozen gh/jira/mail CLIs only.
+protocol: harnext-e2-v2
+run_id: smoke-live-codex-sources
+benchmark: ../benchmarks/kafka-500-v2-smoke
+arms_file: ../benchmarks/kafka-500-v2/arms.yaml
+arms: [S-tools]
+agent: codex
+model: gpt-5.6-luna
+effort: medium
+stores: ../out/kafka-500-v2/stores-smoke
+results: ../out/kafka-500-v2/runs/smoke-live-codex-sources/results
+workers: 1
+coding_workers: 1
+timeouts: {historical: 300, coding: 1800, grading: 3000}
+commit_every: 0
+min_free_gib: 10
+store_hash: tree
+limit_tasks: 2

@@ -1,0 +1,28 @@
+# Engine arms on the w2026 benchmark (E2-ENGINE-DESIGN.md "Stage 3", run plan). A NEW run id: the main
+# run w2026-claude-code-haiku-4-5 is finished and stays unaltered; its S-tools and file arms are shown
+# beside these with `e2_report.py --config e2-w2026-claude-haiku.yaml --extra-config <this file>`.
+# Same benchmark, task caps, agent, model, turn cap and stores as the main run. S-tools re-runs here on a
+# fixed subset (every 3rd task of each category in run order: 4 coding + 12 factual + 10 design + 5
+# implicit = 31 trials) as a drift control: same image, same days as the engine arms.
+protocol: harnext-e2-v2
+run_id: w2026-engine-claude-code-haiku-4-5
+benchmark: ../benchmarks/kafka-50-w2026
+arms_file: ../benchmarks/kafka-500-v2/arms.yaml
+# 28 Sep (Yasha: "we already have other arms full results ... just run it for new arms"): only the two
+# engine arms run here; the S-tools drift-control subset (every_nth: {S-tools: 3}) is NOT run.
+arms: [H-engine, H-engine-mem]
+agent: claude-code
+model: claude-haiku-4-5-20251001
+effort: medium
+stores: ../out/kafka-500-v2/stores-w2026
+checkouts: ../out/kafka-500-v2/checkouts-w2026-engine
+# Memory (28 Sep): a coding container peaked at 9.7 of 10 GiB; engine historical containers < 0.4 GiB.
+# One coding trial at a time + two historical ones: ~11 GiB peak, inside the ~17 GiB normally available.
+workers: 3
+coding_workers: 1
+timeouts: {historical: 900, coding: 3600, grading: 3000}
+commit_every: 0
+min_free_gib: 12
+max_coding: 12
+max_historical: 78
+max_turns: 100

@@ -1,0 +1,2258 @@
+{
+ "C-KAFKA-PR-21385": {
+  "ckpt": "2026-01",
+  "dependent": false,
+  "id": "C-KAFKA-PR-21385",
+  "issue": "KAFKA-20111",
+  "kips": [],
+  "links": [],
+  "overlap": [],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 0,
+  "series": false,
+  "title": "Describing group configs for pre-4.1 broker with later kafka-configs.sh fails"
+ },
+ "C-KAFKA-PR-21420": {
+  "ckpt": "2026-01",
+  "dependent": false,
+  "id": "C-KAFKA-PR-21420",
+  "issue": "KAFKA-15894",
+  "kips": [],
+  "links": [],
+  "overlap": [],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 0,
+  "series": false,
+  "title": "MessageConversionsTimeMs and TemporaryMemoryBytes may not be recorded correctly."
+ },
+ "C-KAFKA-PR-21424": {
+  "ckpt": "2026-01",
+  "dependent": false,
+  "id": "C-KAFKA-PR-21424",
+  "issue": "KAFKA-20119",
+  "kips": [],
+  "links": [],
+  "overlap": [],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 0,
+  "series": false,
+  "title": "Clarify that `Consumer#unsubscribe` does not trigger auto-commit"
+ },
+ "C-KAFKA-PR-21425": {
+  "ckpt": "2026-01",
+  "dependent": false,
+  "id": "C-KAFKA-PR-21425",
+  "issue": "KAFKA-20129",
+  "kips": [],
+  "links": [],
+  "overlap": [],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 0,
+  "series": false,
+  "title": "Server error caused by appending/subtracting a non-existent config key"
+ },
+ "C-KAFKA-PR-21443": {
+  "ckpt": "2026-01",
+  "dependent": false,
+  "id": "C-KAFKA-PR-21443",
+  "issue": "KAFKA-20163",
+  "kips": [
+   "KIP-937"
+  ],
+  "links": [],
+  "overlap": [],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 1,
+  "series": false,
+  "title": "Missing MM2 default exclude configs"
+ },
+ "C-KAFKA-PR-21457": {
+  "ckpt": "2026-01",
+  "dependent": false,
+  "id": "C-KAFKA-PR-21457",
+  "issue": "KAFKA-20131",
+  "kips": [],
+  "links": [],
+  "overlap": [],
+  "parent": null,
+  "prrefs": [],
+  "refs": [
+   "KAFKA-20187"
+  ],
+  "score": 2,
+  "series": false,
+  "title": "SubscriptionState endOffsetRequested remains permanently set if LIST_OFFSETS cal"
+ },
+ "C-KAFKA-PR-21468": {
+  "ckpt": "2026-01",
+  "dependent": true,
+  "id": "C-KAFKA-PR-21468",
+  "issue": "KAFKA-20157",
+  "kips": [
+   "KIP-1257"
+  ],
+  "links": [],
+  "overlap": [],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 1,
+  "series": true,
+  "title": "Partition Size Percentage Metrics for Storage Monitoring"
+ },
+ "C-KAFKA-PR-21469": {
+  "ckpt": "2026-01",
+  "dependent": true,
+  "id": "C-KAFKA-PR-21469",
+  "issue": "KAFKA-20090",
+  "kips": [],
+  "links": [],
+  "overlap": [],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 0,
+  "series": true,
+  "title": "TV2 can allow for ongoing transactions with max epoch that never complete"
+ },
+ "C-KAFKA-PR-21471": {
+  "ckpt": "2026-01",
+  "dependent": false,
+  "id": "C-KAFKA-PR-21471",
+  "issue": "KAFKA-20183",
+  "kips": [
+   "KIP-932"
+  ],
+  "links": [],
+  "overlap": [],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 1,
+  "series": false,
+  "title": "Share consumer group fails when group ID contains colon character"
+ },
+ "C-KAFKA-PR-21506": {
+  "ckpt": "2026-01",
+  "dependent": true,
+  "id": "C-KAFKA-PR-21506",
+  "issue": "KAFKA-20090",
+  "kips": [],
+  "links": [],
+  "overlap": [],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 0,
+  "series": true,
+  "title": "TV2 can allow for ongoing transactions with max epoch that never complete"
+ },
+ "C-KAFKA-PR-21612": {
+  "ckpt": "2026-02",
+  "dependent": true,
+  "id": "C-KAFKA-PR-21612",
+  "issue": "KAFKA-20157",
+  "kips": [
+   "KIP-1257"
+  ],
+  "links": [],
+  "overlap": [],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 1,
+  "series": true,
+  "title": "Partition Size Percentage Metrics for Storage Monitoring"
+ },
+ "C-KAFKA-PR-21616": {
+  "ckpt": "2026-02",
+  "dependent": false,
+  "id": "C-KAFKA-PR-21616",
+  "issue": "KAFKA-20211",
+  "kips": [
+   "KIP-1263"
+  ],
+  "links": [],
+  "overlap": [],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 1,
+  "series": false,
+  "title": "Add new group coordinator executor metrics"
+ },
+ "C-KAFKA-PR-21641": {
+  "ckpt": "2026-02",
+  "dependent": false,
+  "id": "C-KAFKA-PR-21641",
+  "issue": "KAFKA-20254",
+  "kips": [],
+  "links": [],
+  "overlap": [
+   [
+    21309,
+    "KAFKA-19233",
+    2
+   ],
+   [
+    21305,
+    "KAFKA-19233",
+    2
+   ],
+   [
+    21312,
+    "KAFKA-19233",
+    2
+   ]
+  ],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 3,
+  "series": false,
+  "title": "Streams group replay fails after log compaction removes classic group tombstone"
+ },
+ "C-KAFKA-PR-21662": {
+  "ckpt": "2026-02",
+  "dependent": true,
+  "id": "C-KAFKA-PR-21662",
+  "issue": "KAFKA-20272",
+  "kips": [],
+  "links": [],
+  "overlap": [
+   [
+    21309,
+    "KAFKA-19233",
+    2
+   ],
+   [
+    21305,
+    "KAFKA-19233",
+    2
+   ],
+   [
+    21312,
+    "KAFKA-19233",
+    2
+   ],
+   [
+    21641,
+    "KAFKA-20254",
+    2
+   ]
+  ],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 4,
+  "series": false,
+  "title": "Rebalance classic members only on new assignment"
+ },
+ "C-KAFKA-PR-21663": {
+  "ckpt": "2026-02",
+  "dependent": true,
+  "id": "C-KAFKA-PR-21663",
+  "issue": "KAFKA-20273",
+  "kips": [],
+  "links": [],
+  "overlap": [
+   [
+    21309,
+    "KAFKA-19233",
+    2
+   ],
+   [
+    21305,
+    "KAFKA-19233",
+    2
+   ],
+   [
+    21312,
+    "KAFKA-19233",
+    2
+   ],
+   [
+    21641,
+    "KAFKA-20254",
+    2
+   ]
+  ],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 4,
+  "series": false,
+  "title": "Trigger rebalance on downgrade to classic group when assignment is stale"
+ },
+ "C-KAFKA-PR-21671": {
+  "ckpt": "2026-02",
+  "dependent": false,
+  "id": "C-KAFKA-PR-21671",
+  "issue": "KAFKA-16600",
+  "kips": [],
+  "links": [
+   "This issue is related to KAFKA-17120"
+  ],
+  "overlap": [
+   [
+    20749,
+    "KAFKA-19434",
+    2
+   ]
+  ],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 3,
+  "series": false,
+  "title": "Periodically receive \"Failed to transition to PENDING_SHUTDOWN, current state is"
+ },
+ "C-KAFKA-PR-21682": {
+  "ckpt": "2026-02",
+  "dependent": true,
+  "id": "C-KAFKA-PR-21682",
+  "issue": "KAFKA-19939",
+  "kips": [],
+  "links": [
+   "This issue blocks KAFKA-20280",
+   "This issue is related to KAFKA-19930"
+  ],
+  "overlap": [],
+  "parent": null,
+  "prrefs": [],
+  "refs": [
+   "KAFKA-19930",
+   "KAFKA-20280"
+  ],
+  "score": 8,
+  "series": false,
+  "title": "ProductionExceptionHandler not supported on global thread"
+ },
+ "C-KAFKA-PR-21688": {
+  "ckpt": "2026-02",
+  "dependent": false,
+  "id": "C-KAFKA-PR-21688",
+  "issue": "KAFKA-20281",
+  "kips": [],
+  "links": [],
+  "overlap": [],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 0,
+  "series": false,
+  "title": "Enhance docs and test coverage for `producer-props` and `command-property`"
+ },
+ "C-KAFKA-PR-21717": {
+  "ckpt": "2026-02",
+  "dependent": true,
+  "id": "C-KAFKA-PR-21717",
+  "issue": "KAFKA-19697",
+  "kips": [],
+  "links": [
+   "This issue relates to KAFKA-17719"
+  ],
+  "overlap": [],
+  "parent": null,
+  "prrefs": [],
+  "refs": [
+   "KAFKA-17719"
+  ],
+  "score": 4,
+  "series": false,
+  "title": "NPE Cannot invoke org.apache.kafka.connect.runtime.ConnectMetrics$MetricGroup.cl"
+ },
+ "C-KAFKA-PR-21740": {
+  "ckpt": "2026-02",
+  "dependent": false,
+  "id": "C-KAFKA-PR-21740",
+  "issue": "KAFKA-20302",
+  "kips": [],
+  "links": [],
+  "overlap": [],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 0,
+  "series": false,
+  "title": "Receive buffers allocated from MemoryPool may not be released if request is inva"
+ },
+ "C-KAFKA-PR-21756": {
+  "ckpt": "2026-02",
+  "dependent": true,
+  "id": "C-KAFKA-PR-21756",
+  "issue": "KAFKA-20173",
+  "kips": [],
+  "links": [],
+  "overlap": [],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 0,
+  "series": true,
+  "title": "Revisit KS serde code to check if headers are passed correctly"
+ },
+ "C-KAFKA-PR-21757": {
+  "ckpt": "2026-02",
+  "dependent": false,
+  "id": "C-KAFKA-PR-21757",
+  "issue": "KAFKA-20309",
+  "kips": [],
+  "links": [],
+  "overlap": [],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 0,
+  "series": false,
+  "title": "Too many SharePollEvents created"
+ },
+ "C-KAFKA-PR-21768": {
+  "ckpt": "2026-02",
+  "dependent": true,
+  "id": "C-KAFKA-PR-21768",
+  "issue": "KAFKA-20173",
+  "kips": [],
+  "links": [],
+  "overlap": [],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 0,
+  "series": true,
+  "title": "Revisit KS serde code to check if headers are passed correctly"
+ },
+ "C-KAFKA-PR-21781": {
+  "ckpt": "2026-02",
+  "dependent": false,
+  "id": "C-KAFKA-PR-21781",
+  "issue": "KAFKA-20321",
+  "kips": [],
+  "links": [],
+  "overlap": [],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 0,
+  "series": false,
+  "title": "Mark partitions lost to avoid potential race with buffered records"
+ },
+ "C-KAFKA-PR-21802": {
+  "ckpt": "2026-02",
+  "dependent": true,
+  "id": "C-KAFKA-PR-21802",
+  "issue": "KAFKA-20203",
+  "kips": [],
+  "links": [],
+  "overlap": [],
+  "parent": null,
+  "prrefs": [
+   "21451",
+   "21486"
+  ],
+  "refs": [],
+  "score": 4,
+  "series": false,
+  "title": "setFlushListener should pass record.headers() instead of empty headers"
+ },
+ "C-KAFKA-PR-21813": {
+  "ckpt": "2026-02",
+  "dependent": true,
+  "id": "C-KAFKA-PR-21813",
+  "issue": "KAFKA-20106",
+  "kips": [],
+  "links": [
+   "This issue blocks KAFKA-20282",
+   "This issue is related to KAFKA-20213"
+  ],
+  "overlap": [
+   [
+    21757,
+    "KAFKA-20309",
+    1
+   ]
+  ],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 5,
+  "series": false,
+  "title": "Improve behaviour of consumer assignment API under async reconciliations"
+ },
+ "C-KAFKA-PR-21814": {
+  "ckpt": "2026-02",
+  "dependent": false,
+  "id": "C-KAFKA-PR-21814",
+  "issue": "KAFKA-19710",
+  "kips": [],
+  "links": [],
+  "overlap": [
+   [
+    20749,
+    "KAFKA-19434",
+    1
+   ]
+  ],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 1,
+  "series": false,
+  "title": "Add downgrade support"
+ },
+ "C-KAFKA-PR-21817": {
+  "ckpt": "2026-02",
+  "dependent": false,
+  "id": "C-KAFKA-PR-21817",
+  "issue": "KAFKA-20306",
+  "kips": [],
+  "links": [],
+  "overlap": [],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 0,
+  "series": false,
+  "title": "StreamsGroupCommand does not display committed offsets for repartition topics"
+ },
+ "C-KAFKA-PR-21825": {
+  "ckpt": "2026-02",
+  "dependent": false,
+  "id": "C-KAFKA-PR-21825",
+  "issue": "KAFKA-20326",
+  "kips": [],
+  "links": [],
+  "overlap": [],
+  "parent": null,
+  "prrefs": [
+   "21580"
+  ],
+  "refs": [],
+  "score": 2,
+  "series": false,
+  "title": "WindowStoreMaterializerTests needs to get updated"
+ },
+ "C-KAFKA-PR-21828": {
+  "ckpt": "2026-02",
+  "dependent": false,
+  "id": "C-KAFKA-PR-21828",
+  "issue": "KAFKA-20310",
+  "kips": [],
+  "links": [],
+  "overlap": [],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 0,
+  "series": false,
+  "title": "nextProducerId and prevProducerId fields never persisted to transaction log"
+ },
+ "C-KAFKA-PR-21847": {
+  "ckpt": "2026-02",
+  "dependent": false,
+  "id": "C-KAFKA-PR-21847",
+  "issue": "KAFKA-20346",
+  "kips": [],
+  "links": [],
+  "overlap": [],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 0,
+  "series": false,
+  "title": "LogCleaner#cleaners should be thread-safe"
+ },
+ "C-KAFKA-PR-21861": {
+  "ckpt": "2026-02",
+  "dependent": false,
+  "id": "C-KAFKA-PR-21861",
+  "issue": "KAFKA-20340",
+  "kips": [],
+  "links": [],
+  "overlap": [],
+  "parent": null,
+  "prrefs": [
+   "21627"
+  ],
+  "refs": [],
+  "score": 2,
+  "series": false,
+  "title": "SharePartition should keep only one config reference"
+ },
+ "C-KAFKA-PR-21884": {
+  "ckpt": "2026-02",
+  "dependent": false,
+  "id": "C-KAFKA-PR-21884",
+  "issue": "KAFKA-19712",
+  "kips": [],
+  "links": [],
+  "overlap": [
+   [
+    21814,
+    "KAFKA-19710",
+    2
+   ],
+   [
+    20749,
+    "KAFKA-19434",
+    1
+   ]
+  ],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 2,
+  "series": false,
+  "title": "Implement new behaviour in ProcessorStateManager"
+ },
+ "C-KAFKA-PR-21885": {
+  "ckpt": "2026-02",
+  "dependent": false,
+  "id": "C-KAFKA-PR-21885",
+  "issue": "KAFKA-20347",
+  "kips": [],
+  "links": [],
+  "overlap": [],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 0,
+  "series": false,
+  "title": "Fix metric leak and JMX tag order in ShareCoordinatorMetrics"
+ },
+ "C-KAFKA-PR-21897": {
+  "ckpt": "2026-02",
+  "dependent": true,
+  "id": "C-KAFKA-PR-21897",
+  "issue": "KAFKA-20332",
+  "kips": [],
+  "links": [],
+  "overlap": [
+   [
+    21813,
+    "KAFKA-20106",
+    2
+   ],
+   [
+    21757,
+    "KAFKA-20309",
+    1
+   ],
+   [
+    21781,
+    "KAFKA-20321",
+    1
+   ]
+  ],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 3,
+  "series": true,
+  "title": "Ensure app thread not collecting records for partitions being revoked"
+ },
+ "C-KAFKA-PR-21900": {
+  "ckpt": "2026-02",
+  "dependent": true,
+  "id": "C-KAFKA-PR-21900",
+  "issue": "KAFKA-20282",
+  "kips": [
+   "KIP-1274",
+   "KIP-848"
+  ],
+  "links": [
+   "This issue is blocked by KAFKA-20066",
+   "This issue is blocked by KAFKA-20106"
+  ],
+  "overlap": [
+   [
+    21457,
+    "KAFKA-20131",
+    2
+   ]
+  ],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 6,
+  "series": false,
+  "title": "Classic consumer log recommendation for next gen Consumer rebalance protocol"
+ },
+ "C-KAFKA-PR-21901": {
+  "ckpt": "2026-02",
+  "dependent": true,
+  "id": "C-KAFKA-PR-21901",
+  "issue": "KAFKA-13499",
+  "kips": [],
+  "links": [
+   "This issue relates to KAFKA-7934"
+  ],
+  "overlap": [
+   [
+    21814,
+    "KAFKA-19710",
+    1
+   ],
+   [
+    20749,
+    "KAFKA-19434",
+    1
+   ]
+  ],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 4,
+  "series": true,
+  "title": "Avoid restoring outdated records"
+ },
+ "C-KAFKA-PR-21919": {
+  "ckpt": "2026-02",
+  "dependent": false,
+  "id": "C-KAFKA-PR-21919",
+  "issue": "KAFKA-20382",
+  "kips": [],
+  "links": [],
+  "overlap": [
+   [
+    21813,
+    "KAFKA-20106",
+    2
+   ],
+   [
+    21781,
+    "KAFKA-20321",
+    2
+   ]
+  ],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 2,
+  "series": false,
+  "title": "Improve interrupts handling when updating assignment for callbacks"
+ },
+ "C-KAFKA-PR-21931": {
+  "ckpt": "2026-03",
+  "dependent": false,
+  "id": "C-KAFKA-PR-21931",
+  "issue": "KAFKA-20368",
+  "kips": [],
+  "links": [],
+  "overlap": [
+   [
+    21468,
+    "KAFKA-20157",
+    2
+   ]
+  ],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 1,
+  "series": false,
+  "title": "Use LinkedHashMap for deterministic metric tags order in RLMExpirationTask"
+ },
+ "C-KAFKA-PR-21941": {
+  "ckpt": "2026-03",
+  "dependent": false,
+  "id": "C-KAFKA-PR-21941",
+  "issue": "KAFKA-20219",
+  "kips": [],
+  "links": [],
+  "overlap": [],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 0,
+  "series": false,
+  "title": "Override `getPosition` correctly for TimestampedKeyValueStoreWithHeaders"
+ },
+ "C-KAFKA-PR-21968": {
+  "ckpt": "2026-03",
+  "dependent": false,
+  "id": "C-KAFKA-PR-21968",
+  "issue": "KAFKA-20372",
+  "kips": [],
+  "links": [],
+  "overlap": [
+   [
+    21365,
+    "KAFKA-19960",
+    1
+   ],
+   [
+    20749,
+    "KAFKA-19434",
+    1
+   ]
+  ],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 2,
+  "series": false,
+  "title": "Flaky NamedTopologyIntegrationTest shouldAddToEmptyInitialTopologyRemoveResetOff"
+ },
+ "C-KAFKA-PR-21973": {
+  "ckpt": "2026-03",
+  "dependent": false,
+  "id": "C-KAFKA-PR-21973",
+  "issue": "KAFKA-20398",
+  "kips": [],
+  "links": [],
+  "overlap": [],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 0,
+  "series": false,
+  "title": "Memory leak when stream threads are replaced"
+ },
+ "C-KAFKA-PR-21997": {
+  "ckpt": "2026-03",
+  "dependent": true,
+  "id": "C-KAFKA-PR-21997",
+  "issue": "KAFKA-20332",
+  "kips": [],
+  "links": [],
+  "overlap": [
+   [
+    21813,
+    "KAFKA-20106",
+    1
+   ],
+   [
+    21424,
+    "KAFKA-20119",
+    1
+   ],
+   [
+    21897,
+    "KAFKA-20332",
+    2
+   ],
+   [
+    21919,
+    "KAFKA-20382",
+    2
+   ]
+  ],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 4,
+  "series": true,
+  "title": "Ensure app thread not collecting records for partitions being revoked"
+ },
+ "C-KAFKA-PR-22005": {
+  "ckpt": "2026-03",
+  "dependent": false,
+  "id": "C-KAFKA-PR-22005",
+  "issue": "KAFKA-20425",
+  "kips": [],
+  "links": [],
+  "overlap": [
+   [
+    21861,
+    "KAFKA-20340",
+    1
+   ]
+  ],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 1,
+  "series": false,
+  "title": "Avoid triggers to purgatory when no data is available for share fetch"
+ },
+ "C-KAFKA-PR-22011": {
+  "ckpt": "2026-03",
+  "dependent": true,
+  "id": "C-KAFKA-PR-22011",
+  "issue": "KAFKA-20428",
+  "kips": [],
+  "links": [],
+  "overlap": [
+   [
+    21813,
+    "KAFKA-20106",
+    2
+   ],
+   [
+    21997,
+    "KAFKA-20332",
+    2
+   ],
+   [
+    21424,
+    "KAFKA-20119",
+    1
+   ],
+   [
+    21781,
+    "KAFKA-20321",
+    2
+   ]
+  ],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 6,
+  "series": false,
+  "title": "Consumer unsubscribe could fail processing previous assignment change events"
+ },
+ "C-KAFKA-PR-22015": {
+  "ckpt": "2026-03",
+  "dependent": false,
+  "id": "C-KAFKA-PR-22015",
+  "issue": "KAFKA-20431",
+  "kips": [],
+  "links": [],
+  "overlap": [],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 0,
+  "series": false,
+  "title": "ConsumerGroupDescribe API does not return partitions being revoked"
+ },
+ "C-KAFKA-PR-22018": {
+  "ckpt": "2026-03",
+  "dependent": true,
+  "id": "C-KAFKA-PR-22018",
+  "issue": "KAFKA-20426",
+  "kips": [],
+  "links": [],
+  "overlap": [
+   [
+    21997,
+    "KAFKA-20332",
+    1
+   ],
+   [
+    21424,
+    "KAFKA-20119",
+    1
+   ],
+   [
+    21897,
+    "KAFKA-20332",
+    1
+   ],
+   [
+    21919,
+    "KAFKA-20382",
+    1
+   ]
+  ],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 4,
+  "series": false,
+  "title": "Using both group.id and assign() causes a busy loop in AsyncKafkaConsumer"
+ },
+ "C-KAFKA-PR-22036": {
+  "ckpt": "2026-03",
+  "dependent": true,
+  "id": "C-KAFKA-PR-22036",
+  "issue": "KAFKA-20434",
+  "kips": [
+   "KIP-848"
+  ],
+  "links": [],
+  "overlap": [
+   [
+    21309,
+    "KAFKA-19233",
+    2
+   ],
+   [
+    21305,
+    "KAFKA-19233",
+    3
+   ],
+   [
+    21312,
+    "KAFKA-19233",
+    2
+   ],
+   [
+    21663,
+    "KAFKA-20273",
+    2
+   ]
+  ],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 7,
+  "series": false,
+  "title": "Consumer group does not recompute assignment when static members rejoin with a d"
+ },
+ "C-KAFKA-PR-22079": {
+  "ckpt": "2026-03",
+  "dependent": false,
+  "id": "C-KAFKA-PR-22079",
+  "issue": "KAFKA-9914",
+  "kips": [],
+  "links": [],
+  "overlap": [
+   [
+    21443,
+    "KAFKA-20163",
+    1
+   ]
+  ],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 1,
+  "series": false,
+  "title": "Mirror Maker 2 creates heartbeats kafka topics recursively"
+ },
+ "C-KAFKA-PR-22115": {
+  "ckpt": "2026-03",
+  "dependent": true,
+  "id": "C-KAFKA-PR-22115",
+  "issue": "KAFKA-13499",
+  "kips": [],
+  "links": [
+   "This issue relates to KAFKA-7934"
+  ],
+  "overlap": [
+   [
+    21901,
+    "KAFKA-13499",
+    8
+   ],
+   [
+    21814,
+    "KAFKA-19710",
+    1
+   ],
+   [
+    20749,
+    "KAFKA-19434",
+    1
+   ],
+   [
+    21884,
+    "KAFKA-19712",
+    1
+   ]
+  ],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 6,
+  "series": true,
+  "title": "Avoid restoring outdated records"
+ },
+ "C-KAFKA-PR-22123": {
+  "ckpt": "2026-03",
+  "dependent": false,
+  "id": "C-KAFKA-PR-22123",
+  "issue": "KAFKA-15768",
+  "kips": [],
+  "links": [],
+  "overlap": [],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 0,
+  "series": false,
+  "title": "StateQueryResult#getOnlyPartitionResult should not throw for FailedQueryResult"
+ },
+ "C-KAFKA-PR-22132": {
+  "ckpt": "2026-03",
+  "dependent": true,
+  "id": "C-KAFKA-PR-22132",
+  "issue": "KAFKA-20523",
+  "kips": [],
+  "links": [],
+  "overlap": [],
+  "parent": null,
+  "prrefs": [
+   "24292"
+  ],
+  "refs": [
+   "KAFKA-13216",
+   "KAFKA-13248"
+  ],
+  "score": 6,
+  "series": false,
+  "title": "Class name mismatch for LoggerFactory.getLogger method in KStreamKTableJoinProce"
+ },
+ "C-KAFKA-PR-22142": {
+  "ckpt": "2026-03",
+  "dependent": false,
+  "id": "C-KAFKA-PR-22142",
+  "issue": "KAFKA-20492",
+  "kips": [],
+  "links": [],
+  "overlap": [],
+  "parent": null,
+  "prrefs": [],
+  "refs": [
+   "KAFKA-20490"
+  ],
+  "score": 2,
+  "series": false,
+  "title": "Factor out RocksDBStore iteration methods to DBAccessor"
+ },
+ "C-KAFKA-PR-22197": {
+  "ckpt": "2026-04",
+  "dependent": false,
+  "id": "C-KAFKA-PR-22197",
+  "issue": "KAFKA-20524",
+  "kips": [
+   "KIP-1323"
+  ],
+  "links": [],
+  "overlap": [],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 1,
+  "series": false,
+  "title": "Initialization of share group offsets from a specific offset or a file"
+ },
+ "C-KAFKA-PR-22199": {
+  "ckpt": "2026-04",
+  "dependent": true,
+  "id": "C-KAFKA-PR-22199",
+  "issue": "KAFKA-20535",
+  "kips": [],
+  "links": [],
+  "overlap": [
+   [
+    21813,
+    "KAFKA-20106",
+    1
+   ],
+   [
+    21997,
+    "KAFKA-20332",
+    2
+   ],
+   [
+    22011,
+    "KAFKA-20428",
+    2
+   ],
+   [
+    21424,
+    "KAFKA-20119",
+    1
+   ]
+  ],
+  "parent": null,
+  "prrefs": [],
+  "refs": [
+   "KAFKA-18376",
+   "KAFKA-20332"
+  ],
+  "score": 12,
+  "series": false,
+  "title": "Investigate potential improvements to async consumer CPU usage under low max.pol"
+ },
+ "C-KAFKA-PR-22210": {
+  "ckpt": "2026-04",
+  "dependent": false,
+  "id": "C-KAFKA-PR-22210",
+  "issue": "KAFKA-20551",
+  "kips": [],
+  "links": [],
+  "overlap": [
+   [
+    21420,
+    "KAFKA-15894",
+    1
+   ]
+  ],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 1,
+  "series": false,
+  "title": "Remove unnecessary generics from TxnOffsetCommitResponse, OffsetCommitResponse, "
+ },
+ "C-KAFKA-PR-22214": {
+  "ckpt": "2026-04",
+  "dependent": true,
+  "id": "C-KAFKA-PR-22214",
+  "issue": "KAFKA-20444",
+  "kips": [
+   "KIP-1319"
+  ],
+  "links": [],
+  "overlap": [],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 1,
+  "series": true,
+  "title": "Align TxnOffsetCommit API with OffsetCommit API (KIP-1319)"
+ },
+ "C-KAFKA-PR-22215": {
+  "ckpt": "2026-04",
+  "dependent": true,
+  "id": "C-KAFKA-PR-22215",
+  "issue": "KAFKA-20444",
+  "kips": [
+   "KIP-1319"
+  ],
+  "links": [],
+  "overlap": [],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 1,
+  "series": true,
+  "title": "Align TxnOffsetCommit API with OffsetCommit API (KIP-1319)"
+ },
+ "C-KAFKA-PR-22224": {
+  "ckpt": "2026-04",
+  "dependent": true,
+  "id": "C-KAFKA-PR-22224",
+  "issue": "KAFKA-20444",
+  "kips": [
+   "KIP-1319"
+  ],
+  "links": [],
+  "overlap": [
+   [
+    22214,
+    "KAFKA-20444",
+    1
+   ],
+   [
+    21420,
+    "KAFKA-15894",
+    1
+   ],
+   [
+    22215,
+    "KAFKA-20444",
+    2
+   ],
+   [
+    22210,
+    "KAFKA-20551",
+    3
+   ]
+  ],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 5,
+  "series": true,
+  "title": "Align TxnOffsetCommit API with OffsetCommit API (KIP-1319)"
+ },
+ "C-KAFKA-PR-22238": {
+  "ckpt": "2026-04",
+  "dependent": true,
+  "id": "C-KAFKA-PR-22238",
+  "issue": "KAFKA-20444",
+  "kips": [
+   "KIP-1319"
+  ],
+  "links": [],
+  "overlap": [
+   [
+    21420,
+    "KAFKA-15894",
+    2
+   ],
+   [
+    22224,
+    "KAFKA-20444",
+    2
+   ],
+   [
+    22210,
+    "KAFKA-20551",
+    2
+   ]
+  ],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 4,
+  "series": true,
+  "title": "Align TxnOffsetCommit API with OffsetCommit API (KIP-1319)"
+ },
+ "C-KAFKA-PR-22239": {
+  "ckpt": "2026-04",
+  "dependent": true,
+  "id": "C-KAFKA-PR-22239",
+  "issue": "KAFKA-20444",
+  "kips": [
+   "KIP-1319"
+  ],
+  "links": [],
+  "overlap": [],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 1,
+  "series": true,
+  "title": "Align TxnOffsetCommit API with OffsetCommit API (KIP-1319)"
+ },
+ "C-KAFKA-PR-22249": {
+  "ckpt": "2026-04",
+  "dependent": true,
+  "id": "C-KAFKA-PR-22249",
+  "issue": "KAFKA-20444",
+  "kips": [
+   "KIP-1319"
+  ],
+  "links": [],
+  "overlap": [
+   [
+    22214,
+    "KAFKA-20444",
+    2
+   ]
+  ],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 2,
+  "series": true,
+  "title": "Align TxnOffsetCommit API with OffsetCommit API (KIP-1319)"
+ },
+ "C-KAFKA-PR-22264": {
+  "ckpt": "2026-04",
+  "dependent": true,
+  "id": "C-KAFKA-PR-22264",
+  "issue": "KAFKA-20570",
+  "kips": [],
+  "links": [],
+  "overlap": [
+   [
+    21309,
+    "KAFKA-19233",
+    1
+   ],
+   [
+    21305,
+    "KAFKA-19233",
+    1
+   ],
+   [
+    21312,
+    "KAFKA-19233",
+    1
+   ],
+   [
+    21663,
+    "KAFKA-20273",
+    1
+   ]
+  ],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 7,
+  "series": false,
+  "title": "Catch RuntimeException in ConsumerProtocol deserialization in group coordinator"
+ },
+ "C-KAFKA-PR-22265": {
+  "ckpt": "2026-04",
+  "dependent": true,
+  "id": "C-KAFKA-PR-22265",
+  "issue": "KAFKA-20444",
+  "kips": [
+   "KIP-1319"
+  ],
+  "links": [],
+  "overlap": [
+   [
+    21420,
+    "KAFKA-15894",
+    1
+   ],
+   [
+    22238,
+    "KAFKA-20444",
+    2
+   ],
+   [
+    22224,
+    "KAFKA-20444",
+    3
+   ],
+   [
+    22215,
+    "KAFKA-20444",
+    1
+   ]
+  ],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 8,
+  "series": true,
+  "title": "Align TxnOffsetCommit API with OffsetCommit API (KIP-1319)"
+ },
+ "C-KAFKA-PR-22267": {
+  "ckpt": "2026-04",
+  "dependent": true,
+  "id": "C-KAFKA-PR-22267",
+  "issue": "KAFKA-20571",
+  "kips": [],
+  "links": [
+   "This issue is caused by KAFKA-17895"
+  ],
+  "overlap": [
+   [
+    21768,
+    "KAFKA-20173",
+    1
+   ],
+   [
+    21802,
+    "KAFKA-20203",
+    2
+   ]
+  ],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 4,
+  "series": false,
+  "title": "InMemory KeyValue store metric throws exception"
+ },
+ "C-KAFKA-PR-22269": {
+  "ckpt": "2026-04",
+  "dependent": true,
+  "id": "C-KAFKA-PR-22269",
+  "issue": "KAFKA-20572",
+  "kips": [],
+  "links": [],
+  "overlap": [],
+  "parent": null,
+  "prrefs": [
+   "20334"
+  ],
+  "refs": [
+   "KAFKA-19112"
+  ],
+  "score": 4,
+  "series": false,
+  "title": "Connect REST server throws NPE on startup when using listener-prefixed SSL confi"
+ },
+ "C-KAFKA-PR-22273": {
+  "ckpt": "2026-04",
+  "dependent": false,
+  "id": "C-KAFKA-PR-22273",
+  "issue": "KAFKA-20575",
+  "kips": [],
+  "links": [],
+  "overlap": [],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 0,
+  "series": false,
+  "title": "Add onPartitionsLost support for MockConsumer"
+ },
+ "C-KAFKA-PR-22278": {
+  "ckpt": "2026-04",
+  "dependent": true,
+  "id": "C-KAFKA-PR-22278",
+  "issue": "KAFKA-20145",
+  "kips": [
+   "KIP-848"
+  ],
+  "links": [],
+  "overlap": [
+   [
+    22199,
+    "KAFKA-20535",
+    1
+   ],
+   [
+    22011,
+    "KAFKA-20428",
+    1
+   ],
+   [
+    21781,
+    "KAFKA-20321",
+    2
+   ],
+   [
+    21897,
+    "KAFKA-20332",
+    1
+   ]
+  ],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 6,
+  "series": false,
+  "title": "Improve consumer HB ack on unchanged target assignment"
+ },
+ "C-KAFKA-PR-22282": {
+  "ckpt": "2026-04",
+  "dependent": false,
+  "id": "C-KAFKA-PR-22282",
+  "issue": "KAFKA-16876",
+  "kips": [],
+  "links": [],
+  "overlap": [
+   [
+    21365,
+    "KAFKA-19960",
+    2
+   ],
+   [
+    21968,
+    "KAFKA-20372",
+    1
+   ],
+   [
+    20749,
+    "KAFKA-19434",
+    2
+   ]
+  ],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 3,
+  "series": false,
+  "title": "TaskManager.handleRevocation doesn't handle errors thrown from task.prepareCommi"
+ },
+ "C-KAFKA-PR-22311": {
+  "ckpt": "2026-04",
+  "dependent": true,
+  "id": "C-KAFKA-PR-22311",
+  "issue": "KAFKA-20497",
+  "kips": [],
+  "links": [],
+  "overlap": [],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 0,
+  "series": true,
+  "title": "ReadOnlyView implementations for wrapping stores"
+ },
+ "C-KAFKA-PR-22312": {
+  "ckpt": "2026-04",
+  "dependent": true,
+  "id": "C-KAFKA-PR-22312",
+  "issue": "KAFKA-20497",
+  "kips": [],
+  "links": [],
+  "overlap": [],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 0,
+  "series": true,
+  "title": "ReadOnlyView implementations for wrapping stores"
+ },
+ "C-KAFKA-PR-22313": {
+  "ckpt": "2026-04",
+  "dependent": true,
+  "id": "C-KAFKA-PR-22313",
+  "issue": "KAFKA-20497",
+  "kips": [],
+  "links": [],
+  "overlap": [],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 0,
+  "series": true,
+  "title": "ReadOnlyView implementations for wrapping stores"
+ },
+ "C-KAFKA-PR-22314": {
+  "ckpt": "2026-04",
+  "dependent": true,
+  "id": "C-KAFKA-PR-22314",
+  "issue": "KAFKA-20497",
+  "kips": [],
+  "links": [],
+  "overlap": [],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 0,
+  "series": true,
+  "title": "ReadOnlyView implementations for wrapping stores"
+ },
+ "C-KAFKA-PR-22315": {
+  "ckpt": "2026-04",
+  "dependent": true,
+  "id": "C-KAFKA-PR-22315",
+  "issue": "KAFKA-20497",
+  "kips": [],
+  "links": [],
+  "overlap": [
+   [
+    21825,
+    "KAFKA-20326",
+    1
+   ]
+  ],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 1,
+  "series": true,
+  "title": "ReadOnlyView implementations for wrapping stores"
+ },
+ "C-KAFKA-PR-22316": {
+  "ckpt": "2026-04",
+  "dependent": true,
+  "id": "C-KAFKA-PR-22316",
+  "issue": "KAFKA-20497",
+  "kips": [],
+  "links": [],
+  "overlap": [
+   [
+    21768,
+    "KAFKA-20173",
+    2
+   ],
+   [
+    21802,
+    "KAFKA-20203",
+    1
+   ],
+   [
+    22267,
+    "KAFKA-20571",
+    2
+   ]
+  ],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 3,
+  "series": true,
+  "title": "ReadOnlyView implementations for wrapping stores"
+ },
+ "C-KAFKA-PR-22317": {
+  "ckpt": "2026-04",
+  "dependent": true,
+  "id": "C-KAFKA-PR-22317",
+  "issue": "KAFKA-20497",
+  "kips": [],
+  "links": [],
+  "overlap": [
+   [
+    21802,
+    "KAFKA-20203",
+    1
+   ],
+   [
+    22267,
+    "KAFKA-20571",
+    1
+   ]
+  ],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 2,
+  "series": true,
+  "title": "ReadOnlyView implementations for wrapping stores"
+ },
+ "C-KAFKA-PR-22318": {
+  "ckpt": "2026-04",
+  "dependent": true,
+  "id": "C-KAFKA-PR-22318",
+  "issue": "KAFKA-20497",
+  "kips": [],
+  "links": [],
+  "overlap": [
+   [
+    21802,
+    "KAFKA-20203",
+    2
+   ],
+   [
+    22267,
+    "KAFKA-20571",
+    1
+   ]
+  ],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 2,
+  "series": true,
+  "title": "ReadOnlyView implementations for wrapping stores"
+ },
+ "C-KAFKA-PR-22443": {
+  "ckpt": "2026-05",
+  "dependent": true,
+  "id": "C-KAFKA-PR-22443",
+  "issue": "KAFKA-20444",
+  "kips": [
+   "KIP-1319"
+  ],
+  "links": [],
+  "overlap": [
+   [
+    21065,
+    "KAFKA-19012",
+    1
+   ],
+   [
+    22265,
+    "KAFKA-20444",
+    1
+   ],
+   [
+    19850,
+    "KAFKA-19193",
+    2
+   ],
+   [
+    22239,
+    "KAFKA-20444",
+    2
+   ]
+  ],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 5,
+  "series": true,
+  "title": "Align TxnOffsetCommit API with OffsetCommit API (KIP-1319)"
+ },
+ "C-KAFKA-PR-22444": {
+  "ckpt": "2026-05",
+  "dependent": false,
+  "id": "C-KAFKA-PR-22444",
+  "issue": "KAFKA-20634",
+  "kips": [],
+  "links": [],
+  "overlap": [],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 0,
+  "series": false,
+  "title": "Spurious HighWatermarkUpdate failed errors in the group coordinator after partit"
+ },
+ "C-KAFKA-PR-22454": {
+  "ckpt": "2026-05",
+  "dependent": false,
+  "id": "C-KAFKA-PR-22454",
+  "issue": "KAFKA-20223",
+  "kips": [],
+  "links": [],
+  "overlap": [],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 0,
+  "series": false,
+  "title": "Extended I/O Metrics Collection"
+ },
+ "C-KAFKA-PR-22456": {
+  "ckpt": "2026-05",
+  "dependent": true,
+  "id": "C-KAFKA-PR-22456",
+  "issue": "KAFKA-18209",
+  "kips": [],
+  "links": [],
+  "overlap": [
+   [
+    21506,
+    "KAFKA-20090",
+    1
+   ],
+   [
+    21420,
+    "KAFKA-15894",
+    2
+   ],
+   [
+    22265,
+    "KAFKA-20444",
+    1
+   ],
+   [
+    21469,
+    "KAFKA-20090",
+    1
+   ]
+  ],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 9,
+  "series": false,
+  "title": "Cleanup __transaction_state config logic"
+ },
+ "C-KAFKA-PR-22457": {
+  "ckpt": "2026-05",
+  "dependent": true,
+  "id": "C-KAFKA-PR-22457",
+  "issue": "KAFKA-20640",
+  "kips": [],
+  "links": [],
+  "overlap": [
+   [
+    21309,
+    "KAFKA-19233",
+    2
+   ],
+   [
+    21305,
+    "KAFKA-19233",
+    2
+   ],
+   [
+    21312,
+    "KAFKA-19233",
+    2
+   ],
+   [
+    21663,
+    "KAFKA-20273",
+    2
+   ]
+  ],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 8,
+  "series": false,
+  "title": "Consumer group accepts new classic members when migration policy is disabled"
+ },
+ "C-KAFKA-PR-22460": {
+  "ckpt": "2026-05",
+  "dependent": true,
+  "id": "C-KAFKA-PR-22460",
+  "issue": "KAFKA-20444",
+  "kips": [
+   "KIP-1319"
+  ],
+  "links": [],
+  "overlap": [
+   [
+    22443,
+    "KAFKA-20444",
+    1
+   ],
+   [
+    19850,
+    "KAFKA-19193",
+    1
+   ]
+  ],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 3,
+  "series": true,
+  "title": "Align TxnOffsetCommit API with OffsetCommit API (KIP-1319)"
+ },
+ "C-KAFKA-PR-22468": {
+  "ckpt": "2026-05",
+  "dependent": false,
+  "id": "C-KAFKA-PR-22468",
+  "issue": "KAFKA-20660",
+  "kips": [
+   "KIP-1094"
+  ],
+  "links": [],
+  "overlap": [],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 1,
+  "series": false,
+  "title": "Add guardrail to detect use of legacy ConsumerRecords constructor via nextOffset"
+ },
+ "C-KAFKA-PR-22490": {
+  "ckpt": "2026-05",
+  "dependent": false,
+  "id": "C-KAFKA-PR-22490",
+  "issue": "KAFKA-20663",
+  "kips": [
+   "KIP-1035"
+  ],
+  "links": [],
+  "overlap": [
+   [
+    20749,
+    "KAFKA-19434",
+    2
+   ]
+  ],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 2,
+  "series": false,
+  "title": "KIP-1035: stale persisted changelog offset causes OffsetOutOfRangeException/Task"
+ },
+ "C-KAFKA-PR-22504": {
+  "ckpt": "2026-05",
+  "dependent": false,
+  "id": "C-KAFKA-PR-22504",
+  "issue": "KAFKA-20659",
+  "kips": [],
+  "links": [],
+  "overlap": [],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 0,
+  "series": false,
+  "title": "MirrorMaker Checkpoint and Heartbeat records can accept unsupported versions whe"
+ },
+ "C-KAFKA-PR-22554": {
+  "ckpt": "2026-05",
+  "dependent": true,
+  "id": "C-KAFKA-PR-22554",
+  "issue": "KAFKA-20623",
+  "kips": [],
+  "links": [],
+  "overlap": [
+   [
+    22456,
+    "KAFKA-18209",
+    2
+   ],
+   [
+    21309,
+    "KAFKA-19233",
+    1
+   ],
+   [
+    21420,
+    "KAFKA-15894",
+    2
+   ],
+   [
+    22265,
+    "KAFKA-20444",
+    1
+   ]
+  ],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 16,
+  "series": true,
+  "title": "Wire topology description plugin into GroupCoordinatorService"
+ },
+ "C-KAFKA-PR-22571": {
+  "ckpt": "2026-05",
+  "dependent": false,
+  "id": "C-KAFKA-PR-22571",
+  "issue": "KAFKA-20690",
+  "kips": [],
+  "links": [],
+  "overlap": [],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 0,
+  "series": false,
+  "title": "PersisterStateBatchCombinerTest silently skips 23 of 24 cases"
+ },
+ "C-KAFKA-PR-22580": {
+  "ckpt": "2026-05",
+  "dependent": true,
+  "id": "C-KAFKA-PR-22580",
+  "issue": "KAFKA-20662",
+  "kips": [],
+  "links": [],
+  "overlap": [
+   [
+    21309,
+    "KAFKA-19233",
+    2
+   ],
+   [
+    21305,
+    "KAFKA-19233",
+    2
+   ],
+   [
+    21312,
+    "KAFKA-19233",
+    2
+   ],
+   [
+    22457,
+    "KAFKA-20640",
+    2
+   ]
+  ],
+  "parent": null,
+  "prrefs": [],
+  "refs": [
+   "KAFKA-20570"
+  ],
+  "score": 11,
+  "series": false,
+  "title": "Proper error code for malformed request during online migration"
+ },
+ "C-KAFKA-PR-22581": {
+  "ckpt": "2026-05",
+  "dependent": false,
+  "id": "C-KAFKA-PR-22581",
+  "issue": "KAFKA-20694",
+  "kips": [],
+  "links": [],
+  "overlap": [],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 0,
+  "series": false,
+  "title": "Fix share coordinator readState leaderEpoch -1 sentinel fencing"
+ },
+ "C-KAFKA-PR-22616": {
+  "ckpt": "2026-05",
+  "dependent": true,
+  "id": "C-KAFKA-PR-22616",
+  "issue": "KAFKA-20623",
+  "kips": [],
+  "links": [],
+  "overlap": [
+   [
+    21309,
+    "KAFKA-19233",
+    1
+   ],
+   [
+    22554,
+    "KAFKA-20623",
+    5
+   ],
+   [
+    21305,
+    "KAFKA-19233",
+    1
+   ],
+   [
+    21312,
+    "KAFKA-19233",
+    1
+   ]
+  ],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 11,
+  "series": true,
+  "title": "Wire topology description plugin into GroupCoordinatorService"
+ },
+ "C-KAFKA-PR-22626": {
+  "ckpt": "2026-05",
+  "dependent": false,
+  "id": "C-KAFKA-PR-22626",
+  "issue": "KAFKA-20494",
+  "kips": [],
+  "links": [],
+  "overlap": [],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 0,
+  "series": false,
+  "title": "Transactional support for InMemoryKeyValueStore"
+ },
+ "C-KAFKA-PR-22639": {
+  "ckpt": "2026-05",
+  "dependent": false,
+  "id": "C-KAFKA-PR-22639",
+  "issue": "KAFKA-20625",
+  "kips": [],
+  "links": [],
+  "overlap": [
+   [
+    21968,
+    "KAFKA-20372",
+    1
+   ],
+   [
+    21682,
+    "KAFKA-19939",
+    1
+   ],
+   [
+    21973,
+    "KAFKA-20398",
+    2
+   ]
+  ],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 3,
+  "series": false,
+  "title": "Add StreamsGroupTopologyDescriptionRequestManager and Streams client topology pu"
+ },
+ "C-KAFKA-PR-22648": {
+  "ckpt": "2026-05",
+  "dependent": true,
+  "id": "C-KAFKA-PR-22648",
+  "issue": "KAFKA-20490",
+  "kips": [],
+  "links": [],
+  "overlap": [
+   [
+    22626,
+    "KAFKA-20494",
+    2
+   ]
+  ],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 1,
+  "series": true,
+  "title": "Generic transaction buffer framework"
+ },
+ "C-KAFKA-PR-22653": {
+  "ckpt": "2026-05",
+  "dependent": false,
+  "id": "C-KAFKA-PR-22653",
+  "issue": "KAFKA-20498",
+  "kips": [],
+  "links": [],
+  "overlap": [
+   [
+    22142,
+    "KAFKA-20492",
+    1
+   ]
+  ],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 1,
+  "series": false,
+  "title": "RocksDBStore readOnly implementation"
+ },
+ "C-KAFKA-PR-22664": {
+  "ckpt": "2026-05",
+  "dependent": true,
+  "id": "C-KAFKA-PR-22664",
+  "issue": "KAFKA-20717",
+  "kips": [
+   "KIP-1331"
+  ],
+  "links": [],
+  "overlap": [
+   [
+    22616,
+    "KAFKA-20623",
+    3
+   ],
+   [
+    22554,
+    "KAFKA-20623",
+    3
+   ],
+   [
+    21616,
+    "KAFKA-20211",
+    1
+   ]
+  ],
+  "parent": null,
+  "prrefs": [
+   "22552"
+  ],
+  "refs": [
+   "KAFKA-20623",
+   "KAFKA-20624",
+   "KAFKA-20696"
+  ],
+  "score": 12,
+  "series": false,
+  "title": "Add KIP-1331 broker-side observability sensors (plugin.setTopology / plugin.getT"
+ },
+ "C-KAFKA-PR-22683": {
+  "ckpt": "2026-05",
+  "dependent": true,
+  "id": "C-KAFKA-PR-22683",
+  "issue": "KAFKA-20490",
+  "kips": [],
+  "links": [],
+  "overlap": [
+   [
+    22653,
+    "KAFKA-20498",
+    2
+   ],
+   [
+    22648,
+    "KAFKA-20490",
+    1
+   ],
+   [
+    22142,
+    "KAFKA-20492",
+    1
+   ]
+  ],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 3,
+  "series": true,
+  "title": "Generic transaction buffer framework"
+ },
+ "C-KAFKA-PR-22710": {
+  "ckpt": "2026-05",
+  "dependent": false,
+  "id": "C-KAFKA-PR-22710",
+  "issue": "KAFKA-20749",
+  "kips": [],
+  "links": [],
+  "overlap": [
+   [
+    22653,
+    "KAFKA-20498",
+    1
+   ],
+   [
+    22648,
+    "KAFKA-20490",
+    2
+   ],
+   [
+    22683,
+    "KAFKA-20490",
+    2
+   ]
+  ],
+  "parent": null,
+  "prrefs": [],
+  "refs": [],
+  "score": 3,
+  "series": false,
+  "title": "KStream-KStream outer/left join crashes under EOS with transactional state store"
+ }
+}

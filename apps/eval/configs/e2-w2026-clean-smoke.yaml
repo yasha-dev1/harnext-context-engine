@@ -1,0 +1,20 @@
+# Smoke (Yasha, 2026-09-27): the leak check. One coding task, C-KAFKA-PR-22316, rebased on trunk at
+# the moment the PR was opened (no later commits, no sibling PRs #22314/#22317/#22318 in the
+# workspace or in Claude Code's "recent commits"). Same 12 arms, agent, caps and stores as the main
+# run w2026-claude-code-haiku-4-5; compare its trials of C-KAFKA-PR-22316 (merge-parent base).
+protocol: harnext-e2-v2
+run_id: w2026-clean-smoke-haiku-4-5
+benchmark: ../benchmarks/kafka-w2026-clean-smoke
+arms_file: ../benchmarks/kafka-500-v2/arms.yaml
+arms: [N, S-tools, R-hyb, F0-search, F1-search, F2-search, F3-search, F4-fact-search, F4-entity-search, F4-topic-search, F5-search, F6-search]
+agent: claude-code
+model: claude-haiku-4-5-20251001
+effort: medium
+stores: ../out/kafka-500-v2/stores-w2026
+checkouts: ../out/kafka-500-v2/checkouts-w2026-smoke
+workers: 2
+coding_workers: 2
+timeouts: {historical: 900, coding: 3600, grading: 3000}
+commit_every: 0
+min_free_gib: 12
+max_turns: 100

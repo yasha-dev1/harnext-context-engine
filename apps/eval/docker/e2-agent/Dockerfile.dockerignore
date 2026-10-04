@@ -1,0 +1,13 @@
+# Allowlist: nothing enters the build context except what the image may contain.
+*
+!packages
+!apps/mcp
+!apps/builder
+!apps/eval/src/harnext_eval/e2/v2
+!apps/eval/docker/e2-agent/constraints.txt
+**/__pycache__
+**/.venv
+**/*.pyc
+**/node_modules
+**/out
+**/.harnext

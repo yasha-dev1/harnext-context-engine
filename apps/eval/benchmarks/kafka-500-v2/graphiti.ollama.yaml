@@ -1,0 +1,21 @@
+# Arm G-graphiti — graphiti-core==0.30.2 on embedded Kuzu 0.11.3 (see fidelity/G-graphiti.md).
+# Every provider is explicit: a missing key stops the build, it never switches provider.
+version: 1
+group_id: kafka-500-v2
+llm:
+  provider: ollama                        # local Qwen3-30B-A3B via Ollama (probe configuration)
+  model: qwen3:30b-a3b
+  small_model: qwen3:30b-a3b
+embedder:
+  provider: fastembed                     # local ONNX, no API cost, offline at read time
+  model: BAAI/bge-small-en-v1.5
+  dim: 384
+reranker:
+  provider: fastembed                     # only used by *_CROSS_ENCODER recipes
+  model: BAAI/bge-reranker-base
+reader:                                   # names from graphiti_core.search.search_config_recipes
+  facts: EDGE_HYBRID_SEARCH_RRF           # what Graphiti.search() itself uses
+  entities: NODE_HYBRID_SEARCH_RRF
+max_coroutines: 8                         # within one episode; episodes are strictly sequential
+kuzu_buffer_mb: 4096
+smoke: false

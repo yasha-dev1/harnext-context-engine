@@ -1,0 +1,18 @@
+# Design-decision benchmark (Yasha, 2026-09-27): final values of KIP design decisions, described without
+# naming the KIP/ticket/PR (29 candidates; Yasha: "I trust your judgment", review by Claude). S-tools only.
+protocol: harnext-e2-v2
+run_id: w2026-decisions-haiku-4-5
+benchmark: ../benchmarks/kafka-w2026-decisions
+arms_file: ../benchmarks/kafka-500-v2/arms.yaml
+arms: [S-tools]
+agent: claude-code
+model: claude-haiku-4-5-20251001
+effort: medium
+stores: ../out/kafka-500-v2/stores-w2026
+checkouts: ../out/kafka-500-v2/checkouts-w2026-smoke
+workers: 4
+coding_workers: 1
+timeouts: {historical: 900, coding: 3600, grading: 3000}
+commit_every: 0
+min_free_gib: 12
+max_turns: 100

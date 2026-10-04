@@ -1,0 +1,25 @@
+{
+ "benchmark": "kafka-w2026-implicit",
+ "scope": "w2026",
+ "public_sha256": "2928b1cfe9d95de6140aab40880859fbda8e88adeb35ae69b3d6de985d6084ff",
+ "private_sha256": "c45575df2a33e21e34667faa3d3d9ed36c00b79efe310504f7f5abaa585a098d",
+ "run_order": [
+  "H-implicit_link-e8c868d609",
+  "H-implicit_link-9c29b4facc",
+  "H-implicit_link-f9d0f12af5",
+  "H-implicit_link-343147259e",
+  "H-implicit_link-5f99ef72d8",
+  "H-implicit_link-9b60b63a4c",
+  "H-implicit_link-394aab4475",
+  "H-implicit_link-f6cda24f3f",
+  "H-implicit_link-69a9914100",
+  "H-implicit_link-dc560200e7",
+  "H-implicit_link-3d50142383",
+  "H-implicit_link-a50314bc94",
+  "H-implicit_link-fed6dac2f1",
+  "H-implicit_link-2816fc05c3"
+ ],
+ "historical": 14,
+ "coding": 0,
+ "note": "Implicit mail->JIRA links (Yasha, 2026-09-27): same person started a mailing-list thread and filed a JIRA issue with a similar title within 7 days; no message of the thread names the issue key and the issue description does not name the thread. Verified against the S-tools snapshot of each checkpoint. shares_kip_number marks pairs whose titles share a KIP number (directly searchable)."
+}

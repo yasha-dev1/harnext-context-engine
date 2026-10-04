@@ -27,6 +27,7 @@ from harnext_mcp.activity import record_request
 from harnext_mcp.context import Resources, get_resources
 from harnext_mcp.conversation import conversation_url, get_conversation_payload
 from harnext_mcp.research import research
+from harnext_mcp.search import search
 from harnext_mcp.settings import MCPSettings
 
 log = logging.getLogger("mcp")
@@ -99,6 +100,20 @@ async def context_research(question: str) -> dict[str, Any]:
         "context_research",
         {"question": question},
         lambda res, org: research(res.store, res.builder_settings, org, question),
+    )
+
+
+@mcp.tool
+async def search_context(query: str, k: int = 8) -> dict[str, Any]:
+    """Keyword search over the organization's stored context; returns the best-matching
+    passages with their file paths and line ranges, no synthesis.
+
+    Cheap and fast: use it for lightweight lookups (an issue key, a class, a config name, who
+    reviewed what). Use context_research when you need a full, synthesized report."""
+    return await _logged(
+        "search_context",
+        {"query": query, "k": k},
+        lambda res, org: search(res.store, org, query, k),
     )
 
 
