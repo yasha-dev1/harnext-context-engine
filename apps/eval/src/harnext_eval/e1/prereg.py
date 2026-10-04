@@ -40,8 +40,22 @@ def policies_for(jev: bool) -> tuple[str, ...]:
     return (*POLICIES, *JEV_POLICIES) if jev else POLICIES
 
 
-def contrasts_for(jev: bool) -> tuple[str, ...]:
-    return (*PRIMARY_CONTRASTS, *JEV_CONTRASTS) if jev else PRIMARY_CONTRASTS
+def contrasts_for(jev: bool, policies: tuple[str, ...] | None = None) -> tuple[str, ...]:
+    contrasts = (*PRIMARY_CONTRASTS, *JEV_CONTRASTS) if jev else PRIMARY_CONTRASTS
+    if policies is None:
+        return contrasts
+    return tuple(c for c in contrasts if set(c.split("-")) <= set(policies))
+
+
+def active_policies(jev: bool, subset: list[str] | tuple[str, ...] | None) -> tuple[str, ...]:
+    """Registered arms of a run: all of ``policies_for(jev)``, or the configured subset in that order."""
+    known = policies_for(jev)
+    if not subset:
+        return known
+    unknown = sorted(set(subset) - set(known))
+    if unknown:
+        raise ValueError(f"e1.policies names unknown or inactive arms: {unknown}")
+    return tuple(name for name in known if name in set(subset))
 # Post-hoc label-definition sensitivity, registered before the run so the fusion
 # rule cannot be chosen on the outcome (review finding 2). The registered label
 # stays the weighted model at p >= 0.5; the others are reported alongside it.
@@ -67,7 +81,7 @@ def _hashed_config(config: ExperimentConfig) -> dict[str, Any]:
     """The registered config; run-5 Jev keys are left out when unset so earlier registrations
     of configs without Jev keep their hash."""
     payload = config.model_dump(mode="json")
-    for key in ("jev_scores", "jev_prompt_sha256"):
+    for key in ("jev_scores", "jev_prompt_sha256", "jev_registration", "policies"):
         if payload.get("e1", {}).get(key) is None:
             payload.get("e1", {}).pop(key, None)
     return payload
@@ -114,16 +128,20 @@ def registration(
             ],
             "required_gates": ["jev_decisions_complete (failed <= 0.1 %)", "jev_single_model",
                                "jev_decided_after_registration"],
+            **({"prompt_registered_in": config.e1.jev_registration} if config.e1.jev_registration else {}),
+            **({"arm_subset": "only the listed policies run; R3-R6 and R10-R13 keep their run-4 results "
+                              "(same replay and configuration, deterministic); metric-remediation design = R14"}
+               if config.e1.policies else {}),
         }}
     return {
         **jev_registration,
         "schema": "e1-prereg-v1",
         "replay_sha256": sha256_file(replay),
         "config_sha256": sha256_json(_hashed_config(config)),
-        "policies": list(policies_for(jev)),
+        "policies": list(active_policies(jev, config.e1.policies)),
         "budgets_pct": [1.0, 2.0, 5.0, 10.0],
         "primary_metric": PRIMARY,
-        "primary_contrasts": list(contrasts_for(jev)),
+        "primary_contrasts": list(contrasts_for(jev, active_policies(jev, config.e1.policies))),
         "window": [value.isoformat() for value in window] if window else None,
         "fit_window_months": 12,
         "feature_history": "single chronological fold within requested window; four-week rolling baselines",

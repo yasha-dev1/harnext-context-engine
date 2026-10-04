@@ -37,7 +37,13 @@ from harnext_eval.e1.policies import (
     budgeted_decisions,
     make_policy,
 )
-from harnext_eval.e1.prereg import JEV_POLICIES, PRIMARY_CONTRASTS, contrasts_for, policies_for
+from harnext_eval.e1.prereg import (
+    JEV_POLICIES,
+    PRIMARY_CONTRASTS,
+    active_policies,
+    contrasts_for,
+    policies_for,
+)
 from harnext_eval.e1.score import (
     affiliation_precision_recall,
     always_flag_sanity_scorer,
@@ -707,7 +713,7 @@ def _write_attribution(spill_dir: Path, path: Path) -> None:
 
     lines = ["# E1 feature attribution", ""]
     parts = sorted(spill_dir.glob("*.parquet"))
-    for policy in ("R5", "R2", "R10"):
+    for policy in ("R5", "R2", "R10", "R14", "R15"):
         frames = [
             pq.read_table(
                 part,
@@ -722,10 +728,15 @@ def _write_attribution(spill_dir: Path, path: Path) -> None:
             if frames else pd.DataFrame(columns=["event_id", "subject", "features_fired"])
         )
         totals: dict[str, float] = {}
+        jev_arm = policy in JEV_POLICIES
         for features in selected["features_fired"].map(_features_dict):
+            if jev_arm:  # Jev arms: how many true-positive admissions each category produced
+                name = f"category={features.get('category')}"
+                totals[name] = totals.get(name, 0.0) + 1.0
             for name, value in features.get("hbos_terms", {}).items():
                 totals[name] = totals.get(name, 0.0) + float(value)
-        lines.extend([f"## {policy}: HBOS contributions on true-positive deviation admissions", ""])
+        heading = "Jev categories of" if jev_arm else "HBOS contributions on"
+        lines.extend([f"## {policy}: {heading} true-positive deviation admissions", ""])
         lines.extend(f"- {name}: {value:.6f}" for name, value in sorted(totals.items(), key=lambda item: -item[1]))
         lines.extend(["", f"### {policy}: audited cases", ""])
         for _, row in selected.head(10).iterrows():
@@ -753,7 +764,7 @@ def _write_human_sanity_sample(
     by_id = {event.id: event for event in events}
     picks: list[tuple[str, str, float]] = []
     seen: set[str] = set()
-    for policy, order in (("R10", ["score"]), ("R2", ["score"])):
+    for policy, order in (("R10", ["score"]), ("R2", ["score"]), ("R14", ["score"])):
         subset = scores[
             (scores["policy"] == policy)
             & (scores["budget_pct"] == 2.0)
@@ -1309,13 +1320,18 @@ def _decided_after_registration(meta: Mapping[str, Any], first_decided_at: str |
         return None if not commit else False
     import subprocess
 
+    registration = meta.get("e1_jev_registration")
+    if registration:  # the commit that first added the registration fixing the prompt
+        command = ["git", "log", "--reverse", "--diff-filter=A", "--format=%ct", "HEAD", "--", str(Path(registration).resolve())]
+    else:
+        command = ["git", "show", "-s", "--format=%ct", str(commit)]
     shown = subprocess.run(
-        ["git", "show", "-s", "--format=%ct", str(commit)], capture_output=True, text=True, check=False,
+        command, capture_output=True, text=True, check=False,
         cwd=Path(str(meta.get("prereg_ref") or ".")).resolve().parent,
     )
     if shown.returncode or not shown.stdout.strip():
         return False
-    committed = datetime.fromtimestamp(int(shown.stdout.strip()), UTC)
+    committed = datetime.fromtimestamp(int(shown.stdout.split()[0]), UTC)
     return datetime.fromisoformat(first_decided_at) > committed
 
 
@@ -1406,7 +1422,7 @@ class E1Experiment:
         events = _router_events(original_events)
         jev_details = self._load_jev(corpus, events)
         jev_enabled = jev_details is not None
-        active_policies = policies_for(jev_enabled)
+        run_policies = active_policies(jev_enabled, corpus.meta.get("e1_policies"))
         months = sorted({_month(event) for event in events})
         if len(months) < 2:
             raise ValueError("rolling month-ahead E1 requires at least two event months")
@@ -1443,7 +1459,7 @@ class E1Experiment:
             # too, so one worker does not serialize all four expensive fits.
             selections = [
                 (name, budgets)
-                for name in active_policies
+                for name in run_policies
                 for budgets in ([(budget,) for budget in _BUDGETS] if name in GUARDED_POLICIES else [_BUDGETS])
             ]
             workers = int(corpus.meta.get("e1_workers", os.environ.get("HARNEXT_E1_WORKERS", "4")))
@@ -1630,7 +1646,8 @@ class E1Experiment:
         preflight.to_csv(preflight_path, index=False)
         attribution_path = out_dir / "attribution.md"
         _write_attribution(spill_dir, attribution_path)
-        remediation_frame = _metric_remediation(metrics)
+        # The design condition is R10 (run 4); a Jev arm-subset run (5b) has R14 as its design.
+        remediation_frame = _metric_remediation(metrics, design="R10" if "R10" in run_policies else "R14")
         remediation_path = out_dir / "metric_remediation.csv"
         remediation_frame.to_csv(remediation_path, index=False)
         human_sample_path = _write_human_sanity_sample(scores, original_events, out_dir)
@@ -2070,7 +2087,7 @@ class E1Experiment:
         )
         validity.to_csv(out_dir / "validity.csv", index=False)
         chart_paths = _write_charts(calibration, metrics, out_dir)
-        primary = _paired_primary(scores, seed, contrasts_for(jev_enabled))
+        primary = _paired_primary(scores, seed, contrasts_for(jev_enabled, run_policies))
         primary["prereg_hash"] = corpus.meta.get("prereg_hash")
         rule_reference = scores[
             (scores["policy"] == "R1") & (scores["budget_pct"] == 2.0) & (scores["population"] == "full")

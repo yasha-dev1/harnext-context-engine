@@ -150,6 +150,12 @@ class E1Config(StrictModel):
     needs a decision under ``jev_prompt_sha256``."""
     jev_prompt_sha256: str | None = None
     """Registered identity of the Jev prompt and event view (``harnext_eval.e1.jev.prompt_sha256``)."""
+    jev_registration: str | None = None
+    """Registration file that first fixed ``jev_prompt_sha256``; the decisions-after-registration
+    gate compares against the commit that added it (a later arm-subset registration reuses it)."""
+    policies: list[str] | None = None
+    """Run 5b (2026-10-04): registered subset of arms to execute; None runs every registered arm.
+    Arms left out keep their earlier run's results (same replay, deterministic)."""
 
 
 class ExperimentConfig(StrictModel):

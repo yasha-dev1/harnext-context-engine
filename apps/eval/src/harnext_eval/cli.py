@@ -589,6 +589,8 @@ def run_command(
         "e1_label_situation_gap_hours": float(cfg.e1.label_situation_gap_hours),
         "e1_jev_scores": cfg.e1.jev_scores,
         "e1_jev_prompt_sha256": cfg.e1.jev_prompt_sha256,
+        "e1_jev_registration": cfg.e1.jev_registration,
+        "e1_policies": list(cfg.e1.policies) if cfg.e1.policies else None,
         **prereg_meta,
     })
     resolved = cfg.model_dump(mode="json")

@@ -154,10 +154,12 @@ def test_registration_of_configs_without_jev_is_unchanged() -> None:
 
     config = load_config("apps/eval/configs/e1-kafka.yaml")
     payload = config.model_dump(mode="json")
-    assert payload["e1"].pop("jev_scores") is None and payload["e1"].pop("jev_prompt_sha256") is None
+    for key in ("jev_scores", "jev_prompt_sha256", "jev_registration", "policies"):
+        assert payload["e1"].pop(key) is None
     assert sha256_json(_hashed_config(config)) == sha256_json(payload)
     jev_config = load_config("apps/eval/configs/e1-kafka-jev.yaml")
     assert _hashed_config(jev_config)["e1"]["jev_scores"]
+    assert "policies" not in _hashed_config(jev_config)["e1"], "run-5 registration unchanged by the subset knob"
 
 
 def test_stop_on_refused_credit_and_on_outage(tmp_path) -> None:
@@ -225,6 +227,15 @@ def test_e1_runs_jev_arms_from_the_cache(tmp_path) -> None:
     assert "r14_minus_r2" in result.primary
     jev_rows = scores[scores["policy"] == "R14"]
     assert (jev_rows["routing_dollars"] > 0).all() and (jev_rows["routing_tokens"] == 900).all()
+
+    subset = ["R0", "R1", "R2", "R7", "R14", "R15"]
+    only = replace(corpus, meta={**corpus.meta, "e1_policies": subset})
+    narrow = experiment.run(cfg, only, tmp_path / "e1-subset", seed=1)
+    assert set(narrow.tables["scores"]["policy"]) == set(subset)
+    assert "r14_minus_r2" in narrow.primary and "r5_minus_r1" not in narrow.primary
+    assert narrow.primary["by_policy"]["R14"] == result.primary["by_policy"]["R14"]
+    with pytest.raises(ValueError, match="unknown or inactive"):
+        experiment.run(cfg, replace(corpus, meta={**corpus.meta, "e1_policies": ["R99"]}), tmp_path / "x", seed=1)
 
     bad = replace(corpus, meta={**corpus.meta, "e1_jev_prompt_sha256": "0" * 64})
     with pytest.raises(ValueError, match="prompt changed"):
