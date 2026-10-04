@@ -145,6 +145,10 @@ class _PolicyBase:
         self.features_fired: dict[str, Any] = {}
         self._rule_seen: set[tuple[str, str]] = set()
         self._rule_cache: dict[str, str | None] = {}
+        # Per-decision routing cost of the last scored event (non-zero only for model routers).
+        self.routing_tokens = 0
+        self.routing_dollars = 0.0
+        self.decision_latency_ms = 0.0
 
     def fit(self, events: Sequence[EvalEvent]) -> _PolicyBase:
         del events
@@ -599,6 +603,41 @@ class EntityLOFPolicy(_PolicyBase):
         return self._record(vector, value, scorer="per_entity_lof")
 
 
+class JevPolicy(_PolicyBase):
+    """R14/R15 (run 5): Jev software-engineering triage decision, read from the precomputed cache.
+
+    R14 routes by the probability of a fast-lane category (regression/outage, security, build
+    break, release blocker), R15 by Jev's direct fast-lane probability; see ``e1/jev.py``. The
+    decision depends on the event alone, so nothing is fitted. A failed Jev call scores -1 (batch).
+    """
+
+    def __init__(self, *, name: str, rules: RuleSettings = _DEFAULT_RULE_SETTINGS) -> None:
+        super().__init__(rules=rules)
+        if name not in {"R14", "R15"}:
+            raise ValueError(f"not a Jev policy: {name}")
+        self.name = name
+        self.decisions: dict[str, Any] | None = None
+
+    def score(self, event: EvalEvent) -> float:
+        if self.decisions is None:
+            raise RuntimeError(f"{self.name} needs the Jev decision cache (config e1.jev_scores)")
+        decision = self.decisions.get(event.id)
+        if decision is None:
+            raise KeyError(f"no Jev decision for event {event.id}")
+        self.routing_tokens = int(decision.input_tokens)
+        self.routing_dollars = float(decision.cost_usd)
+        self.decision_latency_ms = float(decision.seconds) * 1000.0
+        self.baseline_key_used = None
+        self.features_fired = {
+            "scorer": "jev_category" if self.name == "R14" else "jev_urgency",
+            "category": decision.category,
+            "fast_category_p": decision.fast_category_p if decision.ok else None,
+            "urgency": decision.urgency,
+            "jev_ok": decision.ok,
+        }
+        return decision.score(self.name)
+
+
 class AlwaysFastPolicy(_PolicyBase):
     """R7: cost ceiling that admits every event."""
 
@@ -657,6 +696,8 @@ def make_policy(
         return GlobalPolicy(method=GLOBAL_VARIANTS[normalized], rules=settings, seed=seed, name=normalized)
     if normalized == "R10":
         return PerSourceGlobalPolicy(rules=settings, seed=seed)
+    if normalized in {"R14", "R15"}:
+        return JevPolicy(name=normalized, rules=settings)
     try:
         policy_class = POLICY_CLASSES[normalized]
     except KeyError as exc:

@@ -12,7 +12,7 @@ import os
 import time
 from collections.abc import Iterable, Mapping, Sequence
 from concurrent.futures import ProcessPoolExecutor
-from datetime import datetime, timedelta
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from typing import Any
 
@@ -37,7 +37,7 @@ from harnext_eval.e1.policies import (
     budgeted_decisions,
     make_policy,
 )
-from harnext_eval.e1.prereg import PRIMARY_CONTRASTS
+from harnext_eval.e1.prereg import JEV_POLICIES, PRIMARY_CONTRASTS, contrasts_for, policies_for
 from harnext_eval.e1.score import (
     affiliation_precision_recall,
     always_flag_sanity_scorer,
@@ -64,7 +64,6 @@ from harnext_eval.stores.base import StoreHandle
 from harnext_eval.types import EvalEvent, RouterRecord, Task
 
 _BUDGETS = (1.0, 2.0, 5.0, 10.0)
-_POLICIES = (*(f"R{index}" for index in range(8)), "R10", "R11", "R12", "R13")
 _SHARED_BUDGET_POLICIES = tuple(f"R{index}" for index in range(7))
 _ROWINDEX_SECONDARY = (
     "precision_at_b",
@@ -78,6 +77,9 @@ _SCORE_ROW_GROUP_SIZE = 100_000
 # Same causal fold reused by policies/budgets within a rolling month. Fit/model
 # state is never shared. The calibration suffix has the same earlier history.
 _FEATURE_CACHE: dict[bool, dict[str, list[FeatureVector]]] = {}
+# Run 5: precomputed Jev routing decisions (event id -> e1.jev.JevDecision) for R14/R15,
+# restricted to the current month's tuning + evaluation events inside workers.
+_JEV_DECISIONS: dict[str, Any] = {}
 
 
 def _fitted_policy(
@@ -85,6 +87,8 @@ def _fitted_policy(
 ):
     policy = make_policy(name, cfg.router, seed=seed, budget_pct=budget)
     policy.feature_cache = _FEATURE_CACHE.get(bool(getattr(policy, "global_features", False)))
+    if hasattr(policy, "decisions"):
+        policy.decisions = _JEV_DECISIONS
     return policy.fit(tuning)
 
 
@@ -283,9 +287,9 @@ def _score_month(
             {
                 **record.model_dump(),
                 "decision_ts": event.time,
-                "decision_latency_ms": 0.0,
-                "routing_tokens": 0,
-                "routing_dollars": 0.0,
+                "decision_latency_ms": float(policy.decision_latency_ms),
+                "routing_tokens": int(policy.routing_tokens),
+                "routing_dollars": float(policy.routing_dollars),
                 "source": _source(event),
                 "subject": event.subject,
                 "rule_flag": rule is not None,
@@ -380,6 +384,7 @@ def _init_worker(
     event_labels: dict[str, float],
     constructed: bool,
     caches: dict[bool, dict[str, list[FeatureVector]]],
+    jev_decisions: dict[str, Any] | None = None,
 ) -> None:
     """Receive one month's inputs once per spawned worker (no parent-heap inheritance).
 
@@ -394,6 +399,8 @@ def _init_worker(
     )
     _FEATURE_CACHE.clear()
     _FEATURE_CACHE.update(caches)
+    _JEV_DECISIONS.clear()
+    _JEV_DECISIONS.update(jev_decisions or {})
 
 
 def _policy_month(args):
@@ -490,7 +497,9 @@ def _metric_rows(frame: pd.DataFrame) -> list[dict[str, Any]]:
     return rows
 
 
-def _paired_primary(scores: pd.DataFrame, seed: int) -> dict[str, Any]:
+def _paired_primary(
+    scores: pd.DataFrame, seed: int, contrasts: tuple[str, ...] = PRIMARY_CONTRASTS
+) -> dict[str, Any]:
     subset = scores[
         (scores["budget_pct"] == 2.0)
         & (~scores["rule_flag"].astype(bool))
@@ -501,7 +510,9 @@ def _paired_primary(scores: pd.DataFrame, seed: int) -> dict[str, Any]:
         index=["event_id", "subject", "month"], columns="policy", values="admitted", aggfunc="first", observed=True
     ).reset_index()
     by_policy = {
-        str(name): float(pivot[name].mean()) for name in _POLICIES if name in pivot.columns
+        str(name): float(pivot[name].mean())
+        for name in policies_for(True)
+        if name in pivot.columns
     }
     result: dict[str, Any] = {
         "metric": "recall_at_2pct_rule_negative",
@@ -509,9 +520,9 @@ def _paired_primary(scores: pd.DataFrame, seed: int) -> dict[str, Any]:
         "n_positives": int(len(pivot)),
         "n_subjects": int(pivot["subject"].nunique()) if not pivot.empty else 0,
         "n_months": int(pivot["month"].nunique()) if not pivot.empty else 0,
-        "contrasts": list(PRIMARY_CONTRASTS),
+        "contrasts": list(contrasts),
     }
-    for contrast_name in PRIMARY_CONTRASTS:
+    for contrast_name in contrasts:
         left, right = contrast_name.split("-")
         key = f"{left.casefold()}_minus_{right.casefold()}"
         if {left, right} <= set(pivot.columns) and pivot["subject"].nunique() >= 2:
@@ -1291,8 +1302,69 @@ def _add_gate(
         required_results.append(passed is True)
 
 
+def _decided_after_registration(meta: Mapping[str, Any], first_decided_at: str | None) -> bool | None:
+    """None when there is no committed registration to compare with (exploratory runs)."""
+    commit = meta.get("prereg_commit")
+    if not commit or not first_decided_at:
+        return None if not commit else False
+    import subprocess
+
+    shown = subprocess.run(
+        ["git", "show", "-s", "--format=%ct", str(commit)], capture_output=True, text=True, check=False,
+        cwd=Path(str(meta.get("prereg_ref") or ".")).resolve().parent,
+    )
+    if shown.returncode or not shown.stdout.strip():
+        return False
+    committed = datetime.fromtimestamp(int(shown.stdout.strip()), UTC)
+    return datetime.fromisoformat(first_decided_at) > committed
+
+
 class E1Experiment:
     """Offline rolling router evaluation registered as experiment ``e1``."""
+
+    @staticmethod
+    def _load_jev(corpus: CorpusHandle, events: Sequence[EvalEvent]) -> dict[str, Any] | None:
+        """Load the Jev decision cache into ``_JEV_DECISIONS``; None when R14/R15 are not configured.
+
+        The cache must hold a decision (successful or failed) for every event under the
+        registered prompt identity, which must equal the current code's prompt.
+        """
+
+        _JEV_DECISIONS.clear()
+        path = corpus.meta.get("e1_jev_scores")
+        if not path:
+            return None
+        from harnext_eval.e1 import jev
+        from harnext_eval.manifest import sha256_file
+
+        current = jev.prompt_sha256()
+        registered = corpus.meta.get("e1_jev_prompt_sha256")
+        if registered != current:
+            raise ValueError(f"Jev prompt changed since registration: config {registered}, code {current}")
+        summary = jev.CacheSummary()
+        decisions = jev.load_decisions(path, current, summary)
+        missing = [event.id for event in events if event.id not in decisions]
+        if missing:
+            raise ValueError(f"{len(missing)} events have no Jev decision in {path} (first: {missing[:3]})")
+        ids = {event.id for event in events}
+        used = [decisions[event_id] for event_id in ids]
+        _JEV_DECISIONS.update((event_id, decisions[event_id]) for event_id in ids)
+        return {
+            "path": str(path),
+            "sha256": sha256_file(Path(path)),
+            "prompt_sha256": current,
+            "prompt_version": jev.PROMPT_VERSION,
+            "decisions": len(used),
+            "failed": sum(not decision.ok for decision in used),
+            "cost_usd": round(sum(decision.cost_usd for decision in used), 6),
+            "cost_usd_all_attempts": round(summary.cost_usd, 6),
+            "cache_records": summary.records,
+            "cache_bad_lines": summary.bad_lines,
+            "input_tokens": sum(decision.input_tokens for decision in used),
+            "models": sorted({decision.model for decision in used if decision.model}),
+            "first_decided_at": min((d.decided_at for d in used if d.decided_at), default=None),
+            "last_decided_at": max((d.decided_at for d in used if d.decided_at), default=None),
+        }
 
     name = "e1"
 
@@ -1332,6 +1404,9 @@ class E1Experiment:
             exact_labels if exact_labels is not None else label_result.probabilities.to_dict()
         )
         events = _router_events(original_events)
+        jev_details = self._load_jev(corpus, events)
+        jev_enabled = jev_details is not None
+        active_policies = policies_for(jev_enabled)
         months = sorted({_month(event) for event in events})
         if len(months) < 2:
             raise ValueError("rolling month-ahead E1 requires at least two event months")
@@ -1368,7 +1443,7 @@ class E1Experiment:
             # too, so one worker does not serialize all four expensive fits.
             selections = [
                 (name, budgets)
-                for name in _POLICIES
+                for name in active_policies
                 for budgets in ([(budget,) for budget in _BUDGETS] if name in GUARDED_POLICIES else [_BUDGETS])
             ]
             workers = int(corpus.meta.get("e1_workers", os.environ.get("HARNEXT_E1_WORKERS", "4")))
@@ -1380,12 +1455,17 @@ class E1Experiment:
                     "forkserver" if "forkserver" in multiprocessing.get_all_start_methods() else "spawn"
                 )
                 month_labels = {event.id: event_labels[event.id] for event in [*tuning, *evaluation] if event.id in event_labels}
+                month_jev = (
+                    {event.id: _JEV_DECISIONS[event.id] for event in [*tuning, *evaluation]}
+                    if jev_enabled
+                    else None
+                )
                 with ProcessPoolExecutor(
                     max_workers=workers,
                     mp_context=context,
                     initializer=_init_worker,
                     initargs=(tuning, evaluation, cfg, seed + month_index, month_labels,
-                              exact_labels is not None, _FEATURE_CACHE),
+                              exact_labels is not None, _FEATURE_CACHE, month_jev),
                 ) as pool:
                     month_pieces = list(pool.map(_policy_month, selections))
                 gc.collect()
@@ -1405,6 +1485,7 @@ class E1Experiment:
             del month_frame
             print(f"E1 scored {month} ({len(evaluation)} events; fit {len(tuning)})", flush=True)
         _FEATURE_CACHE.clear()
+        _JEV_DECISIONS.clear()
         if not score_pieces:
             raise ValueError("E1 produced no evaluable rolling months")
         scores = _concat_compact(score_pieces)
@@ -1657,7 +1738,7 @@ class E1Experiment:
             )
 
         compared = scores[
-            scores["policy"].isin(list(_SHARED_BUDGET_POLICIES))
+            scores["policy"].isin([*_SHARED_BUDGET_POLICIES, *(JEV_POLICIES if jev_enabled else ())])
             & (scores["population"] == "full")
         ]
         capacity_respected = bool(
@@ -1673,7 +1754,7 @@ class E1Experiment:
             "equal_total_budget",
             passed=capacity_respected,
             value=int(compared["rules_over_budget"].max()),
-            reason="every R0-R6 arm is capped by the same monthly total budget",
+            reason="every R0-R6 arm (and R14/R15 when present) is capped by the same monthly total budget",
         )
         _add_gate(
             check_metrics,
@@ -1684,6 +1765,29 @@ class E1Experiment:
             value=int(compared["rules_over_budget"].max()),
             reason="months whose rule floor exceeds capacity are invalid, never over-admitted",
         )
+
+        if jev_details is not None:
+            failed_share = jev_details["failed"] / max(jev_details["decisions"], 1)
+            _add_gate(
+                check_metrics, check_details, required_results, "jev_decisions_complete",
+                passed=failed_share <= 0.001,
+                value={"failed": jev_details["failed"], "share": failed_share},
+                reason="R14/R15 need a successful Jev decision for >= 99.9 % of events (re-run scripts/e1_jev.py score)",
+            )
+            _add_gate(
+                check_metrics, check_details, required_results, "jev_single_model",
+                passed=len(jev_details["models"]) == 1,
+                value=jev_details["models"],
+                reason="all decisions come from one Jev model build",
+            )
+            _add_gate(
+                check_metrics, check_details, required_results, "jev_decided_after_registration",
+                passed=_decided_after_registration(corpus.meta, jev_details.get("first_decided_at")),
+                value={"first_decided_at": jev_details.get("first_decided_at"),
+                       "prereg_commit": corpus.meta.get("prereg_commit")},
+                reason="window decisions were made after the registration commit (prompt fixed before scoring)",
+                required=bool(corpus.meta.get("prereg_commit")),
+            )
 
         label_required = exact_labels is None
         support_min = int(corpus.meta.get("e1_label_positive_support_min", 0) or 0)
@@ -1937,6 +2041,13 @@ class E1Experiment:
             if detail.get("required") and detail.get("passed") is not True
         ]
         check_metrics["check.valid"] = float(valid)
+        if jev_details is not None:
+            check_details["jev_decisions"] = {
+                "passed": None,
+                "required": False,
+                "value": jev_details,
+                "reason": "Jev routing decision cache used by R14/R15 (config e1.jev_scores)",
+            }
         check_details["excluded_label_functions"] = {
             "passed": None,
             "required": False,
@@ -1959,7 +2070,7 @@ class E1Experiment:
         )
         validity.to_csv(out_dir / "validity.csv", index=False)
         chart_paths = _write_charts(calibration, metrics, out_dir)
-        primary = _paired_primary(scores, seed)
+        primary = _paired_primary(scores, seed, contrasts_for(jev_enabled))
         primary["prereg_hash"] = corpus.meta.get("prereg_hash")
         rule_reference = scores[
             (scores["policy"] == "R1") & (scores["budget_pct"] == 2.0) & (scores["population"] == "full")

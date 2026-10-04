@@ -144,6 +144,12 @@ class E1Config(StrictModel):
     label_situation_gap_hours: float = Field(default=24.0, gt=0)
     """Amendment 2026-09-06 (review finding 8): consecutive positives on one subject closer than
     this are one situation for the timestamped lateness metrics."""
+    jev_scores: str | None = None
+    """Run 5 (2026-10-04): JSONL cache of Jev routing decisions written by
+    ``scripts/e1_jev.py score``. When set, the Jev arms R14/R15 run and every window event
+    needs a decision under ``jev_prompt_sha256``."""
+    jev_prompt_sha256: str | None = None
+    """Registered identity of the Jev prompt and event view (``harnext_eval.e1.jev.prompt_sha256``)."""
 
 
 class ExperimentConfig(StrictModel):

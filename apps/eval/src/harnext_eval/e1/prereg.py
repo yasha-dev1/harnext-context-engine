@@ -30,6 +30,18 @@ PRIMARY_CONTRASTS = (
     "R5-R1", "R5-R2", "R2-R0", "R4-R0", "R10-R0", "R10-R2", "R11-R2", "R12-R2", "R13-R2",
 )
 POLICIES = (*(f"R{index}" for index in range(8)), "R10", "R11", "R12", "R13")
+# Run 5 (2026-10-04): Jev routing arms, active only when a decision cache is configured
+# (config e1.jev_scores). R14 = software-engineering category router, R15 = direct urgency.
+JEV_POLICIES = ("R14", "R15")
+JEV_CONTRASTS = ("R14-R0", "R14-R2", "R15-R0", "R15-R2", "R14-R15", "R14-R11")
+
+
+def policies_for(jev: bool) -> tuple[str, ...]:
+    return (*POLICIES, *JEV_POLICIES) if jev else POLICIES
+
+
+def contrasts_for(jev: bool) -> tuple[str, ...]:
+    return (*PRIMARY_CONTRASTS, *JEV_CONTRASTS) if jev else PRIMARY_CONTRASTS
 # Post-hoc label-definition sensitivity, registered before the run so the fusion
 # rule cannot be chosen on the outcome (review finding 2). The registered label
 # stays the weighted model at p >= 0.5; the others are reported alongside it.
@@ -51,6 +63,16 @@ AMENDED_EXCLUSIONS = [
 ]
 
 
+def _hashed_config(config: ExperimentConfig) -> dict[str, Any]:
+    """The registered config; run-5 Jev keys are left out when unset so earlier registrations
+    of configs without Jev keep their hash."""
+    payload = config.model_dump(mode="json")
+    for key in ("jev_scores", "jev_prompt_sha256"):
+        if payload.get("e1", {}).get(key) is None:
+            payload.get("e1", {}).pop(key, None)
+    return payload
+
+
 def parse_window(values: tuple[str, str] | None) -> tuple[datetime, datetime] | None:
     if values is None:
         return None
@@ -64,14 +86,44 @@ def parse_window(values: tuple[str, str] | None) -> tuple[datetime, datetime] | 
 def registration(
     replay: Path, config: ExperimentConfig, window: tuple[datetime, datetime] | None,
 ) -> dict[str, Any]:
+    jev = config.e1.jev_scores is not None
+    jev_registration: dict[str, Any] = {}
+    if jev:
+        from harnext_eval.e1 import jev as jev_module
+
+        jev_registration = {"jev": {
+            "model": jev_module.JEV_MODEL,
+            "prompt_version": jev_module.PROMPT_VERSION,
+            "prompt_sha256": jev_module.prompt_sha256(),
+            "categories": list(jev_module.CATEGORIES),
+            "fast_categories": list(jev_module.FAST_CATEGORIES),
+            "scores": {
+                "R14": "sum of category probabilities over fast_categories + 0.001 * urgency",
+                "R15": "urgency (noul)",
+                "failed_decision": -1.0,
+            },
+            "admission": "R2-style monthly top-b% over all events, shared R0-R6 capacity, no guards",
+            "dev_set": "2021-10..2021-12 (before the window); prompt never scored on window months before registration",
+            "view": "JIRA summary/description/labels rebuilt as of the event from the changelog; issue keys, "
+                    "PR numbers, hashes and links removed; author shown only as person/automation",
+            "limitations": [
+                "comment bodies and PR titles/bodies are export-time text (never versioned by the sources)",
+                "the Jev build (2026-09-17) postdates the window: memorised project history cannot be excluded",
+                "fast-lane categories name security problems, broken builds and release risks, which the "
+                "outcome labeling functions also reflect; per-source results are reported",
+            ],
+            "required_gates": ["jev_decisions_complete (failed <= 0.1 %)", "jev_single_model",
+                               "jev_decided_after_registration"],
+        }}
     return {
+        **jev_registration,
         "schema": "e1-prereg-v1",
         "replay_sha256": sha256_file(replay),
-        "config_sha256": sha256_json(config),
-        "policies": list(POLICIES),
+        "config_sha256": sha256_json(_hashed_config(config)),
+        "policies": list(policies_for(jev)),
         "budgets_pct": [1.0, 2.0, 5.0, 10.0],
         "primary_metric": PRIMARY,
-        "primary_contrasts": list(PRIMARY_CONTRASTS),
+        "primary_contrasts": list(contrasts_for(jev)),
         "window": [value.isoformat() for value in window] if window else None,
         "fit_window_months": 12,
         "feature_history": "single chronological fold within requested window; four-week rolling baselines",

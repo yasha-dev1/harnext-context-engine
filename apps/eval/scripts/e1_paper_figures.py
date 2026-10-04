@@ -39,14 +39,16 @@ POLICY_LABEL = {
     "R6": "R6 per-entity LOF", "R7": "R7 always fast",
     "R10": "R10 per-source global HBOS", "R11": "R11 global IsolationForest",
     "R12": "R12 global ECOD", "R13": "R13 global LOF",
+    "R14": "R14 Jev SE-category router", "R15": "R15 Jev urgency",
 }
 # Fixed categorical assignment (identity follows the policy, never its rank).
 COLOR = {
     "R2": "#2a78d6", "R5": "#eb6834", "R4": "#1baf7a", "R1": "#eda100",
     "R6": "#008300", "R3": "#e34948", "R0": "#7a756d",
     "R10": "#4a3aa7", "R11": "#e87ba4", "R12": "#8a5fbf", "R13": "#c98500",
+    "R14": "#0b6e6e", "R15": "#b8336a",
 }
-MAIN_POLICIES = ("R0", "R2", "R4", "R5", "R10", "R11", "R12", "R13")
+MAIN_POLICIES = ("R0", "R2", "R4", "R5", "R10", "R11", "R12", "R13", "R14", "R15")
 SMALL_FILES = (
     "metrics.csv", "label_diagnostics.csv", "validity.csv", "calibration.csv", "robustness.csv",
     "delays.csv", "metric_remediation.csv", "label_situations.csv", "human_sanity_sample.csv",

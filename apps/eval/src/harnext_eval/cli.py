@@ -587,6 +587,8 @@ def run_command(
         "e1_label_positive_support_min": int(cfg.e1.label_positive_support_min),
         "e1_sanity_relative_tolerance": cfg.e1.sanity_relative_tolerance,
         "e1_label_situation_gap_hours": float(cfg.e1.label_situation_gap_hours),
+        "e1_jev_scores": cfg.e1.jev_scores,
+        "e1_jev_prompt_sha256": cfg.e1.jev_prompt_sha256,
         **prereg_meta,
     })
     resolved = cfg.model_dump(mode="json")
